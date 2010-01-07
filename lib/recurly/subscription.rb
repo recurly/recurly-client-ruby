@@ -32,7 +32,7 @@ module Recurly
     
     def subscription_account_code
       acct_code = self.account_code if defined?(self.account_code)
-      acct_code ||= account.account_code unless account.nil?
+      acct_code ||= account.account_code if defined?(account) and !account.nil?
       acct_code ||= self.primary_key if defined?(self.primary_key)
       acct_code
     end
