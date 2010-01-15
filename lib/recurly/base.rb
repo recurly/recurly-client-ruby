@@ -5,8 +5,16 @@ require "active_resource"
 # Errors in Rails 2.3.4 are not parsed correctly.
 module ActiveResource
   class Base
+    def update_only
+      false
+    end
+    
     def save
-      save_without_validation
+      if update_only
+        update
+      else
+        save_without_validation
+      end
       true
     rescue ResourceInvalid => error
       case error.response['Content-Type']
@@ -22,7 +30,7 @@ end
 
 module Recurly
   
-  VERSION = '0.1.0'
+  VERSION = '0.1.1'
   
   class << self
     attr_accessor :username, :password

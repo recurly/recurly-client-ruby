@@ -29,7 +29,8 @@ class SubscriptionTest < Test::Unit::TestCase
     sub = create_subscription(account, TEST_PLAN_CODE)
     
     sub.change('now', :quantity => 2)
-    sub.reload
+    
+    sub = Recurly::Subscription.find(account.account_code)
     assert_equal sub.quantity, 2
   end
   

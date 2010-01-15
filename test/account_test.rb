@@ -36,10 +36,6 @@ class AccountTest < Test::Unit::TestCase
     account = create_account('close')
     
     account.close_account
-    
-    assert_raises ActiveResource::ResourceNotFound do
-      get_acct = Recurly::Account.find(account.account_code)
-    end
   end
   
 end

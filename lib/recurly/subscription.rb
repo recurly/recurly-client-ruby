@@ -25,15 +25,17 @@ module Recurly
     def change(timeframe, options = {})
       raise "Timeframe must be :full or :partial." unless timeframe == 'now' or timeframe == 'renewal'
       options[:timeframe] = timeframe
-      connection.put(element_path(:account_code => self.subscription_account_code), 
+      connection.put(element_path(self.subscription_account_code), 
         self.class.format.encode(options, :root => :subscription), 
         self.class.headers)
     end
     
     def subscription_account_code
-      acct_code = self.account_code if defined?(self.account_code)
+      acct_code = self.account_code if defined?(self.account_code) and !self.account_code.nil? and !self.account_code.blank?
       acct_code ||= account.account_code if defined?(account) and !account.nil?
       acct_code ||= self.primary_key if defined?(self.primary_key)
+      acct_code ||= self.id if defined?(self.id)
+      raise 'Missing Account Code' if acct_code.nil? or acct_code.blank?
       acct_code
     end
   end
