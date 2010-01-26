@@ -10,8 +10,8 @@ module Recurly
     
     # Stops the subscription from renewing. The subscription remains valid until the end of
     # the current term (current_period_ends_at).
-    def cancel
-      Subscription.delete(self.subscription_account_code)
+    def cancel (account_code)
+      Subscription.delete(account_code)
     end
     
     # Terminates the subscription immediately and processes a full or partial refund
