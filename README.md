@@ -38,6 +38,11 @@ Create a file in your Rails app at __/config/initializers/recurly_config.rb__ wi
     end
 
 
+Demo Application
+----------------
+
+[Recurly Ruby Demo App](http://github.com/recurly/recurly-client-ruby-demo)
+
 Examples
 --------
 
