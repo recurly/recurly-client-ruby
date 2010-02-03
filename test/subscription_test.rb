@@ -1,4 +1,5 @@
 require 'test_helper'
+require "test/unit"
 
 class SubscriptionTest < Test::Unit::TestCase
 
@@ -38,7 +39,7 @@ class SubscriptionTest < Test::Unit::TestCase
     account = create_account('cancel-subscription')
     subscription = create_subscription(account, TEST_PLAN_CODE)
     
-    subscription.cancel
+    subscription.cancel(account.account_code)
     
     sub = Recurly::Subscription.find(account.account_code)
     assert_equal sub.state, 'canceled'

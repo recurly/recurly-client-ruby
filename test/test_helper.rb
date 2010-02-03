@@ -8,7 +8,7 @@ Recurly.configure do |c|
   c.password = ''
 end
 
-TEST_PLAN_CODE = 'trial'
+TEST_PLAN_CODE = 'test'
 
 def create_account(account_code)
   account = Recurly::Account.create(
