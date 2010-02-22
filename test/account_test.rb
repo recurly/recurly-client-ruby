@@ -19,17 +19,17 @@ class AccountTest < Test::Unit::TestCase
   end
   
   def test_update_account
-    account = create_account('update')
+    orig_account = create_account('update')
     
-    account = Recurly::Account.find(account.account_code)
+    account = Recurly::Account.find(orig_account.account_code)
     account.last_name = 'Update Test'
     account.company_name = 'Recurly Ruby Gem -- Update'
     account.save
     
-    updated_acct = Recurly::Account.find(account.account_code)
+    updated_acct = Recurly::Account.find(orig_account.account_code)
     assert_equal account.email, updated_acct.email
-    assert_not_equal account.last_name, updated_acct.last_name
-    assert_not_equal account.company_name, updated_acct.company_name
+    assert_not_equal orig_account.last_name, updated_acct.last_name
+    assert_not_equal orig_account.company_name, updated_acct.company_name
   end
   
   def test_close_account
