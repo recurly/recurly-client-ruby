@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 require 'echoe'
 
-Echoe.new('recurly', '0.1.2') do |p|
+Echoe.new('recurly', '0.1.3') do |p|
   p.description    = "A Ruby API wrapper for Recurly. Super Simple Subscription billing."
   p.url            = "http://github.com/recurly/recurly-client-ruby"
   p.author         = "Isaac Hall"

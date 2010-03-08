@@ -30,7 +30,7 @@ end
 
 module Recurly
   
-  VERSION = '0.1.1'
+  VERSION = '0.1.3'
   
   class << self
     attr_accessor :username, :password, :site

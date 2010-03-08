@@ -6,7 +6,7 @@ require File.dirname(__FILE__) + '/../lib/recurly'
 Recurly.configure do |c|
   c.username = ''
   c.password = ''
-  c.site = 'https://app.recurly.com'
+  c.site = ''
 end
 
 TEST_PLAN_CODE = 'trial'
