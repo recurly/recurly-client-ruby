@@ -25,7 +25,8 @@ module Recurly
     def change(timeframe, options = {})
       raise "Timeframe must be :full or :partial." unless timeframe == 'now' or timeframe == 'renewal'
       options[:timeframe] = timeframe
-      connection.put(element_path(self.subscription_account_code), 
+      path = "/accounts/#{CGI::escape(self.subscription_account_code || '')}/subscription.xml"
+      connection.put(path, 
         self.class.format.encode(options, :root => :subscription), 
         self.class.headers)
     end

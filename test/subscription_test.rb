@@ -11,7 +11,7 @@ class SubscriptionTest < Test::Unit::TestCase
       :email => 'verena@test.com',
       :company_name => 'Recurly Ruby Gem')
       
-    sub = create_subscription(account, TEST_PLAN_CODE)
+    sub = create_subscription(account)
     assert_not_nil sub
     assert_nil sub.canceled_at
     assert_equal sub.state, 'active'
@@ -20,14 +20,14 @@ class SubscriptionTest < Test::Unit::TestCase
   
   def test_create_subscription_existing_account
     account = create_account('existing-account')
-    sub = create_subscription(account, TEST_PLAN_CODE)
+    sub = create_subscription(account)
     
     assert_equal sub.state, 'active'
   end
   
   def test_update_subscription
     account = create_account('update-subscription')
-    sub = create_subscription(account, TEST_PLAN_CODE)
+    sub = create_subscription(account)
     
     sub.change('now', :quantity => 2)
     
@@ -37,7 +37,7 @@ class SubscriptionTest < Test::Unit::TestCase
   
   def test_cancel_subscription
     account = create_account('cancel-subscription')
-    subscription = create_subscription(account, TEST_PLAN_CODE)
+    subscription = create_subscription(account)
     
     subscription.cancel(account.account_code)
     
@@ -48,7 +48,7 @@ class SubscriptionTest < Test::Unit::TestCase
   
   def test_refund_subscription
     account = create_account('refund-subscription')
-    subscription = create_subscription(account, TEST_PLAN_CODE)
+    subscription = create_subscription(account)
     
     subscription.refund(:full)
     
@@ -57,7 +57,7 @@ class SubscriptionTest < Test::Unit::TestCase
     end
   end
   
-  def create_subscription(account, plan_code, quantity = 1)
+  def create_subscription(account, subscription_attrs={})
     account.billing_info = Recurly::BillingInfo.new(
       :first_name => account.first_name,
       :last_name => account.last_name,
@@ -75,12 +75,13 @@ class SubscriptionTest < Test::Unit::TestCase
       :ip_address => '127.0.0.1'
     )
     
-    sub = Recurly::Subscription.create(
-      :account_code => account.account_code,
-      :plan_code => plan_code, 
-      :quantity => quantity,
-      :account => account
-    )
+    params = {:account_code => account.account_code,
+              :plan_code => TEST_PLAN_CODE, 
+              :quantity => 1,
+              :account => account}.merge subscription_attrs
+    
+    sub = Recurly::Subscription.create(params)
+    
   end
 
 end
