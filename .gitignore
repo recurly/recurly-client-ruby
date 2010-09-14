@@ -3,3 +3,4 @@ doc
 Manifest
 test/settings.yml
 .rvmrc
+.bundle/config
