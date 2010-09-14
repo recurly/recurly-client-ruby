@@ -1,11 +1,13 @@
 require "active_resource"
 
-require File.dirname(__FILE__) + '/recurly/base'
-require File.dirname(__FILE__) + '/recurly/account'
-require File.dirname(__FILE__) + '/recurly/billing_info'
-require File.dirname(__FILE__) + '/recurly/charge'
-require File.dirname(__FILE__) + '/recurly/credit'
-require File.dirname(__FILE__) + '/recurly/invoice'
-require File.dirname(__FILE__) + '/recurly/plan'
-require File.dirname(__FILE__) + '/recurly/subscription'
-require File.dirname(__FILE__) + '/recurly/transaction'
+require 'cgi'
+
+require 'recurly/base'
+require 'recurly/account'
+require 'recurly/billing_info'
+require 'recurly/charge'
+require 'recurly/credit'
+require 'recurly/invoice'
+require 'recurly/plan'
+require 'recurly/subscription'
+require 'recurly/transaction'
