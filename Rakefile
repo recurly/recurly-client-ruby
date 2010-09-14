@@ -1,5 +1,9 @@
 require 'rubygems'
 require 'rake'
+
+require "bundler"
+Bundler.setup
+
 require 'echoe'
 
 Echoe.new('recurly', '0.1.4') do |p|
@@ -11,4 +15,16 @@ Echoe.new('recurly', '0.1.4') do |p|
   p.development_dependencies = []
 end
 
-Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| load ext }
+require 'rspec'
+require "rspec/core/rake_task"
+Rspec::Core::RakeTask.new(:spec) do |spec|
+  spec.pattern = 'spec/**/*_spec.rb'
+end
+
+Rspec::Core::RakeTask.new(:rcov) do |spec|
+  # spec.libs << 'lib' << 'spec'
+  spec.pattern = 'spec/**/*_spec.rb'
+  spec.rcov = true
+end
+
+task :default => :spec
