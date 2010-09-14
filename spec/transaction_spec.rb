@@ -15,10 +15,16 @@ module Recurly
 
       it "should save successfully" do
         @transaction.should_not be_nil
+        @transaction.errors.should be_empty
       end
 
       it "should set the correct amount" do
         @transaction.amount_in_cents.should == 500
+      end
+
+      it "should save the record" do
+        pending
+        # Transaction.all.length.should == 1
       end
 
     end

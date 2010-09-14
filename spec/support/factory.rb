@@ -21,6 +21,7 @@ module Recurly
         :city => 'San Francisco',
         :state => 'CA',
         :zip => '94115',
+        :country => "US",
         :credit_card => {
           :number => '1',
           :year => Time.now.year + 1,
