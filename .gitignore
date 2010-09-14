@@ -1,3 +1,5 @@
 pkg
 doc
 Manifest
+test/settings.yml
+.rvmrc
