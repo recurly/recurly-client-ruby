@@ -3,7 +3,7 @@ require 'yaml'
 
 # load settings from a yml file
 settings = {}
-settings_path = File.dirname(__FILE__) + '/settings.yml'
+settings_path = File.dirname(__FILE__) + '/../settings.yml'
 if File.exists?(settings_path)
   settings = YAML.load_file(settings_path)
 else

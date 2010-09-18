@@ -1,6 +1,7 @@
 pkg
 doc
 Manifest
-test/settings.yml
+spec/settings.yml
+spec/vcr
 .rvmrc
 .bundle/config
