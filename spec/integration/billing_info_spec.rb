@@ -2,6 +2,9 @@ require 'spec_helper'
 
 module Recurly
   describe BillingInfo do
+    around(:each) do |example|
+      VCR.use_cassette('billing', &example)
+    end
 
     let(:account){ Factory.create_account('billing') }
 

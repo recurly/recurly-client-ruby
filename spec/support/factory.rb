@@ -2,7 +2,7 @@ module Recurly
   module Factory
     def self.create_account(account_code)
       account = Account.create(
-        :account_code => "#{Time.now.to_i}-#{account_code}",
+        :account_code => "#{account_code}",
         :first_name => 'Verena',
         :last_name => 'Test',
         :email => 'verena@test.com',
@@ -52,7 +52,7 @@ module Recurly
       )
 
       params = {:account_code => account.account_code,
-                :plan_code => TestSetup.settings["test_plan_code"],
+                :plan_code => SpecSettings["test_plan_code"],
                 :quantity => 1,
                 :account => account}.merge subscription_attrs
 

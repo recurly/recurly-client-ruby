@@ -4,7 +4,7 @@ module Recurly
   describe Plan do
 
     around(:each) do |example|
-      VCR.use_cassette('plan', :record => :new_episodes, &example)
+      VCR.use_cassette('plan', &example)
     end
 
     describe "#all" do
@@ -19,7 +19,7 @@ module Recurly
 
     describe "#find" do
       it "should return the test plan" do
-        plan = Plan.find(TestSetup.settings["test_plan_code"])
+        plan = Plan.find(SpecSettings["test_plan_code"])
         plan.should_not be_nil
         plan.name.should_not be_nil
       end

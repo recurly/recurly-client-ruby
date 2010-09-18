@@ -3,13 +3,14 @@ require 'spec_helper'
 module Recurly
   describe Account do
 
-    around(:each) do |example|
-      VCR.use_cassette('account', :record => :new_episodes, &example)
-    end
-
     describe "#create" do
+
+      around(:each) do |example|
+        VCR.use_cassette('account/create', &example)
+      end
+
       before(:each) do
-        @account = Factory.create_account('create')
+        @account = Factory.create_account('account-create')
       end
 
       it "should have a created_at date" do
@@ -19,7 +20,11 @@ module Recurly
 
     describe "#find" do
 
-      let(:orig){ Factory.create_account("get") }
+      around(:each) do |example|
+        VCR.use_cassette('account/find', &example)
+      end
+
+      let(:orig){ Factory.create_account("account-get") }
 
       before(:each) do
         @account = Account.find(orig.account_code)
@@ -50,7 +55,11 @@ module Recurly
 
     describe "#update" do
 
-      let(:orig){ Factory.create_account("update") }
+      around(:each) do |example|
+        VCR.use_cassette('account/update', &example)
+      end
+
+      let(:orig){ Factory.create_account("account-update") }
 
       before(:each) do
         # update account data
@@ -77,8 +86,12 @@ module Recurly
     end
 
     describe "#close_account" do
+      around(:each) do |example|
+        VCR.use_cassette('account/close', &example)
+      end
+
       before(:each) do
-        @account = Factory.create_account('close')
+        @account = Factory.create_account('account-close')
       end
 
       it "should run without errors" do

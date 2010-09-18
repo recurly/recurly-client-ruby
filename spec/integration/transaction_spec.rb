@@ -2,12 +2,13 @@ require 'spec_helper'
 
 module Recurly
   describe Transaction do
-    around(:each) do |example|
-      VCR.use_cassette('transaction', :record => :new_episodes, &example)
-    end
-
     describe "#create" do
-      let(:account) { Factory.create_account_with_billing_info("transaction") }
+      around(:each) do |example|
+        VCR.use_cassette('transaction/create', &example)
+      end
+
+
+      let(:account) { Factory.create_account_with_billing_info("transaction-create") }
 
       before(:each) do
         @transaction = Transaction.create({

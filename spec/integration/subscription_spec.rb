@@ -3,12 +3,12 @@ require 'spec_helper'
 module Recurly
   describe Subscription do
 
-    around(:each) do |example|
-      VCR.use_cassette('subscription', :record => :new_episodes, &example)
-    end
-
     describe "#create" do
-      let(:account){ Factory.create_account("new-sub-new-account") }
+      around(:each) do |example|
+        VCR.use_cassette('subscription/create', &example)
+      end
+
+      let(:account){ Factory.create_account("subscription-create") }
 
       before(:each) do
         @subscription = Factory.create_subscription(account)
@@ -32,7 +32,11 @@ module Recurly
     end
 
     describe "#update" do
-      let(:account){ Factory.create_account("update-subscription") }
+      around(:each) do |example|
+        VCR.use_cassette('subscription/update', &example)
+      end
+
+      let(:account){ Factory.create_account("subscription-update") }
 
       before(:each) do
         Factory.create_subscription(account)
@@ -47,7 +51,11 @@ module Recurly
     end
 
     describe "#cancel" do
-      let(:account){ Factory.create_account("cancel-subscription") }
+      around(:each) do |example|
+        VCR.use_cassette('subscription/cancel', &example)
+      end
+
+      let(:account){ Factory.create_account("subscription-cancel") }
       before(:each) do
         Factory.create_subscription(account)
         @subscription = Subscription.find(account.account_code)
@@ -66,7 +74,11 @@ module Recurly
     end
 
     describe "#refund" do
-      let(:account){ Factory.create_account("refund-subscription") }
+      around(:each) do |example|
+        VCR.use_cassette('subscription/refund', &example)
+      end
+
+      let(:account){ Factory.create_account("subscription-refund") }
 
       before(:each) do
         Factory.create_subscription(account)

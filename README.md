@@ -66,7 +66,7 @@ The next thing is to setup all the spec dependencies
 
     bundle
 
-When first running the specs, you'll need to setup a recurly test account. Use the provided rake task to walk you through creating spec/settings.yml with all the authentication info.
+When first running the specs, you'll need to setup a recurly test account. Use the provided rake task to walk you through creating spec/spec_settings.yml with all the authentication info.
 
     rake recurly:setup
 
@@ -82,7 +82,7 @@ You can delete the spec/vcr folder at any time, and it will regenerate the reque
 * Click "Configuration"" on the top right menu
 * Select "Clear Test Data"
 
-This is also automated via a rake task. It will delete the spec/vcr files, and clear the data for you on the server (using your settings.yml authentication info).
+This is also automated via a rake task. It will delete the spec/vcr files, and clear the data for you on the server (using your spec_settings.yml authentication info).
 
     rake recurly:clear_test_data
 

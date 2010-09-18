@@ -5,3 +5,4 @@ spec/settings.yml
 spec/vcr
 .rvmrc
 .bundle/config
+spec/spec_settings.yml
