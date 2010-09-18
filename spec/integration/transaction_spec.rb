@@ -7,12 +7,14 @@ module Recurly
         VCR.use_cassette('transaction/create', &example)
       end
 
-
       let(:account) { Factory.create_account_with_billing_info("transaction-create") }
 
       before(:each) do
+        pending "Transaction create API is borked"
         @transaction = Transaction.create({
-          :account => { :account_code => account.account_code },
+          :account => {
+            :account_code => account.account_code
+          },
           :amount_in_cents => 500,
           :description => "test transaction for $5"
         })
@@ -28,24 +30,26 @@ module Recurly
       end
 
       it "should save the record" do
-        pending
+        pending "Not Yet Implemented"
         # Transaction.all.length.should == 1
       end
     end
 
-    describe "#all" do
+    describe "#list" do
       around(:each) do |example|
-        VCR.use_cassette('transaction/all', &example)
+        VCR.use_cassette('transaction/list', &example)
       end
 
-      let(:account) { Factory.create_account("transaction-all") }
-      before(:each) do
-        # TODO
-        # create a few sample transactions
-      end
+      context "empty" do
+        let(:account) { Factory.create_account("transaction-list-empty") }
 
-      it "should return all the transactions" do
-        pending
+        before(:each) do
+          @transactions = Transaction.list(account.account_code)
+        end
+
+        it "should return an empty array of transactions" do
+          @transactions.should be_empty
+        end
       end
     end
   end
