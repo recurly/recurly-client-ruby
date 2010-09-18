@@ -39,11 +39,10 @@ namespace :recurly do
 
     # load the settings.yml file
     Recurly::TestSetup.reload!
-
   end
 
   desc "Clears out spec/vcr folder along with removing test data from your configured recurly site"
-  task :clear_api_data => :load_settings do
+  task :clear_test_data => :load_settings do
     say "Clearing out test data from your account at #{Recurly::TestSetup.settings["site"]}"
     return unless agree "\nAre you sure you want to proceed? (y/n)"
     puts "\n"

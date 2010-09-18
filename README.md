@@ -82,9 +82,9 @@ You can delete the spec/vcr folder at any time, and it will regenerate the reque
 * Click "Configuration"" on the top right menu
 * Select "Clear Test Data"
 
-This is also automated via a rake task. It will delete the spec/vcr files, and clear the data for you.
+This is also automated via a rake task. It will delete the spec/vcr files, and clear the data for you on the server (using your settings.yml authentication info).
 
-    rake recurly:clear_api_data
+    rake recurly:clear_test_data
 
 
 API Documentation
