@@ -9,12 +9,15 @@ module Recurly
 
       let(:account) { Factory.create_account("invoice-create") }
 
-      # before(:each) do
-      #   # TODO: create a few charges on the account
-      #   @invoice = Invoice.create(:account_code => account.account_code)
-      # end
+      before(:each) do
+        # TODO: create a few charges on the account
+        @invoice = Invoice.create(:account_code => account.account_code)
+      end
 
-      it "should save successfully"
+      it "should save successfully" do
+        @invoice
+        pending
+      end
     end
 
     describe "#find" do
