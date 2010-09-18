@@ -14,7 +14,7 @@ module Recurly
       if File.exists?(SETTINGS_PATH)
         settings = YAML.load_file(SETTINGS_PATH)
       else
-        raise "Settings.yml file not found. Run rake spec:setup to create one"
+        raise "Settings.yml file not found. Run rake recurly:setup to create one"
       end
       self.settings = settings
     end
