@@ -11,7 +11,7 @@ module Recurly
       let(:account){ Factory.create_account("subscription-create") }
 
       before(:each) do
-        @subscription = Factory.create_subscription(account)
+        @subscription = Factory.create_subscription(account, :trial)
       end
 
       it "should create the subscription successfully" do
@@ -39,7 +39,7 @@ module Recurly
       let(:account){ Factory.create_account("subscription-update") }
 
       before(:each) do
-        Factory.create_subscription(account)
+        Factory.create_subscription(account, :trial)
         @subscription = Subscription.find(account.account_code)
 
         @subscription.change('now', :quantity => 2)
@@ -57,7 +57,7 @@ module Recurly
 
       let(:account){ Factory.create_account("subscription-cancel") }
       before(:each) do
-        Factory.create_subscription(account)
+        Factory.create_subscription(account, :trial)
         @subscription = Subscription.find(account.account_code)
 
         # cancel subscription
@@ -81,7 +81,7 @@ module Recurly
       let(:account){ Factory.create_account("subscription-refund") }
 
       before(:each) do
-        Factory.create_subscription(account)
+        Factory.create_subscription(account, :trial)
         @subscription = Subscription.find(account.account_code)
 
         @subscription.refund(:full)

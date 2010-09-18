@@ -18,8 +18,8 @@ module Recurly
     end
 
     describe "#find" do
-      it "should return the test plan" do
-        plan = Plan.find(SpecSettings["test_plan_code"])
+      it "should return the plan" do
+        plan = Plan.find(Factory.regular_plan.plan_code)
         plan.should_not be_nil
         plan.name.should_not be_nil
       end

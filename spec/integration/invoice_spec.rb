@@ -7,7 +7,7 @@ module Recurly
         VCR.use_cassette('invoice/create', &example)
       end
 
-      let(:account) { Factory.create_account("invoice-create") }
+      let(:account) { Factory.create_account_with_billing_info("invoice-create") }
 
       before(:each) do
         # TODO: create a few charges on the account
