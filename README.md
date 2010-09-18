@@ -73,6 +73,12 @@ When first running the specs, you'll need to setup a recurly test account. Use t
 Now when you run `rake` it will hit recurly's api to run all the specs. Subsequent calls will no longer hit the API (and be run locally).
 
 
+Something go Wrong?
+------------------
+
+You can view the full http interactions with Recurly at spec/vcr. Please attached these to any bug reports so we can replicate.
+
+
 Clearing Test Data
 ------------------
 
@@ -84,7 +90,8 @@ You can delete the spec/vcr folder at any time, and it will regenerate the reque
 
 This is also automated via a rake task. It will delete the spec/vcr files, and clear the data for you on the server (using your spec_settings.yml authentication info).
 
-    rake recurly:clear_test_data
+    rake recurly:clear
+
 
 
 API Documentation

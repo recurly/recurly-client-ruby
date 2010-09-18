@@ -41,7 +41,7 @@ namespace :recurly do
   end
 
   desc "Clears out spec/vcr folder along with removing test data from your configured recurly site"
-  task :clear_test_data => :load_settings do
+  task :clear => :load_settings do
     puts "\n"
     require 'restclient'
 
