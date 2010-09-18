@@ -39,6 +39,7 @@ GEM
       gemcutter
       rubyforge
     gemcutter (0.6.1)
+    highline (1.6.1)
     i18n (0.4.1)
     json_pure (1.4.6)
     linecache (0.43)
@@ -66,7 +67,9 @@ PLATFORMS
 
 DEPENDENCIES
   activeresource (>= 3.0)
+  activesupport (>= 3.0)
   echoe
+  highline
   rest-client!
   rspec (>= 2.0.0.beta.20)
   ruby-debug

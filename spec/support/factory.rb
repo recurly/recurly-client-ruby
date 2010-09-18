@@ -52,7 +52,7 @@ module Recurly
       )
 
       params = {:account_code => account.account_code,
-                :plan_code => TEST_PLAN_CODE,
+                :plan_code => TestSetup.settings["test_plan_code"],
                 :quantity => 1,
                 :account => account}.merge subscription_attrs
 
