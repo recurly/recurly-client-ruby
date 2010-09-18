@@ -96,7 +96,6 @@ namespace :recurly do
 
     # ask for the username
     say "\nStep 1) Go to recurly.com and set up a test account...\n\n"
-    require 'ruby-debug';debugger
     Recurly::SpecSettings["username"] = ask("\nStep 2) Enter your recurly username (email):", String)
 
     Recurly::SpecSettings["password"] = ask("\nStep 3) Enter your recurly password:", String)
