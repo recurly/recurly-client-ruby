@@ -1,7 +1,6 @@
 module Recurly
-  class Subscription < RecurlySingularResourceBase
+  class Subscription < RecurlyAccountBase
     self.element_name = "subscription"
-    self.prefix = "/accounts/:account_code"
 
     def self.refund(account_code, refund_type = :partial)
       raise "Refund type must be :full or :partial." unless refund_type == :full or refund_type == :partial

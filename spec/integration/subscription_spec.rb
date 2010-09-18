@@ -45,7 +45,7 @@ module Recurly
         @subscription.change('now', :quantity => 2)
       end
 
-      it "should update the subscription quanity" do
+      it "should update the subscription quantity" do
         Subscription.find(account.account_code).quantity.should == 2
       end
     end

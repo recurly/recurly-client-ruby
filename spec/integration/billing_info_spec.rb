@@ -2,10 +2,6 @@ require 'spec_helper'
 
 module Recurly
   describe BillingInfo do
-    around(:each) do |example|
-      VCR.use_cassette('billing', &example)
-    end
-
     let(:account){ Factory.create_account('billing') }
 
     let(:billing_info_attributes) do
@@ -26,29 +22,37 @@ module Recurly
       }
     end
 
-    before(:each) do
-      @billing_info = BillingInfo.create(billing_info_attributes)
-    end
+    describe "#create" do
 
-    it "should successfully create the billing info record" do
-      @billing_info.updated_at.should_not be_nil
-    end
+      around(:each) do |example|
+        VCR.use_cassette('billing/create', &example)
+      end
 
-    it "should return the updated data from the server" do
-      billing_info = BillingInfo.find(account.account_code)
+      before(:each) do
+        @billing_info = BillingInfo.create(billing_info_attributes)
+      end
 
-      # check the billing data fields
-      billing_info.first_name.should == billing_info_attributes[:first_name]
-      billing_info.last_name.should == billing_info_attributes[:last_name]
-      billing_info.address1.should == billing_info_attributes[:address1]
-      billing_info.city.should == billing_info_attributes[:city]
-      billing_info.state.should == billing_info_attributes[:state]
-      billing_info.zip.should == billing_info_attributes[:zip]
+      it "should successfully create the billing info record" do
+        @billing_info.updated_at.should_not be_nil
+      end
 
-      # check the credit card fields
-      billing_info.credit_card.last_four.should == billing_info_attributes[:credit_card][:number]
-      billing_info.credit_card.month.should == billing_info_attributes[:credit_card][:month]
-      billing_info.credit_card.year.should == billing_info_attributes[:credit_card][:year]
+      it "should return the updated data from the server" do
+        billing_info = BillingInfo.find(account.account_code)
+
+        # check the billing data fields
+        billing_info.first_name.should == billing_info_attributes[:first_name]
+        billing_info.last_name.should == billing_info_attributes[:last_name]
+        billing_info.address1.should == billing_info_attributes[:address1]
+        billing_info.city.should == billing_info_attributes[:city]
+        billing_info.state.should == billing_info_attributes[:state]
+        billing_info.zip.should == billing_info_attributes[:zip]
+
+        # check the credit card fields
+        billing_info.credit_card.last_four.should == billing_info_attributes[:credit_card][:number]
+        billing_info.credit_card.month.should == billing_info_attributes[:credit_card][:month]
+        billing_info.credit_card.year.should == billing_info_attributes[:credit_card][:year]
+      end
+
     end
 
   end
