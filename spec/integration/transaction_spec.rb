@@ -35,6 +35,20 @@ module Recurly
       end
     end
 
+    describe "#all" do
+      around(:each) do |example|
+        VCR.use_cassette('transaction/all', &example)
+      end
+
+      before(:each) do
+        @transactions = Transaction.all
+      end
+
+      it "should be successful" do
+        @transactions.should be_an_instance_of(Array)
+      end
+    end
+
     describe "#list" do
       around(:each) do |example|
         VCR.use_cassette('transaction/list', &example)

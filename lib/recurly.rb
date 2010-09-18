@@ -2,6 +2,8 @@ require "active_resource"
 
 require 'cgi'
 
+require 'recurly/formats/xml_with_pagination'
+
 require 'recurly/base'
 require 'recurly/account'
 require 'recurly/billing_info'
