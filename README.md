@@ -68,7 +68,7 @@ The next thing is to setup all the spec dependencies
 
 When first running the specs, you'll need to setup a recurly test account. Use the provided rake task to walk you through creating spec/settings.yml with all the authentication info.
 
-    rake spec:setup
+    rake recurly:setup
 
 Now when you run `rake` it will hit recurly's api to run all the specs. Subsequent calls will no longer hit the API (and be run locally).
 
