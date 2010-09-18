@@ -3,6 +3,10 @@ require 'spec_helper'
 module Recurly
   describe Account do
 
+    around(:each) do |example|
+      VCR.use_cassette('account', :record => :new_episodes, &example)
+    end
+
     describe "#create" do
       before(:each) do
         @account = Factory.create_account('create')

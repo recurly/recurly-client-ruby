@@ -3,6 +3,10 @@ require 'spec_helper'
 module Recurly
   describe Plan do
 
+    around(:each) do |example|
+      VCR.use_cassette('plan', :record => :new_episodes, &example)
+    end
+
     describe "#all" do
       before(:each) do
         @plans = Plan.all
@@ -15,7 +19,7 @@ module Recurly
 
     describe "#find" do
       it "should return the test plan" do
-        plan = Plan.find(TEST_PLAN_CODE)
+        plan = Plan.find(TestSetup.settings["test_plan_code"])
         plan.should_not be_nil
         plan.name.should_not be_nil
       end
