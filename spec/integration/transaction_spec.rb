@@ -31,7 +31,22 @@ module Recurly
         pending
         # Transaction.all.length.should == 1
       end
+    end
 
+    describe "#all" do
+      around(:each) do |example|
+        VCR.use_cassette('transaction/all', &example)
+      end
+
+      let(:account) { Factory.create_account("transaction-all") }
+      before(:each) do
+        # TODO
+        # create a few sample transactions
+      end
+
+      it "should return all the transactions" do
+        pending
+      end
     end
   end
 end
