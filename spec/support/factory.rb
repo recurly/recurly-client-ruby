@@ -1,24 +1,26 @@
 module Recurly
   module Factory
+
+    # creates an account
     def self.create_account(account_code)
-      account = Account.create(
-        :account_code => "#{account_code}",
-        :first_name => 'Verena',
-        :last_name => 'Test',
-        :email => 'verena@test.com',
-        :company_name => 'Recurly Ruby Gem')
-    end
-
-    def self.create_account_with_billing_info(account_code)
-
-      account = Factory.create_account(account_code)
-
-      billing_info = build_billing_info(account)
-      billing_info.save!
-
+      account = Account.new :account_code => "#{account_code}",
+                            :first_name => 'Verena',
+                            :last_name => 'Test',
+                            :email => 'verena@test.com',
+                            :company_name => 'Recurly Ruby Gem'
+      account.save!
       account
     end
 
+    # creates an account with associated billing information
+    def self.create_account_with_billing_info(account_code)
+      account = Factory.create_account(account_code)
+      billing_info = build_billing_info(account)
+      billing_info.save!
+      account
+    end
+
+    # Creates a subscription for an account
     def self.create_subscription(account, plan, subscription_attrs={})
       if plan.is_a?(Symbol)
         plan = self.send("#{plan}_plan")
@@ -97,14 +99,7 @@ module Recurly
 
     def self.find_or_create_plan(data)
       begin
-        plan = Plan.find(data[:plan_code])
-
-        if plan.unit_amount_in_cents != data[:unit_amount_in_cents]
-          plan.unit_amount_in_cents = data[:unit_amount_in_cents]
-          plan.save!
-        end
-
-        return plan
+        return Plan.find(data[:plan_code])
       rescue ActiveResource::ResourceNotFound => e
         plan = Plan.new(data)
         plan.save!

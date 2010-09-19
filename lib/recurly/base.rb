@@ -53,6 +53,29 @@ module Recurly
       false
     end
 
+    # patch persisted? so it looks to see if it actually is persisted
+    def persisted?
+      @persisted ||= false
+      @persisted
+    end
+
+    # patch new? to be the opposite of persisted
+    def new?
+      !persisted?
+    end
+
+    # patch load_attributes_from_response so it marks result records as persisted
+    def load_attributes_from_response(response)
+      super
+      @persisted = true
+    end
+
+    # patch instantiate_record so it marks result records as persisted
+    def self.instantiate_record(record, prefix_options)
+      result = super
+      result.instance_eval{ @persisted = true }
+      result
+    end
   end
 
   # ActiveRecord treats resources as plural by default.  Some resources are singular.

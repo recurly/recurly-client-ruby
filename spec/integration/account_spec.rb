@@ -66,7 +66,7 @@ module Recurly
         @account = Account.find(orig.account_code)
         @account.last_name = "Update Test"
         @account.company_name = "Recurly Ruby Gem -- Update"
-        @account.save
+        @account.save!
 
         # refetch account
         @account = Account.find(orig.account_code)
@@ -92,11 +92,13 @@ module Recurly
 
       before(:each) do
         @account = Factory.create_account('account-close')
-      end
-
-      it "should run without errors" do
         @account.close_account
       end
+
+      it "should mark the account as closed" do
+        Account.find(@account.account_code).state.should == "closed"
+      end
+
     end
 
   end
