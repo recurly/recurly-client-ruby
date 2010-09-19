@@ -19,8 +19,8 @@ module Recurly
     end
 
     describe "#create" do
-      around(:each){|e| VCR.use_cassette('billing/create', &e)}
-      let(:account){ Factory.create_account("#{timestamp}-billing-create") }
+      around(:each){|e| VCR.use_cassette("billing/create/#{timestamp}", &e)}
+      let(:account){ Factory.create_account("billing-create-#{timestamp}") }
 
       before(:each) do
         @billing_attributes = Factory.billing_attributes({
@@ -43,8 +43,8 @@ module Recurly
     end
 
     describe "#find" do
-      around(:each){|e| VCR.use_cassette('billing/find', &e)}
-      let(:account){ Factory.create_account_with_billing_info("#{timestamp}-billing-find") }
+      around(:each){|e| VCR.use_cassette("billing/find/#{timestamp}", &e)}
+      let(:account){ Factory.create_account_with_billing_info("billing-find-#{timestamp}") }
 
       before(:each) do
         @billing_attributes = Factory.billing_attributes({

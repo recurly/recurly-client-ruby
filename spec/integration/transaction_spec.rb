@@ -6,9 +6,9 @@ module Recurly
     let(:timestamp) { File.mtime(__FILE__).to_i }
 
     describe "create new transaction" do
-      around(:each){|e| VCR.use_cassette('transaction/create', &e)}
+      around(:each){|e| VCR.use_cassette("transaction/create/#{timestamp}", &e)}
 
-      let(:account) { Factory.create_account_with_billing_info("#{timestamp}-transaction-create") }
+      let(:account) { Factory.create_account_with_billing_info("transaction-create-#{timestamp}") }
 
       before(:each) do
         @transaction = Transaction.new({
@@ -28,7 +28,7 @@ module Recurly
     end
 
     describe "list all transactions" do
-      around(:each){|e| VCR.use_cassette('transaction/all', &e)}
+      around(:each){|e| VCR.use_cassette("transaction/all/#{timestamp}", &e)}
 
       before(:each) do
         @transactions = Transaction.all
@@ -40,10 +40,10 @@ module Recurly
     end
 
     describe "list all transactions for an account" do
-      around(:each){|e| VCR.use_cassette('transaction/list', &e)}
+      around(:each){|e| VCR.use_cassette("transaction/list/#{timestamp}", &e)}
 
       context "empty" do
-        let(:account) { Factory.create_account("#{timestamp}-transaction-list-empty") }
+        let(:account) { Factory.create_account("transaction-list-empty-#{timestamp}") }
 
         before(:each) do
           @transactions = Transaction.list(account.account_code)

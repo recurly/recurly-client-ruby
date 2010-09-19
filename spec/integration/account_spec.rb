@@ -6,10 +6,10 @@ module Recurly
     let(:timestamp) { File.mtime(__FILE__).to_i }
 
     describe "#create" do
-      around(:each){|e| VCR.use_cassette('account/create', &e)}
+      around(:each){|e| VCR.use_cassette("account/create/#{timestamp}", &e)}
 
       before(:each) do
-        @account = Factory.create_account("#{timestamp}-account-create")
+        @account = Factory.create_account("account-create-#{timestamp}")
       end
 
       it "should have a created_at date" do
@@ -18,9 +18,9 @@ module Recurly
     end
 
     describe "#find" do
-      around(:each){|e| VCR.use_cassette('account/find', &e)}
+      around(:each){|e| VCR.use_cassette("account/find/#{timestamp}", &e)}
 
-      let(:orig){ Factory.create_account("#{timestamp}-account-get") }
+      let(:orig){ Factory.create_account("account-get-#{timestamp}") }
 
       before(:each) do
         @account = Account.find(orig.account_code)
@@ -50,9 +50,9 @@ module Recurly
     end
 
     describe "#update" do
-      around(:each){ |e| VCR.use_cassette('account/update', &e) }
+      around(:each){ |e| VCR.use_cassette("account/update/#{timestamp}", &e) }
 
-      let(:orig){ Factory.create_account("#{timestamp}-account-update") }
+      let(:orig){ Factory.create_account("account-update-#{timestamp}") }
 
       before(:each) do
         # update account data
@@ -79,8 +79,8 @@ module Recurly
     end
 
     describe "#close_account" do
-      around(:each){|e| VCR.use_cassette('account/close', &e)}
-      let(:account){ Factory.create_account("#{timestamp}-account-close") }
+      around(:each){|e| VCR.use_cassette("account/close/#{timestamp}", &e)}
+      let(:account){ Factory.create_account("account-close-#{timestamp}") }
 
       before(:each) do
         account.close_account
@@ -92,8 +92,8 @@ module Recurly
     end
 
     describe "#charges" do
-      around(:each){|e| VCR.use_cassette('account/charges', &e)}
-      let(:account){ Factory.create_account("#{timestamp}-account-charges") }
+      around(:each){|e| VCR.use_cassette("account/charges/#{timestamp}", &e)}
+      let(:account){ Factory.create_account("account-charges-#{timestamp}") }
 
       before(:each) do
         Factory.create_charge(account.account_code)
@@ -110,8 +110,8 @@ module Recurly
     end
 
     describe "#lookup_charge" do
-      around(:each){|e| VCR.use_cassette('account/lookup_charge', &e)}
-      let(:account){ Factory.create_account("#{timestamp}-account-charges-lookup") }
+      around(:each){|e| VCR.use_cassette("account/lookup-charge/#{timestamp}", &e)}
+      let(:account){ Factory.create_account("account-lookup-charge-#{timestamp}") }
 
       before(:each) do
         charge = Factory.create_charge(account.account_code, :description => "just cuz")

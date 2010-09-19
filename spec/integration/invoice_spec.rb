@@ -6,9 +6,9 @@ module Recurly
     let(:timestamp) { File.mtime(__FILE__).to_i }
 
     describe "#create" do
-      around(:each){|e| VCR.use_cassette('invoice/create', &e)}
+      around(:each){|e| VCR.use_cassette("invoice/create/#{timestamp}", &e)}
 
-      let(:account) { Factory.create_account_with_billing_info("#{timestamp}-invoice-create") }
+      let(:account) { Factory.create_account_with_billing_info("invoice-create-#{timestamp}") }
 
       before(:each) do
         @invoice = Invoice.create(:account_code => account.account_code)
@@ -21,9 +21,9 @@ module Recurly
     end
 
     describe "#find" do
-      around(:each){|e| VCR.use_cassette('invoice/find', &e)}
+      around(:each){|e| VCR.use_cassette("invoice/find/#{timestamp}", &e)}
 
-      let(:account) { Factory.create_account("#{timestamp}-invoice-find") }
+      let(:account) { Factory.create_account("invoice-find-#{timestamp}") }
       before(:each) do
         # TODO
         # create a few sample charges and invoices

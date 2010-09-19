@@ -6,9 +6,9 @@ module Recurly
     let(:timestamp) { File.mtime(__FILE__).to_i }
 
     describe "create a charge" do
-      around(:each){|e| VCR.use_cassette('charge/create', &e)}
+      around(:each){|e| VCR.use_cassette("charge/create/#{timestamp}", &e)}
 
-      let(:account) { Factory.create_account_with_billing_info("#{timestamp}-charge-create") }
+      let(:account) { Factory.create_account_with_billing_info("charge-create-#{timestamp}") }
 
       before(:each) do
         charge = Factory.create_charge account.account_code,
@@ -32,9 +32,9 @@ module Recurly
     end
 
     describe "list charges for an account" do
-      around(:each){|e| VCR.use_cassette('charge/list', &e)}
+      around(:each){|e| VCR.use_cassette("charge/list/#{timestamp}", &e)}
 
-      let(:account) { Factory.create_account("#{timestamp}-charge-list") }
+      let(:account) { Factory.create_account("charge-list-#{timestamp}") }
       before(:each) do
         Factory.create_charge(account.account_code)
         Factory.create_charge(account.account_code)
@@ -49,9 +49,9 @@ module Recurly
     end
 
     describe "lookup a charge" do
-      around(:each){|e| VCR.use_cassette('charge/lookup', &e)}
+      around(:each){|e| VCR.use_cassette("charge/lookup/#{timestamp}", &e)}
 
-      let(:account) { Factory.create_account("#{timestamp}-charge-lookup") }
+      let(:account) { Factory.create_account("charge-lookup-#{timestamp}") }
 
       before(:each) do
         charge = Factory.create_charge account.account_code,

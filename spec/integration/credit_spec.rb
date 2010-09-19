@@ -6,13 +6,13 @@ module Recurly
     let(:timestamp) { File.mtime(__FILE__).to_i }
 
     describe "create a credit" do
-      around(:each){|e| VCR.use_cassette('credit/create', &e)}
+      around(:each){|e| VCR.use_cassette("credit/create/#{timestamp}", &e)}
 
-      let(:account){ Factory.create_account("#{timestamp}-credit-create") }
+      let(:account){ Factory.create_account("credit-create-#{timestamp}") }
 
       before(:each) do
         credit = Factory.create_credit account.account_code,
-                                        :amount => 9.50,
+                                        :amount => 10.05,
                                         :description => "free moniez"
 
         @credit = Credit.lookup(account.account_code, credit.id)
@@ -23,7 +23,7 @@ module Recurly
       end
 
       it "should set the amount" do
-        @credit.amount_in_cents.should == -950
+        @credit.amount_in_cents.should == -1005
       end
 
       it "should set the description" do
@@ -32,8 +32,8 @@ module Recurly
     end
 
     describe "list credits for an account" do
-      around(:each){|e| VCR.use_cassette("credit/list", &e)}
-      let(:account){ Factory.create_account("#{timestamp}-credit-list") }
+      around(:each){|e| VCR.use_cassette("credit/list/#{timestamp}", &e)}
+      let(:account){ Factory.create_account("credit-list-#{timestamp}") }
 
       before(:each) do
         Factory.create_credit(account.account_code, :amount => 1, :description => "one")
@@ -56,8 +56,8 @@ module Recurly
     end
 
     describe "lookup a credit" do
-      around(:each){|e| VCR.use_cassette("credit/lookup", &e)}
-      let(:account) { Factory.create_account("#{timestamp}-credit-lookup") }
+      around(:each){|e| VCR.use_cassette("credit/lookup/#{timestamp}", &e)}
+      let(:account) { Factory.create_account("credit-lookup-#{timestamp}") }
 
       before(:each) do
         credit = Factory.create_credit account.account_code,

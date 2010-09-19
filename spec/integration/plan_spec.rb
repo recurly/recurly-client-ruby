@@ -2,11 +2,8 @@ require 'spec_helper'
 
 module Recurly
   describe Plan do
-    # version accounts based on this current files modification dates
-    let(:timestamp) { File.mtime(__FILE__).to_i }
-
     describe "list all plans" do
-      around(:each){|e| VCR.use_cassette('plan/all', &e)}
+      around(:each){|e| VCR.use_cassette("plan/all", &e)}
 
       before(:each) do
         @paid = Factory.paid_plan

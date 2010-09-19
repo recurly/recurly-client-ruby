@@ -6,9 +6,9 @@ module Recurly
     let(:timestamp) { File.mtime(__FILE__).to_i }
 
     describe "#create" do
-      around(:each){|e| VCR.use_cassette('subscription/create', &e)}
+      around(:each){|e| VCR.use_cassette("subscription/create/#{timestamp}", &e)}
 
-      let(:account){ Factory.create_account("#{timestamp}-subscription-create") }
+      let(:account){ Factory.create_account("subscription-create-#{timestamp}") }
 
       before(:each) do
         @subscription = Factory.create_subscription(account, :paid)
@@ -32,9 +32,9 @@ module Recurly
     end
 
     describe "#update" do
-      around(:each){|e| VCR.use_cassette('subscription/update', &e)}
+      around(:each){|e| VCR.use_cassette("subscription/update/#{timestamp}", &e)}
 
-      let(:account){ Factory.create_account("#{timestamp}-subscription-update") }
+      let(:account){ Factory.create_account("subscription-update-#{timestamp}") }
 
       before(:each) do
         Factory.create_subscription(account, :paid)
@@ -49,9 +49,9 @@ module Recurly
     end
 
     describe "#cancel" do
-      around(:each){|e| VCR.use_cassette('subscription/cancel', &e)}
+      around(:each){|e| VCR.use_cassette("subscription/cancel/#{timestamp}", &e)}
 
-      let(:account){ Factory.create_account("#{timestamp}-subscription-cancel") }
+      let(:account){ Factory.create_account("subscription-cancel-#{timestamp}") }
       before(:each) do
         Factory.create_subscription(account, :paid)
         @subscription = Subscription.find(account.account_code)
@@ -70,9 +70,9 @@ module Recurly
     end
 
     describe "#refund" do
-      around(:each){|e| VCR.use_cassette('subscription/refund', &e)}
+      around(:each){|e| VCR.use_cassette("subscription/refund/#{timestamp}", &e)}
 
-      let(:account){ Factory.create_account("#{timestamp}-subscription-refund") }
+      let(:account){ Factory.create_account("subscription-refund-#{timestamp}") }
 
       before(:each) do
         Factory.create_subscription(account, :paid)
@@ -85,8 +85,6 @@ module Recurly
           Subscription.find(account.account_code)
         }.to raise_error(ActiveResource::ResourceNotFound)
       end
-
     end
-
   end
 end
