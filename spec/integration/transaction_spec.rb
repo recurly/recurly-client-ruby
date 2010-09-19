@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Recurly
   describe Transaction do
-    describe "#create" do
+    describe "create new transaction" do
       around(:each) do |example|
         VCR.use_cassette('transaction/create', &example)
       end
@@ -10,32 +10,23 @@ module Recurly
       let(:account) { Factory.create_account_with_billing_info("transaction-create") }
 
       before(:each) do
-        pending "Transaction create API is borked"
-        @transaction = Transaction.create({
+        @transaction = Transaction.new({
           :account => {
             :account_code => account.account_code
           },
-          :amount_in_cents => 500,
-          :description => "test transaction for $5"
+          :amount_in_cents => 700,
+          :description => "test transaction for $7"
         })
+        @transaction.save!
       end
 
       it "should save successfully" do
         @transaction.should_not be_nil
         @transaction.errors.should be_empty
       end
-
-      it "should set the correct amount" do
-        @transaction.amount_in_cents.should == 500
-      end
-
-      it "should save the record" do
-        pending "Not Yet Implemented"
-        # Transaction.all.length.should == 1
-      end
     end
 
-    describe "#all" do
+    describe "list all transactions" do
       around(:each) do |example|
         VCR.use_cassette('transaction/all', &example)
       end
@@ -49,7 +40,7 @@ module Recurly
       end
     end
 
-    describe "#list" do
+    describe "list all transactions for an account" do
       around(:each) do |example|
         VCR.use_cassette('transaction/list', &example)
       end
