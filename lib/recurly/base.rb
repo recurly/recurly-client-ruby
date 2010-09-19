@@ -1,24 +1,4 @@
-require "rubygems"
-require "active_resource"
-
 module Recurly
-
-  VERSION = '0.1.5'
-
-  class << self
-    attr_accessor :username, :password, :site
-
-    def configure
-      yield self
-
-      RecurlyBase.user = username
-      RecurlyBase.password = password
-      RecurlyBase.site = site || "https://app.recurly.com"
-
-      true
-    end
-  end
-
   class RecurlyBase < ActiveResource::Base
 
     self.format = Recurly::Formats::XmlWithPaginationFormat.new
