@@ -105,6 +105,50 @@ module Recurly
       charge
     end
 
+    def self.create_transaction(account_code, overrides = {})
+      attributes = {
+        :account => {
+          :account_code => account_code
+        },
+        :amount => 10.00,
+        :description => "test account transaction"
+      }
+
+      overrides.each do |key, val|
+        attributes[key] = val
+      end
+
+      transaction = Transaction.new(attributes)
+      transaction.save!
+
+      transaction
+    end
+
+    # creates a full transaction from scratch
+    def self.create_full_transaction(account_code, overrides = {}, address_overrides = {}, credit_card_overrides = {})
+      attributes = {
+        :account => {
+          :account_code => account_code,
+          :first_name => 'Verena',
+          :last_name => 'Test',
+          :email => 'verena@test.com',
+          :company_name => 'Recurly Ruby Gem',
+          :billing_info => billing_attributes(address_overrides, credit_card_overrides)
+        },
+        :amount => 10.00,
+        :description => "test full transaction"
+      }
+
+      overrides.each do |key, val|
+        attributes[key] = val
+      end
+
+      transaction = Transaction.new(attributes)
+      transaction.save!
+
+      transaction
+    end
+
     def self.create_credit(account_code, attributes = {})
       credit = Credit.new({
         :account_code => account_code,

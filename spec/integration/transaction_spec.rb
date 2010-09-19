@@ -6,24 +6,34 @@ module Recurly
     let(:timestamp) { File.mtime(__FILE__).to_i }
 
     describe "create new transaction" do
-      around(:each){|e| VCR.use_cassette("transaction/create/#{timestamp}", &e)}
+      context "on an new account" do
+        around(:each){|e| VCR.use_cassette("transaction/create-no-account/#{timestamp}", &e)}
+        let(:account_code) { "transaction-create-with-accout-#{timestamp}" }
 
-      let(:account) { Factory.create_account_with_billing_info("transaction-create-#{timestamp}") }
+        before(:each) do
+          @transaction = Factory.create_full_transaction(account_code)
+        end
 
-      before(:each) do
-        @transaction = Transaction.new({
-          :account => {
-            :account_code => account.account_code
-          },
-          :amount_in_cents => 700,
-          :description => "test transaction for $7"
-        })
-        @transaction.save!
+        it "should save successfully" do
+          @transaction.status.should == "success"
+          @transaction.errors.should be_empty
+        end
       end
 
-      it "should save successfully" do
-        @transaction.should_not be_nil
-        @transaction.errors.should be_empty
+      context "with an existing account" do
+        around(:each){|e| VCR.use_cassette("transaction/create-with-account/#{timestamp}", &e)}
+        let(:account) { Factory.create_account_with_billing_info("transaction-create-with-account-#{timestamp}") }
+
+        before(:each) do
+          @transaction = Factory.create_transaction account.account_code,
+                                                    :amount => 7.00,
+                                                    :description => "test transaction for $7"
+        end
+
+        it "should save successfully" do
+          @transaction.status.should == "success"
+          @transaction.errors.should be_empty
+        end
       end
     end
 
@@ -40,9 +50,9 @@ module Recurly
     end
 
     describe "list all transactions for an account" do
-      around(:each){|e| VCR.use_cassette("transaction/list/#{timestamp}", &e)}
 
-      context "empty" do
+      context "empty transactions" do
+        around(:each){|e| VCR.use_cassette("transaction/list-empty/#{timestamp}", &e)}
         let(:account) { Factory.create_account("transaction-list-empty-#{timestamp}") }
 
         before(:each) do
@@ -51,6 +61,23 @@ module Recurly
 
         it "should return an empty array of transactions" do
           @transactions.should be_empty
+        end
+      end
+
+      context "with transactions" do
+        around(:each){|e| VCR.use_cassette("transaction/list-filled/#{timestamp}", &e)}
+        let(:account) { Factory.create_account("transaction-list-filled-#{timestamp}") }
+
+        before(:each) do
+          Factory.create_transaction account.account_code, :amount => 1.00, :description => "one"
+          Factory.create_transaction account.account_code, :amount => 2.00, :description => "two"
+          Factory.create_transaction account.account_code, :amount => 3.00, :description => "three"
+
+          @transactions = Transaction.list(account.account_code)
+        end
+
+        it "should return a list of transactions made on the account" do
+          @transactions.length.should == 3
         end
       end
     end
