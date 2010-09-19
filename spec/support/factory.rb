@@ -13,7 +13,31 @@ module Recurly
 
       account = Factory.create_account(account_code)
 
-      billing_info = BillingInfo.create(
+      billing_info = build_billing_info(account)
+      billing_info.save!
+
+      account
+    end
+
+    def self.create_subscription(account, plan, subscription_attrs={})
+      if plan.is_a?(Symbol)
+        plan = self.send("#{plan}_plan")
+      end
+
+      account.billing_info = build_billing_info(account)
+
+      params = {:account_code => account.account_code,
+                :plan_code => plan || regular_plan,
+                :quantity => 1,
+                :account => account}.merge subscription_attrs
+
+      subscription = Subscription.new(params)
+      subscription.save!
+      return subscription
+    end
+
+    def self.build_billing_info(account)
+      billing_info = BillingInfo.new(
         :account_code => account.account_code,
         :first_name => account.first_name,
         :last_name => account.last_name,
@@ -30,37 +54,7 @@ module Recurly
         }
       )
 
-      account
-    end
-
-    def self.create_subscription(account, plan, subscription_attrs={})
-      if plan.is_a?(Symbol)
-        plan = self.send("#{plan}_plan")
-      end
-
-      account.billing_info = BillingInfo.new(
-        :first_name => account.first_name,
-        :last_name => account.last_name,
-        :address1 => '123 Test St',
-        :city => 'San Francisco',
-        :state => 'CA',
-        :country => 'US',
-        :zip => '94103',
-        :credit_card => {
-          :number => '1',
-          :year => Time.now.year + 1,
-          :month => Time.now.month,
-          :verification_value => '123'
-        },
-        :ip_address => '127.0.0.1'
-      )
-
-      params = {:account_code => account.account_code,
-                :plan_code => plan || regular_plan,
-                :quantity => 1,
-                :account => account}.merge subscription_attrs
-
-      sub = Subscription.create(params)
+      return billing_info
     end
 
     def self.trial_plan
