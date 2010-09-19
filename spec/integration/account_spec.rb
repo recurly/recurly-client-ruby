@@ -105,7 +105,6 @@ module Recurly
         @charges.should be_an_instance_of(Array)
         @charges.length.should == 3
       end
-
     end
 
     describe "#lookup_charge" do
@@ -121,6 +120,5 @@ module Recurly
         @charge.description.should == "just cuz"
       end
     end
-
   end
 end

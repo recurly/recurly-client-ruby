@@ -1,5 +1,8 @@
+require 'active_support/memoizable'
+
 module Recurly
   class RecurlyBase < ActiveResource::Base
+    extend ActiveSupport::Memoizable
 
     self.format = Recurly::Formats::XmlWithPaginationFormat.new
 
@@ -68,6 +71,15 @@ module Recurly
       prefix_options.merge!(:account_code => id) if id
       # original: "#{prefix(prefix_options)}#{collection_name}/#{URI.escape id.to_s}.#{format.extension}#{query_string(query_options)}"
       "#{prefix(prefix_options)}#{element_name}.#{format.extension}#{query_string(query_options)}"
+    end
+
+    # element path
+    def element_path(options = nil)
+      self.class.element_path(to_param, options || prefix_options)
+    end
+
+    def to_param
+      attributes[:account_code]
     end
 
     # Override collection_path because this is a singular resource

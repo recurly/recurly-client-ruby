@@ -4,11 +4,11 @@ module Recurly
     self.prefix = "/accounts/:account_code/"
 
     def self.list(account_code)
-      Credit.find(:all, :params => { :account_code => account_code })
+      find(:all, :params => { :account_code => account_code })
     end
 
     def self.lookup(account_code, credit_id)
-      Credit.find(credit_id, :params => { :account_code => account_code })
+      find(credit_id, :params => { :account_code => account_code })
     end
 
   end

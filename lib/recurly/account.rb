@@ -10,6 +10,7 @@ module Recurly
     def charges
       Charge.list(account_code)
     end
+    memoize :charges
 
     def lookup_charge(id)
       Charge.lookup(account_code, id)
@@ -18,6 +19,7 @@ module Recurly
     def credits
       Credit.list(account_code)
     end
+    memoize :credits
 
     def lookup_credit(id)
       Credit.lookup(account_code, id)
