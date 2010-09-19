@@ -36,6 +36,7 @@ Create a file in your Rails app at __/config/initializers/recurly_config.rb__ wi
     Recurly.configure do |c|
       c.username = 'api@yourcompany.com'
       c.password = 'super_secret_password'
+      c.site = 'https://my-recurly-site.recurly.com'
     end
 
 
