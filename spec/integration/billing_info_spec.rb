@@ -23,10 +23,7 @@ module Recurly
     end
 
     describe "#create" do
-
-      around(:each) do |example|
-        VCR.use_cassette('billing/create', &example)
-      end
+      around(:each){|e| VCR.use_cassette('billing/create', &e)}
 
       before(:each) do
         @billing_info = BillingInfo.create(billing_info_attributes)

@@ -2,11 +2,8 @@ require 'spec_helper'
 
 module Recurly
   describe Credit do
-
     describe "#create" do
-      around(:each) do |example|
-        VCR.use_cassette('credit/create', &example)
-      end
+      around(:each){|e| VCR.use_cassette('credit/create', &e)}
 
       let(:account){ Factory.create_account('credit-create') }
 
@@ -27,9 +24,7 @@ module Recurly
     end
 
     describe "#list" do
-      around(:each) do |example|
-        VCR.use_cassette('credit/list', &example)
-      end
+      around(:each){|e| VCR.use_cassette('credit/list', &e)}
 
       let(:account){ Factory.create_account('credit-list') }
       before(:each) do

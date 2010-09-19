@@ -3,9 +3,7 @@ require 'spec_helper'
 module Recurly
   describe Transaction do
     describe "create new transaction" do
-      around(:each) do |example|
-        VCR.use_cassette('transaction/create', &example)
-      end
+      around(:each){|e| VCR.use_cassette('transaction/create', &e)}
 
       let(:account) { Factory.create_account_with_billing_info("transaction-create") }
 
@@ -27,9 +25,7 @@ module Recurly
     end
 
     describe "list all transactions" do
-      around(:each) do |example|
-        VCR.use_cassette('transaction/all', &example)
-      end
+      around(:each){|e| VCR.use_cassette('transaction/all', &e)}
 
       before(:each) do
         @transactions = Transaction.all
@@ -41,9 +37,7 @@ module Recurly
     end
 
     describe "list all transactions for an account" do
-      around(:each) do |example|
-        VCR.use_cassette('transaction/list', &example)
-      end
+      around(:each){|e| VCR.use_cassette('transaction/list', &e)}
 
       context "empty" do
         let(:account) { Factory.create_account("transaction-list-empty") }

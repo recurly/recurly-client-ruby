@@ -4,9 +4,7 @@ module Recurly
   describe Subscription do
 
     describe "#create" do
-      around(:each) do |example|
-        VCR.use_cassette('subscription/create', &example)
-      end
+      around(:each){|e| VCR.use_cassette('subscription/create', &e)}
 
       let(:account){ Factory.create_account("subscription-create") }
 
@@ -32,9 +30,7 @@ module Recurly
     end
 
     describe "#update" do
-      around(:each) do |example|
-        VCR.use_cassette('subscription/update', &example)
-      end
+      around(:each){|e| VCR.use_cassette('subscription/update', &e)}
 
       let(:account){ Factory.create_account("subscription-update") }
 
@@ -51,9 +47,7 @@ module Recurly
     end
 
     describe "#cancel" do
-      around(:each) do |example|
-        VCR.use_cassette('subscription/cancel', &example)
-      end
+      around(:each){|e| VCR.use_cassette('subscription/cancel', &e)}
 
       let(:account){ Factory.create_account("subscription-cancel") }
       before(:each) do
@@ -74,9 +68,7 @@ module Recurly
     end
 
     describe "#refund" do
-      around(:each) do |example|
-        VCR.use_cassette('subscription/refund', &example)
-      end
+      around(:each){|e| VCR.use_cassette('subscription/refund', &e)}
 
       let(:account){ Factory.create_account("subscription-refund") }
 

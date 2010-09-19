@@ -4,10 +4,7 @@ module Recurly
   describe Account do
 
     describe "#create" do
-
-      around(:each) do |example|
-        VCR.use_cassette('account/create', &example)
-      end
+      around(:each){|e| VCR.use_cassette('account/create', &e)}
 
       before(:each) do
         @account = Factory.create_account('account-create')
@@ -19,10 +16,7 @@ module Recurly
     end
 
     describe "#find" do
-
-      around(:each) do |example|
-        VCR.use_cassette('account/find', &example)
-      end
+      around(:each){|e| VCR.use_cassette('account/find', &e)}
 
       let(:orig){ Factory.create_account("account-get") }
 
@@ -54,10 +48,7 @@ module Recurly
     end
 
     describe "#update" do
-
-      around(:each) do |example|
-        VCR.use_cassette('account/update', &example)
-      end
+      around(:each){ |e| VCR.use_cassette('account/update', &e) }
 
       let(:orig){ Factory.create_account("account-update") }
 
