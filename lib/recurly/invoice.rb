@@ -6,10 +6,5 @@ module Recurly
     def self.list(account_code)
       Invoice.find(:all)
     end
-
-    # do we need to customize the element path for singular lookups?
-    # def self.element_path(options = {})
-    #   ""
-    # end
   end
 end
