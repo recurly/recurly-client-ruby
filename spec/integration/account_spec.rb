@@ -77,19 +77,49 @@ module Recurly
     end
 
     describe "#close_account" do
-      around(:each) do |example|
-        VCR.use_cassette('account/close', &example)
-      end
+      around(:each){|e| VCR.use_cassette('account/close', &e)}
+      let(:account){ Factory.create_account("account-close") }
 
       before(:each) do
-        @account = Factory.create_account('account-close')
-        @account.close_account
+        account.close_account
       end
 
       it "should mark the account as closed" do
-        Account.find(@account.account_code).state.should == "closed"
+        Account.find(account.account_code).state.should == "closed"
+      end
+    end
+
+    describe "#charges" do
+      around(:each){|e| VCR.use_cassette('account/charges', &e)}
+      let(:account){ Factory.create_account("account-charges") }
+
+      before(:each) do
+        Factory.create_charge(account.account_code)
+        Factory.create_charge(account.account_code)
+        Factory.create_charge(account.account_code)
+
+        @charges = account.charges
       end
 
+      it "should return the account's charges" do
+        @charges.should be_an_instance_of(Array)
+        @charges.length.should == 3
+      end
+
+    end
+
+    describe "#lookup_charge" do
+      around(:each){|e| VCR.use_cassette('account/lookup_charge', &e)}
+      let(:account){ Factory.create_account("account-charges-lookup") }
+
+      before(:each) do
+        charge = Factory.create_charge(account.account_code, :description => "just cuz")
+        @charge = account.lookup_charge(charge.id)
+      end
+
+      it "finds the charge" do
+        @charge.description.should == "just cuz"
+      end
     end
 
   end

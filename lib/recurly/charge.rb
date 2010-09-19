@@ -6,5 +6,10 @@ module Recurly
     def self.list(account_code)
       find(:all, :params => { :account_code => account_code })
     end
+
+    def self.lookup(account_code, credit_id)
+      Charge.find(credit_id, :params => { :account_code => account_code })
+    end
+
   end
 end
