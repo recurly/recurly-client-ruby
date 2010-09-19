@@ -3,7 +3,7 @@ source :rubygems
 gem "echoe"
 gem "activesupport", ">= 3.0"
 gem "activeresource", ">= 3.0"
-gem "rspec", ">= 2.0.0.beta.20"
+gem "rspec", ">= 2.0.0.beta.22"
 
 # testing help
 gem "webmock", :git => "http://github.com/bblimke/webmock.git"
