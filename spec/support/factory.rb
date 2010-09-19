@@ -13,38 +13,22 @@ module Recurly
     end
 
     # creates an account with associated billing information
-    def self.create_account_with_billing_info(account_code)
+    def self.create_account_with_billing_info(account_code, address_overrides = {}, credit_card_overrides = {})
       account = Factory.create_account(account_code)
-      billing_info = build_billing_info(account)
+
+      # create billing info
+      billing_info = BillingInfo.new(billing_attributes(address_overrides, credit_card_overrides))
+      billing_info.account_code = account_code
+      billing_info.first_name = account.first_name unless billing_info.respond_to?(:first_name)
+      billing_info.last_name = account.last_name unless billing_info.respond_to?(:last_name)
       billing_info.save!
+
+      # return account
       account
     end
 
-    # Creates a subscription for an account
-    def self.create_subscription(account, plan, subscription_attrs={})
-      if plan.is_a?(Symbol)
-        plan = self.send("#{plan}_plan")
-      end
-
-      # default to paid plan if none specified
-      plan ||= paid_plan
-
-      account.billing_info = build_billing_info(account)
-      params = {:account_code => account.account_code,
-                :plan_code => (plan || paid_plan).plan_code,
-                :quantity => 1,
-                :account => account}.merge subscription_attrs
-
-      subscription = Subscription.new(params)
-      subscription.save!
-      return subscription
-    end
-
-    def self.build_billing_info(account)
-      billing_info = BillingInfo.new(
-        :account_code => account.account_code,
-        :first_name => account.first_name,
-        :last_name => account.last_name,
+    def self.billing_attributes(address_overrides = {}, credit_card_overrides = {})
+      attributes = {
         :address1 => '123 Test St',
         :city => 'San Francisco',
         :state => 'CA',
@@ -56,9 +40,48 @@ module Recurly
           :month => Time.now.month,
           :verification_value => '123'
         }
-      )
+      }
 
-      return billing_info
+      # overrides for address
+      address_overrides.each do |key, val|
+        attributes[key] = val
+      end
+
+      # overrides for credit cards
+      credit_card_overrides.each do |key, val|
+        attributes[:credit_card][key] = val
+      end
+
+      attributes
+    end
+
+    # Creates a subscription for an account
+    def self.create_subscription(account, plan, subscription_overrides={})
+      if plan.is_a?(Symbol)
+        plan = self.send("#{plan}_plan")
+      end
+
+      # default to paid plan if none specified
+      plan ||= paid_plan
+
+      account.billing_info = BillingInfo.new(billing_attributes)
+      account.billing_info.account_code = account.account_code
+      account.billing_info.first_name = account.first_name
+      account.billing_info.last_name = account.last_name
+
+      subscription = Subscription.new({
+        :account_code => account.account_code,
+        :plan_code => (plan || paid_plan).plan_code,
+        :quantity => 1,
+        :account => account
+      })
+
+      subscription_overrides.each do |key,val|
+        subscription.send("#{key}=", val)
+      end
+
+      subscription.save!
+      return subscription
     end
 
     def self.create_charge(account_code, attributes = {})
