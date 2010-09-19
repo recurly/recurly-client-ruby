@@ -2,30 +2,33 @@ require 'spec_helper'
 
 module Recurly
   describe Charge do
-    describe "#create" do
+    describe "create a charge" do
       around(:each){|e| VCR.use_cassette('charge/create', &e)}
 
       let(:account) { Factory.create_account_with_billing_info("charge-create") }
 
       before(:each) do
-        @charge = Factory.create_charge(account.account_code)
+        charge = Factory.create_charge account.account_code,
+                                        :amount => 2.50,
+                                        :description => "virtual cow maintence fee"
+
+        @charge = Charge.lookup(account.account_code, charge.id)
       end
 
       it "should save successfully" do
         @charge.created_at.should_not be_nil
       end
 
-      it "should set the correct amount" do
+      it "should set the amount" do
         @charge.amount_in_cents.should == 250
       end
 
-      it "should save to the database" do
-        charge = Charge.find(@charge.id, :params => {:account_code => account.account_code})
-        charge.description.should == @charge.description
+      it "should set the description" do
+        @charge.description.should == "virtual cow maintence fee"
       end
     end
 
-    describe "list all charges" do
+    describe "list charges for an account" do
       around(:each){|e| VCR.use_cassette('charge/list', &e)}
 
       let(:account) { Factory.create_account("charge-list") }
@@ -48,12 +51,19 @@ module Recurly
       let(:account) { Factory.create_account("charge-lookup") }
 
       before(:each) do
-        @orig_charge = Factory.create_charge(account.account_code)
-        @charge = Charge.lookup(account.account_code, @orig_charge.id)
+        charge = Factory.create_charge account.account_code,
+                                        :amount => 13.15,
+                                        :description => "inconvenience fee"
+
+        @charge = Charge.lookup(account.account_code, charge.id)
       end
 
-      it "should return the transaction" do
-        @charge.should == @orig_charge
+      it "should return the correct amount" do
+        @charge.amount_in_cents.should == 1315
+      end
+
+      it "should return the correct description" do
+        @charge.description.should == "inconvenience fee"
       end
     end
   end

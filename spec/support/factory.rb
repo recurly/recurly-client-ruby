@@ -97,11 +97,21 @@ module Recurly
     def self.create_charge(account_code, attributes = {})
       charge = Charge.new({
         :account_code => account_code,
-        :amount => 2.50,
-        :description => "virtual cow maintence fee of $2.50"
+        :amount => 10.00,
+        :description => "charge description"
       }.merge(attributes))
       charge.save!
       charge
+    end
+
+    def self.create_credit(account_code, attributes = {})
+      credit = Credit.new({
+        :account_code => account_code,
+        :amount => 10.00,
+        :description => "free moniez"
+      }.merge(attributes))
+      credit.save!
+      credit
     end
 
     def self.trial_plan
