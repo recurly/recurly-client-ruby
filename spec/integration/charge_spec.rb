@@ -26,24 +26,34 @@ module Recurly
     end
 
     describe "list all charges" do
-      around(:each){|e| VCR.use_cassette('charge/all', &e)}
-
-      let(:account) { Factory.create_account("charge-all") }
-      before(:each) do
-        # TODO
-        # create a few sample transactions
-      end
-
-      it "should return all the transactions"
-    end
-
-    describe "list charges for a specific account" do
       around(:each){|e| VCR.use_cassette('charge/list', &e)}
 
       let(:account) { Factory.create_account("charge-list") }
+      before(:each) do
+        Factory.create_charge(account.account_code)
+        Factory.create_charge(account.account_code)
+        Factory.create_charge(account.account_code)
+
+        @charges = Charge.list(account.account_code)
+      end
+
+      it "should return all the transactions" do
+        @charges.length.should == 3
+      end
+    end
+
+    describe "lookup a charge" do
+      around(:each){|e| VCR.use_cassette('charge/lookup', &e)}
+
+      let(:account) { Factory.create_account("charge-lookup") }
 
       before(:each) do
+        @orig_charge = Factory.create_charge(account.account_code)
+        @charge = Charge.lookup(account.account_code, @orig_charge.id)
+      end
 
+      it "should return the transaction" do
+        @charge.should == @orig_charge
       end
     end
   end
