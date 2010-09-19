@@ -4,7 +4,8 @@ module Recurly
     # creates an account
     def self.create_account(account_code, overrides = {})
       attributes = {
-        :account_code => "#{account_code}",
+        # version is used to avoid duplicate account errors on recurly's api, pass in a different one every time
+        :account_code => account_code,
         :first_name => 'Verena',
         :last_name => 'Test',
         :email => 'verena@test.com',

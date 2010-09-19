@@ -2,11 +2,13 @@ require 'spec_helper'
 
 module Recurly
   describe Subscription do
+    # version accounts based on this current files modification dates
+    let(:timestamp) { File.mtime(__FILE__).to_i }
 
     describe "#create" do
       around(:each){|e| VCR.use_cassette('subscription/create', &e)}
 
-      let(:account){ Factory.create_account("subscription-create") }
+      let(:account){ Factory.create_account("#{timestamp}-subscription-create") }
 
       before(:each) do
         @subscription = Factory.create_subscription(account, :paid)
@@ -32,7 +34,7 @@ module Recurly
     describe "#update" do
       around(:each){|e| VCR.use_cassette('subscription/update', &e)}
 
-      let(:account){ Factory.create_account("subscription-update") }
+      let(:account){ Factory.create_account("#{timestamp}-subscription-update") }
 
       before(:each) do
         Factory.create_subscription(account, :paid)
@@ -49,7 +51,7 @@ module Recurly
     describe "#cancel" do
       around(:each){|e| VCR.use_cassette('subscription/cancel', &e)}
 
-      let(:account){ Factory.create_account("subscription-cancel") }
+      let(:account){ Factory.create_account("#{timestamp}-subscription-cancel") }
       before(:each) do
         Factory.create_subscription(account, :paid)
         @subscription = Subscription.find(account.account_code)
@@ -70,7 +72,7 @@ module Recurly
     describe "#refund" do
       around(:each){|e| VCR.use_cassette('subscription/refund', &e)}
 
-      let(:account){ Factory.create_account("subscription-refund") }
+      let(:account){ Factory.create_account("#{timestamp}-subscription-refund") }
 
       before(:each) do
         Factory.create_subscription(account, :paid)

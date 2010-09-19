@@ -2,12 +2,14 @@ require 'spec_helper'
 
 module Recurly
   describe Account do
+    # version accounts based on this current files modification date
+    let(:timestamp) { File.mtime(__FILE__).to_i }
 
     describe "#create" do
       around(:each){|e| VCR.use_cassette('account/create', &e)}
 
       before(:each) do
-        @account = Factory.create_account('account-create')
+        @account = Factory.create_account("#{timestamp}-account-create")
       end
 
       it "should have a created_at date" do
@@ -18,7 +20,7 @@ module Recurly
     describe "#find" do
       around(:each){|e| VCR.use_cassette('account/find', &e)}
 
-      let(:orig){ Factory.create_account("account-get") }
+      let(:orig){ Factory.create_account("#{timestamp}-account-get") }
 
       before(:each) do
         @account = Account.find(orig.account_code)
@@ -50,7 +52,7 @@ module Recurly
     describe "#update" do
       around(:each){ |e| VCR.use_cassette('account/update', &e) }
 
-      let(:orig){ Factory.create_account("account-update") }
+      let(:orig){ Factory.create_account("#{timestamp}-account-update") }
 
       before(:each) do
         # update account data
@@ -78,7 +80,7 @@ module Recurly
 
     describe "#close_account" do
       around(:each){|e| VCR.use_cassette('account/close', &e)}
-      let(:account){ Factory.create_account("account-close") }
+      let(:account){ Factory.create_account("#{timestamp}-account-close") }
 
       before(:each) do
         account.close_account
@@ -91,7 +93,7 @@ module Recurly
 
     describe "#charges" do
       around(:each){|e| VCR.use_cassette('account/charges', &e)}
-      let(:account){ Factory.create_account("account-charges") }
+      let(:account){ Factory.create_account("#{timestamp}-account-charges") }
 
       before(:each) do
         Factory.create_charge(account.account_code)
@@ -109,7 +111,7 @@ module Recurly
 
     describe "#lookup_charge" do
       around(:each){|e| VCR.use_cassette('account/lookup_charge', &e)}
-      let(:account){ Factory.create_account("account-charges-lookup") }
+      let(:account){ Factory.create_account("#{timestamp}-account-charges-lookup") }
 
       before(:each) do
         charge = Factory.create_charge(account.account_code, :description => "just cuz")

@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module Recurly
   describe BillingInfo do
+    # version accounts based on this current files modification dates
+    let(:timestamp) { File.mtime(__FILE__).to_i }
 
     def verify_billing_info(billing_info, billing_attributes)
       # check the billing data fields
@@ -18,7 +20,7 @@ module Recurly
 
     describe "#create" do
       around(:each){|e| VCR.use_cassette('billing/create', &e)}
-      let(:account){ Factory.create_account('billing-create') }
+      let(:account){ Factory.create_account("#{timestamp}-billing-create") }
 
       before(:each) do
         @billing_attributes = Factory.billing_attributes({
@@ -42,7 +44,7 @@ module Recurly
 
     describe "#find" do
       around(:each){|e| VCR.use_cassette('billing/find', &e)}
-      let(:account){ Factory.create_account_with_billing_info('billing-find') }
+      let(:account){ Factory.create_account_with_billing_info("#{timestamp}-billing-find") }
 
       before(:each) do
         @billing_attributes = Factory.billing_attributes({

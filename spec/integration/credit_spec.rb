@@ -2,10 +2,13 @@ require 'spec_helper'
 
 module Recurly
   describe Credit do
+    # version accounts based on this current files modification dates
+    let(:timestamp) { File.mtime(__FILE__).to_i }
+
     describe "create a credit" do
       around(:each){|e| VCR.use_cassette('credit/create', &e)}
 
-      let(:account){ Factory.create_account('credit-create') }
+      let(:account){ Factory.create_account("#{timestamp}-credit-create") }
 
       before(:each) do
         credit = Factory.create_credit account.account_code,
@@ -26,12 +29,11 @@ module Recurly
       it "should set the description" do
         @credit.description.should == "free moniez"
       end
-
     end
 
     describe "list credits for an account" do
-      around(:each){|e| VCR.use_cassette('credit/list', &e)}
-      let(:account){ Factory.create_account('credit-list') }
+      around(:each){|e| VCR.use_cassette("credit/list", &e)}
+      let(:account){ Factory.create_account("#{timestamp}-credit-list") }
 
       before(:each) do
         Factory.create_credit(account.account_code, :amount => 1, :description => "one")
@@ -54,18 +56,24 @@ module Recurly
     end
 
     describe "lookup a credit" do
-      around(:each){|e| VCR.use_cassette('credit/lookup', &e)}
-      let(:account) { Factory.create_account("credit-lookup") }
+      around(:each){|e| VCR.use_cassette("credit/lookup", &e)}
+      let(:account) { Factory.create_account("#{timestamp}-credit-lookup") }
 
       before(:each) do
-        @orig_credit = Factory.create_credit(account.account_code, :amount => 12.15)
-        @credit = Credit.lookup(account.account_code, @orig_credit.id)
+        credit = Factory.create_credit account.account_code,
+                                        :amount => 13.15,
+                                        :description => "free moniez 4 u"
+        @credit = Credit.lookup(account.account_code, credit.id)
       end
 
-      it "should return the correct credit" do
-        @credit.should == @orig_credit
-        @credit.amount_in_cents.should == -1215
+      it "should return the correct amount" do
+        @credit.amount_in_cents.should == -1315
       end
+
+      it "should return the correct description" do
+        @credit.description.should == "free moniez 4 u"
+      end
+
     end
   end
 end

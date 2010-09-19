@@ -2,10 +2,13 @@ require 'spec_helper'
 
 module Recurly
   describe Transaction do
+    # version accounts based on this current files modification dates
+    let(:timestamp) { File.mtime(__FILE__).to_i }
+
     describe "create new transaction" do
       around(:each){|e| VCR.use_cassette('transaction/create', &e)}
 
-      let(:account) { Factory.create_account_with_billing_info("transaction-create") }
+      let(:account) { Factory.create_account_with_billing_info("#{timestamp}-transaction-create") }
 
       before(:each) do
         @transaction = Transaction.new({
@@ -40,7 +43,7 @@ module Recurly
       around(:each){|e| VCR.use_cassette('transaction/list', &e)}
 
       context "empty" do
-        let(:account) { Factory.create_account("transaction-list-empty") }
+        let(:account) { Factory.create_account("#{timestamp}-transaction-list-empty") }
 
         before(:each) do
           @transactions = Transaction.list(account.account_code)
