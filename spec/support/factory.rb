@@ -2,12 +2,21 @@ module Recurly
   module Factory
 
     # creates an account
-    def self.create_account(account_code)
-      account = Account.new :account_code => "#{account_code}",
-                            :first_name => 'Verena',
-                            :last_name => 'Test',
-                            :email => 'verena@test.com',
-                            :company_name => 'Recurly Ruby Gem'
+    def self.create_account(account_code, overrides = {})
+      attributes = {
+        :account_code => "#{account_code}",
+        :first_name => 'Verena',
+        :last_name => 'Test',
+        :email => 'verena@test.com',
+        :company_name => 'Recurly Ruby Gem'
+      }
+
+      # add overrides
+      overrides.each do |key, val|
+        attributes[key] = val
+      end
+
+      account = Account.new(attributes)
       account.save!
       account
     end
@@ -27,6 +36,7 @@ module Recurly
       account
     end
 
+    # returns a hash of billing information
     def self.billing_attributes(address_overrides = {}, credit_card_overrides = {})
       attributes = {
         :address1 => '123 Test St',
@@ -56,30 +66,30 @@ module Recurly
     end
 
     # Creates a subscription for an account
-    def self.create_subscription(account, plan, subscription_overrides={})
-      if plan.is_a?(Symbol)
-        plan = self.send("#{plan}_plan")
-      end
+    def self.create_subscription(account, plan, overrides={})
+      plan = self.send("#{plan}_plan") if plan.is_a?(Symbol)
 
       # default to paid plan if none specified
       plan ||= paid_plan
 
       account.billing_info = BillingInfo.new(billing_attributes)
-      account.billing_info.account_code = account.account_code
+
+      # set account information
       account.billing_info.first_name = account.first_name
       account.billing_info.last_name = account.last_name
 
-      subscription = Subscription.new({
+      attributes = {
         :account_code => account.account_code,
         :plan_code => (plan || paid_plan).plan_code,
         :quantity => 1,
         :account => account
-      })
+      }
 
-      subscription_overrides.each do |key,val|
-        subscription.send("#{key}=", val)
+      overrides.each do |key,val|
+        attributes[key] = val
       end
 
+      subscription = Subscription.new(attributes)
       subscription.save!
       return subscription
     end
