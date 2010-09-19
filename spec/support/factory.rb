@@ -24,10 +24,12 @@ module Recurly
         plan = self.send("#{plan}_plan")
       end
 
-      account.billing_info = build_billing_info(account)
+      # default to paid plan if none specified
+      plan ||= paid_plan
 
+      account.billing_info = build_billing_info(account)
       params = {:account_code => account.account_code,
-                :plan_code => plan || regular_plan,
+                :plan_code => (plan || paid_plan).plan_code,
                 :quantity => 1,
                 :account => account}.merge subscription_attrs
 
@@ -75,10 +77,10 @@ module Recurly
       })
     end
 
-    def self.regular_plan
+    def self.paid_plan
       find_or_create_plan({
-        :plan_code => "regular",
-        :name => "Regular",
+        :plan_code => "paid",
+        :name => "Paid",
 
         # 10 dollars a month
         :unit_amount_in_cents => 1000,

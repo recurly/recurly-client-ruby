@@ -11,7 +11,7 @@ module Recurly
       let(:account){ Factory.create_account("subscription-create") }
 
       before(:each) do
-        @subscription = Factory.create_subscription(account, :trial)
+        @subscription = Factory.create_subscription(account, :paid)
       end
 
       it "should create the subscription successfully" do
@@ -39,7 +39,7 @@ module Recurly
       let(:account){ Factory.create_account("subscription-update") }
 
       before(:each) do
-        Factory.create_subscription(account, :trial)
+        Factory.create_subscription(account, :paid)
         @subscription = Subscription.find(account.account_code)
 
         @subscription.change('now', :quantity => 2)
@@ -57,7 +57,7 @@ module Recurly
 
       let(:account){ Factory.create_account("subscription-cancel") }
       before(:each) do
-        Factory.create_subscription(account, :trial)
+        Factory.create_subscription(account, :paid)
         @subscription = Subscription.find(account.account_code)
 
         # cancel subscription
@@ -81,14 +81,13 @@ module Recurly
       let(:account){ Factory.create_account("subscription-refund") }
 
       before(:each) do
-        Factory.create_subscription(account, :trial)
+        Factory.create_subscription(account, :paid)
         @subscription = Subscription.find(account.account_code)
-
-        @subscription.refund(:full)
       end
 
       it "should remove the subscription entry" do
-        expects {
+        @subscription.refund(:full)
+        expect {
           Subscription.find(account.account_code)
         }.to raise_error(ActiveResource::ResourceNotFound)
       end

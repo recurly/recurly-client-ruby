@@ -19,9 +19,19 @@ module Recurly
 
     describe "#find" do
       it "should return the plan" do
-        plan = Plan.find(Factory.regular_plan.plan_code)
+        plan = Plan.find(Factory.paid_plan.plan_code)
         plan.should_not be_nil
         plan.name.should_not be_nil
+      end
+    end
+
+    describe "#update" do
+      before(:each) do
+
+      end
+
+      it "should update the plan" do
+        pending "not yet implemented"
       end
     end
 
