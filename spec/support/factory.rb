@@ -109,9 +109,7 @@ module Recurly
       attributes = {
         :account => {
           :account_code => account_code
-        },
-        :amount => 10.00,
-        :description => "test account transaction"
+        }
       }
 
       overrides.each do |key, val|
@@ -134,9 +132,7 @@ module Recurly
           :email => 'verena@test.com',
           :company_name => 'Recurly Ruby Gem',
           :billing_info => billing_attributes(address_overrides, credit_card_overrides)
-        },
-        :amount => 10.00,
-        :description => "test full transaction"
+        }
       }
 
       overrides.each do |key, val|

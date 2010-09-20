@@ -46,6 +46,11 @@ module Recurly
       it "should return all the transactions" do
         @charges.length.should == 3
       end
+
+      it "should also be available via Account#charges" do
+        account.charges.should == @charges
+      end
+
     end
 
     describe "lookup a charge" do
@@ -67,6 +72,10 @@ module Recurly
 
       it "should return the correct description" do
         @charge.description.should == "inconvenience fee"
+      end
+
+      it "should also be available via Account#lookup_charge" do
+        account.lookup_charge(@charge.id).should == @charge
       end
     end
   end

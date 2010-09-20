@@ -11,7 +11,9 @@ module Recurly
         let(:account_code) { "transaction-create-with-accout-#{timestamp}" }
 
         before(:each) do
-          @transaction = Factory.create_full_transaction(account_code)
+          @transaction = Factory.create_full_transaction account_code,
+                                                          :amount_in_cents => 700,
+                                                          :description => "setup fee of 7 dollarz"
         end
 
         it "should save successfully" do
@@ -26,8 +28,8 @@ module Recurly
 
         before(:each) do
           @transaction = Factory.create_transaction account.account_code,
-                                                    :amount => 7.00,
-                                                    :description => "test transaction for $7"
+                                                     :amount_in_cents => 700,
+                                                     :description => "test transaction for $7"
         end
 
         it "should save successfully" do
@@ -37,7 +39,7 @@ module Recurly
       end
     end
 
-    describe "list all transactions" do
+    describe "find all transactions" do
       around(:each){|e| VCR.use_cassette("transaction/all/#{timestamp}", &e)}
 
       before(:each) do
@@ -49,11 +51,10 @@ module Recurly
       end
     end
 
-    describe "list all transactions for an account" do
-
+    describe "list account transactions" do
       context "empty transactions" do
         around(:each){|e| VCR.use_cassette("transaction/list-empty/#{timestamp}", &e)}
-        let(:account) { Factory.create_account("transaction-list-empty-#{timestamp}") }
+        let(:account) { Factory.create_account_with_billing_info("transaction-list-empty-#{timestamp}") }
 
         before(:each) do
           @transactions = Transaction.list(account.account_code)
@@ -66,20 +67,50 @@ module Recurly
 
       context "with transactions" do
         around(:each){|e| VCR.use_cassette("transaction/list-filled/#{timestamp}", &e)}
-        let(:account) { Factory.create_account("transaction-list-filled-#{timestamp}") }
+        let(:account) { Factory.create_account_with_billing_info("transaction-list-filled-#{timestamp}") }
 
         before(:each) do
-          Factory.create_transaction account.account_code, :amount => 1.00, :description => "one"
-          Factory.create_transaction account.account_code, :amount => 2.00, :description => "two"
-          Factory.create_transaction account.account_code, :amount => 3.00, :description => "three"
+          Factory.create_transaction account.account_code, :amount_in_cents => 100, :description => "one"
+          Factory.create_transaction account.account_code, :amount_in_cents => 200, :description => "two"
+          Factory.create_transaction account.account_code, :amount_in_cents => 300, :description => "three"
 
-          @transactions = Transaction.list(account.account_code)
+          @successful_transactions = Transaction.list(account.account_code, :success)
         end
 
         it "should return a list of transactions made on the account" do
-          @transactions.length.should == 3
+          @successful_transactions.length.should == 3
         end
+
+        it "should also be available via Account#transactions" do
+          account.transactions(:success).should == @successful_transactions
+        end
+
       end
     end
+
+    describe "lookup account transaction" do
+      around(:each){|e| VCR.use_cassette("transaction/lookup/#{timestamp}", &e)}
+      let(:account) { Factory.create_account_with_billing_info("transaction-lookup-#{timestamp}") }
+
+      before(:each) do
+        t1 = Factory.create_transaction account.account_code, :amount_in_cents => 100, :description => "one"
+        t2 = Factory.create_transaction account.account_code, :amount_in_cents => 200, :description => "two"
+        t3 = Factory.create_transaction account.account_code, :amount_in_cents => 300, :description => "three"
+
+        @transaction1 = Transaction.lookup(account.account_code, t1.id)
+        @transaction2 = Transaction.lookup(account.account_code, t2.id)
+        @transaction3 = Transaction.lookup(account.account_code, t3.id)
+      end
+
+      it "should the transaction details" do
+        @transaction2.amount_in_cents.should == 200
+      end
+
+      it "should also be available via Account#lookup_transaction" do
+        account.lookup_transaction(@transaction3.id).should == @transaction3
+      end
+
+    end
+
   end
 end

@@ -7,8 +7,8 @@ module Recurly
       find(:all, :params => { :account_code => account_code })
     end
 
-    def self.lookup(account_code, credit_id)
-      find(credit_id, :params => { :account_code => account_code })
+    def self.lookup(account_code, id)
+      find(id, :params => { :account_code => account_code })
     end
 
   end

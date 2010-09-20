@@ -53,6 +53,10 @@ module Recurly
       it "descriptions should be correct" do
         @credits.map{|c| c.description}.should == ["three", "two", "one"]
       end
+
+      it "should also be available via Account#credits" do
+        account.credits.should == @credits
+      end
     end
 
     describe "lookup a credit" do
@@ -72,6 +76,10 @@ module Recurly
 
       it "should return the correct description" do
         @credit.description.should == "free moniez 4 u"
+      end
+
+      it "should also be available via Account#lookup_credit" do
+        account.lookup_credit(@credit.id).should == @credit
       end
 
     end

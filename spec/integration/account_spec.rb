@@ -90,37 +90,5 @@ module Recurly
         Account.find(account.account_code).state.should == "closed"
       end
     end
-
-    describe "#charges" do
-      around(:each){|e| VCR.use_cassette("account/charges/#{timestamp}", &e)}
-      let(:account){ Factory.create_account("account-charges-#{timestamp}") }
-
-      before(:each) do
-        Factory.create_charge(account.account_code)
-        Factory.create_charge(account.account_code)
-        Factory.create_charge(account.account_code)
-
-        @charges = account.charges
-      end
-
-      it "should return the account's charges" do
-        @charges.should be_an_instance_of(Array)
-        @charges.length.should == 3
-      end
-    end
-
-    describe "#lookup_charge" do
-      around(:each){|e| VCR.use_cassette("account/lookup-charge/#{timestamp}", &e)}
-      let(:account){ Factory.create_account("account-lookup-charge-#{timestamp}") }
-
-      before(:each) do
-        charge = Factory.create_charge(account.account_code, :description => "just cuz")
-        @charge = account.lookup_charge(charge.id)
-      end
-
-      it "finds the charge" do
-        @charge.description.should == "just cuz"
-      end
-    end
   end
 end
