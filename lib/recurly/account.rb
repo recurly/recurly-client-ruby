@@ -3,21 +3,25 @@ module Recurly
     self.element_name = "account"
     self.primary_key = :account_code
 
-    LIST_PARAMS = {
-      :active => {:show => "active_subscribers"},
-      :pastdue => {:show => "pastdue_subscribers"},
-      :free => {:show => "non_subscribers"}
+    # Maps the
+    SHOW_PARAMS = {
+      :active => "active_subscribers",
+      :pastdue => "pastdue_subscribers",
+      :free => "non_subscribers"
     }
 
     # Lists all accounts (with optional filter)
+    #
+    # examples:
     #   Account.list(:all) #=> returns all accounts
     #   Account.list(:active) #=> returns active accounts
     #   Account.list(:pastdue) #=> returns pastdue accounts
     #   Account.list(:free) #=> returns the free accounts
+    #
     def self.list(status = :all)
       opts = {}
-      if status != :all
-        opts[:params] = LIST_PARAMS[status]
+      if status && status != :all
+        opts[:params] = {:show => SHOW_PARAMS[status] || status}
       end
       find(:all, opts)
     end
