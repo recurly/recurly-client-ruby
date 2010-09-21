@@ -4,14 +4,18 @@ require 'rake'
 require "bundler"
 Bundler.setup
 
-require 'echoe'
-Echoe.new('recurly', '0.2.0') do |p|
-  p.description    = "A Ruby API wrapper for Recurly. Super Simple Subscription billing."
-  p.url            = "http://github.com/recurly/recurly-client-ruby"
-  p.author         = "Isaac Hall"
-  p.email          = "support@recurly.com"
-  p.ignore_pattern = ["tmp/*", "script/*"]
-  p.development_dependencies = []
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "recurly"
+    gemspec.summary = "Ruby API wrapper for Recurly"
+    gemspec.description = "A Ruby API wrapper for Recurly. Super Simple Subscription billing."
+    gemspec.email = "support@recurly.com"
+    gemspec.homepage = "http://github.com/recurly/recurly-client-ruby"
+    gemspec.authors = ["Isaac Hall", "Jacques Crocker"]
+  end
+rescue LoadError
+  puts "Jeweler not available. Install it with: gem install jeweler"
 end
 
 require 'rspec'
