@@ -5,7 +5,7 @@ require "bundler"
 Bundler.setup
 
 require 'echoe'
-Echoe.new('recurly', '0.1.4') do |p|
+Echoe.new('recurly', '0.2.0') do |p|
   p.description    = "A Ruby API wrapper for Recurly. Super Simple Subscription billing."
   p.url            = "http://github.com/recurly/recurly-client-ruby"
   p.author         = "Isaac Hall"
