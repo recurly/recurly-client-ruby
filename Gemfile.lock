@@ -35,15 +35,8 @@ GEM
     columnize (0.3.1)
     crack (0.1.8)
     diff-lcs (1.1.2)
-    gemcutter (0.6.1)
-    git (1.2.5)
     highline (1.6.1)
     i18n (0.4.1)
-    jeweler (1.4.0)
-      gemcutter (>= 0.1.0)
-      git (>= 1.2.5)
-      rubyforge (>= 2.0.0)
-    json_pure (1.4.6)
     linecache (0.43)
     mime-types (1.16)
     rspec (2.0.0.beta.22)
@@ -61,17 +54,13 @@ GEM
       ruby-debug-base (~> 0.10.3.0)
     ruby-debug-base (0.10.3)
       linecache (>= 0.3)
-    rubyforge (2.0.4)
-      json_pure (>= 1.1.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   activeresource (>= 3.0)
-  activesupport (>= 3.0)
   highline
-  jeweler
   rest-client!
   rspec (>= 2.0.0.beta.22)
   ruby-debug

@@ -6,7 +6,6 @@ VCR.config do |c|
   c.default_cassette_options = { :record => :new_episodes }
 end
 
-require 'vcr/rspec'
 RSpec.configure do |c|
   c.extend VCR::RSpec::Macros
 end

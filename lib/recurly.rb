@@ -3,11 +3,11 @@ require "active_resource"
 
 require 'cgi'
 
+require 'recurly/version'
 require 'recurly/formats/xml_with_pagination'
 
 # configuration
 module Recurly
-  VERSION = '0.1.5'
   class << self
     attr_accessor :username, :password, :site
 
