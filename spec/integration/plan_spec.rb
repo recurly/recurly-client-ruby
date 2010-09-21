@@ -3,7 +3,7 @@ require 'spec_helper'
 module Recurly
   describe Plan do
     describe "list all plans" do
-      around(:each){|e| VCR.use_cassette("plan/all", &e)}
+      use_vcr_cassette "plan/all"
 
       before(:each) do
         @paid = Factory.paid_plan
@@ -26,7 +26,7 @@ module Recurly
     end
 
     describe "find plan" do
-      around(:each){|e| VCR.use_cassette('plan/find', &e)}
+      use_vcr_cassette 'plan/find'
       before(:each) do
         @paid = Factory.paid_plan
         @trial = Factory.trial_plan
@@ -46,7 +46,7 @@ module Recurly
     end
 
     describe "update a plan" do
-      around(:each){|e| VCR.use_cassette('plan/update', &e)}
+      use_vcr_cassette 'plan/update'
 
       # grabs a fresh test_plan
       def test_plan

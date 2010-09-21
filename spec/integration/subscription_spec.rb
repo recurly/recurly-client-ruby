@@ -3,10 +3,10 @@ require 'spec_helper'
 module Recurly
   describe Subscription do
     # version accounts based on this current files modification dates
-    let(:timestamp) { File.mtime(__FILE__).to_i }
+    timestamp = File.mtime(__FILE__).to_i
 
     describe "#create" do
-      around(:each){|e| VCR.use_cassette("subscription/create/#{timestamp}", &e)}
+      use_vcr_cassette "subscription/create/#{timestamp}"
 
       let(:account){ Factory.create_account("subscription-create-#{timestamp}") }
 
@@ -32,7 +32,7 @@ module Recurly
     end
 
     describe "#update" do
-      around(:each){|e| VCR.use_cassette("subscription/update/#{timestamp}", &e)}
+      use_vcr_cassette "subscription/update/#{timestamp}"
 
       let(:account){ Factory.create_account("subscription-update-#{timestamp}") }
 
@@ -49,7 +49,7 @@ module Recurly
     end
 
     describe "#cancel" do
-      around(:each){|e| VCR.use_cassette("subscription/cancel/#{timestamp}", &e)}
+      use_vcr_cassette "subscription/cancel/#{timestamp}"
 
       let(:account){ Factory.create_account("subscription-cancel-#{timestamp}") }
       before(:each) do
@@ -70,7 +70,7 @@ module Recurly
     end
 
     describe "#refund" do
-      around(:each){|e| VCR.use_cassette("subscription/refund/#{timestamp}", &e)}
+      use_vcr_cassette "subscription/refund/#{timestamp}"
 
       let(:account){ Factory.create_account("subscription-refund-#{timestamp}") }
 

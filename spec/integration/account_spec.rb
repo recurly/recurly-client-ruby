@@ -2,11 +2,10 @@ require 'spec_helper'
 
 module Recurly
   describe Account do
-    # version accounts based on this current files modification date
-    let(:timestamp) { File.mtime(__FILE__).to_i }
+    timestamp = File.mtime(__FILE__).to_i
 
     describe "#create" do
-      around(:each){|e| VCR.use_cassette("account/create/#{timestamp}", &e)}
+      use_vcr_cassette "account/create/#{timestamp}"
 
       before(:each) do
         @account = Factory.create_account("account-create-#{timestamp}")
@@ -18,8 +17,7 @@ module Recurly
     end
 
     describe "#find" do
-      around(:each){|e| VCR.use_cassette("account/find/#{timestamp}", &e)}
-
+      use_vcr_cassette "account/find/#{timestamp}"
       let(:orig){ Factory.create_account("account-get-#{timestamp}") }
 
       before(:each) do
@@ -79,7 +77,7 @@ module Recurly
     end
 
     describe "#close_account" do
-      around(:each){|e| VCR.use_cassette("account/close/#{timestamp}", &e)}
+      use_vcr_cassette "account/close/#{timestamp}"
       let(:account){ Factory.create_account("account-close-#{timestamp}") }
 
       before(:each) do

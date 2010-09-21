@@ -3,10 +3,10 @@ require 'spec_helper'
 module Recurly
   describe Credit do
     # version accounts based on this current files modification dates
-    let(:timestamp) { File.mtime(__FILE__).to_i }
+    timestamp = File.mtime(__FILE__).to_i
 
     describe "create a credit" do
-      around(:each){|e| VCR.use_cassette("credit/create/#{timestamp}", &e)}
+      use_vcr_cassette "credit/create/#{timestamp}"
 
       let(:account){ Factory.create_account("credit-create-#{timestamp}") }
 
@@ -32,7 +32,7 @@ module Recurly
     end
 
     describe "list credits for an account" do
-      around(:each){|e| VCR.use_cassette("credit/list/#{timestamp}", &e)}
+      use_vcr_cassette "credit/list/#{timestamp}"
       let(:account){ Factory.create_account("credit-list-#{timestamp}") }
 
       before(:each) do
@@ -60,7 +60,7 @@ module Recurly
     end
 
     describe "lookup a credit" do
-      around(:each){|e| VCR.use_cassette("credit/lookup/#{timestamp}", &e)}
+      use_vcr_cassette "credit/lookup/#{timestamp}"
       let(:account) { Factory.create_account("credit-lookup-#{timestamp}") }
 
       before(:each) do

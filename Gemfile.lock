@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: http://github.com/myronmarston/vcr.git
-  revision: 6d8bfce
+  revision: 30b6242a1b0e97a21c27808e416e9b9e8215f994
   specs:
     vcr (1.1.2)
 

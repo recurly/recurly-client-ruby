@@ -3,11 +3,11 @@ require 'spec_helper'
 module Recurly
   describe Transaction do
     # version accounts based on this current files modification dates
-    let(:timestamp) { File.mtime(__FILE__).to_i }
+    timestamp = File.mtime(__FILE__).to_i
 
     describe "create new transaction" do
       context "on an new account" do
-        around(:each){|e| VCR.use_cassette("transaction/create-no-account/#{timestamp}", &e)}
+        use_vcr_cassette "transaction/create-no-account/#{timestamp}"
         let(:account_code) { "transaction-create-with-accout-#{timestamp}" }
 
         before(:each) do
@@ -23,7 +23,7 @@ module Recurly
       end
 
       context "with an existing account" do
-        around(:each){|e| VCR.use_cassette("transaction/create-with-account/#{timestamp}", &e)}
+        use_vcr_cassette "transaction/create-with-account/#{timestamp}"
         let(:account) { Factory.create_account_with_billing_info("transaction-create-with-account-#{timestamp}") }
 
         before(:each) do
@@ -40,7 +40,7 @@ module Recurly
     end
 
     describe "find all transactions" do
-      around(:each){|e| VCR.use_cassette("transaction/all/#{timestamp}", &e)}
+      use_vcr_cassette "transaction/all/#{timestamp}"
 
       before(:each) do
         @transactions = Transaction.all
@@ -53,7 +53,7 @@ module Recurly
 
     describe "list account transactions" do
       context "empty transactions" do
-        around(:each){|e| VCR.use_cassette("transaction/list-empty/#{timestamp}", &e)}
+        use_vcr_cassette "transaction/list-empty/#{timestamp}"
         let(:account) { Factory.create_account_with_billing_info("transaction-list-empty-#{timestamp}") }
 
         before(:each) do
@@ -66,7 +66,7 @@ module Recurly
       end
 
       context "with transactions" do
-        around(:each){|e| VCR.use_cassette("transaction/list-filled/#{timestamp}", &e)}
+        use_vcr_cassette "transaction/list-filled/#{timestamp}"
         let(:account) { Factory.create_account_with_billing_info("transaction-list-filled-#{timestamp}") }
 
         before(:each) do
@@ -89,7 +89,7 @@ module Recurly
     end
 
     describe "lookup account transaction" do
-      around(:each){|e| VCR.use_cassette("transaction/lookup/#{timestamp}", &e)}
+      use_vcr_cassette "transaction/lookup/#{timestamp}"
       let(:account) { Factory.create_account_with_billing_info("transaction-lookup-#{timestamp}") }
 
       before(:each) do

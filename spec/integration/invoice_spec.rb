@@ -3,7 +3,7 @@ require 'spec_helper'
 module Recurly
   describe Invoice do
     # version accounts based on this current files modification dates
-    let(:timestamp) { File.mtime(__FILE__).to_i }
+    timestamp = File.mtime(__FILE__).to_i
 
     def create_sample_charges(account)
       Factory.create_charge(account.account_code, :amount => 10.00)
@@ -12,7 +12,7 @@ module Recurly
 
     describe "creating an invoice" do
       context "with charges" do
-        around(:each){|e| VCR.use_cassette("invoice/create/#{timestamp}", &e)}
+        use_vcr_cassette "invoice/create/#{timestamp}"
 
         let(:account) { Factory.create_account_with_billing_info("invoice-create-#{timestamp}") }
         before(:each) do
@@ -28,7 +28,7 @@ module Recurly
     end
 
     describe "listing invoices" do
-      around(:each){|e| VCR.use_cassette("invoice/list/#{timestamp}", &e)}
+      use_vcr_cassette "invoice/list/#{timestamp}"
 
       let(:account) { Factory.create_account_with_billing_info("invoice-list-#{timestamp}") }
       before(:each) do
@@ -52,7 +52,7 @@ module Recurly
     end
 
     describe "looking up an invoice" do
-      around(:each){|e| VCR.use_cassette("invoice/lookup/#{timestamp}", &e)}
+      use_vcr_cassette "invoice/lookup/#{timestamp}"
 
       let(:account) { Factory.create_account_with_billing_info("invoice-lookup-#{timestamp}") }
       before(:each) do
