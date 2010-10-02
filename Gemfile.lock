@@ -31,10 +31,12 @@ GEM
       activesupport (= 3.0.0)
     activesupport (3.0.0)
     addressable (2.2.1)
+    autotest (4.4.1)
     builder (2.1.2)
     columnize (0.3.1)
     crack (0.1.8)
     diff-lcs (1.1.2)
+    growl-glue (1.0.7)
     highline (1.6.1)
     i18n (0.4.1)
     linecache (0.43)
@@ -60,6 +62,8 @@ PLATFORMS
 
 DEPENDENCIES
   activeresource (>= 3.0)
+  autotest
+  growl-glue
   highline
   rest-client!
   rspec (>= 2.0.0.beta.22)
