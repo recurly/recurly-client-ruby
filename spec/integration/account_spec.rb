@@ -48,7 +48,7 @@ module Recurly
     end
 
     describe "#update" do
-      around(:each){ |e| VCR.use_cassette("account/update/#{timestamp}", &e) }
+      use_vcr_cassette "account/update/#{timestamp}"
 
       let(:orig){ Factory.create_account("account-update-#{timestamp}") }
 
@@ -75,6 +75,28 @@ module Recurly
         @account.company_name.should == "Recurly Ruby Gem -- Update"
       end
     end
+
+    # EDITING ACCOUNT_CODE NOT YET SUPPORTED ON RECURLY API
+    # describe "#update with account_code" do
+    #   use_vcr_cassette "account/update2/#{timestamp}"
+    #
+    #   let(:orig){ Factory.create_account("account-update2-#{timestamp}") }
+    #
+    #   let(:new_account_code){ "#{orig.account_code}-edited" }
+    #
+    #   before(:each) do
+    #     # update account data
+    #     @account = Account.find(orig.account_code)
+    #     @account.account_code = new_account_code
+    #     @account.save!
+    #
+    #     @account = Account.find(new_account_code)
+    #   end
+    #
+    #   it "should update the account code" do
+    #     @account.account_code.should == new_account_code
+    #   end
+    # end
 
     describe "#close_account" do
       use_vcr_cassette "account/close/#{timestamp}"
