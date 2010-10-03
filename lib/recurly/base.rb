@@ -17,6 +17,10 @@ module Recurly
       false
     end
 
+    def valid?
+      self.errors.blank?
+    end
+
     # See http://github.com/rails/rails/commit/1488c6cc9e6237ce794e3c4a6201627b9fd4ca09
     # Errors in Rails 2.3.4 are not parsed correctly.
     def save

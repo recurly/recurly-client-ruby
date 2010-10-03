@@ -4,15 +4,70 @@ module Recurly
   describe Account do
     timestamp = File.mtime(__FILE__).to_i
 
-    describe "#create" do
-      use_vcr_cassette "account/create/#{timestamp}"
-
+    describe "#new" do
+      let(:attributes) { Factory.account_attributes("account-new-#{timestamp}") }
       before(:each) do
-        @account = Factory.create_account("account-create-#{timestamp}")
+        @account = Account.new(attributes)
       end
 
-      it "should have a created_at date" do
-        @account.created_at.should_not be_nil
+      it "should be valid" do
+        @account.should be_valid
+      end
+
+      it "should set the attributes correctly" do
+        attributes.each do |key, val|
+          @account.attributes[key].should == val
+        end
+      end
+    end
+
+    describe "#create" do
+      context "with valid data" do
+        use_vcr_cassette "account/create/#{timestamp}"
+
+        let(:attributes) { Factory.account_attributes("account-create-#{timestamp}") }
+        before(:each) do
+          @account = Account.create(attributes)
+        end
+
+        it "should be valid" do
+          @account.should be_valid
+        end
+
+        it "should set a created_at date from the server" do
+          @account.created_at.should_not be_nil
+        end
+
+        it "should set a hosted_login_token from the server" do
+          @account.hosted_login_token.should_not be_nil
+        end
+
+        it "should set the balance to 0" do
+          @account.balance_in_cents.should == 0
+        end
+
+        it "should set the account status to active" do
+          @account.state.should == "active"
+          @account.closed?.should be_false
+        end
+      end
+
+      context "with blank data" do
+        use_vcr_cassette "account/create-invalid/#{timestamp}"
+
+        before(:each) do
+          @account = Account.create({:account_code => ""})
+        end
+
+        it "should not be valid" do
+          @account.should_not be_valid
+        end
+
+        it "should require setting an account code" do
+          @account.errors[:account_code].should include("can't be blank")
+          @account.errors[:account_code].should include("is invalid")
+        end
+
       end
     end
 
@@ -45,7 +100,23 @@ module Recurly
           @account.first_name.should == orig.first_name
         end
       end
+
+      context "no account found" do
+        it "should return a 404 exception"
+      end
     end
+
+
+    # spec list queries for finding acocunts
+    describe "#list" do
+
+      # TODO: spec out all the queries combinations to Account.list
+      it "should return a list of accounts with matching criteria"
+
+      # TODO: add pagination support to Account.list resultsets
+      it "should allow pagination of account records"
+    end
+
 
     describe "#update" do
       use_vcr_cassette "account/update/#{timestamp}"
@@ -104,10 +175,14 @@ module Recurly
 
       before(:each) do
         account.close_account
+
+        # load a fresh account
+        @account = Account.find(account.account_code)
       end
 
       it "should mark the account as closed" do
-        Account.find(account.account_code).state.should == "closed"
+        @account.state.should == "closed"
+        @account.closed?.should be_true
       end
     end
   end
