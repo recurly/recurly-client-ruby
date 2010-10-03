@@ -22,7 +22,7 @@ module Recurly
     end
 
     describe "#create" do
-      context "with valid data" do
+      context "with full data" do
         use_vcr_cassette "account/create/#{timestamp}"
 
         let(:attributes) { Factory.account_attributes("account-create-#{timestamp}") }
@@ -52,20 +52,19 @@ module Recurly
         end
       end
 
-      context "with blank data" do
-        use_vcr_cassette "account/create-invalid/#{timestamp}"
+      context "with just account-code" do
+        use_vcr_cassette "account/create-min/#{timestamp}"
 
         before(:each) do
-          @account = Account.create({:account_code => ""})
+          @account = Account.create(:account_code => "d00d")
         end
 
-        it "should not be valid" do
-          @account.should_not be_valid
+        it "should be valid" do
+          @account.should be_valid
         end
 
-        it "should require setting an account code" do
-          @account.errors[:account_code].should include("can't be blank")
-          @account.errors[:account_code].should include("is invalid")
+        it "should set a created_at date from the server" do
+          @account.created_at.should_not be_nil
         end
 
       end
@@ -101,8 +100,12 @@ module Recurly
         end
       end
 
-      context "no account found" do
-        it "should return a 404 exception"
+      context "looking for a non-existant account" do
+        it "should raise an ActiveResource::ResourceNotFound exception" do
+          expect {
+            Account.find('account-that-doesnt-exist')
+          }.to raise_error ActiveResource::ResourceNotFound
+        end
       end
     end
 
@@ -185,5 +188,43 @@ module Recurly
         @account.closed?.should be_true
       end
     end
+
+    describe "validations" do
+      context "with blank data" do
+        use_vcr_cassette "account/create-blank/#{timestamp}"
+
+        before(:each) do
+          @account = Account.create({:account_code => ""})
+        end
+
+        it "should not be valid" do
+          @account.should_not be_valid
+        end
+
+        it "should require setting an account code" do
+          @account.errors[:account_code].should include("can't be blank")
+          @account.errors[:account_code].should include("is invalid")
+        end
+      end
+
+      context "with duplicate data" do
+        use_vcr_cassette "account/create-duplicate/#{timestamp}"
+
+        before(:each) do
+          Account.create({:account_code => "account-exists"})
+          @account = Account.create({:account_code => "account-exists"})
+        end
+
+        it "should not be valid" do
+          @account.should_not be_valid
+        end
+
+        it "should require setting an account code" do
+          puts @account.errors.inspect
+          @account.errors[:account_code].should include("has already been taken")
+        end
+      end
+    end
+
   end
 end
