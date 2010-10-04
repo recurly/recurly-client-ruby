@@ -6,7 +6,7 @@ require 'recurly/formats/xml_with_pagination'
 # configuration
 module Recurly
 
-  autoload :Base,           'recurly/base'
+  autoload :RecurlyBase,    'recurly/base'
   autoload :Account,        'recurly/account'
   autoload :BillingInfo,    'recurly/billing_info'
   autoload :Charge,         'recurly/charge'
