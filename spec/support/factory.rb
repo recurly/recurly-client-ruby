@@ -1,8 +1,15 @@
 module Recurly
   module Factory
 
+
     # creates an account
     def self.create_account(account_code, overrides = {})
+      account = Account.new(account_attributes(account_code, overrides))
+      account.save!
+      account
+    end
+
+    def self.account_attributes(account_code, overrides = {})
       attributes = {
         # version is used to avoid duplicate account errors on recurly's api, pass in a different one every time
         :account_code => account_code,
@@ -17,9 +24,7 @@ module Recurly
         attributes[key] = val
       end
 
-      account = Account.new(attributes)
-      account.save!
-      account
+      attributes
     end
 
     # creates an account with associated billing information

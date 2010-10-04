@@ -53,8 +53,8 @@ module Recurly
         Plan.find("test")
       end
 
+      # setup test plan
       before(:each) do
-
         begin
           @test_plan = test_plan
         rescue ActiveResource::ResourceNotFound => e
@@ -69,13 +69,12 @@ module Recurly
           }).save!
           @test_plan = test_plan
         end
-
-        # double the price
-        @test_plan.unit_amount_in_cents = 200
-        @test_plan.save!
       end
 
       it "should update the plan" do
+        @test_plan.unit_amount_in_cents = 200
+        @test_plan.save!
+
         @test_plan = test_plan
         @test_plan.unit_amount_in_cents.should == 200
       end

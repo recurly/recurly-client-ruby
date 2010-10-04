@@ -3,6 +3,16 @@ module Recurly
     self.element_name = "account"
     self.primary_key = :account_code
 
+    attr_accessor :account_code_was
+    def account_code=(new_account_code)
+      self.account_code_was = self.account_code
+      super
+    end
+
+    def to_param
+      account_code_was || account_code
+    end
+
     # Maps the
     SHOW_PARAMS = {
       :active => "active_subscribers",

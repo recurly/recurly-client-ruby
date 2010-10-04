@@ -3,6 +3,9 @@ source :rubygems
 gem "activeresource", ">= 3.0"
 gem "rspec", ">= 2.0.0.beta.22"
 
+gem "autotest"
+gem "growl-glue"
+
 # testing help
 gem "webmock", :git => "http://github.com/bblimke/webmock.git"
 gem "vcr", :git => "http://github.com/myronmarston/vcr.git"
