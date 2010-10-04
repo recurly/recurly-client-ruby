@@ -1,13 +1,21 @@
-require 'rubygems'
-require "active_resource"
-
+require 'active_resource'
 require 'cgi'
-
 require 'recurly/version'
 require 'recurly/formats/xml_with_pagination'
 
 # configuration
 module Recurly
+
+  autoload :Base,           'recurly/base'
+  autoload :Account,        'recurly/account'
+  autoload :BillingInfo,    'recurly/billing_info'
+  autoload :Charge,         'recurly/charge'
+  autoload :Credit,         'recurly/credit'
+  autoload :Invoice,        'recurly/invoice'
+  autoload :Plan,           'recurly/plan'
+  autoload :Subscription,   'recurly/subscription'
+  autoload :Transaction,    'recurly/transaction'
+
   class << self
     attr_accessor :username, :password, :site
 
@@ -22,13 +30,3 @@ module Recurly
     end
   end
 end
-
-require 'recurly/base'
-require 'recurly/account'
-require 'recurly/billing_info'
-require 'recurly/charge'
-require 'recurly/credit'
-require 'recurly/invoice'
-require 'recurly/plan'
-require 'recurly/subscription'
-require 'recurly/transaction'

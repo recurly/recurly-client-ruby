@@ -16,15 +16,12 @@ Installation
 
 This library can be installed as a gem or a plugin. Your choice.
 
-**Rails3 Bundle Integration:**
+**Rails3 Stable Version:**
 
-    gem "recurly", :git => "http://github.com/railsjedi/recurly-client-ruby.git"
+    gem 'recurly'
 
-
-**Plugin Installation (not recommended):**
-
-    script/plugin install http://github.com/railsjedi/recurly-client-ruby.git
-
+**Bleeding Edge Version:**
+    gem 'recurly', :git => "http://github.com/recurly/recurly-client-ruby.git"
 
 Authentication
 --------------
@@ -92,8 +89,6 @@ You can delete the spec/vcr folder at any time, and it will regenerate the reque
 This is also automated via a rake task. It will delete the spec/vcr files, and clear the data for you on the server (using your spec_settings.yml authentication info).
 
     rake recurly:clear
-
-
 
 API Documentation
 -----------------
