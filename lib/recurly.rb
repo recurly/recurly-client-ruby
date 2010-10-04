@@ -32,5 +32,3 @@ require 'recurly/invoice'
 require 'recurly/plan'
 require 'recurly/subscription'
 require 'recurly/transaction'
-
-require 'recurly/railtie' if defined?(Rails)
