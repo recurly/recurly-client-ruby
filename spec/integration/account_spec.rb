@@ -112,12 +112,35 @@ module Recurly
 
     # spec list queries for finding acocunts
     describe "#list" do
+      use_vcr_cassette "account/list/#{timestamp}"
+
+      before(:each) do
+
+        # clear out existing accounts
+        while account = Account.first
+          account.destroy
+        end
+
+        # create new ones
+        @accounts = []
+        15.times do |i|
+          @accounts << Factory.create_account("account-list-num-#{i}-#{timestamp}")
+        end
+
+      end
 
       # TODO: spec out all the queries combinations to Account.list
-      it "should return a list of accounts with matching criteria"
+      it "should return a list of accounts with matching criteria" do
 
-      # TODO: add pagination support to Account.list resultsets
-      it "should allow pagination of account records"
+      end
+
+      context "with pagination" do
+        # TODO: add pagination support to Account.list resultsets
+        it "should allow pagination of account records" do
+          Account.list(:all).total_entries.should >= 15
+        end
+      end
+
     end
 
 
