@@ -62,5 +62,20 @@ module Recurly
       end
     end
 
+    describe "#destroy" do
+      use_vcr_cassette "billing/destroy/#{timestamp}"
+      let(:account){ Factory.create_account_with_billing_info("billing-destroy-#{timestamp}") }
+
+      before(:each) do
+        @billing_info = BillingInfo.find(account.account_code)
+      end
+
+      it "should allow destroying the billing info for an account" do
+        @billing_info.destroy
+        fresh = BillingInfo.find(account.account_code)
+
+        # TODO: check that the account's billing data was deleted
+      end
+    end
   end
 end
