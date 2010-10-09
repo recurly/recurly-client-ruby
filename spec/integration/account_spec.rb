@@ -56,7 +56,7 @@ module Recurly
         use_vcr_cassette "account/create-min/#{timestamp}"
 
         before(:each) do
-          @account = Account.create(:account_code => "d00d")
+          @account = Account.create(:account_code => "d00d-#{timestamp}")
         end
 
         it "should be valid" do
@@ -102,6 +102,8 @@ module Recurly
 
       context "looking for a non-existant account" do
         it "should raise an ActiveResource::ResourceNotFound exception" do
+          pending "This isn't supposed to throw 500 errors..."
+
           expect {
             Account.find('account-that-doesnt-exist')
           }.to raise_error ActiveResource::ResourceNotFound
@@ -116,29 +118,23 @@ module Recurly
 
       before(:each) do
 
-        # clear out existing accounts
-        while account = Account.first
-          account.destroy
-        end
-
         # create new ones
         @accounts = []
-        15.times do |i|
+        8.times do |i|
           @accounts << Factory.create_account("account-list-num-#{i}-#{timestamp}")
         end
 
-      end
-
-      # TODO: spec out all the queries combinations to Account.list
-      it "should return a list of accounts with matching criteria" do
-
-      end
-
-      context "with pagination" do
-        # TODO: add pagination support to Account.list resultsets
-        it "should allow pagination of account records" do
-          Account.list(:all).total_entries.should >= 15
+        # mark the 4 of them as paid
+        @subscriptions = []
+        @accounts[0, 4].each do |account|
+          @subscriptions << Factory.create_subscription(account, :paid)
         end
+      end
+
+      it "should return a list of accounts with matching criteria" do
+        Account.list(:all).total_entries.should >= 8
+        Account.list(:paid).total_entries.should >= 4
+        Account.list(:free).total_entries.should >= 4
       end
 
     end
@@ -243,7 +239,6 @@ module Recurly
         end
 
         it "should require setting an account code" do
-          puts @account.errors.inspect
           @account.errors[:account_code].should include("has already been taken")
         end
       end
