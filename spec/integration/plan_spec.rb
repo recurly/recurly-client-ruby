@@ -2,6 +2,9 @@ require 'spec_helper'
 
 module Recurly
   describe Plan do
+    # version accounts based on this current files modification dates
+    timestamp = File.mtime(__FILE__).to_i
+
     describe "list all plans" do
       use_vcr_cassette "plan/all"
 
@@ -78,6 +81,34 @@ module Recurly
         @test_plan = test_plan
         @test_plan.unit_amount_in_cents.should == 200
       end
+    end
+
+    describe "delete a plan" do
+      use_vcr_cassette "plan/delete/#{timestamp}"
+
+      let(:plan) do
+        plan = Plan.new({
+          :plan_code => "test_#{timestamp}",
+          :name => "Test Plan #{timestamp}",
+          :unit_amount_in_cents => 100,
+          :plan_interval_length => 1,
+          :plan_interval_unit => "months",
+          :trial_interval_length => 0,
+          :trial_interval_unit => "months"
+        })
+        plan.save!
+        plan
+      end
+
+      it "should delete the plan" do
+        @plan = Plan.find(plan.plan_code)
+        @plan.destroy
+
+        expect {
+          Plan.find(@plan.plan_code)
+        }.to raise_error(ActiveResource::ResourceNotFound)
+      end
+
     end
 
   end
