@@ -5,7 +5,7 @@ module Recurly
     # version accounts based on this current files modification dates
     timestamp = File.mtime(__FILE__).to_i
 
-    describe "create a credit" do
+    describe "credit an account" do
       use_vcr_cassette "credit/create/#{timestamp}"
 
       let(:account){ Factory.create_account("credit-create-#{timestamp}") }
@@ -31,7 +31,7 @@ module Recurly
       end
     end
 
-    describe "list credits for an account" do
+    describe "list an account's credits" do
       use_vcr_cassette "credit/list/#{timestamp}"
       let(:account){ Factory.create_account("credit-list-#{timestamp}") }
 
