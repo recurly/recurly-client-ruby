@@ -25,6 +25,18 @@ module Recurly
           @invoice.line_items.length.should == 2
         end
       end
+
+      context "without charges" do
+        use_vcr_cassette "invoice/create-no-charges/#{timestamp}"
+
+        let(:account) { Factory.create_account_with_billing_info("invoice-create-no-charges-#{timestamp}") }
+
+        it "should not be created since no charges were posted" do
+          pending "Server should not throw a 500 error here"
+          @invoice = Invoice.create(:account_code => account.account_code)
+          @invoice.should_not be_valid
+        end
+      end
     end
 
     describe "listing invoices" do
