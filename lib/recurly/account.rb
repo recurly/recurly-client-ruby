@@ -59,7 +59,7 @@ module Recurly
     end
 
     def transactions(status)
-      Transaction.list(account_code, status)
+      Transaction.list_for_account(account_code, status)
     end
     memoize :transactions
 
