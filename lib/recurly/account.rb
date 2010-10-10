@@ -40,8 +40,8 @@ module Recurly
       destroy
     end
 
-    def charges
-      Charge.list(account_code)
+    def charges(status = :all)
+      Charge.list(account_code, status)
     end
     memoize :charges
 

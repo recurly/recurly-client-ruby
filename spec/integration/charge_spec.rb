@@ -5,7 +5,78 @@ module Recurly
     # version accounts based on this current files modification dates
     timestamp = File.mtime(__FILE__).to_i
 
-    describe "create a charge" do
+    describe "list an account's charges" do
+
+      context "all charges" do
+        use_vcr_cassette "charge/list-all/#{timestamp}"
+
+        let(:account) { Factory.create_account("charge-list-all-#{timestamp}") }
+        before(:each) do
+          Factory.create_charge(account.account_code)
+          Factory.create_charge(account.account_code)
+          Factory.create_charge(account.account_code)
+
+          @charges = Charge.list(account.account_code)
+        end
+
+        it "should return all the charges" do
+          @charges.length.should == 3
+        end
+
+        it "should also be available via Account#charges" do
+          account.charges.should == @charges
+        end
+      end
+
+      context "pending charges" do
+        use_vcr_cassette "charge/list-pending/#{timestamp}"
+
+        let(:account) { Factory.create_account("charge-list-pending-#{timestamp}") }
+        before(:each) do
+          Factory.create_charge(account.account_code)
+          Factory.create_charge(account.account_code)
+          Factory.create_charge(account.account_code)
+
+          @charges = Charge.list(account.account_code, :pending)
+        end
+
+        it "should return all the charges" do
+          @charges.length.should == 3
+        end
+
+        it "should also be available via Account#charges" do
+          account.charges(:pending).should == @charges
+        end
+      end
+
+      context "invoiced charges" do
+        use_vcr_cassette "charge/list-invoiced/#{timestamp}"
+
+        let(:account) { Factory.create_account("charge-list-invoiced-#{timestamp}") }
+        before(:each) do
+          Factory.create_charge(account.account_code)
+          Factory.create_charge(account.account_code)
+          Factory.create_charge(account.account_code)
+
+          Invoice.create(:account_code => account.account_code)
+
+          Factory.create_charge(account.account_code)
+
+          @charges = Charge.list(account.account_code, :invoiced)
+        end
+
+        it "should return all the charges that were invoiced" do
+          @charges.length.should == 3
+        end
+
+        it "should also be available via Account#charges" do
+          account.charges(:invoiced).should == @charges
+        end
+      end
+
+    end
+
+    describe "charge an account" do
       use_vcr_cassette "charge/create/#{timestamp}"
 
       let(:account) { Factory.create_account_with_billing_info("charge-create-#{timestamp}") }
@@ -29,28 +100,6 @@ module Recurly
       it "should set the description" do
         @charge.description.should == "virtual cow maintence fee"
       end
-    end
-
-    describe "list charges for an account" do
-      use_vcr_cassette "charge/list/#{timestamp}"
-
-      let(:account) { Factory.create_account("charge-list-#{timestamp}") }
-      before(:each) do
-        Factory.create_charge(account.account_code)
-        Factory.create_charge(account.account_code)
-        Factory.create_charge(account.account_code)
-
-        @charges = Charge.list(account.account_code)
-      end
-
-      it "should return all the transactions" do
-        @charges.length.should == 3
-      end
-
-      it "should also be available via Account#charges" do
-        account.charges.should == @charges
-      end
-
     end
 
     describe "lookup a charge" do
