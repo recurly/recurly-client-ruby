@@ -5,7 +5,23 @@ module Recurly
     # version accounts based on this current files modification dates
     timestamp = File.mtime(__FILE__).to_i
 
-    describe "#create" do
+    describe "look up a subscription" do
+      use_vcr_cassette "subscription/find/#{timestamp}"
+
+      let(:account){ Factory.create_account("subscription-find-#{timestamp}") }
+
+      before(:each) do
+        Factory.create_subscription(account, :paid)
+      end
+
+      it "should return the subscription" do
+        subscription = Subscription.find(account.account_code)
+        subscription.state.should == "active"
+        subscription.plan.plan_code.should == "paid"
+      end
+    end
+
+    describe "create a new subscription" do
       use_vcr_cassette "subscription/create/#{timestamp}"
 
       let(:account){ Factory.create_account("subscription-create-#{timestamp}") }
@@ -29,9 +45,10 @@ module Recurly
       it "should be started" do
         @subscription.current_period_started_at.should_not be_nil
       end
+
     end
 
-    describe "#update" do
+    describe "updates and downgrades" do
       use_vcr_cassette "subscription/update/#{timestamp}"
 
       let(:account){ Factory.create_account("subscription-update-#{timestamp}") }
@@ -48,7 +65,7 @@ module Recurly
       end
     end
 
-    describe "#cancel" do
+    describe "cancel a subscription" do
       use_vcr_cassette "subscription/cancel/#{timestamp}"
 
       let(:account){ Factory.create_account("subscription-cancel-#{timestamp}") }
@@ -69,7 +86,7 @@ module Recurly
       end
     end
 
-    describe "#refund" do
+    describe "refund a subscription" do
       use_vcr_cassette "subscription/refund/#{timestamp}"
 
       let(:account){ Factory.create_account("subscription-refund-#{timestamp}") }
