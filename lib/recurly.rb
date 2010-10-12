@@ -2,6 +2,7 @@ require 'active_resource'
 require 'cgi'
 require 'recurly/version'
 require 'recurly/formats/xml_with_pagination'
+require 'recurly/rails/railtie' if defined?(::Rails::Railtie)
 
 # configuration
 module Recurly

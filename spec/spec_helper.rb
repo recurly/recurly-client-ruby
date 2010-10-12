@@ -10,11 +10,11 @@ require File.dirname(__FILE__) + '/../lib/recurly'
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 # loads the settings from yml
-Recurly::SpecSettings.reload!
+Recurly::ConfigFile.reload!
 
 # setup recurly authentication details for testing
 Recurly.configure do |c|
-  c.username = Recurly::SpecSettings["username"]
-  c.password = Recurly::SpecSettings["password"]
-  c.site = Recurly::SpecSettings["site"]
+  c.username = Recurly::ConfigFile["username"]
+  c.password = Recurly::ConfigFile["password"]
+  c.site = Recurly::ConfigFile["site"]
 end

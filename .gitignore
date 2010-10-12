@@ -7,3 +7,4 @@ spec/vcr
 .bundle/config
 spec/spec_settings.yml
 *.gem
+config/recurly.yml
