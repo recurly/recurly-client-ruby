@@ -9,6 +9,8 @@ require File.dirname(__FILE__) + '/../lib/recurly'
 # in ./support/ and its subdirectories.
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
+require File.dirname(__FILE__) + '/../lib/recurly/rails/config_file.rb'
+
 # loads the settings from yml
 Recurly::ConfigFile.reload!
 

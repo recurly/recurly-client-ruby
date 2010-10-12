@@ -40,3 +40,17 @@ require 'fileutils'
 
 $LOAD_PATH.unshift "./lib"
 load 'recurly/rails/recurly.rake'
+
+namespace :recurly do
+  task :clear => :clear_test_data do
+
+    # now lets move spec/vcr
+    vcr_folder = "#{File.dirname(__FILE__)}/spec/vcr"
+    FileUtils.mkdir_p(vcr_folder)
+    FileUtils.rm_r vcr_folder
+
+    puts "VCR Requests cleared from: #{vcr_folder}"
+    puts "\n\n"
+
+  end
+end

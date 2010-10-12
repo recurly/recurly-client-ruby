@@ -47,14 +47,6 @@ namespace :recurly do
     rescue RestClient::Found => e
       puts "Data Cleared from: #{Recurly::ConfigFile["site"]}!"
     end
-
-    # now lets move spec/vcr
-    vcr_folder = "#{File.dirname(__FILE__)}/spec/vcr"
-    FileUtils.mkdir_p(vcr_folder)
-    FileUtils.rm_r vcr_folder
-
-    puts "VCR Requests cleared from: #{vcr_folder}"
-    puts "\n\n"
   end
 
   desc "Creates a config/recurly.yml file so you can run the Recurly specs"
