@@ -4,11 +4,9 @@ module Recurly
       load 'recurly/rails/recurly.rake'
     end
 
-    initializer "setup recurly config" do
-
+    config.after_initialize do
       # setup recurly authentication details for testing
-      ::Recurly.configure_from_yaml
-
+      ::Recurly.configure_from_yaml unless Recurly.configured?
     end
 
   end

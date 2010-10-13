@@ -24,8 +24,17 @@ module Recurly
 
     # default Recurly.settings_path to config/recurly.yml
     unless respond_to?(:settings_path)
-      attr_accessor :settings_path
-      @settings_path = "config/recurly.yml"
+      def settings_path
+        @settings_path || "config/recurly.yml"
+      end
+
+      def settings_path=(new_settings_path)
+        @settings_path = new_settings_path
+      end
+    end
+
+    def configured?
+      RecurlyBase.user && RecurlyBase.password && RecurlyBase.site
     end
 
     def configure
