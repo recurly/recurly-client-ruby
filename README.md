@@ -21,6 +21,7 @@ This library can be installed as a gem or a plugin. Your choice.
     gem 'recurly'
 
 **Bleeding Edge Version:**
+
     gem 'recurly', :git => "http://github.com/recurly/recurly-client-ruby.git"
 
 
@@ -66,9 +67,9 @@ The Recurly Configuration YAML is in the format of:
 Clearing test data (Rails3)
 ----------------
 
-   The Recurly Railtie (for rails3) includes a rake task that allows you to easily clear out the test data on your Account. This is useful when automating the testing of the api interation within your own app.
+The Recurly Railtie (for rails3) includes a rake task that allows you to easily clear out the test data on your Account. This is useful when automating the testing of the api interation within your own app.
 
-   rake recurly:clear_test_data
+    rake recurly:clear_test_data
 
 
 Rails Demo Application
