@@ -1,9 +1,7 @@
 namespace :recurly do
 
   # loads settings
-  task :load_settings do
-    require 'recurly/config_parser'
-
+  task :load_settings => :environment do
     # load the recurly.yml file
     @recurly_config = Recurly::ConfigParser.parse
   end
@@ -49,13 +47,13 @@ namespace :recurly do
     end
   end
 
-  desc "Creates a config/recurly.yml file so you can run the Recurly specs"
-  task :setup do
+  desc "Creates a recurly.yml config file"
+  task :setup => :environment do
 
     # load the recurly.yml file
     Rake::Task["recurly:load_settings"].invoke
 
-    puts "Creating a personalized config/recurly.yml so you can run the recurly specs\n"
+    puts "Creating a recurly.yml config file for your project\n"
 
     begin
       require 'highline/import'
@@ -65,7 +63,7 @@ namespace :recurly do
     end
 
     # ask for the username
-    say "\nStep 1) Go to recurly.com and set up a test account...\n\n"
+    say "\nStep 1) Go to recurly.com and set up a test account...\n"
     @recurly_config["username"] = ask("\nStep 2) Enter your recurly username (email):", String)
 
     @recurly_config["password"] = ask("\nStep 3) Enter your recurly password:", String){ |q| q.echo = "*" }
@@ -74,6 +72,6 @@ namespace :recurly do
 
     # saves the yml file
     Recurly::ConfigParser.save(@recurly_config)
-    puts "\nYour settings were saved in #{Recurly.settings_path}\n"
+    puts "\nYour settings were saved in:\n#{Recurly.settings_path}\n"
   end
 end
