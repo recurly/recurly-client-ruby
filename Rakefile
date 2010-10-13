@@ -35,10 +35,15 @@ end
 
 task :default => :spec
 
-$LOAD_PATH.unshift "./spec"
+$LOAD_PATH.unshift "spec"
 require 'fileutils'
 
-$LOAD_PATH.unshift "./lib"
+# add recurly
+$LOAD_PATH.unshift "lib"
+require 'recurly'
+
+Recurly.settings_path = "#{File.dirname(__FILE__)}/spec/config/recurly.yml"
+
 load 'recurly/rails/recurly.rake'
 
 namespace :recurly do

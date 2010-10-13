@@ -8,3 +8,4 @@ spec/vcr
 spec/spec_settings.yml
 *.gem
 config/recurly.yml
+spec/config/recurly.yml

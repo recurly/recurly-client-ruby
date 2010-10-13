@@ -1,7 +1,9 @@
 require 'active_resource'
 require 'cgi'
+
 require 'recurly/version'
 require 'recurly/formats/xml_with_pagination'
+require 'recurly/config_parser'
 require 'recurly/rails/railtie' if defined?(::Rails::Railtie)
 
 # configuration
@@ -20,6 +22,12 @@ module Recurly
   class << self
     attr_accessor :username, :password, :site
 
+    # default Recurly.settings_path to config/recurly.yml
+    unless respond_to?(:settings_path)
+      attr_accessor :settings_path
+      @settings_path = "config/recurly.yml"
+    end
+
     def configure
       yield self
 
@@ -28,6 +36,19 @@ module Recurly
       RecurlyBase.site = site || "https://app.recurly.com"
 
       true
+    end
+
+    def configure_from_yaml(path = nil)
+      configure do |c|
+        # parse configuration from yml
+        recurly_config = ConfigParser.parse(path)
+
+        if recurly_config.present?
+          c.username = recurly_config["username"]
+          c.password = recurly_config["password"]
+          c.site = recurly_config["site"]
+        end
+      end
     end
   end
 end

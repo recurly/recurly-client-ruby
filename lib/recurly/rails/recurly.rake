@@ -2,10 +2,10 @@ namespace :recurly do
 
   # loads settings
   task :load_settings do
-    require 'recurly/rails/config_file'
+    require 'recurly/config_parser'
 
     # load the recurly.yml file
-    Recurly::ConfigFile.reload!
+    @recurly_config = Recurly::ConfigParser.parse
   end
 
   desc "Clears out spec/vcr folder along with removing test data from your configured recurly site"
@@ -19,8 +19,8 @@ namespace :recurly do
       exit
     end
 
-    username = Recurly::ConfigFile["username"]
-    password = Recurly::ConfigFile["password"]
+    username = @recurly_config["username"]
+    password = @recurly_config["password"]
 
     # lets try logging into site
     login_response = nil
@@ -40,20 +40,17 @@ namespace :recurly do
 
     # now lets clear site data
     begin
-      RestClient.post( Recurly::ConfigFile["site"]+"/site/test_data",
+      RestClient.post( @recurly_config["site"]+"/site/test_data",
                        {"_method"=>"delete"},
                        :cookies => login_response.cookies)
       raise "Clearing Didn't work for some reason. Is your site setting correct?"
     rescue RestClient::Found => e
-      puts "Data Cleared from: #{Recurly::ConfigFile["site"]}!"
+      puts "Data Cleared from: #{@recurly_config["site"]}!"
     end
   end
 
   desc "Creates a config/recurly.yml file so you can run the Recurly specs"
   task :setup do
-
-    FileUtils.mkdir_p("./config")
-    FileUtils.touch("./config/recurly.yml")
 
     # load the recurly.yml file
     Rake::Task["recurly:load_settings"].invoke
@@ -69,14 +66,14 @@ namespace :recurly do
 
     # ask for the username
     say "\nStep 1) Go to recurly.com and set up a test account...\n\n"
-    Recurly::ConfigFile["username"] = ask("\nStep 2) Enter your recurly username (email):", String)
+    @recurly_config["username"] = ask("\nStep 2) Enter your recurly username (email):", String)
 
-    Recurly::ConfigFile["password"] = ask("\nStep 3) Enter your recurly password:", String){ |q| q.echo = "*" }
+    @recurly_config["password"] = ask("\nStep 3) Enter your recurly password:", String){ |q| q.echo = "*" }
 
-    Recurly::ConfigFile["site"] = ask("\nStep 4) Enter your recurly base site url (e.g. https://testrecurly2-test.recurly.com):", String)
+    @recurly_config["site"] = ask("\nStep 4) Enter your recurly base site url (e.g. https://testrecurly2-test.recurly.com):", String)
 
     # saves the yml file
-    Recurly::ConfigFile.save!
-    puts "\nYour settings were saved in config/recurly.yml\n"
+    Recurly::ConfigParser.save(@recurly_config)
+    puts "\nYour settings were saved in #{Recurly.settings_path}\n"
   end
 end
