@@ -43,7 +43,7 @@ namespace :recurly do
                        :cookies => login_response.cookies)
       raise "Clearing Didn't work for some reason. Is your site setting correct?"
     rescue RestClient::Found => e
-      puts "Data Cleared from: #{@recurly_config["site"]}!"
+      puts "Test Data Cleared from: #{@recurly_config["site"]}"
     end
   end
 

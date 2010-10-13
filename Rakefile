@@ -46,6 +46,10 @@ Recurly.settings_path = "#{File.dirname(__FILE__)}/spec/config/recurly.yml"
 
 load 'recurly/rails/recurly.rake'
 
+task :environment do
+
+end
+
 namespace :recurly do
   task :clear => :clear_test_data do
 
