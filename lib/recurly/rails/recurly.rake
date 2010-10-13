@@ -6,7 +6,7 @@ namespace :recurly do
     @recurly_config = Recurly::ConfigParser.parse
   end
 
-  desc "Clears out spec/vcr folder along with removing test data from your configured recurly site"
+  desc "Clears out the Test data from your configured Recurly site (does not touch your production site)"
   task :clear_test_data => :load_settings do
     puts "\n"
 
