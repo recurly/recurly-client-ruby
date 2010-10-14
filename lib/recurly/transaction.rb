@@ -14,7 +14,7 @@ module Recurly
     end
 
     def self.list_for_account(account_code, status = :all)
-      results = find(:all, :from => "/accounts/#{CGI::escape(account_code || '')}/transactions")
+      results = find(:all, :from => "/accounts/#{CGI::escape(account_code.to_s)}/transactions")
 
       # filter by status
       if status != :all

@@ -49,19 +49,40 @@ module Recurly
     end
 
     describe "updates and downgrades" do
-      use_vcr_cassette "subscription/update/#{timestamp}"
 
-      let(:account){ Factory.create_account("subscription-update-#{timestamp}") }
+      context "normal case" do
+        use_vcr_cassette "subscription/change1/#{timestamp}"
 
-      before(:each) do
-        Factory.create_subscription(account, :paid)
-        @subscription = Subscription.find(account.account_code)
+        let(:account){ Factory.create_account("subscription-change1-#{timestamp}") }
 
-        @subscription.change('now', :quantity => 2)
+        before(:each) do
+          Factory.create_subscription(account, :paid)
+          @subscription = Subscription.find(account.account_code)
+
+          @subscription.change('now', :quantity => 2)
+        end
+
+        it "should update the subscription quantity" do
+          Subscription.find(account.account_code).quantity.should == 2
+        end
       end
 
-      it "should update the subscription quantity" do
-        Subscription.find(account.account_code).quantity.should == 2
+      context "when account code is an integer (issue GH-4)" do
+        use_vcr_cassette "subscription/change2/#{timestamp}"
+
+        let(:account){ Factory.create_account(timestamp) }
+
+        before(:each) do
+          Factory.create_subscription(account, :paid)
+          @subscription = Subscription.find(account.account_code)
+
+          @subscription.id = account.account_code.to_i
+          @subscription.change('now', :quantity => 2)
+        end
+
+        it "should update the subscription quantity" do
+          Subscription.find(account.account_code).quantity.should == 2
+        end
       end
     end
 

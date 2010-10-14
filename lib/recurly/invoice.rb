@@ -17,7 +17,7 @@ module Recurly
       # postprocess generated element url.
       # changes /accounts/:account_code/invoices/:id to /invoices/:id
       # this breaks update, however I dont believe recurly allows invoice updates anyways
-      path.sub("/accounts/#{CGI::escape(prefix_options[:account_code] || '')}/invoices/", "/invoices/")
+      path.sub("/accounts/#{CGI::escape(prefix_options[:account_code].to_s)}/invoices/", "/invoices/")
     end
 
   end
