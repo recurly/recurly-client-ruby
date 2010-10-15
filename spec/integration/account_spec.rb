@@ -102,8 +102,6 @@ module Recurly
 
       context "looking for a non-existant account" do
         it "should raise an ActiveResource::ResourceNotFound exception" do
-          pending "This isn't supposed to throw 500 errors..."
-
           expect {
             Account.find('account-that-doesnt-exist')
           }.to raise_error ActiveResource::ResourceNotFound

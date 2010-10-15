@@ -32,7 +32,6 @@ module Recurly
         let(:account) { Factory.create_account_with_billing_info("invoice-create-no-charges-#{timestamp}") }
 
         it "should not be created since no charges were posted" do
-          pending "Server should not throw a 500 error here"
           @invoice = Invoice.create(:account_code => account.account_code)
           @invoice.should_not be_valid
         end

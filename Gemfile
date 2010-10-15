@@ -12,4 +12,4 @@ gem "vcr", :git => "http://github.com/myronmarston/vcr.git"
 
 gem "highline"
 gem 'rest-client', :git => "http://github.com/archiloque/rest-client.git"
-gem "ruby-debug"
+gem "ruby-debug", :platforms => :mri_18

@@ -134,9 +134,10 @@ module Recurly
       end
 
       it "should refund the transaction" do
-        pending "Server should refund the transaction"
         @transaction.refund(1000)
-        Transaction.list(:refunds).should include(@transaction)
+
+        pending "not showing up in the refunds list for some reason..."
+        Transaction.list(:refunds).map(&:id).should include(@transaction.id)
       end
     end
 
