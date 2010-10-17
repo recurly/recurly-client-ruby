@@ -3,7 +3,7 @@ module Recurly
     self.element_name = "subscription"
 
     def self.refund(account_code, refund_type = :partial)
-      raise "Refund type must be :full or :partial." unless refund_type == :full or refund_type == :partial
+      raise "Refund type must be :full, :partial, or :none." unless [:full, :partial, :none].include?(refund_type)
       Subscription.delete(nil, {:account_code => account_code, :refund => refund_type})
     end
 
@@ -15,8 +15,7 @@ module Recurly
 
     # Terminates the subscription immediately and processes a full or partial refund
     def refund(refund_type)
-      raise "Refund type must be :full or :partial." unless refund_type == :full or refund_type == :partial
-      Subscription.delete(nil, {:account_code => self.subscription_account_code, :refund => refund_type})
+      self.class.refund(self.subscription_account_code)
     end
 
     # Valid timeframe: :now or :renewal
