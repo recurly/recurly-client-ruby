@@ -108,21 +108,60 @@ module Recurly
     end
 
     describe "refund a subscription" do
-      use_vcr_cassette "subscription/refund/#{timestamp}"
+      context "full refund" do
+        use_vcr_cassette "subscription/refund-full/#{timestamp}"
 
-      let(:account){ Factory.create_account("subscription-refund-#{timestamp}") }
+        let(:account){ Factory.create_account("subscription-refund-full-#{timestamp}") }
 
-      before(:each) do
-        Factory.create_subscription(account, :paid)
-        @subscription = Subscription.find(account.account_code)
+        before(:each) do
+          Factory.create_subscription(account, :paid)
+          @subscription = Subscription.find(account.account_code)
+        end
+
+        it "should remove the subscription entry and post a full refund" do
+          @subscription.refund(:full)
+          expect {
+            Subscription.find(account.account_code)
+          }.to raise_error(ActiveResource::ResourceNotFound)
+        end
       end
 
-      it "should remove the subscription entry" do
-        @subscription.refund(:full)
-        expect {
-          Subscription.find(account.account_code)
-        }.to raise_error(ActiveResource::ResourceNotFound)
+      context "partial refund" do
+        use_vcr_cassette "subscription/refund-partial/#{timestamp}"
+
+        let(:account){ Factory.create_account("subscription-refund-partial-#{timestamp}") }
+
+        before(:each) do
+          Factory.create_subscription(account, :paid)
+          @subscription = Subscription.find(account.account_code)
+        end
+
+        it "should remove the subscription entry and post a partial refund" do
+          @subscription.refund(:partial)
+          expect {
+            Subscription.find(account.account_code)
+          }.to raise_error(ActiveResource::ResourceNotFound)
+        end
       end
+
+      context "no refund" do
+        use_vcr_cassette "subscription/refund-none/#{timestamp}"
+
+        let(:account){ Factory.create_account("subscription-refund-none-#{timestamp}") }
+
+        before(:each) do
+          Factory.create_subscription(account, :paid)
+          @subscription = Subscription.find(account.account_code)
+        end
+
+        it "should remove the subscription entry and not post a refund" do
+          @subscription.refund(:none)
+          expect {
+            Subscription.find(account.account_code)
+          }.to raise_error(ActiveResource::ResourceNotFound)
+        end
+      end
+
     end
   end
 end
