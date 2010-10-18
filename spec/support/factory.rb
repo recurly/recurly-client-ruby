@@ -168,9 +168,9 @@ module Recurly
         # 10 dollars a month
         :unit_amount_in_cents => 1000,
 
-        # 1 year intervals
+        # 1 month intervals
         :plan_interval_length => 1,
-        :plan_interval_unit => "years",
+        :plan_interval_unit => "months",
 
         # 1 month trial
         :trial_interval_length => 1,
