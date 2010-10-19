@@ -127,5 +127,50 @@ module Recurly
         account.lookup_charge(@charge.id).should == @charge
       end
     end
+
+    describe "delete a charge" do
+      context "uninvoiced charge" do
+        use_vcr_cassette "charge/delete-uninvoiced/#{timestamp}"
+
+        let(:account) { Factory.create_account("charge-delete-uinvoiced-#{timestamp}")}
+
+        before(:each) do
+          charge = Factory.create_charge account.account_code,
+                                          :amount => 13.15,
+                                          :description => "inconvenience fee"
+
+          @charge = Charge.lookup(account.account_code, charge.id)
+
+          @charge.destroy
+        end
+
+        it "should remove the charge" do
+          expect{
+            Charge.lookup(account.account_code, @charge.id)
+          }.to raise_error ActiveResource::ResourceNotFound
+        end
+      end
+
+      context "invoiced charge" do
+        use_vcr_cassette "charge/delete-uninvoiced/#{timestamp}"
+
+        let(:account) { Factory.create_account("charge-delete-uinvoiced-#{timestamp}")}
+
+        before(:each) do
+          charge = Factory.create_charge account.account_code,
+                                          :amount => 13.15,
+                                          :description => "inconvenience fee"
+
+          @charge = Charge.lookup(account.account_code, charge.id)
+          Invoice.create(:account_code => account.account_code)
+
+        end
+
+        it "should not remove the charge" do
+          @charge.destroy.should be_false
+          Charge.lookup(account.account_code, @charge.id).should == @charge
+        end
+      end
+    end
   end
 end

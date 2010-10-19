@@ -17,5 +17,11 @@ module Recurly
       find(id, :params => { :account_code => account_code })
     end
 
+
+    def destroy
+      reload
+      return false if invoice_id.present?
+      super
+    end
   end
 end
