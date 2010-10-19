@@ -25,6 +25,17 @@ module Recurly
       self.class.cancel(account_code || self.subscription_account_code)
     end
 
+    def self.reactivate(account_code, options = {})
+      path = "/accounts/#{CGI::escape(account_code.to_s)}/subscription/reactivate"
+      connection.post(path, "", headers)
+    rescue ActiveResource::Redirection => e
+      return true
+    end
+
+    def reactivate
+      self.class.reactivate(self.subscription_account_code)
+    end
+
     # Valid timeframe: :now or :renewal
     # Valid options: plan_code, quantity, unit_amount
     def change(timeframe, options = {})

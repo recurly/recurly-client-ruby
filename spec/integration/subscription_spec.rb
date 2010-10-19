@@ -89,6 +89,25 @@ module Recurly
       end
     end
 
+    describe "reactivate a subscription" do
+      use_vcr_cassette "subscription/reactivate/#{timestamp}"
+
+      let(:account){ Factory.create_account("subscription-reactivate-#{timestamp}") }
+      before(:each) do
+        Factory.create_subscription(account, :paid)
+        @subscription = Subscription.find(account.account_code)
+        @subscription.cancel
+
+        Subscription.reactivate(account.account_code)
+      end
+
+      it "should mark the subscription as active" do
+        subscription = Subscription.find(account.account_code)
+        subscription.state.should == "active"
+      end
+
+    end
+
     describe "cancel a subscription" do
       context "without account_code" do
 
