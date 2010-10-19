@@ -81,7 +81,26 @@ module Recurly
       it "should also be available via Account#lookup_credit" do
         account.lookup_credit(@credit.id).should == @credit
       end
+    end
 
+    describe "delete credit" do
+      use_vcr_cassette "credit/delete/#{timestamp}"
+      let(:account) { Factory.create_account("delete-uninvoiced-#{timestamp}") }
+
+      before(:each) do
+        credit = Factory.create_credit account.account_code,
+                                        :amount => 13.15,
+                                        :description => "free moniez 4 u"
+        @credit = Credit.lookup(account.account_code, credit.id)
+
+        @credit.destroy
+      end
+
+      it "should remove the credit" do
+        expect {
+          Credit.lookup(account.account_code, @credit.id)
+        }.to raise_error ActiveResource::ResourceNotFound
+      end
     end
   end
 end
