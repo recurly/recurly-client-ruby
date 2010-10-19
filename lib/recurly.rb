@@ -1,4 +1,5 @@
 require 'active_resource'
+require 'active_support/deprecation'
 require 'cgi'
 
 require 'recurly/version'

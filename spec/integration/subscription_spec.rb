@@ -1,5 +1,8 @@
 require 'spec_helper'
 
+require 'test/unit'
+require 'active_support/testing/deprecation'
+
 module Recurly
   describe Subscription do
     # version accounts based on this current files modification dates
@@ -87,23 +90,54 @@ module Recurly
     end
 
     describe "cancel a subscription" do
-      use_vcr_cassette "subscription/cancel/#{timestamp}"
+      context "without account_code" do
 
-      let(:account){ Factory.create_account("subscription-cancel-#{timestamp}") }
-      before(:each) do
-        Factory.create_subscription(account, :paid)
-        @subscription = Subscription.find(account.account_code)
+        use_vcr_cassette "subscription/cancel/#{timestamp}"
 
-        # cancel subscription
-        @subscription.cancel(account.account_code)
+        let(:account){ Factory.create_account("subscription-cancel-#{timestamp}") }
+        before(:each) do
+          Factory.create_subscription(account, :paid)
+          @subscription = Subscription.find(account.account_code)
+
+          # cancel subscription
+          @subscription.cancel
+        end
+
+        it "should mark the subscription state as canceled" do
+          Subscription.find(account.account_code).state.should == "canceled"
+        end
+
+        it "should mark the subscription canceled_at" do
+          Subscription.find(account.account_code).canceled_at.should_not be_nil
+        end
+
       end
 
-      it "should mark the subscription state as canceled" do
-        Subscription.find(account.account_code).state.should == "canceled"
-      end
+      context "with account_code (backward compat)" do
+        use_vcr_cassette "subscription/cancel-with-code/#{timestamp}"
 
-      it "should mark the subscription canceled_at" do
-        Subscription.find(account.account_code).canceled_at.should_not be_nil
+        include ActiveSupport::Testing::Deprecation
+
+        # ghetto workaround for rspec2 (till i figure out how to use test/unit helpers within rspec)
+        def assert(value, msg = nil)
+          raise "#{value} should have been true" unless value
+        end
+
+        let(:account){ Factory.create_account("subscription-cancel-with-code-#{timestamp}") }
+        before(:each) do
+          Factory.create_subscription(account, :paid)
+          @subscription = Subscription.find(account.account_code)
+
+          assert_deprecated("Calling Recurly::Subscription#cancel with an account_code has been deprecated. Use the static method Recurly::Subscription.cancel(account_code) instead") do
+            # cancel subscription
+            @subscription.cancel(account.account_code)
+          end
+        end
+
+        it "should mark the subscription state as canceled" do
+          Subscription.find(account.account_code).state.should == "canceled"
+          Subscription.find(account.account_code).canceled_at.should_not be_nil
+        end
       end
     end
 
