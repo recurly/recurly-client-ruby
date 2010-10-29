@@ -5,7 +5,12 @@ require 'cgi'
 require 'recurly/version'
 require 'recurly/formats/xml_with_pagination'
 require 'recurly/config_parser'
-require 'recurly/rails/railtie' if defined?(::Rails::Railtie)
+require 'recurly/rails3/railtie' if defined?(::Rails::Railtie)
+
+# load rails2 fixes
+if defined?(::Rails::VERSION::MAJOR) and ::Rails::VERSION::MAJOR == 2
+  require 'recurly/rails2/compatibility'
+end
 
 # configuration
 module Recurly

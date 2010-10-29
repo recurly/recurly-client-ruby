@@ -44,7 +44,7 @@ require 'recurly'
 
 Recurly.settings_path = "#{File.dirname(__FILE__)}/spec/config/recurly.yml"
 
-load 'recurly/rails/recurly.rake'
+load 'recurly/rails3/recurly.rake'
 
 task :environment do
 
