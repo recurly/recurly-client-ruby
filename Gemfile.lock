@@ -41,16 +41,16 @@ GEM
     i18n (0.4.1)
     linecache (0.43)
     mime-types (1.16)
-    rspec (2.0.0.beta.22)
-      rspec-core (= 2.0.0.beta.22)
-      rspec-expectations (= 2.0.0.beta.22)
-      rspec-mocks (= 2.0.0.beta.22)
-    rspec-core (2.0.0.beta.22)
-    rspec-expectations (2.0.0.beta.22)
+    rspec (2.0.1)
+      rspec-core (~> 2.0.1)
+      rspec-expectations (~> 2.0.1)
+      rspec-mocks (~> 2.0.1)
+    rspec-core (2.0.1)
+    rspec-expectations (2.0.1)
       diff-lcs (>= 1.1.2)
-    rspec-mocks (2.0.0.beta.22)
-      rspec-core (= 2.0.0.beta.22)
-      rspec-expectations (= 2.0.0.beta.22)
+    rspec-mocks (2.0.1)
+      rspec-core (~> 2.0.1)
+      rspec-expectations (~> 2.0.1)
     ruby-debug (0.10.3)
       columnize (>= 0.1)
       ruby-debug-base (~> 0.10.3.0)
@@ -66,7 +66,7 @@ DEPENDENCIES
   growl-glue
   highline
   rest-client!
-  rspec (>= 2.0.0.beta.22)
+  rspec (>= 2.0.0)
   ruby-debug
   vcr!
   webmock!
