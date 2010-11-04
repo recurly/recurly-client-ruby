@@ -5,8 +5,14 @@ module Recurly
     end
 
     config.after_initialize do
-      # setup recurly authentication details for testing
-      ::Recurly.configure_from_yaml unless Recurly.configured?
+      unless Recurly.configured?
+        if ENV["RECURLY_CONFIG"]
+          ::Recurly.configure_from_heroku(ENV["RECURLY_CONFIG"])
+        else
+          # setup recurly authentication details for testing
+          ::Recurly.configure_from_yaml
+        end
+      end
     end
 
   end

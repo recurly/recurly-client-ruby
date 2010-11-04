@@ -65,5 +65,21 @@ module Recurly
         end
       end
     end
+
+    def configure_from_heroku(config_string)
+      configure do |c|
+
+        # pull out the site
+        parts = config_string.split("@")
+        c.site = parts.last
+        config_string = parts[0..-2].join("@")
+
+        # pull out the username and password
+        parts = config_string.split(":")
+        c.username = parts.first
+        c.password = parts[1..-1].join(":")
+
+      end
+    end
   end
 end
