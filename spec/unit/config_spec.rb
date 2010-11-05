@@ -11,16 +11,25 @@ describe "RecurlyConfig" do
     end
   end
 
-  context "loading from heroku config string" do
-    it "should load configuration from a config string" do
-      Recurly.configure_from_heroku("someuser:somepass@https://recurlytest3-test.recurly.com")
-      Recurly.username.should == "someuser"
+  context "loading from json" do
+    it "should load configuration from a json config string" do
+      Recurly.configure_from_json({
+        :username => "someuser@heroku.com",
+        :password => "somepass",
+        :site => "https://recurlytest3-test.recurly.com"
+      }.to_json)
+      Recurly.username.should == "someuser@heroku.com"
       Recurly.password.should == "somepass"
       Recurly.site.should == "https://recurlytest3-test.recurly.com"
 
-      # test with some crazy chars
-      Recurly.configure_from_heroku("someuser:*$&!!::@&!)*)*_@https://recurlytest3-test.recurly.com")
-      Recurly.username.should == "someuser"
+      # test with some crazy chars in the password
+      Recurly.configure_from_json({
+        :username => "api-someuser@heroku.com",
+        :password => "*$&!!::@&!)*)*_",
+        :site => "https://recurlytest3-test.recurly.com"
+      }.to_json)
+
+      Recurly.username.should == "api-someuser@heroku.com"
       Recurly.password.should == "*$&!!::@&!)*)*_"
       Recurly.site.should == "https://recurlytest3-test.recurly.com"
     end

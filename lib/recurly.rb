@@ -1,5 +1,6 @@
 require 'active_resource'
 require 'active_support/deprecation'
+require 'active_support/json'
 require 'cgi'
 
 require 'recurly/version'
@@ -53,6 +54,8 @@ module Recurly
       true
     end
 
+    # allows configuration from a yml file that contains the fields:
+    # username,password,site
     def configure_from_yaml(path = nil)
       configure do |c|
         # parse configuration from yml
@@ -66,19 +69,14 @@ module Recurly
       end
     end
 
-    def configure_from_heroku(config_string)
+    # allows configuration from a json string that contains the fields:
+    # username,password,site
+    def configure_from_json(json_string)
+      config_data = ActiveSupport::JSON.decode(json_string)
       configure do |c|
-
-        # pull out the site
-        parts = config_string.split("@")
-        c.site = parts.last
-        config_string = parts[0..-2].join("@")
-
-        # pull out the username and password
-        parts = config_string.split(":")
-        c.username = parts.first
-        c.password = parts[1..-1].join(":")
-
+        c.username = config_data['username']
+        c.password = config_data['password']
+        c.site = config_data['site']
       end
     end
   end
