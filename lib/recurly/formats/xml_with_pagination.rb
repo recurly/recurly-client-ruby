@@ -27,7 +27,7 @@ module Recurly
           data.delete("current_page")
           data.delete("total_entries")
           data.delete("type")
-          results = [data.values.first]
+          results = [data.values.first].compact
         end
 
         # define total_entries accessor on result object
