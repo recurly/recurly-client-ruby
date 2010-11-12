@@ -52,16 +52,20 @@ module Recurly
     end
 
     describe "list account transactions" do
-      context "empty transactions" do
-        use_vcr_cassette "transaction/list-empty/#{timestamp}"
-        let(:account) { Factory.create_account_with_billing_info("transaction-list-empty-#{timestamp}") }
+      context "initial void transaction" do
+        use_vcr_cassette "transaction/list-initial/#{timestamp}"
+        let(:account) { Factory.create_account_with_billing_info("transaction-list-initial-#{timestamp}") }
 
         before(:each) do
           @transactions = Transaction.list_for_account(account.account_code)
         end
 
-        it "should return an empty array of transactions" do
-          @transactions.should be_empty
+        it "should one transaction after registering" do
+          @transactions.count.should eql(1)
+        end
+
+        it "should be in void state" do
+          @transactions.first.status.should == "void"
         end
       end
 
