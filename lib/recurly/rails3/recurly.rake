@@ -47,31 +47,38 @@ namespace :recurly do
     end
   end
 
+  def setup_static
+    @recurly_config["username"] ||= "myemail@mydomain.com"
+    @recurly_config["password"] ||= "mypassword"
+    @recurly_config["site"] ||= "https://my-site.recurly.com"
+  end
+
+  def setup_interactive
+    # ask for the username
+    say "\nStep 1) Go to recurly.com and set up a test account..."
+    @recurly_config["username"] = ask("Step 2) Enter your recurly username (email):", String)
+    @recurly_config["password"] = ask("Step 3) Enter your recurly password:", String){ |q| q.echo = "*" }
+    @recurly_config["site"] = ask("Step 4) Enter your recurly base site url (e.g. https://testrecurly2-test.recurly.com):", String)
+  end
+
   desc "Creates a recurly.yml config file"
   task :setup => :environment do
 
     # load the recurly.yml file
     Rake::Task["recurly:load_settings"].invoke
 
-    puts "Creating a recurly.yml config file for your project\n"
-
     begin
       require 'highline/import'
+      puts "Creating a recurly.yml config file for your project\n"
+      setup_interactive
+      puts "\nYour settings were saved in:\n#{Recurly.settings_path}\n"
     rescue LoadError
-      puts "Install the 'highline' gem for a more interactive experience. If using Bundler, add it to your project's Gemfile (in :development group) and run again."
-      exit
+      setup_static
+      puts "Settings file generated at:\n#{Recurly.settings_path}\n"
+      puts "Edit this file to configure your Recurly settings.\n"
     end
-
-    # ask for the username
-    say "\nStep 1) Go to recurly.com and set up a test account...\n"
-    @recurly_config["username"] = ask("\nStep 2) Enter your recurly username (email):", String)
-
-    @recurly_config["password"] = ask("\nStep 3) Enter your recurly password:", String){ |q| q.echo = "*" }
-
-    @recurly_config["site"] = ask("\nStep 4) Enter your recurly base site url (e.g. https://testrecurly2-test.recurly.com):", String)
 
     # saves the yml file
     Recurly::ConfigParser.save(@recurly_config)
-    puts "\nYour settings were saved in:\n#{Recurly.settings_path}\n"
   end
 end
