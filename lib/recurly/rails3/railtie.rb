@@ -5,14 +5,7 @@ module Recurly
     end
 
     config.after_initialize do
-      unless Recurly.configured?
-        if ENV["RECURLY_CONFIG"]
-          ::Recurly.configure_from_json(ENV["RECURLY_CONFIG"])
-        else
-          # setup recurly authentication details for testing
-          ::Recurly.configure_from_yaml
-        end
-      end
+      Recurly.configure unless Recurly.configured?
     end
 
   end

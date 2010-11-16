@@ -45,13 +45,21 @@ module Recurly
     end
 
     def configure
-      yield self
+      if block_given?
+        yield self
 
-      RecurlyBase.user = username
-      RecurlyBase.password = password
-      RecurlyBase.site = site || "https://app.recurly.com"
+        RecurlyBase.user = username
+        RecurlyBase.password = password
+        RecurlyBase.site = site || "https://app.recurly.com"
 
-      true
+        return true
+      else
+        if ENV["RECURLY_CONFIG"]
+          Recurly.configure_from_json(ENV["RECURLY_CONFIG"])
+        else
+          Recurly.configure_from_yaml
+        end
+      end
     end
 
     # allows configuration from a yml file that contains the fields:
