@@ -1,6 +1,5 @@
 require 'active_resource'
 require 'active_support/deprecation'
-require 'active_support/json'
 require 'cgi'
 
 require 'recurly/version'
