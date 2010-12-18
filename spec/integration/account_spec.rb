@@ -131,7 +131,7 @@ module Recurly
 
       it "should return a list of accounts with matching criteria" do
         Account.list(:all).total_entries.should >= 8
-        Account.list(:paid).total_entries.should >= 4
+        Account.list(:active).total_entries.should >= 4
         Account.list(:free).total_entries.should >= 4
       end
 
