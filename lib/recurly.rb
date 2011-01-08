@@ -86,5 +86,13 @@ module Recurly
         c.site = config_data['site']
       end
     end
+
+    def current_accept_language
+      Thread.current[:recurly_accept_language]
+    end
+
+    def current_accept_language=(accept_language)
+      Thread.current[:recurly_accept_language] = accept_language
+    end
   end
 end

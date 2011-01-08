@@ -242,5 +242,33 @@ module Recurly
       end
     end
 
+    describe "defaulting account's accept_language to Recurly.current_accept_language" do
+
+      context "user is from france" do
+        # wrap these example runs, setting current_accept_language properly
+        around(:each) do |example|
+          old_setting = Recurly.current_accept_language
+          Recurly.current_accept_language = "fr"
+          example.run
+          Recurly.current_accept_language = old_setting
+        end
+
+        context "user creates an account" do
+          use_vcr_cassette "account/accept-language-account/#{timestamp}"
+          let(:attributes) { Factory.account_attributes("account1-french-#{timestamp}") }
+
+          before(:each) do
+            @account = Account.create(attributes)
+          end
+
+          it "should automaticaly set the accounts accept_language" do
+            @account.attributes[:accept_language].should == "fr"
+          end
+        end
+
+      end
+
+    end
+
   end
 end

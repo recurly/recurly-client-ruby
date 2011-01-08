@@ -13,6 +13,11 @@ module Recurly
       account_code_was || account_code
     end
 
+    def encode(options={})
+      attributes[:accept_language] ||= Recurly.current_accept_language
+      super
+    end
+
     # Maps the
     SHOW_PARAMS = {
       :active => "active_subscribers",
