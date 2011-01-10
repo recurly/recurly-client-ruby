@@ -3,11 +3,18 @@ require 'spec_helper'
 describe "RecurlyConfig" do
 
   context "loading from YML" do
-    it "should load configuration from a YML file" do
-      Recurly.configure_from_yaml("#{File.dirname(__FILE__)}/../config/test.yml")
+    it "should load traditional configuration from a YML file" do
+      Recurly.configure_from_yaml("#{File.dirname(__FILE__)}/../config/test1.yml")
       Recurly.username.should == "username1@recurly.com"
       Recurly.password.should == "asdf4jk31"
       Recurly.site.should == "https://site1.recurly.com"
+    end
+    
+    it "should load configuration from a YML file based on running environment" do
+      Recurly.configure_from_yaml("#{File.dirname(__FILE__)}/../config/test2.yml")
+      Recurly.username.should == "username2@recurly.com"
+      Recurly.password.should == "asdf4jk32"
+      Recurly.site.should == "https://site2.recurly.com"
     end
   end
 

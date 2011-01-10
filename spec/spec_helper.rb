@@ -14,6 +14,12 @@ module SpecHelper
   # add helper methods here
 end
 
+class Rails
+  def self.env
+    "test"
+  end
+end
+
 RSpec.configure do |config|
   config.include SpecHelper
 
