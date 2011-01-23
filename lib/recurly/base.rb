@@ -6,6 +6,15 @@ module Recurly
 
     self.format = Recurly::Formats::XmlWithPaginationFormat.new
 
+    def initialize(attributes = {})
+      # set default attributes if available
+      self.class.default_attributes.each do |attribute|
+        attributes[attribute] ||= nil
+      end if self.class.respond_to?(:default_attributes)
+
+      super(attributes)
+    end
+
     # Add User-Agent to headers
     def headers
       super
@@ -63,6 +72,7 @@ module Recurly
       result.instance_eval{ @persisted = true }
       result
     end
+
   end
 
   # backwards compatibility

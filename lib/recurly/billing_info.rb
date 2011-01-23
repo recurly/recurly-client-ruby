@@ -2,28 +2,43 @@ module Recurly
   class BillingInfo < AccountBase
     self.element_name = "billing_info"
 
+    def self.default_attributes
+      [
+        :first_name,
+        :last_name,
+        :address1,
+        :address2,
+        :city,
+        :state,
+        :zip,
+        :country,
+        :phone,
+        :ip_address
+      ]
+    end
+
+    def self.credit_card_attributes
+      [
+        :number,
+        :verification_value,
+        :month,
+        :year,
+        :start_month,
+        :start_year,
+        :issue_number
+      ]
+    end
+
     # initialize fields with blank data
     def initialize(attributes = {})
 
-      attributes[:first_name] ||= nil
-      attributes[:last_name] ||= nil
-      attributes[:address1] ||= nil
-      attributes[:address2] ||= nil
-      attributes[:city] ||= nil
-      attributes[:state] ||= nil
-      attributes[:zip] ||= nil
-      attributes[:country] ||= nil
-      attributes[:phone] ||= nil
-      attributes[:ip_address] ||= nil
-
+      # set default credit card attributes
       attributes[:credit_card] ||= {}
-      attributes[:credit_card][:number] ||= nil
-      attributes[:credit_card][:verification_value] ||= nil
-      attributes[:credit_card][:month] ||= nil
-      attributes[:credit_card][:year] ||= nil
-      attributes[:credit_card][:start_month] ||= nil
-      attributes[:credit_card][:start_year] ||= nil
-      attributes[:credit_card][:issue_number] ||= nil
+      if attributes[:credit_card].is_a?(Hash)
+        self.class.credit_card_attributes.each do |attribute|
+          attributes[:credit_card][attribute] ||= nil
+        end
+      end
 
       super(attributes)
     end

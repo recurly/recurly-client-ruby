@@ -2,22 +2,39 @@ module Recurly
   class Subscription < AccountBase
     self.element_name = "subscription"
 
+    def self.default_attributes
+      [
+        :plan_code,
+        :unit_amount,
+        :quantity,
+        :trial_ends_at
+      ]
+    end
+
     # initialize fields with blank data
     def initialize(attributes = {})
 
-      attributes[:plan_code] ||= nil
-      attributes[:unit_amount] ||= nil
-      attributes[:quantity] ||= nil
-      attributes[:trial_ends_at] ||= nil
+      attributes[:account] ||= {}
 
-      attributes[:account] ||= Account.new
-      attributes[:billing_info] ||= BillingInfo.new
+      if attributes[:account].is_a?(Hash)
+        Account.default_attributes.each do |attribute|
+          attributes[:account][attribute] ||= nil
+        end
+      end
+
+      attributes[:billing_info] ||= {}
+      if attributes[:billing_info].is_a?(Hash)
+        BillingInfo.default_attributes.each do |attribute|
+          attributes[:billing_info][attribute] ||= nil
+        end
+      end
 
       attributes[:credit_card] ||= {}
-      attributes[:credit_card][:number] = nil
-      attributes[:credit_card][:verification_value] = nil
-      attributes[:credit_card][:month] = nil
-      attributes[:credit_card][:year] = nil
+      if attributes[:credit_card].is_a?(Hash)
+        BillingInfo.credit_card_attributes.each do |attribute|
+          attributes[:credit_card][attribute] ||= nil
+        end
+      end
 
       attributes[:addons] ||= []
 

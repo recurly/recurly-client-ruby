@@ -3,14 +3,12 @@ module Recurly
     self.element_name = "charge"
     self.prefix = "/accounts/:account_code/"
 
-    # initialize fields with blank data
-    def initialize(attributes = {})
-
-      attributes[:amount_in_cents] ||= nil
-      attributes[:end_date] ||= nil
-      attributes[:description] ||= nil
-
-      super(attributes)
+    def self.default_attributes
+      [
+        :amount_in_cents,
+        :end_date,
+        :description
+      ]
     end
 
     def self.list(account_code, status = :all)
