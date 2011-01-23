@@ -1,6 +1,7 @@
 require 'active_resource'
 require 'active_support/deprecation'
 require 'cgi'
+require 'openssl'
 
 require 'recurly/version'
 require 'recurly/formats/xml_with_pagination'
@@ -24,9 +25,10 @@ module Recurly
   autoload :Plan,           'recurly/plan'
   autoload :Subscription,   'recurly/subscription'
   autoload :Transaction,    'recurly/transaction'
+  autoload :Transparent,    'recurly/transparent'
 
   class << self
-    attr_accessor :username, :password, :site
+    attr_accessor :username, :password, :site, :private_key
 
     # default Recurly.settings_path to config/recurly.yml
     unless respond_to?(:settings_path)
@@ -47,6 +49,7 @@ module Recurly
       if block_given?
         yield self
 
+        # configure ActiveResource access details
         RecurlyBase.user = username
         RecurlyBase.password = password
         RecurlyBase.site = site || "https://app.recurly.com"
@@ -62,7 +65,7 @@ module Recurly
     end
 
     # allows configuration from a yml file that contains the fields:
-    # username,password,site
+    # username,password,site,private_key
     def configure_from_yaml(path = nil)
       configure do |c|
         # parse configuration from yml
@@ -71,18 +74,20 @@ module Recurly
         if recurly_config.present?
           c.username = recurly_config["username"]
           c.password = recurly_config["password"]
+          c.private_key = recurly_config["private_key"]
           c.site = recurly_config["site"]
         end
       end
     end
 
     # allows configuration from a json string that contains the fields:
-    # username,password,site
+    # username,password,site,private_key
     def configure_from_json(json_string)
       config_data = ActiveSupport::JSON.decode(json_string)
       configure do |c|
         c.username = config_data['username']
         c.password = config_data['password']
+        c.private_key = config_data['private_key']
         c.site = config_data['site']
       end
     end

@@ -50,6 +50,7 @@ namespace :recurly do
   def setup_static
     @recurly_config["username"] ||= "myemail@mydomain.com"
     @recurly_config["password"] ||= "mypassword"
+    @recurly_config["private_key"] ||= "myprivatekey"
     @recurly_config["site"] ||= "https://my-site.recurly.com"
   end
 
@@ -58,7 +59,8 @@ namespace :recurly do
     say "\nStep 1) Go to recurly.com and set up a test account..."
     @recurly_config["username"] = ask("Step 2) Enter your recurly username (email):", String)
     @recurly_config["password"] = ask("Step 3) Enter your recurly password:", String){ |q| q.echo = "*" }
-    @recurly_config["site"] = ask("Step 4) Enter your recurly base site url (e.g. https://testrecurly2-test.recurly.com):", String)
+    @recurly_config["private_key"] = ask("Step 4) Enter your recurly private key:", String){ |q| q.echo = "*" }
+    @recurly_config["site"] = ask("Step 5) Enter your recurly base site url (e.g. https://testrecurly2-test.recurly.com):", String)
   end
 
   desc "Creates a recurly.yml config file"
