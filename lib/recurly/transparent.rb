@@ -17,8 +17,8 @@ module Recurly
       "#{Recurly.site}/transparent/#{action}"
     end
 
-    # return a verification string to prevent tampering of data
-    def self.transport(data = {})
+    # tr a verification string to prevent tampering of data
+    def self.data(data = {})
       # convert data to a query string
       query_data = self.query_string(data)
 

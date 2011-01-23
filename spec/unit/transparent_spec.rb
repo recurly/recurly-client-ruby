@@ -36,9 +36,9 @@ module Recurly
       end
     end
 
-    describe ".transport" do
-      it "should return a transport string for use within an input hidden field" do
-        transport_string = Transparent.transport({
+    describe ".data" do
+      it "should return a data string for use within an input hidden field" do
+        data_string = Transparent.data({
           :value => "hello"
         })
 
@@ -46,11 +46,11 @@ module Recurly
           :value => "hello"
         })
 
-        transport_string.split("|").last.should eq(query_string)
+        data_string.split("|").last.should eq(query_string)
       end
 
       it "should allow fixnums" do
-        transport_string = Transparent.transport({
+        data_string = Transparent.data({
           :amount => 10
         })
 
@@ -58,11 +58,11 @@ module Recurly
           :amount => 10
         })
 
-        transport_string.split("|").last.should == query_string
+        data_string.split("|").last.should == query_string
       end
 
       it "should allow nested fixnums" do
-        transport_string = Transparent.transport({
+        data_string = Transparent.data({
           :transaction => {
             :amount => 10
           }
@@ -74,11 +74,11 @@ module Recurly
           }
         })
 
-        transport_string.split("|").last.should == query_string
+        data_string.split("|").last.should == query_string
       end
 
       it "should prepend the validation string" do
-        transport_string = Transparent.transport({
+        data_string = Transparent.data({
           :transaction => {
             :amount => 10
           }
@@ -92,7 +92,7 @@ module Recurly
 
         validation_string = Transparent.encrypt_string(query_string)
 
-        transport_string.split("|").first.should == validation_string
+        data_string.split("|").first.should == validation_string
       end
     end
 
