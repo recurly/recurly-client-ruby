@@ -13,13 +13,20 @@ module Recurly
       @data = data || {}
     end
 
-    def to_s
-      ERB::Util.html_escape(encoded_data)
+    # output the transparent data as a hidden field
+    def hidden_field
+      html = %{<input type="hidden" name="data" value="<%= #{ERB::Util.html_escape(encoded_data)} %>" />}
+
+      if html.respond_to?(:html_safe)
+        html.html_safe
+      else
+        html
+      end
     end
 
-    # add verification string to prevent tampering of data
+    # output transparent data along with a verification string to prevent tampering of data
     def encoded_data
-      verify_data
+      verify_required_fields
 
       # convert data to a query string
       query_data = self.class.query_string(data)
@@ -31,7 +38,8 @@ module Recurly
       "#{validation_string}|#{query_data}"
     end
 
-    def verify_data
+    # verify that certain fields are present (or else the transparent post wont work)
+    def verify_required_fields
       # make sure there's a redirect_url defined
       unless @data.has_key?(:redirect_url)
         raise "A :redirect_url key must be defined for Transparent posts"
