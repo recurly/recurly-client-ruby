@@ -1,10 +1,20 @@
 module Recurly
-  class Transparent
+  module Action
+    CreateSubscription = "create_subscription"
+    CreateBilling = "create_billing"
+    UpdateBilling = "update_billing"
+    CreateTransaction = "create_transaction"
+  end
 
+  class Transparent
     # returns the url to post to
-    def self.url
+    def self.url(action = nil)
       raise "Recurly gem not configured. run `rake recurly:setup`" unless Recurly.configured?
-      "#{Recurly.site}/transparent"
+
+      # default action to create new subscription
+      action ||= Action::CreateSubscription
+
+      "#{Recurly.site}/transparent/#{action}"
     end
 
     # return a verification string to prevent tampering of data
