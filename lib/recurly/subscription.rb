@@ -1,6 +1,28 @@
 module Recurly
-  class Subscription < RecurlyAccountBase
+  class Subscription < AccountBase
     self.element_name = "subscription"
+
+    # initialize fields with blank data
+    def initialize(attributes = {})
+
+      attributes[:plan_code] ||= nil
+      attributes[:unit_amount] ||= nil
+      attributes[:quantity] ||= nil
+      attributes[:trial_ends_at] ||= nil
+
+      attributes[:account] ||= Account.new
+      attributes[:billing_info] ||= BillingInfo.new
+
+      attributes[:credit_card] ||= {}
+      attributes[:credit_card][:number] = nil
+      attributes[:credit_card][:verification_value] = nil
+      attributes[:credit_card][:month] = nil
+      attributes[:credit_card][:year] = nil
+
+      attributes[:addons] ||= []
+
+      super(attributes)
+    end
 
     def self.refund(account_code, refund_type = :partial)
       raise "Refund type must be :full, :partial, or :none." unless [:full, :partial, :none].include?(refund_type)

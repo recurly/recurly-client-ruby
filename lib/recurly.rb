@@ -17,8 +17,9 @@ end
 # configuration
 module Recurly
 
-  autoload :RecurlyBase,    'recurly/base'
+  autoload :Base,           'recurly/base'
   autoload :Account,        'recurly/account'
+  autoload :AccountBase,    'recurly/account_base'
   autoload :BillingInfo,    'recurly/billing_info'
   autoload :Charge,         'recurly/charge'
   autoload :Credit,         'recurly/credit'
@@ -43,17 +44,16 @@ module Recurly
     end
 
     def configured?
-      RecurlyBase.user && RecurlyBase.password && RecurlyBase.site
+      Base.user && Base.password && Base.site
     end
 
     def configure
       if block_given?
         yield self
 
-        # configure ActiveResource access details
-        RecurlyBase.user = username
-        RecurlyBase.password = password
-        RecurlyBase.site = site || "https://app.recurly.com"
+        Base.user = username
+        Base.password = password
+        Base.site = site || "https://app.recurly.com"
 
         return true
       else

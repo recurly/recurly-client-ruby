@@ -1,7 +1,17 @@
 module Recurly
-  class Transaction < RecurlyBase
+  class Transaction < Base
     self.element_name = "transaction"
 
+
+    # initialize fields with blank data
+    def initialize(attributes = {})
+
+      attributes[:account] ||= Account.new
+      attributes[:amount_in_cents] ||= nil
+      attributes[:description] ||= nil
+
+      super(attributes)
+    end
 
     def self.list(status = :all)
 

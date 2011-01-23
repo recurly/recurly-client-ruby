@@ -1,7 +1,17 @@
 module Recurly
-  class Charge < RecurlyBase
+  class Charge < Base
     self.element_name = "charge"
     self.prefix = "/accounts/:account_code/"
+
+    # initialize fields with blank data
+    def initialize(attributes = {})
+
+      attributes[:amount_in_cents] ||= nil
+      attributes[:end_date] ||= nil
+      attributes[:description] ||= nil
+
+      super(attributes)
+    end
 
     def self.list(account_code, status = :all)
       params = {:account_code => account_code}

@@ -1,5 +1,5 @@
 module Recurly
-  class Invoice < RecurlyBase
+  class Invoice < Base
     self.element_name = "invoice"
     self.prefix = "/accounts/:account_code/"
 

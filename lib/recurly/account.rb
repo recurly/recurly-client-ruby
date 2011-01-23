@@ -1,7 +1,20 @@
 module Recurly
-  class Account < RecurlyBase
+  class Account < Base
     self.element_name = "account"
     self.primary_key = :account_code
+
+    # initialize fields with blank data
+    def initialize(attributes = {})
+
+      attributes[:username] ||= nil
+      attributes[:first_name] ||= nil
+      attributes[:last_name] ||= nil
+      attributes[:email] ||= nil
+      attributes[:company_name] ||= nil
+      attributes[:accept_language] ||= nil
+
+      super(attributes)
+    end
 
     attr_accessor :account_code_was
     def account_code=(new_account_code)
