@@ -36,55 +36,64 @@ module Recurly
       end
     end
 
-    describe ".data" do
+    describe "#encoded_data" do
       it "should return a data string for use within an input hidden field" do
-        data_string = Transparent.data({
+
+        transparent = Transparent.new({
+          :redirect_url => "http://example.com/",
           :value => "hello"
         })
 
         query_string = Transparent.query_string({
+          :redirect_url => "http://example.com/",
           :value => "hello"
         })
 
-        data_string.split("|").last.should eq(query_string)
+        transparent.encoded_data.split("|").last.should eq(query_string)
       end
 
       it "should allow fixnums" do
-        data_string = Transparent.data({
+        transparent = Transparent.new({
+          :redirect_url => "http://example.com/",
           :amount => 10
         })
 
         query_string = Transparent.query_string({
+          :redirect_url => "http://example.com/",
           :amount => 10
         })
 
-        data_string.split("|").last.should == query_string
+        transparent.encoded_data.split("|").last.should == query_string
       end
 
       it "should allow nested fixnums" do
-        data_string = Transparent.data({
+        transparent = Transparent.new({
+          :redirect_url => "http://example.com/",
           :transaction => {
             :amount => 10
           }
         })
 
         query_string = Transparent.query_string({
+          :redirect_url => "http://example.com/",
           :transaction => {
             :amount => 10
           }
         })
 
-        data_string.split("|").last.should == query_string
+        transparent.encoded_data.split("|").last.should == query_string
       end
 
       it "should prepend the validation string" do
-        data_string = Transparent.data({
+        transparent = Transparent.new({
+          :redirect_url => "http://example.com/",
           :transaction => {
             :amount => 10
           }
         })
 
         query_string = Transparent.query_string({
+          :redirect_url => "http://example.com/",
           :transaction => {
             :amount => 10
           }
@@ -92,7 +101,7 @@ module Recurly
 
         validation_string = Transparent.encrypt_string(query_string)
 
-        data_string.split("|").first.should == validation_string
+        transparent.encoded_data.split("|").first.should == validation_string
       end
     end
 

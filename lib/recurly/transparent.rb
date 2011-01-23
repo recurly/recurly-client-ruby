@@ -7,26 +7,37 @@ module Recurly
   end
 
   class Transparent
-    # returns the url to post to
-    def self.url(action = nil)
-      raise "Recurly gem not configured. run `rake recurly:setup`" unless Recurly.configured?
+    attr_accessor :data
 
-      # default action to create new subscription
-      action ||= Action::CreateSubscription
-
-      "#{Recurly.site}/transparent/#{action}"
+    def initialize(data = {})
+      @data = data || {}
     end
 
-    # tr a verification string to prevent tampering of data
-    def self.data(data = {})
+    def to_s
+      ERB::Util.html_escape(encoded_data)
+    end
+
+    # add verification string to prevent tampering of data
+    def encoded_data
+      verify_data
+
       # convert data to a query string
-      query_data = self.query_string(data)
+      query_data = self.class.query_string(data)
 
       # generate a validation string by encrypting the string using the private key
-      validation_string = encrypt_string(query_data)
+      validation_string = self.class.encrypt_string(query_data)
 
       # return the validation and query data
       "#{validation_string}|#{query_data}"
+    end
+
+    def verify_data
+      # make sure there's a redirect_url defined
+      unless @data.has_key?(:redirect_url)
+        raise "A :redirect_url key must be defined for Transparent posts"
+      end
+
+      return true
     end
 
     # convert data into query string
@@ -39,8 +50,19 @@ module Recurly
       address.query
     end
 
+    # returns the url to post to
+    def self.url(action = nil)
+      raise "Recurly gem not configured. run `rake recurly:setup`" unless Recurly.configured?
+
+      # default action to create new subscription
+      action ||= Action::CreateSubscription
+
+      "#{Recurly.site}/transparent/#{action}"
+    end
+
     # encode a string using the configured private key
     def self.encrypt_string(input_string)
+      raise "Recurly not configured. To use transparent redirects, set your private_key within config/recurly.yml to the private_key provided by recurly.com" unless Recurly.private_key.present?
       digest_key = ::Digest::SHA1.digest(Recurly.private_key)
       sha1_hash = ::OpenSSL::Digest::Digest.new("sha1")
       ::OpenSSL::HMAC.hexdigest(sha1_hash, digest_key, input_string.to_s)
