@@ -2,6 +2,7 @@ require 'active_resource'
 require 'active_support/deprecation'
 require 'cgi'
 require 'openssl'
+require 'addressable/uri'
 
 require 'recurly/version'
 require 'recurly/formats/xml_with_pagination'
