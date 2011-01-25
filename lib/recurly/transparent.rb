@@ -1,4 +1,5 @@
 module Recurly
+
   module Action
     CreateSubscription = "create_subscription"
     CreateBilling = "create_billing"
@@ -15,7 +16,7 @@ module Recurly
 
     # output the transparent data as a hidden field
     def hidden_field
-      html = %{<input type="hidden" name="data" value="<%= #{ERB::Util.html_escape(encoded_data)} %>" />}
+      html = %{<input type="hidden" name="data" value="#{ERB::Util.html_escape(encoded_data)}" />}
 
       if html.respond_to?(:html_safe)
         html.html_safe
