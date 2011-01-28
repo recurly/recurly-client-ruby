@@ -49,13 +49,11 @@ In Rails 2.x, this code should be in config/initializers/recurly.rb
 In Sinatra, it should be within a `configure` block.
 
 
-Manual Setup via YAML
+Manual Setup via YAML or JSON
 --------------
-
 You can also configure Recurly via a YAML file by using:
 
-    Recurly.configure_via_yaml("./config/recurly.yml")
-
+    Recurly.configure_from_yaml("./config/recurly.yml")
 
 The Recurly Configuration YAML is in the format of:
 
@@ -63,6 +61,8 @@ The Recurly Configuration YAML is in the format of:
     password: myrecurlypassword
     site: https://myrecurlysite.recurly.com
 
+
+The same format could be applied in JSON instead of YAML using: Recurly.configure_from_json('path/to/file.json')
 
 Clearing test data (Rails3)
 ----------------
