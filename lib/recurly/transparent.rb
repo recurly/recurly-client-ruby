@@ -2,7 +2,6 @@ module Recurly
 
   module Action
     CreateSubscription = "create_subscription"
-    CreateBilling = "create_billing"
     UpdateBilling = "update_billing"
     CreateTransaction = "create_transaction"
   end
