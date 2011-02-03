@@ -15,7 +15,7 @@ module Recurly
       billing_info.zip.should == billing_attributes[:zip]
 
       # check the credit card fields
-      billing_info.credit_card.last_four.should == billing_attributes[:credit_card][:number][-4..-1]
+      billing_info.credit_card.last_four.should == billing_attributes[:credit_card][:number][-4, 4]
     end
 
     describe "create an account's billing information" do
@@ -106,7 +106,9 @@ module Recurly
       it "should allow destroying the billing info for an account" do
         @billing_info.destroy
 
-        lambda { BillingInfo.find(account.account_code) }.should raise_error(ActiveResource::ResourceNotFound)
+        expect {
+          fresh = BillingInfo.find(account.account_code)
+        }.to raise_error ActiveResource::ResourceNotFound
       end
     end
   end
