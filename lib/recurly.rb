@@ -19,6 +19,7 @@ module Recurly
   autoload :Account,        'recurly/account'
   autoload :BillingInfo,    'recurly/billing_info'
   autoload :Charge,         'recurly/charge'
+  autoload :Coupon,         'recurly/coupon'
   autoload :Credit,         'recurly/credit'
   autoload :Invoice,        'recurly/invoice'
   autoload :Plan,           'recurly/plan'

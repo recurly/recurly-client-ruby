@@ -81,5 +81,10 @@ module Recurly
       Invoice.lookup(account_code, id)
     end
 
+    def coupon
+      Coupon.find(account_code)
+    end
+    memoize :coupon
+
   end
 end
