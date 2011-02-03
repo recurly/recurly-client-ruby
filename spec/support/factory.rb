@@ -51,7 +51,7 @@ module Recurly
         :zip => '94115',
         :country => "US",
         :credit_card => {
-          :number => '1',
+          :number => '4111111111111111',
           :year => Time.now.year + 1,
           :month => Time.now.month,
           :verification_value => '123'
