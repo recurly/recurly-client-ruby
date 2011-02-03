@@ -69,18 +69,15 @@ module Recurly
         recurly_config = ConfigParser.parse(path)
 
         if recurly_config.present?
-          if !recurly_config["username"].blank?
-            c.username = recurly_config["username"]
-            c.password = recurly_config["password"]
-            c.site = recurly_config["site"]
-          elsif !recurly_config[Rails.env].blank?
-            c.username = recurly_config[Rails.env]["username"]
-            c.password = recurly_config[Rails.env]["password"]
-            c.site = recurly_config[Rails.env]["site"]
-          else
-            raise "Configuration YAML is not structured correctly."
-          end
-          
+
+          # check for environment specific config
+          recurly_env = Rails.env if defined?(Rails) and Rails.respond_to?(:env)
+          recurly_env ||= ENV["RAILS_ENV"] || ENV["RACK_ENV"] || "development"
+          recurly_config = recurly_config[recurly_env] if recurly_config.has_key?(recurly_env)
+
+          c.username = recurly_config["username"]
+          c.password = recurly_config["password"]
+          c.site = recurly_config["site"]
         end
       end
     end
