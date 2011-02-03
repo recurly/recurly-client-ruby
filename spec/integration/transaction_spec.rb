@@ -60,12 +60,12 @@ module Recurly
           @transactions = Transaction.list_for_account(account.account_code)
         end
 
-        it "should one transaction after registering" do
+        it "should create one transaction after registering" do
           @transactions.count.should eql(1)
         end
 
         it "should be in void state" do
-          @transactions.first.status.should == "void"
+          @transactions.first.amount_in_cents.should == 0
         end
       end
 
@@ -82,7 +82,7 @@ module Recurly
         end
 
         it "should return a list of transactions made on the account" do
-          @successful_transactions.length.should == 3
+          @successful_transactions.length.should == 4
         end
 
         it "should also be available via Account#transactions" do

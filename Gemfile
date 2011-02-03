@@ -11,6 +11,5 @@ gem "growl-glue"
 gem "webmock", :git => "http://github.com/bblimke/webmock.git"
 gem "vcr", :git => "http://github.com/myronmarston/vcr.git"
 
-gem "highline"
 gem 'rest-client', :git => "http://github.com/archiloque/rest-client.git"
 gem "ruby-debug", :platforms => :mri_18

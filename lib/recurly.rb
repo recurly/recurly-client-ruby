@@ -8,6 +8,7 @@ require 'recurly/version'
 require 'recurly/formats/xml_with_pagination'
 require 'recurly/config_parser'
 require 'recurly/rails3/railtie' if defined?(::Rails::Railtie)
+require 'recurly/base'
 
 # load rails2 fixes
 if defined?(::Rails::VERSION::MAJOR) and ::Rails::VERSION::MAJOR == 2
@@ -17,7 +18,6 @@ end
 # configuration
 module Recurly
 
-  autoload :Base,           'recurly/base'
   autoload :Account,        'recurly/account'
   autoload :AccountBase,    'recurly/account_base'
   autoload :BillingInfo,    'recurly/billing_info'
@@ -73,6 +73,12 @@ module Recurly
         recurly_config = ConfigParser.parse(path)
 
         if recurly_config.present?
+
+          # check for environment specific config
+          recurly_env = Rails.env if defined?(Rails) and Rails.respond_to?(:env)
+          recurly_env ||= ENV["RAILS_ENV"] || ENV["RACK_ENV"] || "development"
+          recurly_config = recurly_config[recurly_env] if recurly_config.has_key?(recurly_env)
+
           c.username = recurly_config["username"]
           c.password = recurly_config["password"]
           c.private_key = recurly_config["private_key"]
