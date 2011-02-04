@@ -79,7 +79,7 @@ module Recurly
         @test_plan.save!
 
         @test_plan = test_plan
-        @test_plan.amount_in_cents.should == 200
+        @test_plan.unit_amount_in_cents.should == 200
       end
     end
 
