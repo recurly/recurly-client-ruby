@@ -153,7 +153,7 @@ module Recurly
     def self.create_credit(account_code, attributes = {})
       credit = Credit.new({
         :account_code => account_code,
-        :amount => 10.00,
+        :amount_in_cents => 1000,
         :description => "free moniez"
       }.merge(attributes))
       credit.save!
@@ -166,7 +166,7 @@ module Recurly
         :name => "Trial",
 
         # 10 dollars a month
-        :unit_amount_in_cents => 1000,
+        :amount_in_cents => 1000,
 
         # 1 month intervals
         :plan_interval_length => 1,
@@ -184,7 +184,7 @@ module Recurly
         :name => "Paid",
 
         # 10 dollars a month
-        :unit_amount_in_cents => 1000,
+        :amount_in_cents => 1000,
 
         # 1 month intervals
         :plan_interval_length => 1,
