@@ -15,7 +15,6 @@ module Recurly
       it "should allow passing in the type of action" do
         site_url = Recurly.site
         Transparent.url(Action::CreateSubscription).should == "#{site_url}/transparent/create_subscription"
-        Transparent.url(Action::CreateBilling).should == "#{site_url}/transparent/create_billing"
         Transparent.url(Action::UpdateBilling).should == "#{site_url}/transparent/update_billing"
         Transparent.url(Action::CreateTransaction).should == "#{site_url}/transparent/create_transaction"
       end
