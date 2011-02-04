@@ -12,7 +12,7 @@ module Recurly
 
       before(:each) do
         credit = Factory.create_credit account.account_code,
-                                        :amount => 10.05,
+                                        :amount_in_cents => 1005,
                                         :description => "free moniez"
 
         @credit = Credit.lookup(account.account_code, credit.id)
@@ -36,9 +36,9 @@ module Recurly
       let(:account){ Factory.create_account("credit-list-#{timestamp}") }
 
       before(:each) do
-        Factory.create_credit(account.account_code, :amount => 1, :description => "one")
-        Factory.create_credit(account.account_code, :amount => 2, :description => "two")
-        Factory.create_credit(account.account_code, :amount => 3, :description => "three")
+        Factory.create_credit(account.account_code, :amount_in_cents => 100, :description => "one")
+        Factory.create_credit(account.account_code, :amount_in_cents => 200, :description => "two")
+        Factory.create_credit(account.account_code, :amount_in_cents => 300, :description => "three")
         @credits = Credit.list(account.account_code)
       end
 
@@ -65,7 +65,7 @@ module Recurly
 
       before(:each) do
         credit = Factory.create_credit account.account_code,
-                                        :amount => 13.15,
+                                        :amount_in_cents => 1315,
                                         :description => "free moniez 4 u"
         @credit = Credit.lookup(account.account_code, credit.id)
       end
@@ -89,7 +89,7 @@ module Recurly
 
       before(:each) do
         credit = Factory.create_credit account.account_code,
-                                        :amount => 13.15,
+                                        :amount_in_cents => 1315,
                                         :description => "free moniez 4 u"
         @credit = Credit.lookup(account.account_code, credit.id)
 
