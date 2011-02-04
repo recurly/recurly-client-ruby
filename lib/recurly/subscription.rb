@@ -2,12 +2,13 @@ module Recurly
   class Subscription < AccountBase
     self.element_name = "subscription"
 
-    def self.default_attributes
+    def self.known_attributes
       [
-        :plan_code,
-        :unit_amount,
-        :quantity,
-        :trial_ends_at
+        "plan_code",
+        "coupon_code",
+        "unit_amount",
+        "quantity",
+        "trial_ends_at"
       ]
     end
 
@@ -15,27 +16,8 @@ module Recurly
     def initialize(attributes = {})
 
       attributes[:account] ||= {}
-
-      if attributes[:account].is_a?(Hash)
-        Account.default_attributes.each do |attribute|
-          attributes[:account][attribute] ||= nil
-        end
-      end
-
       attributes[:billing_info] ||= {}
-      if attributes[:billing_info].is_a?(Hash)
-        BillingInfo.default_attributes.each do |attribute|
-          attributes[:billing_info][attribute] ||= nil
-        end
-      end
-
       attributes[:credit_card] ||= {}
-      if attributes[:credit_card].is_a?(Hash)
-        BillingInfo.credit_card_attributes.each do |attribute|
-          attributes[:credit_card][attribute] ||= nil
-        end
-      end
-
       attributes[:addons] ||= []
 
       super(attributes)

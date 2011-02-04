@@ -3,11 +3,14 @@ module Recurly
     self.element_name = "credit"
     self.prefix = "/accounts/:account_code/"
 
-    def self.default_attributes
+    def self.known_attributes
       [
-        :amount_in_cents,
-        :end_date,
-        :description
+        "account_code",
+        "amount_in_cents",
+        "start_date",
+        "end_date",
+        "description",
+        "created_at"
       ]
     end
 

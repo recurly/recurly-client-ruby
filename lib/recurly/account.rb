@@ -3,15 +3,17 @@ module Recurly
     self.element_name = "account"
     self.primary_key = :account_code
 
-    # default attribute list for account
-    def self.default_attributes
+    # known attributes for a recurly account
+    def self.known_attributes
       [
-        :username,
-        :first_name,
-        :last_name,
-        :email,
-        :company_name,
-        :accept_language
+        "account_code",
+        "username",
+        "first_name",
+        "last_name",
+        "email",
+        "company_name",
+        "hosted_login_token",
+        "accept_language"
       ]
     end
 
