@@ -84,7 +84,7 @@ module Recurly
       model = Recurly.const_get(type.to_s.classify)
 
       # rebuild the ActiveResource object from the xml results
-      response = Recurly::Base.connection.get_raw("/transparent/results/#{result_key}")
+      response = Recurly::Base.connection.get_raw("/transparent/results/#{result_key}", model.headers)
       return model.new.from_transparent_results(response)
     end
 
