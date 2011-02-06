@@ -12,14 +12,10 @@ module Recurly
       ]
     end
 
-    # initialize fields with blank data
+    # initialize associations
     def initialize(attributes = {})
-
       attributes[:account] ||= {}
-      attributes[:billing_info] ||= {}
-      attributes[:credit_card] ||= {}
       attributes[:addons] ||= []
-
       super(attributes)
     end
 

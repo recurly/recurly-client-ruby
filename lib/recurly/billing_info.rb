@@ -34,11 +34,9 @@ module Recurly
       end
     end
 
-    # initialize fields with blank data
+    # initialize associations
     def initialize(attributes = {})
-      # set default credit card attributes
       attributes[:credit_card] ||= {}
-
       super(attributes)
     end
 

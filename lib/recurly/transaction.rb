@@ -25,12 +25,8 @@ module Recurly
 
     # initialize fields with blank data
     def initialize(attributes = {})
-
       # initialize embedded attributes
       attributes[:account] ||= {}
-      attributes[:billing_info] ||= {}
-      attributes[:credit_card] ||= {}
-
       super(attributes)
     end
 

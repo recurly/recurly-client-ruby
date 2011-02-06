@@ -17,6 +17,12 @@ module Recurly
       ]
     end
 
+    # initialize associations
+    def initialize(attributes = {})
+      attributes[:billing_info] ||= {}
+      super(attributes)
+    end
+
     attr_accessor :account_code_was
     def account_code=(new_account_code)
       self.account_code_was = self.account_code
