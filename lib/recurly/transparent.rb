@@ -68,6 +68,26 @@ module Recurly
       "#{Recurly.site}/transparent/#{action}"
     end
 
+    # returns the results via a code
+    def self.results(params)
+      # pull out the result key and status
+      type = params["type"]
+      result_key = params["result"]
+      status = params["status"]
+
+      # verify confirmation matches the passed in querystring
+      address = Addressable::URI.new
+      address.query_values = {:type => type.to_s, :status => status.to_s, :result => result_key.to_s}
+      raise "Forged query string" if params["confirm"] != encrypt_string(address.query)
+
+      # return the xml from transparent results
+      result = Recurly::Base.connection.get("/transparent/results/#{result_key}")
+
+      # rebuild the activerecord object
+      model = Recurly.const_get(type.to_s.classify)
+      return model.new(result)
+    end
+
     # encode a string using the configured private key
     def self.encrypt_string(input_string)
       raise "Recurly not configured. To use transparent redirects, set your private_key within config/recurly.yml to the private_key provided by recurly.com" unless Recurly.private_key.present?
