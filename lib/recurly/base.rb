@@ -1,6 +1,7 @@
 require 'active_support/memoizable'
 
 module Recurly
+
   class Base < ActiveResource::Base
     extend ActiveSupport::Memoizable
 
@@ -55,18 +56,26 @@ module Recurly
       !persisted?
     end
 
-    # patch load_attributes_from_response so it marks result records as persisted
-    def load_attributes_from_response(response)
-      super
-      @persisted = true
+    # builds the object from the transparent results
+    def from_transparent_results(response)
+      self.load_attributes_from_response(response)
+      self
     end
 
-    # patch instantiate_record so it marks result records as persisted
-    def self.instantiate_record(record, prefix_options)
-      result = super
-      result.instance_eval{ @persisted = true }
-      result
-    end
+    protected
+      # patch load_attributes_from_response so it marks result records as persisted
+      def load_attributes_from_response(response)
+        super
+        @persisted = true
+      end
+
+    private
+      # patch instantiate_record so it marks result records as persisted
+      def self.instantiate_record(record, prefix_options)
+        result = super
+        result.instance_eval{ @persisted = true }
+        result
+      end
 
   end
 

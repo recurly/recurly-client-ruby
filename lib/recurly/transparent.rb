@@ -80,12 +80,12 @@ module Recurly
       address.query_values = {:type => type.to_s, :status => status.to_s, :result => result_key.to_s}
       raise "Forged query string" if params["confirm"] != encrypt_string(address.query)
 
-      # return the xml from transparent results
-      result = Recurly::Base.connection.get("/transparent/results/#{result_key}")
-
-      # rebuild the activerecord object
+      # pull the class name
       model = Recurly.const_get(type.to_s.classify)
-      return model.new(result)
+
+      # rebuild the ActiveResource object from the xml results
+      response = Recurly::Base.connection.get_raw("/transparent/results/#{result_key}")
+      return model.new.from_transparent_results(response)
     end
 
     # encode a string using the configured private key

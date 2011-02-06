@@ -4,6 +4,8 @@ require 'cgi'
 require 'openssl'
 require 'addressable/uri'
 
+require 'patches/active_resource/connection'
+
 require 'recurly/version'
 require 'recurly/formats/xml_with_pagination'
 require 'recurly/config_parser'
