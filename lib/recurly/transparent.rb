@@ -68,6 +68,18 @@ module Recurly
       "#{Recurly.site}/transparent/#{action}"
     end
 
+    def self.create_subscription_url
+      url(Action::CreateSubscription)
+    end
+
+    def self.create_transaction_url
+      url(Action::CreateTransaction)
+    end
+
+    def self.update_billing_url
+      url(Action::UpdateBilling)
+    end
+
     # returns the results via a code
     def self.results(params)
       # pull out the result key and status
