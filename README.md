@@ -1,4 +1,4 @@
-Recurly Ruby Client
+Ralso ecurly Ruby Client
 ===================
 
 The Recurly Ruby Client library is an open source library to interact with Recurly's subscription management from your Ruby on Rails website. The library interacts with Recurly's [REST API](http://support.recurly.com/faqs/api).
@@ -32,7 +32,6 @@ The Recurly Ruby Client requires a username and password to connect.  We recomme
 
 If using Rails 3, the easiest way to get Recurly set up is to run `rake recurly:setup`. This will create a config/recurly.yml that has your recurly account authentication, and the Recurly rails initializer will pick it up on restart of your web app.
 
-
 Setup (Rails 2 and other frameworks)
 --------------
 
@@ -47,6 +46,24 @@ Alternatively, if not using Rails 3, just make sure to call a Recurly configure 
 In Rails 2.x, this code should be in config/initializers/recurly.rb
 
 In Sinatra, it should be within a `configure` block.
+
+Setup (Rails ENV)
+--------------
+
+If you don't want to commit your Recurly credentials to source control, you can
+also specify configurations values through the RECURLY_CONFIG environment
+variable using JSON:
+
+<pre>
+$ RECURLY_CONFIG="{'username':'api@your_subdomain.com','site':'https://your_subdomain.recurly.com','password':'your_password'}"
+</pre>
+
+For deployment on Heroku:
+<pre>
+$ heroku config:add RECURLY_CONFIG="{'username':'api@your_subdomain.com','site':'https://your_subdomain.recurly.com','password':'your_password'}"
+</pre>
+
+This way you can keep seperate configurations for your development and production environments.
 
 
 Manual Setup via YAML or JSON
@@ -63,6 +80,7 @@ The Recurly Configuration YAML is in the format of:
 
 
 The same format could be applied in JSON instead of YAML using: Recurly.configure_from_json('path/to/file.json')
+
 
 Clearing test data (Rails3)
 ----------------
