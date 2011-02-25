@@ -7,6 +7,7 @@ require 'addressable/uri'
 require 'patches/active_resource/connection'
 
 require 'recurly/version'
+require 'recurly/exceptions'
 require 'recurly/formats/xml_with_pagination'
 require 'recurly/config_parser'
 require 'recurly/rails3/railtie' if defined?(::Rails::Railtie)
@@ -33,7 +34,7 @@ module Recurly
   autoload :Transparent,    'recurly/transparent'
 
   class << self
-    attr_accessor :username, :password, :site, :private_key
+    attr_accessor :username, :password, :environment, :subdomain, :private_key
 
     # default Recurly.settings_path to config/recurly.yml
     unless respond_to?(:settings_path)
@@ -56,7 +57,7 @@ module Recurly
 
         Base.user = username
         Base.password = password
-        Base.site = site || "https://app.recurly.com"
+        Base.site = site_for_environment(environment)
 
         return true
       else
@@ -67,6 +68,21 @@ module Recurly
         end
       end
     end
+    
+    def site_for_environment(environment)
+      environment = :production if environment.nil? # Default to production
+      case environment.to_sym
+      when :development
+        "http://app.recurly.local:3000"
+      when :production
+        "https://api-production.recurly.com"
+      when :sandbox
+        "https://api-sandbox.recurly.com"
+      else
+        raise Recurly::ConfigurationError.new("Invalid environment (#{environment}). Valid values are: :production, :sandbox.")
+      end
+    end
+
 
     # allows configuration from a yml file that contains the fields:
     # username,password,site,private_key
@@ -84,8 +100,9 @@ module Recurly
 
           c.username = recurly_config["username"]
           c.password = recurly_config["password"]
+          c.subdomain = recurly_config["subdomain"]
           c.private_key = recurly_config["private_key"]
-          c.site = recurly_config["site"]
+          c.environment = recurly_config["environment"]
         end
       end
     end
@@ -97,8 +114,9 @@ module Recurly
       configure do |c|
         c.username = config_data['username']
         c.password = config_data['password']
+        c.subdomain = config_data['subdomain']
         c.private_key = config_data['private_key']
-        c.site = config_data['site']
+        c.environment = config_data['environment']
       end
     end
 

@@ -7,14 +7,14 @@ describe "RecurlyConfig" do
       Recurly.configure_from_yaml("#{File.dirname(__FILE__)}/../config/test1.yml")
       Recurly.username.should == "username1@recurly.com"
       Recurly.password.should == "asdf4jk31"
-      Recurly.site.should == "https://site1.recurly.com"
+      Recurly.subdomain.should == "site1"
     end
     
     it "should load configuration from a YML file based on running environment" do
       Recurly.configure_from_yaml("#{File.dirname(__FILE__)}/../config/test2.yml")
       Recurly.username.should == "username2@recurly.com"
       Recurly.password.should == "asdf4jk32"
-      Recurly.site.should == "https://site2.recurly.com"
+      Recurly.subdomain.should == "site2"
     end
   end
 
@@ -23,22 +23,26 @@ describe "RecurlyConfig" do
       Recurly.configure_from_json({
         :username => "someuser@heroku.com",
         :password => "somepass",
-        :site => "https://recurlytest3-test.recurly.com"
+        :environment => :sandbox,
+        :subdomain => 'recurlytest3-test',
       }.to_json)
       Recurly.username.should == "someuser@heroku.com"
       Recurly.password.should == "somepass"
-      Recurly.site.should == "https://recurlytest3-test.recurly.com"
+      Recurly.subdomain.should == 'recurlytest3-test'
+      Recurly::Base.site.to_s.should == "https://api-sandbox.recurly.com"
 
       # test with some crazy chars in the password
       Recurly.configure_from_json({
         :username => "api-someuser@heroku.com",
         :password => "*$&!!::@&!)*)*_",
-        :site => "https://recurlytest3-test.recurly.com"
+        :subdomain => "recurlytest3-test",
+        :environment => :sandbox,
       }.to_json)
 
       Recurly.username.should == "api-someuser@heroku.com"
       Recurly.password.should == "*$&!!::@&!)*)*_"
-      Recurly.site.should == "https://recurlytest3-test.recurly.com"
+      Recurly.subdomain.should == 'recurlytest3-test'
+      Recurly::Base.site.to_s.should == "https://api-sandbox.recurly.com"
     end
 
   end

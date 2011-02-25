@@ -19,6 +19,7 @@ module Recurly
 
     # initialize associations
     def initialize(attributes = {})
+      attributes = attributes.with_indifferent_access
       attributes[:billing_info] ||= {}
       super(attributes)
     end

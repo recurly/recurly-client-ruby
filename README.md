@@ -1,22 +1,20 @@
 Recurly Ruby Client
 ===================
 
-The Recurly Ruby Client library is an open source library to interact with Recurly's subscription management from your Ruby on Rails website. The library interacts with Recurly's [REST API](http://support.recurly.com/faqs/api).
+The Recurly Ruby Client library is an open source library to interact with Recurly's subscription management from your Ruby on Rails website. The library interacts with Recurly's [REST API](http://support.recurly.com/api/basics).
 
 
 Usage
 -----
 
 Please see the [documentation](http://support.recurly.com/faqs/api/ruby-client) and
-[support forums](http://support.recurly.com/discussions) for more information.
+[support forums](http://support.recurly.com/discussions) for more information. The [API Documentation](http://docs.recurly.com/api/basics) has numerous examples demonstrating how to use the Recurly Ruby client library.
 
 
 Installation
 ------------
 
-This library can be installed as a gem or a plugin. Your choice.
-
-**Rails3 Stable Version:**
+**Stable Version:**
 
     gem 'recurly'
 
@@ -28,7 +26,7 @@ This library can be installed as a gem or a plugin. Your choice.
 Setup (Rails 3)
 --------------
 
-The Recurly Ruby Client requires a username and password to connect.  We recommend creating a user just for your API.  Please see the [Authentication](http://support.recurly.com/faqs/api/authentication) documentation for more information.
+The Recurly Ruby Client requires an API user to connect. Please see the [Authentication](http://support.recurly.com/faqs/api/authentication) documentation for more information.
 
 If using Rails 3, the easiest way to get Recurly set up is to run `rake recurly:setup`. This will create a config/recurly.yml that has your recurly account authentication, and the Recurly rails initializer will pick it up on restart of your web app.
 
@@ -40,8 +38,10 @@ Alternatively, if not using Rails 3, just make sure to call a Recurly configure 
 
     Recurly.configure do |c|
       c.username = 'api@yourcompany.com'
-      c.password = 'super_secret_password'
-      c.site = 'https://my-recurly-site.recurly.com'
+      c.password = 'your_api_key'
+      c.private_key = 'your_private_key'
+      c.environment = :production # or :sandbox for test sites
+      c.subdomain = 'your-recurly-subdomain'
     end
 
 In Rails 2.x, this code should be in config/initializers/recurly.rb
@@ -58,8 +58,10 @@ You can also configure Recurly via a YAML file by using:
 The Recurly Configuration YAML is in the format of:
 
     username: myrecurlyuser@domain.com
-    password: myrecurlypassword
-    site: https://myrecurlysite.recurly.com
+    password: your_api_key
+    private_key: your_private_key
+    environment: :production
+    subdomain: your_recurly_subdomain
 
 
 The same format could be applied in JSON instead of YAML using: Recurly.configure_from_json('path/to/file.json')
@@ -80,6 +82,8 @@ Rails Demo Application
 
 Examples
 --------
+
+The [API Documentation](http://docs.recurly.com/api/basics) has numerous examples demonstrating how to use the Ruby client library.
 
 All the functionality is demonstrated by the tests in the __spec__ directory.
 
@@ -124,4 +128,4 @@ This will run `recurly:clear_test_data` (using your spec/config/recurly.yml auth
 API Documentation
 -----------------
 
-Please see the [Recurly API](http://docs.recurly.com/api/basics) for more information.
+Please see the [Recurly API](http://docs.recurly.com/api/basics) for more information and examples.

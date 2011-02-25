@@ -1,5 +1,6 @@
---- 
-username: railsjedi@sogetthis.com
-site: https://recurlytest3-test.recurly.com
-private_key: asdfasdfasdf
-password: 7PCB2mZC
+---
+username: api-test@litle.com
+password: 6499f1cd3ae14875beb91417d31e91b7
+private_key: 78753d36439c423aba60e581be828a2a
+subdomain: litle-test
+environment: :development

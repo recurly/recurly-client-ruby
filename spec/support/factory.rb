@@ -45,6 +45,8 @@ module Recurly
     # returns a hash of billing information
     def self.billing_attributes(address_overrides = {}, credit_card_overrides = {})
       attributes = {
+        :first_name => 'Verena',
+        :last_name => 'Test',
         :address1 => '123 Test St',
         :city => 'San Francisco',
         :state => 'CA',

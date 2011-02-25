@@ -38,7 +38,7 @@ namespace :recurly do
 
     # now lets clear site data
     begin
-      RestClient.post( @recurly_config["site"]+"/site/test_data",
+      RestClient.post( Recurly::Base.site+"/site/test_data",
                        {"_method"=>"delete"},
                        :cookies => login_response.cookies)
       raise "Clearing Didn't work for some reason. Is your site setting correct?"
@@ -49,9 +49,10 @@ namespace :recurly do
 
   def setup_static
     @recurly_config["username"] ||= "myemail@mydomain.com"
-    @recurly_config["password"] ||= "mypassword"
-    @recurly_config["private_key"] ||= "myprivatekey"
-    @recurly_config["site"] ||= "https://my-site.recurly.com"
+    @recurly_config["password"] ||= "my_api_key"
+    @recurly_config["private_key"] ||= "my_private_key"
+    @recurly_config["subdomain"] ||= "mysite"
+    @recurly_config["site"] ||= "https://api-production.recurly.com"
   end
 
   desc "Creates a recurly.yml config file"

@@ -1,9 +1,9 @@
 module Recurly
 
   module Action
-    CreateSubscription = "create_subscription"
-    UpdateBilling = "update_billing"
-    CreateTransaction = "create_transaction"
+    CreateSubscription = "subscription"
+    UpdateBilling = "billing_info"
+    CreateTransaction = "transaction"
   end
 
   class Transparent
@@ -44,6 +44,12 @@ module Recurly
       unless @data.has_key?(:redirect_url)
         raise "A :redirect_url key must be defined for Transparent posts"
       end
+      unless @data.has_key?(:account)
+        raise "An :account key must be defined for Transparent posts"
+      end
+      unless @data[:account].has_key?(:account_code)
+        raise "An :account[:account_code] key must be defined for Transparent posts"
+      end
 
       return true
     end
@@ -52,6 +58,7 @@ module Recurly
     def self.query_string(data = {})
       # process data
       data = process_data(data.dup)
+      data[:time] = Time.now.utc.strftime("%d/%b/%Y %H:%M:%S %Z")
 
       address = Addressable::URI.new
       address.query_values = data
@@ -60,12 +67,14 @@ module Recurly
 
     # returns the url to post to
     def self.url(action = nil)
-      raise "Recurly gem not configured. run `rake recurly:setup`" unless Recurly.configured?
+      raise Recurly::ConfigurationError.new("Recurly gem not configured. run `rake recurly:setup`") unless Recurly.configured?
+      raise Recurly::ConfigurationError.new("Recurly gem not configured. 'private_key' missing.") if Recurly.private_key.blank?
+      raise Recurly::ConfigurationError.new("Recurly gem not configured. 'subdomain' missing.") if Recurly.subdomain.blank?
 
       # default action to create new subscription
       action ||= Action::CreateSubscription
 
-      "#{Recurly.site}/transparent/#{action}"
+      "#{Recurly::Base.site}/transparent/#{Recurly.subdomain}/#{action}"
     end
 
     def self.create_subscription_url
@@ -90,19 +99,26 @@ module Recurly
       # verify confirmation matches the passed in querystring
       address = Addressable::URI.new
       address.query_values = {:type => type.to_s, :status => status.to_s, :result => result_key.to_s}
-      raise "Forged query string" if params["confirm"] != encrypt_string(address.query)
+      raise Recurly::ForgedQueryString.new if params["confirm"] != encrypt_string(address.query)
 
       # pull the class name
       model = Recurly.const_get(type.to_s.classify)
 
-      # rebuild the ActiveResource object from the xml results
-      response = Recurly::Base.connection.get_raw("/transparent/results/#{result_key}", model.headers)
-      return model.new.from_transparent_results(response)
+      response = nil
+      begin
+        # rebuild the ActiveResource object from the xml results
+        response = Recurly::Base.connection.get_raw("/transparent/results/#{result_key}", model.headers)
+        return model.new.from_transparent_results(response)
+
+      rescue ActiveResource::ResourceInvalid => ex
+        model_result = model.new.from_transparent_results(ex.response)
+        raise Recurly::ValidationsFailed.new(model_result)
+      end
     end
 
     # encode a string using the configured private key
     def self.encrypt_string(input_string)
-      raise "Recurly not configured. To use transparent redirects, set your private_key within config/recurly.yml to the private_key provided by recurly.com" unless Recurly.private_key.present?
+      raise Recurly::ConfigurationError.new("Recurly gem not configured. To use transparent redirects, set your private_key within config/recurly.yml to the private_key provided by recurly.com") unless Recurly.private_key.present?
       digest_key = ::Digest::SHA1.digest(Recurly.private_key)
       sha1_hash = ::OpenSSL::Digest::Digest.new("sha1")
       ::OpenSSL::HMAC.hexdigest(sha1_hash, digest_key, input_string.to_s)

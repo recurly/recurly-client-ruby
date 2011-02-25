@@ -3,20 +3,18 @@ require 'spec_helper'
 module Recurly
   describe Transparent do
     before(:each) do
-      Recurly.configure_from_yaml("#{File.dirname(__FILE__)}/../config/test.yml")
+      Recurly.configure_from_yaml("#{File.dirname(__FILE__)}/../config/recurly.yml")
     end
 
     describe ".url" do
       it "should return the url for the configured Recurly site" do
-        site_url = Recurly.site
-        Transparent.url.should == "#{site_url}/transparent/create_subscription"
+        Transparent.url.should == "#{Recurly::Base.site}/transparent/#{Recurly.subdomain}/subscription"
       end
 
       it "should allow passing in the type of action" do
-        site_url = Recurly.site
-        Transparent.url(Action::CreateSubscription).should == "#{site_url}/transparent/create_subscription"
-        Transparent.url(Action::UpdateBilling).should == "#{site_url}/transparent/update_billing"
-        Transparent.url(Action::CreateTransaction).should == "#{site_url}/transparent/create_transaction"
+        Transparent.url(Action::CreateSubscription).should == "#{Recurly::Base.site}/transparent/#{Recurly.subdomain}/subscription"
+        Transparent.url(Action::UpdateBilling).should == "#{Recurly::Base.site}/transparent/#{Recurly.subdomain}/billing_info"
+        Transparent.url(Action::CreateTransaction).should == "#{Recurly::Base.site}/transparent/#{Recurly.subdomain}/transaction"
       end
     end
 
@@ -25,7 +23,7 @@ module Recurly
         result = Transparent.encrypt_string("d00d")
 
         # hashed manually
-        result.should == "4ad64700275cbdc8417857a12cbe11842a5577fb"
+        result.should == "938f381f79192f536cbe29a79db5c595b7a09379"
 
         result2 = Transparent.encrypt_string("d00d2")
         result2.should_not eq(result)
@@ -40,11 +38,13 @@ module Recurly
 
         transparent = Transparent.new({
           :redirect_url => "http://example.com/",
+          :account => { :account_code => 'howdy' },
           :value => "hello"
         })
 
         query_string = Transparent.query_string({
           :redirect_url => "http://example.com/",
+          :account => { :account_code => 'howdy' },
           :value => "hello"
         })
 
@@ -54,11 +54,13 @@ module Recurly
       it "should allow fixnums" do
         transparent = Transparent.new({
           :redirect_url => "http://example.com/",
+          :account => { :account_code => '123' },
           :amount => 10
         })
 
         query_string = Transparent.query_string({
           :redirect_url => "http://example.com/",
+          :account => { :account_code => '123' },
           :amount => 10
         })
 
@@ -68,6 +70,7 @@ module Recurly
       it "should allow nested fixnums" do
         transparent = Transparent.new({
           :redirect_url => "http://example.com/",
+          :account => { :account_code => '123' },
           :transaction => {
             :amount => 10
           }
@@ -75,6 +78,7 @@ module Recurly
 
         query_string = Transparent.query_string({
           :redirect_url => "http://example.com/",
+          :account => { :account_code => '123' },
           :transaction => {
             :amount => 10
           }
@@ -86,6 +90,7 @@ module Recurly
       it "should prepend the validation string" do
         transparent = Transparent.new({
           :redirect_url => "http://example.com/",
+          :account => { :account_code => '123' },
           :transaction => {
             :amount => 10
           }
@@ -93,6 +98,7 @@ module Recurly
 
         query_string = Transparent.query_string({
           :redirect_url => "http://example.com/",
+          :account => { :account_code => '123' },
           :transaction => {
             :amount => 10
           }

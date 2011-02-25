@@ -14,6 +14,7 @@ module Recurly
 
     # initialize associations
     def initialize(attributes = {})
+      attributes = attributes.with_indifferent_access
       attributes[:account] ||= {}
       attributes[:addons] ||= []
       super(attributes)
@@ -56,7 +57,7 @@ module Recurly
     # Valid timeframe: :now or :renewal
     # Valid options: plan_code, quantity, unit_amount
     def change(timeframe, options = {})
-      raise "Timeframe must be :full or :renewal." unless timeframe == 'now' or timeframe == 'renewal'
+      raise "Timeframe must be :full or :renewal." unless ['now','renewal'].include?(timeframe)
       options[:timeframe] = timeframe
       path = "/accounts/#{CGI::escape(self.subscription_account_code.to_s)}/subscription.xml"
       connection.put(path,
@@ -69,7 +70,7 @@ module Recurly
       acct_code ||= account.account_code if defined?(account) and !account.nil?
       acct_code ||= self.primary_key if defined?(self.primary_key)
       acct_code ||= self.id if defined?(self.id)
-      raise 'Missing Account Code' if acct_code.nil? or acct_code.blank?
+      raise 'Missing Account Code' if acct_code.blank?
       acct_code
     end
   end

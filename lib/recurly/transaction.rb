@@ -26,6 +26,7 @@ module Recurly
     # initialize fields with blank data
     def initialize(attributes = {})
       # initialize embedded attributes
+      attributes = attributes.with_indifferent_access
       attributes[:account] ||= {}
       super(attributes)
     end

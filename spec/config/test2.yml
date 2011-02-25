@@ -1,9 +1,11 @@
 development:
   username: username1@recurly.com
-  site: https://site1.recurly.com
   password: asdf4jk31
+  subdomain: site1
+  environment: :sandbox
 
 test:
   username: username2@recurly.com
-  site: https://site2.recurly.com
   password: asdf4jk32
+  subdomain: site2
+  environment: :production
