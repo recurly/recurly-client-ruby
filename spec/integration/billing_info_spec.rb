@@ -15,7 +15,6 @@ module Recurly
       billing_info.zip.should == billing_attributes[:zip]
 
       # check the credit card fields
-      p "Billing Card: #{billing_info.inspect}"
       billing_info.credit_card.last_four.should == billing_attributes[:credit_card][:number][-4, 4]
     end
 

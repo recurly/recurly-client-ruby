@@ -1,0 +1,27 @@
+=== Configuration
+
+You should have something like this in config/recurly.yml.
+
+  ---
+  username: api-test@yourcompany.com
+  environment: :sandbox
+  subdomain: your-recurly-subdomain
+  password: 12345678901234567890123456789012
+  private_key: 12345678901234567890123456789012
+
+Alternatively, you may use a file in /config/initializers/recurly.rb with contents:
+
+  Recurly.configure do |c|
+    c.username = 'api-test@yourcompany.com'
+    c.password = 'your_api_key'
+    c.private_key = 'your_private_key'
+    c.environment = :production # or :sandbox for test sites
+    c.subdomain = 'your-recurly-subdomain'
+  end
+
+The environment variable can be ":sandbox" or ":production". This environment
+corresponds with Recurly's sandbox/test sites or production/live sites. Please
+note that only Recurly API users should be used with the Recurly ruby client.
+Using a user's credentials is not supported.
+
+Please log into Recurly and click "API Credentials" to find your API credentials.
