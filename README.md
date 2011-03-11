@@ -48,6 +48,7 @@ In Rails 2.x, this code should be in config/initializers/recurly.rb
 
 In Sinatra, it should be within a `configure` block.
 
+**Please Note:** the setup parameters changed in version 0.4.0. The Ruby client now connects to either api-production.recurly.com or api-sandbox.recurly.com to improve DNS lookups. Additional configuration options were also added for the [Transparent Post API](http://docs.recurly.com/transparent-post/basics).
 
 Manual Setup via YAML or JSON
 --------------
