@@ -4,7 +4,12 @@ require 'cgi'
 require 'openssl'
 require 'addressable/uri'
 
-require 'patches/active_resource/connection'
+# load ActiveResource patches
+if defined?(::Rails::VERSION::MAJOR) and ::Rails::VERSION::MAJOR == 3
+  require 'patches/rails3/active_resource/connection'
+elsif defined?(::Rails::VERSION::MAJOR) and ::Rails::VERSION::MAJOR == 2
+  require 'patches/rails2/active_resource/connection'
+end
 
 require 'recurly/version'
 require 'recurly/exceptions'
