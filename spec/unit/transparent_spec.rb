@@ -110,5 +110,40 @@ module Recurly
       end
     end
 
+    describe "#hidden_field" do
+      it "should return a string of a HTML hidden input element" do
+
+        transparent = Transparent.new({
+          :redirect_url => "http://example.com/",
+          :account => { :account_code => 'howdy' },
+          :value => "hello"
+        })
+
+        transparent.hidden_field.class.should eq(String)
+      end
+
+      it "should return a string of a HTML hidden input element" do
+        transparent = Transparent.new({
+          :redirect_url => "http://example.com/",
+          :account => { :account_code => '123' },
+          :amount => 10
+        })
+
+        transparent.hidden_field.class.should eq(String)
+      end
+
+      it "should return a string of a HTML hidden input element" do
+        transparent = Transparent.new({
+          :redirect_url => "http://example.com/",
+          :account => { :account_code => '123' },
+          :transaction => {
+            :amount => 10
+          }
+        })
+
+        transparent.hidden_field.class.should eq(String)
+      end
+    end
+
   end
 end
