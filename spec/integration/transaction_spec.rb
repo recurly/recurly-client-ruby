@@ -65,7 +65,8 @@ module Recurly
         end
 
         it "should be in void state" do
-          @transactions.first.amount_in_cents.should == 0
+          @transactions.first.amount_in_cents.should == 100
+          @transactions.first.status.should == 'void'
         end
       end
 
@@ -79,10 +80,12 @@ module Recurly
           Factory.create_transaction account.account_code, :amount_in_cents => 300, :description => "three"
 
           @successful_transactions = Transaction.list_for_account(account.account_code, :success)
+          @total_transactions = Transaction.list_for_account(account.account_code)
         end
 
         it "should return a list of transactions made on the account" do
-          @successful_transactions.length.should == 4
+          @successful_transactions.length.should == 3
+          @total_transactions.length.should == 4
         end
 
         it "should also be available via Account#transactions" do
