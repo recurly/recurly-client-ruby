@@ -129,6 +129,8 @@ module Recurly
       data.each do |key, val|
         if val.is_a?(Hash)
           data[key] = process_data(val)
+        elsif val.is_a?(String)
+          data[key] = val.to_s
         elsif val.is_a?(Enumerable)
           data[key] = val.map{|i| i.to_s}
         else
@@ -138,3 +140,4 @@ module Recurly
     end
   end
 end
+
