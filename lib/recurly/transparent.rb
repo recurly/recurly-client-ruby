@@ -74,7 +74,7 @@ module Recurly
       # default action to create new subscription
       action ||= Action::CreateSubscription
 
-      "#{Recurly::Base.site}/transparent/#{Recurly.subdomain}/#{action}"
+      URI.parse("#{Recurly::Base.site}/").merge("/transparent/#{Recurly.subdomain}/#{action}").to_s
     end
 
     def self.create_subscription_url
