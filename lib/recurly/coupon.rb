@@ -1,5 +1,5 @@
 module Recurly
-  class Coupon < RecurlyAccountBase
+  class Coupon < AccountBase
     self.element_name = "coupon"
 
     def self.known_attributes
