@@ -16,14 +16,37 @@ module Recurly
         Transparent.url(Action::UpdateBilling).should == "#{Recurly::Base.site}/transparent/#{Recurly.subdomain}/billing_info"
         Transparent.url(Action::CreateTransaction).should == "#{Recurly::Base.site}/transparent/#{Recurly.subdomain}/transaction"
       end
+
+      it "should equal api-sandbox for sandbox" do
+        Recurly.configure do |config|
+          config.environment = :sandbox
+          config.subdomain = 'testtest'
+        end
+        Transparent.url(Action::CreateSubscription).should == "https://api-sandbox.recurly.com/transparent/testtest/subscription"
+        Transparent.url(Action::UpdateBilling).should == "https://api-sandbox.recurly.com/transparent/testtest/billing_info"
+        Transparent.url(Action::CreateTransaction).should == "https://api-sandbox.recurly.com/transparent/testtest/transaction"
+      end
+
+      it "should equal api-production for sandbox" do
+        Recurly.configure do |config|
+          config.environment = :production
+          config.subdomain = 'testtest'
+        end
+        Transparent.url(Action::CreateSubscription).should == "https://api-production.recurly.com/transparent/testtest/subscription"
+        Transparent.url(Action::UpdateBilling).should == "https://api-production.recurly.com/transparent/testtest/billing_info"
+        Transparent.url(Action::CreateTransaction).should == "https://api-production.recurly.com/transparent/testtest/transaction"
+      end
     end
 
     describe ".encrypt_string" do
       it "should encrypt the data using the configured private key" do
+        Recurly.configure do |config|
+          config.private_key = '986bfa2bec61479ca560dbaaec345820'
+        end
         result = Transparent.encrypt_string("d00d")
 
         # hashed manually
-        result.should == "938f381f79192f536cbe29a79db5c595b7a09379"
+        result.should == "790a4038fb9047889a767baadf8edc3e07b6e66b"
 
         result2 = Transparent.encrypt_string("d00d2")
         result2.should_not eq(result)
