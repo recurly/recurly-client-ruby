@@ -38,7 +38,7 @@ namespace :recurly do
 
     # now lets clear site data
     begin
-      RestClient.post( Recurly::Base.site+"/site/test_data",
+      RestClient.post( @recurly_config["site"]+"/site/test_data",
                        {"_method"=>"delete"},
                        :cookies => login_response.cookies)
       raise "Clearing Didn't work for some reason. Is your site setting correct?"
