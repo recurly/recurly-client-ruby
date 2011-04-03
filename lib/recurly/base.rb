@@ -8,14 +8,12 @@ module Recurly
     self.format = Recurly::Formats::XmlWithPaginationFormat.new
 
     def initialize(attributes = {})
-      super(attributes)
-    end
 
-    # Add User-Agent to headers
-    def headers
-      super
-      @headers['User-Agent'] = "Recurly Ruby Client v#{VERSION}"
-      @headers
+      # Add User-Agent to headers
+      @default_header ||= {}
+      @default_header['User-Agent'] = "Recurly Ruby Client v#{VERSION}"
+
+      super(attributes)
     end
 
     def update_only
@@ -54,6 +52,36 @@ module Recurly
     # patch new? to be the opposite of persisted
     def new?
       !persisted?
+    end
+
+    # patched to read Errors array
+    def load(attributes)
+      raise ArgumentError, "expected an attributes Hash, got #{attributes.inspect}" unless attributes.is_a?(Hash)
+      @prefix_options, attributes = split_options(attributes)
+      attributes.each do |key, value|
+        if key.to_s == 'errors' && value.is_a?(Hash)
+          errors.from_array(value.values)
+          next
+        end
+        @attributes[key.to_s] =
+          case value
+            when Array
+              resource = find_or_create_resource_for_collection(key)
+              value.map do |attrs|
+                if attrs.is_a?(Hash)
+                  resource.new(attrs)
+                else
+                  attrs.duplicable? ? attrs.dup : attrs
+                end
+              end
+            when Hash
+              resource = find_or_create_resource_for(key)
+              resource.new(value)
+            else
+              value.dup rescue value
+          end
+      end
+      self
     end
 
     # builds the object from the transparent results
