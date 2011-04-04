@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.add_dependency("activeresource", [">= 2.3"])
   s.add_dependency("activesupport",  [">= 2.3"])
   s.add_dependency("addressable", [">= 2.2"])
+  s.add_dependency("nokogiri", [">= 1.4"])
 
   s.add_development_dependency("rspec", [">= 2.0.0.beta.22"])
   s.add_development_dependency("webmock")

@@ -14,6 +14,7 @@ end
 require 'recurly/version'
 require 'recurly/exceptions'
 require 'recurly/formats/xml_with_pagination'
+require 'recurly/formats/xml_with_errors'
 require 'recurly/config_parser'
 require 'recurly/rails3/railtie' if defined?(::Rails::Railtie)
 require 'recurly/base'
