@@ -92,7 +92,7 @@ module Recurly
       def load_errors_from_array(new_errors, save_cache = false)
         errors.clear unless save_cache
         return if new_errors.nil? or new_errors.empty?
-        humanized_attributes = Hash[self.known_attributes.map { |attr_name| [attr_name.humanize, attr_name] }] unless self.known_attributes.nil?
+        humanized_attributes = Hash[self.class.known_attributes.map { |attr_name| [attr_name.humanize, attr_name] }] unless self.class.known_attributes.nil?
         humanized_attributes ||= Hash[@attributes.keys.map { |attr_name| [attr_name.humanize, attr_name] }]
         new_errors.each do |error|
           if error.is_a?(Hash)
