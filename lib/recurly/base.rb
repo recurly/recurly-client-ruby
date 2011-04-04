@@ -5,16 +5,7 @@ module Recurly
   class Base < ActiveResource::Base
     extend ActiveSupport::Memoizable
 
-    self.format = Recurly::Formats::XmlWithPaginationFormat.new
-
-    def initialize(attributes = {})
-
-      # Add User-Agent to headers
-      @default_header ||= {}
-      @default_header['User-Agent'] = "Recurly Ruby Client v#{VERSION}"
-
-      super(attributes)
-    end
+    self.format = Recurly::Formats::XmlWithErrorsFormat.new
 
     def update_only
       false
@@ -59,8 +50,8 @@ module Recurly
       raise ArgumentError, "expected an attributes Hash, got #{attributes.inspect}" unless attributes.is_a?(Hash)
       @prefix_options, attributes = split_options(attributes)
       attributes.each do |key, value|
-        if key.to_s == 'errors' && value.is_a?(Hash)
-          errors.from_array(value.values)
+        if key.to_s == 'errors' && value.is_a?(Array)
+          load_errors_from_array(value)
           next
         end
         @attributes[key.to_s] =
@@ -96,6 +87,39 @@ module Recurly
         super
         @persisted = true
       end
+      
+      # Patched to read errors with field information
+      def load_errors_from_array(new_errors, save_cache = false)
+        errors.clear unless save_cache
+        return if new_errors.nil? or new_errors.empty?
+        humanized_attributes = Hash[self.known_attributes.map { |attr_name| [attr_name.humanize, attr_name] }] unless self.known_attributes.nil?
+        humanized_attributes ||= Hash[@attributes.keys.map { |attr_name| [attr_name.humanize, attr_name] }]
+        new_errors.each do |error|
+          if error.is_a?(Hash)
+            field = error['field']
+            message = error['message']
+
+            if field.blank?
+              errors[:base] << message
+            end
+
+            humanized_name = field.humanize
+            message = message[(humanized_name.size + 1)..-1] if message[0, humanized_name.size + 1] == "#{humanized_name} "
+
+            errors.add field.to_sym, message
+          elsif error.is_a?(String)
+            message = error
+            attr_message = humanized_attributes.keys.detect do |attr_name|
+              if message[0, attr_name.size + 1] == "#{attr_name} "
+                errors.add humanized_attributes[attr_name], message[(attr_name.size + 1)..-1]
+                next
+              end
+            end
+
+            errors[:base] << message
+          end
+        end
+      end
 
     private
       # patch instantiate_record so it marks result records as persisted
@@ -105,6 +129,9 @@ module Recurly
         result
       end
 
+      def build_request_headers(headers, http_method, uri)
+        super(headers, http_method, uri).update({'User-Agent' => "Recurly Ruby Client v#{VERSION}"})
+      end
   end
 
   # backwards compatibility

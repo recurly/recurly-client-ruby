@@ -40,6 +40,7 @@ GEM
     i18n (0.4.1)
     linecache (0.43)
     mime-types (1.16)
+    nokogiri (1.4.4)
     rspec (2.0.1)
       rspec-core (~> 2.0.1)
       rspec-expectations (~> 2.0.1)
@@ -64,6 +65,7 @@ DEPENDENCIES
   addressable (>= 2.2.1)
   autotest
   growl-glue
+  nokogiri
   rest-client!
   rspec (>= 2.0.0)
   ruby-debug
