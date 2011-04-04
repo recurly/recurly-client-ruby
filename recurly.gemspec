@@ -19,12 +19,13 @@ Gem::Specification.new do |s|
   s.add_dependency("activeresource", [">= 2.3"])
   s.add_dependency("activesupport",  [">= 2.3"])
   s.add_dependency("addressable", [">= 2.2"])
+  s.add_dependency("nokogiri", [">= 1.4"])
 
   s.add_development_dependency("rspec", [">= 2.0.0.beta.22"])
   s.add_development_dependency("webmock")
   s.add_development_dependency("vcr")
 
-  s.files        = Dir.glob("lib/**/*") + %w(init.rb LICENSE README.md)
+  s.files        = Dir.glob("lib/**/*") + %w(init.rb LICENSE README.md install.rb INSTALL)
   s.test_files   = Dir.glob("spec/**/*")
   s.require_paths = ["lib"]
 

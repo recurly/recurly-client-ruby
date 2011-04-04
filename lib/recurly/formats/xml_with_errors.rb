@@ -18,18 +18,21 @@ module Recurly
 
       def xml_node_to_hash(node)
         return node.content.to_s.strip unless node.element?
-        return xml_node_value(node) if node.children.size == 1 && node.children[0].text?
 
         node_type = xml_node_type(node)
+        if node.children.size == 1 && node.children[0].text?
+          return [] if node_type == 'array'
+          return xml_node_value(node)
+        end
 
         if node.name == 'errors'
           return node.children.collect do |child|
             error_xml_node_to_hash(child) if child.name == 'error'
           end.reject { |n| n.nil? }
-        elsif ['array'].include?(node_type)
+        elsif node_type == 'array'
           return node.children.collect do |child|
             xml_node_to_hash(child)
-          end.reject { |n| n.nil? || (n.is_a?(String) && n.empty?) }
+          end
         end
         
         return nil if node.children.empty?

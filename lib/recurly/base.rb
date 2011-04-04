@@ -132,6 +132,31 @@ module Recurly
       def build_request_headers(headers, http_method, uri)
         super(headers, http_method, uri).update({'User-Agent' => "Recurly Ruby Client v#{VERSION}"})
       end
+
+      def handle_response(response)
+        case response.code.to_i
+        when 401
+          message = Hash.from_xml(response.body)['errors']['error'] rescue nil
+          raise(UnauthorizedAccess.new(response, message))
+        when 403
+          message = Hash.from_xml(response.body)['errors']['error'] rescue nil
+          raise(ForbiddenAccess.new(response, message))
+        when 404
+          message = Hash.from_xml(response.body)['errors']['error'] rescue nil
+          raise ResourceNotFound.new(response, message)
+        when 422
+          message = Hash.from_xml(response.body)['errors']['error'] rescue nil
+          raise ResourceInvalid.new(response, message)
+        when 412
+          message = Hash.from_xml(response.body)['errors']['error'] rescue nil
+          raise ClientError.new(response, message)
+        when 500
+          message = Hash.from_xml(response.body)['errors']['error'] rescue nil
+          raise(ServerError.new(response, message))
+        else
+          super
+        end
+      end
   end
 
   # backwards compatibility

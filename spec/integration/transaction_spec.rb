@@ -65,8 +65,8 @@ module Recurly
         end
 
         it "should be in void state" do
-          @transactions.first.amount_in_cents.should == 100
-          @transactions.first.status.should == 'void'
+          @transactions.first.amount_in_cents.should == 0
+          @transactions.first.status.should == 'success'
         end
       end
 
@@ -84,7 +84,8 @@ module Recurly
         end
 
         it "should return a list of transactions made on the account" do
-          @successful_transactions.length.should == 3
+          # one authorization and three transactions
+          @successful_transactions.length.should == 4
           @total_transactions.length.should == 4
         end
 
