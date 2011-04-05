@@ -32,7 +32,7 @@ module Recurly
         elsif node_type == 'array'
           return node.children.collect do |child|
             xml_node_to_hash(child)
-          end
+          end.reject { |n| n.nil? || (n.is_a?(String) && n.blank?) }
         end
         
         return nil if node.children.empty?
@@ -92,7 +92,7 @@ module Recurly
       end
       
       def xml_attributes(node)
-        return nil if node.attribute_nodes.empty?
+        return {} if node.attribute_nodes.empty?
         values = {}
         node.attribute_nodes.each do |attribute|
           values[attribute.name] = attribute.value

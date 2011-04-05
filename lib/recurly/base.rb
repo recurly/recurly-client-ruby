@@ -27,7 +27,12 @@ module Recurly
     rescue ActiveResource::ResourceInvalid => error
       case error.response['Content-Type']
       when /application\/xml/
-        errors.from_xml(error.response.body)
+        begin
+          f = Recurly::Formats::XmlWithErrorsFormat.new
+          load_errors_from_array(f.decode(error.response.body))
+        rescue
+          errors.from_xml(error.response.body)
+        end
       when /application\/json/
         errors.from_json(error.response.body)
       end
@@ -103,8 +108,8 @@ module Recurly
               errors[:base] << message
             end
 
-            humanized_name = field.humanize
-            message = message[(humanized_name.size + 1)..-1] if message[0, humanized_name.size + 1] == "#{humanized_name} "
+            humanized_name = field.humanize.downcase
+            message = message[(humanized_name.size + 1)..-1] if message[0, humanized_name.size + 1].downcase == "#{humanized_name} "
 
             errors.add field.to_sym, message
           elsif error.is_a?(String)
