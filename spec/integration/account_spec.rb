@@ -219,8 +219,8 @@ module Recurly
         end
 
         it "should require setting an account code" do
-          @account.errors[:base].should include("account code can't be blank")
-          @account.errors[:base].should include("account code is invalid")
+          @account.errors[:account_code].should include("can't be blank")
+          @account.errors[:account_code].should include("is invalid")
         end
       end
 
@@ -237,7 +237,7 @@ module Recurly
         end
 
         it "should require setting an account code" do
-          @account.errors[:base].should include("account code has already been taken")
+          @account.errors[:account_code].should include("has already been taken")
         end
       end
     end
