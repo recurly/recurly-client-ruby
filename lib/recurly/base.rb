@@ -106,9 +106,10 @@ module Recurly
 
             if field.blank?
               errors[:base] << message
+              next
             end
 
-            humanized_name = field.humanize.downcase
+            humanized_name = field.to_s.humanize.downcase
             message = message[(humanized_name.size + 1)..-1] if message[0, humanized_name.size + 1].downcase == "#{humanized_name} "
 
             errors.add field.to_sym, message
