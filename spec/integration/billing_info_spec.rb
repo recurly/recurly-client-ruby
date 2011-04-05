@@ -111,5 +111,38 @@ module Recurly
         }.to raise_error ActiveResource::ResourceNotFound
       end
     end
+    
+    describe "set the appropriate error" do
+      use_vcr_cassette "billing/errors/#{timestamp}"
+      let(:account){ Factory.create_account("billing-errors-#{timestamp}") }
+
+      it "should set an error on base if the card number is blank" do
+        @billing_attributes = Factory.billing_attributes({
+          :account_code => account.account_code,
+          :first_name => account.first_name,
+          :last_name => account.last_name,
+          :credit_card => {
+            :number => '',
+          },
+        })
+
+        billing_info = BillingInfo.create(@billing_attributes)
+        billing_info.errors[:base].count.should == 1
+      end
+      
+      it "should set an error if the card number is invalid" do
+        @billing_attributes = Factory.billing_attributes({
+          :account_code => account.account_code,
+          :first_name => account.first_name,
+          :last_name => account.last_name,
+          :credit_card => {
+            :number => '4000-0000-0000-0002',
+          },
+        })
+
+        billing_info = BillingInfo.create(@billing_attributes)
+        billing_info.errors.count.should == 1
+      end
+    end
   end
 end
