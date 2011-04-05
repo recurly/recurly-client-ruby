@@ -105,7 +105,7 @@ module Recurly
             message = error['message']
 
             if field.blank?
-              errors[:base] << message
+              errors.add_to_base message
               next
             end
 
@@ -122,7 +122,7 @@ module Recurly
               end
             end
 
-            errors[:base] << message
+            errors.add_to_base message
           end
         end
       end
