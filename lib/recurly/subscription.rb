@@ -57,7 +57,7 @@ module Recurly
     # Valid timeframe: :now or :renewal
     # Valid options: plan_code, quantity, unit_amount
     def change(timeframe, options = {})
-      raise "Timeframe must be :full or :renewal." unless ['now','renewal'].include?(timeframe)
+      raise "Timeframe must be :now or :renewal." unless ['now','renewal'].include?(timeframe)
       options[:timeframe] = timeframe
       path = "/accounts/#{CGI::escape(self.subscription_account_code.to_s)}/subscription.xml"
       connection.put(path,
