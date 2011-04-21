@@ -60,8 +60,8 @@ module Recurly
       connection.delete(element_path(:action => "void"), self.class.headers)
     end
 
-    def refund(amount)
-      connection.delete(element_path(:action => "refund", :amount => amount), self.class.headers)
+    def refund(amount_in_cents)
+      connection.delete(element_path(:action => "refund", :amount_in_cents => amount_in_cents), self.class.headers)
     end
 
   end

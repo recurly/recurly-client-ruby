@@ -1,5 +1,10 @@
 = Recurly Ruby Client Library CHANGELOG
 
+== Version 0.4.7 (April 21, 2001)
+
+- Fix Transaction.refund(amount_in_cents) to pass argument as "amount_in_cents" instead of "amount".
+- Fix error message on timeframe for Subscription.change() argument.
+
 == Version 0.4.6 (April 21, 2011)
 
 - Changed "unit_amount" to "unit_amount_in_cents" on Subscription object.
