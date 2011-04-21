@@ -13,7 +13,8 @@ module Recurly
         "zip",
         "country",
         "phone",
-        "ip_address"
+        "ip_address",
+        "vat_number"
       ]
     end
 

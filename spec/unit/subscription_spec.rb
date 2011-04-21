@@ -7,7 +7,7 @@ module Recurly
 
       it { should respond_to(:plan_code)}
       it { should respond_to(:coupon_code)}
-      it { should respond_to(:unit_amount)}
+      it { should respond_to(:unit_amount_in_cents)}
       it { should respond_to(:quantity)}
       it { should respond_to(:trial_ends_at)}
 

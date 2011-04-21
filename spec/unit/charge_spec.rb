@@ -7,6 +7,8 @@ module Recurly
 
       it { should respond_to(:id)}
       it { should respond_to(:account_code)}
+      it { should respond_to(:quantity)}
+      it { should respond_to(:unit_amount_in_cents)}
       it { should respond_to(:amount_in_cents)}
       it { should respond_to(:start_date)}
       it { should respond_to(:end_date)}

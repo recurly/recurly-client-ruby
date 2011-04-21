@@ -135,10 +135,6 @@ module Recurly
         result
       end
 
-      def build_request_headers(headers, http_method, uri)
-        super(headers, http_method, uri).update({'User-Agent' => "Recurly Ruby Client v#{VERSION}"})
-      end
-
       def handle_response(response)
         case response.code.to_i
         when 401
@@ -167,4 +163,15 @@ module Recurly
 
   # backwards compatibility
   RecurlyBase = Base
+end
+
+module ActiveResource
+  class Connection
+    private
+    def default_header
+      @default_header ||= {}
+      @default_header['User-Agent'] = "Recurly Ruby Client v#{Recurly::VERSION}"
+      @default_header
+    end
+  end
 end

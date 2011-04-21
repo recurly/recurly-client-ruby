@@ -15,6 +15,7 @@ module Recurly
       it { should respond_to(:country)}
       it { should respond_to(:phone)}
       it { should respond_to(:ip_address)}
+      it { should respond_to(:vat_number)}
 
       context "embedded credit card" do
         before(:each) do

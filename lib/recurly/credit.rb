@@ -6,7 +6,9 @@ module Recurly
     def self.known_attributes
       [
         "account_code",
-        "amount_in_cents",
+        "quantity",
+        "unit_amount_in_cents",
+        "amount_in_cents", # quantity * unit_amount_in_cents
         "start_date",
         "end_date",
         "description",

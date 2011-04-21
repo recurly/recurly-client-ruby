@@ -1,5 +1,12 @@
 = Recurly Ruby Client Library CHANGELOG
 
+== Version 0.4.6 (April 21, 2011)
+
+- Changed "unit_amount" to "unit_amount_in_cents" on Subscription object.
+- Added "vat_number" to BillingInfo.
+- Added "unit_amount_in_cents" and "quantity" to Charge and Credit objects.
+- Fixed sending custom user agent string.
+
 == Version 0.4.5 (April 5, 2011)
 
 - Transparent Post: Fix issue when error "field" attribute is not specified in result.

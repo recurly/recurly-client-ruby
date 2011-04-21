@@ -6,7 +6,7 @@ module Recurly
       [
         "plan_code",
         "coupon_code",
-        "unit_amount",
+        "unit_amount_in_cents",
         "quantity",
         "trial_ends_at"
       ]
