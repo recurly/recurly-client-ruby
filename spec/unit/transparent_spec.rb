@@ -22,9 +22,9 @@ module Recurly
           config.environment = :sandbox
           config.subdomain = 'testtest'
         end
-        Transparent.url(Action::CreateSubscription).should == "https://api-sandbox.recurly.com/transparent/testtest/subscription"
-        Transparent.url(Action::UpdateBilling).should == "https://api-sandbox.recurly.com/transparent/testtest/billing_info"
-        Transparent.url(Action::CreateTransaction).should == "https://api-sandbox.recurly.com/transparent/testtest/transaction"
+        Transparent.url(Action::CreateSubscription).should == "#{Recurly::Base.site}/transparent/testtest/subscription"
+        Transparent.url(Action::UpdateBilling).should == "#{Recurly::Base.site}/transparent/testtest/billing_info"
+        Transparent.url(Action::CreateTransaction).should == "#{Recurly::Base.site}/transparent/testtest/transaction"
       end
 
       it "should equal api-production for sandbox" do
@@ -32,9 +32,9 @@ module Recurly
           config.environment = :production
           config.subdomain = 'testtest'
         end
-        Transparent.url(Action::CreateSubscription).should == "https://api-production.recurly.com/transparent/testtest/subscription"
-        Transparent.url(Action::UpdateBilling).should == "https://api-production.recurly.com/transparent/testtest/billing_info"
-        Transparent.url(Action::CreateTransaction).should == "https://api-production.recurly.com/transparent/testtest/transaction"
+        Transparent.url(Action::CreateSubscription).should == "#{Recurly::Base.site}/transparent/testtest/subscription"
+        Transparent.url(Action::UpdateBilling).should == "#{Recurly::Base.site}/transparent/testtest/billing_info"
+        Transparent.url(Action::CreateTransaction).should == "#{Recurly::Base.site}/transparent/testtest/transaction"
       end
     end
 
