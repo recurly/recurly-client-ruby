@@ -110,6 +110,12 @@ When first running the specs, you'll need to setup a recurly test account. Use t
 
 Now when you run `rake` it will hit recurly's api to run all the specs. Subsequent calls will no longer hit the API (and be run locally).
 
+The tests expect certain plans, add ons, and coupons to be present on the Site you'll be testing against.  You'll need:
+    Plan with no trial with a plan_code of 'paid'
+    Plan with a trial with a plan_code of 'trial'
+    Add ons with codes 'special' and special2' on the 'paid' plan
+    Coupon with coupon code 'coupon' which can be applied to all plans
+
 
 Something go Wrong?
 ------------------
