@@ -26,7 +26,7 @@ Installation
 Setup (Rails 3)
 --------------
 
-The Recurly Ruby Client requires an API user to connect. Please see the [Authentication](http://support.recurly.com/faqs/api/authentication) documentation for more information.
+The Recurly Ruby Client requires an API user to connect. Please see the [Authentication](http://docs.recurly.com/api/authentication/) documentation for more information.
 
 If using Rails 3, the easiest way to get Recurly set up is to run `rake recurly:setup`. This will create a config/recurly.yml that has your recurly account authentication, and the Recurly rails initializer will pick it up on restart of your web app.
 
