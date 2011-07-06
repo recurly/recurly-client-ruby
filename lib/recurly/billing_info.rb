@@ -36,7 +36,7 @@ module Recurly
     end
 
     # initialize associations
-    def initialize(attributes = {}, persisted = true)
+    def initialize(attributes = {}, persisted = false)
       attributes = attributes.with_indifferent_access
       attributes[:credit_card] ||= {}
       super(attributes, persisted)
