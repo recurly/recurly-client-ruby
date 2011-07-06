@@ -24,11 +24,11 @@ module Recurly
     end
 
     # initialize fields with blank data
-    def initialize(attributes = {})
+    def initialize(attributes = {}, persisted = true)
       # initialize embedded attributes
       attributes = attributes.with_indifferent_access
       attributes[:account] ||= {}
-      super(attributes)
+      super(attributes, persisted)
     end
 
     def self.list(status = :all)
