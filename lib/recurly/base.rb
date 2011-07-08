@@ -24,19 +24,8 @@ module Recurly
         save_without_validation
       end
       true
-    rescue ActiveResource::ResourceInvalid => error
-      case error.response['Content-Type']
-      when /application\/xml/
-        begin
-          f = Recurly::Formats::XmlWithErrorsFormat.new
-          load_errors_from_array(f.decode(error.response.body))
-        rescue
-          errors.from_xml(error.response.body)
-        end
-      when /application\/json/
-        errors.from_json(error.response.body)
-      end
-      false
+    rescue ActiveResource::ResourceInvalid => e
+      load_errors e.response.body
     end
 
     # patch persisted? so it looks to see if it actually is persisted
@@ -91,6 +80,16 @@ module Recurly
       def load_attributes_from_response(response)
         super
         @persisted = true
+      end
+
+      def load_errors xml
+        load_errors_from_array(
+          Recurly::Formats::XmlWithErrorsFormat.new.decode(error)
+        )
+      rescue => e
+        errors.from_xml xml
+      ensure
+        return false
       end
       
       # Patched to read errors with field information

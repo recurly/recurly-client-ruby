@@ -63,6 +63,8 @@ module Recurly
       connection.put(path,
         self.class.format.encode(options, :root => :subscription),
         self.class.headers)
+    rescue ActiveResource::ResourceInvalid => e
+      self.load_errors e.response.body
     end
 
     def subscription_account_code
