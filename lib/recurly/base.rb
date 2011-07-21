@@ -40,7 +40,7 @@ module Recurly
     end
 
     # patched to read Errors array
-    def load(attributes)
+    def load(attributes, remove_root = false)
       raise ArgumentError, "expected an attributes Hash, got #{attributes.inspect}" unless attributes.is_a?(Hash)
       @prefix_options, attributes = split_options(attributes)
       attributes.each do |key, value|
@@ -87,6 +87,8 @@ module Recurly
           Recurly::Formats::XmlWithErrorsFormat.new.decode(error)
         )
       rescue => e
+        logger.warn "Recurly::Base#load_errors exception parsing nested error information"
+        # Fallback to default errors parsing
         errors.from_xml xml
       ensure
         return false
