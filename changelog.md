@@ -1,6 +1,11 @@
 = Recurly Ruby Client Library CHANGELOG
 
-== Version 0.4.7 (April 21, 2001)
+== Version 0.4.8 (July 21, 2011)
+
+- Update custom XML parser for transparent post results to be compatible with Rails 3.1 RC.
+- Subscription#change can raise an invalid Active Resource exception: reuse the same error handling as Base#save.
+
+== Version 0.4.7 (April 21, 2011)
 
 - Fix Transaction.refund(amount_in_cents) to pass argument as "amount_in_cents" instead of "amount".
 - Fix error message on timeframe for Subscription.change() argument.
