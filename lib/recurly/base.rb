@@ -26,6 +26,7 @@ module Recurly
       true
     rescue ActiveResource::ResourceInvalid => e
       load_errors e.response.body
+      raise e
     end
 
     # patch persisted? so it looks to see if it actually is persisted
@@ -84,7 +85,7 @@ module Recurly
 
       def load_errors xml
         load_errors_from_array(
-          Recurly::Formats::XmlWithErrorsFormat.new.decode(error)
+          Recurly::Formats::XmlWithErrorsFormat.new.decode(xml)
         )
       rescue => e
         logger.warn "Recurly::Base#load_errors exception parsing nested error information"
