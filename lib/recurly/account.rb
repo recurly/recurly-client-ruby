@@ -47,17 +47,20 @@ module Recurly
     }
 
     # Lists all accounts (with optional filter)
+    # This method also accepts a Hash that allows you to specify a page number, etc.
     #
     # examples:
     #   Account.list(:all) #=> returns all accounts
     #   Account.list(:active) #=> returns active accounts
     #   Account.list(:pastdue) #=> returns pastdue accounts
     #   Account.list(:free) #=> returns the free accounts
+    #   Account.list(:active, {:page => 3}) #=> returns the 3rd page of active accounts
     #
-    def self.list(status = :all)
-      opts = {}
+    def self.list(status = :all, params = {})
+      opts = {:params => params}
+
       if status && status != :all
-        opts[:params] = {:show => SHOW_PARAMS[status] || status}
+        params[:show] = SHOW_PARAMS[status] || status
       end
       find(:all, opts)
     end
