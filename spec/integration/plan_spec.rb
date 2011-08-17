@@ -64,7 +64,7 @@ module Recurly
           Plan.new({
             :plan_code => "test",
             :name => "Test Plan",
-            :amount_in_cents => 100,
+            :unit_amount_in_cents => 100,
             :plan_interval_length => 1,
             :plan_interval_unit => "months",
             :trial_interval_length => 0,
@@ -75,7 +75,7 @@ module Recurly
       end
 
       it "should update the plan" do
-        @test_plan.amount_in_cents = 200
+        @test_plan.unit_amount_in_cents = 200
         @test_plan.save!
 
         @test_plan = test_plan

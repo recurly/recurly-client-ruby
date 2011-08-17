@@ -17,7 +17,7 @@ module Recurly
       attributes = attributes.with_indifferent_access
       attributes[:account] ||= {}
       attributes[:addons] ||= []
-      super(attributes, persisted)
+      super
     end
 
     def self.refund(account_code, refund_type = :partial)

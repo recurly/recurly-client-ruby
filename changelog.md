@@ -1,5 +1,10 @@
 = Recurly Ruby Client Library CHANGELOG
 
+== Version 0.4.10 (August 17, 2011)
+
+- More updates for Rails 3.1 compatibility.
+- Update parsing of errors on BillingInfo so credit card errors appear on the CreditCard object.
+
 == Version 0.4.8 (July 21, 2011)
 
 - Update custom XML parser for transparent post results to be compatible with Rails 3.1 RC.

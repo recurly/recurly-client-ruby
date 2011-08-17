@@ -21,7 +21,7 @@ module Recurly
     def initialize(attributes = {}, persisted = false)
       attributes = attributes.with_indifferent_access
       attributes[:billing_info] ||= {}
-      super(attributes, persisted)
+      super
     end
 
     attr_accessor :account_code_was

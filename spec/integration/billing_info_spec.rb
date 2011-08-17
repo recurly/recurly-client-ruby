@@ -127,7 +127,7 @@ module Recurly
         })
 
         billing_info = BillingInfo.create(@billing_attributes)
-        billing_info.errors[:base].count.should == 1
+        billing_info.credit_card.errors[:number].count.should == 1
       end
       
       it "should set an error if the card number is invalid" do
@@ -141,7 +141,7 @@ module Recurly
         })
 
         billing_info = BillingInfo.create(@billing_attributes)
-        billing_info.errors.count.should == 1
+        billing_info.credit_card.errors.count.should == 1
       end
     end
   end

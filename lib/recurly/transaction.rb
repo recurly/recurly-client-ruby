@@ -28,7 +28,7 @@ module Recurly
       # initialize embedded attributes
       attributes = attributes.with_indifferent_access
       attributes[:account] ||= {}
-      super(attributes, persisted)
+      super
     end
 
     def self.list(status = :all)

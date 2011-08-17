@@ -111,7 +111,7 @@ module Recurly
         return model.new.from_transparent_results(response)
 
       rescue ActiveResource::ResourceInvalid => ex
-        model_result = model.new.from_transparent_results(ex.response)
+        model_result = model.new.from_transparent_results(ex.response, true)
         raise Recurly::ValidationsFailed.new(model_result)
       end
     end

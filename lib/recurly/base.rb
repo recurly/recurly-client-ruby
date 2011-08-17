@@ -15,6 +15,14 @@ module Recurly
       self.errors.blank?
     end
 
+    # Define #initialize with persisted for our Rails 2.3 and 3.0 friends
+    def initialize(attributes = {}, persisted = false)
+      @attributes     = {}.with_indifferent_access
+      @prefix_options = {}
+      @persisted = persisted
+      load(attributes)
+    end
+
     # See http://github.com/rails/rails/commit/1488c6cc9e6237ce794e3c4a6201627b9fd4ca09
     # Errors in Rails 2.3.4 are not parsed correctly.
     def save
@@ -23,7 +31,6 @@ module Recurly
       else
         save_without_validation
       end
-      true
     rescue ActiveResource::ResourceInvalid => e
       load_errors e.response.body
     end
@@ -51,17 +58,18 @@ module Recurly
         @attributes[key.to_s] =
           case value
             when Array
-              resource = find_or_create_resource_for_collection(key)
+              resource = nil
               value.map do |attrs|
                 if attrs.is_a?(Hash)
-                  resource.new(attrs)
+                  resource ||= find_or_create_resource_for_collection(key)
+                  resource.new(attrs, true)
                 else
                   attrs.duplicable? ? attrs.dup : attrs
                 end
               end
             when Hash
               resource = find_or_create_resource_for(key)
-              resource.new(value)
+              resource.new(value, true)
             else
               value.dup rescue value
           end
@@ -78,18 +86,21 @@ module Recurly
     protected
       # patch load_attributes_from_response so it marks result records as persisted
       def load_attributes_from_response(response)
-        super
-        @persisted = true
+        if (response['Content-Length'].blank? || response['Content-Length'] != "0") && !response.body.nil? && response.body.strip.size > 0
+          load(self.class.format.decode(response.body), true)
+          @persisted = true
+        end
       end
 
       def load_errors xml
         load_errors_from_array(
-          Recurly::Formats::XmlWithErrorsFormat.new.decode(error)
+          Recurly::Formats::XmlWithErrorsFormat.new.decode(xml)
         )
       rescue => e
         logger.warn "Recurly::Base#load_errors exception parsing nested error information"
         # Fallback to default errors parsing
         errors.from_xml xml
+        raise
       ensure
         return false
       end
@@ -112,6 +123,12 @@ module Recurly
 
             humanized_name = field.to_s.humanize.downcase
             message = message[(humanized_name.size + 1)..-1] if message[0, humanized_name.size + 1].downcase == "#{humanized_name} "
+
+            # HACK: Special case nested billing errors
+            if self.is_a?(Recurly::BillingInfo) && Recurly::BillingInfo::CreditCard.known_attributes.include?(field)
+              self.credit_card.errors.add field.to_sym, message
+              next
+            end
 
             errors.add field.to_sym, message
           elsif error.is_a?(String)

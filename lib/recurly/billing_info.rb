@@ -39,7 +39,7 @@ module Recurly
     def initialize(attributes = {}, persisted = false)
       attributes = attributes.with_indifferent_access
       attributes[:credit_card] ||= {}
-      super(attributes, persisted)
+      super
     end
 
     def update_only
