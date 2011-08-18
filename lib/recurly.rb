@@ -38,6 +38,7 @@ module Recurly
   autoload :Subscription,   'recurly/subscription'
   autoload :Transaction,    'recurly/transaction'
   autoload :Transparent,    'recurly/transparent'
+  autoload :Verification,   'recurly/verification'
 
   class << self
     attr_accessor :username, :password, :environment, :subdomain, :private_key
