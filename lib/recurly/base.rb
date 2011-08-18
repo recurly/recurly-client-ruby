@@ -62,14 +62,14 @@ module Recurly
               value.map do |attrs|
                 if attrs.is_a?(Hash)
                   resource ||= find_or_create_resource_for_collection(key)
-                  resource.new(attrs, true)
+                  resource.new(attrs)
                 else
                   attrs.duplicable? ? attrs.dup : attrs
                 end
               end
             when Hash
               resource = find_or_create_resource_for(key)
-              resource.new(value, true)
+              resource.new(value)
             else
               value.dup rescue value
           end
