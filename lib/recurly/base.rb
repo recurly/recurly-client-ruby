@@ -129,14 +129,7 @@ module Recurly
         end
       end
 
-    private
-      # patch instantiate_record so it marks result records as persisted
-      def self.instantiate_record(record, prefix_options)
-        result = super
-        result.instance_eval{ @persisted = true }
-        result
-      end
-
+    private    
       def handle_response(response)
         case response.code.to_i
         when 401

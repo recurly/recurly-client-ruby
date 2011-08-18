@@ -1,6 +1,6 @@
 source :rubygems
 
-gem "activeresource", ">= 3.0"
+gem "activeresource", ">= 3.1.0.rc4"
 gem "addressable", ">= 2.2.1"
 gem "nokogiri"
 
@@ -16,6 +16,5 @@ group :test do
   # testing help
   gem "webmock", :git => "http://github.com/bblimke/webmock.git"
   gem "vcr", :git => "http://github.com/myronmarston/vcr.git"
-
   gem "ruby-debug", :platforms => :mri_18
 end
