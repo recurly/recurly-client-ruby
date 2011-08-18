@@ -1,10 +1,10 @@
 source :rubygems
 
-gem "activeresource", ">= 3.0"
+gem "activeresource", ">= 3.1.0rc5" #">= 3.0"
 gem "addressable", ">= 2.2.1"
 gem "nokogiri"
 
-gem 'rest-client', :git => "http://github.com/archiloque/rest-client.git"
+gem 'rest-client'
 
 
 group :test do
@@ -14,8 +14,7 @@ group :test do
   gem "growl-glue"
 
   # testing help
-  gem "webmock", :git => "http://github.com/bblimke/webmock.git"
-  gem "vcr", :git => "http://github.com/myronmarston/vcr.git"
-
+  gem "webmock", "< 1.7.0"
+  gem "vcr"
   gem "ruby-debug", :platforms => :mri_18
 end

@@ -13,6 +13,10 @@ module Recurly
       it "should be valid" do
         @account.should be_valid
       end
+      
+      it "should not be persisted" do
+        @account.should_not be_persisted
+      end
 
       it "should set the attributes correctly" do
         attributes.each do |key, val|
@@ -28,6 +32,10 @@ module Recurly
         let(:attributes) { Factory.account_attributes("account-create-#{timestamp}") }
         before(:each) do
           @account = Account.create(attributes)
+        end
+
+        it "should be persisted" do
+          @account.should be_persisted
         end
 
         it "should be valid" do
@@ -80,6 +88,10 @@ module Recurly
 
       it "should return the account object" do
         @account.should_not be_nil
+      end
+
+      it "should be persisted" do
+        @account.should be_persisted
       end
 
       describe "returned account" do
