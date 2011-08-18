@@ -145,7 +145,14 @@ module Recurly
         end
       end
 
-    private    
+    private
+      # Fix @persisted for Rails 2.3, 3.0
+      def self.instantiate_record(record, prefix_options = {})
+        new(record, true).tap do |resource|
+          resource.prefix_options = prefix_options
+        end
+      end
+
       def handle_response(response)
         case response.code.to_i
         when 401
