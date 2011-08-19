@@ -31,9 +31,11 @@ module Recurly
       else
         save_without_validation
       end
+      true
     rescue ActiveResource::ResourceInvalid => e
       load_errors e.response.body
-      raise e
+      #raise Recurly::ResourceInvalid.new(e.response, self.errors.full_messages.join(', '))
+      false
     end
 
     # patch persisted? so it looks to see if it actually is persisted
@@ -102,8 +104,6 @@ module Recurly
         # Fallback to default errors parsing
         errors.from_xml xml
         raise
-      ensure
-        return false
       end
       
       # Patched to read errors with field information
@@ -167,7 +167,7 @@ module Recurly
           raise ResourceNotFound.new(response, message)
         when 422
           message = Hash.from_xml(response.body)['errors']['error'] rescue nil
-          raise ResourceInvalid.new(response, message)
+          raise Recurly::ResourceInvalid.new(response, message)
         when 412
           message = Hash.from_xml(response.body)['errors']['error'] rescue nil
           raise ClientError.new(response, message)

@@ -1,3 +1,6 @@
+require 'active_resource/exceptions'
+require 'active_resource/validations'
+
 module Recurly
   class RecurlyError < StandardError; end
   
@@ -14,6 +17,16 @@ module Recurly
       @model = model
     end
 
+  end
+
+  class ResourceInvalid < ::ActiveResource::ResourceInvalid
+    # Overridden to print the actual error message
+    def to_s
+      message = "Failed."
+      message << "  Response code = #{response.code}." if response.respond_to?(:code)
+      message << "  Response message = #{@message}." if @message
+      message
+    end
   end
   
 end

@@ -33,13 +33,17 @@ module Recurly
       signature + '-' + timestamp
     end
 
-    def verify_params(claim, args)
+    # Raises a Recurly::ForgedQueryString exception if the signature cannot be validated
+    def verify_params!(claim, args)
       args = Hash[args.map { |k, v| [k.to_s, v] }]
-      signature = args.delete('signature') or return false
+      signature = args.delete('signature') or raise Recurly::ForgedQueryString.new('Signature is missing')
       hmac, timestamp = signature.split('-')
       age = Time.now.to_i - timestamp.to_i
-      return false if age > 3600 || age < 0
-      signature == generate_signature(claim, args, timestamp)
+      raise Recurly::ForgedQueryString.new('Timestamp is too old or new') if age > 3600 || age < 0
+
+      if signature != generate_signature(claim, args, timestamp)
+        raise Recurly::ForgedQueryString.new('Signature cannot be verified')
+      end
     end
 
     def sign_billing_info_update(account_code)
@@ -56,16 +60,16 @@ module Recurly
       }) 
     end
 
-    def verify_subscription(params)
-      verify_params 'subscriptioncreated', params
+    def verify_subscription!(params)
+      verify_params! 'subscriptioncreated', params
     end
 
-    def verify_transaction(params)
-      verify_params 'transactioncreated', params
+    def verify_transaction!(params)
+      verify_params! 'transactioncreated', params
     end
 
-    def verify_billing_info_update(params)
-      verify_params 'billinginfoupdated', params
+    def verify_billing_info_update!(params)
+      verify_params! 'billinginfoupdated', params
     end
 
     extend self

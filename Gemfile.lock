@@ -13,6 +13,7 @@ GEM
     activesupport (3.1.0.rc6)
       multi_json (~> 1.0)
     addressable (2.2.6)
+    archive-tar-minitar (0.5.2)
     autotest (4.4.6)
       ZenTest (>= 4.4.1)
     bcrypt-ruby (2.1.4)
@@ -22,12 +23,11 @@ GEM
     diff-lcs (1.1.2)
     growl-glue (1.0.7)
     i18n (0.6.0)
-    linecache (0.46)
-      rbx-require-relative (> 0.0.4)
+    linecache19 (0.5.12)
+      ruby_core_source (>= 0.1.4)
     mime-types (1.16)
     multi_json (1.0.3)
     nokogiri (1.5.0)
-    rbx-require-relative (0.0.5)
     rest-client (1.6.3)
       mime-types (>= 1.16)
     rspec (2.6.0)
@@ -38,11 +38,16 @@ GEM
     rspec-expectations (2.6.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.6.0)
-    ruby-debug (0.10.4)
-      columnize (>= 0.1)
-      ruby-debug-base (~> 0.10.4.0)
-    ruby-debug-base (0.10.4)
-      linecache (>= 0.3)
+    ruby-debug-base19 (0.11.25)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby_core_source (>= 0.1.4)
+    ruby-debug19 (0.11.6)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby-debug-base19 (>= 0.11.19)
+    ruby_core_source (0.1.5)
+      archive-tar-minitar (>= 0.5.2)
     vcr (1.10.3)
     webmock (1.6.4)
       addressable (> 2.2.5, ~> 2.2)
@@ -52,13 +57,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activeresource (= 3.1.0rc6)
+  activeresource (>= 3.0)
   addressable (>= 2.2.1)
   autotest
   growl-glue
   nokogiri
   rest-client
   rspec (>= 2.0.0)
-  ruby-debug
+  ruby-debug19
   vcr
   webmock (< 1.7.0)
