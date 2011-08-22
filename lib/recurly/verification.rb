@@ -48,7 +48,7 @@ module Recurly
       })
     end
 
-    def sign_transaction(account_code, currency, amount_in_cents)
+    def sign_transaction(amount_in_cents, currency, account_code=nil)
       generate_signature('transactioncreate', {
         account_code: account_code,
         currency: currency,
