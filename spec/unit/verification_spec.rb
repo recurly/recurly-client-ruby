@@ -3,10 +3,11 @@ require 'spec_helper'
 module Recurly
   describe Verification do
     origin_time = 1312806801
-    test_sig = '55c24ea6a183382d82bba6b771bfb503ff25b92d-1312806801'
+    test_sig = 'fb5194a51aa97996cdb995a89064764c5c1bfd93-1312806801'
 
     before(:each) do
       Recurly.configure_from_yaml("#{File.dirname(__FILE__)}/../config/recurly.yml")
+      Recurly::private_key = '0123456789abcdef0123456789abcdef' # Used for testing
     end
 
     it "should ignore empty arrays, hashes, strings, and nil" do
@@ -41,30 +42,34 @@ module Recurly
 
     it "should validate proper signatures" do
       Time.stub!(:now).and_return(Time.at(origin_time+60)) # one minute passed
-      good = Verification.verify_params('update',
-                         {a:'foo',b:'bar',signature:test_sig})
-      good.should == true
+      lambda {
+        good = Verification.verify_params!('update',
+                           {a:'foo',b:'bar',signature:test_sig})
+      }.should_not raise_error
     end
 
     it "should reject invalid signature" do
       Time.stub!(:now).and_return(Time.at(origin_time+60)) # one minute passed
-      good = Verification.verify_params('update',
-                         {a:'foo',b:'bar',signature:'badsig'})
-      good.should == false
+      lambda {
+        good = Verification.verify_params!('update',
+                           {a:'foo',b:'bar',signature:'badsig'})
+      }.should raise_error(Recurly::ForgedQueryString)
     end
 
     it "should reject expired signature" do
       Time.stub!(:now).and_return(Time.at(origin_time+7200)) # two hours passed
-      good = Verification.verify_params('update',
-                         {a:'foo',b:'bar',signature:test_sig})
-      good.should == false
+      lambda {
+        good = Verification.verify_params!('update',
+                           {a:'foo',b:'bar',signature:test_sig})
+      }.should raise_error(Recurly::ForgedQueryString)
     end
 
     it "should reject time traveling signatures from the future" do
       Time.stub!(:now).and_return(Time.at(origin_time-60)) # one minute earlier
-      good = Verification.verify_params('update',
-                         {a:'foo',b:'bar',signature:test_sig})
-      good.should == false
+      lambda {
+        good = Verification.verify_params!('update',
+                           {a:'foo',b:'bar',signature:test_sig})
+      }.should raise_error(Recurly::ForgedQueryString)
     end
   end
 

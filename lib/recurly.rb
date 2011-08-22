@@ -80,7 +80,7 @@ module Recurly
       environment = :production if environment.nil? # Default to production
       case environment.to_sym
       when :development
-        "http://app.recurly.local:3000"
+        "http://app.lvh.me:3000"
       when :production
         "https://api-production.recurly.com"
       when :sandbox

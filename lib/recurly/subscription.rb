@@ -13,11 +13,11 @@ module Recurly
     end
 
     # initialize associations
-    def initialize(attributes = {})
+    def initialize(attributes = {}, persisted = false)
       attributes = attributes.with_indifferent_access
       attributes[:account] ||= {}
       attributes[:addons] ||= []
-      super(attributes)
+      super
     end
 
     def self.refund(account_code, refund_type = :partial)

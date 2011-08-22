@@ -140,7 +140,6 @@ module Recurly
                                           :description => "inconvenience fee"
 
           @charge = Charge.lookup(account.account_code, charge.id)
-
           @charge.destroy
         end
 

@@ -1,61 +1,57 @@
-GIT
-  remote: http://github.com/archiloque/rest-client.git
-  revision: bb165eb
-  specs:
-    rest-client (1.6.0)
-      mime-types (>= 1.16)
-
-GIT
-  remote: http://github.com/bblimke/webmock.git
-  revision: 2970504
-  specs:
-    webmock (1.3.5)
-      addressable (>= 2.1.1)
-      crack (>= 0.1.7)
-
-GIT
-  remote: http://github.com/myronmarston/vcr.git
-  revision: 30b6242a1b0e97a21c27808e416e9b9e8215f994
-  specs:
-    vcr (1.1.2)
-
 GEM
   remote: http://rubygems.org/
   specs:
-    activemodel (3.0.0)
-      activesupport (= 3.0.0)
-      builder (~> 2.1.2)
-      i18n (~> 0.4.1)
-    activeresource (3.0.0)
-      activemodel (= 3.0.0)
-      activesupport (= 3.0.0)
-    activesupport (3.0.0)
-    addressable (2.2.1)
-    autotest (4.4.1)
-    builder (2.1.2)
-    columnize (0.3.1)
+    ZenTest (4.6.1)
+    activemodel (3.1.0.rc6)
+      activesupport (= 3.1.0.rc6)
+      bcrypt-ruby (~> 2.1.4)
+      builder (~> 3.0.0)
+      i18n (~> 0.6)
+    activeresource (3.1.0.rc6)
+      activemodel (= 3.1.0.rc6)
+      activesupport (= 3.1.0.rc6)
+    activesupport (3.1.0.rc6)
+      multi_json (~> 1.0)
+    addressable (2.2.6)
+    archive-tar-minitar (0.5.2)
+    autotest (4.4.6)
+      ZenTest (>= 4.4.1)
+    bcrypt-ruby (2.1.4)
+    builder (3.0.0)
+    columnize (0.3.4)
     crack (0.1.8)
     diff-lcs (1.1.2)
     growl-glue (1.0.7)
-    i18n (0.4.1)
-    linecache (0.43)
+    i18n (0.6.0)
+    linecache19 (0.5.12)
+      ruby_core_source (>= 0.1.4)
     mime-types (1.16)
-    nokogiri (1.4.4)
-    rspec (2.0.1)
-      rspec-core (~> 2.0.1)
-      rspec-expectations (~> 2.0.1)
-      rspec-mocks (~> 2.0.1)
-    rspec-core (2.0.1)
-    rspec-expectations (2.0.1)
-      diff-lcs (>= 1.1.2)
-    rspec-mocks (2.0.1)
-      rspec-core (~> 2.0.1)
-      rspec-expectations (~> 2.0.1)
-    ruby-debug (0.10.3)
-      columnize (>= 0.1)
-      ruby-debug-base (~> 0.10.3.0)
-    ruby-debug-base (0.10.3)
-      linecache (>= 0.3)
+    multi_json (1.0.3)
+    nokogiri (1.5.0)
+    rest-client (1.6.3)
+      mime-types (>= 1.16)
+    rspec (2.6.0)
+      rspec-core (~> 2.6.0)
+      rspec-expectations (~> 2.6.0)
+      rspec-mocks (~> 2.6.0)
+    rspec-core (2.6.4)
+    rspec-expectations (2.6.0)
+      diff-lcs (~> 1.1.2)
+    rspec-mocks (2.6.0)
+    ruby-debug-base19 (0.11.25)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby_core_source (>= 0.1.4)
+    ruby-debug19 (0.11.6)
+      columnize (>= 0.3.1)
+      linecache19 (>= 0.5.11)
+      ruby-debug-base19 (>= 0.11.19)
+    ruby_core_source (0.1.5)
+      archive-tar-minitar (>= 0.5.2)
+    vcr (1.10.3)
+    webmock (1.6.4)
+      addressable (> 2.2.5, ~> 2.2)
+      crack (>= 0.1.7)
 
 PLATFORMS
   ruby
@@ -66,8 +62,8 @@ DEPENDENCIES
   autotest
   growl-glue
   nokogiri
-  rest-client!
+  rest-client
   rspec (>= 2.0.0)
-  ruby-debug
-  vcr!
-  webmock!
+  ruby-debug19
+  vcr
+  webmock (< 1.7.0)
