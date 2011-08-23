@@ -16,7 +16,7 @@ Installation
 
 **Stable Version:**
 
-    gem 'recurly'
+    gem 'recurly', '~> 0.4.11'
 
 **Bleeding Edge Version:**
 
