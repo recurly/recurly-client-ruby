@@ -1,3 +1,5 @@
+require 'erb'
+
 module Recurly
 
   module Action

@@ -1,4 +1,7 @@
+require 'erb'
 require 'fileutils'
+require 'yaml'
+
 module Recurly
   module ConfigParser
     class << self
