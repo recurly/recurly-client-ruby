@@ -1,3 +1,5 @@
+require 'erb'
+
 module Recurly
 
   module Action
@@ -111,7 +113,7 @@ module Recurly
         return model.new.from_transparent_results(response)
 
       rescue ActiveResource::ResourceInvalid => ex
-        model_result = model.new.from_transparent_results(ex.response, true)
+        model_result = model.new.from_transparent_results(ex.response)
         raise Recurly::ValidationsFailed.new(model_result)
       end
     end

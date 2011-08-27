@@ -1,5 +1,9 @@
 = Recurly Ruby Client Library CHANGELOG
 
+== Version 0.4.11 (August 22, 2011)
+
+- Fix parsing transparent post results on a 422 response.
+
 == Version 0.4.10 (August 19, 2011)
 
 - Rails 3.1 compatibility

@@ -48,15 +48,15 @@ module Recurly
 
     def sign_billing_info_update(account_code)
       generate_signature('billinginfoupdate', {
-        account_code: account_code
+        :account_code => account_code
       })
     end
 
     def sign_transaction(amount_in_cents, currency, account_code=nil)
       generate_signature('transactioncreate', {
-        account_code: account_code,
-        currency: currency,
-        amount_in_cents: amount_in_cents
+        :account_code => account_code,
+        :currency => currency,
+        :amount_in_cents => amount_in_cents
       }) 
     end
 

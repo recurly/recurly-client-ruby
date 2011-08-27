@@ -1,4 +1,7 @@
+require 'erb'
 require 'fileutils'
+require 'yaml'
+
 module Recurly
   module ConfigParser
     class << self
@@ -7,7 +10,7 @@ module Recurly
         path ||= Recurly.settings_path
         settings = {}
         if File.exists?(path)
-          settings = YAML.load_file(path) || {}
+          settings = YAML::load(ERB.new(File.read(path)).result) || {}
         else
           puts "\n#{path} file not found. Run rake recurly:setup to create one\n\n"
         end
