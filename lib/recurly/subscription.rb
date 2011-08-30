@@ -20,6 +20,13 @@ module Recurly
       super
     end
 
+    # API inconsistency workaround: Pull plan_code into subscription to conform to known_attributes
+    def load(attributes, remove_root = false)
+      attributes = attributes.with_indifferent_access
+      attributes[:plan_code] ||= attributes[:plan][:plan_code] if attributes.include?(:plan)
+      super
+    end
+    
     def self.refund(account_code, refund_type = :partial)
       raise "Refund type must be :full, :partial, or :none." unless [:full, :partial, :none].include?(refund_type)
       Subscription.delete(nil, {:account_code => account_code, :refund => refund_type})
