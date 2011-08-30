@@ -22,6 +22,12 @@ module Recurly
       ).should == '[a:[1,2,3],b:[c:123,d:456]]'
     end
 
+    it "should alphabetize keys" do
+      Verification::digest_data( 
+        {a: 1, c: 3, b: 2}
+      ).should == '[a:1,b:2,c:3]'
+    end
+
     it "should treat hashes with numeric indexes as arrays" do
       Verification::digest_data( 
         {'1' => 4, '2' => 5, '3' => 6}
@@ -64,8 +70,8 @@ module Recurly
       }.should raise_error(Recurly::ForgedQueryString)
     end
 
-    it "should reject time traveling signatures from the future" do
-      Time.stub!(:now).and_return(Time.at(origin_time-60)) # one minute earlier
+    it "should reject time traveling signatures from the future (with 1 hour grace period)" do
+      Time.stub!(:now).and_return(Time.at(origin_time-7200)) # two hours earlier
       lambda {
         good = Verification.verify_params!('update',
                            {a:'foo',b:'bar',signature:test_sig})

@@ -39,7 +39,7 @@ module Recurly
       signature = args.delete('signature') or raise Recurly::ForgedQueryString.new('Signature is missing')
       hmac, timestamp = signature.split('-')
       age = Time.now.to_i - timestamp.to_i
-      raise Recurly::ForgedQueryString.new('Timestamp is too old or new') if age > 3600 || age < 0
+      raise Recurly::ForgedQueryString.new('Timestamp is too old or new') if age > 3600 || age < -3600
 
       if signature != generate_signature(claim, args, timestamp)
         raise Recurly::ForgedQueryString.new('Signature cannot be verified')
