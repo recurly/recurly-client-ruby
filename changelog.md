@@ -1,5 +1,9 @@
 = Recurly Ruby Client Library CHANGELOG
 
+== Version 0.4.12 (August 30, 2011)
+
+- Update verification module to support ruby 1.8 
+
 == Version 0.4.11 (August 22, 2011)
 
 - Fix parsing transparent post results on a 422 response.

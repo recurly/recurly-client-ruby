@@ -18,13 +18,13 @@ module Recurly
 
     it "should encode nested arrays and hashes" do
       Verification::digest_data( 
-        {a: [1,2,3], b: {c: '123', d:'456'}}
+        {:a => [1,2,3], :b => {:c => '123', :d => '456'}}
       ).should == '[a:[1,2,3],b:[c:123,d:456]]'
     end
 
     it "should alphabetize keys" do
       Verification::digest_data( 
-        {a: 1, c: 3, b: 2}
+        {:a => 1, :c => 3, :b => 2}
       ).should == '[a:1,b:2,c:3]'
     end
 
@@ -36,13 +36,13 @@ module Recurly
 
     it "should escape syntax characters" do
       Verification::digest_data(
-        {syntaxchars: ' \\ [ ] : , '}
+        { :syntaxchars =>  ' \\ [ ] : , '}
       ).should == '[syntaxchars: \\\\ \[ \] \: \, ]'
     end
 
     it "should generate proper signatures" do
       Time.stub!(:now).and_return(origin_time) # gen at origin time
-      sig = Verification.generate_signature('update',{a:'foo',b:'bar'})
+      sig = Verification.generate_signature('update',{ :a => 'foo', :b => 'bar'})
       sig.should == test_sig
     end
 
@@ -50,7 +50,7 @@ module Recurly
       Time.stub!(:now).and_return(Time.at(origin_time+60)) # one minute passed
       lambda {
         good = Verification.verify_params!('update',
-                           {a:'foo',b:'bar',signature:test_sig})
+                           { :a => 'foo', :b => 'bar', :signature => test_sig})
       }.should_not raise_error
     end
 
@@ -58,7 +58,7 @@ module Recurly
       Time.stub!(:now).and_return(Time.at(origin_time+60)) # one minute passed
       lambda {
         good = Verification.verify_params!('update',
-                           {a:'foo',b:'bar',signature:'badsig'})
+                           { :a => 'foo', :b => 'bar', :signature => 'badsig'})
       }.should raise_error(Recurly::ForgedQueryString)
     end
 
@@ -66,7 +66,7 @@ module Recurly
       Time.stub!(:now).and_return(Time.at(origin_time+7200)) # two hours passed
       lambda {
         good = Verification.verify_params!('update',
-                           {a:'foo',b:'bar',signature:test_sig})
+                           { :a => 'foo', :b => 'bar', :signature => test_sig})
       }.should raise_error(Recurly::ForgedQueryString)
     end
 
@@ -74,7 +74,7 @@ module Recurly
       Time.stub!(:now).and_return(Time.at(origin_time-7200)) # two hours earlier
       lambda {
         good = Verification.verify_params!('update',
-                           {a:'foo',b:'bar',signature:test_sig})
+                           { :a => 'foo', :b => 'bar', :signature => test_sig})
       }.should raise_error(Recurly::ForgedQueryString)
     end
   end

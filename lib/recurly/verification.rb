@@ -1,5 +1,10 @@
 module Recurly
   module Verification
+
+    def stringify_keys data
+      Hash[data.map { |k, v| [k.to_s, v] }]
+    end
+
     class PreEscapedString < String
     end
 
@@ -8,7 +13,8 @@ module Recurly
         return nil if data.empty?
         PreEscapedString.new( '[%s]' % data.map{|v|digest_data(v)}.compact.join(',') )
       elsif data.is_a? Hash
-        digest_data Hash[data.sort].map {|k,v|
+        data = stringify_keys data
+        digest_data data.sort.map {|k,v|
           prefix = (k =~ /\A\d+\Z/) ? '' : (k.to_s+':')
           (v=digest_data(v)).nil? ? nil : PreEscapedString.new('%s%s' % [prefix,v])
         }
@@ -35,7 +41,7 @@ module Recurly
 
     # Raises a Recurly::ForgedQueryString exception if the signature cannot be validated
     def verify_params!(claim, args)
-      args = Hash[args.map { |k, v| [k.to_s, v] }]
+      args = stringify_keys args
       signature = args.delete('signature') or raise Recurly::ForgedQueryString.new('Signature is missing')
       hmac, timestamp = signature.split('-')
       age = Time.now.to_i - timestamp.to_i
