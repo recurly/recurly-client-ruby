@@ -5,11 +5,19 @@ require 'openssl'
 require 'addressable/uri'
 
 # load ActiveResource patches
-if defined?(::Rails::VERSION::MAJOR) and ::Rails::VERSION::MAJOR == 3
-  require 'patches/rails3/active_resource/connection'
-elsif defined?(::Rails::VERSION::MAJOR) and ::Rails::VERSION::MAJOR == 2
-  require 'patches/rails2/active_resource/connection'
+if defined?(::Rails::VERSION::MAJOR)
+  if ::Rails::VERSION::MAJOR == 3
+    require 'patches/rails3/active_resource/connection'
+  elsif ::Rails::VERSION::MAJOR == 2
+    require 'patches/rails2/active_resource/connection'
+  end
+
+  unless ::Rails::VERSION::MAJOR == 3 and ::Rails::VERSION::MINOR > 0
+    # was fixed in Rails 3.1... see comments
+    require 'patches/rails2/active_resource/base'
+  end
 end
+
 
 require 'recurly/version'
 require 'recurly/exceptions'
