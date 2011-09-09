@@ -12,7 +12,8 @@ if defined?(::Rails::VERSION::MAJOR)
     require 'patches/rails2/active_resource/connection'
   end
 
-  unless ::Rails::VERSION::MAJOR == 3 and ::Rails::VERSION::MINOR > 0
+  if ::Rails::VERSION::MAJOR == 2 or
+    (::Rails::VERSION::MAJOR == 3 and ::Rails::VERSION::MINOR == 0)
     # was fixed in Rails 3.1... see comments
     require 'patches/rails2/active_resource/base'
   end
