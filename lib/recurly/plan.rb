@@ -1,7 +1,6 @@
 module Recurly
   class Plan < Base
     self.element_name = "plan"
-    self.prefix = "/site/"
     self.primary_key = :plan_code
 
     def self.known_attributes

@@ -37,10 +37,8 @@ Setup (Rails 2 and other frameworks)
 Alternatively, if not using Rails 3, just make sure to call a Recurly configure block somewhere in your applications initialization.
 
     Recurly.configure do |c|
-      c.username = 'api@yourcompany.com'
-      c.password = 'your_api_key'
+      c.api_key = 'your_api_key'
       c.private_key = 'your_private_key'
-      c.environment = :production # or :sandbox for test sites
       c.subdomain = 'your-recurly-subdomain'
     end
 
@@ -48,7 +46,7 @@ In Rails 2.x, this code should be in config/initializers/recurly.rb
 
 In Sinatra, it should be within a `configure` block.
 
-**Please Note:** the setup parameters changed in version 0.4.0. The Ruby client now connects to either api-production.recurly.com or api-sandbox.recurly.com to improve DNS lookups. Additional configuration options were also added for the [Transparent Post API](http://docs.recurly.com/transparent-post/basics).
+**Please Note:** the setup parameters changed in version 0.4.0. Additional configuration options were also added for the [Transparent Post API](http://docs.recurly.com/transparent-post/basics).
 
 Manual Setup via YAML or JSON
 --------------
@@ -58,10 +56,8 @@ You can also configure Recurly via a YAML file by using:
 
 The Recurly Configuration YAML is in the format of:
 
-    username: myrecurlyuser@domain.com
-    password: your_api_key
+    api_key: your_api_key
     private_key: your_private_key
-    environment: :production
     subdomain: your_recurly_subdomain
 
 

@@ -1,5 +1,11 @@
 = Recurly Ruby Client Library CHANGELOG
 
+== Version 0.4.13 (September 22, 2011)
+
+- Simplify API credentials. Replaced API username, password, and environment with simply "API Key".
+  Please change your `password` to `api_key` in the configuration settings; the library will continue
+  to read `api_key` from `password` for backwards compatibility.
+
 == Version 0.4.12 (August 30, 2011)
 
 - Update verification module to support ruby 1.8 

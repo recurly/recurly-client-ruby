@@ -1,6 +1,4 @@
 ---
-username: username1@recurly.com
-password: asdf4jk31
+api_key: asdf4jk31
 subdomain: site1
 private_key: asdfasdfasdf
-environment: :production

@@ -6,7 +6,7 @@ namespace :recurly do
     @recurly_config = Recurly::ConfigParser.parse
   end
 
-  desc "Clears out the Test data from your configured Recurly site (does not touch your production site)"
+  desc "Clears out the Test data from your configured Recurly site (does not touch your data in production mode)"
   task :clear_test_data => :load_settings do
     puts "\n"
 
@@ -17,42 +17,26 @@ namespace :recurly do
       exit
     end
 
-    username = @recurly_config["username"]
-    password = @recurly_config["password"]
-
-    # lets try logging into site
-    login_response = nil
-    begin
-      RestClient.post "https://app.recurly.com/login",
-        :user_session => {
-          :email => username,
-          :password => password
-        }
-
-      # yes, RestClient api is weird
-      raise "Login Failed for #{username} (we should have gotten a redirect)"
-    rescue RestClient::Found => e
-      # we got a redirect. horray!
-      login_response = e.response
-    end
+    api_key = @recurly_config["api_key"]
+    environment = @recurly_config["environment"]
 
     # now lets clear site data
     begin
-      RestClient.post( @recurly_config["site"]+"/site/test_data",
-                       {"_method"=>"delete"},
-                       :cookies => login_response.cookies)
+      if environment == :development
+        RestClient.delete("http://#{api_key}@api.lvh.me:3000/configuration/test_data")
+      else
+        RestClient.delete("https://#{api_key}@api.recurly.com/configuration/test_data")
+      end
       raise "Clearing Didn't work for some reason. Is your site setting correct?"
     rescue RestClient::Found => e
-      puts "Test Data Cleared from: #{@recurly_config["site"]}"
+      puts "Test Data Cleared"
     end
   end
 
   def setup_static
-    @recurly_config["username"] ||= "myemail@mydomain.com"
-    @recurly_config["password"] ||= "my_api_key"
+    @recurly_config["api_key"] ||= "my_api_key"
     @recurly_config["private_key"] ||= "my_private_key"
     @recurly_config["subdomain"] ||= "mysite"
-    @recurly_config["site"] ||= "https://api-production.recurly.com"
   end
 
   desc "Creates a recurly.yml config file"

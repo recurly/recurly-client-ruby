@@ -41,7 +41,7 @@ module Recurly
   autoload :Verification,   'recurly/verification'
 
   class << self
-    attr_accessor :username, :password, :environment, :subdomain, :private_key
+    attr_accessor :api_key, :environment, :subdomain, :private_key
 
     # default Recurly.settings_path to config/recurly.yml
     unless respond_to?(:settings_path)
@@ -55,15 +55,14 @@ module Recurly
     end
 
     def configured?
-      Base.user && Base.password && Base.site
+      Base.user && Base.site
     end
 
     def configure
       if block_given?
         yield self
 
-        Base.user = username
-        Base.password = password
+        Base.user = api_key
         Base.site = site_for_environment(environment)
 
         return true
@@ -77,22 +76,16 @@ module Recurly
     end
     
     def site_for_environment(environment)
-      environment = :production if environment.nil? # Default to production
-      case environment.to_sym
-      when :development
-        "http://app.lvh.me:3000"
-      when :production
-        "https://api-production.recurly.com"
-      when :sandbox
-        "https://api-sandbox.recurly.com"
+      if environment == :development
+        "http://api.lvh.me:3000"
       else
-        raise Recurly::ConfigurationError.new("Invalid environment (#{environment}). Valid values are: :production, :sandbox.")
+        "https://api.recurly.com"
       end
     end
 
 
     # allows configuration from a yml file that contains the fields:
-    # username,password,site,private_key
+    # api_key,site,private_key
     def configure_from_yaml(path = nil)
       configure do |c|
         # parse configuration from yml
@@ -105,8 +98,7 @@ module Recurly
           recurly_env ||= ENV["RAILS_ENV"] || ENV["RACK_ENV"] || "development"
           recurly_config = recurly_config[recurly_env] if recurly_config.has_key?(recurly_env)
 
-          c.username = recurly_config["username"]
-          c.password = recurly_config["password"]
+          c.api_key = recurly_config["api_key"] || recurly_config["password"]
           c.subdomain = recurly_config["subdomain"]
           c.private_key = recurly_config["private_key"]
           c.environment = recurly_config["environment"]
@@ -115,12 +107,11 @@ module Recurly
     end
 
     # allows configuration from a json string that contains the fields:
-    # username,password,site,private_key
+    # api_key,site,private_key
     def configure_from_json(json_string)
       config_data = ActiveSupport::JSON.decode(json_string)
       configure do |c|
-        c.username = config_data['username']
-        c.password = config_data['password']
+        c.api_key = config_data['api_key'] || config_data['password']
         c.subdomain = config_data['subdomain']
         c.private_key = config_data['private_key']
         c.environment = config_data['environment']

@@ -16,26 +16,6 @@ module Recurly
         Transparent.url(Action::UpdateBilling).should == "#{Recurly::Base.site}/transparent/#{Recurly.subdomain}/billing_info"
         Transparent.url(Action::CreateTransaction).should == "#{Recurly::Base.site}/transparent/#{Recurly.subdomain}/transaction"
       end
-
-      it "should equal api-sandbox for sandbox" do
-        Recurly.configure do |config|
-          config.environment = :sandbox
-          config.subdomain = 'testtest'
-        end
-        Transparent.url(Action::CreateSubscription).should == "#{Recurly::Base.site}/transparent/testtest/subscription"
-        Transparent.url(Action::UpdateBilling).should == "#{Recurly::Base.site}/transparent/testtest/billing_info"
-        Transparent.url(Action::CreateTransaction).should == "#{Recurly::Base.site}/transparent/testtest/transaction"
-      end
-
-      it "should equal api-production for sandbox" do
-        Recurly.configure do |config|
-          config.environment = :production
-          config.subdomain = 'testtest'
-        end
-        Transparent.url(Action::CreateSubscription).should == "#{Recurly::Base.site}/transparent/testtest/subscription"
-        Transparent.url(Action::UpdateBilling).should == "#{Recurly::Base.site}/transparent/testtest/billing_info"
-        Transparent.url(Action::CreateTransaction).should == "#{Recurly::Base.site}/transparent/testtest/transaction"
-      end
     end
 
     describe ".encrypt_string" do

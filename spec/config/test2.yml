@@ -1,11 +1,7 @@
 development:
-  username: username1@recurly.com
-  password: asdf4jk31
+  api_key: asdf4jk31
   subdomain: site1
-  environment: :sandbox
 
 test:
-  username: username2@recurly.com
-  password: asdf4jk32
+  api_key: asdf4jk32
   subdomain: site2
-  environment: :production
