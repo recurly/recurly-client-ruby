@@ -1,5 +1,9 @@
 = Recurly Ruby Client Library CHANGELOG
 
+== Version 0.4.14 (September 22, 2011)
+
+- Added alias for Recurly.password to Recurly.api_key for compatibility with Recurly.configure blocks.
+
 == Version 0.4.13 (September 22, 2011)
 
 - Simplify API credentials. Replaced API username, password, and environment with simply "API Key".

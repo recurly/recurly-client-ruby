@@ -58,6 +58,21 @@ module Recurly
       Base.user && Base.site
     end
 
+    # Alias password to api_key
+    def password
+      self.api_key
+    end
+    def password=(password)
+      self.api_key = password
+    end
+
+    # Ignore username
+    def username
+      nil
+    end
+    def username=(_)
+    end
+
     def configure
       if block_given?
         yield self
