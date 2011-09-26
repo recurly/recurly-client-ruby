@@ -90,8 +90,10 @@ END
       response.should_receive(:body).at_least(:once).and_return response_xml
 
       subscription = Subscription.new.from_transparent_results(response)
-      subscription.account.billing_info.errors[:number].should_not be_nil
-      subscription.account.billing_info.errors[:verification_value].should_not be_nil
+      subscription.account.billing_info.credit_card.errors[:number].should_not be_empty
+      subscription.account.billing_info.credit_card.errors[:number].should include('is required')
+      subscription.account.billing_info.credit_card.errors[:verification_value].should_not be_empty
+      subscription.account.billing_info.credit_card.errors[:verification_value].should include('is required')
     end
   end
 end
