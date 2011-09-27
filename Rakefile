@@ -51,7 +51,8 @@ task :environment do
 end
 
 namespace :recurly do
-  task :clear => :clear_test_data do
+  desc "Remove Spec VCR requests"
+  task :clear_vcr do
 
     # now lets move spec/vcr
     vcr_folder = "#{File.dirname(__FILE__)}/spec/vcr"

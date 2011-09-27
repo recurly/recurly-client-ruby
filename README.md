@@ -66,13 +66,6 @@ The Recurly Configuration YAML is in the format of:
 
 The same format could be applied in JSON instead of YAML using: Recurly.configure_from_json('path/to/file.json')
 
-Clearing test data (Rails3)
-----------------
-
-The Recurly Railtie (for rails3) includes a rake task that allows you to easily clear out the test data on your Account. This is useful when automating the testing of the api interation within your own app.
-
-    rake recurly:clear_test_data
-
 
 Rails Demo Application
 ----------------
@@ -85,7 +78,7 @@ Examples
 
 The [API Documentation](http://docs.recurly.com/api/basics) has numerous examples demonstrating how to use the Ruby client library.
 
-All the functionality is demonstrated by the tests in the __spec__ directory.
+All the functionality is also demonstrated by the tests in the __spec__ directory.
 
 
 Running the Specs
@@ -95,41 +88,15 @@ Recurly gem uses RSpec2 for testing. It also uses VCR / Webmock to handle fast a
 
 The way this works is when each spec is first run, it will save each HTTP request generated within the spec/vcr folder. Subsequent http requests will be mocked using the data contained in these YML files.
 
-The first thing to do is install bundler if you don't already have it:
+The specs require API credentials in '/spec/config/recurly.yml' and the following setup in your Recurly account:
 
-    gem install bundler
+* A plan with no trial, use plan_code "paid".
+* Add-ons with the codes "special" and "special2" on the "paid" plan.
+* A plan with a trial period, use plan_code "trial"
+* A coupon with the coupon_code "coupon" which can be applied to all plans.
 
-The next thing is to setup all the spec dependencies
+To re-run specs, you will need to clear the test data from your Recurly account.
 
-    bundle
-
-When first running the specs, you'll need to setup a recurly test account. Use the provided rake task to walk you through creating spec/config/recurly.yml with all the authentication info.
-
-    rake recurly:setup
-
-Now when you run `rake` it will hit recurly's api to run all the specs. Subsequent calls will no longer hit the API (and be run locally).
-
-The tests expect certain plans, add ons, and coupons to be present on the Site you'll be testing against.  You'll need:
-    Plan with no trial with a plan_code of 'paid'
-    Plan with a trial with a plan_code of 'trial'
-    Add ons with codes 'special' and special2' on the 'paid' plan
-    Coupon with coupon code 'coupon' which can be applied to all plans
-
-
-Something go Wrong?
-------------------
-
-You can view the full http interactions with Recurly at spec/vcr. Please attached these to any bug reports so we can replicate.
-
-
-Clearing Test Data in Specs
-----------------------------
-
-You can delete the spec/vcr folder at any time, and it will regenerate the requests to recurly's apis. However if you do this, you'll also need to clear the test data on your recurly account. To do this run:
-
-    rake recurly:clear
-
-This will run `recurly:clear_test_data` (using your spec/config/recurly.yml authentication info) to clear out the test data on the server and then delete the associated spec/vcr files so you can start from scratch.
 
 API Documentation
 -----------------
