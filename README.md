@@ -14,27 +14,33 @@ Please see the [documentation](http://support.recurly.com/faqs/api/ruby-client) 
 Installation
 ------------
 
-**Stable Version:**
-
-    gem 'recurly', '~> 0.4.11'
-
-**Bleeding Edge Version:**
-
-    gem 'recurly', :git => "http://github.com/recurly/recurly-client-ruby.git"
+    gem 'recurly', '~> 0.4'
 
 
-Setup (Rails 3)
---------------
+Configuration
+-------------
 
 The Recurly Ruby Client requires an API user to connect. Please see the [Authentication](http://docs.recurly.com/api/authentication/) documentation for more information.
 
-If using Rails 3, the easiest way to get Recurly set up is to run `rake recurly:setup`. This will create a config/recurly.yml that has your recurly account authentication, and the Recurly rails initializer will pick it up on restart of your web app.
+In a YAML file at 'config/recurly.yml':
 
+    production:
+      api_key: your_api_key
+      private_key: your_private_key
+      subdomain: your_recurly_subdomain
 
-Setup (Rails 2 and other frameworks)
---------------
+    development:
+      api_key: your_api_key
+      private_key: your_private_key
+      subdomain: your_recurly_subdomain
 
-Alternatively, if not using Rails 3, just make sure to call a Recurly configure block somewhere in your applications initialization.
+The environment is optional. If you're using the same account with development and production, it can be simplified to:
+
+    api_key: your_api_key
+    private_key: your_private_key
+    subdomain: your_recurly_subdomain
+
+Or, you may configure the Recurly gem using a `configure` block in 'config/initializers/recurly.rb':
 
     Recurly.configure do |c|
       c.api_key = 'your_api_key'
@@ -42,11 +48,8 @@ Alternatively, if not using Rails 3, just make sure to call a Recurly configure 
       c.subdomain = 'your-recurly-subdomain'
     end
 
-In Rails 2.x, this code should be in config/initializers/recurly.rb
-
-In Sinatra, it should be within a `configure` block.
-
 **Please Note:** the setup parameters changed in version 0.4.0. Additional configuration options were also added for the [Transparent Post API](http://docs.recurly.com/transparent-post/basics).
+
 
 Manual Setup via YAML or JSON
 --------------
