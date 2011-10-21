@@ -1,5 +1,9 @@
 = Recurly Ruby Client Library CHANGELOG
 
+== Version 0.4.15 (October 21, 2011)
+
+- Bug fix in Transparent Post parameter encoding for arrays of add ons.
+
 == Version 0.4.14 (September 22, 2011)
 
 - Added alias for Recurly.password to Recurly.api_key for compatibility with Recurly.configure blocks.

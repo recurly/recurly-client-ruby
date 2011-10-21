@@ -128,13 +128,16 @@ module Recurly
 
     # recursively process the query data (running to_s on values)
     def self.process_data(data = {})
+      return data unless data.is_a?(Hash)
       data.each do |key, val|
         if val.is_a?(Hash)
           data[key] = process_data(val)
         elsif val.is_a?(String)
           data[key] = val.to_s
         elsif val.is_a?(Enumerable)
-          data[key] = val.map{|i| i.to_s}
+          values = Hash.new
+          val.each_with_index{ |item, index| values[index] = process_data(item) }
+          data[key] = values
         else
           data[key] = val.to_s
         end
