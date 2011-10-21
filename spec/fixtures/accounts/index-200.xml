@@ -1,0 +1,328 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+X-Records: 123
+Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="start", <https://api.recurly.com/v2/accounts?cursor=1234566890&per_page=20>; rel="next"
+
+<?xml version="1.0" encoding="UTF-8"?>
+<accounts>
+  <account href="https://api.recurly.com/v2/accounts/api100">
+    <adjustments href="https://api.recurly.com/v2/accounts/api100/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api100/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api100/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api100/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api100/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api100/transactions"/>
+    <account_code>api100</account_code>
+    <username>api100_u</username>
+    <email>api100@example.com</email>
+    <first_name>api100_fn</first_name>
+    <last_name>api100_ln</last_name>
+    <company_name>api100_cn</company_name>
+    <accept_language>api100_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api99">
+    <adjustments href="https://api.recurly.com/v2/accounts/api99/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api99/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api99/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api100/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api99/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api99/transactions"/>
+    <account_code>api99</account_code>
+    <username>api99_u</username>
+    <email>api99@example.com</email>
+    <first_name>api99_fn</first_name>
+    <last_name>api99_ln</last_name>
+    <company_name>api99_cn</company_name>
+    <accept_language>api99_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api98">
+    <adjustments href="https://api.recurly.com/v2/accounts/api98/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api98/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api98/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api98/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api98/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api98/transactions"/>
+    <account_code>api98</account_code>
+    <username>api98_u</username>
+    <email>api98@example.com</email>
+    <first_name>api98_fn</first_name>
+    <last_name>api98_ln</last_name>
+    <company_name>api98_cn</company_name>
+    <accept_language>api98_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api97">
+    <adjustments href="https://api.recurly.com/v2/accounts/api97/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api97/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api97/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api97/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api97/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api97/transactions"/>
+    <account_code>api97</account_code>
+    <username>api97_u</username>
+    <email>api97@example.com</email>
+    <first_name>api97_fn</first_name>
+    <last_name>api97_ln</last_name>
+    <company_name>api97_cn</company_name>
+    <accept_language>api97_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api96">
+    <adjustments href="https://api.recurly.com/v2/accounts/api96/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api96/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api96/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api96/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api96/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api96/transactions"/>
+    <account_code>api96</account_code>
+    <username>api96_u</username>
+    <email>api96@example.com</email>
+    <first_name>api96_fn</first_name>
+    <last_name>api96_ln</last_name>
+    <company_name>api96_cn</company_name>
+    <accept_language>api96_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api95">
+    <adjustments href="https://api.recurly.com/v2/accounts/api95/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api95/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api95/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api95/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api95/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api95/transactions"/>
+    <account_code>api95</account_code>
+    <username>api95_u</username>
+    <email>api95@example.com</email>
+    <first_name>api95_fn</first_name>
+    <last_name>api95_ln</last_name>
+    <company_name>api95_cn</company_name>
+    <accept_language>api95_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api94">
+    <adjustments href="https://api.recurly.com/v2/accounts/api94/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api94/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api94/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api94/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api94/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api94/transactions"/>
+    <account_code>api94</account_code>
+    <username>api94_u</username>
+    <email>api94@example.com</email>
+    <first_name>api94_fn</first_name>
+    <last_name>api94_ln</last_name>
+    <company_name>api94_cn</company_name>
+    <accept_language>api94_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api93">
+    <adjustments href="https://api.recurly.com/v2/accounts/api93/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api93/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api93/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api93/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api93/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api93/transactions"/>
+    <account_code>api93</account_code>
+    <username>api93_u</username>
+    <email>api93@example.com</email>
+    <first_name>api93_fn</first_name>
+    <last_name>api93_ln</last_name>
+    <company_name>api93_cn</company_name>
+    <accept_language>api93_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api92">
+    <adjustments href="https://api.recurly.com/v2/accounts/api92/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api92/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api92/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api92/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api92/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api92/transactions"/>
+    <account_code>api92</account_code>
+    <username>api92_u</username>
+    <email>api92@example.com</email>
+    <first_name>api92_fn</first_name>
+    <last_name>api92_ln</last_name>
+    <company_name>api92_cn</company_name>
+    <accept_language>api92_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api91">
+    <adjustments href="https://api.recurly.com/v2/accounts/api91/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api91/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api91/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api91/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api91/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api91/transactions"/>
+    <account_code>api91</account_code>
+    <username>api91_u</username>
+    <email>api91@example.com</email>
+    <first_name>api91_fn</first_name>
+    <last_name>api91_ln</last_name>
+    <company_name>api91_cn</company_name>
+    <accept_language>api91_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api90">
+    <adjustments href="https://api.recurly.com/v2/accounts/api90/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api90/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api90/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api90/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api90/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api90/transactions"/>
+    <account_code>api90</account_code>
+    <username>api90_u</username>
+    <email>api90@example.com</email>
+    <first_name>api90_fn</first_name>
+    <last_name>api90_ln</last_name>
+    <company_name>api90_cn</company_name>
+    <accept_language>api90_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api89">
+    <adjustments href="https://api.recurly.com/v2/accounts/api89/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api89/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api89/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api89/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api89/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api89/transactions"/>
+    <account_code>api89</account_code>
+    <username>api89_u</username>
+    <email>api89@example.com</email>
+    <first_name>api89_fn</first_name>
+    <last_name>api89_ln</last_name>
+    <company_name>api89_cn</company_name>
+    <accept_language>api89_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api88">
+    <adjustments href="https://api.recurly.com/v2/accounts/api88/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api88/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api88/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api88/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api88/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api88/transactions"/>
+    <account_code>api88</account_code>
+    <username>api88_u</username>
+    <email>api88@example.com</email>
+    <first_name>api88_fn</first_name>
+    <last_name>api88_ln</last_name>
+    <company_name>api88_cn</company_name>
+    <accept_language>api88_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api87">
+    <adjustments href="https://api.recurly.com/v2/accounts/api87/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api87/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api87/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api87/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api87/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api87/transactions"/>
+    <account_code>api87</account_code>
+    <username>api87_u</username>
+    <email>api87@example.com</email>
+    <first_name>api87_fn</first_name>
+    <last_name>api87_ln</last_name>
+    <company_name>api87_cn</company_name>
+    <accept_language>api87_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api86">
+    <adjustments href="https://api.recurly.com/v2/accounts/api86/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api86/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api86/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api86/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api86/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api86/transactions"/>
+    <account_code>api86</account_code>
+    <username>api86_u</username>
+    <email>api86@example.com</email>
+    <first_name>api86_fn</first_name>
+    <last_name>api86_ln</last_name>
+    <company_name>api86_cn</company_name>
+    <accept_language>api86_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api85">
+    <adjustments href="https://api.recurly.com/v2/accounts/api85/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api85/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api85/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api85/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api85/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api85/transactions"/>
+    <account_code>api85</account_code>
+    <username>api85_u</username>
+    <email>api85@example.com</email>
+    <first_name>api85_fn</first_name>
+    <last_name>api85_ln</last_name>
+    <company_name>api85_cn</company_name>
+    <accept_language>api85_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api84">
+    <adjustments href="https://api.recurly.com/v2/accounts/api84/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api84/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api84/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api84/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api84/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api84/transactions"/>
+    <account_code>api84</account_code>
+    <username>api84_u</username>
+    <email>api84@example.com</email>
+    <first_name>api84_fn</first_name>
+    <last_name>api84_ln</last_name>
+    <company_name>api84_cn</company_name>
+    <accept_language>api84_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api83">
+    <adjustments href="https://api.recurly.com/v2/accounts/api83/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api83/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api83/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api83/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api83/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api83/transactions"/>
+    <account_code>api83</account_code>
+    <username>api83_u</username>
+    <email>api83@example.com</email>
+    <first_name>api83_fn</first_name>
+    <last_name>api83_ln</last_name>
+    <company_name>api83_cn</company_name>
+    <accept_language>api83_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api82">
+    <adjustments href="https://api.recurly.com/v2/accounts/api82/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api82/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api82/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api82/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api82/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api82/transactions"/>
+    <account_code>api82</account_code>
+    <username>api82_u</username>
+    <email>api82@example.com</email>
+    <first_name>api82_fn</first_name>
+    <last_name>api82_ln</last_name>
+    <company_name>api82_cn</company_name>
+    <accept_language>api82_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+  <account href="https://api.recurly.com/v2/accounts/api81">
+    <adjustments href="https://api.recurly.com/v2/accounts/api81/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api81/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api81/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api81/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api81/subscriptions"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api81/transactions"/>
+    <account_code>api81</account_code>
+    <username>api81_u</username>
+    <email>api81@example.com</email>
+    <first_name>api81_fn</first_name>
+    <last_name>api81_ln</last_name>
+    <company_name>api81_cn</company_name>
+    <accept_language>api81_al</accept_language>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+</accounts>

@@ -1,0 +1,7 @@
+HTTP/1.1 422 Unprocessable Entity
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<errors>
+  <error field="account.email" symbol="invalid_email">is not a valid email address</error>
+</errors>

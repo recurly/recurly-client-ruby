@@ -1,0 +1,110 @@
+module Recurly
+  class Subscription < Resource
+    autoload :AddOns, 'recurly/subscription/add_ons'
+
+    # @macro [attach] scope
+    #   @scope class
+    #   @return [Pager<Subscription>] A pager that yields +$1+ subscriptions.
+    scope :active,       :state => :active
+    scope :in_trial,     :state => :in_trial
+    scope :non_renewing, :state => :non_renewing
+
+    # @return [Account]
+    belongs_to :account
+    # @return [Plan]
+    belongs_to :plan
+
+    define_attribute_methods %w(
+      uuid
+      state
+      unit_amount_in_cents
+      currency
+      quantity
+      activated_at
+      canceled_at
+      expires_at
+      current_period_started_at
+      current_period_ends_at
+      trial_started_at
+      trial_ends_at
+      pending_subscription
+      subscription_add_ons
+    )
+    alias to_param uuid
+
+    # @return [Subscription] A new subscription.
+    def initialize attributes = {}
+      super({ :currency => Recurly.default_currency }.merge attributes)
+    end
+
+    # Assign a Plan resource (rather than a plan code).
+    #
+    # @param plan [Plan]
+    def plan= plan
+      self[:plan_code] = plan.plan_code if plan.respond_to? :plan_code
+      attributes[:plan] = plan
+    end
+
+    # @return [AddOns]
+    def subscription_add_ons
+      AddOns.new self, super
+    end
+    alias add_ons subscription_add_ons
+
+    # Assign an array of subscription add-ons.
+    def subscription_add_ons= subscription_add_ons
+      super AddOns.new self, subscription_add_ons
+    end
+    alias add_ons= subscription_add_ons=
+
+    # Cancel a subscription so that it will not renew.
+    #
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the subscription is not active).
+    # @example
+    #   account = Account.find account_code
+    #   subscription = account.subscriptions.first
+    #   subscription.cancel # => true
+    def cancel
+      return false unless self[:cancel]
+      reload self[:cancel].call
+      true
+    end
+
+    # An array of acceptable refund types.
+    REFUND_TYPES = ['none', 'full', 'partial'].freeze
+
+    # Immediately terminate a subscription (with optional refund).
+    #
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the subscription is not active).
+    # @param refund_type [:none, :full, :partial] <tt>:none</tt> terminates the
+    #   subscription with no refund (the default), <tt>:full</tt> refunds the
+    #   subscription in full, and <tt>:partial</tt> refunds the subscription in
+    #   part.
+    # @raise [ArgumentError] Invalid +refund_type+.
+    # @example
+    #   account = Account.find account_code
+    #   subscription = account.subscriptions.first
+    #   subscription.terminate(:partial) # => true
+    def terminate refund_type = :none
+      return false unless self[:terminate]
+      unless REFUND_TYPES.include? refund_type.to_s
+        raise ArgumentError, "refund must be one of: #{REFUND_TYPES.join ', '}"
+      end
+      reload self[:terminate].call(:params => { :refund => refund_type })
+      true
+    end
+
+    # Reactivate a subscription.
+    #
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the subscription is already active), and may raise an exception
+    #   if the reactivation fails.
+    def reactivate
+      return false unless self[:reactivate]
+      reload self[:reactivate].call
+      true
+    end
+  end
+end

@@ -1,0 +1,14 @@
+# Builds
+*.gem
+
+# Documentation
+.yardoc
+doc/*
+!doc/yard_extensions.rb
+
+# Bundler
+.bundle
+bin/*
+!bin/recurly
+
+TODO

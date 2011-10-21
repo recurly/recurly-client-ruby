@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890">
+  <account href="https://api.recurly.com/v2/accounts/account_code"/>
+  <plan href="https://api.recurly.com/v2/plans/plan_code">
+    <plan_code>plan_code</plan_code>
+    <name>A Man, a Plan, a Canal: Panama</name>
+  </plan>
+  <uuid>abcdef1234567890</uuid>
+  <state>canceled</state>
+  <quantity type="integer">1</quantity>
+  <total_amount_in_cents type="integer">1000</total_amount_in_cents>
+  <activated_at type="datetime">2011-04-30T07:00:00Z</activated_at>
+  <canceled_at nil="nil"></canceled_at>
+  <expires_at nil="nil"></expires_at>
+  <current_period_started_at type="datetime">2011-04-01T07:00:00Z</current_period_started_at>
+  <current_period_ends_at type="datetime">2011-05-01T06:59:59Z</current_period_ends_at>
+  <trial_started_at nil="nil"></trial_started_at>
+  <trial_ends_at nil="nil"></trial_ends_at>
+  <subscription_add_ons type="array">
+  </subscription_add_ons>
+  <a name="reactivate" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/reactivate" method="put"/> 
+</subscription>

@@ -1,0 +1,13 @@
+HTTP/1.1 201 Created
+Content-Type: application/xml; charset=utf-8
+Location: https://api.recurly.com/v2/accounts/xX_pinkman_Xx/redemption
+
+<?xml version="1.0" encoding="UTF-8"?>
+<redemption href="https://api.recurly.com/v2/accounts/xX_pinkman_Xx/redemption">
+  <coupon href="https://api.recurly.com/v2/coupons/bettercallsaul"/>
+  <account href="https://api.recurly.com/v2/accounts/xX_pinkman_Xx"/>
+  <single_use type="boolean">true</single_use>
+  <total_discounted_in_cents type="integer">0</total_discounted_in_cents>
+  <currency>USD</currency>
+  <created_at type="datetime">2011-01-02T03:04:05Z</created_at>
+</redemption>

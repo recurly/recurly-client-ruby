@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<coupon href="https://api.recurly.com/v2/coupons/bettercallsaul">
+  <redemptions href="https://api.recurly.com/v2/coupons/bettercallsaul/redemptions"/>
+  <coupon_code>bettercallsaul</coupon_code>
+  <name>Saul Goodman Referral</name>
+  <state>maxed_out</state>
+  <discount_type>dollars</discount_type>
+  <discount_in_cents>
+    <USD>1000</USD>
+  </discount_in_cents>
+  <redeem_by_date type="datetime">2020-05-01T08:00:00Z</redeem_by_date>
+  <single_use type="boolean">true</single_use>
+  <applies_for_months type="integer">1</applies_for_months>
+  <max_redemptions type="integer">100</max_redemptions>
+  <applies_to_all_plans type="boolean">true</applies_to_all_plans>
+  <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
+  <plan_codes type="array">
+  </plan_codes>
+  <a name="redeem" href="https://api.recurly.com/v2/coupons/bettercallsaul/redeem" method="put"/>
+</coupon>

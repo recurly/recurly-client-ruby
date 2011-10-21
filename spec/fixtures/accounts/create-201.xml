@@ -1,0 +1,21 @@
+HTTP/1.1 201 Created
+Content-Type: application/xml; charset=utf-8
+Location: https://api.recurly.com/v2/accounts/abcdef1234567890.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<account href="https://api.recurly.com/v2/accounts/abcdef1234567890">
+  <adjustments href="https://api.recurly.com/v2/accounts/abcdef1234567890/adjustments"/>
+  <billing_info href="https://api.recurly.com/v2/accounts/abcdef1234567890/billing_info"/>
+  <invoices href="https://api.recurly.com/v2/accounts/abcdef1234567890/invoices"/>
+  <redemption href="https://api.recurly.com/v2/accounts/abcdef1234567890/redemption"/>
+  <subscriptions href="https://api.recurly.com/v2/accounts/abcdef1234567890/subscriptions"/>
+  <transactions href="https://api.recurly.com/v2/accounts/abcdef1234567890/transactions"/>
+  <account_code>abcdef1234567890</account_code>
+  <username>shmohawk58</username>
+  <email>larry.david@example.com</email>
+  <first_name>Larry</first_name>
+  <last_name>David</last_name>
+  <company_name>Home Box Office</company_name>
+  <accept_language>en-US</accept_language>
+  <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+</account>
