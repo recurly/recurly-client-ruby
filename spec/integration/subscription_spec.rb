@@ -21,6 +21,7 @@ module Recurly
         subscription = Subscription.find(account.account_code)
         subscription.state.should == "active"
         subscription.plan.plan_code.should == "paid"
+        subscription.plan_code.should == "paid"
       end
     end
 
