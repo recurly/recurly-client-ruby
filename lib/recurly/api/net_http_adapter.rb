@@ -3,7 +3,7 @@ require 'net/https'
 module Recurly
   class API
     module Net
-      module HTTP
+      module HTTPAdapter
         private
 
         METHODS = {
@@ -72,6 +72,6 @@ module Recurly
       end
     end
 
-    extend Net::HTTP
+    extend Net::HTTPAdapter
   end
 end

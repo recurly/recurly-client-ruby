@@ -70,4 +70,4 @@ module Recurly
   end
 end
 
-require 'recurly/api/net_http'
+require 'recurly/api/net_http_adapter'
