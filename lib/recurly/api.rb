@@ -57,7 +57,7 @@ module Recurly
 
       # @return [String]
       def user_agent
-        "Recurly/#{Version::VERSION}; #{RUBY_DESCRIPTION}"
+        "Recurly/#{Version}; #{RUBY_DESCRIPTION}"
       end
 
       private
