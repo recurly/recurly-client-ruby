@@ -19,6 +19,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api100_ln</last_name>
     <company_name>api100_cn</company_name>
     <accept_language>api100_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api99">
@@ -35,6 +36,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api99_ln</last_name>
     <company_name>api99_cn</company_name>
     <accept_language>api99_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api98">
@@ -51,6 +53,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api98_ln</last_name>
     <company_name>api98_cn</company_name>
     <accept_language>api98_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api97">
@@ -67,6 +70,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api97_ln</last_name>
     <company_name>api97_cn</company_name>
     <accept_language>api97_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api96">
@@ -83,6 +87,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api96_ln</last_name>
     <company_name>api96_cn</company_name>
     <accept_language>api96_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api95">
@@ -99,6 +104,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api95_ln</last_name>
     <company_name>api95_cn</company_name>
     <accept_language>api95_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api94">
@@ -115,6 +121,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api94_ln</last_name>
     <company_name>api94_cn</company_name>
     <accept_language>api94_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api93">
@@ -131,6 +138,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api93_ln</last_name>
     <company_name>api93_cn</company_name>
     <accept_language>api93_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api92">
@@ -147,6 +155,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api92_ln</last_name>
     <company_name>api92_cn</company_name>
     <accept_language>api92_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api91">
@@ -163,6 +172,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api91_ln</last_name>
     <company_name>api91_cn</company_name>
     <accept_language>api91_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api90">
@@ -179,6 +189,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api90_ln</last_name>
     <company_name>api90_cn</company_name>
     <accept_language>api90_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api89">
@@ -195,6 +206,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api89_ln</last_name>
     <company_name>api89_cn</company_name>
     <accept_language>api89_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api88">
@@ -211,6 +223,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api88_ln</last_name>
     <company_name>api88_cn</company_name>
     <accept_language>api88_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api87">
@@ -227,6 +240,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api87_ln</last_name>
     <company_name>api87_cn</company_name>
     <accept_language>api87_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api86">
@@ -243,6 +257,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api86_ln</last_name>
     <company_name>api86_cn</company_name>
     <accept_language>api86_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api85">
@@ -259,6 +274,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api85_ln</last_name>
     <company_name>api85_cn</company_name>
     <accept_language>api85_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api84">
@@ -275,6 +291,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api84_ln</last_name>
     <company_name>api84_cn</company_name>
     <accept_language>api84_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api83">
@@ -291,6 +308,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api83_ln</last_name>
     <company_name>api83_cn</company_name>
     <accept_language>api83_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api82">
@@ -307,6 +325,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api82_ln</last_name>
     <company_name>api82_cn</company_name>
     <accept_language>api82_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
   <account href="https://api.recurly.com/v2/accounts/api81">
@@ -323,6 +342,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <last_name>api81_ln</last_name>
     <company_name>api81_cn</company_name>
     <accept_language>api81_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
     <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   </account>
 </accounts>
