@@ -687,7 +687,12 @@ module Recurly
           value.to_xml options.merge(:builder => node)
         elsif value.respond_to? :each_pair
           value.each_pair { |k, v| node.add_element k.to_s, v }
-        elsif value.respond_to? :each
+        # # FIXME: We can't duck-type here because of 1.8.7 differences. We
+        # # should come up with a more elegant solution, though, because
+        # # this relies on Subscription::AddOns returning true for is_a? Array.
+        #
+        # elsif value.respond_to? :each
+        elsif value.is_a? Array
           value.each { |e| node.add_element Helper.singularize(key), e }
         else
           node.text = value
