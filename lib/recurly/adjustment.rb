@@ -16,6 +16,7 @@ module Recurly
 
     define_attribute_methods %w(
       uuid
+      state
       description
       accounting_code
       origin

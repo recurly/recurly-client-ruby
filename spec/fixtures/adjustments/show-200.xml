@@ -5,6 +5,7 @@ Content-Type: application/xml; charset=utf-8
 <adjustment href="https://api.recurly.com/v2/adjustments/abcdef1234567890" type="charge">
   <account href="https://api.recurly.com/v2/accounts/account"/>
   <uuid>abcdef1234567890</uuid>
+  <state>pending</state>
   <accounting_code nil="nil"></accounting_code>
   <origin>plan</origin>
   <description>$12 Annual Subscription</description>

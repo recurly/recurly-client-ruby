@@ -20,6 +20,7 @@ Location: https://api.recurly.com/v2/invoices/created-invoice
       <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
       <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
       <uuid>charge</uuid>
+      <state>invoiced</state>
       <description>Special charge</description>
       <origin>one_time</origin>
       <unit_amount_in_cents type="integer">100</unit_amount_in_cents>
