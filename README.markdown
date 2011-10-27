@@ -45,7 +45,8 @@ with your Recurly subdomain).
 Instructions and examples are available on
 [Recurly's documentation site](http://docs.recurly.com/api/basics).
 
-Recurly's gem API is available [here](http://rdoc.info/gems/recurly).
+Recurly's gem API is available
+[here](http://rubydoc.info/gems/recurly/2.0.0/frames).
 
 
 ## Contributing
