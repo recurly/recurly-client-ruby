@@ -100,7 +100,6 @@ module Recurly
           Recurly::Formats::XmlWithErrorsFormat.new.decode(xml)
         )
       rescue => e
-        logger.warn "Recurly::Base#load_errors exception parsing nested error information"
         # Fallback to default errors parsing
         errors.from_xml xml
         raise
