@@ -39,6 +39,12 @@ Configure the client library with the credentials you find at
 `https://{subdomain}.recurly.com/developer/api_access` (replace `{subdomain}`
 with your Recurly subdomain).
 
+The default currency is USD. To override with a different code:
+
+``` ruby
+Recurly.default_currency = 'EUR' # Assign nil to disable the default entirely.
+```
+
 
 ## Usage
 
