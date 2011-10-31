@@ -30,7 +30,7 @@ module Recurly
       line_items
       transactions
     )
-    alias to_param uuid
+    alias to_param invoice_number
 
     private
 
