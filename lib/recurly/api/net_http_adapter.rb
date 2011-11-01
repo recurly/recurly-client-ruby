@@ -47,9 +47,7 @@ module Recurly
           end
           http = ::Net::HTTP.new uri.host, uri.port
           http.use_ssl = uri.scheme == 'https'
-          net_http.each_pair do |key, value|
-            http.send "#{key}=", value
-          end
+          net_http.each_pair { |key, value| http.send "#{key}=", value }
 
           if Recurly.logger
             Recurly.log :info, "===> %s %s" % [request.method, uri]
