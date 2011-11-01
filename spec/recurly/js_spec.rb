@@ -51,6 +51,7 @@ describe Recurly.js do
   end
 
   describe "verification" do
+    let(:sign) { js.method :sign }
     let(:verify) { js.method :verify! }
     let(:private_key) { '0123456789abcdef0123456789abcdef' }
     let(:timestamp) { 1312806801 }
@@ -71,6 +72,11 @@ describe Recurly.js do
 
     after do
       Object.const_set :Time, @time
+    end
+
+    it "must generate proper signatures" do
+      signed = sign.call 'update', :a => 'foo', :b => 'bar'
+      signed.must_equal signature
     end
 
     it "must validate proper signatures" do

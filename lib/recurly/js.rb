@@ -65,7 +65,7 @@ module Recurly
         signature = OpenSSL::HMAC.hexdigest(
           OpenSSL::Digest::Digest.new('SHA1'),
           Digest::SHA1.digest(private_key),
-          digest([Time.now.to_i, claim, params])
+          digest([timestamp = timestamp.to_i, claim, params])
         )
         "#{signature}-#{timestamp}"
       end
