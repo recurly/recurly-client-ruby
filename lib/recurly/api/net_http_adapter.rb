@@ -4,6 +4,23 @@ module Recurly
   class API
     module Net
       module HTTPAdapter
+        # A hash of Net::HTTP settings configured before the request.
+        #
+        # @return [Hash]
+        def net_http
+          @net_http ||= {}
+        end
+
+        # Used to store any Net::HTTP settings.
+        #
+        # @example
+        #   Recurly::API.net_http = {
+        #     :verify_mode => OpenSSL::SSL::VERIFY_PEER,
+        #     :ca_path     => "/etc/ssl/certs",
+        #     :ca_file     => "/opt/local/share/curl/curl-ca-bundle.crt"
+        #   }
+        attr_writer :net_http
+
         private
 
         METHODS = {
@@ -30,6 +47,9 @@ module Recurly
           end
           http = ::Net::HTTP.new uri.host, uri.port
           http.use_ssl = uri.scheme == 'https'
+          net_http.each_pair do |key, value|
+            http.send "#{key}=", value
+          end
 
           if Recurly.logger
             Recurly.log :info, "===> %s %s" % [request.method, uri]
