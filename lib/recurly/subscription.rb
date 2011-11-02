@@ -46,7 +46,7 @@ module Recurly
     end
 
     def plan_code
-      plan.plan_code if plan.respond_to? :plan_code
+      self[:plan_code] ||= (plan.plan_code if plan.respond_to? :plan_code)
     end
 
     def plan_code= plan_code

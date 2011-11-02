@@ -102,5 +102,12 @@ XML
         active.reactivate.must_equal false
       end
     end
+
+    describe "plan assignment" do
+      it "must use the assigned plan code" do
+        active.plan_code = 'new_plan'
+        active.plan_code.must_equal 'new_plan'
+      end
+    end
   end
 end
