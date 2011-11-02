@@ -45,6 +45,16 @@ The default currency is USD. To override with a different code:
 Recurly.default_currency = 'EUR' # Assign nil to disable the default entirely.
 ```
 
+The client library currently uses a Net::HTTP adapter. If you need to
+configure the settings passed to Net::HTTP (e.g., an SSL certificates path),
+make sure you assign them before you make any requests:
+
+``` ruby
+Recurly::API.net_http = {
+  :ca_path => "/etc/ssl/certs"
+}
+```
+
 
 ## Usage
 
