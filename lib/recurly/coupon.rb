@@ -23,7 +23,6 @@ module Recurly
       max_redemptions
       applies_to_all_plans
       created_at
-      currencies
       plan_codes
     )
     alias to_param coupon_code
