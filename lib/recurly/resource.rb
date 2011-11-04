@@ -683,17 +683,14 @@ module Recurly
         value = respond_to?(key) ? send(key) : self[key]
         node = builder.add_element key
 
-        if value.respond_to? :to_xml
+        # Duck-typing here is problematic because of ActiveSupport's #to_xml.
+        case value
+        when Resource, Subscription::AddOns
           value.to_xml options.merge(:builder => node)
-        elsif value.respond_to? :each_pair
-          value.each_pair { |k, v| node.add_element k.to_s, v }
-        # # FIXME: We can't duck-type here because of 1.8.7 differences. We
-        # # should come up with a more elegant solution, though, because
-        # # this relies on Subscription::AddOns returning true for is_a? Array.
-        #
-        # elsif value.respond_to? :each
-        elsif value.is_a? Array
+        when Array
           value.each { |e| node.add_element Helper.singularize(key), e }
+        when Hash
+          value.each_pair { |k, v| node.add_element k.to_s, v }
         else
           node.text = value
         end
