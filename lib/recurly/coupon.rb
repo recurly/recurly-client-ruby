@@ -28,6 +28,16 @@ module Recurly
     )
     alias to_param coupon_code
 
+    # Saves new records only.
+    #
+    # @return [true, false]
+    # @raise [Recurly::Error] For persisted coupons.
+    # @see Resource#save
+    def save
+      return super if new_record?
+      raise Recurly::Error, "#{self.class.collection_name} cannot be updated"
+    end
+
     # Redeem a coupon with a given account or account code.
     #
     # @return [true]
