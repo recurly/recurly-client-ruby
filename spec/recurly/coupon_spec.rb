@@ -10,6 +10,7 @@ describe Coupon do
   describe ".find" do
     it "must return a coupon when available" do
       coupon.must_be_instance_of Coupon
+      coupon.plan_codes.must_equal ['saul_good']
     end
   end
 

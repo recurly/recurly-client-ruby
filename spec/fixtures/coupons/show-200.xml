@@ -18,6 +18,7 @@ Content-Type: application/xml; charset=utf-8
   <applies_to_all_plans type="boolean">true</applies_to_all_plans>
   <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
   <plan_codes type="array">
+    <plan_code>saul_good</plan_code>
   </plan_codes>
   <a name="redeem" href="https://api.recurly.com/v2/coupons/bettercallsaul/redeem" method="put"/>
 </coupon>

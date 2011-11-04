@@ -146,7 +146,7 @@ XML
           record[:first_aired_at].must_equal DateTime.new(2003, 11, 2)
           record[:finale_ratings].must_equal 3.3
           record[:number_of_episodes].must_equal 53
-          3.times { |n| record[:seasons][n]['season'].must_be_kind_of Integer }
+          3.times { |n| record[:seasons][n].must_be_kind_of Integer }
           record[:never_gonna_happen]['season'].must_be_kind_of Integer
           stub_api_request(:put, 'resources/1/renew') { "HTTP/1.1 200\n" }
           record[:renew].call
