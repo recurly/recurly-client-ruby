@@ -45,13 +45,13 @@ module Recurly
       # @return [true]
       # @raise [RequestForgery] If verification fails.
       def verify_transaction! params
-        verify! 'subscriptioncreated', params.select { |k, v| ['signature', 'account_code', 'amount_in_cents', 'currency', 'uuid'].include?(k) }
+        verify! 'subscriptioncreated', params.select { |k, v| ['signature', 'account_code', 'amount_in_cents', 'currency', 'uuid'].include?(k.to_s) }
       end
 
       # @return [true]
       # @raise [RequestForgery] If verification fails.
       def verify_subscription! params
-        verify! 'subscriptioncreated', params.select { |k, v| ['quantity', 'signature', 'account_code', 'plan_code', 'add_on_codes', 'coupon_code'].include?(k) }
+        verify! 'subscriptioncreated', params.select { |k, v| ['quantity', 'signature', 'account_code', 'plan_code', 'add_on_codes', 'coupon_code'].include?(k.to_s) }
       end
 
       # @return [String]
