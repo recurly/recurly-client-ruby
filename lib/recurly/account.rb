@@ -10,7 +10,7 @@ module Recurly
     scope :past_due,       :state => :past_due
 
     # @macro [attach] has_many
-    #   @return [Pager<Resource>, Array] A pager that yields $1 for persisted
+    #   @return [Pager<Resource>, []] A pager that yields $1 for persisted
     #     accounts; an empty array otherwise.
     has_many :adjustments
     has_many :invoices

@@ -1,6 +1,6 @@
 module Recurly
   class Plan < Resource
-    # @return [Pager<AddOn>, Array]
+    # @return [Pager<AddOn>, []]
     has_many :add_ons
 
     define_attribute_methods %w(

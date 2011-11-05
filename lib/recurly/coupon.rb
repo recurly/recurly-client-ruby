@@ -7,7 +7,7 @@ module Recurly
     scope :expired,    :state => :expired
     scope :maxed_out,  :state => :maxed_out
 
-    # @return [Pager<Redemption>]
+    # @return [Pager<Redemption>, []]
     has_many :redemptions
 
     define_attribute_methods %w(
