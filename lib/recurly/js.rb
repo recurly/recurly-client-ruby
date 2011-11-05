@@ -39,19 +39,19 @@ module Recurly
       # @return [true]
       # @raise [RequestForgery] If verification fails.
       def verify_billing_info! params
-        verify! 'billinginfoupdated', params
+        verify! 'billinginfoupdated', params.select { |k, v| ['signature', 'account_code'].include?(k) }
       end
 
       # @return [true]
       # @raise [RequestForgery] If verification fails.
       def verify_transaction! params
-        verify! 'subscriptioncreated', params
+        verify! 'subscriptioncreated', params.select { |k, v| ['signature', 'account_code', 'amount_in_cents', 'currency', 'uuid'].include?(k) }
       end
 
       # @return [true]
       # @raise [RequestForgery] If verification fails.
       def verify_subscription! params
-        verify! 'subscriptioncreated', params
+        verify! 'subscriptioncreated', params.select { |k, v| ['quantity', 'signature', 'account_code', 'plan_code', 'add_on_codes', 'coupon_code'].include?(k) }
       end
 
       # @return [String]
