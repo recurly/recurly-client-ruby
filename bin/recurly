@@ -50,9 +50,8 @@ Recurly.api_key = options[:api_key] || ENV['RECURLY_API_KEY']
 include Recurly
 
 require 'logger'
-Recurly.logger = Logger.new(
-  STDOUT, options[:verbose] ? Logger::DEBUG : Logger::INFO
-)
+Recurly.logger = Logger.new STDOUT
+Recurly.logger.level = options[:verbose] ? Logger::DEBUG : Logger::INFO
 
 require 'irb'
 require 'irb/completion'
