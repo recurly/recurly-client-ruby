@@ -45,6 +45,17 @@ module Recurly
       raise Invalid, e.message
     end
 
+    # Reopen an account.
+    #
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the account is already opwn), and may raise an exception if the
+    #   attempt fails.
+    def reopen
+      return false unless self[:reopen]
+      reload self[:reopen].call
+      true
+    end
+
     private
 
     def xml_keys
