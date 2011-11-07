@@ -16,7 +16,7 @@ describe Coupon do
 
   describe "#save" do
     it "must not save a new record" do
-      -> { coupon.save }.must_raise Error
+      proc { coupon.save }.must_raise Error
     end
   end
 
