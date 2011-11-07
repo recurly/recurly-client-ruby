@@ -13,6 +13,10 @@ describe Recurly::XML do
           '<account><billing_info><credit_card_number>****-****-****-1111</credit_card_number></billing_info></account>'
         ],
         [
+          '<account><billing_info><credit_card_number>123</credit_card_number></billing_info></account>',
+          '<account><billing_info><credit_card_number></credit_card_number></billing_info></account>'
+        ],
+        [
           '<subscription><account><billing_info><credit_card_verification_value>123</credit_card_verification_value></billing_info></account></subscription>',
           '<subscription><account><billing_info><credit_card_verification_value>***</credit_card_verification_value></billing_info></account></subscription>'
         ]

@@ -38,12 +38,8 @@ module Recurly
           case el.name
           when /number/
             text = el.text
-            if text.length >= 4
-              last = text[-4, 4]
-              el.text = "#{text[0, text.length - 4].gsub(/\d/, '*')}#{last}"
-            else
-              el.text = text.empty? ? "" : text.sub(/^./, '*')
-            end
+            last = text[-4, 4]
+            el.text = "#{text[0, text.length - 4].to_s.gsub(/\d/, '*')}#{last}"
           when /verification_value/
             el.text = el.text.gsub(/\d/, '*')
           end
