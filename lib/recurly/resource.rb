@@ -689,7 +689,7 @@ module Recurly
           value.to_xml options.merge(:builder => node)
         when Array
           value.each { |e| node.add_element Helper.singularize(key), e }
-        when Hash
+        when Hash, Recurly::Money
           value.each_pair { |k, v| node.add_element k.to_s, v }
         else
           node.text = value
