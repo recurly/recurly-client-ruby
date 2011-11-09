@@ -39,11 +39,11 @@ module Recurly
         xml.each do |el|
           el = XML.new el
           case el.name
-          when /number/
+          when "number"
             text = el.text
             last = text[-4, 4]
             el.text = "#{text[0, text.length - 4].to_s.gsub(/\d/, '*')}#{last}"
-          when /verification_value/
+          when "verification_value"
             el.text = el.text.gsub(/\d/, '*')
           end
         end
