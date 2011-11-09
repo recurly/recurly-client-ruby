@@ -32,7 +32,7 @@ module Recurly
       end
 
       def text xpath = nil
-        node = root.at_xpath(xpath) and node.text
+        node = (xpath ? root.at_xpath(xpath) : root) and node.text
       end
 
       def text= text
