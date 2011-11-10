@@ -32,7 +32,13 @@ module Recurly
       end
 
       def text xpath = nil
-        node = (xpath ? root.at_xpath(xpath) : root) and node.text
+        if node = (xpath ? root.at_xpath(xpath) : root)
+          if node.text?
+            node.text
+          else
+            node.children.each { |e| return e.text if e.text? }
+          end
+        end
       end
 
       def text= text
