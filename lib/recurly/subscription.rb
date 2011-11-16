@@ -5,9 +5,17 @@ module Recurly
     # @macro [attach] scope
     #   @scope class
     #   @return [Pager<Subscription>] A pager that yields +$1+ subscriptions.
-    scope :active,       :state => :active
-    scope :in_trial,     :state => :in_trial
-    scope :non_renewing, :state => :non_renewing
+    scope :active,   :state => :active
+    scope :canceled, :state => :canceled
+    scope :expired,  :state => :expired
+    scope :future,   :state => :future
+    # @return [Pager<Subscription>] A pager that yields subscriptions in
+    #   trials.
+    scope :in_trial, :state => :in_trial
+    # @return [Pager<Subscription>] A pager that yields active, canceled, and
+    #   future subscriptions.
+    scope :live,     :state => :live
+    scope :past_due, :state => :past_due
 
     # @return [Account]
     belongs_to :account
