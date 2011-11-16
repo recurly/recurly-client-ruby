@@ -106,5 +106,23 @@ describe Recurly.js do
         )
       }.must_raise js::RequestForgery
     end
+
+    it "must verify billing info" do
+      js.verify_billing_info!(
+        'signature' => "07e7bea6a5bcb65d8dd93f8e314b2dab686c8ca8-#{timestamp}"
+      )
+    end
+
+    it "must verify subscriptions" do
+      js.verify_subscription!(
+        'signature' => "1b0cddbdfaabd9e1a1e3e3b309f5809f66d04515-#{timestamp}"
+      )
+    end
+
+    it "must verify transactions" do
+      js.verify_transaction!(
+        'signature' => "771f82bd339bbad93e5bd9eae279cfdeb9c4773b-#{timestamp}"
+      )
+    end
   end
 end
