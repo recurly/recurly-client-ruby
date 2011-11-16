@@ -45,7 +45,7 @@ module Recurly
       # @return [true]
       # @raise [RequestForgery] If verification fails.
       def verify_transaction! params
-        verify! 'subscriptioncreated', params
+        verify! 'transactioncreated', params
       end
 
       # @return [true]
