@@ -37,6 +37,7 @@ module Recurly
       trial_ends_at
       pending_subscription
       subscription_add_ons
+      coupon_code
     )
     alias to_param uuid
 
@@ -59,6 +60,16 @@ module Recurly
 
     def plan_code= plan_code
       self[:plan_code] = plan_code
+    end
+
+    # Assign a Coupon resource (rather than a coupon code).
+    #
+    # @param coupon [Coupon]
+    def coupon= coupon
+      self.coupon_code = (
+        coupon.coupon_code if coupon.respond_to? :coupon_code
+      )
+      attributes[:coupon] = coupon
     end
 
     # @return [AddOns]

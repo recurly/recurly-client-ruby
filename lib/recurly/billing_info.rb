@@ -26,6 +26,8 @@ module Recurly
       first_six
       last_four
       paypal_billing_agreement_id
+      number
+      verification_value
     )
 
     # @return ["credit_card", "paypal", nil] The type of billing info.
