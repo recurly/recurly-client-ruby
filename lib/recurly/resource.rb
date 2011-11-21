@@ -205,7 +205,7 @@ module Recurly
       #   a.name_change      # => [nil, "Stephen"]
       def define_attribute_methods attribute_names
         @attribute_names = attribute_names.map! { |m| m.to_s }.sort!.freeze
-        remove_const :AttributeMethods if const_defined? :AttributeMethods
+        remove_const :AttributeMethods if constants.include? :AttributeMethods
         include const_set :AttributeMethods, Module.new {
           attribute_names.each do |name|
             define_method(name) { self[name] }                       # Get.
@@ -422,7 +422,7 @@ module Recurly
       # @return [Hash] A list of association names for the current class.
       def associations
         @associations ||= begin
-          unless const_defined? :Associations
+          unless constants.include? :Associations
             include const_set :Associations, Module.new
           end
 
