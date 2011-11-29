@@ -177,8 +177,8 @@ module Recurly
         @count = response['X-Records'].to_i
         @links = {}
         if links = response['Link']
-          links.scan(/<([^>]+)>; rel="([^"]+)"/).each do |link|
-            @links[link.last] = link.first.freeze
+          links.scan(/<([^>]+)>; rel="([^"]+)"/).each do |link, rel|
+            @links[rel] = link.freeze
           end
         end
         @links.freeze
