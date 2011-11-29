@@ -506,11 +506,12 @@ module Recurly
         a = associations.find { |k, v| v.include? name.to_s } and a.first
       end
 
-      def embedded!
-        private_class_method(*%w(
-          new create create! paginate find_each scoped where all
-        ))
+      def embedded! root_index = false
         private :initialize
+        private_class_method(*%w(new create create!))
+        unless root_index
+          private_class_method(*%w(all find_each first paginate scoped where))
+        end
       end
     end
 

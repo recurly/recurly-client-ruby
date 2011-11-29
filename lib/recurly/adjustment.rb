@@ -47,6 +47,6 @@ module Recurly
     end
 
     # Adjustments are only writeable through an {Account} instance.
-    embedded!
+    embedded! true
   end
 end

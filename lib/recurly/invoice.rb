@@ -39,7 +39,7 @@ module Recurly
     end
 
     # Invoices are only writeable through {Account} instances.
-    embedded!
+    embedded! true
     undef save
     undef destroy
   end
