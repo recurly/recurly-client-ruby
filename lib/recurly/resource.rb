@@ -845,6 +845,32 @@ module Recurly
       other.is_a?(self.class) && other.to_s == to_s
     end
 
+    def marshal_dump
+      [
+        @attributes.reject { |k, v| v.is_a? Proc },
+        @new_record,
+        @destroyed,
+        @uri,
+        @href,
+        changed_attributes,
+        previous_changes,
+        etag,
+        response
+      ]
+    end
+
+    def marshal_load serialization
+      @attributes,
+        @new_record,
+        @destroyed,
+        @uri,
+        @href,
+        @changed_attributes,
+        @previous_changes,
+        @response,
+        @etag = serialization
+    end
+
     # @return [String]
     def inspect attributes = self.class.attribute_names.to_a
       string = "#<#{self.class}"
