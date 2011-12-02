@@ -45,7 +45,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-require 'recurly'
+require 'recurly/all'
 Recurly.api_key = options[:api_key] || ENV['RECURLY_API_KEY']
 include Recurly
 
