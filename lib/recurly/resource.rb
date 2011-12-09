@@ -411,8 +411,9 @@ module Recurly
               }
             end
           else
-            if el.name =~ /subscription_add_ons/ and el.children.select{|node| node.name =~ /subscription_add_on/ }.length > 0
-              record.add_ons = el.children.collect{|el2| 
+            if el.name =~ /subscription_add_ons/
+              children = el.children.select{|node| node.respond_to?(:name) && node.name =~ /subscription_add_on/ }
+              record.add_ons = children.collect{|el2| 
                 h = {}
                 XML.cast(el2).to_hash.each{|key, val|
                   h[key.to_sym] = val

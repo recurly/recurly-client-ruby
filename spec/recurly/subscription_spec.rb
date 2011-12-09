@@ -37,7 +37,7 @@ XML
 <subscription>\
 <currency>USD</currency>\
 <subscription_add_ons>\
-<subscription_add_on><add_on_code>trial</add_on_code><quantity>2</quantity></subscription_add_on>\
+<subscription_add_on><add_on_code>trial</add_on_code><quantity>2</quantity></subscription_add_on>
 <subscription_add_on><add_on_code>trial2</add_on_code></subscription_add_on>\
 </subscription_add_ons>\
 </subscription>
