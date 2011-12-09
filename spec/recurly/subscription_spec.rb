@@ -21,6 +21,20 @@ describe Subscription do
 </subscription>
 XML
     end
+    
+    it "must deserialize" do
+      xml = <<XML.chomp
+<subscription>\
+<currency>USD</currency>\
+<subscription_add_ons>\
+<subscription_add_on><add_on_code>trial</add_on_code><quantity>2</quantity></subscription_add_on>\
+<subscription_add_on><add_on_code>trial2</add_on_code></subscription_add_on>\
+</subscription_add_ons>\
+</subscription>
+XML
+      subscription = Subscription.from_xml xml
+      subscription.add_ons.to_a.must_equal([{:add_on_code=>"trial", :quantity=>2}, {:add_on_code=>"trial2"}])
+    end
   end
 
   describe "active and inactive" do
