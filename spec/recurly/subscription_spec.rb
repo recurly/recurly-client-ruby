@@ -2,11 +2,21 @@ require 'spec_helper'
 
 describe Subscription do
   describe "add-ons" do
-    it "must assign via hash" do
+    it "must assign via symbol array" do
       subscription = Subscription.new :add_ons => [:trial]
       subscription.add_ons.must_equal(
         Subscription::AddOns.new(subscription, [:trial])
       )
+    end
+    
+    it "must assign via hash array" do
+      subscription = Subscription.new :add_ons => [{:add_on_code => "trial", :quantity => 2}, {:add_on_code => "trial2"}]
+      subscription.add_ons.to_a.must_equal([{:add_on_code=>"trial", :quantity=>2}, {:add_on_code=>"trial2"}])
+    end
+    
+    it "must assign track multiple addons" do
+      subscription = Subscription.new :add_ons => [:trial, :trial]
+      subscription.add_ons.to_a.must_equal([{:add_on_code=>"trial", :quantity=>2}])
     end
 
     it "must serialize" do
@@ -20,6 +30,20 @@ describe Subscription do
 </subscription_add_ons>\
 </subscription>
 XML
+    end
+    
+    it "must deserialize" do
+      xml = <<XML.chomp
+<subscription>\
+<currency>USD</currency>\
+<subscription_add_ons>\
+<subscription_add_on><add_on_code>trial</add_on_code><quantity>2</quantity></subscription_add_on>
+<subscription_add_on><add_on_code>trial2</add_on_code></subscription_add_on>\
+</subscription_add_ons>\
+</subscription>
+XML
+      subscription = Subscription.from_xml xml
+      subscription.add_ons.to_a.must_equal([{:add_on_code=>"trial", :quantity=>2}, {:add_on_code=>"trial2"}])
     end
   end
 

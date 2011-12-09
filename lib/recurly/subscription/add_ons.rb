@@ -27,6 +27,8 @@ module Recurly
           when AddOn then add_on = { :add_on_code => add_on.add_on_code }
           when String, Symbol then add_on = { :add_on_code => add_on.to_s }
         end
+        
+        add_on[:quantity] = add_on[:quantity].to_i if add_on[:quantity].is_a?(String) # Needed for parsing XML
 
         exist = @add_ons.find { |a| a[:add_on_code] == add_on[:add_on_code] }
         if exist
