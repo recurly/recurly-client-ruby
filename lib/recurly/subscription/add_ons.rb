@@ -27,6 +27,7 @@ module Recurly
           when AddOn then add_on = { :add_on_code => add_on.add_on_code }
           when String, Symbol then add_on = { :add_on_code => add_on.to_s }
         end
+        add_on = Helper.hash_with_indifferent_read_access add_on
 
         exist = @add_ons.find { |a| a[:add_on_code] == add_on[:add_on_code] }
         if exist

@@ -9,10 +9,7 @@ module Recurly
         end
 
         case type
-          when 'array'
-            el.elements.map { |e|
-              e.elements.empty? ? XML.cast(e) : { e.name => XML.cast(e) }
-            }
+          when 'array'    then el.elements.map { |e| XML.cast e }
           when 'boolean'  then el.text == 'true'
           when 'date'     then Date.parse el.text
           when 'datetime' then DateTime.parse el.text

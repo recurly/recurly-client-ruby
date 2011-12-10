@@ -14,7 +14,7 @@ describe Resource do
   }
 
   describe "names and paths" do
-    it "must provide default names and relative paths" do
+    it "must provide default names" do
       resource.resource_name.must_equal "Resource"
       resource.collection_name.must_equal "resources"
       resource.member_name.must_equal "resource"

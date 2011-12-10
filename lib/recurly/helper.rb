@@ -30,8 +30,10 @@ module Recurly
       word
     end
 
-    def hash_with_indifferent_read_access
-      Hash.new { |hash, key| hash[key.to_s] if key.is_a? Symbol }
+    def hash_with_indifferent_read_access base = {}
+      indifferent = Hash.new { |hash, key| hash[key.to_s] if key.is_a? Symbol }
+      base.each_pair { |key, value| indifferent[key.to_s] = value }
+      indifferent
     end
 
     extend self
