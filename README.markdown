@@ -12,7 +12,7 @@ Recurly is packaged as a Ruby gem. We recommend you install it with
 [Bundler](http://gembundler.com/) by adding the following line to your Gemfile:
 
 ``` ruby
-gem 'recurly', '~> 2.0.9'
+gem 'recurly', '~> 2.0.10'
 ```
 
 Recurly will automatically use [Nokogiri](http://nokogiri.org/) (for a nice
@@ -62,7 +62,7 @@ Instructions and examples are available on
 [Recurly's documentation site](http://docs.recurly.com/api/basics).
 
 Recurly's gem API is available
-[here](http://rubydoc.info/gems/recurly/2.0.9/frames).
+[here](http://rubydoc.info/gems/recurly/2.0.10/frames).
 
 
 ## Contributing
