@@ -122,6 +122,7 @@ module Recurly
       reload self[:terminate].call(:params => { :refund => refund_type })
       true
     end
+    alias destroy terminate
 
     # Reactivate a subscription.
     #
