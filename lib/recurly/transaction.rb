@@ -15,6 +15,8 @@ module Recurly
 
     # @return [Account]
     belongs_to :account
+		# @return [Invoice, nil]
+		belongs_to :invoice
 
     define_attribute_methods %w(
       uuid
