@@ -24,20 +24,18 @@ module Recurly
 
       # @return [String]
       def sign_subscription account_code, extras = {}
-        sign 'subscriptioncreate', {
-          'account_code' => account_code
-         }, extras
+        sign 'subscriptioncreate', { 'account_code' => account_code }, extras
       end
 
       # @return [String]
       def sign_billing_info account_code, extras = {}
-        sign 'billinginfoupdate', {
-          'account_code' => account_code
-         }, extras
+        sign 'billinginfoupdate', { 'account_code' => account_code }, extras
       end
 
       # @return [String]
-      def sign_transaction amount_in_cents, currency = nil, account_code = nil, extras = {}
+      def sign_transaction(
+        amount_in_cents, currency = nil, account_code = nil, extras = {}
+      )
         sign 'transactioncreate', {
           'amount_in_cents' => amount_in_cents,
           'currency'        => currency || Recurly.default_currency,
@@ -71,26 +69,22 @@ module Recurly
       private
 
       def collect_keypaths extras, prefix = nil
-        if extras.respond_to?(:map)
-          extras.map { |k,v|   
-            collect_keypaths v, prefix ? "#{prefix}.#{k}" : k.to_s 
-          }.flatten
+        if extras.is_a? Hash
+          extras.map { |key, value|
+            collect_keypaths value, prefix ? "#{prefix}.#{key}" : key.to_s
+          }.flatten.sort
         else
           prefix
         end
       end
 
       def sign claim, params, extras = {}, timestamp = Time.now
-        params.merge! extras
-        hmac = OpenSSL::HMAC.hexdigest(
+        hexdigest = OpenSSL::HMAC.hexdigest(
           OpenSSL::Digest::Digest.new('SHA1'),
           Digest::SHA1.digest(private_key),
-          digest([timestamp = timestamp.to_i, claim, params])
+          digest([timestamp = timestamp.to_i, claim, params.merge(extras)])
         )
-
-        signature = "#{hmac}-#{timestamp}"
-        signature += "+#{collect_keypaths(extras).join('+')}" if extras.any?
-        signature
+        ["#{hexdigest}-#{timestamp}", *collect_keypaths(extras)].join '+'
       end
 
       def verify! claim, params
