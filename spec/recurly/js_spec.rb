@@ -56,6 +56,7 @@ describe Recurly.js do
     let(:private_key) { '0123456789abcdef0123456789abcdef' }
     let(:timestamp) { 1312806801 }
     let(:signature) { "fb5194a51aa97996cdb995a89064764c5c1bfd93-#{timestamp}" }
+    let(:signature_extras) { "3fee8f858431b233ca835ce4750670163b57a397-#{timestamp}+account.first_name" }
 
     class MockTime
       class << self
@@ -79,6 +80,22 @@ describe Recurly.js do
       signed.must_equal signature
     end
 
+    it "must sign subscription" do
+      sig = js.method(:sign_subscription).call 'acc', {:a => {:a1 => 'v'}}
+      sig.must_equal 'f85e8ea59232af127ff417773027da927fcd15d0-1312806801+a.a1'
+    end
+
+    it "must sign billing_info" do
+      sig = js.method(:sign_billing_info).call 'acc', {:a => {:a1 => 'v'}}
+      sig.must_equal '796e4f02e24ee5fc8a248f8ff123749e08a033da-1312806801+a.a1'
+    end
+
+    it "must sign transaction" do
+      sig = js.method(:sign_transaction).call 50_00, 'USD', 'acc', {:a => {:a1 => 'v'}}
+      sig.must_equal '16754dea33128cb3a83bcd7ca937ca45742739e7-1312806801+a.a1'
+    end
+
+
     it "must validate proper signatures" do
       verify.call 'update', :a => 'foo', :b => 'bar', :signature => signature
     end
@@ -87,6 +104,13 @@ describe Recurly.js do
       proc {
         verify.call 'update', :a => 'foo', :b => 'bar', :signature => 'baz'
       }.must_raise js::RequestForgery
+    end
+
+    it "must merge extras into hmac and append their keys to the signature" do
+      signed = sign.call('update', {:a => 'foo', :b => 'bar'},
+        {:account => {:first_name => 'joe'}}
+      )
+      signed.must_equal signature_extras
     end
 
     it "must reject a stale signature" do
@@ -106,7 +130,6 @@ describe Recurly.js do
         )
       }.must_raise js::RequestForgery
     end
-
     it "must verify billing info" do
       js.verify_billing_info!(
         'signature' => "07e7bea6a5bcb65d8dd93f8e314b2dab686c8ca8-#{timestamp}"
@@ -125,4 +148,14 @@ describe Recurly.js do
       )
     end
   end
+
+  describe "collect_keypaths" do
+    let(:collect_keypaths) { js.method :collect_keypaths }
+    it "must collect keypaths" do
+      test_obj = {:a => {:a1 => 'a1', :a2 => 'a2'}, :b => 'b'}
+      keypaths = collect_keypaths.call(test_obj)
+      keypaths.must_equal ['a.a1','a.a2','b']
+    end
+  end
+
 end
