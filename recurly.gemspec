@@ -16,8 +16,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = ">= 1.3.7"
   s.rubyforge_project = "recurly"
 
-  s.add_dependency("activeresource", [">= 2.3"])
-  s.add_dependency("activesupport",  [">= 2.3"])
+  s.add_dependency("activeresource", ["~> 2.3"])
+  s.add_dependency("activesupport",  ["~> 2.3"])
   s.add_dependency("addressable", [">= 2.2"])
   s.add_dependency("nokogiri", [">= 1.4"])
 
