@@ -230,6 +230,30 @@ XML
       end
     end
 
+    describe ".has_one, readonly => false" do
+      before do
+        Object.const_set :Day, Class.new(Resource)
+        resource.has_one :day, :readonly => false
+        @record = resource.new
+      end
+
+      after do
+        Object.send :remove_const, :Day
+      end
+
+      it "must assign relation from a Hash" do
+        @record.day = {}
+        @record.day.must_be_kind_of Day
+      end
+      it "must assign relation from an instance of the associated class" do
+        @record.day = Day.new
+        @record.day.must_be_kind_of Day
+      end
+      it "assigning relation from another class must raise an exception" do
+        proc { @record.day = Class }.must_raise ArgumentError
+      end
+    end
+
     describe "#initialize" do
       let(:record) { resource.new :name => 'Gesundheit' }
 
