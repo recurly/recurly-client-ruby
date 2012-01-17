@@ -80,8 +80,8 @@ describe Recurly.js do
     end
 
     it "must sign subscription" do
-      sig = js.method(:sign_subscription).call 'acc', :a => { :a1 => 'v' }
-      sig.must_equal 'f85e8ea59232af127ff417773027da927fcd15d0-1312806801+a.a1'
+      sig = js.method(:sign_subscription).call 'plan','acc', {:a => {:a1 => 'v'}}
+      sig.must_equal 'aef4df3aabfdfc414a6700b2a001231a4c0c91bd-1312806801+a.a1'
     end
 
     it "must sign billing_info" do
