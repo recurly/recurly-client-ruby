@@ -38,6 +38,7 @@ module Recurly
       pending_subscription
       subscription_add_ons
       coupon_code
+      total_billing_cycles
     )
     alias to_param uuid
 
