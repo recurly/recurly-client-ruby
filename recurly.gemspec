@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.license          = 'MIT'
 
   s.add_development_dependency 'rake',           '~> 0.9.2'
-  s.add_development_dependency 'bundler',        '~> 1.1.pre.10'
   s.add_development_dependency 'minitest',       '~> 2.6.1'
   s.add_development_dependency 'webmock',        '~> 1.7.6'
   s.add_development_dependency 'guard-minitest', '~> 0.4.0'
