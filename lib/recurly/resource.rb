@@ -467,10 +467,10 @@ module Recurly
               self[member_name] = case member
               when Hash
                 associated.send :new, member.merge(:uri => associated_uri)
-              when associated_class
+              when associated
                 member.uri = associated_uri and member
               else
-                raise ArgumentError, "expected #{associated_class}"
+                raise ArgumentError, "expected #{associated}"
               end
             }
             define_method("build_#{member_name}") { |*args|

@@ -23,8 +23,11 @@ module Recurly
       attr_writer :private_key
 
       # @return [String]
-      def sign_subscription account_code, extras = {}
-        sign 'subscriptioncreate', { 'account_code' => account_code }, extras
+      def sign_subscription plan_code, account_code, extras = {}
+        sign 'subscriptioncreate', {
+          'plan_code' => plan_code,
+          'account_code' => account_code
+         }, extras
       end
 
       # @return [String]
