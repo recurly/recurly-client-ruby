@@ -35,7 +35,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.1.pre.10)
   growl_notify (~> 0.0.1)
   guard-minitest (~> 0.4.0)
   jruby-openssl (~> 0.7.4)

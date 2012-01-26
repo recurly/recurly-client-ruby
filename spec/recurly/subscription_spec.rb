@@ -1,6 +1,31 @@
 require 'spec_helper'
 
 describe Subscription do
+  describe "attributes" do
+    subject { Subscription }
+
+    it "has all expected attributes" do
+      expected_attributes = %w{ uuid
+                                state
+                                unit_amount_in_cents
+                                currency
+                                quantity
+                                activated_at
+                                canceled_at
+                                expires_at
+                                current_period_started_at
+                                current_period_ends_at
+                                trial_started_at
+                                trial_ends_at
+                                pending_subscription
+                                subscription_add_ons
+                                coupon_code
+                                total_billing_cycles}
+
+        subject.attribute_names.sort.must_equal expected_attributes.sort
+      end
+  end
+
   describe "add-ons" do
     it "must assign via symbol array" do
       subscription = Subscription.new :add_ons => [:trial]
@@ -33,7 +58,7 @@ describe Subscription do
         [{"add_on_code"=>"trial", "quantity"=>2}, {"add_on_code"=>"trial2"}]
       )
     end
-    
+
     it "must assign track multiple addons" do
       subscription = Subscription.new :add_ons => [:trial, :trial]
       subscription.add_ons.to_a.must_equal(
