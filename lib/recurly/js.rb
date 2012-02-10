@@ -97,7 +97,7 @@ module Recurly
         )
         timestamp = signature.split('-').last
         age = Time.now.to_i - timestamp.to_i
-        unless (-3600..3600).include? age
+        if age > 3600 || age < -3600
           raise RequestForgery, 'stale timestamp'
         end
 
