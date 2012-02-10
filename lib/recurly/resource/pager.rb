@@ -89,6 +89,12 @@ module Recurly
       end
 
       # @return [Array, nil] Refreshes the pager's collection of records with
+      #   the previous page.
+      def prev
+        load_from links['prev'], nil if links.key? 'prev'
+      end
+
+      # @return [Array, nil] Refreshes the pager's collection of records with
       #   the first page.
       def start
         load_from links['start'], nil if links.key? 'start'
@@ -211,7 +217,7 @@ module Recurly
           load! unless defined? @collection
           return @collection.send name, *args, &block
         end
-        
+
         super
       end
     end
