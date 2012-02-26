@@ -135,5 +135,9 @@ module Recurly
       reload self[:reactivate].call
       true
     end
+
+    def signable_attributes
+      super.merge :plan_code => plan_code
+    end
   end
 end

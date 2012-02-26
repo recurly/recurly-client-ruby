@@ -71,7 +71,7 @@ module Recurly
     # Convenience logging method includes a Logger#progname dynamically.
     # @return [true, nil]
     def log level, message
-      logger and logger.send(level, name) { message }
+      logger.send(level, name) { message }
     end
   end
 end

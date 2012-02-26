@@ -370,7 +370,7 @@ module Recurly
         if xml.name == member_name
           record = new
         elsif Recurly.const_defined?(class_name = Helper.classify(xml.name))
-          record = Recurly.const_get(class_name).new
+          record = Recurly.const_get(class_name).send :new
         elsif root = xml.root and root.elements.empty?
           return XML.cast root
         else
@@ -477,7 +477,7 @@ module Recurly
               attributes = args.shift || {}
               self[member_name] = associated.send(
                 :new, attributes.merge(:uri => "#{path}/#{member_name}")
-              )
+              ).tap { |child| child.attributes[self.class.member_name] = self }
             }
             define_method("create_#{member_name}") { |*args|
               send("build_#{member_name}", *args).tap { |child| child.save }
@@ -839,6 +839,10 @@ module Recurly
       @destroyed = true
     rescue API::NotFound => e
       raise NotFound, e.description
+    end
+
+    def signable_attributes
+      Hash[xml_keys.map { |key| [key, self[key]] }]
     end
 
     def == other

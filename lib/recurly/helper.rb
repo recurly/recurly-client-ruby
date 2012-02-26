@@ -36,6 +36,13 @@ module Recurly
       indifferent
     end
 
+    def stringify_keys! hash
+      hash.keys.each do |key|
+        stringify_keys! hash[key] if hash[key].is_a? Hash
+        hash[key.to_s] = hash.delete key if key.is_a? Symbol
+      end
+    end
+
     extend self
   end
 end

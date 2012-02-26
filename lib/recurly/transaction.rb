@@ -70,6 +70,10 @@ module Recurly
       )
     end
 
+    def signable_attributes
+      super.merge :amount_in_cents => amount_in_cents, :currency => currency
+    end
+
     # @return [String]
     def inspect
       attributes = self.class.attribute_names

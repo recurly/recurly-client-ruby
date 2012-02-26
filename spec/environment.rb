@@ -15,4 +15,3 @@ Recurly.api_key = 'api_key'
 
 require 'logger'
 Recurly.logger = Logger.new nil
-

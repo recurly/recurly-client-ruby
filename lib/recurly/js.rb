@@ -1,4 +1,5 @@
 require 'openssl'
+require 'base64'
 
 module Recurly
   # A collection of helper methods to use to verify
@@ -8,8 +9,8 @@ module Recurly
     class RequestForgery < Error
     end
 
-    # Used to prevent strings from being escaped during digest.
-    class SafeString < String
+    # Raised when the timestamp is over an hour old. Prevents replay attacks.
+    class RequestTooOld < RequestForgery
     end
 
     class << self
@@ -22,46 +23,36 @@ module Recurly
       end
       attr_writer :private_key
 
-      # @return [String]
-      def sign_subscription plan_code, account_code, extras = {}
-        sign 'subscriptioncreate', {
-          'plan_code' => plan_code,
-          'account_code' => account_code
-         }, extras
+      # Create a signature for a given hash for Recurly.js
+      # @param Array of objects and hash of data to sign
+      def sign *records
+        data = records.last.is_a?(Hash) ? records.pop.dup : {}
+        records.each do |record|
+          data[record.class.member_name] = record.signable_attributes
+        end
+        Helper.stringify_keys! data
+        data['timestamp'] ||= Time.now.to_i
+        data['nonce'] ||= Base64.encode64(
+          OpenSSL::Random.random_bytes(32)
+        ).gsub(/\W/, '')
+        unsigned = to_query data
+        signed = OpenSSL::HMAC.hexdigest 'sha1', private_key, unsigned
+        [signed, unsigned].join '|'
       end
 
-      # @return [String]
-      def sign_billing_info account_code, extras = {}
-        sign 'billinginfoupdate', { 'account_code' => account_code }, extras
-      end
-
-      # @return [String]
-      def sign_transaction(
-        amount_in_cents, currency = nil, account_code = nil, extras = {}
-      )
-        sign 'transactioncreate', {
-          'amount_in_cents' => amount_in_cents,
-          'currency'        => currency || Recurly.default_currency,
-          'account_code'    => account_code
-        }, extras
-      end
-
-      # @return [true]
-      # @raise [RequestForgery] If verification fails.
-      def verify_subscription! params
-        verify! 'subscriptioncreated', params
-      end
-
-      # @return [true]
-      # @raise [RequestForgery] If verification fails.
-      def verify_billing_info! params
-        verify! 'billinginfoupdated', params
-      end
-
-      # @return [true]
-      # @raise [RequestForgery] If verification fails.
-      def verify_transaction! params
-        verify! 'transactioncreated', params
+      # Fetches a record using a token provided by Recurly.js.
+      # @param [String] Token to look up
+      # @return [BillingInfo, Invoice, Subscription] The record created or
+      #   modified by Recurly.js
+      # @raise [API::NotFound] No record was found for the token provided.
+      # @example
+      #   begin
+      #     Recurly.js.fetch params[:token]
+      #   rescue Recurly::API::NotFound
+      #     # Handle potential tampering here.
+      #   end
+      def fetch token
+        Resource.from_response API.get "recurly_js/result/#{token}"
       end
 
       # @return [String]
@@ -71,61 +62,14 @@ module Recurly
 
       private
 
-      def collect_keypaths extras, prefix = nil
-        if extras.is_a? Hash
-          extras.map { |key, value|
-            collect_keypaths value, prefix ? "#{prefix}.#{key}" : key.to_s
-          }.flatten.sort
-        else
-          prefix
-        end
-      end
-
-      def sign claim, params, extras = {}, timestamp = Time.now
-        hexdigest = OpenSSL::HMAC.hexdigest(
-          OpenSSL::Digest::Digest.new('SHA1'),
-          Digest::SHA1.digest(private_key),
-          digest([timestamp = timestamp.to_i, claim, params.merge(extras)])
-        )
-        ["#{hexdigest}-#{timestamp}", *collect_keypaths(extras)].join '+'
-      end
-
-      def verify! claim, params
-        params = Hash[params.map { |key, value| [key.to_s, value] }]
-        signature = params.delete('signature') or raise(
-          RequestForgery, 'missing signature'
-        )
-        timestamp = signature.split('-').last
-        age = Time.now.to_i - timestamp.to_i
-        unless (-3600..3600).include? age
-          raise RequestForgery, 'stale timestamp'
-        end
-
-        if signature != sign(claim, params, {}, timestamp)
-          raise RequestForgery,
-            "signature can't be verified (invalid request or private key)"
-        end
-
-        true
-      end
-
-      def digest data
-        case data
-        when Array
-          return if data.empty?
-          SafeString.new "[#{data.map { |d| digest d }.compact.join ','}]"
+      def to_query object, key = nil
+        case object
         when Hash
-          data = Hash[data.map { |key, value| [key.to_s, value] }]
-          digest data.keys.sort.map { |key|
-            next unless value = digest(data[key])
-            SafeString.new "#{"#{key}:" unless key =~ /^\d+$/}#{value}"
-          }
-        when SafeString
-          data
-        when String
-          SafeString.new data.gsub(/([\[\]\,\:\\])/, '\\\\\1')
+          object.map { |k, v| to_query v, key ? "#{key}[#{k}]" : k }.sort * '&'
+        when Array
+          object.map { |o| to_query o, "#{key}[]" } * '&'
         else
-          data
+          "#{CGI.escape key.to_s}=#{CGI.escape object.to_s}"
         end
       end
     end
