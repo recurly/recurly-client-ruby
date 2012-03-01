@@ -18,8 +18,8 @@ module Recurly
         else
           # FIXME: Move some of this logic to Resource.from_xml?
           if type and resource_name = Helper.classify(type)
-            if Recurly.const_defined? resource_name
-              resource_class = Recurly.const_get(Helper.classify(type))
+            if Recurly.const_defined? resource_name, false
+              resource_class = Recurly.const_get(Helper.classify(type), false)
               return resource_class.new resource_class.from_xml(el)
             end
           end
