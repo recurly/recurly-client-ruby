@@ -19,6 +19,7 @@ module Recurly
     class << self
       # @return [String]
       attr_accessor :accept_language
+      attr_accessor :accept_encoding
 
       # @return [Net::HTTPOK, Net::HTTPResponse]
       # @raise [ResponseError] With a non-2xx status code.

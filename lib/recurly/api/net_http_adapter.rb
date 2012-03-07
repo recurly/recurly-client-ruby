@@ -34,6 +34,7 @@ module Recurly
         def request method, uri, options = {}
           head = { 'Accept' => accept, 'User-Agent' => user_agent }
           accept_language and head['Accept-Language'] ||= accept_language
+          accept_encoding and head['Accept-Encoding'] ||= accept_encoding
           head.update options[:head] if options[:head]
           uri = base_uri + uri
           if options[:params] && !options[:params].empty?
