@@ -40,7 +40,7 @@ module Recurly
             uri += "?#{options[:params].map { |k, v| "#{k}=#{v}" }.join '&' }"
           end
           request = METHODS[method].new uri.request_uri, head
-          request.basic_auth Recurly.api_key, nil
+          request.basic_auth(*[Recurly.api_key, nil].flatten[0, 2])
           if options[:body]
             head['Content-Type'] = content_type
             request.body = options[:body]
