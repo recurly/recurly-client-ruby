@@ -348,9 +348,9 @@ module Recurly
       # @param response [Net::HTTPResponse]
       def from_response response
         case response['Content-Type']
-        when 'application/pdf'
+        when %r{application/pdf}
           response.body
-        else # when 'application/xml'
+        else # when %r{application/xml}
           record = from_xml response.body
           record.instance_eval { @etag, @response = response['ETag'], response }
           record
