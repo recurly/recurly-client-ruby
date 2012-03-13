@@ -32,6 +32,10 @@ module Recurly
     )
     alias to_param invoice_number
 
+    def pdf
+      find to_param, :format => 'pdf'
+    end
+
     private
 
     def initialize attributes = {}

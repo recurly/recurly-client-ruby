@@ -16,6 +16,11 @@ module Recurly
 
     @@base_uri = "https://api.recurly.com/v2/"
 
+    FORMATS = Helper.hash_with_indifferent_read_access(
+      'pdf' => 'application/pdf',
+      'xml' => 'application/xml'
+    )
+
     class << self
       # @return [String]
       attr_accessor :accept_language
@@ -63,7 +68,7 @@ module Recurly
       private
 
       def accept
-        'application/xml'
+        FORMATS['xml']
       end
       alias content_type accept
     end

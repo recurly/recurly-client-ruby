@@ -42,8 +42,14 @@ module Recurly
           request = METHODS[method].new uri.request_uri, head
           request.basic_auth(*[Recurly.api_key, nil].flatten[0, 2])
           if options[:body]
-            head['Content-Type'] = content_type
+            request['Content-Type'] = content_type
             request.body = options[:body]
+          end
+          if options[:etag]
+            request['If-None-Match'] = options[:etag]
+          end
+          if options[:format]
+            request['Accept'] = FORMATS[options[:format]]
           end
           http = ::Net::HTTP.new uri.host, uri.port
           http.use_ssl = uri.scheme == 'https'

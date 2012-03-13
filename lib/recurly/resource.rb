@@ -314,14 +314,9 @@ module Recurly
           raise NotFound, "can't find a record with nil identifier"
         end
 
-        request_options = {}
-        if etag = options[:etag]
-          request_options[:head] = { 'If-None-Match' => etag }
-        end
-
         uri = uuid =~ /^http/ ? uuid : member_path(uuid)
         begin
-          from_response API.get(uri, {}, request_options)
+          from_response API.get(uri, {}, options)
         rescue API::NotFound => e
           raise NotFound, e.description
         end
@@ -352,9 +347,14 @@ module Recurly
       # @return [Resource]
       # @param response [Net::HTTPResponse]
       def from_response response
-        record = from_xml response.body
-        record.instance_eval { @etag, @response = response['ETag'], response }
-        record
+        case response['Content-Type']
+        when 'application/pdf'
+          response.body
+        else # when 'application/xml'
+          record = from_xml response.body
+          record.instance_eval { @etag, @response = response['ETag'], response }
+          record
+        end
       end
 
       # Instantiates a record from an XML blob: either a String or XML element.
