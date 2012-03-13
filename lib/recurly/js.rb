@@ -37,7 +37,9 @@ module Recurly
         ).gsub(/\W/, '')
         unsigned = to_query data
         signed = OpenSSL::HMAC.hexdigest 'sha1', private_key, unsigned
-        [signed, unsigned].join '|'
+        signature = [signed, unsigned].join '|'
+        signature = signature.html_safe if signature.respond_to? :html_safe
+        signature
       end
 
       # Fetches a record using a token provided by Recurly.js.
