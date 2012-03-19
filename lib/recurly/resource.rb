@@ -370,12 +370,15 @@ module Recurly
         if xml.name == member_name
           record = new
         elsif Recurly.const_defined?(class_name = Helper.classify(xml.name))
-          record = Recurly.const_get(class_name).send :new
+          klass = Recurly.const_get class_name
+          record = klass.new
         elsif root = xml.root and root.elements.empty?
           return XML.cast root
         else
           record = {}
         end
+        klass ||= self
+        associations = klass.associations
 
         xml.root.attributes.each do |name, value|
           record.instance_variable_set "@#{name}", value.to_s
