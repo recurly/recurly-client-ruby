@@ -371,7 +371,7 @@ module Recurly
           record = new
         elsif Recurly.const_defined?(class_name = Helper.classify(xml.name))
           klass = Recurly.const_get class_name
-          record = klass.new
+          record = klass.send :new
         elsif root = xml.root and root.elements.empty?
           return XML.cast root
         else
