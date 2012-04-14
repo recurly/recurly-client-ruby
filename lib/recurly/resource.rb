@@ -551,7 +551,7 @@ module Recurly
     # @return [self] Reloads the record from the server.
     def reload response = nil
       if response
-        return if response.body.length.zero?
+        return if response.body.to_s.length.zero?
         fresh = self.class.from_response response
       else
         fresh = self.class.find(
@@ -632,7 +632,7 @@ module Recurly
     def read_attribute key
       value = attributes[key = key.to_s]
       if value.respond_to?(:call) && self.class.reflect_on_association(key)
-        value = attributes[key] = value.call 
+        value = attributes[key] = value.call
       end
       value
     end
@@ -650,7 +650,7 @@ module Recurly
       if changed_attributes.key?(key = key.to_s)
         changed_attributes.delete key if changed_attributes[key] == value
       elsif self[key] != value
-        changed_attributes[key] = self[key] 
+        changed_attributes[key] = self[key]
       end
 
       if self.class.associations.values.flatten.include? key
