@@ -34,6 +34,7 @@ module Recurly
         def request method, uri, options = {}
           head = headers.dup
           head.update options[:head] if options[:head]
+          head.delete_if { |_, value| value.nil? }
           uri = base_uri + uri
           if options[:params] && !options[:params].empty?
             uri += "?#{options[:params].map { |k, v| "#{k}=#{v}" }.join '&' }"
