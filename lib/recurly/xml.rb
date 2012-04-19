@@ -17,11 +17,9 @@ module Recurly
           when 'integer'  then el.text.to_i
         else
           # FIXME: Move some of this logic to Resource.from_xml?
-          if type and resource_name = Helper.classify(type)
-            if Recurly.const_defined? resource_name
-              resource_class = Recurly.const_get(Helper.classify(type))
-              return resource_class.new resource_class.from_xml(el)
-            end
+          resource_name = Helper.classify el.name
+          if Recurly.const_defined? resource_name
+            return Recurly.const_get(resource_name).from_xml el
           end
           if el.elements.empty?
             el.text
