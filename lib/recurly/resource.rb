@@ -369,8 +369,10 @@ module Recurly
         xml = XML.new xml
         if xml.name == member_name
           record = new
-        elsif Recurly.const_defined?(class_name = Helper.classify(xml.name), false)
-          klass = Recurly.const_get(class_name, false)
+        elsif Recurly.const_defined?(
+          class_name = Helper.classify(xml.name), false
+        )
+          klass = Recurly.const_get class_name, false
           record = klass.send :new
         elsif root = xml.root and root.elements.empty?
           return XML.cast root
