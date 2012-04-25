@@ -165,12 +165,12 @@ XML
 
     describe ".has_many" do
       before do
-        Object.const_set :Reason, Class.new(Resource)
+        Recurly.const_set :Reason, Class.new(Resource)
         resource.has_many :reasons
       end
 
       after do
-        Object.send :remove_const, :Reason
+        Recurly.send :remove_const, :Reason
       end
 
       it "must define an association" do
@@ -185,13 +185,13 @@ XML
 
     describe ".has_one and .belongs_to" do
       before do
-        Object.const_set :Day, Class.new(Resource)
+        Recurly.const_set :Day, Class.new(Resource)
         resource.has_one :day
         Day.belongs_to :resource
       end
 
       after do
-        Object.send :remove_const, :Day
+        Recurly.send :remove_const, :Day
       end
 
       it "must define an association" do
@@ -232,13 +232,13 @@ XML
 
     describe ".has_one, readonly => false" do
       before do
-        Object.const_set :Day, Class.new(Resource)
+        Recurly.const_set :Day, Class.new(Resource)
         resource.has_one :day, :readonly => false
         @record = resource.new
       end
 
       after do
-        Object.send :remove_const, :Day
+        Recurly.send :remove_const, :Day
       end
 
       it "must assign relation from a Hash" do

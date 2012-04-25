@@ -73,6 +73,18 @@ module Recurly
     def log level, message
       logger.send(level, name) { message }
     end
+
+    if RUBY_VERSION <= "1.9.0"
+      def const_defined? sym, inherit = false
+        raise ArgumentError, "inherit must be false" if inherit
+        super sym
+      end
+
+      def const_get sym, inherit = false
+        raise ArgumentError, "inherit must be false" if inherit
+        super sym
+      end
+    end
   end
 end
 
