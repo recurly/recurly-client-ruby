@@ -22,6 +22,7 @@ module Recurly
       plan_interval_unit
       trial_interval_length
       trial_interval_unit
+      total_billing_cycles
       created_at
     )
     alias to_param plan_code
