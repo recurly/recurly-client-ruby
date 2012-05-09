@@ -24,6 +24,7 @@ module Recurly
       applies_to_all_plans
       created_at
       plan_codes
+      description
     )
     alias to_param coupon_code
 
