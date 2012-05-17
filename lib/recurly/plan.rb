@@ -25,6 +25,7 @@ module Recurly
       total_billing_cycles
       accounting_code
       created_at
+      accounting_code
     )
     alias to_param plan_code
   end
