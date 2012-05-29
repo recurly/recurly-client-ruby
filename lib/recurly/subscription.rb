@@ -136,6 +136,19 @@ module Recurly
       true
     end
 
+    # Postpone a subscription's renewal date.
+    #
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the subscription is not active).
+    # @param next_renewal_date [Time] when the subscription should renew.
+    def postpone next_renewal_date
+      return false unless self[:postpone]
+      reload self[:postpone].call(
+        :params => { :next_renewal_date => next_renewal_date }
+      )
+      true
+    end
+
     def signable_attributes
       super.merge :plan_code => plan_code
     end
