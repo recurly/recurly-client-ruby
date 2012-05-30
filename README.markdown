@@ -97,12 +97,6 @@ To run the suite using Nokogiri:
 $ XML=nokogiri bundle exec rake
 ```
 
-Or, if [Guard](https://github.com/guard/guard) is more your speed:
-
-``` bash
-$ bundle exec guard
-```
-
 If you plan on submitting a patch, please write tests for it (we use
 [MiniTest::Spec](http://bfts.rubyforge.org/minitest/MiniTest/Expectations.html)).
 
