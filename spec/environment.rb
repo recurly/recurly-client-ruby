@@ -7,7 +7,9 @@ at_exit do
   $stderr.lines.each { |line| old_stderr.puts line if line.include? lib }
 end
 
-require ENV['XML'] if ENV['XML']
+case ENV['XML']
+  when 'nokogiri' then require 'nokogiri'
+end
 
 require 'recurly'
 include Recurly
