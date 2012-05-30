@@ -10,3 +10,13 @@ rvm:
 env:
   - XML=rexml
   - XML=nokogiri
+matrix:
+  allow_failures:
+    - rvm: jruby-18mode
+      env: XML=nokogiri
+    - rvm: jruby-19mode
+      env: XML=nokogiri
+notifications:
+  email:
+    recipients:
+      - dev@recurly.com
