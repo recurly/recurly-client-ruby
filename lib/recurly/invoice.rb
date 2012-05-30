@@ -32,6 +32,26 @@ module Recurly
     )
     alias to_param invoice_number
 
+    # Marks an invoice as paid successfully.
+    #
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the invoice is no longer open).
+    def mark_successful
+      return false unless self[:mark_successful]
+      reload self[:mark_successful].call
+      true
+    end
+
+    # Marks an invoice as failing collection.
+    #
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the invoice is no longer open).
+    def mark_failed
+      return false unless self[:mark_failed]
+      reload self[:mark_failed].call
+      true
+    end
+
     def pdf
       find to_param, :format => 'pdf'
     end
