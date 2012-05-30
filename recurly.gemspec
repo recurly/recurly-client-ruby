@@ -20,11 +20,7 @@ Gem::Specification.new do |s|
   s.homepage         = 'http://github.com/recurly/recurly-client-ruby'
   s.license          = 'MIT'
 
-  s.add_development_dependency 'rake',           '~> 0.9.2'
-  s.add_development_dependency 'bundler',        '~> 1.1.pre.10'
-  s.add_development_dependency 'minitest',       '~> 2.6.1'
-  s.add_development_dependency 'webmock',        '~> 1.7.6'
-  s.add_development_dependency 'guard-minitest', '~> 0.4.0'
-  s.add_development_dependency 'rb-fsevent',     '~> 0.4.3.1'
-  s.add_development_dependency 'growl_notify',   '~> 0.0.1'
+  s.add_development_dependency 'rake',     '~> 0.9.2'
+  s.add_development_dependency 'minitest', '~> 2.6.1'
+  s.add_development_dependency 'webmock',  '~> 1.7.6'
 end
