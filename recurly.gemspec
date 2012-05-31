@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
 
   s.author           = 'Recurly'
   s.email            = 'support@recurly.com'
-  s.homepage         = 'http://github.com/recurly/recurly-client-ruby'
+  s.homepage         = 'https://github.com/recurly/recurly-client-ruby'
   s.license          = 'MIT'
 
   s.add_development_dependency 'rake',     '~> 0.9.2'
