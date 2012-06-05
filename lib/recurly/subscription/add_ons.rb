@@ -2,7 +2,7 @@ module Recurly
   class Subscription < Resource
     class AddOns
       instance_methods.each do |method|
-        undef_method method if method !~ /^__|^(object_id|respond_to\?|send)$/ 
+        undef_method method if method !~ /^__|^(object_id|respond_to\?|send)$/
       end
 
       # @param subscription [Subscription]
@@ -23,18 +23,14 @@ module Recurly
       #     {:add_on_code => "BONUS"}
       #   ]
       def << add_on
-        case add_on
-          when AddOn then add_on = { :add_on_code => add_on.add_on_code }
-          when String, Symbol then add_on = { :add_on_code => add_on.to_s }
-        end
-        add_on = Helper.hash_with_indifferent_read_access add_on
+        add_on = SubscriptionAddOn.new(add_on)
 
-        exist = @add_ons.find { |a| a[:add_on_code] == add_on[:add_on_code] }
+        exist = @add_ons.find { |a| a.add_on_code == add_on.add_on_code }
         if exist
-          exist[:quantity] ||= 1 and exist[:quantity] += 1
+          exist.quantity ||= 1 and exist.quantity += 1
 
-          if add_on[:unit_amount_in_cents]
-            exist[:unit_amount_in_cents] = add_on[:unit_amount_in_cents]
+          if add_on.unit_amount_in_cents
+            exist.unit_amount_in_cents = add_on.unit_amount_in_cents
           end
         else
           @add_ons << add_on
@@ -47,11 +43,17 @@ module Recurly
         @add_ons.dup
       end
 
+      def errors
+        @add_ons.map { |add_on| add_on.errors }
+      end
+
       def to_xml options = {}
         builder = options[:builder] || XML.new('<subscription_add_ons/>')
         @add_ons.each do |add_on|
           node = builder.add_element 'subscription_add_on'
-          add_on.each_pair { |k, v| node.add_element k.to_s, v }
+          add_on.attributes.each_pair { |k, v|
+            node.add_element k.to_s, v if v
+          }
         end
         builder.to_s
       end

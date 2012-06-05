@@ -658,7 +658,7 @@ module Recurly
       if self.class.associations.values.flatten.include? key
         value = fetch_association key, value
       # FIXME: More explicit; less magic.
-      elsif key.end_with?('_in_cents') && !respond_to?(:currency)
+      elsif value && key.end_with?('_in_cents') && !respond_to?(:currency)
         value = Money.new value unless value.is_a? Money
       end
 
@@ -761,7 +761,7 @@ module Recurly
     #   account.valid? # => true
     def valid?
       return true if persisted? && changed_attributes.empty?
-      return if response.nil? || (errors.empty? && changed_attributes?)
+      return if errors.empty? && changed_attributes?
       errors.empty?
     end
 

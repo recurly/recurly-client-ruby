@@ -38,32 +38,34 @@ describe Subscription do
       subscription = Subscription.new :add_ons => [
         {:add_on_code => "trial", :quantity => 2}, {:add_on_code => "trial2"}
       ]
-      subscription.add_ons.to_a.must_equal(
-        [{"add_on_code"=>"trial", "quantity"=>2}, {"add_on_code"=>"trial2"}]
-      )
+      subscription.add_ons.to_a.must_equal([
+        SubscriptionAddOn.new("add_on_code"=>"trial", "quantity"=>2),
+        SubscriptionAddOn.new("add_on_code"=>"trial2")
+      ])
     end
 
     it "must assign track multiple addons" do
       subscription = Subscription.new :add_ons => [:trial, :trial]
-      subscription.add_ons.to_a.must_equal(
-        [{"add_on_code"=>"trial", "quantity"=>2}]
-      )
+      subscription.add_ons.to_a.must_equal([
+        SubscriptionAddOn.new({"add_on_code"=>"trial", "quantity"=>2})
+      ])
     end
 
     it "must assign via hash array" do
       subscription = Subscription.new :add_ons => [
         {:add_on_code => "trial", :quantity => 2}, {:add_on_code => "trial2"}
       ]
-      subscription.add_ons.to_a.must_equal(
-        [{"add_on_code"=>"trial", "quantity"=>2}, {"add_on_code"=>"trial2"}]
-      )
+      subscription.add_ons.to_a.must_equal([
+        SubscriptionAddOn.new("add_on_code"=>"trial", "quantity"=>2),
+        SubscriptionAddOn.new("add_on_code"=>"trial2")
+      ])
     end
 
     it "must assign track multiple addons" do
       subscription = Subscription.new :add_ons => [:trial, :trial]
-      subscription.add_ons.to_a.must_equal(
-        [{"add_on_code"=>"trial", "quantity"=>2}]
-      )
+      subscription.add_ons.to_a.must_equal([
+        SubscriptionAddOn.new("add_on_code"=>"trial", "quantity"=>2)
+      ])
     end
 
     it "must serialize" do
@@ -90,9 +92,10 @@ XML
 </subscription>
 XML
       subscription = Subscription.from_xml xml
-      subscription.add_ons.to_a.must_equal(
-        [{"add_on_code"=>"trial", "quantity"=>2}, {"add_on_code"=>"trial2"}]
-      )
+      subscription.add_ons.to_a.must_equal([
+        SubscriptionAddOn.new("add_on_code"=>"trial", "quantity"=>2),
+        SubscriptionAddOn.new("add_on_code"=>"trial2")
+      ])
     end
   end
 

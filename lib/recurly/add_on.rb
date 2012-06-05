@@ -12,6 +12,7 @@ module Recurly
       created_at
     )
     alias to_param add_on_code
+    alias quantity default_quantity
 
     # Add-ons are only writeable and readable through {Plan} instances.
     embedded!
