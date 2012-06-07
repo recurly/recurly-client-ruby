@@ -60,16 +60,18 @@ module Recurly
 
     # Refunds the transaction.
     #
-    # @return [Transaction, false] The refund when successful, false otherwise.
+    # @return [Transaction, false] The updated original transaction if voided,
+    #   a new refund transaction, false if the transaction isn't voidable or
+    #   refundable.
     # @raise [Error] If the refund fails.
     # @param amount_in_cents [Integer, nil] The amount (in cents) to refund
     #   (refunds fully if nil).
-    # @see Transaction#void
     def refund amount_in_cents = nil
       return false unless self[:refund]
-      self.class.from_response(
+      refund = self.class.from_response(
         self[:refund].call :params => { :amount_in_cents => amount_in_cents }
       )
+      refund.uuid == uuid ? copy_from(refund) && self : refund
     end
 
     def signable_attributes

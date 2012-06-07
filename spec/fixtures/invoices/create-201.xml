@@ -80,8 +80,7 @@ Location: https://api.recurly.com/v2/invoices/created-invoice
           </billing_info>
         </account>
       </details>
-      <a name="void" href="https://api.recurly.com/v2/transactions/transaction/void" method="put"/>
-      <a name="refund" href="https://api.recurly.com/v2/transactions/transaction/refund" method="put"/>
+      <a name="refund" href="https://api.recurly.com/v2/transactions/transaction" method="delete"/>
     </transaction>
   </transactions>
 </invoice>
