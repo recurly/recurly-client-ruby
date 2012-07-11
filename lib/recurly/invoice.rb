@@ -53,7 +53,7 @@ module Recurly
     end
 
     def pdf
-      find to_param, :format => 'pdf'
+      self.class.find to_param, :format => 'pdf'
     end
 
     private
