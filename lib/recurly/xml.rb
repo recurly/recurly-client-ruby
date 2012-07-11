@@ -31,16 +31,19 @@ module Recurly
 
       def filter text
         xml = XML.new text
-        xml.each do |el|
-          el = XML.new el
-          case el.name
-          when "number"
-            text = el.text
-            last = text[-4, 4]
-            el.text = "#{text[0, text.length - 4].to_s.gsub(/\d/, '*')}#{last}"
-          when "verification_value"
-            el.text = el.text.gsub(/\d/, '*')
+        begin
+          xml.each do |el|
+            el = XML.new el
+            case el.name
+            when "number"
+              text = el.text
+              last = text[-4, 4]
+              el.text = "#{text[0, text.length - 4].to_s.gsub(/\d/, '*')}#{last}"
+            when "verification_value"
+              el.text = el.text.gsub(/\d/, '*')
+            end
           end
+        rescue Exception => ex
         end
         xml.to_s
       end
