@@ -21,6 +21,7 @@ describe Transaction do
         } 
       }
       error = proc { transaction.save }.must_raise Transaction::DeclinedError
+      error.transaction_error_code.must_equal("invalid_card_number")
       error.message.must_equal(
         "Your card number is not valid. Please update your card number."
       )
