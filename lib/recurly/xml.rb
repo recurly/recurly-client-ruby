@@ -43,7 +43,7 @@ module Recurly
               el.text = el.text.gsub(/\d/, '*')
             end
           end
-        rescue Exception => ex
+        rescue StandardError => ex
         end
         xml.to_s
       end
