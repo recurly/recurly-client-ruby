@@ -16,6 +16,9 @@ module Recurly
     # @return [Account]
     belongs_to :account
 
+    # @return [Redemption]
+    has_one :redemption
+
     define_attribute_methods %w(
       uuid
       state

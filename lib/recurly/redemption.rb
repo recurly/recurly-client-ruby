@@ -16,6 +16,7 @@ module Recurly
       single_use
       total_discounted_in_cents
       currency
+      state
       created_at
     )
 
