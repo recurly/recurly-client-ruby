@@ -1,5 +1,6 @@
 require 'openssl'
 require 'base64'
+require 'cgi'
 
 module Recurly
   # A collection of helper methods to use to verify
