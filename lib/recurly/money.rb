@@ -14,13 +14,26 @@ module Recurly
     #   Recurly.default_currency = 'USD'
     #   Recurly::Money.new(49_00) # => #<Recurly::Money USD: 49_00>
     def initialize currencies = {}
-      @currencies = Helper.hash_with_indifferent_read_access
+      @currencies = {}
 
       if currencies.respond_to? :each_pair
-        currencies.each_pair { |key, value| @currencies[key.to_s] = value }
+        currencies.each_pair { |key, value| self[key] = value }
+      elsif Recurly.default_currency
+        self[Recurly.default_currency] = currencies
       else
-        @currencies[Recurly.default_currency] = currencies
+        message = 'expected a Hash'
+        message << ' or Numeric' if Recurly.default_currency
+        message << " but received #{currencies.class}"
+        raise ArgumentError, message
       end
+    end
+
+    def [] code
+      currencies[code.to_s]
+    end
+
+    def []= code, amount
+      currencies[code.to_s] = amount
     end
 
     # @return [Hash] A hash of currency codes to amounts.
