@@ -1,6 +1,6 @@
 # Recurly [![Build Status](https://secure.travis-ci.org/recurly/recurly-client-ruby.png)](http://travis-ci.org/recurly/recurly-client-ruby)
 
-<http://github.com/recurly/recurly-client-ruby>
+<https://github.com/recurly/recurly-client-ruby>
 
 [Recurly](http://recurly.com/)'s Ruby client library is an interface to its
 [REST API](http://docs.recurly.com/api/basics).
