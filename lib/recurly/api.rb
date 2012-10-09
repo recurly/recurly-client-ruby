@@ -70,7 +70,7 @@ module Recurly
 
       # @return [URI::Generic]
       def base_uri
-        URI.parse @@base_uri
+        URI.parse @@base_uri.sub('api', Recurly.subdomain)
       end
 
       # @return [String]
