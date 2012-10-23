@@ -75,7 +75,7 @@ module Recurly
 
     # @return [AddOns]
     def subscription_add_ons
-      @subscription_add_ons ||= AddOns.new self, super
+      self[:subscription_add_ons] ||= AddOns.new self, super
     end
     alias add_ons subscription_add_ons
 
