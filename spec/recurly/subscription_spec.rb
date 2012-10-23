@@ -84,6 +84,9 @@ XML
     it "must deserialize" do
       xml = <<XML.chomp
 <subscription>\
+<pending_subscription type="subscription">\
+<unit_amount_in_cents>200</unit_amount_in_cents>\
+</pending_subscription>\
 <currency>USD</currency>\
 <subscription_add_ons type="array">\
 <subscription_add_on><add_on_code>trial</add_on_code><quantity type="integer">2</quantity></subscription_add_on>
@@ -92,6 +95,7 @@ XML
 </subscription>
 XML
       subscription = Subscription.from_xml xml
+      subscription.pending_subscription.must_be_instance_of Subscription
       subscription.add_ons.to_a.must_equal([
         SubscriptionAddOn.new("add_on_code"=>"trial", "quantity"=>2),
         SubscriptionAddOn.new("add_on_code"=>"trial2")
