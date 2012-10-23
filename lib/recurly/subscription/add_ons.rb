@@ -23,7 +23,7 @@ module Recurly
       #     {:add_on_code => "BONUS"}
       #   ]
       def << add_on
-        add_on = SubscriptionAddOn.new(add_on)
+        add_on = SubscriptionAddOn.new(add_on, @subscription)
 
         exist = @add_ons.find { |a| a.add_on_code == add_on.add_on_code }
         if exist
@@ -51,9 +51,9 @@ module Recurly
         builder = options[:builder] || XML.new('<subscription_add_ons/>')
         @add_ons.each do |add_on|
           node = builder.add_element 'subscription_add_on'
-          add_on.attributes.each_pair { |k, v|
+          add_on.attributes.each_pair do |k, v|
             node.add_element k.to_s, v if v
-          }
+          end
         end
         builder.to_s
       end
