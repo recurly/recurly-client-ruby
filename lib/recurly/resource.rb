@@ -371,7 +371,7 @@ module Recurly
       # @see from_response
       def from_xml xml
         xml = XML.new xml
-        if xml.name == member_name
+        if self != Resource || xml.name == member_name
           record = new
         elsif Recurly.const_defined?(
           class_name = Helper.classify(xml.name), false
