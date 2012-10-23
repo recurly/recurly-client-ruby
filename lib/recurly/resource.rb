@@ -256,6 +256,11 @@ module Recurly
         @scopes ||= Recurly::Helper.hash_with_indifferent_read_access
       end
 
+      # @return [Module] Module of scopes methods.
+      def scopes_helper
+        @scopes_helper ||= Module.new.tap { |helper| extend helper }
+      end
+
       # Defines a new resource scope.
       #
       # @return [Proc]
@@ -263,8 +268,7 @@ module Recurly
       # @param [Hash] params the scope params
       def scope name, params = {}
         scopes[name = name.to_s] = params
-        extend const_set :Scopes, Module.new unless const_defined? :Scopes
-        self::Scopes.send(:define_method, name) { paginate scopes[name] }
+        scopes_helper.send(:define_method, name) { paginate scopes[name] }
       end
 
       # Iterates through every record by automatically paging.
@@ -426,13 +430,13 @@ module Recurly
 
       # @return [Hash] A list of association names for the current class.
       def associations
-        @associations ||= begin
-          unless constants.include? :Associations
-            include const_set :Associations, Module.new
-          end
+        @associations ||= {
+          :has_many => [], :has_one => [], :belongs_to => []
+        }
+      end
 
-          { :has_many => [], :has_one => [], :belongs_to => [] }
-        end
+      def associations_helper
+        @associations_helper ||= Module.new.tap { |helper| include helper }
       end
 
       # Establishes a has_many association.
@@ -443,16 +447,16 @@ module Recurly
       # @option options [true, false] :readonly Don't define a setter.
       def has_many collection_name, options = {}
         associations[:has_many] << collection_name.to_s
-        self::Associations.module_eval {
-          define_method(collection_name) {
+        associations_helper.module_eval do
+          define_method collection_name do
             self[collection_name] ||= []
-          }
-          if options.key?(:readonly) && options[:readonly] == false
-            define_method("#{collection_name}=") { |collection|
-              self[collection_name] = collection
-            }
           end
-        }
+          if options.key?(:readonly) && options[:readonly] == false
+            define_method "#{collection_name}=" do |collection|
+              self[collection_name] = collection
+            end
+          end
+        end
       end
 
       # Establishes a has_one association.
@@ -463,11 +467,11 @@ module Recurly
       # @option options [true, false] :readonly Don't define a setter.
       def has_one member_name, options = {}
         associations[:has_one] << member_name.to_s
-        self::Associations.module_eval {
+        associations_helper.module_eval do
           define_method(member_name) { self[member_name] }
           if options.key?(:readonly) && options[:readonly] == false
             associated = Recurly.const_get Helper.classify(member_name), false
-            define_method("#{member_name}=") { |member|
+            define_method "#{member_name}=" do |member|
               associated_uri = "#{path}/#{member_name}"
               self[member_name] = case member
               when Hash
@@ -477,18 +481,18 @@ module Recurly
               else
                 raise ArgumentError, "expected #{associated}"
               end
-            }
-            define_method("build_#{member_name}") { |*args|
+            end
+            define_method "build_#{member_name}" do |*args|
               attributes = args.shift || {}
               self[member_name] = associated.send(
                 :new, attributes.merge(:uri => "#{path}/#{member_name}")
               ).tap { |child| child.attributes[self.class.member_name] = self }
-            }
-            define_method("create_#{member_name}") { |*args|
+            end
+            define_method "create_#{member_name}" do |*args|
               send("build_#{member_name}", *args).tap { |child| child.save }
-            }
+            end
           end
-        }
+        end
       end
 
       # Establishes a belongs_to association.
@@ -496,14 +500,14 @@ module Recurly
       # @return [Proc]
       def belongs_to parent_name, options = {}
         associations[:belongs_to] << parent_name.to_s
-        self::Associations.module_eval {
+        associations_helper.module_eval do
           define_method(parent_name) { self[parent_name] }
           if options.key?(:readonly) && options[:readonly] == false
-            define_method("#{parent_name}=") { |parent|
+            define_method "#{parent_name}=" do |parent|
               self[parent_name] = parent
-            }
+            end
           end
-        }
+        end
       end
 
       # @return [:has_many, :has_one, :belongs_to, nil] An association type.
