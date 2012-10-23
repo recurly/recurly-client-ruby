@@ -36,7 +36,7 @@ module Recurly
           @add_ons << add_on
         end
 
-        @subscription[:subscription_add_ons] = to_a and self
+        @subscription[:subscription_add_ons] = self
       end
 
       def to_a
