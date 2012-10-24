@@ -26,6 +26,10 @@ module Recurly
         ]
       end
 
+      def transaction_error_code
+        xml and xml.root and xml.text '//error_code'
+      end
+
       def symbol
         xml and xml.root and xml.text '/error/symbol'
       end
