@@ -37,6 +37,7 @@ module Recurly
       avs_result_street
       created_at
       details
+      transaction_error
     )
     alias to_param uuid
 
