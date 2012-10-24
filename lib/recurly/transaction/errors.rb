@@ -39,6 +39,11 @@ module Recurly
         xml.text '/errors/transaction_error/customer_message'
       end
 
+      # @return [String] The transaction error code.
+      def transaction_error_code
+        xml.text '/errors/transaction_error/error_code'
+      end
+
       private
 
       def update_transaction transaction

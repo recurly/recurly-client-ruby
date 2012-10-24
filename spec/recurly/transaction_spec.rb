@@ -18,13 +18,14 @@ describe Transaction do
         :account_code => 'test',
         :billing_info => {
           :credit_card_number => '4111111111111111'
-        } 
+        }
       }
       error = proc { transaction.save }.must_raise Transaction::DeclinedError
       error.message.must_equal(
         "Your card number is not valid. Please update your card number."
       )
       transaction.account.billing_info.errors[:credit_card_number].wont_be_nil
+      error.transaction_error_code.must_equal 'invalid_card_number'
       error.transaction.must_equal transaction
       transaction.persisted?.must_equal true
     end
