@@ -1,5 +1,9 @@
 = Recurly Ruby Client Library CHANGELOG
 
+== Version 0.4.16 (January 11, 2013)
+
+- Fix XML serialization in ActiveResource to support YAML security patch
+
 == Version 0.4.15 (October 21, 2011)
 
 - Bug fix in Transparent Post parameter encoding for arrays of add ons.
