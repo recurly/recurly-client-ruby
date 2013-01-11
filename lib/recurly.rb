@@ -5,20 +5,21 @@ require 'openssl'
 require 'addressable/uri'
 
 # load ActiveResource patches
-if defined?(::Rails::VERSION::MAJOR)
-  if ::Rails::VERSION::MAJOR == 3
-    require 'patches/rails3/active_resource/connection'
-  elsif ::Rails::VERSION::MAJOR == 2
-    require 'patches/rails2/active_resource/connection'
+if ::ActiveResource::VERSION::MAJOR == 3
+  if ::ActiveResource::VERSION::MINOR == 0 &&
+     ::ActiveResource::VERSION::TINY < 20
+    require 'patches/rails3/active_model/serializers/xml'
   end
-
-  if ::Rails::VERSION::MAJOR == 2 or
-    (::Rails::VERSION::MAJOR == 3 and ::Rails::VERSION::MINOR == 0)
-    # was fixed in Rails 3.1... see comments
-    require 'patches/rails2/active_resource/base'
-  end
+  require 'patches/rails3/active_resource/connection'
+elsif ::ActiveResource::VERSION::MAJOR == 2
+  require 'patches/rails2/active_resource/connection'
 end
 
+if ::ActiveResource::VERSION::MAJOR == 2 ||
+    (::ActiveResource::VERSION::MAJOR == 3 &&
+     ::ActiveResource::VERSION::MINOR == 0)
+  require 'patches/rails2/active_resource/base'
+end
 
 require 'recurly/version'
 require 'recurly/exceptions'
@@ -29,7 +30,7 @@ require 'recurly/rails3/railtie' if defined?(::Rails::Railtie)
 require 'recurly/base'
 
 # load rails2 fixes
-if defined?(::Rails::VERSION::MAJOR) and ::Rails::VERSION::MAJOR == 2
+if ::ActiveResource::VERSION::MAJOR == 2
   require 'recurly/rails2/compatibility'
 end
 
@@ -98,7 +99,7 @@ module Recurly
         end
       end
     end
-    
+
     def site_for_environment(environment)
       if environment == :development
         "http://api.lvh.me:3000"
