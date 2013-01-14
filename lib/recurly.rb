@@ -5,17 +5,19 @@ require 'openssl'
 require 'addressable/uri'
 
 # load ActiveResource patches
-if ::ActiveResource::VERSION::MAJOR == 3
-  if ::ActiveResource::VERSION::MINOR == 0 &&
-     ::ActiveResource::VERSION::TINY < 20
-    require 'patches/rails3/active_model/serializers/xml'
+if defined?(::ActiveResource::VERSION)
+  if ::ActiveResource::VERSION::MAJOR == 3
+    if ::ActiveResource::VERSION::MINOR == 0 &&
+       ::ActiveResource::VERSION::TINY < 20
+      require 'patches/rails3/active_model/serializers/xml'
+    end
+    require 'patches/rails3/active_resource/connection'
   end
-  require 'patches/rails3/active_resource/connection'
-elsif ::ActiveResource::VERSION::MAJOR == 2
+elsif ::Rails::VERSION::MAJOR == 2
   require 'patches/rails2/active_resource/connection'
 end
 
-if ::ActiveResource::VERSION::MAJOR == 2 ||
+if ::Rails::VERSION::MAJOR == 2 ||
     (::ActiveResource::VERSION::MAJOR == 3 &&
      ::ActiveResource::VERSION::MINOR == 0)
   require 'patches/rails2/active_resource/base'
@@ -30,7 +32,7 @@ require 'recurly/rails3/railtie' if defined?(::Rails::Railtie)
 require 'recurly/base'
 
 # load rails2 fixes
-if ::ActiveResource::VERSION::MAJOR == 2
+if ::Rails::VERSION::MAJOR == 2
   require 'recurly/rails2/compatibility'
 end
 
