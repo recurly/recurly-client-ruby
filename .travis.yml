@@ -20,3 +20,7 @@ notifications:
   email:
     recipients:
       - dev@recurly.com
+branches:
+  only:
+    - master
+    - v2-stable
