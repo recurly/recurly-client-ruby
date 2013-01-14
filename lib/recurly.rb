@@ -1,4 +1,5 @@
 require 'active_resource'
+require 'active_resource/version'
 require 'active_support/deprecation'
 require 'cgi'
 require 'openssl'
