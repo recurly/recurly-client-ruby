@@ -860,7 +860,7 @@ module Recurly
 
     def marshal_dump
       [
-        @attributes.reject { |k, v| [Pager, Proc].include? v.class },
+        @attributes.reject { |k, v| v.is_a? Proc },
         @new_record,
         @destroyed,
         @uri,
