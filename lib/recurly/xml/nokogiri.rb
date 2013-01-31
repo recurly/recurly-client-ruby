@@ -36,7 +36,7 @@ module Recurly
           if node.text?
             node.text
           else
-            node.children.each { |e| return e.text if e.text? }
+            node.children.map { |e| e.text if e.text? }.compact.join
           end
         end
       end
