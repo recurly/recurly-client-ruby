@@ -115,7 +115,8 @@ module Recurly
       def paginate options = {}
         dup.instance_eval {
           @collection = @count = @etag = nil
-          @options.update options and self
+          @options = @options.merge options
+          self
         }
       end
       alias scoped paginate
