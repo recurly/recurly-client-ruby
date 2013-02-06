@@ -36,6 +36,15 @@ module Recurly
   end
 
   class << self
+    # @return [String] A subdomain.
+    # @raise [ConfigurationError] If not configured.
+    def subdomain
+      defined? @subdomain and @subdomain or raise(
+        ConfigurationError, "Recurly.subdomain not configured"
+      )
+    end
+    attr_writer :subdomain
+
     # @return [String] An API key.
     # @raise [ConfigurationError] If not configured.
     def api_key
