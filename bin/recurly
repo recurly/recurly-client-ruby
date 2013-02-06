@@ -18,10 +18,6 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = 'Usage: recurly [options] -- [irb options]'
 
-  opts.on '-s', '--subdomain [subdomain]', 'Your subdomain' do |subdomain|
-    options[:subdomain] = subdomain
-  end
-
   opts.on '-k', '--api-key [api key]', 'Your API key' do |key|
     options[:api_key] = key
   end
@@ -54,7 +50,6 @@ OptionParser.new do |opts|
 end.parse!
 
 require 'recurly/all'
-Recurly.subdomain = options[:subdomain] || ENV['RECURLY_SUBDOMAIN']
 Recurly.api_key = options[:api_key] || ENV['RECURLY_API_KEY']
 Recurly.js.private_key = options[:private_key] || ENV['RECURLY_JS_PRIVATE_KEY']
 include Recurly
