@@ -113,7 +113,8 @@ module Recurly
   #
   #   Account.find_each { |account| p account }
   class Resource
-    autoload :Pager, 'recurly/resource/pager'
+    autoload :Errors, 'recurly/resource/errors'
+    autoload :Pager,  'recurly/resource/pager'
 
     # Raised when a record cannot be found.
     #
@@ -803,7 +804,7 @@ module Recurly
     #   account.errors                # => {"account_code"=>["can't be blank"]}
     #   account.errors[:account_code] # => ["can't be blank"]
     def errors
-      @errors ||= Recurly::Helper.hash_with_indifferent_read_access
+      @errors ||= Errors.new
     end
 
     # Marks a record as persisted, i.e. not a new or deleted record, resetting

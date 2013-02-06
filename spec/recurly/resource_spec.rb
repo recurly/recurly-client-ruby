@@ -398,7 +398,7 @@ XML
 
     describe "#errors" do
       it "must return a Hash for errors" do
-        record.errors.must_be_instance_of Hash
+        record.errors.must_be_kind_of Hash
       end
     end
 
