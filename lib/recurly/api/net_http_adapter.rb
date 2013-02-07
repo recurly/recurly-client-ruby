@@ -1,3 +1,4 @@
+require 'cgi'
 require 'net/https'
 
 module Recurly
@@ -37,7 +38,10 @@ module Recurly
           head.delete_if { |_, value| value.nil? }
           uri = base_uri + uri
           if options[:params] && !options[:params].empty?
-            uri += "?#{options[:params].map { |k, v| "#{k}=#{v}" }.join '&' }"
+            pairs = options[:params].map { |key, value|
+              "#{CGI.escape key.to_s}=#{CGI.escape value.to_s}"
+            }
+            uri += "?#{pairs.join '&'}"
           end
           request = METHODS[method].new uri.request_uri, head
           request.basic_auth(*[Recurly.api_key, nil].flatten[0, 2])
