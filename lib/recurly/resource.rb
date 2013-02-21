@@ -762,8 +762,9 @@ module Recurly
     #   account.valid? # => true
     def valid?
       return true if persisted? && !changed?
-      return if errors.empty? && changed?
-      errors.empty?
+      errors_empty = errors.values.flatten.empty?
+      return if errors_empty && changed?
+      errors_empty
     end
 
     # Update a record with a given hash of attributes.
@@ -800,7 +801,7 @@ module Recurly
     #   account.errors                # => {"account_code"=>["can't be blank"]}
     #   account.errors[:account_code] # => ["can't be blank"]
     def errors
-      @errors ||= Errors.new
+      @errors ||= Errors.new { |h, k| h[k] = [] }
     end
 
     # Marks a record as persisted, i.e. not a new or deleted record, resetting
@@ -905,12 +906,12 @@ module Recurly
 
     def invalid! attribute_path, error
       if attribute_path.length == 1
-        (errors[attribute_path[0]] ||= []) << error
+        errors[attribute_path[0]] << error
       else
         child, k, v = attribute_path.shift.scan(/[^\[\]=]+/)
         if c = k ? self[child].find { |d| d[k] == v } : self[child]
           c.invalid! attribute_path, error
-          (e = errors[child] ||= []) << 'is invalid' and e.uniq!
+          e = errors[child] << 'is invalid' and e.uniq!
         end
       end
     end
