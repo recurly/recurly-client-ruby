@@ -99,6 +99,8 @@ module Recurly
             when 200...300 then response
             else                raise ERRORS[code].new request, response
           end
+        rescue Errno::ECONNREFUSED => e
+          raise Error, e.message
         end
       end
     end
