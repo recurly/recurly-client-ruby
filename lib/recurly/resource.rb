@@ -551,10 +551,6 @@ module Recurly
       yield self if block_given?
     end
 
-    def to_param
-      self[self.class.param_name]
-    end
-
     # @return [self] Reloads the record from the server.
     def reload response = nil
       if response
