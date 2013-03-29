@@ -38,7 +38,7 @@ module Recurly
           el = XML.new el
           case el.name
           when "number"
-            text = el.text
+            text = el.text.to_s
             last = text[-4, 4]
             el.text = "#{text[0, text.length - 4].to_s.gsub(/\d/, '*')}#{last}"
           when "verification_value"
