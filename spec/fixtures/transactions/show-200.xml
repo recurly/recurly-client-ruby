@@ -10,6 +10,7 @@ Content-Type: application/xml; charset=utf-8
   <tax_in_cents type="integer">0</tax_in_cents>
   <currency>USD</currency>
   <status>success</status>
+  <source>subscription</source>
   <reference nil="nil"></reference>
   <recurring type="boolean">true</recurring>
   <test type="boolean">true</test>

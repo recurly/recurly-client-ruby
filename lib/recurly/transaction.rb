@@ -38,6 +38,7 @@ module Recurly
       created_at
       details
       transaction_error
+      source
     )
     alias to_param uuid
 
