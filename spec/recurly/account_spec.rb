@@ -80,6 +80,13 @@ describe Account do
 XML
     end
 
+    it 'handle empty values for embedded billing info' do
+      stub_api_request :post, 'accounts', 'accounts/create-201'
+      @account.billing_info = { :number => '' }
+      @account.save.must_equal true
+    end
+
+
     describe "persisted accounts" do
       before do
         @account.persist!
