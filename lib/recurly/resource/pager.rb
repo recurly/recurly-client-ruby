@@ -208,14 +208,14 @@ module Recurly
         end
         @collection.freeze
       rescue API::NotModified
-        defined? @collection and @collection or raise
+        @collection and @collection or raise
       end
 
       def method_missing name, *args, &block
         scope = resource_class.scopes[name] and return paginate scope
 
         if [].respond_to? name
-          load! unless defined? @collection
+          load! unless @collection
           return @collection.send name, *args, &block
         end
 
