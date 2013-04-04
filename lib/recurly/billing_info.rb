@@ -48,6 +48,21 @@ module Recurly
       super attributes
     end
 
+    class << self
+      # Overrides the inherited member_path method to allow for billing info's
+      # irregular URL structure.
+      #
+      # @return [String] The relative path to an account's billing info from the
+      #   API's base URI.
+      # @param uuid [String]
+      # @example
+      #   Recurly::BillingInfo.member_path "code"
+      #   # => "accounts/code/billing_info"
+      def member_path uuid
+        "accounts/#{uuid}/billing_info"
+      end
+    end
+
     # Billing info is only writeable through an {Account} instance.
     embedded!
   end
