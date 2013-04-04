@@ -19,6 +19,8 @@ module Recurly
   autoload :Version,           'recurly/version'
   autoload :XML,               'recurly/xml'
 
+  @subdomain = nil
+
   # The exception class from which all Recurly exceptions inherit.
   class Error < StandardError
     def set_message message
@@ -37,11 +39,8 @@ module Recurly
 
   class << self
     # @return [String] A subdomain.
-    # @raise [ConfigurationError] If not configured.
     def subdomain
-      defined? @subdomain and @subdomain or raise(
-        ConfigurationError, "Recurly.subdomain not configured"
-      )
+      @subdomain || 'api'
     end
     attr_writer :subdomain
 
