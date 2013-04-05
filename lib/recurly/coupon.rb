@@ -25,6 +25,7 @@ module Recurly
       created_at
       plan_codes
       description
+      invoice_description
     )
     alias to_param coupon_code
 
