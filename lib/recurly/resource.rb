@@ -664,7 +664,7 @@ module Recurly
         value = fetch_association key, value
       # FIXME: More explicit; less magic.
       elsif value && key.end_with?('_in_cents') && !respond_to?(:currency)
-        value = Money.new value unless value.is_a? Money
+        value = Money.new value, self, key unless value.is_a? Money
       end
 
       attributes[key] = value

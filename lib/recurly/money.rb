@@ -13,11 +13,13 @@ module Recurly
     #   # Using a default currency.
     #   Recurly.default_currency = 'USD'
     #   Recurly::Money.new(49_00) # => #<Recurly::Money USD: 49_00>
-    def initialize currencies = {}
+    def initialize currencies = {}, parent = nil, attribute = nil
       @currencies = {}
+      @parent = parent
+      @attribute = attribute
 
       if currencies.respond_to? :each_pair
-        currencies.each_pair { |key, value| self[key] = value }
+        currencies.each_pair { |key, value| @currencies[key.to_s] = value }
       elsif Recurly.default_currency
         self[Recurly.default_currency] = currencies
       else
@@ -34,6 +36,8 @@ module Recurly
 
     def []= code, amount
       currencies[code.to_s] = amount
+      @parent.send "#@attribute=", dup if @parent
+      amount
     end
 
     # @return [Hash] A hash of currency codes to amounts.
