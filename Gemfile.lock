@@ -4,7 +4,7 @@ PATH
     recurly (2.1.8)
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     addressable (2.2.6)
     bouncy-castle-java (1.5.0146.1)

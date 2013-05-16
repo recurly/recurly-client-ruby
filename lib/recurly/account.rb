@@ -51,8 +51,8 @@ module Recurly
     #   (e.g., the account is already opwn), and may raise an exception if the
     #   attempt fails.
     def reopen
-      return false unless self[:reopen]
-      reload self[:reopen].call
+      return false unless link? :reopen
+      reload follow_link :reopen
       true
     end
 

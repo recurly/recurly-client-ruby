@@ -393,13 +393,10 @@ module Recurly
 
         xml.each_element do |el|
           if el.name == 'a'
-            name, uri = el.attribute('name').value, el.attribute('href').value
-            record[name] = case el.attribute('method').to_s
-              when 'get', '' then proc { |*opts| API.get uri, {}, *opts }
-              when 'post'    then proc { |*opts| API.post uri, nil, *opts }
-              when 'put'     then proc { |*opts| API.put uri, nil, *opts }
-              when 'delete'  then proc { |*opts| API.delete uri, *opts }
-            end
+            record.links[el.attribute('name').value] = {
+              :method => el.attribute('method').to_s,
+              :href => el.attribute('href').value
+            }
             next
           end
 
@@ -407,17 +404,16 @@ module Recurly
             resource_class = Recurly.const_get(
               Helper.classify(el.attribute('type') || el.name), false
             )
-            record[el.name] = case el.name
+            case el.name
             when *associations[:has_many]
-              Pager.new resource_class, :uri => href.value, :parent => record
+              record[el.name] = Pager.new(
+                resource_class, :uri => href.value, :parent => record
+              )
             when *(associations[:has_one] + associations[:belongs_to])
-              lambda {
-                begin
-                  relation = resource_class.from_response API.get(href.value)
-                  relation.attributes[member_name] = record
-                  relation
-                rescue Recurly::API::NotFound
-                end
+              record.links[el.name] = {
+                :resource_class => resource_class,
+                :method => :get,
+                :href => href.value
               }
             end
           else
@@ -633,9 +629,11 @@ module Recurly
     #   account[:last_name]                # => "Beneke"
     # @see #write_attribute
     def read_attribute key
-      value = attributes[key = key.to_s]
-      if value.respond_to?(:call) && self.class.reflect_on_association(key)
-        value = attributes[key] = value.call
+      key = key.to_s
+      if attributes.key? key
+        value = attributes[key]
+      elsif links.key?(key) && self.class.reflect_on_association(key)
+        value = attributes[key] = follow_link key
       end
       value
     end
@@ -675,6 +673,39 @@ module Recurly
       attributes.each_pair { |k, v|
         respond_to?(name = "#{k}=") and send(name, v) or self[k] = v
       }
+    end
+
+    # @return [Hash] The raw hash of record href links.
+    def links
+      @links ||= {}
+    end
+
+    # Whether a record has a link with the given name.
+    #
+    # @param key [Symbol, String] The name of the link to check for.
+    # @example
+    #   account.link? :billing_info # => true
+    def link? key
+      links.key?(key.to_s)
+    end
+
+    # Fetch the value of a link by following the associated href.
+    #
+    # @param key [Symbol, String] The name of the link to be followed.
+    # @param options [Hash] A hash of API options.
+    # @example
+    #   account.read_link :billing_info # => <Recurly::BillingInfo>
+    def follow_link key, options = {}
+      if link = links[key = key.to_s]
+        response = API.send link[:method], link[:href], nil, options
+        if resource_class = link[:resource_class]
+          response = resource_class.from_response response
+          response.attributes[self.class.member_name] = self
+        end
+        response
+      end
+    rescue Recurly::API::NotFound
+      raise unless resource_class
     end
 
     # Serializes the record to XML.
@@ -865,8 +896,9 @@ module Recurly
         @href,
         changed_attributes,
         previous_changes,
+        response,
         etag,
-        response
+        links
       ]
     end
 
@@ -879,7 +911,8 @@ module Recurly
         @changed_attributes,
         @previous_changes,
         @response,
-        @etag = serialization
+        @etag,
+        @links = serialization
     end
 
     # @return [String]

@@ -149,9 +149,9 @@ XML
           3.times { |n| record[:seasons][n].must_be_kind_of Integer }
           record[:never_gonna_happen]['season'].must_be_kind_of Integer
           stub_api_request(:put, 'resources/1/renew') { "HTTP/1.1 200\n" }
-          record[:renew].call
+          record.follow_link :renew
           stub_api_request(:delete, 'resources/1/cancel') { "HTTP/1.1 422\n" }
-          proc { record[:cancel].call }.must_raise API::UnprocessableEntity
+          proc { record.follow_link :cancel }.must_raise API::UnprocessableEntity
         end
       end
     end

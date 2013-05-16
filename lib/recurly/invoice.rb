@@ -40,8 +40,8 @@ module Recurly
     # @return [true, false] +true+ when successful, +false+ when unable to
     #   (e.g., the invoice is no longer open).
     def mark_successful
-      return false unless self[:mark_successful]
-      reload self[:mark_successful].call
+      return false unless link? :mark_successful
+      reload follow_link :mark_successful
       true
     end
 
@@ -50,8 +50,8 @@ module Recurly
     # @return [true, false] +true+ when successful, +false+ when unable to
     #   (e.g., the invoice is no longer open).
     def mark_failed
-      return false unless self[:mark_failed]
-      reload self[:mark_failed].call
+      return false unless link? :mark_failed
+      reload follow_link :mark_failed
       true
     end
 
