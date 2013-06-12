@@ -27,6 +27,7 @@ module Recurly
       total_in_cents
       currency
       taxable
+      product_code
       start_date
       end_date
       created_at
