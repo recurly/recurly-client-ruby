@@ -15,9 +15,9 @@ describe Resource::Pager do
       )
     end
 
-    it "must iterate over a collection" do
+    it "must iterate over a page" do
       stub_api_request(:get, 'resources') { XML[200][:index] }
-      records = pager.each { |r|
+      records = pager.each_current_page { |r|
         r.must_be_instance_of pager.resource_class
       }
       records.must_be_instance_of Array
@@ -29,7 +29,14 @@ describe Resource::Pager do
       stub_api_request(:get, 'resources?cursor=1234567890&per_page=2') {
         XML[200][:index][1]
       }
-      pager.find_each { |r| r.must_be_instance_of pager.resource_class }
+      pager.each { |r| r.must_be_instance_of pager.resource_class }
+    end
+
+    it "must yield all records across pages" do
+      stub_api_request(:get, 'resources') { XML[200][:index] }
+      i=0
+      pager.each { |r| i += 1 }
+      i.must_equal 3
     end
 
     describe "#find_each" do
