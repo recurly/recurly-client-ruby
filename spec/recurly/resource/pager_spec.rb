@@ -33,7 +33,10 @@ describe Resource::Pager do
     end
 
     it "must yield all records across pages" do
-      stub_api_request(:get, 'resources') { XML[200][:index] }
+      stub_api_request(:get, 'resources') { XML[200][:index][0] }
+      stub_api_request(:get, 'resources?cursor=1234567890&per_page=2') {
+        XML[200][:index][1]
+      }
       i=0
       pager.each { |r| i += 1 }
       i.must_equal 3
