@@ -47,7 +47,7 @@ EOR
       <<EOR
 HTTP/1.1 200 OK
 Link: \
-<https://api.recurly.com/v2/resources?per_page=2>; rel="start"
+<https://api.recurly.com/v2/resources?per_page=2>; rel="start", <https://api.recurly.com/v2/resources?per_page=2&cursor=-11306277>; rel="prev"
 X-Records: 3
 
 <resources>
