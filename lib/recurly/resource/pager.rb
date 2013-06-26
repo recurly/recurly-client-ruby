@@ -77,6 +77,8 @@ module Recurly
       # @yield [record]
       def find_each
         return enum_for :find_each unless block_given?
+        # if links['prev'] exists, we are not on the first page; if not, we're on the first page or no page yet. 
+        @collection = nil if links && links['prev']
         begin
           each { |record| yield record }
         end while self.next
