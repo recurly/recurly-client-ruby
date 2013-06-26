@@ -87,6 +87,9 @@ module Recurly
         enum_for :each
       end
 
+      # legacy method name; #each used to behave differently and find_each had each's behavior. 
+      alias find_each each
+
       # @return [Array, nil] Refreshes the pager's collection of records with
       #   the next page.
       def next
