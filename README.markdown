@@ -61,7 +61,7 @@ Instructions and examples are available on
 [Recurly's documentation site](http://docs.recurly.com/api/basics).
 
 Recurly's gem API is available
-[here](http://rubydoc.info/gems/recurly/2.1.5/frames).
+[here](http://rubydoc.info/gems/recurly/2.1.9/frames).
 
 
 ## Contributing
