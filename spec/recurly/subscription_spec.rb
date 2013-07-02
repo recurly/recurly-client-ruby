@@ -20,10 +20,109 @@ describe Subscription do
                                 pending_subscription
                                 subscription_add_ons
                                 coupon_code
+                                net_terms
+                                collection_method
+                                po_number
                                 total_billing_cycles}
 
         subject.attribute_names.sort.must_equal expected_attributes.sort
       end
+  end
+
+  describe "check serialization" do
+    it "automatic collection" do
+      subscription = Subscription.new(
+        :plan_code => 'gold',
+        :currency  => 'EUR',
+        :account   => {
+          :account_code => '1',
+          :email        => 'verena@example.com',
+          :first_name   => 'Verena',
+          :last_name    => 'Example',
+          :billing_info => {
+            :number => '4111-1111-1111-1111',
+            :month  => 1,
+            :year   => 2014,
+          }
+        }
+      )
+      subscription.to_xml.must_equal <<XML.chomp
+<subscription>\
+<account>\
+<account_code>1</account_code>\
+<billing_info>\
+<month>1</month>\
+<number>4111-1111-1111-1111</number>\
+<year>2014</year>\
+</billing_info>\
+<email>verena@example.com</email>\
+<first_name>Verena</first_name>\
+<last_name>Example</last_name>\
+</account>\
+<currency>EUR</currency>\
+<plan_code>gold</plan_code>\
+</subscription>
+XML
+    end
+    it "manual collection" do
+      subscription = Subscription.new(
+        :plan_code => 'gold',
+        :currency  => 'EUR',
+        :net_terms  => '10',
+        :collection_method  => 'manual',
+        :po_number  => '1000',
+        :account   => {
+          :account_code => '1',
+        }
+      )
+      subscription.to_xml.must_equal <<XML.chomp
+<subscription>\
+<account>\
+<account_code>1</account_code>\
+</account>\
+<collection_method>manual</collection_method>\
+<currency>EUR</currency>\
+<net_terms>10</net_terms>\
+<plan_code>gold</plan_code>\
+<po_number>1000</po_number>\
+</subscription>
+XML
+    end
+    it "check deserialize for manual invoicing" do
+      xml = <<XML.chomp
+<subscription href="https://api.recurly.com/v2/subscriptions/123456789012345678901234567890ab">\
+<uuid>123456789012345678901234567890ab</uuid>\
+<account href="https://api.recurly.com/v2/accounts/subscribemock"/>\
+<plan href="https://api.recurly.com/v2/plans/basicplan">\
+<plan_code>basicplan</plan_code>\
+<name>Basic Plan</name>\
+</plan>\
+<state>active</state>\
+<quantity type="integer">1</quantity>\
+<net_terms type="integer">10</net_terms>\
+<collection_method>manual</collection_method>\
+<po_number>1000</po_number>\
+<currency>EUR</currency>\
+<unit_amount_in_cents type="integer">1000</unit_amount_in_cents>\
+<activated_at type="datetime">2011-05-27T07:00:00Z</activated_at>\
+<canceled_at nil="nil"></canceled_at>\
+<expires_at nil="nil"></expires_at>\
+<current_period_started_at type="datetime">2011-06-27T07:00:00Z</current_period_started_at>\
+<current_period_ends_at type="datetime">2010-07-27T07:00:00Z</current_period_ends_at>\
+<trial_started_at nil="nil"></trial_started_at>\
+<trial_ends_at nil="nil"></trial_ends_at>\
+<subscription_add_ons type="array">\
+</subscription_add_ons>\
+<a name="cancel" href="https://api.recurly.com/v2/subscriptions/123456789012345678901234567890ab/cancel" method="put"/>\
+<a name="terminate" href="https://api.recurly.com/v2/subscriptions/123456789012345678901234567890ab/terminate" method="put"/>\
+</subscription>
+XML
+      subscription = Subscription.from_xml xml
+      subscription.must_be_instance_of Subscription
+      subscription.net_terms.must_equal(10)
+      subscription.collection_method.must_equal('manual')
+      subscription.po_number.must_equal('1000')
+    end
   end
 
   describe "add-ons" do
@@ -189,5 +288,6 @@ XML
         active.plan_code.must_equal 'new_plan'
       end
     end
+
   end
 end
