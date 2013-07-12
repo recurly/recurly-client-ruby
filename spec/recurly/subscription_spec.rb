@@ -20,10 +20,54 @@ describe Subscription do
                                 pending_subscription
                                 subscription_add_ons
                                 coupon_code
+                                net_terms
+                                collection_method
+                                po_number
                                 total_billing_cycles}
 
         subject.attribute_names.sort.must_equal expected_attributes.sort
       end
+  end
+
+  describe "check serialization" do
+    it "automatic collection" do
+      subscription = Subscription.new(
+        :plan_code => 'gold',
+        :currency  => 'EUR',
+        :account   => {
+          :account_code => '1',
+          :email        => 'verena@example.com',
+          :first_name   => 'Verena',
+          :last_name    => 'Example',
+          :billing_info => {
+            :number => '4111-1111-1111-1111',
+            :month  => 1,
+            :year   => 2014,
+          }
+        }
+      )
+      subscription.to_xml.must_equal get_raw_xml("subscriptions/serialize-automatic.xml")
+    end
+    it "manual collection" do
+      subscription = Subscription.new(
+        :plan_code => 'gold',
+        :currency  => 'EUR',
+        :net_terms  => '10',
+        :collection_method  => 'manual',
+        :po_number  => '1000',
+        :account   => {
+          :account_code => '1',
+        }
+      )
+      subscription.to_xml.must_equal get_raw_xml("subscriptions/serialize.xml")
+    end
+    it "check deserialize for manual invoicing" do
+      subscription = Subscription.from_xml get_raw_xml("subscriptions/show-200-manual.xml")
+      subscription.must_be_instance_of Subscription
+      subscription.net_terms.must_equal(10)
+      subscription.collection_method.must_equal('manual')
+      subscription.po_number.must_equal('1000')
+    end
   end
 
   describe "add-ons" do
@@ -71,29 +115,11 @@ describe Subscription do
     it "must serialize" do
       subscription = Subscription.new
       subscription.add_ons << :trial
-      subscription.to_xml.must_equal <<XML.chomp
-<subscription>\
-<currency>USD</currency>\
-<subscription_add_ons>\
-<subscription_add_on><add_on_code>trial</add_on_code></subscription_add_on>\
-</subscription_add_ons>\
-</subscription>
-XML
+      subscription.to_xml.must_equal get_raw_xml("subscriptions/serialize-add-ons.xml")
     end
 
     it "must deserialize" do
-      xml = <<XML.chomp
-<subscription>\
-<pending_subscription type="subscription">\
-<unit_amount_in_cents>200</unit_amount_in_cents>\
-</pending_subscription>\
-<currency>USD</currency>\
-<subscription_add_ons type="array">\
-<subscription_add_on><add_on_code>trial</add_on_code><quantity type="integer">2</quantity></subscription_add_on>
-<subscription_add_on><add_on_code>trial2</add_on_code></subscription_add_on>\
-</subscription_add_ons>\
-</subscription>
-XML
+      xml = get_raw_xml("subscriptions/deserialize-add-ons.xml")
       subscription = Subscription.from_xml xml
       subscription.pending_subscription.must_be_instance_of Subscription
       subscription.add_ons.to_a.must_equal([
@@ -189,5 +215,6 @@ XML
         active.plan_code.must_equal 'new_plan'
       end
     end
+
   end
 end
