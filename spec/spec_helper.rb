@@ -7,7 +7,7 @@ require 'webmock'
 module SpecHelper
   include WebMock::API
 
-  def check_raw_xml fixture
+  def get_raw_xml fixture
     xml = File.open(File.dirname(__FILE__) + "/fixtures/" + fixture, "rb") { |f| f.read }
     return (Recurly::XML.new xml).to_s
   end
