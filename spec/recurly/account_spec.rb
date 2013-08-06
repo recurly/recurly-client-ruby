@@ -36,6 +36,13 @@ describe Account do
       account.first_name.must_equal 'Larry'
       account.last_name.must_equal 'David'
       account.accept_language.must_equal 'en-US'
+      account.vat_number.must_equal '12345-67'
+      account.address.address1.must_equal '123 Main St.'
+      account.address.city.must_equal 'San Francisco'
+      account.address.state.must_equal 'CA'
+      account.address.zip.must_equal '94105'
+      account.address.phone.must_equal '8015551234'
+      account.address.country.must_equal 'US'
     end
 
     it "must raise an exception when unavailable" do
@@ -97,6 +104,24 @@ XML
         @account.errors[:email].wont_be_nil
       end
     end
+  end
+
+  describe 'serialize address to xml' do
+
+    it "must serialize" do
+      account = Account.new :account_code => 'code'
+      account.vat_number = '12345-67'
+      address = Address.new
+      address.address1 = "123 Main Street"
+      address.address2 = "Suite 190"
+      address.city = "SF"
+      address.state = "CA"
+      address.zip = "93857"
+      vat_number = '1212a'
+      account.address = address
+      account.to_xml.must_equal get_raw_xml("accounts/address-serialized.xml")
+    end
+
   end
 
   describe "#to_xml" do
