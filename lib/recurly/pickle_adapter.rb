@@ -61,7 +61,11 @@ module Recurly
 
       # Create a model using attributes
       def self.create_model(klass, attributes)
-        klass.send(:create!, attributes)
+        converted_attributes = attributes.map do |(name, value)|
+          converted_value = name =~ /_at$/ && value.is_a?(String) ? Time.parse(value) : value
+          {name => converted_value}
+        end.inject({}, &:update)
+        klass.send(:create!, converted_attributes)
       end
     end
   end
