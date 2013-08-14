@@ -40,20 +40,18 @@ module Recurly
 
       # Find the first instance matching conditions
       def self.find_first_model(klass, conditions)
-        if conditions && conditions.any?
-          # TODO
-          raise NotImplementedError, "don't know how to limit by conditions: #{conditions.inspect}"
-        else
-          # TODO don't load all
-          klass.all.first
-        end
+        # TODO don't load all
+        find_all_models(klass, conditions).first
       end
 
       # Find all models matching conditions
       def self.find_all_models(klass, conditions)
         if conditions && conditions.any?
-          # TODO
-          raise NotImplementedError, "don't know how to limit by conditions: #{conditions.inspect}"
+          klass.all.select do |record|
+            conditions.all? do |attr, value|
+              record.send(attr) == value
+            end
+          end
         else
           klass.all
         end
