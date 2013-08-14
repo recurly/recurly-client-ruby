@@ -241,3 +241,34 @@ module Recurly
     end
   end
 end
+
+class Recurly::Subscription
+  def cancel
+    self.state = 'canceled'
+    now = Time.now
+    self.canceled_at = now
+    # just pick something in the future for expiry, I guess
+    self.expires_at = now + 1.week
+    save!
+  end
+
+  def terminate(refund_type = :none)
+    unless REFUND_TYPES.include?(refund_type.to_s)
+      raise(ArgumentError, "refund must be one of: #{REFUND_TYPES.join(', ')}")
+    end
+    self.state = 'expired'
+    now = Time.now
+    self.canceled_at = now
+    self.expires_at = now
+    save!
+  end
+  alias destroy terminate
+
+  def reactivate
+    raise NotImplementedError
+  end
+
+  def postpone(next_renewal_date)
+    raise NotImplementedError
+  end
+end
