@@ -110,8 +110,9 @@ XML
   describe "#to_xml" do
     it "must serialize" do
       account = Account.new :username => 'importantbreakfast'
+      account.balance_in_cents_invoiced = { :USD => 108, :AUD => 383 }
       account.to_xml.must_equal(
-        '<account><username>importantbreakfast</username></account>'
+        '<account><balance_in_cents_invoiced><USD>108</USD><AUD>383</AUD></balance_in_cents_invoiced><username>importantbreakfast</username></account>'
       )
     end
   end
