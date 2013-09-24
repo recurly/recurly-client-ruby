@@ -36,6 +36,8 @@ describe Account do
       account.first_name.must_equal 'Larry'
       account.last_name.must_equal 'David'
       account.accept_language.must_equal 'en-US'
+      account.balance_in_cents_invoiced['USD'].must_equal 955
+      account.balance_in_cents_uninvoiced['USD'].must_equal 1111
     end
 
     it "must raise an exception when unavailable" do
