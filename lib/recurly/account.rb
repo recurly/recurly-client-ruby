@@ -39,10 +39,6 @@ module Recurly
     )
     alias to_param account_code
 
-    #def initialize attributes = {}
-    #  super({ :address => Address.new }.merge attributes)
-    #end
-
     # @return [Invoice] A newly-created invoice.
     # @raise [Invalid] Raised if the account cannot be invoiced.
     def invoice!
