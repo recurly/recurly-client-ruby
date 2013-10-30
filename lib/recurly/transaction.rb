@@ -26,6 +26,7 @@ module Recurly
       amount_in_cents
       tax_in_cents
       currency
+      payment_method
       status
       reference
       recurring
