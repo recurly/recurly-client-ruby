@@ -30,6 +30,7 @@ module Recurly
       total_in_cents
       currency
       created_at
+      closed_at
       line_items
       transactions
     )
