@@ -453,5 +453,33 @@ XML
         proc { record.destroy }.must_raise Resource::NotFound
       end
     end
+
+    describe "#valid?" do
+      it "must return true if persisted without changes" do
+        record.persist!
+        record.valid?.must_equal true
+      end
+
+      it "must return true if not persisted without changes and no errors" do
+        record.valid?.must_equal true
+      end
+
+      it "must return nil if persisted with changes" do
+        record.persist!
+        record[:uuid] = 'changed'
+        record.valid?.must_equal nil
+      end
+
+      it "must return nil if not persisted with changes and no errors" do
+        record[:uuid] = 'changed'
+        record.valid?.must_equal nil
+      end
+
+      it "must return false if has errors" do
+        record.errors[:name] = 'an error'
+        record.valid?.must_equal false
+      end
+    end
+
   end
 end
