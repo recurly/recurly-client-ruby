@@ -475,7 +475,7 @@ XML
         record.valid?.must_equal nil
       end
 
-      it "must return false if has errors" do
+      it "must return false if it has errors" do
         record.errors[:name] = 'an error'
         record.valid?.must_equal false
       end
