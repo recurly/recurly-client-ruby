@@ -765,8 +765,8 @@ module Recurly
     #   account.save   # => true
     #   account.valid? # => true
     def valid?
-      return true if persisted? && changed_attributes.empty?
-      return if errors.empty? && !changed_attributes.empty?
+      return true if persisted? && !changed?
+      return if errors.empty? && changed?
       errors.empty?
     end
 
