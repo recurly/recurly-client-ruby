@@ -34,6 +34,8 @@ module Recurly
       accept_language
       hosted_login_token
       created_at
+      balance_in_cents_invoiced
+      balance_in_cents_uninvoiced
     )
     alias to_param account_code
 

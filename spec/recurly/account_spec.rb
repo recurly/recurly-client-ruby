@@ -36,6 +36,8 @@ describe Account do
       account.first_name.must_equal 'Larry'
       account.last_name.must_equal 'David'
       account.accept_language.must_equal 'en-US'
+      account.balance_in_cents_invoiced['USD'].must_equal 955
+      account.balance_in_cents_uninvoiced['USD'].must_equal 1111
     end
 
     it "must raise an exception when unavailable" do
@@ -102,8 +104,9 @@ XML
   describe "#to_xml" do
     it "must serialize" do
       account = Account.new :username => 'importantbreakfast'
+      account.balance_in_cents_invoiced = { :USD => 108, :AUD => 383 }
       account.to_xml.must_equal(
-        '<account><username>importantbreakfast</username></account>'
+        '<account><balance_in_cents_invoiced><USD>108</USD><AUD>383</AUD></balance_in_cents_invoiced><username>importantbreakfast</username></account>'
       )
     end
   end
