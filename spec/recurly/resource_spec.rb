@@ -149,9 +149,9 @@ XML
           3.times { |n| record[:seasons][n].must_be_kind_of Integer }
           record[:never_gonna_happen]['season'].must_be_kind_of Integer
           stub_api_request(:put, 'resources/1/renew') { "HTTP/1.1 200\n" }
-          record[:renew].call
+          record.follow_link :renew
           stub_api_request(:delete, 'resources/1/cancel') { "HTTP/1.1 422\n" }
-          proc { record[:cancel].call }.must_raise API::UnprocessableEntity
+          proc { record.follow_link :cancel }.must_raise API::UnprocessableEntity
         end
       end
     end
@@ -381,13 +381,21 @@ XML
 
       describe "invalid records" do
         before do
+          Recurly.const_set :Child, resource
+          resource.has_one :child, :readonly => false
+          record.child = resource.new
           stub_api_request(:post, 'resources') { XML[422] }
+        end
+
+        after do
+          Recurly.send :remove_const, :Child
         end
 
         it "#save must return false and assign errors" do
           record.errors.empty?.must_equal true
           record.save.must_equal false
           record.errors[:name].wont_be_nil
+          record.child.errors[:name].wont_be_nil
         end
 
         it "#save! must raise an exception" do

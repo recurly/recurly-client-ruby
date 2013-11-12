@@ -13,6 +13,7 @@ module Recurly
 
       case add_on
       when AddOn, SubscriptionAddOn
+        @add_on = add_on if add_on.is_a? AddOn
         self.add_on_code = add_on.add_on_code
         self.quantity = add_on.quantity
         if add_on.unit_amount_in_cents
@@ -27,6 +28,10 @@ module Recurly
       self.add_on_code = add_on_code.to_s
 
       @subscription = subscription
+    end
+
+    def add_on
+      @add_on ||= subscription.plan.add_ons.find add_on_code
     end
 
     def currency

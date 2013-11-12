@@ -90,6 +90,7 @@ Content-Type: application/xml; charset=utf-8
 
 <errors>
   <error field="resource.name" symbol="invalid_name">is a bad name</error>
+  <error field="resource.child.name" symbol="invalid_name">is a bad name</error>
 </errors>
 EOR
   404 => <<EOR,

@@ -51,7 +51,7 @@ module Recurly
     #   account = Account.find account_code
     #   coupon.redeem account
     def redeem account_or_code, currency = nil
-      return false unless self[:redeem]
+      return false unless link? :redeem
 
       account_code = if account_or_code.is_a? Account
         account_or_code.account_code
@@ -59,7 +59,7 @@ module Recurly
         account_or_code
       end
 
-      Redemption.from_response self[:redeem].call(
+      Redemption.from_response follow_link(:redeem,
         :body => (redemption = redemptions.new(
           :account_code => account_code,
           :currency     => currency || Recurly.default_currency

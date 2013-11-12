@@ -69,9 +69,9 @@ module Recurly
     # @param amount_in_cents [Integer, nil] The amount (in cents) to refund
     #   (refunds fully if nil).
     def refund amount_in_cents = nil
-      return false unless self[:refund]
+      return false unless link? :refund
       refund = self.class.from_response(
-        self[:refund].call :params => { :amount_in_cents => amount_in_cents }
+        follow_link :refund, :params => { :amount_in_cents => amount_in_cents }
       )
       refund.uuid == uuid ? copy_from(refund) && self : refund
     end

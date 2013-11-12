@@ -41,13 +41,13 @@ module Recurly
       # @return [Net::HTTPOK, Net::HTTPResponse]
       # @raise [ResponseError] With a non-2xx status code.
       def head uri, params = {}, options = {}
-        request :head, uri, { :params => params }.merge(options)
+        request :head, uri, { :params => params || {} }.merge(options)
       end
 
       # @return [Net::HTTPOK, Net::HTTPResponse]
       # @raise [ResponseError] With a non-2xx status code.
       def get uri, params = {}, options = {}
-        request :get, uri, { :params => params }.merge(options)
+        request :get, uri, { :params => params || {} }.merge(options)
       end
 
       # @return [Net::HTTPCreated, Net::HTTPResponse]
@@ -64,7 +64,7 @@ module Recurly
 
       # @return [Net::HTTPNoContent, Net::HTTPResponse]
       # @raise [ResponseError] With a non-2xx status code.
-      def delete uri, options = {}
+      def delete uri, body = nil, options = {}
         request :delete, uri, options
       end
 
