@@ -117,7 +117,6 @@ XML
       address.city = "SF"
       address.state = "CA"
       address.zip = "93857"
-      vat_number = '1212a'
       account.address = address
       account.to_xml.must_equal get_raw_xml("accounts/address-serialized.xml")
     end
