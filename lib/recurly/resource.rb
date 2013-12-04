@@ -417,7 +417,12 @@ module Recurly
               }
             end
           else
-            record[el.name] = XML.cast el
+            val = XML.cast(el)
+            if 'address' == el.name && val.kind_of?(Hash)
+              record[el.name] = Address.new val
+            else
+              record[el.name] = val
+            end
           end
         end
 

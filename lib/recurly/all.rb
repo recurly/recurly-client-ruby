@@ -1,6 +1,7 @@
 require 'recurly'
 require 'recurly/account'
 require 'recurly/add_on'
+require 'recurly/address'
 require 'recurly/adjustment'
 require 'recurly/api'
 require 'recurly/billing_info'
