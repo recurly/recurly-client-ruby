@@ -45,8 +45,9 @@ module Recurly
       end
 
       def xml
-        return @xml if defined? @xml
-        @xml = (XML.new(response.body) if response && !response.body.empty?)
+        @xml ||= begin
+          XML.new(response.body) if response and response.body and not response.body.empty?
+        end
       end
     end
 
