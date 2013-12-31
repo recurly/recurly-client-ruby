@@ -4,8 +4,6 @@ Content-Type: application/xml; charset=utf-8
 <?xml version="1.0" encoding="UTF-8"?>
 <adjustment href="https://api.recurly.com/v2/adjustments/abcdef1234567890" type="charge">
   <account href="https://api.recurly.com/v2/accounts/account"/>
-  <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
-  <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
   <uuid>abcdef1234567890</uuid>
   <state>pending</state>
   <accounting_code nil="nil"></accounting_code>

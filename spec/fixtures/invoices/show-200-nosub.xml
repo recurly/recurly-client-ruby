@@ -5,7 +5,6 @@ Location: https://api.recurly.com/v2/invoices/created-invoice
 <?xml version="1.0" encoding="UTF-8"?>
 <invoice href="https://api.recurly.com/v2/invoices/created-invoice">
   <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
-  <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
   <uuid>created-invoice</uuid>
   <state>open</state>
   <invoice_number type="integer">1000</invoice_number>
@@ -20,7 +19,6 @@ Location: https://api.recurly.com/v2/invoices/created-invoice
     <adjustment href="https://api.recurly.com/v2/adjustments/charge" type="charge">
       <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
       <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
-      <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
       <uuid>charge</uuid>
       <state>invoiced</state>
       <description>Special charge</description>
@@ -41,7 +39,6 @@ Location: https://api.recurly.com/v2/invoices/created-invoice
     <transaction href="https://api.recurly.com/v2/transactions/transaction" type="credit_card">
       <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
       <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
-      <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
       <uuid>transaction</uuid>
       <action>purchase</action>
       <amount_in_cents type="integer">300</amount_in_cents>
