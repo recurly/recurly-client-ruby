@@ -13,6 +13,8 @@ module Recurly
     belongs_to :account
     # @return [Invoice, nil]
     belongs_to :invoice
+    # @return [Subscription, nil]
+    belongs_to :subscription
 
     define_attribute_methods %w(
       uuid

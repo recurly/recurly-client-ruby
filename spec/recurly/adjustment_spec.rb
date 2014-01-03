@@ -26,4 +26,21 @@ describe Adjustment do
       proc { Adjustment.find 'abcdef1234567890' }.must_raise Resource::NotFound
     end
   end
+
+  describe "#subscription" do
+    it "has a subscription if present" do
+      stub_api_request :get, 'adjustments/abcdef1234567890', 'adjustments/show-200'
+      stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
+
+      adjustment = Adjustment.find 'abcdef1234567890'
+      adjustment.subscription.must_be_instance_of Subscription
+    end
+
+    it "subscription is nil if not present" do
+      stub_api_request :get, 'adjustments/abcdef1234567890', 'adjustments/show-200-nosub'
+
+      adjustment = Adjustment.find 'abcdef1234567890'
+      adjustment.subscription.must_equal nil
+    end
+  end
 end
