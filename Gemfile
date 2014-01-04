@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'http://gem.recurly.net'
 gemspec
 
 group :development do
