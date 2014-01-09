@@ -7,4 +7,7 @@ group :development do
 
   gem 'redcarpet',                 :platforms => :ruby
   gem 'yard'
+  gem 'rubysl',                    :platforms => :rbx
+  gem 'rubysl-resolv', '~> 2.0',   :platforms => :rbx
+  gem 'racc',                      :platforms => :rbx
 end

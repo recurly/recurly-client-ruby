@@ -33,6 +33,8 @@ module Recurly
       company_name
       accept_language
       hosted_login_token
+      vat_number
+      address
       created_at
     )
     alias to_param account_code

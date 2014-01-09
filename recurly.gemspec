@@ -12,8 +12,8 @@ Gem::Specification.new do |s|
   s.executables      = %w(recurly)
 
   s.has_rdoc         = true
-  s.extra_rdoc_files = %w(README.markdown)
-  s.rdoc_options     = %w(--main README.markdown)
+  s.extra_rdoc_files = %w(README.md)
+  s.rdoc_options     = %w(--main README.md)
 
   s.author           = 'Recurly'
   s.email            = 'support@recurly.com'

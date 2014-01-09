@@ -2,6 +2,7 @@
 module Recurly
   autoload :Account,           'recurly/account'
   autoload :AddOn,             'recurly/add_on'
+  autoload :Address,           'recurly/address'
   autoload :Adjustment,        'recurly/adjustment'
   autoload :API,               'recurly/api'
   autoload :BillingInfo,       'recurly/billing_info'

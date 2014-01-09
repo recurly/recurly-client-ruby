@@ -216,5 +216,22 @@ describe Subscription do
       end
     end
 
+    describe "#invoice" do
+      it "has an invoice if present" do
+        stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
+        stub_api_request :get, 'invoices/created-invoice', 'invoices/create-201'
+
+        subscription = Subscription.find 'abcdef1234567890'
+        subscription.invoice.must_be_instance_of Invoice
+      end
+
+      it "invoice is nil if not present" do
+        stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200-noinvoice'
+
+        subscription = Subscription.find 'abcdef1234567890'
+        subscription.invoice.must_equal nil
+      end
+    end
+
   end
 end

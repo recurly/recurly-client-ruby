@@ -13,6 +13,8 @@ module Recurly
     belongs_to :account
     # @return [Invoice, nil]
     belongs_to :invoice
+    # @return [Subscription, nil]
+    belongs_to :subscription
 
     define_attribute_methods %w(
       uuid
@@ -27,6 +29,7 @@ module Recurly
       total_in_cents
       currency
       taxable
+      product_code
       start_date
       end_date
       created_at

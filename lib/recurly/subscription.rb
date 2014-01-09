@@ -22,6 +22,9 @@ module Recurly
     # @return [Plan]
     belongs_to :plan
 
+    # @return [Invoice]
+    has_one :invoice
+
     define_attribute_methods %w(
       uuid
       state
