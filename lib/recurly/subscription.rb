@@ -45,6 +45,8 @@ module Recurly
       net_terms
       collection_method
       po_number
+      tax_in_cents
+      tax_type
     )
     alias to_param uuid
 
