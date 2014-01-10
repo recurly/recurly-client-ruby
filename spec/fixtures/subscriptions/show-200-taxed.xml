@@ -23,6 +23,8 @@ Content-Type: application/xml; charset=utf-8
   <current_period_ends_at type="datetime">2011-05-01T06:59:59Z</current_period_ends_at>
   <trial_started_at nil="nil"></trial_started_at>
   <trial_ends_at nil="nil"></trial_ends_at>
+  <tax_in_cents type="integer">0</tax_in_cents>
+  <tax_type>usst</tax_type>
   <subscription_add_ons type="array">
   </subscription_add_ons>
   <a name="cancel" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/cancel" method="put"/>

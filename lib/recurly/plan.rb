@@ -24,6 +24,7 @@ module Recurly
       trial_interval_unit
       total_billing_cycles
       accounting_code
+      tax_exempt
       created_at
     )
     alias to_param plan_code

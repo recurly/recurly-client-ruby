@@ -23,6 +23,8 @@ describe Subscription do
                                 net_terms
                                 collection_method
                                 po_number
+                                tax_in_cents
+                                tax_type
                                 total_billing_cycles}
 
         subject.attribute_names.sort.must_equal expected_attributes.sort
@@ -67,6 +69,13 @@ describe Subscription do
       subscription.net_terms.must_equal(10)
       subscription.collection_method.must_equal('manual')
       subscription.po_number.must_equal('1000')
+    end
+
+    it 'can deserialize tax information' do
+      stub_api_request :get, 'subscriptions/abc1234', 'subscriptions/show-200-taxed'
+      subscription = Subscription.find 'abc1234'
+      subscription.tax_type.must_equal('usst')
+      subscription.tax_in_cents.must_equal(0)
     end
   end
 
