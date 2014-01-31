@@ -45,6 +45,12 @@ describe Account do
       account.address.country.must_equal 'US'
     end
 
+    it 'must return an account with tax state' do
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200-taxed'
+      account = Account.find 'abcdef1234567890'
+      account.tax_exempt?.must_equal true
+    end
+
     it "must raise an exception when unavailable" do
       stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-404'
       proc { Account.find 'abcdef1234567890' }.must_raise Resource::NotFound
@@ -107,7 +113,6 @@ XML
   end
 
   describe 'serialize address to xml' do
-
     it "must serialize" do
       account = Account.new :account_code => 'code'
       account.vat_number = '12345-67'
@@ -120,7 +125,6 @@ XML
       account.address = address
       account.to_xml.must_equal get_raw_xml("accounts/address-serialized.xml")
     end
-
   end
 
   describe "#to_xml" do

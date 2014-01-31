@@ -35,6 +35,7 @@ module Recurly
       hosted_login_token
       vat_number
       address
+      tax_exempt
       created_at
     )
     alias to_param account_code

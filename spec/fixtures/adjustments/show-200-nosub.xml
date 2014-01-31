@@ -15,7 +15,6 @@ Content-Type: application/xml; charset=utf-8
   <tax_in_cents type="integer">0</tax_in_cents>
   <total_in_cents type="integer">1200</total_in_cents>
   <currency>USD</currency>
-  <taxable type="boolean">false</taxable>
   <product_code>basic</product_code>
   <start_date type="datetime">2011-04-30T07:00:00Z</start_date>
   <end_date type="datetime">2011-04-30T07:00:00Z</end_date>

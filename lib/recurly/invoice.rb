@@ -29,6 +29,7 @@ module Recurly
       vat_number
       subtotal_in_cents
       tax_in_cents
+      tax_type
       total_in_cents
       currency
       created_at
