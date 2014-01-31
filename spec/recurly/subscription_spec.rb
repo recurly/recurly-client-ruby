@@ -251,6 +251,16 @@ describe Subscription do
         subscription.invoice.must_equal nil
       end
     end
+  end
 
+  describe 'previewing' do
+    it 'cannot preview an existing subscription' do
+      stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200-noinvoice'
+
+      subscription = Subscription.find 'abcdef1234567890'
+      assert_raises Subscription::NotPreviewableError do
+        subscription.preview
+      end
+    end
   end
 end
