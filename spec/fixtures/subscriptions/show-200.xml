@@ -25,6 +25,6 @@ Content-Type: application/xml; charset=utf-8
   <trial_ends_at nil="nil"></trial_ends_at>
   <subscription_add_ons type="array">
   </subscription_add_ons>
-  <a name="cancel" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/cancel" method="put"/> 
+  <a name="cancel" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/cancel" method="put"/>
   <a name="terminate" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/terminate" method="put"/>
 </subscription>
