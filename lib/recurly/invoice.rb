@@ -30,6 +30,7 @@ module Recurly
       subtotal_in_cents
       tax_in_cents
       tax_type
+      tax_rate
       total_in_cents
       currency
       created_at

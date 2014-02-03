@@ -25,6 +25,7 @@ describe Subscription do
                                 po_number
                                 tax_in_cents
                                 tax_type
+                                tax_rate
                                 total_billing_cycles}
 
         subject.attribute_names.sort.must_equal expected_attributes.sort
