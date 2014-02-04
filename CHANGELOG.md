@@ -1,3 +1,15 @@
+<a name="v2.3.0.beta1"></a>
+## v2.3.0.beta1 (2014-2-3)
+
+#### Features
+
+* Added subscription preview: `Recurly::Subscription.preview`
+* Added tax details to adjustments: `adjustment.tax_details`
+* Removed `taxable` support on adjustments
+* Added `tax_exempt` to accounts, adjustments and plans
+* Added `tax_rate`, `tax_type` to invoices and subscriptions
+* Added `tax_in_cents` to subscriptions
+
 <a name="v2.2.1"></a>
 ## v2.2.1 (2014-1-2)
 
