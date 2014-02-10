@@ -14,10 +14,3 @@ matrix:
   allow_failures:
     - rvm: jruby-19mode
       env: XML=nokogiri
-notifications:
-  email:
-    recipients:
-      - dev@recurly.com
-branches:
-  only:
-    - master
