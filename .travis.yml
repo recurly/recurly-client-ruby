@@ -1,4 +1,7 @@
 language: ruby
+script:
+  - bundle exec rake spec
+  - gem build recurly.gemspec
 rvm:
   - 1.9.3
   - 2.0.0
