@@ -4,10 +4,11 @@ script:
   - gem build recurly.gemspec
 cache: bundler
 rvm:
-  - 1.9.3
-  - 2.0.0
   - jruby
   - rbx
+  - 1.9.3
+  - 2.0.0
+  - 2.1.0
 env:
   - XML=rexml
   - XML=nokogiri
