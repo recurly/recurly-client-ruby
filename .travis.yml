@@ -6,7 +6,7 @@ cache: bundler
 rvm:
   - 1.9.3
   - 2.0.0
-  - jruby-19mode
+  - jruby
   - rbx
 env:
   - XML=rexml
