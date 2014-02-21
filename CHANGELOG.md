@@ -1,3 +1,16 @@
+<a name="v2.2.2"></a>
+## v2.2.2 (2014-2-21)
+
+#### Features
+
+* Added ability to determine a transaction's payment method: `Transaction#payment_method` ([PR](https://github.com/recurly/recurly-client-ruby/pull/125))
+* Added ability to determine the date an invoice was closed: `Invoice#closed_at` ([PR](https://github.com/recurly/recurly-client-ruby/pull/125))
+
+#### Bug Fixes
+
+* The gem now explicitly requires Ruby 1.9.3 or newer ([PR](https://github.com/recurly/recurly-client-ruby/pull/129))
+
+
 <a name="v2.2.1"></a>
 ## v2.2.1 (2014-1-2)
 
@@ -6,6 +19,7 @@
 * Added ability to get the active invoice for a subscription: `Subscription#invoice` ([PR](https://github.com/recurly/recurly-client-ruby/pull/125))
 * Added ability to get the subscription for an adjustment: `Adjustment#subscription` ([PR](https://github.com/recurly/recurly-client-ruby/pull/125))
 * Added ability to get the subscription for a invoice: `Invoice#subscription` ([PR](https://github.com/recurly/recurly-client-ruby/pull/125))
+
 
 <a name="v2.2.0"></a>
 ## v2.2.0 (2013-11-12)
