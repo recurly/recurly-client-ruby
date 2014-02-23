@@ -39,6 +39,11 @@ module Recurly
         xml.text '/errors/transaction_error/customer_message'
       end
 
+      # @return [String] A content from a given field.
+      def get field
+        xml.text "/errors/transaction_error/#{field}"
+      end
+
       # @return [String] The transaction error code.
       def transaction_error_code
         xml.text '/errors/transaction_error/error_code'
