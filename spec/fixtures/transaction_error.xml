@@ -5,7 +5,7 @@ Content-Type: application/xml; charset=utf-8
 <errors>                                                                         
   <transaction_error>                                                            
     <error_code>invalid_card_number</error_code>                                 
-    <error_category>declined</error_category>                                        
+    <error_category>hard</error_category>
     <customer_message lang="en-US">Your card number is not valid. Please update your card number.</customer_message>
     <merchant_message lang="en-US">The credit card number is not valid. The customer needs to try a different number.</merchant_message>
   </transaction_error>

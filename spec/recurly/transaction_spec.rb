@@ -27,10 +27,10 @@ describe Transaction do
       transaction.account.billing_info.errors[:credit_card_number].wont_be_nil
       error.transaction_error_code.must_equal error_code
       error.transaction.must_equal transaction
-      error.get(:error_code).must_equal error_code
-      error.get(:error_category).must_equal "declined"
-      error.get(:merchant_message).must_equal "The credit card number is not valid. The customer needs to try a different number."
-      error.get(:customer_message).must_equal customer_message
+      error.error_code.must_equal error_code
+      error.error_category.must_equal "hard"
+      error.merchant_message.must_equal "The credit card number is not valid. The customer needs to try a different number."
+      error.customer_message.must_equal customer_message
       transaction.persisted?.must_equal true
     end
 

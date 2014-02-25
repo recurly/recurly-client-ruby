@@ -25,6 +25,8 @@ module Recurly
     #     # Display a generic error message.
     #   end
     class Error < API::UnprocessableEntity
+      ERROR_TAGS = ["error_code", "error_category", "merchant_message", "customer_message"]
+
       # @return [Transaction] The transaction as returned (or updated) by
       #   Recurly.
       attr_reader :transaction
@@ -39,14 +41,14 @@ module Recurly
         xml.text '/errors/transaction_error/customer_message'
       end
 
-      # @return [String] A content from a given field.
-      def get field
-        xml.text "/errors/transaction_error/#{field}"
-      end
-
       # @return [String] The transaction error code.
       def transaction_error_code
         xml.text '/errors/transaction_error/error_code'
+      end
+
+      # @return [String] A content from a given field.
+      ERROR_TAGS.each do |name|
+        define_method(name) { transaction.transaction_error[name] }
       end
 
       private
