@@ -3,6 +3,21 @@
 # this is very useful for application testing when interaction with recurly is undesirable.
 
 module Recurly
+  @in_memory_storage = false
+  class << self
+    attr_accessor :in_memory_storage
+    alias_method :in_memory_storage?, :in_memory_storage
+
+    def with_in_memory_storage(&block)
+      self.in_memory_storage = true
+      begin
+        yield
+      ensure
+        self.in_memory_storage = false
+      end
+    end
+  end
+
   class Resource
     # param_name is a thing which recurly purports to use (see Recurly::Resource#to_param) but never actually sets up 
     class << self
@@ -157,7 +172,7 @@ module Recurly
       end
     end
 
-    class << self
+    module InMemoryClassMethods
       # locks for writing. anything that writes to @records should use this. 
       # yields the private @records structure which is to be modified.
       def record_write_locking
@@ -190,54 +205,99 @@ module Recurly
       end
     end
 
-    def save
-      if true # this conditional is where I would check if the record is valid, but we have no validations, they are all server side ...
-        self.send("#{self.class.param_name}=", UUIDTools::UUID.random_create.to_s) unless to_param
+    module InMemoryInstanceMethods
+      def save
+        if true # this conditional is where I would check if the record is valid, but we have no validations, they are all server side ...
+          self.send("#{self.class.param_name}=", UUIDTools::UUID.random_create.to_s) unless to_param
 
-        self.class.send(:record_write_locking) do |records|
-          records[storage_key] = self.attributes.dup
+          self.class.send(:record_write_locking) do |records|
+            records[storage_key] = self.attributes.dup
+          end
+          true
+        else
+          false
         end
-        true
-      else
-        false
       end
-    end
 
-    def destroy
-      return false unless persisted?
-      key = self.class.member_path(self[self.class.param_name])
-      self.class.send(:record_write_locking) do |records|
-        records.delete(storage_key)
+      def destroy
+        return false unless persisted?
+        key = self.class.member_path(self[self.class.param_name])
+        self.class.send(:record_write_locking) do |records|
+          records.delete(storage_key)
+        end
+        @destroyed = true
       end
-      @destroyed = true
-    end
 
-    private
-    def reflections
-      @reflections ||= {}
-    end
+      private
+      def reflections
+        @reflections ||= {}
+      end
 
-    # storage key for in-memory storage. this is the URI, the member_path for this class 
-    def storage_key
-      self.class.member_path(self[self.class.param_name])
+      # storage key for in-memory storage. this is the URI, the member_path for this class 
+      def storage_key
+        self.class.member_path(self[self.class.param_name])
+      end
     end
 
     class Pager
-      class << self
+      module InMemoryClassMethods
         def find(uuid)
           resource_class.find(uuid)
         end
       end
 
-      def count
-        raise NotImplementedError
-        # need to deal with scopes, or this would be right 
-        #@resource_class.instance_eval { @records.size }
-      end
+      module InMemoryInstanceMethods
+        def count
+          raise NotImplementedError
+          # need to deal with scopes, or this would be right 
+          #@resource_class.instance_eval { @records.size }
+        end
 
-      def load_from(uri, params)
-        raise NotImplementedError, "Recurly::Pager#load_from"
+        def load_from(uri, params)
+          raise NotImplementedError, "Recurly::Pager#load_from"
+        end
       end
+    end
+  end
+end
+
+require 'recurly/resource'
+require 'recurly/resource/pager'
+
+# perform some magic so that when Recurly.in_memory_storage is set, the methods from the InMemory modules above
+# will be used; when Recurly.in_memory_storage is unset, the normal recurly methods will be used. 
+
+classes_to_extend = {
+  Recurly::Resource::InMemoryClassMethods => (class << ::Recurly::Resource; self; end),
+  Recurly::Resource::InMemoryInstanceMethods => ::Recurly::Resource,
+  Recurly::Resource::Pager::InMemoryClassMethods => (class << ::Recurly::Resource::Pager; self; end),
+  Recurly::Resource::Pager::InMemoryInstanceMethods => ::Recurly::Resource::Pager,
+}
+classes_to_extend.each do |in_memory_module, klass|
+  # save the original methods from the class to be called when in-memory is not in use. have to copy 
+  # a reference to these methods before we include the in-memory methods module into klass. 
+  original_methods = in_memory_module.instance_methods.map do |method_name|
+    {method_name => klass.instance_method(method_name)} if klass.instance_methods.include?(method_name)
+  end.compact.inject({}, &:update)
+
+  # ruby 1.x will not bind a module's instance method to a class that does not include that module. in ruby 2
+  # this line is not needed. 
+  klass.send(:include, in_memory_module)
+
+  in_memory_module.instance_methods.each do |method_name|
+    in_memory_method = in_memory_module.instance_method(method_name)
+    klass.send(:define_method, method_name) do |*args, &block|
+      # make which method is invoked switch based on whether Recurly.in_memory_storage is set
+      if ::Recurly.in_memory_storage?
+        switched_method = in_memory_method
+      else
+        if original_methods[method_name]
+          switched_method = original_methods[method_name]
+        else
+          raise RuntimeError, "method #{method_name} is only used with in-memory storage mode; Recurly client is currently using real recurly records"
+        end
+      end
+      switched_method.bind(self).call(*args, &block)
     end
   end
 end
