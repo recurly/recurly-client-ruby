@@ -51,37 +51,35 @@ module Recurly
       inheriting_class.initialize_storage
     end
 
-    # redefine how associations work. @attributes will hold either a param_name, or array of param_names in the 
-    # case of a has_many, and @reflections will hold records (instances of a subclass of Resource). 
+    # redefine how associations work in-memory. @attributes will hold either a param_name, or array of 
+    # param_names in the case of a has_many, and @reflections will hold records (instances of a subclass of 
+    # Resource). 
     class << self
       alias orig_belongs_to belongs_to unless method_defined?(:orig_belongs_to)
       def belongs_to(assoc_name, options={})
         orig_belongs_to(assoc_name, options)
-        # make this a set to avoid duplicates, since code below sets up associations which are already defined. 
-        associations[:belongs_to] = associations[:belongs_to].to_set
+        # uniq to avoid duplicates, since code below sets up associations which are already defined. 
+        associations[:belongs_to] = associations[:belongs_to].uniq
 
-        # defines a setter for the association. accepts either a record (instance of a subclass of Resource), or a string 
-        # corresponding to the class's param_name, from which a record will be looked up. 
+        # defines a setter for the association. accepts either a record (instance of a subclass of Resource), 
+        # or a string corresponding to the class's param_name, from which a record will be looked up. 
         associations_helper.send(:define_method, "#{assoc_name}=") do |assoc_record|
-          assoc_record = case assoc_record
-          when Resource
-            assoc_record
-          when String
-            Recurly.const_get(Helper.classify(assoc_name)).find(assoc_record)
+          if Recurly.in_memory_storage?
+            assoc_record = record_for_association(assoc_name, assoc_record)
+            reflections[assoc_name] = assoc_record
+            @attributes[assoc_name] = assoc_record.to_param
           else
-            raise ArgumentError
+            self[assoc_name] = assoc_record
           end
-          reflections[assoc_name] = assoc_record
-          @attributes[assoc_name] = assoc_record.to_param
         end
 
-        # defines a getter for the association. the record is found by the param_name stored in @attributes[assoc_name].
-        # if that attribute does not exist, nil is returned. 
+        # defines a getter for the association. the record is found by the param_name stored in 
+        # @attributes[assoc_name]. 
         associations_helper.send(:define_method, assoc_name) do
           if @attributes[assoc_name]
             reflections[assoc_name] ||= Recurly.const_get(Helper.classify(member_name)).find(@attributes[assoc_name])
           else
-            nil
+            read_attribute(assoc_name)
           end
         end
       end
@@ -89,33 +87,30 @@ module Recurly
       alias orig_has_one has_one unless method_defined?(:orig_has_one)
       def has_one(assoc_name, options = {})
         orig_has_one(assoc_name, options)
-        # make this a set to avoid duplicates, since code below sets up associations which are already defined. 
-        associations[:has_one] = associations[:has_one].to_set
+        # uniq to avoid duplicates, since code below sets up associations which are already defined. 
+        associations[:has_one] = associations[:has_one].uniq
 
-        # defines a setter for the association. accepts either a record (instance of a subclass of Resource), or a string 
-        # corresponding to the class's param_name, from which a record will be looked up. 
+        # defines a setter for the association. accepts either a record (instance of a subclass of Resource), 
+        # or a string corresponding to the class's param_name, from which a record will be looked up. 
         #
         # this one is exactly the same as belongs_to 
         associations_helper.send(:define_method, "#{assoc_name}=") do |assoc_record|
-          assoc_record = case assoc_record
-          when Resource
-            assoc_record
-          when String
-            Recurly.const_get(Helper.classify(assoc_name)).find(assoc_record)
+          if Recurly.in_memory_storage?
+            assoc_record = record_for_association(assoc_name, assoc_record)
+            reflections[assoc_name] = assoc_record
+            @attributes[assoc_name] = assoc_record.to_param
           else
-            raise ArgumentError
+            self[assoc_name] = assoc_record
           end
-          reflections[assoc_name] = assoc_record
-          @attributes[assoc_name] = assoc_record.to_param
         end
 
-        # defines a getter for the association. the record is found by the param_name stored in @attributes[assoc_name].
-        # if that attribute does not exist, nil is returned. 
+        # defines a getter for the association. the record is found by the param_name stored in 
+        # @attributes[assoc_name].
         associations_helper.send(:define_method, assoc_name) do
           if @attributes[assoc_name]
             reflections[assoc_name] ||= Recurly.const_get(Helper.classify(assoc_name)).find(@attributes[assoc_name])
           else
-            nil
+            read_attribute(assoc_name)
           end
         end
 
@@ -133,32 +128,31 @@ module Recurly
       alias orig_has_many has_many unless method_defined?(:orig_has_many)
       def has_many(collection_name, options = {})
         orig_has_many(collection_name, options)
-        # make this a set to avoid duplicates, since code below sets up associations which are already defined. 
-        associations[:has_many] = associations[:has_many].to_set
+        # uniq to avoid duplicates, since code below sets up associations which are already defined. 
+        associations[:has_many] = associations[:has_many].uniq
 
         # defines a setter for the association. accepts an array, in which each element may be either a record 
         # (instance of a subclass of Resource), or a string corresponding to the class's param_name, from which 
         # a record will be looked up. 
         associations_helper.send(:define_method, "#{collection_name}=") do |assoc_records|
-          assoc_records = assoc_records.map do |record|
-            case record
-            when Resource
-              record
-            when String
-              Recurly.const_get(Helper.classify(collection_name)).find(record)
-            else
-              raise ArgumentError
+          if Recurly.in_memory_storage?
+            assoc_records = assoc_records.map do |record|
+              record_for_association(Helper.singularize(collection_name), record)
             end
+            reflections[collection_name] = assoc_records
+            @attributes[collection_name] = assoc_records.map{|assoc_record| assoc_record.to_param }
+          else
+            self[collection_name] = assoc_records
           end
-          reflections[collection_name] = assoc_records
-          @attributes[collection_name] = assoc_records.map{|assoc_record| assoc_record.to_param }
         end
 
         # defines a getter for the association. each record is found by the param_name stored in @attributes[assoc_name].
         # if that attribute does not exist, an empty array is returned. 
         associations_helper.send(:define_method, collection_name) do
           @attributes[collection_name] ||= []
-          reflections[collection_name] ||= @attributes[collection_name].map{|id| Recurly.const_get(Helper.classify(member_name)).find(id) }.freeze
+          reflections[collection_name] ||= @attributes[collection_name].map do |id|
+            record_for_association(Helper.singularize(collection_name), id)
+          end.freeze
         end
       end
     end
@@ -236,6 +230,21 @@ module Recurly
       # storage key for in-memory storage. this is the URI, the member_path for this class 
       def storage_key
         self.class.member_path(self[self.class.param_name])
+      end
+
+      def record_for_association(assoc_name, assoc_record)
+        if Recurly.in_memory_storage?
+          case assoc_record
+          when Resource
+            assoc_record
+          when String
+            Recurly.const_get(Helper.classify(assoc_name)).find(assoc_record)
+          else
+            fetch_association(assoc_name, assoc_record)
+          end
+        else
+          self[assoc_name]
+        end
       end
     end
 
