@@ -64,6 +64,15 @@ Instructions and examples are available on
 Recurly's gem API is available
 [here](http://rubydoc.info/gems/recurly/frames/Recurly).
 
+## Support
+
+- [https://support.recurly.com](https://support.recurly.com)
+- [stackoverflow](http://stackoverflow.com/questions/tagged/recurly)
+
+## Announcements
+
+- [@recurly](https://twitter.com/recurly)
+- [Google Group Announcements](https://groups.google.com/group/recurly-api)
 
 ## Contributing
 
@@ -103,12 +112,11 @@ If you plan on submitting a patch, please write tests for it (we use
 If everything looks good, submit a pull request on GitHub and we'll bring in
 your changes.
 
-
 ## License
 
 (The MIT License.)
 
-© 2009–2013 Recurly Inc.
+© 2009–2014 Recurly Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
