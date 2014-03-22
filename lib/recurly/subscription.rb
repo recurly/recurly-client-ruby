@@ -51,7 +51,7 @@ module Recurly
     end
 
     def self.reactivate(account_code, options = {})
-      path = "/accounts/#{CGI::escape(account_code.to_s)}/subscription/reactivate"
+      path = "/accounts/#{CGI::escape(account_code.to_s)}/subscription/reactivate.xml"
       connection.post(path, "", headers)
     rescue ActiveResource::Redirection => e
       return true
