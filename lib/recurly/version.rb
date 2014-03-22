@@ -1,3 +1,3 @@
 module Recurly #:nodoc
-  VERSION = "0.4.16"
+  VERSION = "0.4.17"
 end
