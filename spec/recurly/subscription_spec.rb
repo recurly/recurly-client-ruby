@@ -30,23 +30,32 @@ describe Subscription do
   end
 
   describe "check serialization" do
-    it "automatic collection" do
-      subscription = Subscription.new(
-        :plan_code => 'gold',
-        :currency  => 'EUR',
-        :account   => {
-          :account_code => '1',
-          :email        => 'verena@example.com',
-          :first_name   => 'Verena',
-          :last_name    => 'Example',
-          :billing_info => {
-            :number => '4111-1111-1111-1111',
-            :month  => 1,
-            :year   => 2014,
+    let(:attributes) do
+      {
+        plan_code: 'gold',
+        currency: 'EUR',
+        account: {
+          account_code: '1',
+          email: 'verena@example.com',
+          first_name: 'Verena',
+          last_name: 'Example',
+          billing_info: {
+            number: '4111-1111-1111-1111',
+            month: 1,
+            year: 2014,
           }
         }
-      )
+      }
+    end
+
+    it "automatic collection" do
+      subscription = Subscription.new attributes
       subscription.to_xml.must_equal get_raw_xml("subscriptions/serialize-automatic.xml")
+    end
+    it "automatic collection with a billing_info token" do
+      attributes[:account][:billing_info] = { token_id: 'abc123' }
+      subscription = Subscription.new attributes
+      subscription.to_xml.must_equal get_raw_xml("subscriptions/serialize-token.xml")
     end
     it "manual collection" do
       subscription = Subscription.new(
