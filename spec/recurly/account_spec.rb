@@ -87,6 +87,18 @@ describe Account do
 XML
     end
 
+    it "must embed provided billing info with a token" do
+      @account.billing_info = { token_id: 'abc123' }
+      @account.to_xml.must_equal <<XML.chomp
+<account>\
+<account_code>code</account_code>\
+<billing_info>\
+<token_id>abc123</token_id>\
+</billing_info>\
+</account>
+XML
+    end
+
     describe "persisted accounts" do
       before do
         @account.persist!
@@ -107,7 +119,6 @@ XML
   end
 
   describe 'serialize address to xml' do
-
     it "must serialize" do
       account = Account.new :account_code => 'code'
       account.vat_number = '12345-67'
@@ -120,7 +131,6 @@ XML
       account.address = address
       account.to_xml.must_equal get_raw_xml("accounts/address-serialized.xml")
     end
-
   end
 
   describe "#to_xml" do

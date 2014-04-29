@@ -28,6 +28,7 @@ module Recurly
       paypal_billing_agreement_id
       number
       verification_value
+      token_id
     )
 
     # @return ["credit_card", "paypal", nil] The type of billing info.
