@@ -1,3 +1,8 @@
+<a name="v2.2.3"></a>
+## v2.2.3 (2014-5-9)
+
+* Added `token_id` support to `BillingInfo` [#137](https://github.com/recurly/recurly-client-ruby/pull/137)
+
 <a name="v2.2.2"></a>
 ## v2.2.2 (2014-2-21)
 
