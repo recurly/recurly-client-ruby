@@ -28,7 +28,8 @@ module Recurly
       tax_in_cents
       total_in_cents
       currency
-      taxable
+      tax_exempt
+      tax_details
       product_code
       start_date
       end_date

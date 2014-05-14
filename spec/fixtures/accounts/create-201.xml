@@ -19,4 +19,14 @@ Location: https://api.recurly.com/v2/accounts/abcdef1234567890.xml
   <accept_language>en-US</accept_language>
   <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
   <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  <vat_number>12345-67</vat_number>
+  <address>
+    <address1>123 Main St.</address1>
+    <address2 nil="nil"></address2>
+    <city>San Francisco</city>
+    <state>CA</state>
+    <zip>94105</zip>
+    <country>US</country>
+    <phone>8015551234</phone>
+  </address>
 </account>

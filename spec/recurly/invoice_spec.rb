@@ -17,4 +17,13 @@ describe Invoice do
       invoice.subscription.must_equal nil
     end
   end
+
+  describe 'attributes' do
+    it 'has a tax type if taxed' do
+      stub_api_request :get, 'invoices/taxed-invoice', 'invoices/show-200-taxed'
+
+      invoice = Invoice.find 'taxed-invoice'
+      invoice.tax_type.must_equal 'usst'
+    end
+  end
 end
