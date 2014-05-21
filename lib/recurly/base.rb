@@ -1,10 +1,6 @@
-require 'active_support/memoizable'
-
 module Recurly
 
   class Base < ActiveResource::Base
-    extend ActiveSupport::Memoizable
-
     self.format = Recurly::Formats::XmlWithErrorsFormat.new
 
     def update_only
@@ -104,7 +100,7 @@ module Recurly
         errors.from_xml xml
         raise
       end
-      
+
       # Patched to read errors with field information
       def load_errors_from_array(new_errors, save_cache = false)
         errors.clear unless save_cache
