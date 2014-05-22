@@ -43,6 +43,7 @@ module Recurly
       subscription_add_ons
       coupon_code
       total_billing_cycles
+      remaining_billing_cycles
       net_terms
       collection_method
       po_number
