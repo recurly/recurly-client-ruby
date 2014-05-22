@@ -26,7 +26,8 @@ describe Subscription do
                                 tax_in_cents
                                 tax_type
                                 tax_rate
-                                total_billing_cycles}
+                                total_billing_cycles
+                                remaining_billing_cycles}
 
         subject.attribute_names.sort.must_equal expected_attributes.sort
       end
