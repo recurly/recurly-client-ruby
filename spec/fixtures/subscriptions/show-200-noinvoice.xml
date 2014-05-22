@@ -14,7 +14,7 @@ Content-Type: application/xml; charset=utf-8
   <net_terms type="integer">10</net_terms>
   <collection_method>manual</collection_method>
   <po_number>1000</po_number>
-  <total_amount_in_cents type="integer">1000</total_amount_in_cents>
+  <unit_amount_in_cents type="integer">1000</unit_amount_in_cents>
   <activated_at type="datetime">2011-04-30T07:00:00Z</activated_at>
   <canceled_at nil="nil"></canceled_at>
   <expires_at nil="nil"></expires_at>
@@ -24,6 +24,6 @@ Content-Type: application/xml; charset=utf-8
   <trial_ends_at nil="nil"></trial_ends_at>
   <subscription_add_ons type="array">
   </subscription_add_ons>
-  <a name="cancel" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/cancel" method="put"/> 
+  <a name="cancel" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/cancel" method="put"/>
   <a name="terminate" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/terminate" method="put"/>
 </subscription>
