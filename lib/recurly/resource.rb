@@ -184,7 +184,12 @@ module Recurly
       #   Recurly::Account.member_path "code" # => "accounts/code"
       #   Recurly::Account.member_path nil    # => "accounts"
       def member_path uuid
-        [collection_path, uuid].compact.join '/'
+        escaped_uuid = CGI.escape(uuid.to_s)
+        if escaped_uuid.empty?
+          collection_path
+        else
+          "#{collection_path}/#{escaped_uuid}"
+        end
       end
 
       # @return [Array] Per attribute, defines readers, writers, boolean and
