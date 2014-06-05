@@ -778,17 +778,7 @@ module Recurly
     #   account.save # => true
     # @see #save!
     def preview
-      if new_record? || changed?
-        clear_errors
         @response = API.send(:post, path + "/preview", to_xml(:delta => true))
-        reload response
-        persist! true
-      end
-      true
-    rescue API::UnprocessableEntity => e
-      apply_errors e
-      Transaction::Error.validate! e, (self if is_a? Transaction)
-      false
     end
 
     # Attempts to save the record, returning +true+ if the record was saved and
