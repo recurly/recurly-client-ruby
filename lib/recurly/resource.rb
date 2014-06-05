@@ -778,7 +778,7 @@ module Recurly
     #   account.save # => true
     # @see #save!
     def preview
-        @response = API.send(:post, path + "/preview", to_xml(:delta => true))
+        @response = API.send(:post, path + "/preview", to_xml(:delta => false))
     end
 
     # Attempts to save the record, returning +true+ if the record was saved and
