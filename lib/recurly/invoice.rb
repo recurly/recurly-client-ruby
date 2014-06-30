@@ -35,6 +35,7 @@ module Recurly
       currency
       created_at
       closed_at
+      amount_remaining_in_cents
       line_items
       transactions
     )
@@ -64,10 +65,56 @@ module Recurly
       self.class.find to_param, :format => 'pdf'
     end
 
+    # Refunds specific line items on the invoice.
+    #
+    # @return [Invoice, false] A new refund invoice, false if the invoice isn't
+    # refundable.
+    # @raise [Error] If the refund fails.
+    # @param line_items [Array, nil] An array of line items to refund.
+    def refund line_items = nil
+      return false unless link? :refund
+      refund = self.class.from_response(
+        follow_link :refund, :body => refund_line_items_to_xml(line_items)
+      )
+      refund
+    end
+
+    # Refunds the invoice for a specific amount.
+    #
+    # @return [Invoice, false] A new refund invoice, false if the invoice isn't
+    # refundable.
+    # @raise [Error] If the refund fails.
+    # @param amount_in_cents [Integer, nil] The amount (in cents) to refund.
+    def refund_amount amount_in_cents = nil
+      return false unless link? :refund
+      refund = self.class.from_response(
+        follow_link :refund, :body => refund_amount_to_xml(amount_in_cents)
+      )
+      refund
+    end
+
     private
 
     def initialize attributes = {}
       super({ :currency => Recurly.default_currency }.merge attributes)
+    end
+
+    def refund_amount_to_xml amount_in_cents=nil
+      builder = XML.new("<invoice/>")
+      builder.add_element 'amount_in_cents', amount_in_cents
+      builder.to_s
+    end
+
+    def refund_line_items_to_xml line_items = []
+      builder = XML.new("<invoice/>")
+      node = builder.add_element 'line_items'
+      line_items.each do |line_item|
+        adj_node = node.add_element 'adjustment'
+        line_item.each_pair do |k, v|
+          adj_node.add_element k.to_s, v
+        end
+      end
+      builder.to_s
     end
 
     # Invoices are only writeable through {Account} instances.
