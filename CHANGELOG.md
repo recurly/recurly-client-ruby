@@ -1,3 +1,12 @@
+<a name="v2.3.1"></a>
+## v2.3.1 (2104-5-23)
+
+### Features
+
+* Added subscription change preview: `subscription.preview` [57a69d3](https://github.com/recurly/recurly-client-ruby/commit/57a69d3301497774e7d34dfe9095908ed2210de7)
+* Added subscription estimated cost for new and change previews: `subscription.cost_in_cents` [57a69d3](https://github.com/recurly/recurly-client-ruby/commit/57a69d3301497774e7d34dfe9095908ed2210de7)
+* Added subscription remaining billing cycles: `subscription.remaining_billing_cycles` [PR](https://github.com/recurly/recurly-client-ruby/pull/142)
+
 <a name="v2.3.0"></a>
 ## v2.3.0 (2014-5-14)
 

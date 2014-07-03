@@ -2,8 +2,6 @@ module Recurly
   class Subscription < Resource
     autoload :AddOns, 'recurly/subscription/add_ons'
 
-    class NotPreviewableError < StandardError; end
-
     # @macro [attach] scope
     #   @scope class
     #   @return [Pager<Subscription>] A pager that yields +$1+ subscriptions.
@@ -31,6 +29,7 @@ module Recurly
       uuid
       state
       unit_amount_in_cents
+      cost_in_cents
       currency
       quantity
       activated_at
@@ -44,6 +43,7 @@ module Recurly
       subscription_add_ons
       coupon_code
       total_billing_cycles
+      remaining_billing_cycles
       net_terms
       collection_method
       po_number
@@ -58,8 +58,6 @@ module Recurly
     end
 
     def preview
-      raise NotPreviewableError.new('Cannot preview an existing subscription') unless new_record?
-
       clear_errors
       @response = API.send(:post, "#{path}/preview", to_xml)
       reload response

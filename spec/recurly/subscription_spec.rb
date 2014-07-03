@@ -8,6 +8,7 @@ describe Subscription do
       expected_attributes = %w{ uuid
                                 state
                                 unit_amount_in_cents
+                                cost_in_cents
                                 currency
                                 quantity
                                 activated_at
@@ -26,7 +27,8 @@ describe Subscription do
                                 tax_in_cents
                                 tax_type
                                 tax_rate
-                                total_billing_cycles}
+                                total_billing_cycles
+                                remaining_billing_cycles}
 
         subject.attribute_names.sort.must_equal expected_attributes.sort
       end
@@ -254,13 +256,30 @@ describe Subscription do
   end
 
   describe 'previewing' do
-    it 'cannot preview an existing subscription' do
+    it 'previews new subscriptions' do
+      stub_api_request :post, 'subscriptions/preview', 'subscriptions/preview-200-new'
+
+      subscription = Subscription.preview(
+        plan_code: 'plan_code',
+        currency: 'USD',
+        account: {
+          account_code: 'account_code',
+        }
+      )
+
+      subscription.plan.plan_code.must_equal 'plan_code'
+    end
+
+    it 'previews subscription changes' do
       stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200-noinvoice'
+      stub_api_request :post, 'subscriptions/abcdef1234567890/preview', 'subscriptions/preview-200-change'
 
       subscription = Subscription.find 'abcdef1234567890'
-      assert_raises Subscription::NotPreviewableError do
-        subscription.preview
-      end
+      subscription.quantity = 5
+      subscription.preview
+
+      subscription.cost_in_cents.must_equal subscription.unit_amount_in_cents * 5
+      subscription.invoice.must_be_instance_of Invoice
     end
   end
 end
