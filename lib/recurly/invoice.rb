@@ -110,7 +110,7 @@ module Recurly
       node = builder.add_element 'line_items'
       line_items.each do |line_item|
         adj_node = node.add_element 'adjustment'
-        adj_node.add_element 'uuid', line_item[:charge].try(:uuid)
+        adj_node.add_element 'uuid', line_item[:adjustment].uuid
         adj_node.add_element 'quantity', line_item[:quantity]
         adj_node.add_element 'prorate', line_item[:prorate]
       end
