@@ -33,7 +33,6 @@ If you're not using Rails, use the following template:
 ``` ruby
 Recurly.subdomain      = ENV['RECURLY_SUBDOMAIN']
 Recurly.api_key        = ENV['RECURLY_API_KEY']
-Recurly.js.private_key = ENV['RECURLY_JS_PRIVATE_KEY']
 ```
 
 Configure the client library with
