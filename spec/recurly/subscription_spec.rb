@@ -28,7 +28,8 @@ describe Subscription do
                                 tax_type
                                 tax_rate
                                 total_billing_cycles
-                                remaining_billing_cycles}
+                                remaining_billing_cycles
+                                bulk}
 
         subject.attribute_names.sort.must_equal expected_attributes.sort
       end
@@ -88,6 +89,12 @@ describe Subscription do
       subscription = Subscription.find 'abc1234'
       subscription.tax_type.must_equal('usst')
       subscription.tax_in_cents.must_equal(0)
+    end
+
+    it "properly serializes bulk attribute" do
+      attributes[:bulk] = true
+      subscription = Subscription.new attributes
+      subscription.to_xml.must_equal get_raw_xml("subscriptions/serialize-with-bulk.xml")
     end
   end
 
