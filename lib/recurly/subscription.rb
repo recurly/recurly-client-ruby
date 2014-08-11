@@ -50,6 +50,7 @@ module Recurly
       tax_in_cents
       tax_type
       tax_rate
+      bulk
     )
     alias to_param uuid
 
