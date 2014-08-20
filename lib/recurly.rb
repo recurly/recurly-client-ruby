@@ -20,6 +20,7 @@ module Recurly
   autoload :Transaction,       'recurly/transaction'
   autoload :Version,           'recurly/version'
   autoload :XML,               'recurly/xml'
+  autoload :Webhook,           'recurly/webhook'
 
   @subdomain = nil
 
