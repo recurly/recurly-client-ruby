@@ -20,6 +20,7 @@ module Recurly
   #     ...
   #   end
   module Webhook
+    autoload :Notification,                     'recurly/webhook/notification'
     autoload :AccountNotification,              'recurly/webhook/account_notification'
     autoload :SubscriptionNotification,         'recurly/webhook/subscription_notification'
     autoload :InvoiceNotification,              'recurly/webhook/invoice_notification'

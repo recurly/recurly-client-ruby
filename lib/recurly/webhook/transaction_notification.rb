@@ -2,7 +2,7 @@ module Recurly
   module Webhook
     # The TransactionNotification class provides a generic interface
     # for account-related webhook notifications.
-    class TransactionNotification < Resource
+    class TransactionNotification < Notification
       # @return [Account]
       has_one :account
       # @return [Transaction]
