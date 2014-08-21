@@ -5,11 +5,11 @@ module Recurly
   # details where available.
   #
   # @example
-  #   Recurly::Webhook.parse(xml_body)  # => #<Recurly::Webhook::NewAccountNotification ..>
+  #   Recurly::Webhook.parse(xml_body)  # => #<Recurly::Webhook::NewAccountNotification ...>
   module Webhook
     autoload :BillingInfoUpdatedNotification,   'recurly/webhook/billing_info_updated_notification'
     autoload :CanceledSubscriptionNotification, 'recurly/webhook/canceled_subscription_notification'
-    autoload :CanceledAccountNotification,     'recurly/webhook/canceled_account_notification'
+    autoload :CanceledAccountNotification,      'recurly/webhook/canceled_account_notification'
     autoload :ClosedInvoiceNotification,        'recurly/webhook/closed_invoice_notification'
     autoload :ExpiredSubscriptionNotification,  'recurly/webhook/expired_subscription_notification'
     autoload :FailedPaymentNotification,        'recurly/webhook/failed_payment_notification'
