@@ -2,7 +2,7 @@ module Recurly
   module Webhook
     # The InvoiceNotification class provides a generic interface
     # for account-related webhook notifications.
-    class InvoiceNotification < Resource
+    class InvoiceNotification < Notification
       # @return [Account]
       has_one :account
       # @return [Invoice]
