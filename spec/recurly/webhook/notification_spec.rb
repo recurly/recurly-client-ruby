@@ -19,7 +19,7 @@ describe Webhook::Notification do
   
   describe "has_one reload method" do
     let(:account) { Account.new :account_code => 'code' }
-    let(:instance) { notification.new(account: account) }
+    let(:instance) { notification.new :account => account }
     
     before do
       stub_api_request :any, 'accounts/code', 'accounts/show-200'
