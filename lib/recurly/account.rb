@@ -36,6 +36,7 @@ module Recurly
       vat_number
       address
       tax_exempt
+      entity_use_code
       created_at
     )
     alias to_param account_code

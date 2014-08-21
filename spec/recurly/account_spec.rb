@@ -36,6 +36,7 @@ describe Account do
       account.first_name.must_equal 'Larry'
       account.last_name.must_equal 'David'
       account.accept_language.must_equal 'en-US'
+      account.entity_use_code.must_equal 'I'
       account.vat_number.must_equal '12345-67'
       account.address.address1.must_equal '123 Main St.'
       account.address.city.must_equal 'San Francisco'

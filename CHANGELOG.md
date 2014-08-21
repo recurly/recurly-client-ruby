@@ -1,3 +1,10 @@
+<a name="unreleased"></a>
+## Unreleased
+
+### Features
+
+* Added account `entity_use_code` when the site is integrated with Avalara [PR](https://github.com/recurly/recurly-client-ruby/pull/147)
+
 <a name="v2.3.1"></a>
 ## v2.3.1 (2104-5-23)
 
