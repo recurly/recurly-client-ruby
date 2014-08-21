@@ -6,7 +6,24 @@ module Recurly
   #
   # @example
   #   Recurly::Webhook.parse(xml_body)  # => #<Recurly::Webhook::NewAccountNotification ...>
+  #
+  #   notification = Recurly::Webhook.parse(xml_body)
+  #   case notification
+  #   when Recurly::Webhook::NewAccountNoficiation
+  #     # A new account was created
+  #     ...
+  #   when Recurly::Webhook::NewSubscriptionNotification
+  #     # A new subscription was added
+  #     ...
+  #   when Recurly::Webhook::SubscriptionNotification
+  #     # A subscription-related notification was sent
+  #     ...
+  #   end
   module Webhook
+    autoload :AccountNotification,              'recurly/webhook/account_notification'
+    autoload :SubscriptionNotification,         'recurly/webhook/subscription_notification'
+    autoload :InvoiceNotification,              'recurly/webhook/invoice_notification'
+    autoload :TransactionNotification,          'recurly/webhook/transaction_notification'
     autoload :BillingInfoUpdatedNotification,   'recurly/webhook/billing_info_updated_notification'
     autoload :CanceledSubscriptionNotification, 'recurly/webhook/canceled_subscription_notification'
     autoload :CanceledAccountNotification,      'recurly/webhook/canceled_account_notification'
