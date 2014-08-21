@@ -5,7 +5,7 @@ def request with
 end
 
 describe Webhook do
-  describe "#parse" do
+  describe ".parse" do
     it "must return BillingInfoUpdatedNotification instance" do
       Webhook.parse(request 'billing-info-updated-notification').must_be_instance_of Webhook::BillingInfoUpdatedNotification
     end
