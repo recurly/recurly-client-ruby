@@ -1,10 +1,6 @@
 module Recurly
   module Webhook
-    class RenewedSubscriptionNotification < Resource
-      # @return [Account]
-      has_one :account
-      # @return [Subscription]
-      has_one :subscription
+    class RenewedSubscriptionNotification < SubscriptionNotification
     end
   end
 end

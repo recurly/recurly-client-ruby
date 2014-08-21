@@ -1,10 +1,6 @@
 module Recurly
   module Webhook
-    class PastDueInvoiceNotification < Resource
-      # @return [Account]
-      has_one :account
-      # @return [Invoice]
-      has_one :invoice
+    class PastDueInvoiceNotification < InvoiceNotification
     end
   end
 end
