@@ -26,12 +26,13 @@ module Recurly
       first_six
       last_four
       paypal_billing_agreement_id
+      amazon_billing_agreement_id
       number
       verification_value
       token_id
     )
 
-    # @return ["credit_card", "paypal", nil] The type of billing info.
+    # @return ["credit_card", "paypal", "amazon", nil] The type of billing info.
     attr_reader :type
 
     # @return [String]
@@ -39,7 +40,7 @@ module Recurly
       attributes = self.class.attribute_names
       case type
       when 'credit_card'
-        attributes -= %w(paypal_billing_agreement_id)
+        attributes -= %w(paypal_billing_agreement_id amazon_billing_agreement_id)
       when 'paypal'
         attributes -= %w(
           card_type year month start_year start_month issue_number
