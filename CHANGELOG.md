@@ -1,12 +1,19 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+* Pending
+
+<a name="v2.3.2"></a>
+## v2.3.2 (2014-9-9)
+
 ### Features
 
-* Added account `entity_use_code` when the site is integrated with Avalara [PR](https://github.com/recurly/recurly-client-ruby/pull/147)
+* Added Amazon Billing Agreement support [024269](https://github.com/recurly/recurly-client-ruby/commit/02426910ea986317374083fc0b94928cf3b2d569)
+* Added account `entity_use_code` when the site is integrated with Avalara [633df6](https://github.com/recurly/recurly-client-ruby/commit/633df6f6d91b02b9bb01ac587030e4011f5ab533)
+* Added bulk parameter [8cb157](https://github.com/recurly/recurly-client-ruby/commit/8cb1579378442c23930aee53a3a1a397e72ca86e)
 
 <a name="v2.3.1"></a>
-## v2.3.1 (2104-5-23)
+## v2.3.1 (2014-5-23)
 
 ### Features
 
