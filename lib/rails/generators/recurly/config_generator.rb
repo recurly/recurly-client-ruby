@@ -6,11 +6,16 @@ module Recurly
     # when running <tt>rails g recurly:config</tt>.
     def create_recurly_file
       create_file 'config/initializers/recurly.rb', <<EOF
-Recurly.subdomain        = ENV['RECURLY_SUBDOMAIN']
-Recurly.api_key          = ENV['RECURLY_API_KEY']
-Recurly.js.private_key   = ENV['RECURLY_JS_PRIVATE_KEY']
 
+# Required (this should contain subdomain for your recurly account)
+Recurly.subdomain = ENV['RECURLY_SUBDOMAIN']
+
+# Required (this is your "Private API Key" which can be found under "API Credentials" in the admin panel
+Recurly.api_key = ENV['RECURLY_API_KEY']
+
+# Optional (if you want to change the default currency from USD)
 # Recurly.default_currency = 'USD'
+
 EOF
     end
   end
