@@ -1,7 +1,10 @@
 <a name="unreleased"></a>
 ## Unreleased
 
-* Pending
+<a name="v2.3.3"></a>
+## v2.3.3 (2014-9-29)
+
+* Adding the bulk parameter to the `Subscription#postpone` method [8bf72bc](https://github.com/recurly/recurly-client-ruby/pull/150)
 
 <a name="v2.3.2"></a>
 ## v2.3.2 (2014-9-9)
