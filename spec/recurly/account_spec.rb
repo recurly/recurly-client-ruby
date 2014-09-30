@@ -7,6 +7,23 @@ describe Account do
       Account.find 'abcdef1234567890'
     }
 
+    describe '#build_invoice' do
+      it 'previews the accounts next invoice if successful' do
+        stub_api_request(
+          :post, 'accounts/abcdef1234567890/invoices/preview', 'invoices/preview-200'
+        )
+        account.build_invoice.must_be_instance_of Invoice
+      end
+
+      it 'raises an exception if unsuccessful' do
+        stub_api_request(
+          :post, 'accounts/abcdef1234567890/invoices/preview', 'invoices/create-422'
+        )
+        error = proc { account.build_invoice }.must_raise Resource::Invalid
+        error.message.must_equal 'No charges to invoice'
+      end
+    end
+
     describe "#invoice!" do
       it "must invoice an account if successful" do
         stub_api_request(
