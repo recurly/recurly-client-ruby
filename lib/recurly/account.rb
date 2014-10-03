@@ -49,6 +49,14 @@ module Recurly
       raise Invalid, e.message
     end
 
+    # @return [Invoice] The newly-built invoice that has not been persisted.
+    # @raise [Invalid] Raised if the account cannot be invoiced.
+    def build_invoice
+      Invoice.from_response API.post("#{invoices.uri}/preview")
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
+    end
+
     # Reopen an account.
     #
     # @return [true, false] +true+ when successful, +false+ when unable to
