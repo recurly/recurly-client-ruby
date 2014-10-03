@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.3.4"></a>
+## v2.3.4 (2014-10-3)
+
+* Adding invoice preview: `account.build_invoice` [0bc0d01](https://github.com/recurly/recurly-client-ruby/pull/153)
+
 <a name="v2.3.3"></a>
 ## v2.3.3 (2014-9-29)
 
