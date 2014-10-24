@@ -22,6 +22,25 @@ describe Recurly.js do
     end
   end
 
+  describe "public_key" do
+    it "must be assignable" do
+      js.public_key = 'a_public_key'
+      js.public_key.must_equal 'a_public_key'
+    end
+
+    it "must raise an exception when not set" do
+      if js.instance_variable_defined? :@public_key
+        js.send :remove_instance_variable, :@public_key
+      end
+      proc { Recurly.js.public_key }.must_raise ConfigurationError
+    end
+
+    it "must raise an exception when set to nil" do
+      Recurly.js.public_key = nil
+      proc { Recurly.js.public_key }.must_raise ConfigurationError
+    end
+  end
+
   describe ".sign" do
     let(:sign) { js.method :sign }
     let(:private_key) { '0123456789abcdef0123456789abcdef' }

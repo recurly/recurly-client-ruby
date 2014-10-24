@@ -47,6 +47,18 @@ The default currency is USD. To override with a different code:
 Recurly.default_currency = 'EUR' # Assign nil to disable the default entirely.
 ```
 
+If you are using [Recurly.js](https://js.recurly.com) you can store "Public API Key" (which can be found under "API Credentials" on the `api_access` admin page):
+
+``` ruby
+Recurly.js.public_key = ENV['RECURLY_PUBLIC_API_KEY']
+```
+
+Then, in your Rails project you can create `recurly_service.js.erb` file and [configure](https://docs.recurly.com/js/#configure) recurly.js with public key this way:
+
+``` js
+recurly.configure({ publicKey: '<%= Recurly.js.public_key %>'});
+```
+
 The client library currently uses a Net::HTTP adapter. If you need to
 configure the settings passed to Net::HTTP (e.g., an SSL certificates path),
 make sure you assign them before you make any requests:

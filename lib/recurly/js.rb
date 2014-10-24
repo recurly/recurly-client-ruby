@@ -24,6 +24,15 @@ module Recurly
       end
       attr_writer :private_key
 
+      # @return [String] A public key for Recurly.js.
+      # @raise [ConfigurationError] No public key has been set.
+      def public_key
+        defined? @public_key and @public_key or raise(
+          ConfigurationError, "public_key not configured"
+        )
+      end
+      attr_writer :public_key
+
       # Create a signature for a given hash for Recurly.js
       # @param Array of objects and hash of data to sign
       def sign *records
