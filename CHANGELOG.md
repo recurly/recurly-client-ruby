@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.3.5"></a>
+## v2.3.5 (2014-10-30)
+
+* Adding invoice refunds by line item: `invoice.refund(line_items)` [9acc7a5](https://github.com/recurly/recurly-client-ruby/commit/9acc7a54a5f9cfd8393800abea9f8b8455203fbc)
+
 <a name="v2.3.4"></a>
 ## v2.3.4 (2014-10-3)
 
