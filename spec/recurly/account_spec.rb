@@ -113,4 +113,27 @@ XML
       )
     end
   end
+
+  describe "associations" do
+    let(:account) {
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+      stub_api_request :get, 'accounts/abcdef1234567890/subscriptions', 'accounts/subscriptions/index-200'
+      Account.find 'abcdef1234567890'
+    }
+
+    it "retrieves associations" do
+      account.subscriptions.first.must_be_instance_of Subscription
+    end
+
+    describe "when an account_code contains spaces" do
+      let(:account) {
+        stub_api_request :get, 'accounts/my%20account', 'accounts/show-200-space'
+        stub_api_request :get, 'accounts/my%20account/subscriptions', 'accounts/subscriptions/index-200-space'
+        Account.find 'my account'
+      }
+      it "retrieves associations" do
+        account.subscriptions.first.must_be_instance_of Subscription
+      end
+    end
+  end
 end
