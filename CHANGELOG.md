@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.3.6"></a>
+## v2.3.6 (2014-11-4)
+
+* Fixes issue with broken association lookups [ca0b015](https://github.com/recurly/recurly-client-ruby/commit/ca0b015fead172bdd01dce0a0878a8949c5ccac4)
+
 <a name="v2.3.5"></a>
 ## v2.3.5 (2014-10-30)
 
