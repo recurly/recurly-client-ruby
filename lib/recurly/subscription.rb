@@ -51,6 +51,8 @@ module Recurly
       tax_type
       tax_rate
       bulk
+      terms_and_conditions
+      customer_notes
     )
     alias to_param uuid
 

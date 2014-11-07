@@ -25,6 +25,14 @@ describe Invoice do
       invoice = Invoice.find 'taxed-invoice'
       invoice.tax_type.must_equal 'usst'
     end
+
+    it 'can access notes if there' do
+      stub_api_request :get, 'invoices/created-invoice', 'invoices/show-200-with-notes'
+
+      invoice = Invoice.find 'created-invoice'
+      invoice.customer_notes.must_equal 'Some Customer Notes'
+      invoice.terms_and_conditions.must_equal 'Some Terms and Conditions'
+    end
   end
 
   describe "line item refund" do

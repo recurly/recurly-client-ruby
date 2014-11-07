@@ -29,7 +29,10 @@ describe Subscription do
                                 tax_rate
                                 total_billing_cycles
                                 remaining_billing_cycles
-                                bulk}
+                                bulk
+                                terms_and_conditions
+                                customer_notes
+                              }
 
         subject.attribute_names.sort.must_equal expected_attributes.sort
       end
@@ -40,6 +43,8 @@ describe Subscription do
       {
         plan_code: 'gold',
         currency: 'EUR',
+        terms_and_conditions: 'Some Terms and Conditions',
+        customer_notes: 'Some Customer Notes',
         account: {
           account_code: '1',
           email: 'verena@example.com',

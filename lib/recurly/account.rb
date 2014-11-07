@@ -43,8 +43,8 @@ module Recurly
 
     # @return [Invoice] A newly-created invoice.
     # @raise [Invalid] Raised if the account cannot be invoiced.
-    def invoice!
-      Invoice.from_response API.post(invoices.uri)
+    def invoice!(attrs={})
+      Invoice.from_response API.post(invoices.uri, attrs.empty? ? nil : Invoice.to_xml(attrs))
     rescue Recurly::API::UnprocessableEntity => e
       raise Invalid, e.message
     end

@@ -32,6 +32,20 @@ describe Account do
         account.invoice!.must_be_instance_of Invoice
       end
 
+      it "must add optional attributes to the invoice if given" do
+        stub_api_request(
+          :post, 'accounts/abcdef1234567890/invoices', 'invoices/create-with-optionals-201'
+        )
+        invoice = account.invoice!({
+          terms_and_conditions: 'Some Terms and Conditions',
+          customer_notes: 'Some Customer Notes'
+        })
+
+        invoice.must_be_instance_of Invoice
+        invoice.customer_notes.must_equal 'Some Customer Notes'
+        invoice.terms_and_conditions.must_equal 'Some Terms and Conditions'
+      end
+
       it "must raise an exception if unsuccessful" do
         stub_api_request(
           :post, 'accounts/abcdef1234567890/invoices', 'invoices/create-422'
