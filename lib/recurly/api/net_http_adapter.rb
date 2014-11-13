@@ -36,7 +36,7 @@ module Recurly
           head = headers.dup
           head.update options[:head] if options[:head]
           head.delete_if { |_, value| value.nil? }
-          uri = base_uri + URI.escape(uri)
+          uri = base_uri + uri
           if options[:params] && !options[:params].empty?
             pairs = options[:params].map { |key, value|
               "#{CGI.escape key.to_s}=#{CGI.escape value.to_s}"

@@ -1,0 +1,31 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<account href="https://api.recurly.com/v2/accounts/my%20account">
+  <adjustments href="https://api.recurly.com/v2/accounts/my%20account/adjustments" />
+  <billing_info href="https://api.recurly.com/v2/accounts/my%20account/billing_info" />
+  <invoices href="https://api.recurly.com/v2/accounts/my%20account/invoices" />
+  <subscriptions href="https://api.recurly.com/v2/accounts/my%20account/subscriptions" />
+  <transactions href="https://api.recurly.com/v2/accounts/my%20account/transactions" />
+  <account_code>my account</account_code>
+  <state>active</state>
+  <username>my account</username>
+  <email />
+  <first_name />
+  <last_name />
+  <company_name />
+  <vat_number />
+  <address>
+    <address1 />
+    <address2 />
+    <city />
+    <state />
+    <zip />
+    <country />
+    <phone />
+  </address>
+  <accept_language nil="nil" />
+  <hosted_login_token>d75e6a51189ca6ffe19d519d5da0aaa7</hosted_login_token>
+  <created_at type="datetime">2014-08-04T23:18:21Z</created_at>
+</account>

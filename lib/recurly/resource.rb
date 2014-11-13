@@ -1,4 +1,5 @@
 require 'date'
+require 'erb'
 
 module Recurly
   # The base class for all Recurly resources (e.g. {Account}, {Subscription},
@@ -184,6 +185,7 @@ module Recurly
       #   Recurly::Account.member_path "code" # => "accounts/code"
       #   Recurly::Account.member_path nil    # => "accounts"
       def member_path uuid
+        uuid = ERB::Util.url_encode(uuid) if uuid
         [collection_path, uuid].compact.join '/'
       end
 
