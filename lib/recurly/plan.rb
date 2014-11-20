@@ -25,6 +25,7 @@ module Recurly
       total_billing_cycles
       accounting_code
       tax_exempt
+      tax_code
       created_at
     )
     alias to_param plan_code
