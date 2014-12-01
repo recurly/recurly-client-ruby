@@ -11,10 +11,9 @@ describe Recurly do
     end
 
     it "must raise an exception when not set" do
-      if Recurly.instance_variable_defined? :@api_key
-        Recurly.send :remove_instance_variable, :@api_key
-      end
-      proc { Recurly.api_key }.must_raise ConfigurationError
+      Thread.new {
+        proc { Recurly.api_key }.must_raise ConfigurationError
+      }.join
     end
 
     it "must raise an exception when set to nil" do
