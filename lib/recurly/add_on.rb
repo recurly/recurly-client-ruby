@@ -9,6 +9,7 @@ module Recurly
       default_quantity
       unit_amount_in_cents
       display_quantity_on_hosted_page
+      tax_code
       created_at
     )
     alias to_param add_on_code
