@@ -38,8 +38,15 @@ module Recurly
       amount_remaining_in_cents
       line_items
       transactions
+      terms_and_conditions
+      customer_notes
     )
     alias to_param invoice_number
+
+    def self.to_xml(attrs)
+      invoice = new attrs
+      invoice.to_xml
+    end
 
     # Marks an invoice as paid successfully.
     #
@@ -91,6 +98,10 @@ module Recurly
         follow_link :refund, :body => refund_amount_to_xml(amount_in_cents)
       )
       refund
+    end
+
+    def xml_keys
+      super - ['currency']
     end
 
     private
