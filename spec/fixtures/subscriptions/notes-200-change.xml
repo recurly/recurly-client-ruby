@@ -4,13 +4,6 @@ Content-Type: application/xml; charset=utf-8
 <?xml version="1.0" encoding="UTF-8"?>
 <subscription href="">
   <account href="https://api.recurly.com/v2/accounts/account_code"/>
-  <address>
-    <address1>400 Alabama St</address1>
-    <address2>Suite 202</address2>
-    <state>CA</state>
-    <country>US</country>
-    <zip>94110</zip>
-  </address>
   <plan href="https://api.recurly.com/v2/plans/plan_code">
     <plan_code>plan_code</plan_code>
     <name>A Man, a Plan, a Canal: Panama</name>
@@ -19,6 +12,9 @@ Content-Type: application/xml; charset=utf-8
   <state>pending</state>
   <unit_amount_in_cents type="integer">1000</unit_amount_in_cents>
   <currency>USD</currency>
+  <customer_notes>Some New Customer Notes</customer_notes>
+  <terms_and_conditions>Some New Terms and Conditions</terms_and_conditions>
+  <vat_reverse_charge_notes>Some New Vat Reverse Charge Notes</vat_reverse_charge_notes>
   <quantity type="integer">1</quantity>
   <activated_at nil="nil"></activated_at>
   <canceled_at nil="nil"></canceled_at>

@@ -32,6 +32,8 @@ describe Subscription do
                                 bulk
                                 terms_and_conditions
                                 customer_notes
+                                address
+                                vat_reverse_charge_notes
                               }
 
         subject.attribute_names.sort.must_equal expected_attributes.sort
@@ -282,6 +284,21 @@ describe Subscription do
       subscription.plan.plan_code.must_equal 'plan_code'
     end
 
+    it 'should be able to derive and parse address' do
+      stub_api_request :post, 'subscriptions/preview', 'subscriptions/preview-200-new'
+
+      subscription = Subscription.preview(
+        plan_code: 'plan_code',
+        currency: 'USD',
+        account: {
+          account_code: 'account_code',
+        }
+      )
+
+      subscription.address.must_be_instance_of Address
+      subscription.address.country.must_equal 'US'
+    end
+
     it 'previews subscription changes' do
       stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200-noinvoice'
       stub_api_request :post, 'subscriptions/abcdef1234567890/preview', 'subscriptions/preview-200-change'
@@ -292,6 +309,25 @@ describe Subscription do
 
       subscription.cost_in_cents.must_equal subscription.unit_amount_in_cents * 5
       subscription.invoice.must_be_instance_of Invoice
+    end
+  end
+  describe 'notes' do
+    it 'previews new subscriptions' do
+      stub_api_request :put, 'subscriptions/abcdef1234567890/notes', 'subscriptions/notes-200-change'
+
+      subscription = Subscription.find 'abcdef1234567890'
+
+      notes = {
+        customer_notes: 'Some New Customer Notes',
+        terms_and_conditions: 'Some New Terms and Conditions',
+        vat_reverse_charge_notes: 'Some New Vat Reverse Charge Notes'
+      }
+
+      subscription.update_notes(notes)
+
+      subscription.customer_notes.must_equal notes[:customer_notes]
+      subscription.terms_and_conditions.must_equal notes[:terms_and_conditions]
+      subscription.vat_reverse_charge_notes.must_equal notes[:vat_reverse_charge_notes]
     end
   end
 end

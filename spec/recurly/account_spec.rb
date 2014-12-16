@@ -15,6 +15,14 @@ describe Account do
         account.build_invoice.must_be_instance_of Invoice
       end
 
+      it 'derives and parses the account from the invoice preview' do
+        stub_api_request(
+          :post, 'accounts/abcdef1234567890/invoices/preview', 'invoices/preview-200'
+        )
+        account.build_invoice.address.must_be_instance_of Address
+        account.build_invoice.address.country.must_equal 'US'
+      end
+
       it 'raises an exception if unsuccessful' do
         stub_api_request(
           :post, 'accounts/abcdef1234567890/invoices/preview', 'invoices/create-422'
