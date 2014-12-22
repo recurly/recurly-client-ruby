@@ -26,6 +26,7 @@ describe Subscription do
                                 po_number
                                 tax_in_cents
                                 tax_type
+                                tax_region
                                 tax_rate
                                 total_billing_cycles
                                 remaining_billing_cycles

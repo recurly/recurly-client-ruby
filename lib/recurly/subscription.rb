@@ -49,6 +49,7 @@ module Recurly
       po_number
       tax_in_cents
       tax_type
+      tax_region
       tax_rate
       bulk
       terms_and_conditions
