@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+* Add address attribute into preview calls and update invoice notes path
+
 <a name="v2.3.7"></a>
 ## v2.3.7 (2014-12-8)
 

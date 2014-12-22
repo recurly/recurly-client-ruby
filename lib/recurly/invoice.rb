@@ -41,6 +41,7 @@ module Recurly
       transactions
       terms_and_conditions
       customer_notes
+      address
     )
     alias to_param invoice_number
 
