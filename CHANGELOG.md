@@ -1,13 +1,20 @@
 <a name="unreleased"></a>
 ## Unreleased
 
-* Add address attribute into preview calls and update invoice notes path
+<a name="v2.3.8"></a>
+## v2.3.8 (2014-12-22)
+
+* Add `Invoice#tax_region` and `Subscription#tax_region` [PR](https://github.com/recurly/recurly-client-ruby/pull/163)
+* Add `Invoice#address` and `Subscription#address` when previewing [PR](https://github.com/recurly/recurly-client-ruby/pull/165)
+* Add `Subscription#update_notes` to update a subscription's notes [PR](https://github.com/recurly/recurly-client-ruby/pull/165)
+* Add `AddOn#accounting_code` [PR](https://github.com/recurly/recurly-client-ruby/pull/164)
 
 <a name="v2.3.7"></a>
 ## v2.3.7 (2014-12-8)
 
 * Add 'public_key' property to Recurly.js [1ad6aa0](https://github.com/recurly/recurly-client-ruby/pull/155)
 * Adds support for reading and writing custom invoice notes [PR](https://github.com/recurly/recurly-client-ruby/pull/158)
+* Add `Plan#tax_code`, `AddOn#tax_code` and `Adjustment#tax_code` [PR](https://github.com/recurly/recurly-client-ruby/pull/160)
 
 <a name="v2.3.6"></a>
 ## v2.3.6 (2014-11-4)
