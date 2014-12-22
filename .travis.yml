@@ -3,6 +3,7 @@ script:
   - bundle exec rake spec
   - gem build recurly.gemspec
 cache: bundler
+sudo: false
 rvm:
   - jruby
   - 1.9.3
