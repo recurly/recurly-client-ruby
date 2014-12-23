@@ -51,6 +51,8 @@ describe Invoice do
       it "creates a refund invoice for the line items refunded" do
         refund_invoice = @invoice.refund @line_items
         refund_invoice.must_be_instance_of Invoice
+        refund_invoice.original_invoice.must_be_instance_of Invoice
+        refund_invoice.original_invoice.must_equal @invoice
         refund_invoice.line_items.each do |key, adjustment|
           adjustment.quantity_remaining.must_equal 1
         end
@@ -78,6 +80,8 @@ describe Invoice do
       it "creates a refund invoice for the line items refunded" do
         refund_invoice = @invoice.refund_amount 1000
         refund_invoice.must_be_instance_of Invoice
+        refund_invoice.original_invoice.must_be_instance_of Invoice
+        refund_invoice.original_invoice.must_equal @invoice
         refund_invoice.amount_remaining_in_cents.must_equal 100
       end
     end

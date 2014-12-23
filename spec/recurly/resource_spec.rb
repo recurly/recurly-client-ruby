@@ -158,8 +158,8 @@ XML
 
     describe ".associations" do
       it "must be empty without any associations defined" do
-        resource.associations[:has_many].must_be_empty
-        resource.associations[:has_one].must_be_empty
+        resource.associations_for_relation(:has_many).must_be_empty
+        resource.associations_for_relation(:has_one).must_be_empty
       end
     end
 
@@ -174,7 +174,7 @@ XML
       end
 
       it "must define an association" do
-        resource.associations[:has_many].must_include 'reasons'
+        resource.associations_for_relation(:has_many).must_include 'reasons'
         resource.reflect_on_association(:reasons).must_equal :has_many
       end
 
@@ -195,9 +195,9 @@ XML
       end
 
       it "must define an association" do
-        resource.associations[:has_one].must_include 'day'
+        resource.associations_for_relation(:has_one).must_include 'day'
         resource.reflect_on_association(:day).must_equal :has_one
-        Day.associations[:belongs_to].must_include 'resource'
+        Day.associations_for_relation(:belongs_to).must_include 'resource'
         Day.reflect_on_association(:resource).must_equal :belongs_to
       end
 
