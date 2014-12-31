@@ -704,7 +704,7 @@ module Recurly
     #   account.read_link :billing_info # => <Recurly::BillingInfo>
     def follow_link key, options = {}
       if link = links[key = key.to_s]
-        response = API.send link[:method], link[:href], nil, options
+        response = API.send link[:method], link[:href], options[:body], options
         if resource_class = link[:resource_class]
           response = resource_class.from_response response
           response.attributes[self.class.member_name] = self

@@ -184,11 +184,10 @@ module Recurly
     # @return [true, false] +true+ when successful, +false+ when unable to
     # @params notes [Hash] should be the notes parameters you wish to update
     def update_notes(notes)
+      return false unless link? :notes
       self.attributes = notes
-      @response = API.send(:put, "#{path}/notes", to_xml)
-      reload response
-    rescue API::UnprocessableEntity => e
-      apply_errors e
+      reload follow_link(:notes, body: to_xml)
+      true
     end
 
     def signable_attributes
