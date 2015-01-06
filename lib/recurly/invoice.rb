@@ -17,6 +17,8 @@ module Recurly
     belongs_to :account
     # @return [Subscription]
     belongs_to :subscription
+    # @return [Invoice]
+    belongs_to :original_invoice, class_name: 'Invoice'
 
     # @return [Redemption]
     has_one :redemption
