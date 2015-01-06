@@ -1,6 +1,5 @@
 <a name="unreleased"></a>
 ## Unreleased
-* Add `Invoice#original_invoice` for refund invoices [PR](https://github.com/recurly/recurly-client-ruby/pull/169)
 
 <a name="v2.3.8"></a>
 ## v2.3.8 (2014-12-22)

@@ -5,7 +5,6 @@ Location: https://api.recurly.com/v2/invoices/refund-invoice
 <?xml version="1.0" encoding="UTF-8"?>
 <invoice href="https://api.recurly.com/v2/invoices/refund-invoice">
   <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
-  <original_invoice href="https://api.recurly.com/v2/invoices/refundable-invoice"/>
   <uuid>refund-invoice</uuid>
   <state>open</state>
   <invoice_number type="integer">1001</invoice_number>

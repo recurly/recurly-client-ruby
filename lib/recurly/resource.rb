@@ -1,6 +1,5 @@
 require 'date'
 require 'erb'
-require 'recurly/resource/association'
 
 module Recurly
   # The base class for all Recurly resources (e.g. {Account}, {Subscription},
@@ -405,15 +404,14 @@ module Recurly
 
           if el.children.empty? && href = el.attribute('href')
             resource_class = Recurly.const_get(
-              Helper.classify(association_class_name(el.name) ||
-                el.attribute('type') || el.name), false
+              Helper.classify(el.attribute('type') || el.name), false
             )
             case el.name
-            when *associations_for_relation(:has_many)
+            when *associations[:has_many]
               record[el.name] = Pager.new(
                 resource_class, :uri => href.value, :parent => record
               )
-            when *(associations_for_relation(:has_one) + associations_for_relation(:belongs_to))
+            when *(associations[:has_one] + associations[:belongs_to])
               record.links[el.name] = {
                 :resource_class => resource_class,
                 :method => :get,
@@ -434,29 +432,11 @@ module Recurly
         record
       end
 
-      # @return [Array] A list of associations for the current class.
+      # @return [Hash] A list of association names for the current class.
       def associations
-        @associations ||= []
-      end
-
-      # @return [Array] A list of associated resource classes with
-      # the relation [:has_many, :has_one, :belongs_to] for the current class.
-      def associations_for_relation(relation)
-        associations.select{ |a| a.relation == relation }.map(&:resource_class)
-      end
-
-      # @return [String, nil] The actual associated resource class name
-      # for the current class if the resource class does not match the
-      # actual class.
-      def association_class_name(resource_class)
-        association = find_association(resource_class)
-        association.class_name if association
-      end
-
-      # @return [Association, nil] Find association for the current class
-      #                            with resource class name.
-      def find_association(resource_class)
-        associations.find{ |a| a.resource_class == resource_class }
+        @associations ||= {
+          :has_many => [], :has_one => [], :belongs_to => []
+        }
       end
 
       def associations_helper
@@ -469,10 +449,8 @@ module Recurly
       # @param collection_name [Symbol] Association name.
       # @param options [Hash] A hash of association options.
       # @option options [true, false] :readonly Don't define a setter.
-      #                 [String] :class_name Actual associated resource class name
-      #                                      if not same as collection_name.
       def has_many collection_name, options = {}
-        associations << Association.new(:has_many, collection_name.to_s, options)
+        associations[:has_many] << collection_name.to_s
         associations_helper.module_eval do
           define_method collection_name do
             self[collection_name] ||= []
@@ -491,10 +469,8 @@ module Recurly
       # @param member_name [Symbol] Association name.
       # @param options [Hash] A hash of association options.
       # @option options [true, false] :readonly Don't define a setter.
-      #                 [String] :class_name Actual associated resource class name
-      #                                      if not same as member_name.
       def has_one member_name, options = {}
-        associations << Association.new(:has_one, member_name.to_s, options)
+        associations[:has_one] << member_name.to_s
         associations_helper.module_eval do
           define_method(member_name) { self[member_name] }
           if options.key?(:readonly) && options[:readonly] == false
@@ -526,13 +502,8 @@ module Recurly
       # Establishes a belongs_to association.
       #
       # @return [Proc]
-      # @param parent_name [Symbol] Association name.
-      # @param options [Hash] A hash of association options.
-      # @option options [true, false] :readonly Don't define a setter.
-      #                 [String] :class_name Actual associated resource class name
-      #                                      if not same as parent_name.
       def belongs_to parent_name, options = {}
-        associations << Association.new(:belongs_to, parent_name.to_s, options)
+        associations[:belongs_to] << parent_name.to_s
         associations_helper.module_eval do
           define_method(parent_name) { self[parent_name] }
           if options.key?(:readonly) && options[:readonly] == false
@@ -545,8 +516,7 @@ module Recurly
 
       # @return [:has_many, :has_one, :belongs_to, nil] An association type.
       def reflect_on_association name
-        a = find_association name.to_s
-        a.relation if a
+        a = associations.find { |k, v| v.include? name.to_s } and a.first
       end
 
       def embedded! root_index = false
@@ -691,7 +661,7 @@ module Recurly
         changed_attributes[key] = self[key]
       end
 
-      if self.class.find_association key
+      if self.class.associations.values.flatten.include? key
         value = fetch_association key, value
       # FIXME: More explicit; less magic.
       elsif value && key.end_with?('_in_cents') && !respond_to?(:currency)
@@ -988,10 +958,12 @@ module Recurly
 
     def clear_errors
       errors.clear
-      self.class.associations do |association|
-        next unless respond_to? "#{association}=" # Clear writable only.
-        [*self[association]].each do |associated|
-          associated.clear_errors if associated.respond_to? :clear_errors
+      self.class.associations.each_value do |associations|
+        associations.each do |association|
+          next unless respond_to? "#{association}=" # Clear writable only.
+          [*self[association]].each do |associated|
+            associated.clear_errors if associated.respond_to? :clear_errors
+          end
         end
       end
     end
