@@ -29,4 +29,5 @@ Content-Type: application/xml; charset=utf-8
     <country>US</country>
     <phone>8015551234</phone>
   </address>
+  <vat_location_valid type="boolean">true</vat_location_valid>
 </account>

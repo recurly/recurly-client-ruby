@@ -1,5 +1,6 @@
 <a name="unreleased"></a>
 ## Unreleased
+* Add `vat_location_valid` to `Account` [PR](https://github.com/recurly/recurly-client-ruby/pull/171)
 
 <a name="v2.4.0"></a>
 ## v2.4.0 (2015-1-7)

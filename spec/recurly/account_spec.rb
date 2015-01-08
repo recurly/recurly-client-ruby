@@ -83,6 +83,7 @@ describe Account do
       account.address.zip.must_equal '94105'
       account.address.phone.must_equal '8015551234'
       account.address.country.must_equal 'US'
+      account.vat_location_valid.must_equal true
     end
 
     it 'must return an account with tax state' do
