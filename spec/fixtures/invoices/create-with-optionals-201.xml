@@ -9,6 +9,7 @@ Location: https://api.recurly.com/v2/invoices/created-invoice
   <uuid>created-invoice</uuid>
   <state>open</state>
   <invoice_number type="integer">1000</invoice_number>
+  <invoice_number_prefix></invoice_number_prefix>
   <po_number nil="nil"></po_number>
   <vat_number nil="nil"></vat_number>
   <subtotal_in_cents type="integer">300</subtotal_in_cents>

@@ -19,6 +19,15 @@ describe Invoice do
   end
 
   describe 'attributes' do
+    it 'includes the invoice number prefix' do
+      stub_api_request :get, 'invoices/invoice-with-prefix', 'invoices/create-201-prefix'
+
+      invoice = Invoice.find('invoice-with-prefix')
+      invoice.invoice_number.must_equal 1001
+      invoice.invoice_number_prefix.must_equal 'GB'
+      invoice.invoice_number_with_prefix.must_equal 'GB1001'
+    end
+
     it 'has a tax type if taxed' do
       stub_api_request :get, 'invoices/taxed-invoice', 'invoices/show-200-taxed'
 

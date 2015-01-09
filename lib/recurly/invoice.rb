@@ -23,10 +23,15 @@ module Recurly
     # @return [Redemption]
     has_one :redemption
 
+    def invoice_number_with_prefix
+      "#{invoice_number_prefix}#{invoice_number}"
+    end
+
     define_attribute_methods %w(
       uuid
       state
       invoice_number
+      invoice_number_prefix
       po_number
       vat_number
       subtotal_in_cents
@@ -45,7 +50,7 @@ module Recurly
       customer_notes
       address
     )
-    alias to_param invoice_number
+    alias to_param invoice_number_with_prefix
 
     def self.to_xml(attrs)
       invoice = new attrs
