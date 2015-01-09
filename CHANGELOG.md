@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 * Add `vat_location_valid` to `Account` [PR](https://github.com/recurly/recurly-client-ruby/pull/171)
+* Add `Invoice#invoice_number_prefix` and `Invoice#invoice_number_with_prefix` to make use of the new
+  Country Invoice Sequencing feature [PR](https://github.com/recurly/recurly-client-ruby/pull/173)
 
 <a name="v2.4.0"></a>
 ## v2.4.0 (2015-1-7)
