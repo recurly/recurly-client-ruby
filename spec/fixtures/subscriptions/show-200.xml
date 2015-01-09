@@ -27,4 +27,5 @@ Content-Type: application/xml; charset=utf-8
   </subscription_add_ons>
   <a name="cancel" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/cancel" method="put"/>
   <a name="terminate" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/terminate" method="put"/>
+  <a name="notes" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/notes" method="put"/>
 </subscription>

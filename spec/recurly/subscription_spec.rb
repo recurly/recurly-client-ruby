@@ -314,6 +314,7 @@ describe Subscription do
   end
   describe 'notes' do
     it 'previews new subscriptions' do
+      stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
       stub_api_request :put, 'subscriptions/abcdef1234567890/notes', 'subscriptions/notes-200-change'
 
       subscription = Subscription.find 'abcdef1234567890'
