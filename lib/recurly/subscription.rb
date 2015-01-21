@@ -114,6 +114,11 @@ module Recurly
     end
     alias add_ons= subscription_add_ons=
 
+    def pending_subscription
+      sub = self[:pending_subscription]
+      sub.tap {|e| e.currency = currency} if sub.is_a? Subscription
+    end
+
     # Cancel a subscription so that it will not renew.
     #
     # @return [true, false] +true+ when successful, +false+ when unable to
