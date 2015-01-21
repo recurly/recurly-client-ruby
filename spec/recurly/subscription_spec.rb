@@ -157,7 +157,9 @@ describe Subscription do
     it "must deserialize" do
       xml = get_raw_xml("subscriptions/deserialize-add-ons.xml")
       subscription = Subscription.from_xml xml
+      subscription.currency.must_equal "GBP"
       subscription.pending_subscription.must_be_instance_of Subscription
+      subscription.pending_subscription.currency.must_equal "GBP"
       subscription.add_ons.to_a.must_equal([
         SubscriptionAddOn.new("add_on_code"=>"trial", "quantity"=>2),
         SubscriptionAddOn.new("add_on_code"=>"trial2")
