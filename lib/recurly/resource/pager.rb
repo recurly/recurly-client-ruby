@@ -1,3 +1,5 @@
+require 'erb'
+
 module Recurly
   class Resource
     # Pages through an index resource, yielding records as it goes. It's rare
@@ -169,11 +171,10 @@ module Recurly
 
       def find uuid
         if resource_class.respond_to? :find
-          raise NoMethodError,
-            "#find must be called on #{resource_class} directly"
+          raise NoMethodError, "#find must be called on #{resource_class} directly"
         end
 
-        resource_class.from_response API.get("#{uri}/#{uuid}")
+        resource_class.from_response API.get("#{uri}/#{ERB::Util.url_encode(uuid)}")
       end
 
       # @return [true, false]

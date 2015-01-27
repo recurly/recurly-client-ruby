@@ -144,5 +144,18 @@ XML
         active.load!
       end
     end
+
+    describe "#find" do
+      describe "with a resource class lacking a finder" do
+        let(:resource) { Class.new(Resource) { def self.name() 'Resource' end; private_class_method(:find) } }
+
+        it "must find resources with uuids containing spaces" do
+          stub_api_request(:get, 'resources/code%20with%20space') {
+            XML[200][:show]
+          }
+          resource = pager.find 'code with space'
+        end
+      end
+    end
   end
 end
