@@ -19,6 +19,9 @@ describe Adjustment do
       adjustment.start_date.must_be_kind_of DateTime
       adjustment.end_date.must_be_kind_of DateTime
       adjustment.created_at.must_be_kind_of DateTime
+      adjustment.tax_type.must_equal 'usst'
+      adjustment.tax_region.must_equal 'CA'
+      adjustment.tax_rate.must_equal 0.0875
 
       tax_details = adjustment.tax_details
       tax_details.length.must_equal 2

@@ -25,17 +25,21 @@ module Recurly
       unit_amount_in_cents
       quantity
       discount_in_cents
-      tax_in_cents
       total_in_cents
       currency
-      tax_exempt
-      tax_code
-      tax_details
       product_code
       start_date
       end_date
       created_at
       quantity_remaining
+
+      tax_in_cents
+      tax_type
+      tax_region
+      tax_rate
+      tax_exempt
+      tax_code
+      tax_details
     )
     alias to_param uuid
 

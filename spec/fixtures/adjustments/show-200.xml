@@ -15,6 +15,9 @@ Content-Type: application/xml; charset=utf-8
   <quantity type="integer">1</quantity>
   <discount_in_cents type="integer">0</discount_in_cents>
   <tax_in_cents type="integer">5000</tax_in_cents>
+  <tax_type>usst</tax_type>
+  <tax_region>CA</tax_region>
+  <tax_rate type="float">0.0875</tax_rate>
   <total_in_cents type="integer">1200</total_in_cents>
   <currency>USD</currency>
   <product_code>basic</product_code>
