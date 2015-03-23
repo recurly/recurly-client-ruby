@@ -1,5 +1,10 @@
 module Recurly
   class BillingInfo < Resource
+    BANK_ACCOUNT_ATTRIBUTES = %w(name_on_account account_type last_four routing_number).freeze
+    CREDIT_CARD_ATTRIBUTES = %w(number verification_value card_type year month first_six last_four).freeze
+    AMAZON_ATTRIBUTES = %w(amazon_billing_agreement_id).freeze
+    PAYPAL_ATTRIBUTES = %w(paypal_billing_agreement_id).freeze
+
     # @return [Account]
     belongs_to :account
 
@@ -17,22 +22,10 @@ module Recurly
       vat_number
       ip_address
       ip_address_country
-      card_type
-      year
-      month
-      start_year
-      start_month
-      issue_number
-      first_six
-      last_four
-      paypal_billing_agreement_id
-      amazon_billing_agreement_id
-      number
-      verification_value
       token_id
-    )
+    ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES
 
-    # @return ["credit_card", "paypal", "amazon", nil] The type of billing info.
+    # @return ["credit_card", "paypal", "amazon", "bank_account", nil] The type of billing info.
     attr_reader :type
 
     # @return [String]
@@ -40,12 +33,15 @@ module Recurly
       attributes = self.class.attribute_names
       case type
       when 'credit_card'
-        attributes -= %w(paypal_billing_agreement_id amazon_billing_agreement_id)
+        attributes -= (AMAZON_ATTRIBUTES + PAYPAL_ATTRIBUTES + BANK_ACCOUNT_ATTRIBUTES)
+        attributes |= CREDIT_CARD_ATTRIBUTES
       when 'paypal'
-        attributes -= %w(
-          card_type year month start_year start_month issue_number
-          first_six last_four
-        )
+        attributes -= (CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES + AMAZON_ATTRIBUTES)
+      when 'amazon'
+        attributes -= (CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES + PAYPAL_ATTRIBUTES)
+      when 'bank_account'
+        attributes -= (CREDIT_CARD_ATTRIBUTES + PAYPAL_ATTRIBUTES + AMAZON_ATTRIBUTES)
+        attributes |= BANK_ACCOUNT_ATTRIBUTES
       end
       super attributes
     end
