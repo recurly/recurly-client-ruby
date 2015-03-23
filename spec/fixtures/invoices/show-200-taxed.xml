@@ -16,6 +16,8 @@ Content-Type: application/xml; charset=utf-8
   <currency>USD</currency>
   <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
   <tax_type>usst</tax_type>
+  <tax_region>CA</tax_region>
+  <tax_rate type="float">0.0875</tax_rate>
   <line_items>
     <adjustment href="https://api.recurly.com/v2/adjustments/charge" type="charge">
       <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
