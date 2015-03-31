@@ -4,6 +4,7 @@ Content-Type: application/xml; charset=utf-8
 <?xml version="1.0" encoding="UTF-8"?>
 <invoice href="https://api.recurly.com/v2/invoices/created-invoice">
   <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
+  <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
   <uuid>created-invoice</uuid>
   <state>open</state>
   <invoice_number type="integer">1000</invoice_number>
@@ -18,10 +19,12 @@ Content-Type: application/xml; charset=utf-8
   <tax_type>usst</tax_type>
   <customer_notes>Some Customer Notes</customer_notes>
   <terms_and_conditions>Some Terms and Conditions</terms_and_conditions>
+  <collection_method>automatic</collection_method>
   <line_items>
     <adjustment href="https://api.recurly.com/v2/adjustments/charge" type="charge">
       <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
       <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
+      <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
       <uuid>charge</uuid>
       <state>invoiced</state>
       <description>Special charge</description>
@@ -42,6 +45,7 @@ Content-Type: application/xml; charset=utf-8
     <transaction href="https://api.recurly.com/v2/transactions/transaction" type="credit_card">
       <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
       <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
+      <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
       <uuid>transaction</uuid>
       <action>purchase</action>
       <amount_in_cents type="integer">300</amount_in_cents>
