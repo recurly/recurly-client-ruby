@@ -49,6 +49,7 @@ module Recurly
       terms_and_conditions
       customer_notes
       address
+      collection_method
     )
     alias to_param invoice_number_with_prefix
 
