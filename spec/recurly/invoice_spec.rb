@@ -35,12 +35,14 @@ describe Invoice do
       invoice.tax_type.must_equal 'usst'
     end
 
-    it 'can access notes if there' do
-      stub_api_request :get, 'invoices/created-invoice', 'invoices/show-200-with-notes'
+    it 'can access notes, net_terms and collection method if there' do
+      stub_api_request :get, 'invoices/show-invoice', 'invoices/show-200'
 
-      invoice = Invoice.find 'created-invoice'
+      invoice = Invoice.find 'show-invoice'
       invoice.customer_notes.must_equal 'Some Customer Notes'
       invoice.terms_and_conditions.must_equal 'Some Terms and Conditions'
+      invoice.net_terms.must_equal 0
+      invoice.collection_method.must_equal 'automatic'
     end
   end
 
