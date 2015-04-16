@@ -2,6 +2,7 @@
 ## Unreleased
 * Fix paged resource loading when the uuid needs to be escaped, fixes [174](https://github.com/recurly/recurly-client-ruby/issues/174), [PR](https://github.com/recurly/recurly-client-ruby/pull/177)
 * Add `tax_type`, `tax_rate`, `tax_region` to `Adjustment` [PR](https://github.com/recurly/recurly-client-ruby/pull/180)
+* Add `net_terms` and `collection_method` to `Invoice` [PR](https://github.com/recurly/recurly-client-ruby/pull/186)
 
 <a name="v2.4.1"></a>
 ## v2.4.1 (2015-1-23)
