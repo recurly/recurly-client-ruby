@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+* Added ability to enter offline payment [PR](https://github.com/recurly/recurly-client-ruby/pull/189/)
+
 <a name="v2.4.4"></a>
 ## v2.4.4 (2015-6-25)
 
