@@ -1,6 +1,5 @@
 require 'date'
 require 'erb'
-require 'recurly/resource/association'
 
 module Recurly
   # The base class for all Recurly resources (e.g. {Account}, {Subscription},
@@ -117,6 +116,7 @@ module Recurly
   class Resource
     autoload :Errors, 'recurly/resource/errors'
     autoload :Pager,  'recurly/resource/pager'
+    autoload :Association,  'recurly/resource/association'
 
     # Raised when a record cannot be found.
     #
@@ -388,7 +388,6 @@ module Recurly
           record = {}
         end
         klass ||= self
-        associations = klass.associations
 
         xml.root.attributes.each do |name, value|
           record.instance_variable_set "@#{name}", value.to_s

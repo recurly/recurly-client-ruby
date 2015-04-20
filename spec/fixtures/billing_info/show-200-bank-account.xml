@@ -4,8 +4,9 @@ Content-Type: application/xml; charset=utf-8
 <?xml version="1.0" encoding="UTF-8"?>
 <billing_info href="https://api.recurly.com/v2/accounts/abcdef1234567890/billing_info">
   <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
-  <first_name>Larry</first_name>
-  <last_name>David</last_name>
+  <name_on_account>Larry David</name_on_account>
+  <first_name nil="nil"></first_name>
+  <last_name nil="nil"></last_name>
   <company nil="nil"></company>
   <address1>123 Pretty Pretty Good St.</address1>
   <address2 nil="nil"></address2>
@@ -17,9 +18,7 @@ Content-Type: application/xml; charset=utf-8
   <vat_number>2000</vat_number>
   <ip_address>127.0.0.1</ip_address>
   <ip_address_country nil="nil"></ip_address_country>
-  <card_type>Visa</card_type>
-  <year type="integer">2015</year>
-  <month type="integer">1</month>
-  <first_six>411111</first_six>
-  <last_four>1111</last_four>
+  <account_type>checking</account_type>
+  <last_four>3123</last_four>
+  <routing_number>12309812</routing_number>
 </billing_info>
