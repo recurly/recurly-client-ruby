@@ -8,6 +8,7 @@
   * `account_type` (`checking` or `savings`)
   * `last_four`
   * `routing_number`
+  * [PR](https://github.com/recurly/recurly-client-ruby/pull/188)
 
 <a name="v2.4.1"></a>
 ## v2.4.1 (2015-1-23)
