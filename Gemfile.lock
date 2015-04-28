@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    recurly (2.4.1)
+    recurly (2.4.2)
 
 GEM
   remote: https://rubygems.org/
