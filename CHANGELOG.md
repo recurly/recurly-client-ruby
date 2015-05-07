@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+* Add `bank_account_authorized_at` to `Subscription` [PR](https://github.com/recurly/recurly-client-ruby/pull/191)
+
 <a name="v2.4.2"></a>
 ## v2.4.2 (2015-4-28)
 * Fix paged resource loading when the uuid needs to be escaped, fixes [174](https://github.com/recurly/recurly-client-ruby/issues/174), [PR](https://github.com/recurly/recurly-client-ruby/pull/177)

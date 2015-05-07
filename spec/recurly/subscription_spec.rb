@@ -35,6 +35,7 @@ describe Subscription do
                                 customer_notes
                                 address
                                 vat_reverse_charge_notes
+                                bank_account_authorized_at
                               }
 
         subject.attribute_names.sort.must_equal expected_attributes.sort
