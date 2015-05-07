@@ -31,10 +31,6 @@ describe Recurly do
         Recurly.subdomain.must_equal 'olddomain'
         Recurly.default_currency.must_equal 'US'
       }
-      Recurly.api_key.must_equal 'old_key'
-      Recurly.subdomain.must_equal 'olddomain'
-      Recurly.default_currency.must_equal 'US'
-
     end
 
     it "must use new values set in thread context" do

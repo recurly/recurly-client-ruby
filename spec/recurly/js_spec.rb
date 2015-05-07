@@ -20,6 +20,24 @@ describe Recurly.js do
       Recurly.js.private_key = nil
       proc { Recurly.js.private_key }.must_raise ConfigurationError
     end
+
+    it "must use defaults set if not sent in new thread" do
+      Recurly.js.private_key = 'testprivate'
+
+      Thread.new {
+        Recurly.js.private_key.must_equal 'testprivate'
+      }
+
+    end
+
+    it "must use new values set in thread context" do
+      Recurly.js.private_key = 'testprivate'
+      Thread.new {
+        Recurly.config(private_key: "newprivate")
+        Recurly.js.private_key.must_equal 'newprivate'
+      }
+      Recurly.js.private_key.must_equal 'testprivate'
+    end
   end
 
   describe "public_key" do
