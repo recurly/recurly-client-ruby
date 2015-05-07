@@ -40,8 +40,19 @@ module Recurly
   end
 
   class << self
+    # Set a config based on current thread context.
+    # Any default set will say in effect unless overwritten in the config_params.
+    # Call this method with out any arguments to have it unset the thread context config values.
+    # @param config_params - Hash with the following keys: subdomain, api_key, default_currency
+    def config(config_params = nil)
+      Thread.current[:recurly_config] = config_params
+    end
+
     # @return [String] A subdomain.
     def subdomain
+      if Thread.current[:recurly_config]
+        return Thread.current[:recurly_config][:subdomain] if Thread.current[:recurly_config][:subdomain]
+      end
       @subdomain || 'api'
     end
     attr_writer :subdomain
@@ -49,6 +60,10 @@ module Recurly
     # @return [String] An API key.
     # @raise [ConfigurationError] If not configured.
     def api_key
+      if Thread.current[:recurly_config]
+        return Thread.current[:recurly_config][:api_key] if Thread.current[:recurly_config][:api_key]
+      end
+
       defined? @api_key and @api_key or raise(
         ConfigurationError, "Recurly.api_key not configured"
       )
@@ -57,7 +72,11 @@ module Recurly
 
     # @return [String, nil] A default currency.
     def default_currency
-      return @default_currency if defined? @default_currency
+      if Thread.current[:recurly_config]
+        return Thread.current[:recurly_config][:default_currency] if Thread.current[:recurly_config][:default_currency]
+      end
+
+      return  @default_currency if defined? @default_currency
       @default_currency = 'USD'
     end
     attr_writer :default_currency

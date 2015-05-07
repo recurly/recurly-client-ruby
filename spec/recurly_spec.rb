@@ -21,5 +21,35 @@ describe Recurly do
       Recurly.api_key = nil
       proc { Recurly.api_key }.must_raise ConfigurationError
     end
+
+    it "must use defaults set if not sent in new thread" do
+      Recurly.api_key = 'old_key'
+      Recurly.subdomain = 'olddomain'
+      Recurly.default_currency = 'US'
+      Thread.new {
+        Recurly.api_key.must_equal 'old_key'
+        Recurly.subdomain.must_equal 'olddomain'
+        Recurly.default_currency.must_equal 'US'
+      }
+      Recurly.api_key.must_equal 'old_key'
+      Recurly.subdomain.must_equal 'olddomain'
+      Recurly.default_currency.must_equal 'US'
+
+    end
+
+    it "must use new values set in thread context" do
+      Recurly.api_key = 'old_key'
+      Recurly.subdomain = 'olddomain'
+      Recurly.default_currency = 'US'
+      Thread.new {
+          Recurly.config(api_key: "test", subdomain: "testsub", default_currency: "IR")
+          Recurly.api_key.must_equal 'test'
+          Recurly.subdomain.must_equal 'testsub'
+          Recurly.default_currency.must_equal 'IR'
+      }
+      Recurly.api_key.must_equal 'old_key'
+      Recurly.subdomain.must_equal 'olddomain'
+      Recurly.default_currency.must_equal 'US'
+    end
   end
 end
