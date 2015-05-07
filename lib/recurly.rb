@@ -50,8 +50,8 @@ module Recurly
 
     # @return [String] A subdomain.
     def subdomain
-      if Thread.current[:recurly_config]
-        return Thread.current[:recurly_config][:subdomain] if Thread.current[:recurly_config][:subdomain]
+      if Thread.current[:recurly_config] && Thread.current[:recurly_config][:subdomain]
+        return Thread.current[:recurly_config][:subdomain]
       end
       @subdomain || 'api'
     end
@@ -60,8 +60,8 @@ module Recurly
     # @return [String] An API key.
     # @raise [ConfigurationError] If not configured.
     def api_key
-      if Thread.current[:recurly_config]
-        return Thread.current[:recurly_config][:api_key] if Thread.current[:recurly_config][:api_key]
+      if Thread.current[:recurly_config] && Thread.current[:recurly_config][:api_key]
+        return Thread.current[:recurly_config][:api_key]
       end
 
       defined? @api_key and @api_key or raise(
@@ -72,8 +72,8 @@ module Recurly
 
     # @return [String, nil] A default currency.
     def default_currency
-      if Thread.current[:recurly_config]
-        return Thread.current[:recurly_config][:default_currency] if Thread.current[:recurly_config][:default_currency]
+      if Thread.current[:recurly_config] &&  Thread.current[:recurly_config][:default_currency]
+        return Thread.current[:recurly_config][:default_currency]
       end
 
       return  @default_currency if defined? @default_currency
