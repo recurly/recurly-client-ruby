@@ -52,6 +52,7 @@ module Recurly
       tax_region
       tax_rate
       bulk
+      bank_account_authorized_at
       terms_and_conditions
       customer_notes
       vat_reverse_charge_notes
