@@ -2,6 +2,7 @@
 ## Unreleased
 
 * Add `bank_account_authorized_at` to `Subscription` [PR](https://github.com/recurly/recurly-client-ruby/pull/191)
+* Add `ip_address` to `Transaction` [PR](https://github.com/recurly/recurly-client-ruby/pull/192)
 
 <a name="v2.4.2"></a>
 ## v2.4.2 (2015-4-28)
