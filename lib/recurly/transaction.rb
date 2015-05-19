@@ -40,6 +40,7 @@ module Recurly
       details
       transaction_error
       source
+      ip_address
     )
     alias to_param uuid
 
