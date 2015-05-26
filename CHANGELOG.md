@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.4.3"></a>
+## v2.4.3 (2015-5-26)
+
 * Add `bank_account_authorized_at` to `Subscription` [PR](https://github.com/recurly/recurly-client-ruby/pull/191)
 * Add `ip_address` to `Transaction` [PR](https://github.com/recurly/recurly-client-ruby/pull/192)
 
