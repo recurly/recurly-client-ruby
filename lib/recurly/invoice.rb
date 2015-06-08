@@ -51,6 +51,7 @@ module Recurly
       address
       net_terms
       collection_method
+      refund_apply_order
     )
     alias to_param invoice_number_with_prefix
 
