@@ -1,7 +1,7 @@
 <a name="unreleased"></a>
 ## Unreleased
 
-* Add `refund_apply_order` to `Invoice` [PR](https://github.com/recurly/recurly-client-ruby/pull/193)
+* Add `refund_apply_order` to `Invoice` when creating a refund [PR](https://github.com/recurly/recurly-client-ruby/pull/193)
 
 <a name="v2.4.3"></a>
 ## v2.4.3 (2015-5-26)

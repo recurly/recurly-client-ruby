@@ -51,7 +51,6 @@ module Recurly
       address
       net_terms
       collection_method
-      refund_apply_order
     )
     alias to_param invoice_number_with_prefix
 
@@ -90,10 +89,10 @@ module Recurly
     # refundable.
     # @raise [Error] If the refund fails.
     # @param line_items [Array, nil] An array of line items to refund.
-    def refund line_items = nil
+    def refund line_items = nil, refund_apply_order = 'credit'
       return false unless link? :refund
       refund = self.class.from_response(
-        follow_link :refund, :body => refund_line_items_to_xml(line_items)
+        follow_link :refund, :body => refund_line_items_to_xml(line_items, refund_apply_order)
       )
       refund
     end
@@ -104,10 +103,10 @@ module Recurly
     # refundable.
     # @raise [Error] If the refund fails.
     # @param amount_in_cents [Integer, nil] The amount (in cents) to refund.
-    def refund_amount amount_in_cents = nil
+    def refund_amount amount_in_cents = nil, refund_apply_order = 'credit'
       return false unless link? :refund
       refund = self.class.from_response(
-        follow_link :refund, :body => refund_amount_to_xml(amount_in_cents)
+        follow_link :refund, :body => refund_amount_to_xml(amount_in_cents, refund_apply_order)
       )
       refund
     end
@@ -122,14 +121,17 @@ module Recurly
       super({ :currency => Recurly.default_currency }.merge attributes)
     end
 
-    def refund_amount_to_xml amount_in_cents=nil
+    def refund_amount_to_xml amount_in_cents = nil, refund_apply_order
       builder = XML.new("<invoice/>")
+      builder.add_element 'refund_apply_order', refund_apply_order
       builder.add_element 'amount_in_cents', amount_in_cents
       builder.to_s
     end
 
-    def refund_line_items_to_xml line_items = []
+    def refund_line_items_to_xml line_items = [], refund_apply_order
       builder = XML.new("<invoice/>")
+      builder.add_element 'refund_apply_order', refund_apply_order
+
       node = builder.add_element 'line_items'
       line_items.each do |line_item|
         adj_node = node.add_element 'adjustment'
