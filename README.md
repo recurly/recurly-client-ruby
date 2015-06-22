@@ -69,6 +69,21 @@ Recurly::API.net_http = {
 }
 ```
 
+## Multi-Threaded Configuration
+If you are using the client in a multi-threaded environment and require a different configuration per thread you can use the following within the threads context:
+
+``` ruby
+Recurly.config({
+  subdomain: ENV['RECURLY_SUBDOMAIN']
+  api_key: ENV['RECURLY_API_KEY'],
+  default_currency: "US",
+  private_key:  ENV['RECURLY_PUBLIC_API_KEY']
+})
+```
+
+The any configuration items you do not include in the above config call will be defaulted to the standard configuration items.   For example if you do not define default_currency then
+Recurly.default_currency will be used.
+
 
 ## Usage
 
