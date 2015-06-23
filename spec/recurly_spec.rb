@@ -14,12 +14,20 @@ describe Recurly do
       if Recurly.instance_variable_defined? :@api_key
         Recurly.send :remove_instance_variable, :@api_key
       end
-      proc { Recurly.api_key }.must_raise ConfigurationError
+      Thread.new {
+        proc { Recurly.api_key }.must_raise ConfigurationError
+      }.join
     end
 
     it "must raise an exception when set to nil" do
       Recurly.api_key = nil
       proc { Recurly.api_key }.must_raise ConfigurationError
+    end
+
+    it "has different api keys for different threads" do
+      Recurly.api_key = "123"
+      Thread.new { Recurly.api_key = "456" }.join
+      Recurly.api_key.must_equal "123"
     end
   end
 end

@@ -49,11 +49,18 @@ module Recurly
     # @return [String] An API key.
     # @raise [ConfigurationError] If not configured.
     def api_key
-      defined? @api_key and @api_key or raise(
-        ConfigurationError, "Recurly.api_key not configured"
-      )
+      Thread.current[:recurly_api_key] or (defined? @api_key and @api_key) or raise(
+            ConfigurationError, "Recurly.api_key not configured"
+        )
     end
-    attr_writer :api_key
+
+    def api_key=(api_key)
+      if Thread.main == Thread.current
+        @api_key = api_key
+      else
+        Thread.current[:recurly_api_key] = api_key
+      end
+    end
 
     # @return [String, nil] A default currency.
     def default_currency
