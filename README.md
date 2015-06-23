@@ -70,7 +70,7 @@ Recurly::API.net_http = {
 ```
 
 ## Multi-Threaded Configuration
-If you are using the client in a multi-threaded environment and require a different configuration per thread you can use the following within the threads context:
+If you are using the client in a multi-threaded environment and require a different configuration per thread you can use the following within the thread's context:
 
 ``` ruby
 Recurly.config({
@@ -81,7 +81,7 @@ Recurly.config({
 })
 ```
 
-The any configuration items you do not include in the above config call will be defaulted to the standard configuration items.   For example if you do not define default_currency then
+Any configuration items you do not include in the above config call will be defaulted to the standard configuration items.   For example if you do not define default_currency then
 Recurly.default_currency will be used.
 
 
