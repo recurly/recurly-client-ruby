@@ -20,6 +20,7 @@
   * `last_four`
   * `routing_number`
   * [PR](https://github.com/recurly/recurly-client-ruby/pull/188)
+* Added config to Recurly to allow for per thread configuration of Recurly client. [PR](https://github.com/recurly/recurly-client-ruby/pull/190)
 
 <a name="v2.4.1"></a>
 ## v2.4.1 (2015-1-23)
