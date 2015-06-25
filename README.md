@@ -1,4 +1,4 @@
-# Recurly [![Build Status](https://secure.travis-ci.org/recurly/recurly-client-ruby.png)](http://travis-ci.org/recurly/recurly-client-ruby)
+# Recurly [![Build Status](https://secure.travis-ci.org/recurly/recurly-client-ruby.png)](http://travis-ci.org/recurly/recurly-client-ruby) [![Gem Version](https://badge.fury.io/rb/recurly.svg)](http://badge.fury.io/rb/recurly)
 
 <https://github.com/recurly/recurly-client-ruby>
 
