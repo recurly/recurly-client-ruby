@@ -404,15 +404,15 @@ module Recurly
 
           if el.children.empty? && href = el.attribute('href')
             resource_class = Recurly.const_get(
-              Helper.classify(association_class_name(el.name) ||
+              Helper.classify(klass.association_class_name(el.name) ||
                 el.attribute('type') || el.name), false
             )
             case el.name
-            when *associations_for_relation(:has_many)
+            when *klass.associations_for_relation(:has_many)
               record[el.name] = Pager.new(
                 resource_class, :uri => href.value, :parent => record
               )
-            when *(associations_for_relation(:has_one) + associations_for_relation(:belongs_to))
+            when *(klass.associations_for_relation(:has_one) + klass.associations_for_relation(:belongs_to))
               record.links[el.name] = {
                 :resource_class => resource_class,
                 :method => :get,
