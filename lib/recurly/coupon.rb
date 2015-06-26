@@ -20,6 +20,9 @@ module Recurly
       redeem_by_date
       single_use
       applies_for_months
+      duration
+      temporal_unit
+      temporal_amount
       max_redemptions
       applies_to_all_plans
       created_at

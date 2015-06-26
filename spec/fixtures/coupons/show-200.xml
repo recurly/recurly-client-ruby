@@ -17,6 +17,9 @@ Content-Type: application/xml; charset=utf-8
   <max_redemptions type="integer">100</max_redemptions>
   <applies_to_all_plans type="boolean">true</applies_to_all_plans>
   <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
+  <duration>temporal</duration>
+  <temporal_unit>month</temporal_unit>
+  <temporal_amount type="integer">1</temporal_amount>
   <plan_codes type="array">
     <plan_code>saul_good</plan_code>
   </plan_codes>
