@@ -1,7 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.4.4"></a>
+## v2.4.4 (2015-6-25)
+
 * Add `refund_apply_order` to `Invoice` when creating a refund [PR](https://github.com/recurly/recurly-client-ruby/pull/193)
+* Fix association loading when fetching a resource via RJSv2 [PR](https://github.com/recurly/recurly-client-ruby/pull/195)
 
 <a name="v2.4.3"></a>
 ## v2.4.3 (2015-5-26)
