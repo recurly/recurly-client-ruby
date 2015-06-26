@@ -78,6 +78,12 @@ module Recurly
       reload follow_link :mark_failed
       true
     end
+    
+    def enter_offline_payment(attrs={})
+      Transaction.from_response API.post("#{uri}/transactions", attrs.empty? ? nil : Transaction.to_xml(attrs))
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
+    end
 
     def pdf
       self.class.find to_param, :format => 'pdf'
