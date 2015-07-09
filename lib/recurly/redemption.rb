@@ -13,12 +13,17 @@ module Recurly
     belongs_to :account, :readonly => false
 
     define_attribute_methods %w(
+      uuid
       single_use
       total_discounted_in_cents
       currency
       state
       created_at
     )
+
+    def destroy_uri
+      uri + "s/#{uuid}"
+    end
 
     def save
       return false if persisted?
