@@ -38,8 +38,8 @@ Recurly.api_key        = ENV['RECURLY_API_KEY']
 Configure the client library with
 [your API credentials](https://app.recurly.com/go/developer/api_access).
 
-`RECURLY_SUBDOMAIN` should contain subdomain for your recurly account
-`RECURLY_API_KEY` is your "Private API Key" which can be found under "API Credentials" on the `api_access` admin page
+* `RECURLY_SUBDOMAIN` should contain subdomain for your recurly account. 
+* `RECURLY_API_KEY` is your "Private API Key" which can be found under "API Credentials" on the `api_access` admin page.
 
 The default currency is USD. To override with a different code:
 
