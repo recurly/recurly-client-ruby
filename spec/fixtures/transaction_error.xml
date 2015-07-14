@@ -5,10 +5,10 @@ Content-Type: application/xml; charset=utf-8
 <errors>                                                                         
   <transaction_error>                                                            
     <error_code>invalid_card_number</error_code>                                 
-    <error_category>declined</error_category>                                        
+    <error_category>hard</error_category>
     <customer_message lang="en-US">Your card number is not valid. Please update your card number.</customer_message>
-    <merchant_advice lang="en-US">The credit card number is not valid. The customer needs to try a different number.</merchant_advice>
-  </transaction_error>                                                           
+    <merchant_message lang="en-US">The credit card number is not valid. The customer needs to try a different number.</merchant_message>
+  </transaction_error>
   <error field="transaction.account.billing_info.credit_card_number" symbol="invalid" lang="en-US">is not valid</error>
   <transaction href="https://api.recurly.com/v2/transactions/abcdef1234567890">
     <uuid>abcdef1234567890</uuid>                                                       
