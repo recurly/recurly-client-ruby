@@ -21,6 +21,7 @@ describe Subscription do
                                 pending_subscription
                                 subscription_add_ons
                                 coupon_code
+                                coupon_codes
                                 net_terms
                                 collection_method
                                 po_number

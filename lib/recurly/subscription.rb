@@ -42,6 +42,7 @@ module Recurly
       pending_subscription
       subscription_add_ons
       coupon_code
+      coupon_codes
       total_billing_cycles
       remaining_billing_cycles
       net_terms
@@ -101,6 +102,16 @@ module Recurly
         coupon.coupon_code if coupon.respond_to? :coupon_code
       )
       attributes[:coupon] = coupon
+    end
+
+    # Assign Coupon resources (rather than coupon codes).
+    #
+    # @param coupons [[Coupons]]
+    def coupons= coupons
+      self.coupon_codes = coupons.map do |coupon|
+        coupon.coupon_code if coupon.respond_to? :coupon_code
+      end.compact
+      attributes[:coupons] = coupons
     end
 
     # @return [AddOns]
