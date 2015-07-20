@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+* Added `applies_to_non_plan_charges` attribute to `Coupon`
+
 <a name="v2.4.4"></a>
 ## v2.4.4 (2015-6-25)
 

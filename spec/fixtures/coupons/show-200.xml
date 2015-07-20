@@ -20,6 +20,7 @@ Content-Type: application/xml; charset=utf-8
   <duration>temporal</duration>
   <temporal_unit>month</temporal_unit>
   <temporal_amount type="integer">1</temporal_amount>
+  <applies_to_non_plan_charges type="boolean">false</applies_to_non_plan_charges>
   <plan_codes type="array">
     <plan_code>saul_good</plan_code>
   </plan_codes>

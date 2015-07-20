@@ -29,6 +29,7 @@ module Recurly
       plan_codes
       description
       invoice_description
+      applies_to_non_plan_charges
     )
     alias to_param coupon_code
 
