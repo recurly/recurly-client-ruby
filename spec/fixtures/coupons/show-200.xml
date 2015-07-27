@@ -15,6 +15,7 @@ Content-Type: application/xml; charset=utf-8
   <single_use type="boolean">true</single_use>
   <applies_for_months type="integer">1</applies_for_months>
   <max_redemptions type="integer">100</max_redemptions>
+  <max_redemptions_per_account type="integer">1</max_redemptions_per_account>
   <applies_to_all_plans type="boolean">true</applies_to_all_plans>
   <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
   <duration>temporal</duration>
