@@ -1,11 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.4.5"></a>
+## v2.4.5 (2015-7-31)
+
 * Added ability to enter offline payment [PR](https://github.com/recurly/recurly-client-ruby/pull/189/)
 * Add `tax_exempt`, `tax_code`, and `accounting_code` support for one time transactions [PR](https://github.com/recurly/recurly-client-ruby/pull/198)
-* Added 'duration' to 'Coupon'
-* Added 'temporal_unit' to 'Coupon'
-* Added 'temporal_amount' to 'Coupon'
+* Added `duration`, `temporal_unit`, and `temporal_amount` to 'Coupon' [PR](https://github.com/recurly/recurly-client-ruby/pull/202)
 
 <a name="v2.4.4"></a>
 ## v2.4.4 (2015-6-25)
