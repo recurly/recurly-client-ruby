@@ -26,6 +26,7 @@ describe Transaction do
       )
       transaction.account.billing_info.errors[:credit_card_number].wont_be_nil
       error.transaction_error_code.must_equal 'invalid_card_number'
+      error.gateway_error_code.must_equal "123"
       error.transaction.must_equal transaction
       transaction.persisted?.must_equal true
     end

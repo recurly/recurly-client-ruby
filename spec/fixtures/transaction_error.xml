@@ -1,27 +1,28 @@
 HTTP/1.1 422 Unprocessable Entity
 Content-Type: application/xml; charset=utf-8
 
-<?xml version="1.0" encoding="UTF-8"?>                                           
-<errors>                                                                         
-  <transaction_error>                                                            
-    <error_code>invalid_card_number</error_code>                                 
-    <error_category>declined</error_category>                                        
+<?xml version="1.0" encoding="UTF-8"?>
+<errors>
+  <transaction_error>
+    <error_code>invalid_card_number</error_code>
+    <error_category>declined</error_category>
     <customer_message lang="en-US">Your card number is not valid. Please update your card number.</customer_message>
     <merchant_advice lang="en-US">The credit card number is not valid. The customer needs to try a different number.</merchant_advice>
-  </transaction_error>                                                           
+    <gateway_error_code>123</gateway_error_code>
+  </transaction_error>
   <error field="transaction.account.billing_info.credit_card_number" symbol="invalid" lang="en-US">is not valid</error>
   <transaction href="https://api.recurly.com/v2/transactions/abcdef1234567890">
-    <uuid>abcdef1234567890</uuid>                                                       
-    <action>purchase</action>                                                    
-    <amount_in_cents type="integer">100</amount_in_cents>                        
+    <uuid>abcdef1234567890</uuid>
+    <action>purchase</action>
+    <amount_in_cents type="integer">100</amount_in_cents>
     <tax_in_cents type="integer">0</tax_in_cents>
-    <currency>USD</currency>                                                     
-    <status>declined</status>                                                    
-    <reference nil="nil"></reference>                                            
+    <currency>USD</currency>
+    <status>declined</status>
+    <reference nil="nil"></reference>
     <recurring type="boolean">true</recurring>
-    <test type="boolean">true</test>                                             
-    <voidable type="boolean">false</voidable>                                    
-    <refundable type="boolean">false</refundable>                                
+    <test type="boolean">true</test>
+    <voidable type="boolean">false</voidable>
+    <refundable type="boolean">false</refundable>
     <transaction_error>
       <error_code>invalid_card_number</error_code>
       <error_category>hard</error_category>
@@ -59,5 +60,5 @@ Content-Type: application/xml; charset=utf-8
         </billing_info>
       </account>
     </details>
-  </transaction>                                                                 
-</errors>                                                                        
+  </transaction>
+</errors>
