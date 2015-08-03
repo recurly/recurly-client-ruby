@@ -2,8 +2,8 @@
 
 <https://github.com/recurly/recurly-client-ruby>
 
-[Recurly](http://recurly.com/)'s Ruby client library is an interface to its
-[REST API](http://docs.recurly.com/api/basics).
+[Recurly](https://recurly.com/)'s Ruby client library is an interface to its
+[REST API](https://dev.recurly.com/docs/getting-started).
 
 
 ## Installation
@@ -38,7 +38,7 @@ Recurly.api_key        = ENV['RECURLY_API_KEY']
 Configure the client library with
 [your API credentials](https://app.recurly.com/go/developer/api_access).
 
-* `RECURLY_SUBDOMAIN` should contain subdomain for your recurly account. 
+* `RECURLY_SUBDOMAIN` should contain subdomain for your recurly account.
 * `RECURLY_API_KEY` is your "Private API Key" which can be found under "API Credentials" on the `api_access` admin page.
 
 The default currency is USD. To override with a different code:
@@ -88,7 +88,7 @@ Recurly.default_currency will be used.
 ## Usage
 
 Instructions and examples are available on
-[Recurly's documentation site](http://docs.recurly.com/api/basics).
+[Recurly's documentation site](https://dev.recurly.com/docs/getting-started).
 
 Recurly's gem API is available
 [here](http://rubydoc.info/gems/recurly/frames/Recurly).
