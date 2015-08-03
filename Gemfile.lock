@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    recurly (2.4.4)
+    recurly (2.4.5)
 
 GEM
   remote: https://rubygems.org/
@@ -241,3 +241,6 @@ DEPENDENCIES
   rubysl-resolv (~> 2.0)
   webmock (~> 1.7.6)
   yard
+
+BUNDLED WITH
+   1.10.4

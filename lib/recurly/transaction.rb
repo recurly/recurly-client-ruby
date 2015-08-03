@@ -41,8 +41,18 @@ module Recurly
       transaction_error
       source
       ip_address
+      collected_at
+      description
+      tax_exempt
+      tax_code
+      accounting_code
     )
     alias to_param uuid
+
+    def self.to_xml(attrs)
+      transaction = new attrs
+      transaction.to_xml
+    end
 
     # @return ["credit", "charge", nil] The type of transaction.
     attr_reader :type
