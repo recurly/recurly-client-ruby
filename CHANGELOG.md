@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+* Adding `gateway_error_code` to `Transaction`
+
 <a name="v2.4.5"></a>
 ## v2.4.5 (2015-7-31)
 
