@@ -30,6 +30,7 @@ module Recurly
       description
       invoice_description
       applies_to_non_plan_charges
+      redemption_resource
     )
     alias to_param coupon_code
 
