@@ -4,6 +4,7 @@
 * Added `applies_to_non_plan_charges` attribute to `Coupon`
 * Adding `gateway_error_code` to `Transaction`
 * Adding `redemption_resource` to `Coupon`
+* Added `max_redemptions_per_account` attribute to `Coupon`
 
 <a name="v2.4.5"></a>
 ## v2.4.5 (2015-7-31)

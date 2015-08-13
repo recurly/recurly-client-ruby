@@ -24,6 +24,7 @@ module Recurly
       temporal_unit
       temporal_amount
       max_redemptions
+      max_redemptions_per_account
       applies_to_all_plans
       created_at
       plan_codes
@@ -79,6 +80,10 @@ module Recurly
       redemption = redeem account_code, currency
       raise Invalid.new(self) unless redemption.persisted?
       redemption
+    end
+
+    def unlimited_redemptions_per_account?
+      !max_redemptions_per_account
     end
   end
 end
