@@ -25,7 +25,7 @@ describe Coupon do
       stub_api_request(
         :put, "coupons/bettercallsaul/redeem", "redemptions/create-201"
       )
-      coupon.redeem 'xX_pinkman_Xx'
+      coupon.redeem 'xX_pinkman_Xx', 'USD', subscription_uuid: 'abcdef1234567890'
     end
   end
 

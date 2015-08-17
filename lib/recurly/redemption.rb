@@ -11,6 +11,8 @@ module Recurly
     belongs_to :coupon
     # @return [Account]
     belongs_to :account, :readonly => false
+    # @return [Subscription]
+    has_one :subscription
 
     define_attribute_methods %w(
       uuid
@@ -18,6 +20,7 @@ module Recurly
       total_discounted_in_cents
       currency
       state
+      subscription_uuid
       created_at
     )
 

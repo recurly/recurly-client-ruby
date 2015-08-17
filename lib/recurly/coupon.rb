@@ -49,14 +49,16 @@ module Recurly
     #
     # @return [true]
     # @param account_or_code [Account, String]
+    # @param currency [String]
+    # @param opts [Hash]
     # @example
     #   coupon = Coupon.find coupon_code
-    #   coupon.redeem account_code
+    #   coupon.redeem account_code, 'USD', subscription_uuid: 'ab3b1dbabc3195'
     #
     #   coupon = Coupon.find coupon_code
     #   account = Account.find account_code
     #   coupon.redeem account
-    def redeem account_or_code, currency = nil
+    def redeem account_or_code, currency = nil, extra_opts={}
       return false unless link? :redeem
 
       account_code = if account_or_code.is_a? Account
@@ -65,11 +67,15 @@ module Recurly
         account_or_code
       end
 
+      redemption_options = {
+        :account_code => account_code,
+        :currency     => currency || Recurly.default_currency
+      }.merge(extra_opts)
+
+      redemption = redemptions.new(redemption_options)
+
       Redemption.from_response follow_link(:redeem,
-        :body => (redemption = redemptions.new(
-          :account_code => account_code,
-          :currency     => currency || Recurly.default_currency
-        )).to_xml
+        :body => redemption.to_xml
       )
     rescue API::UnprocessableEntity => e
       redemption.apply_errors e
