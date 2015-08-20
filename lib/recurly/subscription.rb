@@ -25,6 +25,9 @@ module Recurly
     # @return [Invoice]
     has_one :invoice
 
+    # @return [Redemption]
+    has_many :redemptions
+
     define_attribute_methods %w(
       uuid
       state

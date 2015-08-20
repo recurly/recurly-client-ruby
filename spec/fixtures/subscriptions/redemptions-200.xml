@@ -1,0 +1,27 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<redemptions type="array">
+  <redemption href="https://api.recurly.com/v2/accounts/myaccount111111/redemptions/30ad0964a36c5915d373dc40d99b639a">
+    <coupon href="https://api.recurly.com/v2/coupons/55d78975-746f-4085-b4da-ff0e7f300ef8"/>
+    <account href="https://api.recurly.com/v2/accounts/myaccount111111"/>
+    <subscription href="https://api.recurly.com/v2/subscriptions/308d1f45319d5ae8cb15b742f194114c"/>
+    <uuid>30ad0964a36c5915d373dc40d99b639a</uuid>
+    <single_use type="boolean">false</single_use>
+    <total_discounted_in_cents type="integer">0</total_discounted_in_cents>
+    <currency>USD</currency>
+    <state>active</state>
+    <created_at type="datetime">2015-08-18T00:38:24Z</created_at>
+  </redemption>
+  <redemption href="https://api.recurly.com/v2/accounts/myaccount111111/redemptions/30ad07ff9a26f8fba1d07e4164b6457b">
+    <coupon href="https://api.recurly.com/v2/coupons/1d0d8a70-2293-43d4-9240-c971eb867691"/>
+    <account href="https://api.recurly.com/v2/accounts/myaccount111111"/>
+    <subscription href="https://api.recurly.com/v2/subscriptions/308d1f45319d5ae8cb15b742f194114c"/>
+    <uuid>30ad07ff9a26f8fba1d07e4164b6457b</uuid>
+    <single_use type="boolean">false</single_use>
+    <total_discounted_in_cents type="integer">0</total_discounted_in_cents>
+    <currency>USD</currency>
+    <state>active</state>
+    <created_at type="datetime">2015-08-18T00:36:52Z</created_at>
+  </redemption>
+</redemptions>
