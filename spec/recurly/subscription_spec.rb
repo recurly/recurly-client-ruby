@@ -316,6 +316,7 @@ describe Subscription do
       subscription.invoice.must_be_instance_of Invoice
     end
   end
+
   describe 'notes' do
     it 'previews new subscriptions' do
       stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
@@ -334,6 +335,20 @@ describe Subscription do
       subscription.customer_notes.must_equal notes[:customer_notes]
       subscription.terms_and_conditions.must_equal notes[:terms_and_conditions]
       subscription.vat_reverse_charge_notes.must_equal notes[:vat_reverse_charge_notes]
+    end
+  end
+
+  describe 'redemptions' do
+    it 'should return Redemption objects' do
+      stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
+      stub_api_request :get, 'subscriptions/abcdef1234567890/redemptions', 'subscriptions/redemptions-200'
+
+      subscription = Subscription.find 'abcdef1234567890'
+
+      redemptions = subscription.redemptions
+
+      redemptions.length.must_equal 2
+      redemptions.all? { |r| r.is_a? Redemption }.must_equal true
     end
   end
 end

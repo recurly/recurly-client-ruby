@@ -12,6 +12,9 @@ module Recurly
     # @return [Account]
     belongs_to :account, :readonly => false
 
+    # @return [Subscription]
+    belongs_to :subscription
+
     define_attribute_methods %w(
       uuid
       single_use
