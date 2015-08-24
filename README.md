@@ -47,13 +47,15 @@ The default currency is USD. To override with a different code:
 Recurly.default_currency = 'EUR' # Assign nil to disable the default entirely.
 ```
 
-If you are using [Recurly.js](https://js.recurly.com) you can store "Public API Key" (which can be found under "API Credentials" on the `api_access` admin page):
+If you are using [Recurly.js](https://js.recurly.com) you can store "Public API Key" (which can be found
+under "API Credentials" on the `api_access` admin page):
 
 ``` ruby
 Recurly.js.public_key = ENV['RECURLY_PUBLIC_API_KEY']
 ```
 
-Then, in your Rails project you can create `recurly_service.js.erb` file and [configure](https://docs.recurly.com/js/#configure) recurly.js with public key this way:
+Then, in your Rails project you can create `recurly_service.js.erb` file and
+[configure](https://docs.recurly.com/js/#configure) recurly.js with public key this way:
 
 ``` js
 recurly.configure({ publicKey: '<%= Recurly.js.public_key %>'});
@@ -70,7 +72,8 @@ Recurly::API.net_http = {
 ```
 
 ## Multi-Threaded Configuration
-If you are using the client in a multi-threaded environment and require a different configuration per thread you can use the following within the thread's context:
+If you are using the client in a multi-threaded environment and require a different configuration per
+thread you can use the following within the thread's context:
 
 ``` ruby
 Recurly.config({
@@ -81,8 +84,9 @@ Recurly.config({
 })
 ```
 
-Any configuration items you do not include in the above config call will be defaulted to the standard configuration items.   For example if you do not define default_currency then
-Recurly.default_currency will be used.
+Any configuration items you do not include in the above config call will be defaulted to the standard
+configuration items. For example if you do not define default_currency then Recurly.default_currency
+will be used.
 
 
 ## Usage
@@ -107,9 +111,8 @@ Recurly's gem API is available
 
 Developing for the Recurly gem is easy with [Bundler](http://gembundler.com/).
 
-Fork and clone the repository, `cd` into the directory, and, with a Ruby of
-your choice (1.9.3 or greater), set up your
-environment.
+Fork and clone the repository, `cd` into the directory, and, with a Ruby of your choice
+(1.9.3 or greater), set up your environment.
 
 If you don't have Bundler installed, install it with the following command:
 
@@ -138,8 +141,7 @@ $ XML=nokogiri bundle exec rake
 If you plan on submitting a patch, please write tests for it (we use
 [MiniTest::Spec](http://bfts.rubyforge.org/minitest/MiniTest/Expectations.html)).
 
-If everything looks good, submit a pull request on GitHub and we'll bring in
-your changes.
+If everything looks good, submit a pull request on GitHub and we'll bring in your changes.
 
 ## License
 
