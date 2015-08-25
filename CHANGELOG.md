@@ -6,6 +6,7 @@
 * Adding `redemption_resource` to `Coupon`
 * Added `max_redemptions_per_account` attribute to `Coupon`
 * Added `redemptions` attribute to `Subscription`
+* Added `setup_fee_accounting_code` attribute to `Plan`
 
 <a name="v2.4.5"></a>
 ## v2.4.5 (2015-7-31)

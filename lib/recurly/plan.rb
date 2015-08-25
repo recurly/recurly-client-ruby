@@ -24,6 +24,7 @@ module Recurly
       trial_interval_unit
       total_billing_cycles
       accounting_code
+      setup_fee_accounting_code
       tax_exempt
       tax_code
       created_at
