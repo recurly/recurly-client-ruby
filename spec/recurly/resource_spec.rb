@@ -84,6 +84,22 @@ XML
       end
     end
 
+    describe ".find_each" do
+      it "must accept a block" do
+        stub_api_request(:get, 'resources?per_page=50') { XML[200][:index] }
+        results = []
+        resource.find_each { |r| r.must_be_instance_of resource ; results << r }
+        results.wont_be_empty
+      end
+
+      it "must allow chaining of iterator methods without passing a block" do
+        stub_api_request(:get, 'resources?per_page=50') { XML[200][:index] }
+        results = []
+        resource.find_each.to_a.map.each { |r| r.must_be_instance_of resource ; results << r }
+        results.wont_be_empty
+      end
+    end
+
     describe ".create" do
       it "must return a saved record when valid" do
         stub_api_request(:post, 'resources') { XML[201] }

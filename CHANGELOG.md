@@ -3,6 +3,7 @@
 
 * Adding `gateway_error_code` to `Transaction`
 * Added `setup_fee_accounting_code` attribute to `Plan`
+* Add support for `Resource.find_each` to be chained with other iterator methods without passing a block
 
 <a name="v2.4.5"></a>
 ## v2.4.5 (2015-7-31)
