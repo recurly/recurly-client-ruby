@@ -7,7 +7,7 @@ Location: https://api.recurly.com/v2/accounts/abcdef1234567890.xml
   <adjustments href="https://api.recurly.com/v2/accounts/abcdef1234567890/adjustments"/>
   <billing_info href="https://api.recurly.com/v2/accounts/abcdef1234567890/billing_info"/>
   <invoices href="https://api.recurly.com/v2/accounts/abcdef1234567890/invoices"/>
-  <redemption href="https://api.recurly.com/v2/accounts/abcdef1234567890/redemption"/>
+  <redemptions href="https://api.recurly.com/v2/accounts/abcdef1234567890/redemptions"/>
   <subscriptions href="https://api.recurly.com/v2/accounts/abcdef1234567890/subscriptions"/>
   <transactions href="https://api.recurly.com/v2/accounts/abcdef1234567890/transactions"/>
   <account_code>abcdef1234567890</account_code>

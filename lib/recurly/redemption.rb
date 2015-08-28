@@ -11,11 +11,12 @@ module Recurly
     belongs_to :coupon
     # @return [Account]
     belongs_to :account, :readonly => false
-    # @return [Subscription]
-    has_one :subscription
 
     # @return [Subscription]
     belongs_to :subscription
+
+    # @return [Invoice]
+    belongs_to :invoice
 
     define_attribute_methods %w(
       uuid
