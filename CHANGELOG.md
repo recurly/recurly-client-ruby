@@ -7,6 +7,7 @@
 * Added `max_redemptions_per_account` attribute to `Coupon`
 * Added `redemptions` attribute to `Subscription`
 * Added `setup_fee_accounting_code` attribute to `Plan`
+* Add support for `Resource.find_each` to be chained with other iterator methods without passing a block
 
 <a name="v2.4.5"></a>
 ## v2.4.5 (2015-7-31)

@@ -283,8 +283,8 @@ module Recurly
       # @see Pager#find_each
       # @example
       #   Recurly::Account.find_each { |a| p a }
-      def find_each per_page = 50
-        paginate(:per_page => per_page).find_each(&Proc.new)
+      def find_each per_page = 50, &block
+        paginate(:per_page => per_page).find_each(&block)
       end
 
       # @return [Integer] The total record count of the resource in question.
