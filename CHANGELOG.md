@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.4.6"></a>
+## v2.4.6 (2015-8-31)
+
 * Added `applies_to_non_plan_charges` attribute to `Coupon`
 * Adding `gateway_error_code` to `Transaction`
 * Adding `redemption_resource` to `Coupon`
