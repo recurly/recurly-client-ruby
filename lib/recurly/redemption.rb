@@ -12,13 +12,25 @@ module Recurly
     # @return [Account]
     belongs_to :account, :readonly => false
 
+    # @return [Subscription]
+    belongs_to :subscription
+
+    # @return [Invoice]
+    belongs_to :invoice
+
     define_attribute_methods %w(
+      uuid
       single_use
       total_discounted_in_cents
       currency
       state
+      subscription_uuid
       created_at
     )
+
+    def destroy_uri
+      uri + "s/#{uuid}"
+    end
 
     def save
       return false if persisted?

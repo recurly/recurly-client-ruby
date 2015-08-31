@@ -909,10 +909,14 @@ module Recurly
     #   race_condition.destroy # raises Recurly::Resource::NotFound
     def destroy
       return false unless persisted?
-      @response = API.delete uri
+      @response = API.delete destroy_uri
       @destroyed = true
     rescue API::NotFound => e
       raise NotFound, e.description
+    end
+
+    def destroy_uri
+      uri
     end
 
     def signable_attributes

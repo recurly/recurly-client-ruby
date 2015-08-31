@@ -20,8 +20,11 @@ module Recurly
     # @return [BillingInfo, nil]
     has_one :billing_info, :readonly => false
 
-    # @return [Redemption, nil]
-    has_one :redemption
+    has_many :redemptions
+
+    def redemption
+      redemptions.first
+    end
 
     define_attribute_methods %w(
       account_code
@@ -38,6 +41,7 @@ module Recurly
       tax_exempt
       entity_use_code
       created_at
+      closed_at
       vat_location_valid
     )
     alias to_param account_code

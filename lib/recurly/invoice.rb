@@ -21,7 +21,11 @@ module Recurly
     belongs_to :original_invoice, class_name: 'Invoice'
 
     # @return [Redemption]
-    has_one :redemption
+    has_many :redemptions
+
+    def redemption
+      redemptions.first
+    end
 
     def invoice_number_with_prefix
       "#{invoice_number_prefix}#{invoice_number}"
@@ -78,7 +82,7 @@ module Recurly
       reload follow_link :mark_failed
       true
     end
-    
+
     def enter_offline_payment(attrs={})
       Transaction.from_response API.post("#{uri}/transactions", attrs.empty? ? nil : Transaction.to_xml(attrs))
     rescue Recurly::API::UnprocessableEntity => e

@@ -1,7 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+* Added `applies_to_non_plan_charges` attribute to `Coupon`
 * Adding `gateway_error_code` to `Transaction`
+* Adding `redemption_resource` to `Coupon`
+* Added `max_redemptions_per_account` attribute to `Coupon`
+* Added `redemptions` attribute to `Subscription`
 * Added `setup_fee_accounting_code` attribute to `Plan`
 
 <a name="v2.4.5"></a>
