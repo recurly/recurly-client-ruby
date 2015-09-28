@@ -170,6 +170,19 @@ XML
           proc { record.follow_link :cancel }.must_raise API::UnprocessableEntity
         end
       end
+
+      it 'should ignore the element and not raise an exception when unknown association is present' do
+        xml = <<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<resource href="https://api.recurly.com/v2/resources/1">
+  <unknown_associations href="https://api.recurly.com/v2/resources/1/unknown_associations"/>
+</resource>
+XML
+
+        record = resource.from_xml(xml)
+        record.uri.must_equal "https://api.recurly.com/v2/resources/1"
+      end
+
     end
 
     describe ".associations" do

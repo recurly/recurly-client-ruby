@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+* Ignore associations defined in xml but not in the Resource subclasses
+
 <a name="v2.4.6"></a>
 ## v2.4.6 (2015-8-31)
 
