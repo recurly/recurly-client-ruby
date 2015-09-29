@@ -403,10 +403,14 @@ module Recurly
           end
 
           if el.children.empty? && href = el.attribute('href')
-            resource_class = Recurly.const_get(
-              Helper.classify(klass.association_class_name(el.name) ||
-                el.attribute('type') || el.name), false
-            )
+            klass_name = Helper.classify(klass.association_class_name(el.name) ||
+                                         el.attribute('type') ||
+                                         el.name)
+
+            next unless Recurly.const_defined?(klass_name)
+
+            resource_class = Recurly.const_get(klass_name, false)
+
             case el.name
             when *klass.associations_for_relation(:has_many)
               record[el.name] = Pager.new(
