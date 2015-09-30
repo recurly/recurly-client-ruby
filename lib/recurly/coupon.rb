@@ -1,5 +1,8 @@
 module Recurly
   class Coupon < Resource
+    BULK = 'bulk'.freeze
+    SINGLE_CODE = 'single_code'.freeze
+
     # @macro [attach] scope
     #   @scope class
     #   @return [Pager<Coupon>] A pager that yields +$1+ coupons.
@@ -9,6 +12,9 @@ module Recurly
 
     # @return [Pager<Redemption>, []]
     has_many :redemptions
+
+    # @return [Pager<Coupon>, []]
+    has_many :unique_coupon_codes, class_name: :Coupon
 
     define_attribute_methods %w(
       coupon_code
@@ -32,6 +38,8 @@ module Recurly
       invoice_description
       applies_to_non_plan_charges
       redemption_resource
+      coupon_type
+      unique_template_code
     )
     alias to_param coupon_code
 
@@ -80,6 +88,17 @@ module Recurly
     rescue API::UnprocessableEntity => e
       redemption.apply_errors e
       redemption
+    end
+
+    def generate(amount)
+      builder = XML.new("<coupon/>")
+      builder.add_element 'number_of_unique_codes', amount
+
+      resp = follow_link(:generate,
+        :body => builder.to_s
+      )
+
+      Pager.new(Recurly::Coupon, uri: resp['location'], parent: self, etag: resp['ETag'])
     end
 
     def redeem! account_code, currency = nil
