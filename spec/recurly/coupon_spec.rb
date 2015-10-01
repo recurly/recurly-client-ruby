@@ -14,12 +14,6 @@ describe Coupon do
     end
   end
 
-  describe "#save" do
-    it "must not save a new record" do
-      proc { coupon.save }.must_raise Error
-    end
-  end
-
   describe "#redeem" do
     it "must be redeemable" do
       stub_api_request(
