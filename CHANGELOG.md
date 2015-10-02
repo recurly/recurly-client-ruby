@@ -1,7 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
-* Ignore associations defined in xml but not in the Resource subclasses
+<a name="v2.4.7"></a>
+## v2.4.7 (2015-10-02)
+
+* Ignore associations defined in xml but not in the Resource subclasses [PR](https://github.com/recurly/recurly-client-ruby/pull/212)
+* Added support for editing and restoring coupons [PR](https://github.com/recurly/recurly-client-ruby/pull/214)
+* Added support for bulk coupons and coupon code generation [PR](https://github.com/recurly/recurly-client-ruby/pull/213)
 
 <a name="v2.4.6"></a>
 ## v2.4.6 (2015-8-31)
