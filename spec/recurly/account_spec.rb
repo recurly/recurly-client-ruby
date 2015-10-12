@@ -72,6 +72,7 @@ describe Account do
       account.account_code.must_equal 'abcdef1234567890'
       account.username.must_equal 'shmohawk58'
       account.email.must_equal 'larry.david@example.com'
+      account.cc_emails.must_equal 'cheryl.hines@example.com,richard.lewis@example.com'
       account.first_name.must_equal 'Larry'
       account.last_name.must_equal 'David'
       account.accept_language.must_equal 'en-US'

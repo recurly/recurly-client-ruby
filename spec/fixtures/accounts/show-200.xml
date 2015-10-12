@@ -12,6 +12,7 @@ Content-Type: application/xml; charset=utf-8
   <account_code>abcdef1234567890</account_code>
   <username>shmohawk58</username>
   <email>larry.david@example.com</email>
+  <cc_emails>cheryl.hines@example.com,richard.lewis@example.com</cc_emails>
   <first_name>Larry</first_name>
   <last_name>David</last_name>
   <company_name>Home Box Office</company_name>
