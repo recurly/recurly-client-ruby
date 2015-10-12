@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+* Add `cc_emails` attribute to `Account` [PR](https://github.com/recurly/recurly-client-ruby/pull/216)
+
 <a name="v2.4.7"></a>
 ## v2.4.7 (2015-10-02)
 
