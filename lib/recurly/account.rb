@@ -31,6 +31,7 @@ module Recurly
       state
       username
       email
+      cc_emails
       first_name
       last_name
       company_name
