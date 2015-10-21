@@ -12,6 +12,7 @@
     <uuid>ffc64d71d4b5404e93f13aac9c63b007</uuid>
     <subscription_id nil="true"></subscription_id>
     <state>open</state>
+    <invoice_number_prefix></invoice_number_prefix>
     <invoice_number type="integer">1000</invoice_number>
     <po_number></po_number>
     <vat_number></vat_number>

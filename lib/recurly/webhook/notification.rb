@@ -10,8 +10,8 @@ module Recurly
           member = self[member_name]
           member.reload if member
         end
-        
-        super        
+
+        super
       end
     end
   end

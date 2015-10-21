@@ -41,11 +41,14 @@ module Recurly
     autoload :SuccessfulRefundNotification,     'recurly/webhook/successful_refund_notification'
     autoload :UpdatedSubscriptionNotification,  'recurly/webhook/updated_subscription_notification'
     autoload :VoidPaymentNotification,          'recurly/webhook/void_payment_notification'
-    
+    autoload :ProcessingPaymentNotification,    'recurly/webhook/processing_payment_notification'
+    autoload :ProcessingInvoiceNotification,    'recurly/webhook/processing_invoice_notification'
+    autoload :ScheduledPaymentNotification,     'recurly/webhook/scheduled_payment_notification'
+
     # This exception is raised if the Webhook Notification initialization fails
     class NotificationError < Error
     end
-    
+
     # @return [Resource] A notification.
     # @raise [NotificationError] For unknown or invalid notifications.
     def self.parse xml_body
