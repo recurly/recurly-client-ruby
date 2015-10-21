@@ -3,6 +3,7 @@
 
 * Add `cc_emails` attribute to `Account` [PR](https://github.com/recurly/recurly-client-ruby/pull/216)
 * Add webhooks parsers [PR](https://github.com/recurly/recurly-client-ruby/pull/217)
+* Fixed `setup_fee_accounting_code` spec [PR](https://github.com/recurly/recurly-client-ruby/pull/218)
 
 <a name="v2.4.7"></a>
 ## v2.4.7 (2015-10-02)
