@@ -28,10 +28,6 @@ module Recurly
       created_at
     )
 
-    def destroy_uri
-      uri + "s/#{uuid}"
-    end
-
     def save
       return false if persisted?
       copy_from coupon.redeem account, currency
