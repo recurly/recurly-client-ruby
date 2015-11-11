@@ -210,6 +210,12 @@ XML
       it "must return a pager for fresh records" do
         resource.new.reasons.must_be_kind_of Enumerable
       end
+
+      it "should not set changed attributes when reading a resource" do
+        record = resource.new
+        record.reasons
+        record.changed_attributes.keys.must_be_empty
+      end
     end
 
     describe ".has_one and .belongs_to" do
