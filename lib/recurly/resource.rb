@@ -478,7 +478,11 @@ module Recurly
         associations << Association.new(:has_many, collection_name.to_s, options)
         associations_helper.module_eval do
           define_method collection_name do
-            self[collection_name] ||= []
+            if self[collection_name]
+              self[collection_name]
+            else
+              attributes[collection_name] = []
+            end
           end
           if options.key?(:readonly) && options[:readonly] == false
             define_method "#{collection_name}=" do |collection|
