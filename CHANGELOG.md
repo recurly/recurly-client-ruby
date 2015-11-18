@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.4.9"></a>
+## v2.4.9 (2015-11-18)
+
+* Fixed array change tracking issue around redemptions [PR](https://github.com/recurly/recurly-client-ruby/pull/223)
+
 <a name="v2.4.8"></a>
 ## v2.4.8 (2015-10-21)
 
