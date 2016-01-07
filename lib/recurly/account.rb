@@ -22,8 +22,8 @@ module Recurly
 
     has_many :redemptions
 
-    def redemption
-      redemptions.first
+    def redemption coupon_code
+      redemptions.detect { |r| r.coupon_code == coupon_code }
     end
 
     define_attribute_methods %w(

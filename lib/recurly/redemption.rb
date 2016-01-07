@@ -24,13 +24,10 @@ module Recurly
       total_discounted_in_cents
       currency
       state
+      coupon_code
       subscription_uuid
       created_at
     )
-
-    def destroy_uri
-      uri + "s/#{uuid}"
-    end
 
     def save
       return false if persisted?
