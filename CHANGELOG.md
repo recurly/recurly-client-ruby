@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.5.0"></a>
+## v2.5.0 (2016-01-13)
+
+* Fix redemption destroy path for accounts with multiple redemptions [PR](https://github.com/recurly/recurly-client-ruby/pull/227)
+
 <a name="v2.4.9"></a>
 ## v2.4.9 (2015-11-18)
 
