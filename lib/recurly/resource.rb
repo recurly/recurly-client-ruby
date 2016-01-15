@@ -316,6 +316,12 @@ module Recurly
       # @example
       #   Recurly::Account.find "heisenberg"
       #   # => #<Recurly::Account account_code: "heisenberg", ...>
+      #   Use the following identifiers for these types of objects:
+      #     for accounts use account_code
+      #     for plans use plan_code
+      #     for invoices use invoice_number
+      #     for subscriptions use uuid
+      #     for transactions use uuid
       def find uuid, options = {}
         if uuid.nil?
           # Should we raise an ArgumentError, instead?
