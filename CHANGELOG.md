@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+* Add `currency` attribute to `BillingInfo` object so client can pass currency on create/update [PR](https://github.com/recurly/recurly-client-ruby/pull/231)
+
 <a name="v2.5.0"></a>
 ## v2.5.0 (2016-01-13)
 
