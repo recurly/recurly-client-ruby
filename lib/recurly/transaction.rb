@@ -21,6 +21,7 @@ module Recurly
     belongs_to :subscription
 
     define_attribute_methods %w(
+      id
       uuid
       action
       amount_in_cents
