@@ -23,6 +23,7 @@ module Recurly
       ip_address
       ip_address_country
       token_id
+      currency
     ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES
 
     # @return ["credit_card", "paypal", "amazon", "bank_account", nil] The type of billing info.
