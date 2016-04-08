@@ -11,4 +11,7 @@ doc/*
 bin/*
 !bin/recurly
 
+#Gems should not checkin lock files
+Gemfile.lock
+
 TODO
