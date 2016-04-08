@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe Recurly do
   describe "api key" do
-    before { @old_api_key = Recurly.api_key }
-    after  { Recurly.api_key = @old_api_key }
 
     it "must be assignable" do
       Recurly.api_key = 'new_key'

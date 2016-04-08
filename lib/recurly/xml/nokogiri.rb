@@ -46,7 +46,7 @@ module Recurly
       end
 
       def to_s
-        root.to_xml(:indent => 0).gsub(/$\n/, '')
+        root.to_xml(:indent => 0,:save_with => Nokogiri::XML::Node::SaveOptions::NO_EMPTY_TAGS).gsub(/$\n/, '')
       end
     end
 

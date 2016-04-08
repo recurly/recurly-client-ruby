@@ -407,7 +407,12 @@ module Recurly
             }
             next
           end
-
+          
+          # Nokogiri on Jruby-1.7.19 likes to throw NullPointer exceptions
+          # if you try to run certian operations like el.attribute(''). Since
+          # we dont care about text nodes, let's just skip them
+          next if defined?(Nokogiri::XML::Node::TEXT_NODE) && el.node_type == Nokogiri::XML::Node::TEXT_NODE 
+          
           if el.children.empty? && href = el.attribute('href')
             klass_name = Helper.classify(klass.association_class_name(el.name) ||
                                          el.attribute('type') ||
