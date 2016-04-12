@@ -6,9 +6,12 @@ cache: bundler
 sudo: false
 rvm:
   - jruby
+  - jruby-9000
   - 1.9.3
   - 2.0.0
   - 2.1.0
+  - 2.2.4
+  - 2.3.0
 env:
   - XML=rexml
   - XML=nokogiri

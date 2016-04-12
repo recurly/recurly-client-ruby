@@ -11,4 +11,8 @@ doc/*
 bin/*
 !bin/recurly
 
+# Gems should not checkin lock files
+# http://yehudakatz.com/2010/12/16/clarifying-the-roles-of-the-gemspec-and-gemfile/
+Gemfile.lock
+
 TODO

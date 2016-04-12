@@ -1,4 +1,5 @@
 require 'environment'
+require 'logger'
 require 'cgi'
 require 'minitest/autorun'
 require 'minitest/spec'
@@ -23,8 +24,23 @@ module SpecHelper
     end
     stub_request(method, uri.to_s).to_return response
   end
+  
+  def reset_recurly_environment!
+    Recurly.subdomain = 'api'
+    Recurly.api_key = 'api_key'
+    Recurly.default_currency = 'USD'
+    Recurly.logger = Logger.new nil
+  end
 end
-include SpecHelper
+
+class Minitest::Spec
+  include SpecHelper
+  
+  before do |tests|
+    WebMock.reset!
+    reset_recurly_environment!
+  end
+end
 
 XML = {
   200 => {

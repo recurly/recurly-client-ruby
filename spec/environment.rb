@@ -13,9 +13,4 @@ end
 
 require 'recurly'
 include Recurly
-Recurly.subdomain = 'api'
-Recurly.api_key = 'api_key'
-
-require 'logger'
-Recurly.logger = Logger.new nil
 
