@@ -25,6 +25,16 @@ Content-Type: application/xml; charset=utf-8
   <trial_started_at nil="nil"></trial_started_at>
   <trial_ends_at nil="nil"></trial_ends_at>
   <subscription_add_ons type="array">
+    <subscription_add_on>
+      <add_on_type>usage</add_on_type>
+      <measured_unit href="https://api.recurly.com/v2/measured_units/388159600349677344"/>
+      <usage href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/add_ons/marketing_email/usage"/>
+      <add_on_code>marketing_email</add_on_code>
+      <unit_amount_in_cents type="integer">5</unit_amount_in_cents>
+      <quantity type="integer">1</quantity>
+      <usage_type>price</usage_type>
+      <usage_percentage nil="nil"/>
+    </subscription_add_on>
   </subscription_add_ons>
   <a name="cancel" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/cancel" method="put"/>
   <a name="terminate" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/terminate" method="put"/>

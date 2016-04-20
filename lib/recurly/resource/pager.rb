@@ -156,6 +156,17 @@ module Recurly
         new(attributes) { |record| record.save }
       end
 
+      # Instantiates a record in the scope of the pager.
+      #
+      # @return [Resource] The record.
+      # @example
+      #   account = Recurly::Account.find 'schrader'
+      #   subscription = account.subscriptions.build attributes
+      # @see Resource.new
+      def build attributes = {}
+        new(attributes)
+      end
+
       # Instantiates and saves a record in the scope of the pager.
       #
       # @return [Resource] The saved record.

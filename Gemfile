@@ -10,4 +10,7 @@ group :development do
   gem 'rubysl',                    :platforms => :rbx
   gem 'rubysl-resolv', '~> 2.0',   :platforms => :rbx
   gem 'racc',                      :platforms => :rbx
+
+  gem 'webmock', '~> 1.7'
+  gem 'pry'
 end

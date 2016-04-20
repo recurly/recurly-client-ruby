@@ -1,9 +1,19 @@
 module Recurly
   class SubscriptionAddOn < Resource
+    # @return [MeasuredUnit]
+    has_one :measured_unit
+
+    # Singular because the endpoint is /usage not /usages
+    # @return [Usage]
+    has_many :usage
+
     define_attribute_methods %w(
       add_on_code
       quantity
       unit_amount_in_cents
+      add_on_type
+      usage_type
+      usage_percentage
     )
 
     attr_reader :subscription
