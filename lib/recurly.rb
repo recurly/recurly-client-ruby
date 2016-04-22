@@ -1,40 +1,30 @@
 # Recurly is a Ruby client for Recurly's REST API.
 module Recurly
-  autoload :Account,           'recurly/account'
-  autoload :AddOn,             'recurly/add_on'
-  autoload :Address,           'recurly/address'
-  autoload :TaxDetail,         'recurly/tax_detail'
-  autoload :Adjustment,        'recurly/adjustment'
-  autoload :API,               'recurly/api'
-  autoload :BillingInfo,       'recurly/billing_info'
-  autoload :Coupon,            'recurly/coupon'
-  autoload :Helper,            'recurly/helper'
-  autoload :Invoice,           'recurly/invoice'
-  autoload :JS,                'recurly/js'
-  autoload :Money,             'recurly/money'
-  autoload :Plan,              'recurly/plan'
-  autoload :Redemption,        'recurly/redemption'
-  autoload :Resource,          'recurly/resource'
-  autoload :Subscription,      'recurly/subscription'
-  autoload :SubscriptionAddOn, 'recurly/subscription_add_on'
-  autoload :Transaction,       'recurly/transaction'
-  autoload :Version,           'recurly/version'
-  autoload :XML,               'recurly/xml'
-  autoload :Webhook,           'recurly/webhook'
+  require 'recurly/error'
+  require 'recurly/helper'
+  require 'recurly/api'
+  require 'recurly/resource'
+  require 'recurly/billing_info'
+  require 'recurly/account'
+  require 'recurly/add_on'
+  require 'recurly/address'
+  require 'recurly/tax_detail'
+  require 'recurly/adjustment'
+  require 'recurly/coupon'
+  require 'recurly/helper'
+  require 'recurly/invoice'
+  require 'recurly/js'
+  require 'recurly/money'
+  require 'recurly/plan'
+  require 'recurly/redemption'
+  require 'recurly/subscription'
+  require 'recurly/subscription_add_on'
+  require 'recurly/transaction'
+  require 'recurly/version'
+  require 'recurly/xml'
+  require 'recurly/webhook'
 
   @subdomain = nil
-
-  # The exception class from which all Recurly exceptions inherit.
-  class Error < StandardError
-    def set_message message
-      @message = message
-    end
-
-    # @return [String]
-    def to_s
-      defined? @message and @message or super
-    end
-  end
 
   # This exception is raised if Recurly has not been configured.
   class ConfigurationError < Error

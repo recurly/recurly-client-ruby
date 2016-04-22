@@ -1,6 +1,6 @@
 module Recurly
   class Subscription < Resource
-    autoload :AddOns, 'recurly/subscription/add_ons'
+    require 'recurly/subscription/add_ons'
 
     # @macro [attach] scope
     #   @scope class
