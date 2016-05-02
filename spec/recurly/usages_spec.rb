@@ -36,7 +36,6 @@ describe Usage do
 
       query = "billing_status=all&datetime_type=usage&end_datetime=#{time}&start_datetime=#{time}"
 
-      puts query
       stub_api_request(
         :get,
         "subscriptions/abcdef1234567890/add_ons/marketing_email/usage?#{query}",
