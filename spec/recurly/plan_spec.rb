@@ -36,4 +36,14 @@ describe Plan do
 </plan>
 XML
   end
+
+  describe ".find" do
+    it "must return a plan when available" do
+      stub_api_request(
+        :get, 'plans/gold', 'plans/show-200'
+      )
+      plan = Plan.find 'gold'
+      plan.must_be_instance_of Plan
+    end
+  end
 end

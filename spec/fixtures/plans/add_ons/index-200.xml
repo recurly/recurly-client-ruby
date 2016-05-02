@@ -1,0 +1,18 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<add_ons type="array">
+  <add_on href="https://api.recurly.com/v2/plans/gold/add_ons/marketing_email">
+    <plan href="https://api.recurly.com/v2/plans/gold"/>
+    <add_on_code>marketing_email</add_on_code>
+    <name>Marketing Email</name>
+    <default_quantity type="integer">1</default_quantity>
+    <display_quantity_on_hosted_page type="boolean">false</display_quantity_on_hosted_page>
+    <unit_amount_in_cents>
+      <USD type="integer">5</USD>
+    </unit_amount_in_cents>
+    <accounting_code>marketing-email</accounting_code>
+    <created_at type="datetime">2016-04-19T20:26:03Z</created_at>
+  </add_on>
+</add_ons>

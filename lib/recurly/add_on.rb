@@ -11,6 +11,11 @@ module Recurly
       unit_amount_in_cents
       display_quantity_on_hosted_page
       tax_code
+      add_on_type
+      measured_unit_id
+      optional
+      usage_type
+      usage_percentage
       created_at
     )
     alias to_param add_on_code
