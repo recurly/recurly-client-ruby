@@ -1,6 +1,13 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.5.2"></a>
+## v2.5.2 (2016-05-02)
+
+* Remove Gemfile.lock, add more rubies to testing matrix [PR](https://github.com/recurly/recurly-client-ruby/pull/234)
+* Remove autoload and reorder requires [PR](https://github.com/recurly/recurly-client-ruby/pull/236)
+* Usage Based Billing [PR](https://github.com/recurly/recurly-client-ruby/pull/237)
+
 <a name="v2.5.1"></a>
 ## v2.5.1 (2016-02-18)
 
