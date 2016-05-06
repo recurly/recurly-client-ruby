@@ -351,4 +351,38 @@ describe Subscription do
       redemptions.all? { |r| r.is_a? Redemption }.must_equal true
     end
   end
+
+  describe '#update_attributes' do
+    describe 'when the plan code does change' do
+      it 'sends all updated atributes to the server' do
+        stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
+
+        subscription = Subscription.find 'abcdef1234567890'
+
+        stub_request(:put, "https://api_key:@api.recurly.com/v2/subscriptions/abcdef1234567890").
+          with(:body => "<subscription><plan_code>abc</plan_code><quantity>1</quantity><unit_amount_in_cents>1500</unit_amount_in_cents></subscription>",
+               :headers => {'Accept'=>'application/xml'}).
+          to_return(:status => 200, :body => "", :headers => {})
+
+        subscription.update_attributes({ plan_code: 'abc', quantity: 1, unit_amount_in_cents: 1500 })
+      end
+    end
+  end
+
+  describe '#update_attributes' do
+    describe 'when the plan code does not change' do
+      it 'sends only changed attributes to the server' do
+        stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
+
+        subscription = Subscription.find 'abcdef1234567890'
+
+        stub_request(:put, "https://api_key:@api.recurly.com/v2/subscriptions/abcdef1234567890").
+          with(:body => "<subscription><plan_code>plan_code</plan_code><unit_amount_in_cents>1500</unit_amount_in_cents></subscription>",
+               :headers => {'Accept'=>'application/xml'}).
+          to_return(:status => 200, :body => "", :headers => {})
+
+        subscription.update_attributes({ plan_code: 'plan_code', quantity: 1, unit_amount_in_cents: 1500 })
+      end
+    end
+  end
 end

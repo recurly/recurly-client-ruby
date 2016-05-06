@@ -210,8 +210,30 @@ module Recurly
       true
     end
 
+    # Overrides the behavior of `update_attributes` in Resource class so ensure
+    # all attributes are marked as dirty if the plan code changes
+    def update_attributes attributes = {}
+      clear_attributes_if_plan_code_changed attributes
+      super
+    end
+
+    def update_attributes! attributes = {}
+      clear_attributes_if_plan_code_changed attributes
+      super
+    end
+
     def signable_attributes
       super.merge :plan_code => plan_code
+    end
+
+    private
+
+    def clear_attributes_if_plan_code_changed attributes
+      if attributes[:plan_code] != plan_code
+        attributes.each do |key, value|
+          self.attributes[key.to_s] = nil
+        end
+      end
     end
   end
 end
