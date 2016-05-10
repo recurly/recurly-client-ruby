@@ -2,12 +2,21 @@ require 'spec_helper'
 
 describe Transaction do
   describe ".find" do
-    it "must return a transaction when available" do
+    let(:transaction) do
       stub_api_request(
         :get, 'transactions/abcdef1234567890', 'transactions/show-200'
       )
-      transaction = Transaction.find 'abcdef1234567890'
+      Transaction.find 'abcdef1234567890'
+    end
+
+    it "must return a transaction when available" do
       transaction.must_be_instance_of Transaction
+    end
+
+    it "must parse the fraud_info object if it exists" do
+      transaction.fraud_info.must_be_instance_of Hash
+      transaction.fraud_info["score"].must_equal 88
+      transaction.fraud_info["decision"].must_equal "DECLINE"
     end
   end
 
