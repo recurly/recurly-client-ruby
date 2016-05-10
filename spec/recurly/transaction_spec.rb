@@ -11,6 +11,16 @@ describe Transaction do
     end
   end
 
+  describe ".original_transaction" do
+    it "must return a Transaction object" do
+      stub_api_request(:get, 'transactions/abcdef1234567890', 'transactions/show-200')
+      stub_api_request(:get, 'transactions/1234567890abcdef', 'transactions/show-200')
+
+      transaction = Transaction.find 'abcdef1234567890'
+      transaction.original_transaction.must_be_instance_of Transaction
+    end
+  end
+
   describe "#save" do
     it "must re-raise a transaction error" do
       stub_api_request :post, 'transactions', 'transaction_error'
