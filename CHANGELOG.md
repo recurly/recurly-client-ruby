@@ -1,5 +1,6 @@
 <a name="unreleased"></a>
 ## Unreleased
+* Add support for free trial coupons
 
 <a name="v2.5.1"></a>
 ## v2.5.1 (2016-02-18)
