@@ -47,8 +47,10 @@ module Recurly
       tax_exempt
       tax_code
       accounting_code
+      fraud
     )
     alias to_param uuid
+    alias fraud_info fraud
 
     def self.to_xml(attrs)
       transaction = new attrs
