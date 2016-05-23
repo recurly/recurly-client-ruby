@@ -74,6 +74,14 @@ module Recurly
       true
     end
 
+    def changed_attributes
+      attrs = super
+      if address && address.changed?
+        attrs['address'] = address
+      end
+      attrs
+    end
+
     private
 
     def xml_keys
