@@ -1,6 +1,7 @@
 <a name="unreleased"></a>
 ## Unreleased
 * Add support for free trial coupons
+* Add support for `roku_billing_agreement_id` [PR](https://github.com/recurly/recurly-client-ruby/pull/246)
 
 <a name="v2.5.2"></a>
 ## v2.5.2 (2016-05-02)
