@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
-
 ## Unreleased
+
+<a name="v2.6.0"></a>
+## v2.6.0 (2016-06-01)
 
 * Add support for free trial coupons [PR](https://github.com/recurly/recurly-client-ruby/pull/245)
 * Add support for `roku_billing_agreement_id` [PR](https://github.com/recurly/recurly-client-ruby/pull/246)
