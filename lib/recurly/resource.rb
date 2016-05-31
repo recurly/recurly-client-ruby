@@ -437,7 +437,9 @@ module Recurly
           else
             val = XML.cast(el)
             if 'address' == el.name && val.kind_of?(Hash)
-              record[el.name] = Address.new val
+              address = Address.new val
+              address.instance_variable_set(:@changed_attributes, {})
+              record[el.name] = address
             else
               record[el.name] = val
             end

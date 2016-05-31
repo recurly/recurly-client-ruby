@@ -181,6 +181,22 @@ XML
     end
   end
 
+  describe "#changed_attributes" do
+    let(:account) do
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+      Account.find 'abcdef1234567890'
+    end
+
+    it "should be dirty if address was modified" do
+      account.address.address1 = "1600 Pennsylvania Ave."
+      account.changed?.must_equal true
+    end
+
+    it "should be clean if address was not modified" do
+      account.changed?.must_equal false
+    end
+  end
+
   describe "#to_xml" do
     it "must serialize" do
       account = Account.new :username => 'importantbreakfast'
