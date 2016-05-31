@@ -1,7 +1,13 @@
 <a name="unreleased"></a>
+
 ## Unreleased
-* Add support for free trial coupons
+
+* Add support for free trial coupons [PR](https://github.com/recurly/recurly-client-ruby/pull/245)
 * Add support for `roku_billing_agreement_id` [PR](https://github.com/recurly/recurly-client-ruby/pull/246)
+* Fix `Account#address_changed?` dirty check [PR](https://github.com/recurly/recurly-client-ruby/pull/248)
+* Add support for `<fraud>` if it exists on `Transaction` [PR](https://github.com/recurly/recurly-client-ruby/pull/244)
+* Fix updating `unit_amount_in_cents` on `Subscription` [PR](https://github.com/recurly/recurly-client-ruby/pull/241)
+* Fix stray `puts` in specs [PR](https://github.com/recurly/recurly-client-ruby/pull/239)
 
 <a name="v2.5.2"></a>
 ## v2.5.2 (2016-05-02)
