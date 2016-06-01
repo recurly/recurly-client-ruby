@@ -19,6 +19,8 @@ module Recurly
     belongs_to :invoice
     # @return [Subscription, nil]
     belongs_to :subscription
+    # @return [Transaction, nil]
+    belongs_to :original_transaction, class_name: 'Transaction'
 
     define_attribute_methods %w(
       id
