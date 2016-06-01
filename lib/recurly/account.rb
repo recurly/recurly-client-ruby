@@ -76,7 +76,7 @@ module Recurly
 
     def changed_attributes
       attrs = super
-      if address && address.changed?
+      if address.respond_to?(:changed?) && address.changed?
         attrs['address'] = address
       end
       attrs
