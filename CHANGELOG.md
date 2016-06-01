@@ -1,6 +1,9 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.6.1"></a>
+## v2.6.1 (2016-06-01)
+
 * Fix method missing `changed?` in `Account` [PR](https://github.com/recurly/recurly-client-ruby/pull/251)
 
 <a name="v2.6.0"></a>
