@@ -25,6 +25,8 @@ module Recurly
       total_billing_cycles
       accounting_code
       setup_fee_accounting_code
+      revenue_schedule_type
+      setup_fee_revenue_schedule_type
       tax_exempt
       tax_code
       created_at

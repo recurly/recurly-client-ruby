@@ -6,6 +6,7 @@ module Recurly
   require 'recurly/resource'
   require 'recurly/billing_info'
   require 'recurly/account'
+  require 'recurly/account_balance'
   require 'recurly/add_on'
   require 'recurly/address'
   require 'recurly/tax_detail'

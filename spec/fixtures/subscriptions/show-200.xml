@@ -24,6 +24,7 @@ Content-Type: application/xml; charset=utf-8
   <current_period_ends_at type="datetime">2011-05-01T06:59:59Z</current_period_ends_at>
   <trial_started_at nil="nil"></trial_started_at>
   <trial_ends_at nil="nil"></trial_ends_at>
+  <revenue_schedule_type>evenly</revenue_schedule_type>
   <subscription_add_ons type="array">
     <subscription_add_on>
       <add_on_type>usage</add_on_type>

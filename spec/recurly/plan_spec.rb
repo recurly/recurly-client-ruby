@@ -12,7 +12,8 @@ describe Plan do
       :setup_fee_in_cents        => 60_00,
       :plan_interval_length      => 1,
       :plan_interval_unit        => 'months',
-      :tax_exempt                => false
+      :tax_exempt                => false,
+      :revenue_schedule_type     => 'evenly'
     )
   }
 
@@ -25,6 +26,7 @@ describe Plan do
 <plan_code>gold</plan_code>\
 <plan_interval_length>1</plan_interval_length>\
 <plan_interval_unit>months</plan_interval_unit>\
+<revenue_schedule_type>evenly</revenue_schedule_type>\
 <setup_fee_accounting_code>setup_fee_ac</setup_fee_accounting_code>\
 <setup_fee_in_cents>\
 <USD>6000</USD>\

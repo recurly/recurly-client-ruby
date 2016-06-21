@@ -9,6 +9,7 @@ Content-Type: application/xml; charset=utf-8
   <redemptions href="https://api.recurly.com/v2/accounts/abcdef1234567890/redemptions"/>
   <subscriptions href="https://api.recurly.com/v2/accounts/abcdef1234567890/subscriptions"/>
   <transactions href="https://api.recurly.com/v2/accounts/abcdef1234567890/transactions"/>
+  <account_balance href="https://api.recurly.com/v2/accounts/abcdef1234567890/balance"/>
   <account_code>abcdef1234567890</account_code>
   <username>shmohawk58</username>
   <email>larry.david@example.com</email>

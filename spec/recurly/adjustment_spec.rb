@@ -22,6 +22,7 @@ describe Adjustment do
       adjustment.tax_type.must_equal 'usst'
       adjustment.tax_region.must_equal 'CA'
       adjustment.tax_rate.must_equal 0.0875
+      adjustment.revenue_schedule_type.must_equal 'evenly'
 
       tax_details = adjustment.tax_details
       tax_details.length.must_equal 2

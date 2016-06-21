@@ -21,6 +21,7 @@ Content-Type: application/xml; charset=utf-8
   <total_in_cents type="integer">1200</total_in_cents>
   <currency>USD</currency>
   <product_code>basic</product_code>
+  <revenue_schedule_type>evenly</revenue_schedule_type>
   <tax_details type="array">
     <tax_detail>
       <name>california</name>

@@ -35,6 +35,7 @@ describe Subscription do
                                 terms_and_conditions
                                 customer_notes
                                 address
+                                revenue_schedule_type
                                 vat_reverse_charge_notes
                                 bank_account_authorized_at
                               }
