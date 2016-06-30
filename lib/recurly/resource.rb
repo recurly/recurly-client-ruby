@@ -472,7 +472,7 @@ module Recurly
       # @return [Association, nil] Find association for the current class
       #                            with resource class name.
       def find_association(resource_class)
-        associations.find{ |a| a.resource_class == resource_class }
+        associations.find{ |a| a.resource_class.to_s == resource_class.to_s }
       end
 
       def associations_helper
@@ -565,7 +565,7 @@ module Recurly
 
       # @return [:has_many, :has_one, :belongs_to, nil] An association type.
       def reflect_on_association(name)
-        a = find_association(name.to_s)
+        a = find_association(name)
         a.relation if a
       end
 
@@ -711,8 +711,9 @@ module Recurly
         changed_attributes[key] = self[key]
       end
 
-      if self.class.find_association(key)
-        value = fetch_association(key, value)
+      association = self.class.find_association(key)
+      if association
+        value = fetch_associated(key, value)
       # FIXME: More explicit; less magic.
       elsif value && key.end_with?('_in_cents') && !respond_to?(:currency)
         value = Money.new(value, self, key) unless value.is_a?(Money)
@@ -1033,12 +1034,14 @@ module Recurly
 
     private
 
-    def fetch_association(name, value)
+    def fetch_associated(name, value)
       case value
       when Array
-        value.map { |each| fetch_association(Helper.singularize(name), each) }
+        value.map { |each| fetch_associated(Helper.singularize(name), each) }
       when Hash
-        Recurly.const_get(Helper.classify(name), false).send(:new, value)
+        associated_class_name = self.class.find_association(name).class_name
+        associated_class_name ||= Helper.classify(name)
+        Recurly.const_get(associated_class_name, false).send(:new, value)
       when Proc, Resource, Resource::Pager, nil
         value
       else
