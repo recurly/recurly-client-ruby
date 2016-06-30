@@ -127,7 +127,7 @@ module Recurly
     #     e.message # => "Can't find Account with account_code = tortuga"
     #   end
     class NotFound < API::NotFound
-      def initialize message
+      def initialize(message)
         set_message message
       end
     end
@@ -144,7 +144,7 @@ module Recurly
       # @return [Resource, nil] The invalid record.
       attr_reader :record
 
-      def initialize record_or_message
+      def initialize(record_or_message)
         set_message case record_or_message
         when Resource
           @record = record_or_message
@@ -185,7 +185,7 @@ module Recurly
       # @example
       #   Recurly::Account.member_path "code" # => "accounts/code"
       #   Recurly::Account.member_path nil    # => "accounts"
-      def member_path uuid
+      def member_path(uuid)
         uuid = ERB::Util.url_encode(uuid) if uuid
         [collection_path, uuid].compact.join '/'
       end
@@ -207,7 +207,7 @@ module Recurly
       #   a.name_changed?    # => true
       #   a.name_was         # => nil
       #   a.name_change      # => [nil, "Stephen"]
-      def define_attribute_methods attribute_names
+      def define_attribute_methods(attribute_names)
         @attribute_names = attribute_names.map! { |m| m.to_s }.sort!.freeze
         remove_const :AttributeMethods if constants.include? :AttributeMethods
         include const_set :AttributeMethods, Module.new {
@@ -245,13 +245,13 @@ module Recurly
       #   Recurly::Account.paginate(:per_page => 50).each { |a| p a }
       # @example Fetch records before January 1, 2011
       #   Recurly::Account.paginate(:cursor => Time.new(2011, 1, 1))
-      def paginate options = {}
+      def paginate(options = {})
         Pager.new self, options
       end
       alias scoped paginate
       alias where  paginate
 
-      def all options = {}
+      def all(options = {})
         paginate(options).to_a
       end
 
@@ -270,7 +270,7 @@ module Recurly
       # @return [Proc]
       # @param [Symbol] name the scope name
       # @param [Hash] params the scope params
-      def scope name, params = {}
+      def scope(name, params = {})
         scopes[name = name.to_s] = params
         scopes_helper.send(:define_method, name) { paginate scopes[name] }
       end
@@ -283,7 +283,7 @@ module Recurly
       # @see Pager#find_each
       # @example
       #   Recurly::Account.find_each { |a| p a }
-      def find_each per_page = 50, &block
+      def find_each(per_page = 50, &block)
         paginate(:per_page => per_page).find_each(&block)
       end
 
@@ -322,7 +322,7 @@ module Recurly
       #     for invoices use invoice_number
       #     for subscriptions use uuid
       #     for transactions use uuid
-      def find uuid, options = {}
+      def find(uuid, options = {})
         if uuid.nil?
           # Should we raise an ArgumentError, instead?
           raise NotFound, "can't find a record with nil identifier"
@@ -341,7 +341,7 @@ module Recurly
       # @return [Resource] The record.
       # @raise [Transaction::Error] A monetary transaction failed.
       # @see create!
-      def create attributes = {}
+      def create(attributes = {})
         new(attributes) { |record| record.save }
       end
 
@@ -351,7 +351,7 @@ module Recurly
       # @raise [Invalid] The record is invalid.
       # @raise [Transaction::Error] A monetary transaction failed.
       # @see create
-      def create! attributes = {}
+      def create!(attributes = {})
         new(attributes) { |record| record.save! }
       end
 
@@ -360,7 +360,7 @@ module Recurly
       #
       # @return [Resource]
       # @param response [Net::HTTPResponse]
-      def from_response response
+      def from_response(response)
         case response['Content-Type']
         when %r{application/pdf}
           response.body
@@ -379,7 +379,7 @@ module Recurly
       # @return [Resource]
       # @param xml [String, REXML::Element, Nokogiri::XML::Node]
       # @see from_response
-      def from_xml xml
+      def from_xml(xml)
         xml = XML.new xml
         if self != Resource || xml.name == member_name
           record = new
@@ -487,7 +487,7 @@ module Recurly
       # @option options [true, false] :readonly Don't define a setter.
       #                 [String] :class_name Actual associated resource class name
       #                                      if not same as collection_name.
-      def has_many collection_name, options = {}
+      def has_many(collection_name, options = {})
         associations << Association.new(:has_many, collection_name.to_s, options)
         associations_helper.module_eval do
           define_method collection_name do
@@ -513,7 +513,7 @@ module Recurly
       # @option options [true, false] :readonly Don't define a setter.
       #                 [String] :class_name Actual associated resource class name
       #                                      if not same as member_name.
-      def has_one member_name, options = {}
+      def has_one(member_name, options = {})
         associations << Association.new(:has_one, member_name.to_s, options)
         associations_helper.module_eval do
           define_method(member_name) { self[member_name] }
@@ -551,7 +551,7 @@ module Recurly
       # @option options [true, false] :readonly Don't define a setter.
       #                 [String] :class_name Actual associated resource class name
       #                                      if not same as parent_name.
-      def belongs_to parent_name, options = {}
+      def belongs_to(parent_name, options = {})
         associations << Association.new(:belongs_to, parent_name.to_s, options)
         associations_helper.module_eval do
           define_method(parent_name) { self[parent_name] }
@@ -564,12 +564,12 @@ module Recurly
       end
 
       # @return [:has_many, :has_one, :belongs_to, nil] An association type.
-      def reflect_on_association name
-        a = find_association name.to_s
+      def reflect_on_association(name)
+        a = find_association(name.to_s)
         a.relation if a
       end
 
-      def embedded! root_index = false
+      def embedded!(root_index = false)
         private :initialize
         private_class_method(*%w(new create create!))
         unless root_index
@@ -593,7 +593,7 @@ module Recurly
 
     # @return [Resource] A new resource instance.
     # @param attributes [Hash] A hash of attributes.
-    def initialize attributes = {}
+    def initialize(attributes = {})
       if instance_of? Resource
         raise Error,
           "#{self.class} is an abstract class and cannot be instantiated"
@@ -605,7 +605,7 @@ module Recurly
     end
 
     # @return [self] Reloads the record from the server.
-    def reload response = nil
+    def reload(response = nil)
       if response
         return if response.body.to_s.length.zero?
         fresh = self.class.from_response response
@@ -685,7 +685,7 @@ module Recurly
     #   account.read_attribute :first_name # => "Ted"
     #   account[:last_name]                # => "Beneke"
     # @see #write_attribute
-    def read_attribute key
+    def read_attribute(key)
       key = key.to_s
       if attributes.key? key
         value = attributes[key]
@@ -704,18 +704,18 @@ module Recurly
     #   account.write_attribute :first_name, 'Gus'
     #   account[:company_name] = 'Los Pollos Hermanos'
     # @see #read_attribute
-    def write_attribute key, value
+    def write_attribute(key, value)
       if changed_attributes.key?(key = key.to_s)
         changed_attributes.delete key if changed_attributes[key] == value
       elsif self[key] != value
         changed_attributes[key] = self[key]
       end
 
-      if self.class.find_association key
-        value = fetch_association key, value
+      if self.class.find_association(key)
+        value = fetch_association(key, value)
       # FIXME: More explicit; less magic.
       elsif value && key.end_with?('_in_cents') && !respond_to?(:currency)
-        value = Money.new value, self, key unless value.is_a? Money
+        value = Money.new(value, self, key) unless value.is_a?(Money)
       end
 
       attributes[key] = value
@@ -726,7 +726,7 @@ module Recurly
     #
     # @return [Hash]
     # @param attributes [Hash] A hash of attributes.
-    def attributes= attributes = {}
+    def attributes=(attributes = {})
       attributes.each_pair { |k, v|
         respond_to?(name = "#{k}=") and send(name, v) or self[k] = v
       }
@@ -742,7 +742,7 @@ module Recurly
     # @param key [Symbol, String] The name of the link to check for.
     # @example
     #   account.link? :billing_info # => true
-    def link? key
+    def link?(key)
       links.key?(key.to_s)
     end
 
@@ -752,7 +752,7 @@ module Recurly
     # @param options [Hash] A hash of API options.
     # @example
     #   account.read_link :billing_info # => <Recurly::BillingInfo>
-    def follow_link key, options = {}
+    def follow_link(key, options = {})
       if link = links[key = key.to_s]
         response = API.send link[:method], link[:href], options[:body], options
         if resource_class = link[:resource_class]
@@ -772,7 +772,7 @@ module Recurly
     # @example
     #   Recurly::Account.new(:account_code => 'code').to_xml
     #   # => "<account><account_code>code</account_code></account>"
-    def to_xml options = {}
+    def to_xml(options = {})
       builder = options[:builder] || XML.new("<#{self.class.member_name}/>")
       xml_keys.each { |key|
         value = respond_to?(key) ? send(key) : self[key]
@@ -815,7 +815,7 @@ module Recurly
       true
     rescue API::UnprocessableEntity => e
       apply_errors e
-      Transaction::Error.validate! e, (self if is_a? Transaction)
+      Transaction::Error.validate! e, (self if is_a?(Transaction))
       false
     end
 
@@ -864,7 +864,7 @@ module Recurly
     #   account = Account.find 'junior'
     #   account.update_attributes :account_code => 'flynn' # => true
     # @see #update_attributes!
-    def update_attributes attributes = {}
+    def update_attributes(attributes = {})
       self.attributes = attributes and save
     end
 
@@ -878,7 +878,7 @@ module Recurly
     #   account = Account.find 'gale_boetticher'
     #   account.update_attributes! :account_code => nil # Raises an exception.
     # @see #update_attributes
-    def update_attributes! attributes = {}
+    def update_attributes!(attributes = {})
       self.attributes = attributes and save!
     end
 
@@ -898,7 +898,7 @@ module Recurly
     #
     # @api internal
     # @return [true]
-    def persist! saved = false
+    def persist!(saved = false)
       @new_record, @uri = false
       if changed?
         @previous_changes = changes if saved
@@ -940,13 +940,13 @@ module Recurly
       Hash[xml_keys.map { |key| [key, self[key]] }]
     end
 
-    def == other
+    def ==(other)
       other.is_a?(self.class) && other.to_s == to_s
     end
 
     def marshal_dump
       [
-        @attributes.reject { |k, v| v.is_a? Proc },
+        @attributes.reject { |k, v| v.is_a?(Proc) },
         @new_record,
         @destroyed,
         @uri,
@@ -959,7 +959,7 @@ module Recurly
       ]
     end
 
-    def marshal_load serialization
+    def marshal_load(serialization)
       @attributes,
         @new_record,
         @destroyed,
@@ -973,7 +973,7 @@ module Recurly
     end
 
     # @return [String]
-    def inspect attributes = self.class.attribute_names.to_a
+    def inspect(attributes = self.class.attribute_names.to_a)
       string = "#<#{self.class}"
       string << "##@type" if instance_variable_defined? :@type
       attributes += %w(errors) if errors.any?
@@ -994,7 +994,7 @@ module Recurly
       end
     end
 
-    def invalid! attribute_path, error
+    def invalid!(attribute_path, error)
       if attribute_path.length == 1
         errors[attribute_path[0]] << error
       else
@@ -1016,13 +1016,13 @@ module Recurly
       end
     end
 
-    def copy_from other
+    def copy_from(other)
       other.instance_variables.each do |ivar|
         instance_variable_set ivar, other.instance_variable_get(ivar)
       end
     end
 
-    def apply_errors exception
+    def apply_errors(exception)
       @response = exception.response
       document = XML.new exception.response.body
       document.each_element 'error' do |el|
@@ -1033,12 +1033,12 @@ module Recurly
 
     private
 
-    def fetch_association name, value
+    def fetch_association(name, value)
       case value
       when Array
-        value.map { |each| fetch_association Helper.singularize(name), each }
+        value.map { |each| fetch_association(Helper.singularize(name), each) }
       when Hash
-        Recurly.const_get(Helper.classify(name), false).send :new, value
+        Recurly.const_get(Helper.classify(name), false).send(:new, value)
       when Proc, Resource, Resource::Pager, nil
         value
       else
