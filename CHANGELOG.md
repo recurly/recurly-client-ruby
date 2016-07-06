@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.7.0"></a>
+## v2.7.0 (2016-07-07)
+
+- API Version 2.3 [PR](https://github.com/recurly/recurly-client-ruby/pull/253)
+
 <a name="v2.6.1"></a>
 ## v2.6.1 (2016-06-01)
 
