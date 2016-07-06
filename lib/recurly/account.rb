@@ -16,11 +16,13 @@ module Recurly
     has_many :invoices
     has_many :subscriptions
     has_many :transactions
+    has_many :redemptions
 
     # @return [BillingInfo, nil]
     has_one :billing_info, :readonly => false
 
-    has_many :redemptions
+    # @return [AccountBalance, nil]
+    has_one :account_balance, :readonly => true
 
     def redemption coupon_code
       redemptions.detect { |r| r.coupon_code == coupon_code }

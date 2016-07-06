@@ -16,6 +16,7 @@ module Recurly
       optional
       usage_type
       usage_percentage
+      revenue_schedule_type
       created_at
     )
     alias to_param add_on_code

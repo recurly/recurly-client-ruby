@@ -20,6 +20,9 @@ module Recurly
     # @return [Subscription, nil]
     belongs_to :subscription
 
+    # @return [Transaction, nil]
+    has_one :original_transaction, class_name: 'Transaction', readonly: true
+
     define_attribute_methods %w(
       id
       uuid

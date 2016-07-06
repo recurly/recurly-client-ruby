@@ -13,6 +13,14 @@ describe Transaction do
       transaction.must_be_instance_of Transaction
     end
 
+    it "must link to original_transaction if available" do
+      # original_transaction uses the same fixture for the sake of the test
+      stub_api_request(
+        :get, 'transactions/0987654321fedcba', 'transactions/show-200'
+      )
+      transaction.original_transaction.must_be_instance_of Transaction
+    end
+
     it "must parse the fraud_info object if it exists" do
       transaction.fraud_info.must_be_instance_of Hash
       transaction.fraud_info["score"].must_equal 88

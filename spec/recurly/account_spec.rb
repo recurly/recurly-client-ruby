@@ -227,5 +227,21 @@ XML
         account.subscriptions.first.must_be_instance_of Subscription
       end
     end
+
+    describe "when account has a balance" do
+      let(:account) {
+        stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+        stub_api_request :get, 'accounts/abcdef1234567890/balance', 'account_balance/show-200'
+        Account.find 'abcdef1234567890'
+      }
+
+      it "is able to retrieve and parse account balance" do
+        account_balance = account.account_balance
+        account_balance.past_due.must_equal true
+        balance = account_balance.balance_in_cents
+        balance[:USD].must_equal(2910)
+        balance[:EUR].must_equal(-520)
+      end
+    end
   end
 end

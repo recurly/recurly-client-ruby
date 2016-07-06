@@ -32,6 +32,7 @@ module Recurly
       end_date
       created_at
       quantity_remaining
+      revenue_schedule_type
 
       tax_in_cents
       tax_type
