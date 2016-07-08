@@ -30,6 +30,7 @@ module Recurly
       tax_exempt
       tax_code
       created_at
+      updated_at
     )
     alias to_param plan_code
   end

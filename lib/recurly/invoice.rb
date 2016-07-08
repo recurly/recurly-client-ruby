@@ -46,6 +46,7 @@ module Recurly
       total_in_cents
       currency
       created_at
+      updated_at
       closed_at
       amount_remaining_in_cents
       line_items

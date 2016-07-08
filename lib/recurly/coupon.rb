@@ -33,6 +33,7 @@ module Recurly
       max_redemptions_per_account
       applies_to_all_plans
       created_at
+      updated_at
       plan_codes
       description
       invoice_description

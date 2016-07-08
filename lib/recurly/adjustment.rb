@@ -31,6 +31,7 @@ module Recurly
       start_date
       end_date
       created_at
+      updated_at
       quantity_remaining
       revenue_schedule_type
 
