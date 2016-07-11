@@ -1,49 +1,6 @@
 require 'spec_helper'
 
 describe Subscription do
-  describe "attributes" do
-    subject { Subscription }
-
-    it "has all expected attributes" do
-      expected_attributes = %w{ uuid
-                                state
-                                unit_amount_in_cents
-                                cost_in_cents
-                                currency
-                                quantity
-                                activated_at
-                                canceled_at
-                                expires_at
-                                current_period_started_at
-                                current_period_ends_at
-                                trial_started_at
-                                trial_ends_at
-                                pending_subscription
-                                subscription_add_ons
-                                coupon_code
-                                coupon_codes
-                                net_terms
-                                collection_method
-                                po_number
-                                tax_in_cents
-                                tax_type
-                                tax_region
-                                tax_rate
-                                total_billing_cycles
-                                remaining_billing_cycles
-                                bulk
-                                terms_and_conditions
-                                customer_notes
-                                address
-                                revenue_schedule_type
-                                vat_reverse_charge_notes
-                                bank_account_authorized_at
-                              }
-
-        subject.attribute_names.sort.must_equal expected_attributes.sort
-      end
-  end
-
   describe "check serialization" do
     let(:attributes) do
       {
