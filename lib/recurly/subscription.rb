@@ -35,6 +35,7 @@ module Recurly
       cost_in_cents
       currency
       quantity
+      updated_at
       activated_at
       canceled_at
       expires_at

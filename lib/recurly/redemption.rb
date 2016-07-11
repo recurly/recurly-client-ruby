@@ -27,6 +27,7 @@ module Recurly
       coupon_code
       subscription_uuid
       created_at
+      updated_at
     )
 
     def save

@@ -41,6 +41,7 @@ module Recurly
       avs_result
       avs_result_street
       created_at
+      updated_at
       details
       transaction_error
       source

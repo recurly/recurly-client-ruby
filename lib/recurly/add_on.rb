@@ -18,6 +18,7 @@ module Recurly
       usage_percentage
       revenue_schedule_type
       created_at
+      updated_at
     )
     alias to_param add_on_code
     alias quantity default_quantity
