@@ -25,6 +25,9 @@ module Recurly
     # @return [Invoice]
     has_one :invoice
 
+    # @return [GiftCard]
+    has_one :gift_card
+
     # @return [Redemption]
     has_many :redemptions
 
