@@ -1,0 +1,58 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+X-Records: 123
+Link: <https://api.recurly.com/v2/gift_cards?cursor=1234567890&per_page=20>; rel="start", <https://api.recurly.com/v2/gift_cards?cursor=1234566890&per_page=20>; rel="next"
+
+<?xml version="1.0" encoding="UTF-8"?>
+<gift_cards type="array">
+  <gift_card href="https://api.recurly.com.com/v2/gift_cards/2004005808969875135">
+    <gifter_account href="https://api.recurly.com.com/v2/accounts/b6e2372d-f857-4d6f-be11-05a3a1f83940"/>
+    <invoice href="https://api.recurly.com.com/v2/invoices/1017"/>
+    <recipient_account href="https://api.recurly.com.com/v2/accounts/b6e2372d-f857-4d6f-be11-05a3a1f83940"/>
+    <id type="integer">2004005808969875135</id>
+    <redemption_code>8ED8CE30641A92E4</redemption_code>
+    <balance_in_cents type="integer">1000</balance_in_cents>
+    <product_code>gift_card</product_code>
+    <unit_amount_in_cents type="integer">2000</unit_amount_in_cents>
+    <currency>USD</currency>
+    <delivery>
+      <method>email</method>
+      <deliver_at nil="nil"></deliver_at>
+      <email_address>john@example.com</email_address>
+      <first_name>John</first_name>
+      <last_name>Smith</last_name>
+      <address nil="nil"></address>
+      <gifter_name>Sally</gifter_name>
+      <personal_message>Thanks John! -- sally</personal_message>
+    </delivery>
+    <created_at type="datetime">2016-07-28T00:01:48Z</created_at>
+    <updated_at type="datetime">2016-07-28T00:01:46Z</updated_at>
+    <delivered_at nil="nil"></delivered_at>
+    <redeemed_at type="datetime">2016-07-28T00:01:46Z</redeemed_at>
+  </gift_card>
+  <gift_card href="https://api.recurly.com.com/v2/gift_cards/2004005397179840592">
+    <gifter_account href="https://api.recurly.com.com/v2/accounts/200fb60f-d94f-48d1-87dd-25eb7f1a66c6"/>
+    <invoice href="https://api.recurly.com.com/v2/invoices/1015"/>
+    <recipient_account href="https://api.recurly.com.com/v2/accounts/200fb60f-d94f-48d1-87dd-25eb7f1a66c6"/>
+    <id type="integer">2004005397179840592</id>
+    <redemption_code>91EF1F5FD6437C83</redemption_code>
+    <balance_in_cents type="integer">1000</balance_in_cents>
+    <product_code>gift_card</product_code>
+    <unit_amount_in_cents type="integer">2000</unit_amount_in_cents>
+    <currency>USD</currency>
+    <delivery>
+      <method>email</method>
+      <deliver_at nil="nil"></deliver_at>
+      <email_address>john@example.com</email_address>
+      <first_name>John</first_name>
+      <last_name>Smith</last_name>
+      <address nil="nil"></address>
+      <gifter_name>Sally</gifter_name>
+      <personal_message>Thanks John! -- sally</personal_message>
+    </delivery>
+    <created_at type="datetime">2016-07-28T00:00:59Z</created_at>
+    <updated_at type="datetime">2016-07-28T00:00:57Z</updated_at>
+    <delivered_at nil="nil"></delivered_at>
+    <redeemed_at type="datetime">2016-07-28T00:00:56Z</redeemed_at>
+  </gift_card>
+</gift_cards>

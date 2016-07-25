@@ -1,39 +1,22 @@
 module Recurly
   class GiftCard < Resource
-
     belongs_to :invoice
     belongs_to :gifter_account, class_name: :Account, readonly: false
     belongs_to :recipient_account, class_name: :Account, readonly: false
+    has_one :delivery, readonly: false
 
     define_attribute_methods %w(
-      id
-      currency
-      unit_amount_in_cents
-      product_code
-      redemption_code
       balance_in_cents
-      delivery
+      currency
       created_at
-      updated_at
       delivered_at
+      id
+      product_code
       redeemed_at
+      redemption_code
+      unit_amount_in_cents
+      updated_at
     )
-
-    #delivery
-    #  method
-    #  email_address
-    #  first_name
-    #  last_name
-    #  address
-    #    address1
-    #    address2
-    #    city
-    #    state
-    #    zip
-    #    country
-    #    phone
-    #  gifter_name
-    #  personal_message
 
     def self.preview(attributes = {})
       new(attributes) { |record| record.preview }
@@ -47,5 +30,25 @@ module Recurly
       apply_errors e
     end
 
+    def redeem(recipient_account_code)
+      clear_errors
+      xml = <<-XML
+        <recipient_account>
+            <account_code>#{recipient_account_code}</account_code>
+        </recipient_account>
+      XML
+      @response = API.send(:post, "#{self.class.collection_path}/#{redemption_code}/redeem", xml)
+      reload response
+    rescue API::UnprocessableEntity => e
+      apply_errors e
+    end
+
+    private
+
+    def xml_keys
+      keys = super
+      keys << 'redemption_code' if redemption_code? && !redemption_code_changed?
+      keys.sort
+    end
   end
 end
