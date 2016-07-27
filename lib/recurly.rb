@@ -19,6 +19,7 @@ module Recurly
   require 'recurly/measured_unit'
   require 'recurly/plan'
   require 'recurly/redemption'
+  require 'recurly/shipping_address'
   require 'recurly/subscription'
   require 'recurly/subscription_add_on'
   require 'recurly/transaction'

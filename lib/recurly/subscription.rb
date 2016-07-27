@@ -28,6 +28,9 @@ module Recurly
     # @return [Redemption]
     has_many :redemptions
 
+    # return [ShippingAddress]
+    has_one :shipping_address, resource_class: :ShippingAddress, readonly: false
+
     define_attribute_methods %w(
       uuid
       state
@@ -63,6 +66,7 @@ module Recurly
       vat_reverse_charge_notes
       address
       revenue_schedule_type
+      shipping_address_id
     )
     alias to_param uuid
 

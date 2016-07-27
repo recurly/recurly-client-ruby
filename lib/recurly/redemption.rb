@@ -9,6 +9,7 @@ module Recurly
   class Redemption < Resource
     # @return [Coupon]
     belongs_to :coupon
+
     # @return [Account]
     belongs_to :account, :readonly => false
 

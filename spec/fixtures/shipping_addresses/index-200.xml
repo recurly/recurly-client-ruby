@@ -1,0 +1,28 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+X-Records: 123
+Link: <https://api.recurly.com/v2/accounts/bd8d90fb-9581-4b44-9e61-26eab86b0577/shipping_addresses?cursor=1234567890&per_page=20>; rel="start", <https://api.recurly.com/v2/accounts/bd8d90fb-9581-4b44-9e61-26eab86b0577/shipping_addresses?cursor=1234566890&per_page=20>; rel="next"
+
+<?xml version="1.0" encoding="UTF-8"?>
+<shipping_addresses type="array">
+  <shipping_address href="https://api.recurly.com/v2/accounts/bd8d90fb-9581-4b44-9e61-26eab86b0577/shipping_addresses/2017683623137826835">
+    <account href="https://api.recurly.com/v2/accounts/bd8d90fb-9581-4b44-9e61-26eab86b0577"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/bd8d90fb-9581-4b44-9e61-26eab86b0577/shipping_addresses/2017683623137826835/subscriptions"/>
+    <id type="integer">2017683623137826835</id>
+    <nickname>Work</nickname>
+    <first_name>Verena</first_name>
+    <last_name>Example</last_name>
+    <company>Recurly Inc.</company>
+    <phone>555-555-5555</phone>
+    <email>verena@example.com</email>
+    <vat_number nil="nil"></vat_number>
+    <address1>123 Main St.</address1>
+    <address2 nil="nil"></address2>
+    <city>San Francisco</city>
+    <state>CA</state>
+    <zip>94110</zip>
+    <country>US</country>
+    <created_at type="datetime">2016-08-15T20:57:11Z</created_at>
+    <updated_at type="datetime">2016-08-15T20:57:11Z</updated_at>
+  </shipping_address>
+</shipping_addresses>

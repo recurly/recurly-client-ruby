@@ -343,4 +343,22 @@ describe Subscription do
       end
     end
   end
+
+  describe "#shipping_address" do
+    it "should be able to find shipping address" do
+      stub_api_request(
+        :get,
+        'subscriptions/abcdef1234567890',
+        'subscriptions/show-200'
+      )
+      stub_api_request(
+        :get,
+        'subscriptions/abcdef1234567890/shipping_address',
+        'shipping_addresses/show-200'
+      )
+      subscription = Recurly::Subscription.find("abcdef1234567890")
+      shad = subscription.shipping_address
+      shad.must_be_instance_of Recurly::ShippingAddress
+    end
+  end
 end

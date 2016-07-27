@@ -17,6 +17,7 @@ module Recurly
     has_many :subscriptions
     has_many :transactions
     has_many :redemptions
+    has_many :shipping_addresses, resource_class: :ShippingAddress, readonly: false
 
     # @return [BillingInfo, nil]
     has_one :billing_info, :readonly => false
