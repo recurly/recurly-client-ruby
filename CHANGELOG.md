@@ -1,6 +1,14 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.7.1"></a>
+## v2.7.1 (2016-08-04)
+
+Bumps to API version 2.4
+
+- Add `updated_at` fields [PR](https://github.com/recurly/recurly-client-ruby/pull/256)
+- Add support for gift cards [PR](https://github.com/recurly/recurly-client-ruby/pull/257)
+
 <a name="v2.7.0"></a>
 ## v2.7.0 (2016-07-07)
 
