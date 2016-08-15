@@ -23,6 +23,9 @@ module Recurly
     # @return [Redemption]
     has_many :redemptions
 
+    # return [ShippingAddress]
+    has_one :shipping_address, resource_class: :ShippingAddress, readonly: true
+
     def redemption
       redemptions.first
     end

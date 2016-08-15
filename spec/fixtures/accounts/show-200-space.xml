@@ -7,6 +7,7 @@ Content-Type: application/xml; charset=utf-8
   <billing_info href="https://api.recurly.com/v2/accounts/my%20account/billing_info" />
   <invoices href="https://api.recurly.com/v2/accounts/my%20account/invoices" />
   <subscriptions href="https://api.recurly.com/v2/accounts/my%20account/subscriptions" />
+  <shipping_addresses href="https://api.recurly.com/v2/accounts/abcdef1234567890/shipping_addresses"/>
   <transactions href="https://api.recurly.com/v2/accounts/my%20account/transactions" />
   <account_code>my account</account_code>
   <state>active</state>

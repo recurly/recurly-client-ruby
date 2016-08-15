@@ -485,7 +485,7 @@ module Recurly
       # @param collection_name [Symbol] Association name.
       # @param options [Hash] A hash of association options.
       # @option options [true, false] :readonly Don't define a setter.
-      #                 [String] :class_name Actual associated resource class name
+      #                 [String] :resource_class Actual associated resource class name
       #                                      if not same as collection_name.
       def has_many collection_name, options = {}
         associations << Association.new(:has_many, collection_name.to_s, options)
@@ -511,7 +511,7 @@ module Recurly
       # @param member_name [Symbol] Association name.
       # @param options [Hash] A hash of association options.
       # @option options [true, false] :readonly Don't define a setter.
-      #                 [String] :class_name Actual associated resource class name
+      #                 [String] :resource_class Actual associated resource class name
       #                                      if not same as member_name.
       def has_one member_name, options = {}
         associations << Association.new(:has_one, member_name.to_s, options)
@@ -549,7 +549,7 @@ module Recurly
       # @param parent_name [Symbol] Association name.
       # @param options [Hash] A hash of association options.
       # @option options [true, false] :readonly Don't define a setter.
-      #                 [String] :class_name Actual associated resource class name
+      #                 [String] :resource_class Actual associated resource class name
       #                                      if not same as parent_name.
       def belongs_to parent_name, options = {}
         associations << Association.new(:belongs_to, parent_name.to_s, options)
@@ -783,7 +783,17 @@ module Recurly
         when Resource, Subscription::AddOns
           value.to_xml options.merge(:builder => node)
         when Array
-          value.each { |e| node.add_element Helper.singularize(key), e }
+          value.each do |e|
+            if e.is_a? Recurly::Resource
+              # create a node to hold this resource
+              e_node = node.add_element Helper.singularize(key)
+              # serialize the resource into this node
+              e.to_xml(options.merge(builder: e_node))
+            else
+              # it's just a primitive value
+              node.add_element(Helper.singularize(key), e)
+            end
+          end
         when Hash, Recurly::Money
           value.each_pair { |k, v| node.add_element k.to_s, v }
         else

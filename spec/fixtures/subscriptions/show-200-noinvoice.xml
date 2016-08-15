@@ -4,6 +4,8 @@ Content-Type: application/xml; charset=utf-8
 <?xml version="1.0" encoding="UTF-8"?>
 <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890">
   <account href="https://api.recurly.com/v2/accounts/account_code"/>
+  <redemptions href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/redemptions" />
+  <shipping_address href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/shipping_address" />
   <plan href="https://api.recurly.com/v2/plans/plan_code">
     <plan_code>plan_code</plan_code>
     <name>A Man, a Plan, a Canal: Panama</name>

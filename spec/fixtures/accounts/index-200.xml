@@ -11,6 +11,7 @@ Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="
     <invoices href="https://api.recurly.com/v2/accounts/api100/invoices"/>
     <redemption href="https://api.recurly.com/v2/accounts/api100/redemption"/>
     <subscriptions href="https://api.recurly.com/v2/accounts/api100/subscriptions"/>
+    <shipping_addresses href="https://api.recurly.com/v2/accounts/abcdef1234567890/shipping_addresses"/>
     <transactions href="https://api.recurly.com/v2/accounts/api100/transactions"/>
     <account_code>api100</account_code>
     <username>api100_u</username>

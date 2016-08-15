@@ -62,6 +62,20 @@ describe Account do
         error.message.must_equal 'No charges to invoice'
       end
     end
+
+    describe "#shipping_addresses" do
+      it "must return shipping addresses" do
+        stub_api_request(
+          :get,
+          'accounts/abcdef1234567890/shipping_addresses',
+          'shipping_addresses/index-200'
+        )
+
+        shads = account.shipping_addresses.all
+        shads.length.must_equal 1
+        shads.first.must_be_instance_of Recurly::ShippingAddress
+      end
+    end
   end
 
   describe ".find" do
