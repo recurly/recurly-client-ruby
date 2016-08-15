@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.7.2"></a>
+## v2.7.2 (2016-08-15)
+
+- Support Shipping Addresses [PR](https://github.com/recurly/recurly-client-ruby/pull/259)
+
 <a name="v2.7.1"></a>
 ## v2.7.1 (2016-08-04)
 
