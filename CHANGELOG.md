@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.7.3"></a>
+## v2.7.3 (2016-08-19)
+
+- Gift cards support was not merged properly in [#257](https://github.com/recurly/recurly-client-ruby/pull/257). This adds it correctly.
+
 <a name="v2.7.2"></a>
 ## v2.7.2 (2016-08-15)
 
