@@ -34,4 +34,5 @@ Content-Type: application/xml; charset=utf-8
   <updated_at type="datetime">2016-07-28T00:01:46Z</updated_at>
   <delivered_at nil="nil"></delivered_at>
   <redeemed_at type="datetime">2016-07-28T00:01:46Z</redeemed_at>
+  <canceled_at nil="nil"></canceled_at>
 </gift_card>

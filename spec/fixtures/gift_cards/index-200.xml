@@ -29,6 +29,7 @@ Link: <https://api.recurly.com/v2/gift_cards?cursor=1234567890&per_page=20>; rel
     <updated_at type="datetime">2016-07-28T00:01:46Z</updated_at>
     <delivered_at nil="nil"></delivered_at>
     <redeemed_at type="datetime">2016-07-28T00:01:46Z</redeemed_at>
+    <canceled_at nil="nil"></canceled_at>
   </gift_card>
   <gift_card href="https://api.recurly.com.com/v2/gift_cards/2004005397179840592">
     <gifter_account href="https://api.recurly.com.com/v2/accounts/200fb60f-d94f-48d1-87dd-25eb7f1a66c6"/>
@@ -54,5 +55,6 @@ Link: <https://api.recurly.com/v2/gift_cards?cursor=1234567890&per_page=20>; rel
     <updated_at type="datetime">2016-07-28T00:00:57Z</updated_at>
     <delivered_at nil="nil"></delivered_at>
     <redeemed_at type="datetime">2016-07-28T00:00:56Z</redeemed_at>
+    <canceled_at nil="nil"></canceled_at>
   </gift_card>
 </gift_cards>

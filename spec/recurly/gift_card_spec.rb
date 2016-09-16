@@ -30,6 +30,7 @@ describe GiftCard do
       gift_card.balance_in_cents.must_equal 1_000
       gift_card.currency.must_equal "USD"
       gift_card.created_at.must_equal DateTime.parse("2016-07-28T00:01:48Z")
+      gift_card.canceled_at.must_equal nil
       gift_card.delivered_at.must_equal nil
       gift_card.id.must_equal 2004005808969875135
       gift_card.product_code.must_equal "gift_card"

@@ -2,6 +2,7 @@
 ## Unreleased
 
 - Add `updated_at` to `MeasuredUnit` [PR](https://github.com/recurly/recurly-client-ruby/pull/263)
+- Support gift card `canceled_at` timestamp [PR](https://github.com/recurly/recurly-client-ruby/pull/264)
 
 <a name="v2.7.3"></a>
 ## v2.7.3 (2016-08-19)
