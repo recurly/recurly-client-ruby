@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+- Add `updated_at` to `MeasuredUnit` [PR](https://github.com/recurly/recurly-client-ruby/pull/263)
+
 <a name="v2.7.3"></a>
 ## v2.7.3 (2016-08-19)
 

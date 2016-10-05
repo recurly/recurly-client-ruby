@@ -6,6 +6,7 @@ module Recurly
       display_name
       description
       created_at
+      updated_at
     )
     alias to_param id
   end
