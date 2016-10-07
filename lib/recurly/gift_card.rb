@@ -16,6 +16,7 @@ module Recurly
       redemption_code
       unit_amount_in_cents
       updated_at
+      canceled_at
     )
 
     def self.preview(attributes = {})
