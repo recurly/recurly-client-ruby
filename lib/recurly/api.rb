@@ -16,7 +16,7 @@ module Recurly
 
     @@base_uri = "https://api.recurly.com/v2/"
 
-    RECURLY_API_VERSION = '2.4'
+    RECURLY_API_VERSION = '2.5'
 
     FORMATS = Helper.hash_with_indifferent_read_access(
       'pdf' => 'application/pdf',
