@@ -144,16 +144,28 @@ module Recurly
       # @return [Resource, nil] The invalid record.
       attr_reader :record
 
-      def initialize(record_or_message)
-        set_message case record_or_message
-        when Resource
-          @record = record_or_message
-          record_or_message.errors.map { |k, v| "#{k} #{v * ', '}" }.join '; '
+      def initialize(message)
+        if message.is_a? Resource
+          @record = message
+          set_message(record_to_message)
         else
-          record_or_message
+          set_message(message)
         end
       end
+
+      private
+
+      def record_to_message
+        @record.errors.map do |k, v|
+          if k == "base"
+            "#{v.join(', ')}"
+          else
+            "#{k} #{v.join(', ')}"
+          end
+        end.join('; ')
+      end
     end
+
 
     class << self
       # @return [String] The demodulized name of the resource class.
