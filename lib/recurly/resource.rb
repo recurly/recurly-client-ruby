@@ -157,11 +157,8 @@ module Recurly
 
       def record_to_message
         @record.errors.map do |k, v|
-          if k == "base"
-            "#{v.join(', ')}"
-          else
-            "#{k} #{v.join(', ')}"
-          end
+          message = v.join(', ')
+          k == 'base' ? message : "#{k} #{message}"
         end.join('; ')
       end
     end
