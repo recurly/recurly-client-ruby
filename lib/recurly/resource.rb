@@ -140,7 +140,7 @@ module Recurly
     #   rescue Recurly::Resource::Invalid => e
     #     e.record.errors # => errors: {"account_code"=>["can't be blank"]}>
     #   end
-    class Invalid < API::UnprocessableEntity
+    class Invalid < Error
       # @return [Resource, nil] The invalid record.
       attr_reader :record
 

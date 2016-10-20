@@ -96,7 +96,7 @@ module Recurly
 
     def redeem! account_code, currency = nil
       redemption = redeem account_code, currency
-      raise Invalid.new(self) unless redemption.persisted?
+      raise Invalid.new(redemption) unless redemption.persisted?
       redemption
     end
 
