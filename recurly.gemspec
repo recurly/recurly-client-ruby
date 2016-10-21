@@ -22,7 +22,16 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 1.9.3'
 
+  s.add_dependency('nokogiri','~> 1.6.0')
+
   s.add_development_dependency 'rake', '~> 11.1'
   s.add_development_dependency 'minitest', '~> 5.8'
-  s.add_development_dependency 'webmock',  '~> 1.24'
+  s.add_development_dependency 'webmock',  '~> 1.7'
+
+  if RUBY_PLATFORM != 'java'
+    s.add_development_dependency 'redcarpet'
+    s.add_development_dependency 'yard'
+    s.add_development_dependency 'racc'
+    s.add_development_dependency 'pry'
+  end
 end
