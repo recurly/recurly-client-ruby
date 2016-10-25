@@ -9,6 +9,7 @@ module Recurly
       zip
       country
       phone
+      geo_code
     )
   end
 end
