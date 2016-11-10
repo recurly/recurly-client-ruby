@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<new_dunning_event_notification>
+  <account>
+    <account_code>09f299492d21</account_code>
+    <username nil="true"></username>
+    <email>joseph.smith@gmail.com</email>
+    <first_name>Joseph</first_name>
+    <last_name>Smith</last_name>
+    <company_name nil="true"></company_name>
+    <phone>3235626924</phone>
+  </account>
+  <invoice>
+    <uuid>inv-7wr0r2xuawwCjO</uuid>
+    <subscription_id>396e4e17640ca516c2f3a84e47ae91dd</subscription_id>
+    <state>failed</state>
+    <invoice_number_prefix></invoice_number_prefix>
+    <invoice_number type="integer">781002</invoice_number>
+    <po_number></po_number>
+    <vat_number nil="true"></vat_number>
+    <total_in_cents type="integer">2499</total_in_cents>
+    <currency>USD</currency>
+    <date type="datetime">2016-10-26T16:00:12Z</date>
+    <closed_at type="datetime">2016-10-27T16:00:26Z</closed_at>
+    <net_terms type="integer">0</net_terms>
+    <collection_method>automatic</collection_method>
+    <due_at type="datetime">2016-10-26T16:00:12Z</due_at>
+    <dunning_events_count type="integer">2</dunning_events_count>
+  </invoice>
+  <subscription>
+    <plan>
+      <plan_code>28a3ae1fc5c00d123429</plan_code>
+      <name>41c36e04f2d7bebc</name>
+    </plan>
+    <uuid>396e4e17640ca516c2f3a84e47ae91dd</uuid>
+    <state>active</state>
+    <quantity type="integer">1</quantity>
+    <total_amount_in_cents type="integer">2499</total_amount_in_cents>
+    <subscription_add_ons type="array"/>
+    <activated_at type="datetime">2016-10-26T05:42:27Z</activated_at>
+    <canceled_at type="datetime" nil="true"></canceled_at>
+    <expires_at type="datetime" nil="true"></expires_at>
+    <current_period_started_at type="datetime">2016-10-26T16:00:00Z</current_period_started_at>
+    <current_period_ends_at type="datetime">2016-11-26T16:00:00Z</current_period_ends_at>
+    <trial_started_at type="datetime" nil="true"></trial_started_at>
+    <trial_ends_at type="datetime" nil="true"></trial_ends_at>
+  </subscription>
+  <transaction>
+    <id>397083a9a871b53a3d5a4c469fa1216a</id>
+    <invoice_id>397083a76356802de2f5474d299475d8</invoice_id>
+    <invoice_number_prefix></invoice_number_prefix>
+    <invoice_number type="integer">1002</invoice_number>
+    <subscription_id>396e4e17640ca516c2f3a84e47ae91dd</subscription_id>
+    <action>purchase</action>
+    <date type="datetime">2016-10-26T16:00:12Z</date>
+    <gateway>payeezy</gateway>
+    <payment_method>credit_card</payment_method>
+    <amount_in_cents type="integer">2499</amount_in_cents>
+    <status>declined</status>
+    <message>Transaction Normal</message>
+    <gateway_error_codes>00</gateway_error_codes>
+    <failure_type>invalid_data</failure_type>
+    <reference>115948823</reference>
+    <source>subscription</source>
+    <cvv_result code="I">Failed data validation check</cvv_result>
+    <avs_result code="1"></avs_result>
+    <avs_result_street nil="true"></avs_result_street>
+    <avs_result_postal nil="true"></avs_result_postal>
+    <billing_phone nil="true"></billing_phone>
+    <billing_postal>94605</billing_postal>
+    <billing_country>US</billing_country>
+    <test type="boolean">true</test>
+    <voidable type="boolean">false</voidable>
+    <refundable type="boolean">false</refundable>
+  </transaction>
+</new_dunning_event_notification>
