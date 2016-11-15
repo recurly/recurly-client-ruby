@@ -27,7 +27,8 @@ module Recurly
 
         exist = @add_ons.find { |a| a.add_on_code == add_on.add_on_code }
         if exist
-          exist.quantity ||= 1 and exist.quantity += 1
+          exist.quantity ||= 1
+          exist.quantity += add_on.quantity || 1
 
           if add_on.unit_amount_in_cents
             exist.unit_amount_in_cents = add_on.unit_amount_in_cents
