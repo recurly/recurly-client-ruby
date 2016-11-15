@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'rake', '~> 11.1.0'
   s.add_development_dependency 'minitest', '~> 5.8.0'
+  s.add_development_dependency 'addressable',  '~> 2.4.0'
   s.add_development_dependency 'webmock',  '~> 1.24.6'
 
   if RUBY_PLATFORM != 'java' && !ENV['CI']
