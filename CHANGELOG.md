@@ -1,9 +1,18 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.7.4"></a>
+## v2.7.4 (2016-11-17)
+
+- Fix coupon redemption errors [PR](https://github.com/recurly/recurly-client-ruby/pull/271)
+- Remove "base" from pretty printed error messages [PR](https://github.com/recurly/recurly-client-ruby/pull/267)
+- Fix rails deprecation warning [PR](https://github.com/recurly/recurly-client-ruby/pull/275)
 - Add `updated_at` to `MeasuredUnit` [PR](https://github.com/recurly/recurly-client-ruby/pull/263)
 - Support gift card `canceled_at` timestamp [PR](https://github.com/recurly/recurly-client-ruby/pull/264)
 - Fix AddOns quantity accumulator bug from #226 [PR](https://github.com/recurly/recurly-client-ruby/pull/278)
+- Fix Ruby 1.9.3 and jruby testing dependencies [PR](https://github.com/recurly/recurly-client-ruby/pull/279)
+- Add new dunning event webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/277)
+- Add `timeframe` attribute to `Subscription` [PR](https://github.com/recurly/recurly-client-ruby/pull/283)
 
 <a name="v2.7.3"></a>
 ## v2.7.3 (2016-08-19)
