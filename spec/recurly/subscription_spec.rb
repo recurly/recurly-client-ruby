@@ -108,6 +108,22 @@ describe Subscription do
       ])
     end
 
+    it "must accumulate quantity if new addon has quantity" do
+      subscription = Subscription.new :add_ons => [:trial, :trial]
+      subscription.add_ons << SubscriptionAddOn.new(add_on_code: :trial, quantity: 3)
+      subscription.add_ons.to_a.must_equal([
+        SubscriptionAddOn.new(add_on_code: :trial, quantity: 5)
+      ])
+    end
+
+    it "must assume new addon has a quantity of 1 if not specified" do
+      subscription = Subscription.new :add_ons => [:trial, :trial]
+      subscription.add_ons << SubscriptionAddOn.new(add_on_code: :trial)
+      subscription.add_ons.to_a.must_equal([
+        SubscriptionAddOn.new(add_on_code: :trial, quantity: 3)
+      ])
+    end
+
     it "must serialize" do
       subscription = Subscription.new
       subscription.add_ons << :trial
