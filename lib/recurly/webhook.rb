@@ -25,6 +25,7 @@ module Recurly
     autoload :SubscriptionNotification,         'recurly/webhook/subscription_notification'
     autoload :InvoiceNotification,              'recurly/webhook/invoice_notification'
     autoload :TransactionNotification,          'recurly/webhook/transaction_notification'
+    autoload :DunningNotification,              'recurly/webhook/dunning_notification'
     autoload :BillingInfoUpdatedNotification,   'recurly/webhook/billing_info_updated_notification'
     autoload :CanceledSubscriptionNotification, 'recurly/webhook/canceled_subscription_notification'
     autoload :CanceledAccountNotification,      'recurly/webhook/canceled_account_notification'
@@ -44,6 +45,7 @@ module Recurly
     autoload :ProcessingPaymentNotification,    'recurly/webhook/processing_payment_notification'
     autoload :ProcessingInvoiceNotification,    'recurly/webhook/processing_invoice_notification'
     autoload :ScheduledPaymentNotification,     'recurly/webhook/scheduled_payment_notification'
+    autoload :NewDunningEventNotification,      'recurly/webhook/new_dunning_event_notification'
 
     # This exception is raised if the Webhook Notification initialization fails
     class NotificationError < Error
@@ -54,7 +56,7 @@ module Recurly
     def self.parse xml_body
       xml = XML.new xml_body
       class_name = Helper.classify xml.name
-      
+
       if Webhook.const_defined?(class_name, false)
         klass = Webhook.const_get class_name
         klass.from_xml xml_body
