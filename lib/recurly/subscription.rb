@@ -70,6 +70,7 @@ module Recurly
       address
       revenue_schedule_type
       shipping_address_id
+      timeframe
     )
     alias to_param uuid
 
