@@ -147,7 +147,7 @@ If everything looks good, submit a pull request on GitHub and we'll bring in you
 
 (The MIT License.)
 
-© 2009–2015 Recurly Inc.
+© 2009–2016 Recurly Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
