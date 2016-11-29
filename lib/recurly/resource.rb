@@ -579,8 +579,8 @@ module Recurly
       end
 
       def embedded!(root_index = false)
-        private :initialize
-        private_class_method(*%w(new create create!))
+        protected :initialize
+        private_class_method(*%w(create create!))
         unless root_index
           private_class_method(*%w(all find_each first paginate scoped where))
         end

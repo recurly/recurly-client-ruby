@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+- Fix coupon redemption bug on bulk coupons #284 [PR](https://github.com/recurly/recurly-client-ruby/pull/286)
+
 <a name="v2.7.4"></a>
 ## v2.7.4 (2016-11-17)
 
