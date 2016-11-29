@@ -73,7 +73,7 @@ module Recurly
         :currency     => currency || Recurly.default_currency
       }.merge(extra_opts)
 
-      redemption = redemptions.new(redemption_options)
+      redemption = Redemption.new(redemption_options)
 
       Redemption.from_response follow_link(:redeem,
         :body => redemption.to_xml

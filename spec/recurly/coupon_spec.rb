@@ -19,7 +19,24 @@ describe Coupon do
       stub_api_request(
         :put, "coupons/bettercallsaul/redeem", "redemptions/create-201"
       )
-      coupon.redeem 'xX_pinkman_Xx', 'USD', subscription_uuid: 'abcdef1234567890'
+      redemption = coupon.redeem 'xX_pinkman_Xx', 'USD', subscription_uuid: 'abcdef1234567890'
+      redemption.must_be_instance_of Redemption
+    end
+
+    describe "with a bulk coupon" do
+      let(:coupon) { Coupon.find 'cm2016-abcdefg' }
+
+      before do
+        stub_api_request :get, 'coupons/cm2016-abcdefg', 'coupons/bulk-200'
+      end
+
+      it "must be redeemable" do
+        stub_api_request(
+          :put, "coupons/cm2016-abcdefg/redeem", "redemptions/create-201"
+        )
+        redemption = coupon.redeem 'xX_pinkman_Xx', 'USD', subscription_uuid: 'abcdef1234567890'
+        redemption.must_be_instance_of Redemption
+      end
     end
   end
 
