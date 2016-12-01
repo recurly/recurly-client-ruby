@@ -4,6 +4,7 @@ module Recurly
     belongs_to :measured_unit
 
     define_attribute_methods %w(
+      id
       usage_type
       unit_amount_in_cents
       usage_percentage
