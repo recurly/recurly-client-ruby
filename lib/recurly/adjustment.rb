@@ -34,7 +34,6 @@ module Recurly
       updated_at
       quantity_remaining
       revenue_schedule_type
-
       tax_in_cents
       tax_type
       tax_region
@@ -42,6 +41,7 @@ module Recurly
       tax_exempt
       tax_code
       tax_details
+      tax_types
     )
     alias to_param uuid
 

@@ -28,11 +28,30 @@ describe Invoice do
       invoice.invoice_number_with_prefix.must_equal 'GB1001'
     end
 
-    it 'has a tax type if taxed' do
-      stub_api_request :get, 'invoices/taxed-invoice', 'invoices/show-200-taxed'
+    describe 'if taxed' do
+      let(:invoice) { Invoice.find 'taxed-invoice' }
 
-      invoice = Invoice.find 'taxed-invoice'
-      invoice.tax_type.must_equal 'usst'
+      before do
+        stub_api_request :get, 'invoices/taxed-invoice', 'invoices/show-200-taxed'
+      end
+
+      it 'has a tax type if taxed' do
+        invoice.tax_type.must_equal 'usst'
+      end
+
+      it 'has a vertex fields' do
+        invoice.refund_tax_date.must_equal DateTime.new(2017, 04, 30)
+        invoice.refund_geo_code.must_equal 'ABC123'
+
+        tax_types = invoice.tax_types
+        tax_types.length.must_equal 3
+
+        tax_type = tax_types.first
+        tax_type.must_be_instance_of TaxType
+        tax_type.type.must_equal 'STATE'
+        tax_type.tax_in_cents[:USD].must_equal 115
+        tax_type.description.must_equal 'Sales Tax'
+      end
     end
 
     it 'can access notes, net_terms and collection method if there' do

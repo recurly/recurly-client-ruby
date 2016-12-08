@@ -59,6 +59,9 @@ module Recurly
       address
       net_terms
       collection_method
+      tax_types
+      refund_tax_date
+      refund_geo_code
     )
     alias to_param invoice_number_with_prefix
 
