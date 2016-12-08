@@ -14,6 +14,7 @@ module Recurly
       nickname
       company
       email
+      geo_code
     )
     alias to_param address1
   end
