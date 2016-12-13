@@ -18,6 +18,27 @@ Content-Type: application/xml; charset=utf-8
   <tax_type>usst</tax_type>
   <tax_region>CA</tax_region>
   <tax_rate type="float">0.0875</tax_rate>
+  <!-- Vertex -->
+  <refund_tax_date type="datetime">2017-04-30T00:00:00Z</refund_tax_date>
+  <refund_geo_code>ABC123</refund_geo_code>
+  <tax_types type="array">
+    <tax_type>
+      <type>STATE</type>
+      <tax_in_cents type="integer">115</tax_in_cents>
+      <description>Sales Tax</description>
+    </tax_type>
+    <tax_type>
+      <type>COUNTY</type>
+      <tax_in_cents type="integer">10</tax_in_cents>
+      <description>Sales Tax</description>
+    </tax_type>
+    <tax_type>
+      <type>DISTRICT</type>
+      <tax_in_cents type="integer">103</tax_in_cents>
+      <description>Sales Tax</description>
+    </tax_type>
+  </tax_types>
+  <!-- /Vertex -->
   <line_items>
     <adjustment href="https://api.recurly.com/v2/adjustments/charge" type="charge">
       <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
