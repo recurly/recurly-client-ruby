@@ -1,9 +1,9 @@
 module Recurly
   module Version
     MAJOR   = 2
-    MINOR   = 7
-    PATCH   = 5
-    PRE     = nil
+    MINOR   = 8
+    PATCH   = 0
+    PRE     = 'rc1'
 
     VERSION = [MAJOR, MINOR, PATCH, PRE].compact.join('.').freeze
 
