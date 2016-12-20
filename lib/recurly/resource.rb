@@ -393,18 +393,8 @@ module Recurly
       # @see from_response
       def from_xml(xml)
         xml = XML.new xml
-
-        if self != Resource || xml.name == member_name
-          record = new
-        elsif Recurly.const_defined?(class_name = Helper.classify(xml.name), false)
-          klass = Recurly.const_get class_name, false
-          record = klass.send :new
-        elsif root = xml.root and root.elements.empty?
-          return XML.cast root
-        else
-          record = {}
-        end
-        klass ||= self
+        klass = self
+        record = new
 
         xml.root.attributes.each do |name, value|
           record.instance_variable_set "@#{name}", value.to_s
@@ -428,13 +418,8 @@ module Recurly
           next if defined?(Nokogiri::XML::Node::TEXT_NODE) && el.node_type == Nokogiri::XML::Node::TEXT_NODE
 
           if el.children.empty? && href = el.attribute('href')
-            klass_name = Helper.classify(klass.association_class_name(el.name) ||
-                                         el.attribute('type') ||
-                                         el.name)
-
-            next unless Recurly.const_defined?(klass_name)
-
-            resource_class = Recurly.const_get(klass_name, false)
+            resource_name = klass.association_class_name(el.name) || el.attribute('type') || el.name
+            resource_class = find_resource_class(resource_name)
 
             case el.name
             when *klass.associations_for_relation(:has_many)
@@ -599,6 +584,13 @@ module Recurly
         private_class_method(*%w(create create!))
         unless root_index
           private_class_method(*%w(all find_each first paginate scoped where))
+        end
+      end
+
+      def find_resource_class(name)
+        resource_name = Helper.classify(name)
+        if Recurly.const_defined?(resource_name, false)
+          Recurly.const_get(resource_name, false)
         end
       end
     end
