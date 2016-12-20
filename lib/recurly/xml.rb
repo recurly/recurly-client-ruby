@@ -1,38 +1,42 @@
 module Recurly
   class XML
     class << self
-      def cast el
+      def cast(el)
+        # return nil if the `nil` attribute is present
         return if el.attribute 'nil'
 
-        if el.attribute 'type'
-          type = el.attribute('type').value
-        end
+        # get the type from the xml attribute but default to nil
+        type = if el.attribute('type')
+                 el.attribute('type').value
+               end
 
+        # try to parse it as a known simple type
         case type
-          when 'array'    then el.elements.map { |e| XML.cast e }
+          when 'array'    then el.elements.map { |e| cast(e) }
           when 'boolean'  then el.text == 'true'
-          when 'date'     then Date.parse el.text
-          when 'datetime' then DateTime.parse el.text
+          when 'date'     then Date.parse(el.text)
+          when 'datetime' then DateTime.parse(el.text)
           when 'float'    then el.text.to_f
           when 'integer'  then el.text.to_i
         else
-          # FIXME: Move some of this logic to Resource.from_xml?
+          # try to find a Resource class responsible for this element
           [el.name, type].each do |name|
             next unless name
-            resource_name = Helper.classify name
-            if Recurly.const_defined? resource_name, false
-              return Recurly.const_get(resource_name, false).from_xml el
+            if resource = Recurly::Resource.find_resource_class(name)
+              return resource.from_xml(el)
             end
           end
+
+          # fallback to parsing it as a String or a Hash
           if el.elements.empty?
             el.text
           else
-            Hash[el.elements.map { |e| [e.name, XML.cast(e)] }]
+            Hash[el.elements.map { |e| [e.name, cast(e)] }]
           end
         end
       end
 
-      def filter text
+      def filter(text)
         xml = XML.new text
         xml.each do |el|
           el = XML.new el
