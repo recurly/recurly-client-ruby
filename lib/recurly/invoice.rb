@@ -20,6 +20,10 @@ module Recurly
     # @return [Invoice]
     belongs_to :original_invoice, class_name: 'Invoice'
 
+    # This will only be present if the invoice has > 500 line items
+    # @return [Adjustment]
+    has_many :all_line_items, class_name: :Adjustment
+
     # @return [Redemption]
     has_many :redemptions
 
