@@ -28,6 +28,20 @@ describe Resource do
   end
 
   describe "class methods" do
+    describe ".from_response" do
+      it "must not accept text/html responses" do
+        stub_api_request(:get, 'resources/123') do
+<<HTML
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+
+<html></html>
+HTML
+        end
+        proc { Resource.find(123) }.must_raise Recurly::Error
+      end
+    end
+
     describe ".define_attribute_methods" do
       it "must define attribute methods" do
         resource.define_attribute_methods(names = %w(charisma endurance))
@@ -65,6 +79,7 @@ describe Resource do
         pager.must_be_instance_of Resource::Pager
         stub_api_request(:get, 'resources?active=true') { <<XML }
 HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
 
 <resources type="array"/>
 XML
@@ -245,6 +260,7 @@ XML
       it "must lazily fetch a record and assign a relation" do
         stub_api_request(:get, 'resources/1') { <<XML }
 HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
 
 <?xml version="1.0" encoding="UTF-8"?>
 <resource>
@@ -255,6 +271,7 @@ XML
         record = resource.find "1"
         stub_api_request(:get, 'resources/1/day') { <<XML }
 HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
 
 <?xml version="1.0" encoding="UTF-8"?>
 <day>
@@ -326,6 +343,7 @@ XML
         record[:uuid] = 'neo'
         stub_api_request(:get, 'resources/neo') { <<XML }
 HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
 
 <resource>
   <uuid>neo</uuid>
@@ -525,6 +543,5 @@ XML
         record.valid?.must_equal false
       end
     end
-
   end
 end
