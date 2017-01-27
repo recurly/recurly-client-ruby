@@ -742,6 +742,10 @@ module Recurly
       }
     end
 
+    def as_json(options = nil)
+      attributes.reject { |k, v| v.is_a?(Recurly::Resource::Pager) }
+    end
+
     # @return [Hash] The raw hash of record href links.
     def links
       @links ||= {}
