@@ -1,0 +1,12 @@
+HTTP/1.1 502 Bad Gateway
+Content-Type: text/html; charset=utf-8
+
+<html>
+  <head>
+    <meta name="robots" content="noindex, nofollow">
+  </head>
+  <body bgcolor="#000000">
+    <center>::CLOUDFLARE_ERROR_500S_BOX::
+    </center>
+  </body>
+</html>

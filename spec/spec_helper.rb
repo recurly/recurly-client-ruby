@@ -47,6 +47,7 @@ XML = {
     :index   => [
       <<EOR,
 HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
 Link: \
 <https://api.recurly.com/v2/resources?per_page=2&cursor=1234567890>; rel="next"
 X-Records: 3
@@ -62,6 +63,7 @@ X-Records: 3
 EOR
       <<EOR
 HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
 Link: \
 <https://api.recurly.com/v2/resources?per_page=2>; rel="start"
 X-Records: 3
@@ -75,6 +77,7 @@ EOR
     ],
     :show    => <<EOR,
 HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
 
 <resource>
   <name>Spock</name>
@@ -82,6 +85,7 @@ HTTP/1.1 200 OK
 EOR
     :update  => <<EOR,
 HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
 
 <resource>
   <name>Persistent Little Bug</name>

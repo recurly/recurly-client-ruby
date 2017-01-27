@@ -370,13 +370,17 @@ module Recurly
       # @return [Resource]
       # @param response [Net::HTTPResponse]
       def from_response(response)
-        case response['Content-Type']
+        content_type = response['Content-Type']
+
+        case content_type
         when %r{application/pdf}
           response.body
-        else # when %r{application/xml}
+        when %r{application/xml}
           record = from_xml response.body
           record.instance_eval { @etag, @response = response['ETag'], response }
           record
+        else
+          raise Recurly::Error, "Content-Type \"#{content_type}\" is not accepted"
         end
       end
 
