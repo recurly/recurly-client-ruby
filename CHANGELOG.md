@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.7.6"></a>
+## v2.7.6 (2017-01-30)
+
+- Fix cloudflare 502 error #296 [PR](https://github.com/recurly/recurly-client-ruby/pull/296)
+- Fix stack-level-too-deep for as_json #295 [PR](https://github.com/recurly/recurly-client-ruby/pull/295)
+
 <a name="v2.7.5"></a>
 ## v2.7.5 (2016-11-30)
 
