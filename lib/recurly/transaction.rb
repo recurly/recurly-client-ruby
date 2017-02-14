@@ -52,6 +52,7 @@ module Recurly
       tax_code
       accounting_code
       fraud
+      product_code
     )
     alias to_param uuid
     alias fraud_info fraud
