@@ -26,6 +26,7 @@ module Recurly
       token_id
       currency
       geo_code
+      updated_at
     ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES | ROKU_ATTRIBUTES
 
     # @return ["credit_card", "paypal", "amazon", "bank_account", "roku", nil] The type of billing info.

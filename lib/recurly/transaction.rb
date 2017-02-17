@@ -53,6 +53,12 @@ module Recurly
       accounting_code
       fraud
       product_code
+      gateway_type
+      origin
+      message
+      approval_code
+      failure_type
+      gateway_error_codes
     )
     alias to_param uuid
     alias fraud_info fraud

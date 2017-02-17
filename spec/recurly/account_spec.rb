@@ -99,6 +99,10 @@ describe Account do
       account.address.phone.must_equal '8015551234'
       account.address.country.must_equal 'US'
       account.vat_location_valid.must_equal true
+      account.has_live_subscription.must_equal true
+      account.has_active_subscription.must_equal true
+      account.has_future_subscription.must_equal false
+      account.has_past_due_invoice.must_equal false
     end
 
     it 'must return an account with tax state' do

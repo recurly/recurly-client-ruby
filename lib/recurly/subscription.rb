@@ -71,6 +71,8 @@ module Recurly
       revenue_schedule_type
       shipping_address_id
       timeframe
+      started_with_gift
+      converted_at
     )
     alias to_param uuid
 

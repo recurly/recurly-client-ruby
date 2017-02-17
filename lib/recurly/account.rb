@@ -48,6 +48,11 @@ module Recurly
       updated_at
       closed_at
       vat_location_valid
+      has_live_subscription
+      has_active_subscription
+      has_future_subscription
+      has_canceled_subscription
+      has_past_due_invoice
     )
     alias to_param account_code
 
