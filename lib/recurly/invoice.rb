@@ -59,6 +59,10 @@ module Recurly
       address
       net_terms
       collection_method
+      subtotal_after_discount_in_cents
+      attempt_next_collection_at
+      recovery_reason
+      tax_types
     )
     alias to_param invoice_number_with_prefix
 
@@ -84,6 +88,16 @@ module Recurly
     def mark_failed
       return false unless link? :mark_failed
       reload follow_link :mark_failed
+      true
+    end
+
+    # Initiate a collection attempt on an invoice.
+    #
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the invoice has already been collected, a collection attempt was already made)
+    def force_collect
+      return false unless link? :force_collect
+      reload follow_link :force_collect
       true
     end
 

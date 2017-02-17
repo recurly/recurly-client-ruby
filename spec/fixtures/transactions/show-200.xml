@@ -54,4 +54,10 @@ Content-Type: application/xml; charset=utf-8
     <score type="integer">88</score>
     <decision>DECLINE</decision>
   </fraud>
+  <gateway_type>test</gateway_type>
+  <origin>api</origin>
+  <message>Successful test transaction</message>
+  <approval_code>P1234577Q</approval_code>
+  <failure_type nil='nil'></failure_type>
+  <gateway_error_codes nil='nil'></gateway_error_codes>
 </transaction>
