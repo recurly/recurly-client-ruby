@@ -17,6 +17,7 @@ module Recurly
     has_many :unique_coupon_codes, class_name: :Coupon
 
     define_attribute_methods %w(
+      id
       coupon_code
       name
       state
