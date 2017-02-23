@@ -333,8 +333,9 @@ describe Subscription do
 
         subscription = Subscription.find 'abcdef1234567890'
 
-        stub_request(:put, "https://api_key:@api.recurly.com/v2/subscriptions/abcdef1234567890").
-          with(:body => "<subscription><plan_code>abc</plan_code><quantity>1</quantity><unit_amount_in_cents>1500</unit_amount_in_cents></subscription>",
+        stub_request(:put, "https://api.recurly.com/v2/subscriptions/abcdef1234567890").
+          with(:basic_auth => [Recurly.api_key, ''],
+               :body => "<subscription><plan_code>abc</plan_code><quantity>1</quantity><unit_amount_in_cents>1500</unit_amount_in_cents></subscription>",
                :headers => {'Accept'=>'application/xml'}).
           to_return(:status => 200, :body => "", :headers => {})
 
@@ -350,8 +351,9 @@ describe Subscription do
 
         subscription = Subscription.find 'abcdef1234567890'
 
-        stub_request(:put, "https://api_key:@api.recurly.com/v2/subscriptions/abcdef1234567890").
-          with(:body => "<subscription><plan_code>plan_code</plan_code><unit_amount_in_cents>1500</unit_amount_in_cents></subscription>",
+        stub_request(:put, "https://api.recurly.com/v2/subscriptions/abcdef1234567890").
+          with(:basic_auth => [Recurly.api_key, ''],
+               :body => "<subscription><plan_code>plan_code</plan_code><unit_amount_in_cents>1500</unit_amount_in_cents></subscription>",
                :headers => {'Accept'=>'application/xml'}).
           to_return(:status => 200, :body => "", :headers => {})
 

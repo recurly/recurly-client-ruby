@@ -2,6 +2,7 @@
 ## Unreleased
 
 - Remove Nokogiri as a dependency of the recurly gem. If you'd like to continue using it (for that nice speed boost), make sure to add `gem "nokogiri"` to your Gemfile. [PR](https://github.com/recurly/recurly-client-ruby/pull/302)
+- Ruby 2.4 support [PR](https://github.com/recurly/recurly-client-ruby/pull/313)
 
 <a name="v2.8.0"></a>
 ## v2.8.0 (2017-03-21)
