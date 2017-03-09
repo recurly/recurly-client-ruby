@@ -5,6 +5,8 @@
 [Recurly](https://recurly.com/)'s Ruby client library is an interface to its
 [REST API](https://dev.recurly.com/docs/getting-started).
 
+You can also look at [rubydocs](http://www.rubydoc.info/github/recurly/recurly-client-ruby/master)
+to see documentation on the classes and methods available.
 
 ## Installation
 
