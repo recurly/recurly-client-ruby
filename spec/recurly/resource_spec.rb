@@ -97,6 +97,10 @@ XML
         stub_api_request(:get, 'resources/khan') { XML[404] }
         proc { resource.find :khan }.must_raise Resource::NotFound
       end
+
+      it "must reject empty strings" do
+        proc { resource.find '' }.must_raise Resource::NotFound
+      end
     end
 
     describe ".find_each" do

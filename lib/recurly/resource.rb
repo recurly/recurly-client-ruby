@@ -332,8 +332,7 @@ module Recurly
       #     for subscriptions use uuid
       #     for transactions use uuid
       def find(uuid, options = {})
-        if uuid.nil?
-          # Should we raise an ArgumentError, instead?
+        if uuid.nil? || uuid.to_s.empty?
           raise NotFound, "can't find a record with nil identifier"
         end
 
