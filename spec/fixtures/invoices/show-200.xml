@@ -22,6 +22,10 @@ Content-Type: application/xml; charset=utf-8
   <terms_and_conditions>Some Terms and Conditions</terms_and_conditions>
   <net_terms type="integer">0</net_terms>
   <collection_method>automatic</collection_method>
+  <subtotal_after_discount_in_cents type="integer">300</subtotal_after_discount_in_cents>
+  <attempt_next_collection_at nil="nil"></attempt_next_collection_at>
+  <recovery_reason nil="nil"></recovery_reason>
+  <tax_types nil='nil'></tax_types>
   <line_items>
     <adjustment href="https://api.recurly.com/v2/adjustments/charge" type="charge">
       <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
