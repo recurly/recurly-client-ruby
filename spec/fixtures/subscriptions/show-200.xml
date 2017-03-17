@@ -17,6 +17,8 @@ Content-Type: application/xml; charset=utf-8
   <net_terms type="integer">10</net_terms>
   <collection_method>manual</collection_method>
   <po_number>1000</po_number>
+  <started_with_gift type="boolean">false</started_with_gift>
+  <converted_at nil="nil"></converted_at>
   <total_amount_in_cents type="integer">1000</total_amount_in_cents>
   <activated_at type="datetime">2011-04-30T07:00:00Z</activated_at>
   <canceled_at nil="nil"></canceled_at>
