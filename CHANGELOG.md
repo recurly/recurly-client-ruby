@@ -9,6 +9,8 @@
 - Adding all_line_items [PR](https://github.com/recurly/recurly-client-ruby/pull/293)
 - Implement fields for Vertex integration [PR](https://github.com/recurly/recurly-client-ruby/pull/289)
 - Adds geo_code to billing_info, account address, and shipping address [PR](https://github.com/recurly/recurly-client-ruby/pull/273)
+- Guard against passing `Resource.find` empty strings #307 [PR](https://github.com/recurly/recurly-client-ruby/pull/307)
+- Add yard docs link #305 [PR](https://github.com/recurly/recurly-client-ruby/pull/305)
 
 <a name="v2.7.6"></a>
 ## v2.7.6 (2017-01-30)
