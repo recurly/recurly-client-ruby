@@ -3,7 +3,7 @@ module Recurly
     MAJOR   = 2
     MINOR   = 8
     PATCH   = 0
-    PRE     = 'rc2'
+    PRE     = nil
 
     VERSION = [MAJOR, MINOR, PATCH, PRE].compact.join('.').freeze
 
