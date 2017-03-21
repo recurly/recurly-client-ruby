@@ -58,6 +58,4 @@ Content-Type: application/xml; charset=utf-8
   <origin>api</origin>
   <message>Successful test transaction</message>
   <approval_code>P1234577Q</approval_code>
-  <failure_type nil="nil"></failure_type>
-  <gateway_error_codes nil="nil"></gateway_error_codes>
 </transaction>
