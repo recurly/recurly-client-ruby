@@ -34,4 +34,9 @@ Content-Type: application/xml; charset=utf-8
     <phone>8015551234</phone>
   </address>
   <vat_location_valid type="boolean">true</vat_location_valid>
+  <has_live_subscription type="boolean">true</has_live_subscription>
+  <has_active_subscription type="boolean">true</has_active_subscription>
+  <has_future_subscription type="boolean">false</has_future_subscription>
+  <has_canceled_subscription type="boolean">false</has_canceled_subscription>
+  <has_past_due_invoice type="boolean">false</has_past_due_invoice>
 </account>

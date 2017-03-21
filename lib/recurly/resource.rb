@@ -393,11 +393,10 @@ module Recurly
       # @see from_response
       def from_xml(xml)
         xml = XML.new xml
+
         if self != Resource || xml.name == member_name
           record = new
-        elsif Recurly.const_defined?(
-          class_name = Helper.classify(xml.name), false
-        )
+        elsif Recurly.const_defined?(class_name = Helper.classify(xml.name), false)
           klass = Recurly.const_get class_name, false
           record = klass.send :new
         elsif root = xml.root and root.elements.empty?
@@ -447,13 +446,24 @@ module Recurly
               }
             end
           else
-            val = XML.cast(el)
-            if 'address' == el.name && val.kind_of?(Hash)
-              address = Address.new val
-              address.instance_variable_set(:@changed_attributes, {})
-              record[el.name] = address
+            # TODO name tax_type conflicts with the TaxType
+            # class so if we get to this point was can assume
+            # it's the string. Will need to refactor this
+            if el.name == 'tax_type'
+              record[el.name] = el.text
             else
-              record[el.name] = val
+              val = XML.cast(el)
+
+              # TODO we have to clear changed attributes after
+              # parsing here or else it always serializes. Need
+              # a better way of handling changed attributes
+              if el.name == 'address' && val.kind_of?(Hash)
+                address = Address.new val
+                address.changed_attributes.clear
+                record[el.name] = address
+              else
+                record[el.name] = val
+              end
             end
           end
         end

@@ -1,6 +1,15 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.8.0"></a>
+## v2.8.0 (2017-03-21)
+
+- Finishes API v2.5 updates [PR](https://github.com/recurly/recurly-client-ruby/pull/301)
+- Adding product_code to Transactions and Adjustments [PR](https://github.com/recurly/recurly-client-ruby/pull/298)
+- Adding all_line_items [PR](https://github.com/recurly/recurly-client-ruby/pull/293)
+- Implement fields for Vertex integration [PR](https://github.com/recurly/recurly-client-ruby/pull/289)
+- Adds geo_code to billing_info, account address, and shipping address [PR](https://github.com/recurly/recurly-client-ruby/pull/273)
+
 <a name="v2.7.6"></a>
 ## v2.7.6 (2017-01-30)
 

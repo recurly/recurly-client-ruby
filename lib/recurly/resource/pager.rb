@@ -55,6 +55,11 @@ module Recurly
         @collection = @count = nil
       end
 
+      # @return [Boolean] whether or not the xml element is present
+      def any?
+        !@uri.nil?
+      end
+
       # @return [String] The URI of the paginated resource.
       def uri
         @uri ||= resource_class.collection_path

@@ -10,6 +10,8 @@ module Recurly
   require 'recurly/add_on'
   require 'recurly/address'
   require 'recurly/tax_detail'
+  require 'recurly/tax_type'
+  require 'recurly/juris_detail'
   require 'recurly/adjustment'
   require 'recurly/coupon'
   require 'recurly/helper'

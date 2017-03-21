@@ -22,4 +22,5 @@ Content-Type: application/xml; charset=utf-8
   <month type="integer">1</month>
   <first_six>411111</first_six>
   <last_four>1111</last_four>
+  <updated_at type="datetime">2017-02-17T15:38:53Z</updated_at>
 </billing_info>

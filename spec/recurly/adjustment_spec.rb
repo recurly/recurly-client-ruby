@@ -48,6 +48,28 @@ describe Adjustment do
       adjustment.tax_exempt?.must_equal false
     end
 
+    it 'must parse the vertex details if available' do
+      stub_api_request(
+        :get, 'adjustments/abcdef1234567890', 'adjustments/show-200-taxed'
+      )
+
+      adjustment = Adjustment.find 'abcdef1234567890'
+      adjustment.tax_types.length.must_equal 1
+
+      tax_type = adjustment.tax_types.first
+      tax_type.must_be_instance_of TaxType
+      tax_type.type.must_equal 'General Sales and Use Tax'
+
+      tax_type.juris_details.length.must_equal 3
+
+      juris_detail = tax_type.juris_details.first
+      juris_detail.jurisdiction.must_equal 'STATE'
+      juris_detail.tax_in_cents[:USD].must_equal 115
+      juris_detail.rate.must_equal 0.056
+      juris_detail.description.must_equal 'Sales Tax'
+      juris_detail.jurisdiction_name.must_equal nil
+    end
+
     it "must raise an exception when unavailable" do
       stub_api_request :get, 'adjustments/abcdef1234567890', 'adjustments/show-404'
       proc { Adjustment.find 'abcdef1234567890' }.must_raise Resource::NotFound
