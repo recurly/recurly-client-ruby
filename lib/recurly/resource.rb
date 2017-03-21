@@ -411,6 +411,9 @@ module Recurly
         end
 
         xml.each_element do |el|
+          # skip this element if it's an xml comment
+          next if defined?(Nokogiri::XML::Node::TEXT_NODE) && el.is_a?(Nokogiri::XML::Comment)
+
           if el.name == 'a'
             record.links[el.attribute('name').value] = {
               :method => el.attribute('method').to_s,
