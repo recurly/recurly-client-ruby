@@ -461,8 +461,8 @@ module Recurly
               # parsing here or else it always serializes. Need
               # a better way of handling changed attributes
               if el.name == 'address' && val.kind_of?(Hash)
-                address = Address.new val
-                address.changed_attributes.clear
+                address = Address.new(val)
+                address.instance_variable_set(:@changed_attributes, {})
                 record[el.name] = address
               else
                 record[el.name] = val
