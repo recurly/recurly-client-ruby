@@ -3,7 +3,7 @@ require 'logger'
 require 'cgi'
 require 'minitest/autorun'
 require 'minitest/spec'
-require 'webmock'
+require 'webmock/minitest'
 
 module SpecHelper
   include WebMock::API
@@ -15,14 +15,14 @@ module SpecHelper
 
   def stub_api_request method, uri, fixture = nil
     uri = API.base_uri + uri
-    uri.user = CGI.escape Recurly.api_key
-    uri.password = ''
+    user = CGI.escape Recurly.api_key
+    password = ''
     response = if block_given?
       yield
     else
       File.read File.expand_path("../fixtures/#{fixture}.xml", __FILE__)
     end
-    stub_request(method, uri.to_s).to_return response
+    stub_request(method, uri.to_s).with(basic_auth: [user, password]).to_return response
   end
 
   def reset_recurly_environment!
@@ -35,9 +35,8 @@ end
 
 class Minitest::Spec
   include SpecHelper
-  
+
   before do |tests|
-    WebMock.reset!
     reset_recurly_environment!
   end
 end
