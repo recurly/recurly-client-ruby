@@ -18,5 +18,9 @@ env:
   - XML=nokogiri
 matrix:
   allow_failures:
-    - rvm: jruby-19mode
+    - rvm: 1.9.3
+      env: XML=nokogiri
+    - rvm: 2.0.0
+      env: XML=nokogiri
+    - rvm: jruby
       env: XML=nokogiri
