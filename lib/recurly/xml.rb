@@ -80,7 +80,18 @@ module Recurly
 end
 
 if defined? Nokogiri
-  require 'recurly/xml/nokogiri'
+  if RUBY_VERSION < "2.1.0"
+    raise <<-MSG
+
+      You are attempting to use an insecure version of
+      nokogiri on an insecure version of ruby. Please see
+      the documentation on supported versions for more information:
+      https://github.com/recurly/recurly-client-ruby#supported-versions
+
+    MSG
+  else
+    require 'recurly/xml/nokogiri'
+  end
 else
   require 'recurly/xml/rexml'
 end
