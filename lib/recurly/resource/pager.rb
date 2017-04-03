@@ -44,6 +44,19 @@ module Recurly
       #   if the loaded page content has not changed.
       # @option options [String] :uri The default location the pager will
       #   request.
+      # @option options [String, Symbol] :sort The attribute that will be used to order
+      #   records: <tt>created_at</tt>, <tt>updated_at</tt>. Defaults to <tt>created_at</tt>.
+      # @option options [String, Symbol] :order The order in which records will be
+      #   returned: <tt>asc</tt> for ascending order, <tt>desc</tt> for descending order.
+      #   Defaults to <tt>desc</tt>.
+      # @option options [DateTime, String] :begin_time Operates on the attribute specified by the
+      #   <tt>sort</tt> parameter. Filters records to only include those with datetimes
+      #   greater than or equal to the supplied datetime. Accepts an ISO 8601
+      #   date or date and time.
+      # @option options [DateTime, String] :end_time Operates on the attribute specified by
+      #   the <tt>sort</tt> parameter. Filters records to only include those with
+      #   datetimes less than or equal to the supplied datetime. Accepts an
+      #   ISO 8601 date or date and time.
       # @raise [API::NotModified] If the <tt>:etag</tt> option is set and
       #   matches the server's.
       def initialize resource_class, options = {}
