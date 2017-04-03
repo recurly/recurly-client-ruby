@@ -29,6 +29,7 @@ module Recurly
       setup_fee_revenue_schedule_type
       tax_exempt
       tax_code
+      trial_requires_billing_info
       created_at
       updated_at
     )
