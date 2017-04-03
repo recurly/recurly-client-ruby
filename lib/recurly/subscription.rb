@@ -73,6 +73,7 @@ module Recurly
       timeframe
       started_with_gift
       converted_at
+      no_billing_info_reason
     )
     alias to_param uuid
 
