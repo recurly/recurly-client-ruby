@@ -1,7 +1,19 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.9.0"></a>
+## v2.9.0 (2017-04-05)
+
 - Remove Nokogiri as a dependency of the recurly gem. If you'd like to continue using it (for that nice speed boost), make sure to add `gem "nokogiri"` to your Gemfile. [PR](https://github.com/recurly/recurly-client-ruby/pull/302)
+- Add sort and filter params to Pager rubydocs [PR](https://github.com/recurly/recurly-client-ruby/pull/318)
+- Ban nokogiri on dead rubies [PR](https://github.com/recurly/recurly-client-ruby/pull/317)
+- Fix Address serialization bug (serialize every attribute on update) [PR](https://github.com/recurly/recurly-client-ruby/pull/315)
+- Upgrade webmock so specs can run on ruby 2.4 [PR](https://github.com/recurly/recurly-client-ruby/pull/314)
+
+### Upgrade Notes:
+Ruby 1.9 and 2.0 are now deprecated. You may no longer use
+nokogiri on these rubies. Please see [PR #317](https://github.com/recurly/recurly-client-ruby/pull/317) for more information.
+If you wish to use nokogiri and it's not already required (by rails for instance), you will need to explicitly add it as a dependency and require it.
 
 <a name="v2.8.0"></a>
 ## v2.8.0 (2017-03-21)
@@ -13,6 +25,9 @@
 - Adds geo_code to billing_info, account address, and shipping address [PR](https://github.com/recurly/recurly-client-ruby/pull/273)
 - Guard against passing `Resource.find` empty strings #307 [PR](https://github.com/recurly/recurly-client-ruby/pull/307)
 - Add yard docs link #305 [PR](https://github.com/recurly/recurly-client-ruby/pull/305)
+
+### Upgrade Notes:
+If you are using `as_json` on a Resource (previously unsupported) we are now returning the attributes as json rather than the resource as json. This means your returned Hash will not have an `attributes` key but will rather BE the `attributes` value. See #295 
 
 <a name="v2.7.6"></a>
 ## v2.7.6 (2017-01-30)
@@ -76,6 +91,9 @@ Bumps to API version 2.4
 * Fix updating `unit_amount_in_cents` on `Subscription` [PR](https://github.com/recurly/recurly-client-ruby/pull/241)
 * Fix stray `puts` in specs [PR](https://github.com/recurly/recurly-client-ruby/pull/239)
 
+### Upgrade Notes
+This version has a bug around creating accounts. We recommend using 2.6.1 or later https://github.com/recurly/recurly-client-ruby/releases/tag/v2.6.1
+
 <a name="v2.5.2"></a>
 ## v2.5.2 (2016-05-02)
 
@@ -92,6 +110,9 @@ Bumps to API version 2.4
 ## v2.5.0 (2016-01-13)
 
 * Fix redemption destroy path for accounts with multiple redemptions [PR](https://github.com/recurly/recurly-client-ruby/pull/227)
+
+### Upgrade Notes
+This release has API breaking changes around coupon redemptions. See [PR](https://github.com/recurly/recurly-client-ruby/pull/227) to see if you are affected.
 
 <a name="v2.4.9"></a>
 ## v2.4.9 (2015-11-18)
