@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+- resource_class option should be class_name and other mislabeled options [PR](https://github.com/recurly/recurly-client-ruby/pull/321)
+
 <a name="v2.9.0"></a>
 ## v2.9.0 (2017-04-05)
 
