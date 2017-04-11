@@ -163,7 +163,6 @@ module Recurly
       end
     end
 
-
     class << self
       # @return [String] The demodulized name of the resource class.
       # @example
@@ -1024,6 +1023,15 @@ module Recurly
     end
     alias to_s inspect
 
+    def apply_errors(exception)
+      @response = exception.response
+      document = XML.new exception.response.body
+      document.each_element 'error' do |el|
+        attribute_path = el.attribute('field').value.split '.'
+        invalid! attribute_path[1, attribute_path.length], el.text
+      end
+    end
+
     protected
 
     def path
@@ -1062,23 +1070,17 @@ module Recurly
       end
     end
 
-    def apply_errors(exception)
-      @response = exception.response
-      document = XML.new exception.response.body
-      document.each_element 'error' do |el|
-        attribute_path = el.attribute('field').value.split '.'
-        invalid! attribute_path[1, attribute_path.length], el.text
-      end
-    end
-
     private
 
-    def fetch_associated(name, value)
+    def fetch_associated(name, value, options = {})
       case value
       when Array
-        value.map { |each| fetch_associated(Helper.singularize(name), each) }
+        value.map do |v|
+          fetch_associated(Helper.singularize(name), v, association_name: name)
+        end
       when Hash
-        associated_class_name = self.class.find_association(name).class_name
+        association_name = options[:association_name] || name
+        associated_class_name = self.class.find_association(association_name).class_name
         associated_class_name ||= Helper.classify(name)
         Recurly.const_get(associated_class_name, false).send(:new, value)
       when Proc, Resource, Resource::Pager, nil
