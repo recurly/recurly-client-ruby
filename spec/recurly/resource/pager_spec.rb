@@ -37,12 +37,6 @@ describe Resource::Pager do
         stub_api_request(:head, 'resources') { XML[200][:index] }
         pager.count.must_equal 3
       end
-
-      it "must not fetch the count when already loaded" do
-        stub_api_request(:get, 'resources') { XML[200][:index] }
-        pager.reload
-        pager.count.must_equal 3
-      end
     end
 
     describe "#links" do
