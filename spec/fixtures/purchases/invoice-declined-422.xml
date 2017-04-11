@@ -1,0 +1,77 @@
+HTTP/1.1 422 Unprocessable Entity
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<errors>
+  <transaction_error>
+    <error_code>declined</error_code>
+    <error_category>soft</error_category>
+    <merchant_message>The customer's bank has declined their card. The customer will need to contact their bank to learn the cause.</merchant_message>
+    <customer_message>Your transaction was declined. Please use a different card or contact your bank.</customer_message>
+    <gateway_error_code nil="nil"></gateway_error_code>
+  </transaction_error>
+  <error field="purchase.base" symbol="declined">Your transaction was declined. Please use a different card or contact your bank.</error>
+  <transaction href="https://bhelx.recurly.com/v2/transactions/3cd7feef9657cb6e8316344bb4aaa891" type="credit_card">
+    <uuid>3cd7feef9657cb6e8316344bb4aaa891</uuid>
+    <action>purchase</action>
+    <amount_in_cents type="integer">1000</amount_in_cents>
+    <tax_in_cents type="integer">0</tax_in_cents>
+    <currency>USD</currency>
+    <status>declined</status>
+    <payment_method>credit_card</payment_method>
+    <reference>9154060</reference>
+    <source>transaction</source>
+    <recurring type="boolean">false</recurring>
+    <test type="boolean">true</test>
+    <voidable type="boolean">false</voidable>
+    <refundable type="boolean">false</refundable>
+    <ip_address nil="nil"></ip_address>
+    <gateway_type>test</gateway_type>
+    <origin>api</origin>
+    <description nil="nil"></description>
+    <message>Declined transaction</message>
+    <approval_code nil="nil"></approval_code>
+    <failure_type>declined</failure_type>
+    <gateway_error_codes nil="nil"></gateway_error_codes>
+    <transaction_error>
+      <error_code>declined</error_code>
+      <error_category>soft</error_category>
+      <merchant_message>The customer's bank has declined their card. The customer will need to contact their bank to learn the cause.</merchant_message>
+      <customer_message>Your transaction was declined. Please use a different card or contact your bank.</customer_message>
+      <gateway_error_code nil="nil"></gateway_error_code>
+    </transaction_error>
+    <cvv_result code="" nil="nil"></cvv_result>
+    <avs_result code="" nil="nil"></avs_result>
+    <avs_result_street nil="nil"></avs_result_street>
+    <avs_result_postal nil="nil"></avs_result_postal>
+    <created_at type="datetime">2017-04-13T21:24:06Z</created_at>
+    <collected_at type="datetime">2017-04-13T21:24:06Z</collected_at>
+    <updated_at type="datetime">2017-04-13T21:24:06Z</updated_at>
+    <details>
+      <account>
+        <account_code>da319525-0efd-4d45-8d09-2f375ccf7af3</account_code>
+        <first_name nil="nil"></first_name>
+        <last_name nil="nil"></last_name>
+        <company nil="nil"></company>
+        <email nil="nil"></email>
+        <billing_info type="credit_card">
+          <first_name>Benjamin</first_name>
+          <last_name>Du Monde</last_name>
+          <address1>400 Alabama St</address1>
+          <address2 nil="nil"></address2>
+          <city>San Francisco</city>
+          <state>CA</state>
+          <zip>94110</zip>
+          <country>US</country>
+          <phone nil="nil"></phone>
+          <vat_number nil="nil"></vat_number>
+          <card_type>Visa</card_type>
+          <year type="integer">2019</year>
+          <month type="integer">12</month>
+          <first_six>400000</first_six>
+          <last_four>0002</last_four>
+        </billing_info>
+      </account>
+    </details>
+  </transaction>
+</errors>
