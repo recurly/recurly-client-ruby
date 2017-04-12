@@ -510,7 +510,7 @@ module Recurly
       # @param collection_name [Symbol] Association name.
       # @param options [Hash] A hash of association options.
       # @option options [true, false] :readonly Don't define a setter.
-      #                 [String] :resource_class Actual associated resource class name
+      #                 [String] :class_name Actual associated resource class name
       #                                      if not same as collection_name.
       def has_many(collection_name, options = {})
         associations << Association.new(:has_many, collection_name.to_s, options)
@@ -536,7 +536,7 @@ module Recurly
       # @param member_name [Symbol] Association name.
       # @param options [Hash] A hash of association options.
       # @option options [true, false] :readonly Don't define a setter.
-      #                 [String] :resource_class Actual associated resource class name
+      #                 [String] :class_name Actual associated resource class name
       #                                      if not same as member_name.
       def has_one(member_name, options = {})
         associations << Association.new(:has_one, member_name.to_s, options)
@@ -574,7 +574,7 @@ module Recurly
       # @param parent_name [Symbol] Association name.
       # @param options [Hash] A hash of association options.
       # @option options [true, false] :readonly Don't define a setter.
-      #                 [String] :resource_class Actual associated resource class name
+      #                 [String] :class_name Actual associated resource class name
       #                                      if not same as parent_name.
       def belongs_to(parent_name, options = {})
         associations << Association.new(:belongs_to, parent_name.to_s, options)
@@ -847,7 +847,7 @@ module Recurly
       if new_record? || changed?
         clear_errors
         @response = API.send(
-          persisted? ? :put : :post, path, to_xml(:delta => true)
+          persisted? ? :put : :post, path, to_xml
         )
         reload response
         persist! true
