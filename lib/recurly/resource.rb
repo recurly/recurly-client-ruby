@@ -859,6 +859,20 @@ module Recurly
       false
     end
 
+    # Attempts to save the record, returning the success of the request.
+    #
+    # @return [true, false]
+    # @raise [Transaction::Error] A monetary transaction failed.
+    # @example
+    #   account = Recurly::Account.new
+    #   account.save # => false
+    #   account.account_code = 'account_code'
+    #   account.save # => true
+    # @see #save!
+    def preview
+        @response = API.send(:post, path + "/preview", to_xml(:delta => false))
+    end
+
     # Attempts to save the record, returning +true+ if the record was saved and
     # raising {Invalid} otherwise.
     #
@@ -906,6 +920,19 @@ module Recurly
     # @see #update_attributes!
     def update_attributes(attributes = {})
       self.attributes = attributes and save
+    end
+
+    # Update a record with a given hash of attributes.
+    #
+    # @return [true, false] The success of the update.
+    # @param attributes [Hash] A hash of attributes.
+    # @raise [Transaction::Error] A monetary transaction failed.
+    # @example
+    #   account = Account.find 'junior'
+    #   account.update_attributes :account_code => 'flynn' # => true
+    # @see #update_attributes!
+    def preview_update_attributes attributes = {}
+      self.attributes = attributes and preview
     end
 
     # Update a record with a given hash of attributes.
