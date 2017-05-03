@@ -88,7 +88,7 @@ module Recurly
       currency
       collection_method
       po_number
-      terms
+      net_terms
     )
 
     class << self
