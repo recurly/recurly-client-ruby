@@ -65,7 +65,7 @@ module Recurly
         @uri    = options.delete :uri
         @etag   = options.delete :etag
         @resource_class, @options = resource_class, options
-        @collection = @count = nil
+        @collection = nil
       end
 
       # @return [Boolean] whether or not the xml element is present
@@ -81,7 +81,7 @@ module Recurly
       # @return [Integer] The total record count of the resource in question.
       # @see Resource.count
       def count
-        @count ||= API.head(uri, @options)['X-Records'].to_i
+        API.head(uri, @options)['X-Records'].to_i
       end
 
       # @return [Array] Iterates through the current page of records.
@@ -134,7 +134,7 @@ module Recurly
       #   Recurly::Account.active.paginate :per_page => 20
       def paginate options = {}
         dup.instance_eval {
-          @collection = @count = @etag = nil
+          @collection = @etag = nil
           @options = @options.merge options
           self
         }
@@ -220,7 +220,6 @@ module Recurly
         response = API.get uri, params, options
 
         @etag = response['ETag']
-        @count = response['X-Records'].to_i
         @links = {}
         if links = response['Link']
           links.scan(/<([^>]+)>; rel="([^"]+)"/).each do |link, rel|
