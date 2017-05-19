@@ -57,7 +57,7 @@ module Recurly
   #   })
   #
   #   begin
-  #     preview_invoice = Recurly::Purchase.invoice!(purchase)
+  #     preview_invoice = Recurly::Purchase.preview!(purchase)
   #     puts preview_invoice.inspect
   #   rescue Recurly::Resource::Invalid => e
   #     # Invalid data
