@@ -30,6 +30,7 @@ module Recurly
   require 'recurly/xml'
   require 'recurly/delivery'
   require 'recurly/gift_card'
+  require 'recurly/purchase'
   require 'recurly/webhook'
 
   @subdomain = nil

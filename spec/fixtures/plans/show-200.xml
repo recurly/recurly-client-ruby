@@ -24,6 +24,7 @@ Content-Type: application/xml; charset=utf-8
   <setup_fee_accounting_code nil="nil"/>
   <revenue_schedule_type>evenly</revenue_schedule_type>
   <setup_fee_revenue_schedule_type>evenly</setup_fee_revenue_schedule_type>
+  <trial_requires_billing_info type="boolean">false</trial_requires_billing_info>
   <created_at type="datetime">2016-04-13T21:59:18Z</created_at>
   <unit_amount_in_cents>
     <USD type="integer">1000</USD>

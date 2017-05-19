@@ -1,6 +1,5 @@
 HTTP/1.1 200 OK
 Content-Type: application/xml; charset=utf-8
-X-Records: 123
 Link: <https://api.recurly.com/v2/accounts?cursor=1234567890&per_page=20>; rel="start", <https://api.recurly.com/v2/accounts?cursor=1234566890&per_page=20>; rel="next"
 
 <?xml version="1.0" encoding="UTF-8"?>

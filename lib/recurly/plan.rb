@@ -29,9 +29,21 @@ module Recurly
       setup_fee_revenue_schedule_type
       tax_exempt
       tax_code
+      trial_requires_billing_info
       created_at
       updated_at
     )
     alias to_param plan_code
+
+    #TODO this can be removed after the server update
+    def trial_requires_billing_info
+      val = read_attribute(:trial_requires_billing_info)
+      case val
+      when String
+        val == 'true'
+      else
+        val
+      end
+    end
   end
 end
