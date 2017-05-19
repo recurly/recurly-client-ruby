@@ -1,7 +1,23 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.10.0"></a>
+## v2.10.0 (2017-05-19)
+
 - resource_class option should be class_name and other mislabeled options [PR](https://github.com/recurly/recurly-client-ruby/pull/321)
+- Upgrade rake to fix warnings [PR](https://github.com/recurly/recurly-client-ruby/pull/323)
+- Purchases endpoint [PR](https://github.com/recurly/recurly-client-ruby/pull/322)
+- Removal of X-Records header [PR](https://github.com/recurly/recurly-client-ruby/pull/324)
+
+### Upgrade Notes:
+
+This release will upgrade us to API version 2.6. There are two breaking changes:
+
+1. Since the X-Records header was removed in the pagination endpoint, you can no longer call `count` on a `Pager` and expect it to return a cached response.
+From now on, when you call `Pager#count`, it will send a `HEAD` request to the server. So make sure you aren't calling that method in places where you expect the value
+to be cached for you. For more info see [PR #324](https://github.com/recurly/recurly-client-ruby/pull/324).
+2. For `POST /v2/subscriptions` Sending `nil` for `total_billing_cycles` attribute will now override plan `total_billing_cycles` setting and will make subscription renew forever.
+Omitting the attribute will cause the setting to default to the value of plan `total_billing_cycles`.
 
 <a name="v2.9.0"></a>
 ## v2.9.0 (2017-04-05)
