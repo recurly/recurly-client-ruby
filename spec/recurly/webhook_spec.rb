@@ -38,6 +38,10 @@ describe Webhook do
       Webhook.parse(request 'new-account-notification').must_be_instance_of Webhook::NewAccountNotification
     end
 
+    it "must return UpdatedAccountNotification instance" do
+      Webhook.parse(request 'updated-account-notification').must_be_instance_of Webhook::UpdatedAccountNotification
+    end
+
     it "must return NewInvoiceNotification instance" do
       Webhook.parse(request 'new-invoice-notification').must_be_instance_of Webhook::NewInvoiceNotification
     end
