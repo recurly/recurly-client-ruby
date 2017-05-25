@@ -33,6 +33,7 @@ module Recurly
     autoload :ExpiredSubscriptionNotification,  'recurly/webhook/expired_subscription_notification'
     autoload :FailedPaymentNotification,        'recurly/webhook/failed_payment_notification'
     autoload :NewAccountNotification,           'recurly/webhook/new_account_notification'
+    autoload :UpdatedAccountNotification,       'recurly/webhook/updated_account_notification'
     autoload :NewInvoiceNotification,           'recurly/webhook/new_invoice_notification'
     autoload :NewSubscriptionNotification,      'recurly/webhook/new_subscription_notification'
     autoload :PastDueInvoiceNotification,       'recurly/webhook/past_due_invoice_notification'
