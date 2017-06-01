@@ -1,4 +1,6 @@
 module Recurly
+
+  # Recurly Documentation: https://dev.recurly.com/docs/list-active-coupons
   class Coupon < Resource
     BULK = 'bulk'.freeze
     SINGLE_CODE = 'single_code'.freeze
@@ -10,10 +12,10 @@ module Recurly
     scope :expired,    :state => :expired
     scope :maxed_out,  :state => :maxed_out
 
-    # @return [Pager<Redemption>, []]
+    # @return [Pager<Redemption>, []] A pager that yields Redemptions
     has_many :redemptions
 
-    # @return [Pager<Coupon>, []]
+    # @return [Pager<Coupon>, []] A pager that yields coupon-code type Coupons
     has_many :unique_coupon_codes, class_name: :Coupon
 
     define_attribute_methods %w(
@@ -51,15 +53,15 @@ module Recurly
     #
     # @return [true]
     # @param account_or_code [Account, String]
-    # @param currency [String]
-    # @param opts [Hash]
+    # @param currency [String] Three-letter currency code
+    # @param extra_opts [Hash] extra options that go into the {Redemption}
     # @example
-    #   coupon = Coupon.find coupon_code
-    #   coupon.redeem account_code, 'USD', subscription_uuid: 'ab3b1dbabc3195'
+    #   coupon = Coupon.find(coupon_code)
+    #   coupon.redeem(account_code, 'USD', subscription_uuid: 'ab3b1dbabc3195')
     #
-    #   coupon = Coupon.find coupon_code
-    #   account = Account.find account_code
-    #   coupon.redeem account
+    #   coupon = Coupon.find(coupon_code)
+    #   account = Account.find(account_code)
+    #   coupon.redeem(account)
     def redeem account_or_code, currency = nil, extra_opts={}
       return false unless link? :redeem
 
@@ -84,6 +86,15 @@ module Recurly
       redemption
     end
 
+    # Generate unique coupon codes on the server. This is based on the unique_template_code.
+    #
+    # @param amount [Integer]
+    # @return [Pager<Coupon>] A pager that yields the coupon-code type Coupons
+    # @example
+    #   unique_codes = coupon.generate(10)
+    #   unique_codes.each do |c|
+    #     puts c.coupon_code
+    #   end
     def generate(amount)
       builder = XML.new("<coupon/>")
       builder.add_element 'number_of_unique_codes', amount
@@ -95,17 +106,26 @@ module Recurly
       Pager.new(Recurly::Coupon, uri: resp['location'], parent: self, etag: resp['ETag'])
     end
 
-    def redeem! account_code, currency = nil
-      redemption = redeem account_code, currency
+    # Redeem a coupon on the given account code
+    #
+    # @param account_code [String] Acccount's account code
+    # @param currency [String] Three-letter currency code
+    # @return [Redemption] The Coupon Redemption
+    def redeem!(account_code, currency = nil)
+      redemption = redeem(account_code, currency)
       raise Invalid.new(redemption) unless redemption.persisted?
       redemption
     end
 
+    # Restores the coupon
     def restore!
       return false unless link? :restore
       reload follow_link(:restore, body: self.to_xml(delta: true))
     end
 
+    # Will return true if there are no limits on number of redemptions for this Coupon.
+    #
+    # @return [true, false]
     def unlimited_redemptions_per_account?
       !max_redemptions_per_account
     end

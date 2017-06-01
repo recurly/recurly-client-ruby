@@ -1,13 +1,15 @@
 module Recurly
+  # The history of your customer's Recurly account can be tracked through adjustments, made up of credits and charges.
+  #
+  # Recurly Documentation: https://dev.recurly.com/docs/adjustment-object
   class Adjustment < Resource
     # @macro [attach] scope
     #   @scope class
     #   @return [Pager<Adjustment>] a pager that yields +$1+.
-    scope :charges,  :type  => 'charge'
-    scope :credits,  :type  => 'credit'
-
-    scope :pending,  :state => 'pending'
-    scope :invoiced, :state => 'invoiced'
+    scope :charges,  type:  'charge'
+    scope :credits,  type:  'credit'
+    scope :pending,  state: 'pending'
+    scope :invoiced, state: 'invoiced'
 
     # @return [Account, nil]
     belongs_to :account

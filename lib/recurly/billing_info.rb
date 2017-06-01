@@ -1,4 +1,7 @@
 module Recurly
+  # Represents an account's Billing Information. You normally want to use a token when creating billing information.
+  #
+  # Recurly Documentation: https://dev.recurly.com/docs/create-an-accounts-billing-info-token
   class BillingInfo < Resource
     BANK_ACCOUNT_ATTRIBUTES = %w(name_on_account account_type last_four routing_number).freeze
     CREDIT_CARD_ATTRIBUTES = %w(number verification_value card_type year month first_six last_four).freeze
