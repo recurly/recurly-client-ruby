@@ -34,16 +34,5 @@ module Recurly
       updated_at
     )
     alias to_param plan_code
-
-    #TODO this can be removed after the server update
-    def trial_requires_billing_info
-      val = read_attribute(:trial_requires_billing_info)
-      case val
-      when String
-        val == 'true'
-      else
-        val
-      end
-    end
   end
 end
