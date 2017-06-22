@@ -3,7 +3,8 @@ module Recurly
     belongs_to :invoice
     belongs_to :gifter_account, class_name: :Account, readonly: false
     belongs_to :recipient_account, class_name: :Account, readonly: false
-    has_one :delivery, readonly: false
+    has_one :delivery, readonly: false, class_name: :Delivery
+    has_one :address, readonly: false, class_name: :Address
 
     define_attribute_methods %w(
       balance_in_cents

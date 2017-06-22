@@ -18,7 +18,7 @@ module Recurly
 
     def singularize word
       word = word.to_s
-      return "shipping_address" if word == "shipping_address"
+      return word if word.end_with?('address')
       return "shipping_address" if word == "shipping_addresses"
       word.sub(/s$/, '').sub(/ie$/, 'y')
     end
