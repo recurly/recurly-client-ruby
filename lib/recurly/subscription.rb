@@ -90,8 +90,8 @@ module Recurly
     end
 
     # @return [Subscription] A new subscription.
-    def initialize attributes = {}
-      super({ :currency => Recurly.default_currency }.merge attributes)
+    def initialize(attributes = {})
+      super(attributes)
     end
 
     # Assign a Plan resource (rather than a plan code).

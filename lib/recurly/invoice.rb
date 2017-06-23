@@ -151,7 +151,7 @@ module Recurly
 
     private
 
-    def initialize attributes = {}
+    def initialize(attributes = {})
       super({ :currency => Recurly.default_currency }.merge attributes)
     end
 

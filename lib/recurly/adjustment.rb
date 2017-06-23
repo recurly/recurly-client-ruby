@@ -54,7 +54,7 @@ module Recurly
     # @example
     #   account.adjustments.new attributes
     # @see Resource#initialize
-    def initialize attributes = {}
+    def initialize(attributes = {})
       super({ :currency => Recurly.default_currency }.merge attributes)
     end
 
