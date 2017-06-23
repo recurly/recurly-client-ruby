@@ -104,6 +104,13 @@ module Recurly
       logger.send(level, name) { message }
     end
 
+    # Returns a boolean value to tell recurly whether or not to log the response in
+    # the rails log.  We only do this if the environment is production because the
+    # response and response.body are quite helpful when it comes to debugging
+    def conceal_response
+      Thread.current[:recurly_config] && Thread.current[:recurly_config][:conceal_response]
+    end
+
     if RUBY_VERSION <= "1.9.0"
       def const_defined? sym, inherit = false
         raise ArgumentError, "inherit must be false" if inherit
