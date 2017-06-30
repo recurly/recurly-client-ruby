@@ -70,7 +70,7 @@ module Recurly
     attr_reader :type
 
     # @see Resource#initialize
-    def initialize attributes = {}
+    def initialize(attributes = {})
       super({ :currency => Recurly.default_currency }.merge attributes)
     end
 

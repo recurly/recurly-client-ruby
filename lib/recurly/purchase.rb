@@ -82,13 +82,20 @@ module Recurly
     has_many :adjustments, class_name: :Adjustment, readonly: false
 
     # @return [Account, nil]
-    has_one :account, readonly: false
+    has_one :account, class_name: :Account, readonly: false
+
+    # @return [GiftCard, nil]
+    has_one :gift_card, class_name: :GiftCard, readonly: false
+
+    # @return [[Subscription], nil]
+    has_many :subscriptions, class_name: :Subscription, readonly: false
 
     define_attribute_methods %w(
       currency
       collection_method
       po_number
       net_terms
+      coupon_codes
     )
 
     class << self

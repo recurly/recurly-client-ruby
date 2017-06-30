@@ -125,7 +125,7 @@ describe Subscription do
     end
 
     it "must serialize" do
-      subscription = Subscription.new
+      subscription = Subscription.new(currency: 'USD')
       subscription.add_ons << :trial
       subscription.to_xml.must_equal get_raw_xml("subscriptions/serialize-add-ons.xml")
     end
