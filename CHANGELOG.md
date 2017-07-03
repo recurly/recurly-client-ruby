@@ -1,6 +1,16 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.10.1"></a>
+## v2.10.1 (2017-05-19)
+
+This release will upgrade us to API version 2.7. There are no breaking changes.
+
+- Added `updated_account_notification` notification event [PR](https://github.com/recurly/recurly-client-ruby/pull/326)
+- Removed Plan#trial_requires_billing_info coercion [PR](https://github.com/recurly/recurly-client-ruby/pull/329)
+- Fixed "address" being serialized as "addres" bug [PR](https://github.com/recurly/recurly-client-ruby/pull/330)
+- Bump to API v2.7 (Purchase endpoint updates) [PR](https://github.com/recurly/recurly-client-ruby/pull/332)
+
 <a name="v2.10.0"></a>
 ## v2.10.0 (2017-05-19)
 
