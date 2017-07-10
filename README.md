@@ -116,11 +116,6 @@ Recurly's gem API is available
 - [https://support.recurly.com](https://support.recurly.com)
 - [stackoverflow](http://stackoverflow.com/questions/tagged/recurly)
 
-## Announcements
-
-- [@recurly](https://twitter.com/recurly)
-- [Google Group Announcements](https://groups.google.com/group/recurly-api)
-
 ## Contributing
 
 Developing for the Recurly gem is easy with [Bundler](http://gembundler.com/).
@@ -161,7 +156,7 @@ If everything looks good, submit a pull request on GitHub and we'll bring in you
 
 (The MIT License.)
 
-© 2009–2016 Recurly Inc.
+© 2009–2017 Recurly Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
