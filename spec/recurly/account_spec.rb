@@ -71,7 +71,7 @@ describe Account do
           'shipping_addresses/index-200'
         )
 
-        shads = account.shipping_addresses.all
+        shads = account.shipping_addresses.to_a
         shads.length.must_equal 1
         shads.first.must_be_instance_of Recurly::ShippingAddress
       end

@@ -256,12 +256,6 @@ module Recurly
       def paginate(options = {})
         Pager.new self, options
       end
-      alias scoped paginate
-      alias where  paginate
-
-      def all(options = {})
-        paginate(options).to_a
-      end
 
       # @return [Hash] Defined scopes per resource.
       def scopes
@@ -285,14 +279,23 @@ module Recurly
 
       # Iterates through every record by automatically paging.
       #
+      # @option options [Hash] Optional hash to pass to Pager#paginate
+      #
       # @return [nil]
-      # @param [Integer] per_page The number of records returned per request.
       # @yield [record]
-      # @see Pager#find_each
+      # @see Pager#paginate
       # @example
       #   Recurly::Account.find_each { |a| p a }
-      def find_each(per_page = 50, &block)
-        paginate(:per_page => per_page).find_each(&block)
+      # @example With sorting and filter
+      #   opts = {
+      #     begin_time: DateTime.new(2016,1,1),
+      #     sort: :updated_at
+      #   }
+      #   Recurly::Account.find_each(opts) do |a|
+      #     puts a.inspect
+      #   end
+      def find_each(options = {}, &block)
+        paginate(options).find_each(&block)
       end
 
       # @return [Integer] The total record count of the resource in question.
@@ -596,7 +599,7 @@ module Recurly
         protected :initialize
         private_class_method(*%w(create create!))
         unless root_index
-          private_class_method(*%w(all find_each first paginate scoped where))
+          private_class_method(*%w(find_each first paginate))
         end
       end
     end

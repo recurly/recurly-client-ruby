@@ -145,6 +145,6 @@ module Recurly
     # This object does not represent a model on the server side
     # so we do not need to expose these methods.
     protected(*%w(save save!))
-    private_class_method(*%w(all find_each first paginate scoped where post create! create))
+    private_class_method(*%w(find_each first paginate post create! create))
   end
 end
