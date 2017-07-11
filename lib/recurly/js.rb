@@ -3,7 +3,9 @@ require 'base64'
 require 'cgi'
 
 module Recurly
-  # A collection of helper methods to use to verify
+  # @deprecated Please use the new Recurly.js tokenization system https://dev.recurly.com/docs/recurlyjs
+  #
+  # A collection of helper methods to use to verify the old
   # {Recurly.js}[http://js.recurly.com/] callbacks.
   module JS
     # Raised when signature verification fails.

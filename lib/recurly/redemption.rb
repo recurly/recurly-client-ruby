@@ -3,7 +3,7 @@ module Recurly
   # created) through {Coupon} instances.
   #
   # @example
-  #   coupon = Coupon.find "summer2011"
+  #   coupon = Coupon.find("summer2011")
   #   coupon.redemptions.each { |r| p r }
   #   coupon.redeem Account.find("groupon_lover")
   class Redemption < Resource

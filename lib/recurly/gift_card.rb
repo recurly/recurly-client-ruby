@@ -1,10 +1,16 @@
 module Recurly
   class GiftCard < Resource
+    # @return [Invoice, nil]
     belongs_to :invoice
+
+    # @return [Account, nil] The Account belonging to the gifter
     belongs_to :gifter_account, class_name: :Account, readonly: false
+
+    # @return [Account, nil] The Account belonging to the recipient of the gift
     belongs_to :recipient_account, class_name: :Account, readonly: false
-    has_one :delivery, readonly: false, class_name: :Delivery
-    has_one :address, readonly: false, class_name: :Address
+
+    # @return [Delivery, nil] Delivery information of the recipient.
+    has_one :delivery, class_name: :Delivery, readonly: false
 
     define_attribute_methods %w(
       balance_in_cents
@@ -20,10 +26,17 @@ module Recurly
       canceled_at
     )
 
+    # Preview a GiftCard given some attributes
+    #
+    # @param [Hash] attributes for the gift card
+    # @return [GiftCard] The resulting preview GiftCard
     def self.preview(attributes = {})
       new(attributes) { |record| record.preview }
     end
 
+    # Preview the GiftCard. Runs and validates the GiftCard but
+    # does not persist it. Errors are applied to the GiftCard if there
+    # are any errors.
     def preview
       clear_errors
       @response = API.send(:post, "#{path}/preview", to_xml)
@@ -32,6 +45,9 @@ module Recurly
       apply_errors e
     end
 
+    # Redeem this GiftCard on the given account.
+    #
+    # @param [String] Recipient's account code
     def redeem(recipient_account_code)
       clear_errors
       xml = <<-XML

@@ -5,13 +5,12 @@ module Recurly
     # @macro [attach] scope
     #   @scope class
     #   @return [Pager] a pager that yields +$1+ transactions.
-    scope :authorizations, :type  => 'authorization'
-    scope :purchases,      :type  => 'purchase'
-    scope :refunds,        :type  => 'refund'
-
-    scope :successful,     :state => 'successful'
-    scope :failed,         :state => 'failed'
-    scope :voided,         :state => 'voided'
+    scope :authorizations, type: 'authorization'
+    scope :purchases,      type: 'purchase'
+    scope :refunds,        type: 'refund'
+    scope :successful,     state: 'successful'
+    scope :failed,         state: 'failed'
+    scope :voided,         state: 'voided'
 
     # @return [Account]
     belongs_to :account

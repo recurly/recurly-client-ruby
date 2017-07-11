@@ -1,4 +1,5 @@
 module Recurly
+  # Recurly Documentation: https://dev.recurly.com/docs/list-plans
   class Plan < Resource
     # @return [Pager<AddOn>, []]
     has_many :add_ons

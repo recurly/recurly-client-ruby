@@ -19,7 +19,7 @@ module Recurly
   # in the same way you would when creating a {Subscription} with a new account.
   #
   # You can also pass in adjustments and invoicing data to be passed to the invoice.
-  # Here is an example of a Purchase with a new account:
+  # @example
   #   require 'securerandom'
   #
   #   purchase = Recurly::Purchase.new({
@@ -76,7 +76,6 @@ module Recurly
   #     # e.transaction
   #     # e.transaction_error_code
   #   end
-  #
   class Purchase < Resource
     # @return [[Adjustment], nil]
     has_many :adjustments, class_name: :Adjustment, readonly: false
@@ -131,7 +130,7 @@ module Recurly
     end
 
     # This object does not represent a model on the server side
-    # so we do not need to expose thses methods.
+    # so we do not need to expose these methods.
     protected(*%w(save save!))
     private_class_method(*%w(all find_each first paginate scoped where post create! create))
   end
