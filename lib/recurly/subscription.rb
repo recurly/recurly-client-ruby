@@ -75,6 +75,7 @@ module Recurly
       started_with_gift
       converted_at
       no_billing_info_reason
+      imported_trial
     )
     alias to_param uuid
 

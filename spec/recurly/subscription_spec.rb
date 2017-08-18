@@ -8,6 +8,7 @@ describe Subscription do
         currency: 'EUR',
         terms_and_conditions: 'Some Terms and Conditions',
         customer_notes: 'Some Customer Notes',
+        imported_trial: true,
         account: {
           account_code: '1',
           email: 'verena@example.com',
