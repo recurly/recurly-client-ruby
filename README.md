@@ -63,14 +63,19 @@ recurly.configure({ publicKey: '<%= Recurly.js.public_key %>'});
 ```
 
 The client library currently uses a Net::HTTP adapter. If you need to
-configure the settings passed to Net::HTTP (e.g., an SSL certificates path),
-make sure you assign them before you make any requests:
+configure the settings passed to Net::HTTP (e.g., an SSL certificates path or timeout lengths),
+make sure you assign them when initializing the library:
 
 ``` ruby
 Recurly::API.net_http = {
-  :ca_path => "/etc/ssl/certs"
+  ca_path: "/etc/ssl/certs",
+  open_timeout: 5, # 5 seconds (defaults to 60)
+  read_timeout: 45 # 45 seconds (defaults to 60)
 }
 ```
+
+To see which keys are supported for this Hash, see the `Attributes` section
+of the [Net::HTTP documentation](http://ruby-doc.org/stdlib-2.4.1/libdoc/net/http/rdoc/Net/HTTP.html) for your ruby version.
 
 ## Multi-Threaded Configuration
 If you are using the client in a multi-threaded environment and require a different configuration per
