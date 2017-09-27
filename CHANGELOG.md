@@ -2,9 +2,18 @@
 ## Unreleased
 
 <a name="v2.10.1"></a>
-## v2.10.1 (2017-05-19)
+## v2.10.2 (2017-09-27)
 
-This release will upgrade us to API version 2.7. There are no breaking changes.
+- Fix Subscription constructor API breakage [PR](https://github.com/recurly/recurly-client-ruby/pull/339)
+
+<a name="v2.10.1"></a>
+## v2.10.1 (2017-07-03)
+
+**NOTE**: This release contains an accidental breaking change on `Subscription.new`.
+See [#338](https://github.com/recurly/recurly-client-ruby/issues/338) for more details.
+Upgrade to 2.10.2 for the fix.
+
+This release will upgrade us to API version 2.7.
 
 - Added `updated_account_notification` notification event [PR](https://github.com/recurly/recurly-client-ruby/pull/326)
 - Removed Plan#trial_requires_billing_info coercion [PR](https://github.com/recurly/recurly-client-ruby/pull/329)
