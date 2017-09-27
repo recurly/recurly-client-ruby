@@ -129,6 +129,16 @@ module Recurly
       end
     end
 
+    # TODO
+    # This is a temporary solution which allows us to
+    # embed these resources in a purchase without changing their
+    # interface. It will be removed once we get rid of default_currency.
+    def to_xml(options = {})
+      subscriptions.each {|s| s.currency = nil}
+      adjustments.each   {|a| a.currency = nil}
+      super(options)
+    end
+
     # This object does not represent a model on the server side
     # so we do not need to expose these methods.
     protected(*%w(save save!))
