@@ -97,7 +97,7 @@ module Recurly
       coupon_codes
       terms_and_conditions
       customer_notes
-      var_reverse_charge_notes
+      vat_reverse_charge_notes
     )
 
     class << self
