@@ -95,6 +95,9 @@ module Recurly
       po_number
       net_terms
       coupon_codes
+      terms_and_conditions
+      customer_notes
+      vat_reverse_charge_notes
     )
 
     class << self

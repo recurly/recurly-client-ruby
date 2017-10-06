@@ -1,6 +1,19 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.11.0"></a>
+## v2.11.0 (2017-10-04)
+
+This release will upgrade us to API version 2.8.
+
+- Added custom invoice notes to `Purchase` [PR](https://github.com/recurly/recurly-client-ruby/pull/340)
+- Added `imported_trial` boolean field to `Subscription` [Commit](https://github.com/recurly/recurly-client-ruby/commit/cdfbe9de6203f8f2a3bb533411dd4c16dea138b6)
+
+### Upgrade Notes
+
+There is one breaking change in this API version you must consider. All `country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your code fails
+validation, you will receive a validation error. This affects anywhere and address is collected.
+
 <a name="v2.10.1"></a>
 ## v2.10.2 (2017-09-27)
 
