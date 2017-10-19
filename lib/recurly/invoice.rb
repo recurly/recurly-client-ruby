@@ -21,6 +21,9 @@ module Recurly
     # @return [Subscription]
     belongs_to :subscription
 
+    # @return [Pager<Subscription>, []]
+    has_many :subscriptions
+
     # @return [Invoice]
     belongs_to :original_invoice, class_name: :Invoice
 
