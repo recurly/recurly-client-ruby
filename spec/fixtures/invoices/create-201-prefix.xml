@@ -5,7 +5,8 @@ Location: https://api.recurly.com/v2/invoices/create-201-prefix
 <?xml version="1.0" encoding="UTF-8"?>
 <invoice href="https://api.recurly.com/v2/invoices/create-201-prefix">
   <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
-  <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
+  <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890" />
+  <subscriptions href="https://api.recurly.com/v2/invoices/1001/subscriptions"/>
   <uuid>create-201-prefix</uuid>
   <state>open</state>
   <invoice_number type="integer">1001</invoice_number>

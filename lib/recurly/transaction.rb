@@ -19,6 +19,9 @@ module Recurly
     # @return [Subscription, nil]
     belongs_to :subscription
 
+    # @return [Pager<Subscription>, nil]
+    has_many :subscriptions
+
     # @return [Transaction, nil]
     has_one :original_transaction, class_name: :Transaction, readonly: true
 

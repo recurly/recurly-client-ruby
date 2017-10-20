@@ -8,6 +8,7 @@ describe Invoice do
 
       invoice = Invoice.find 'created-invoice'
       invoice.subscription.must_be_instance_of Subscription
+      invoice.subscriptions.must_be_instance_of Recurly::Resource::Pager
     end
 
     it "subscription is nil if not present" do
@@ -15,6 +16,7 @@ describe Invoice do
 
       invoice = Invoice.find 'created-invoice'
       invoice.subscription.must_equal nil
+      invoice.subscriptions.must_equal []
     end
   end
 

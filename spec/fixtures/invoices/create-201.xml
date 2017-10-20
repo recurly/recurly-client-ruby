@@ -6,6 +6,7 @@ Location: https://api.recurly.com/v2/invoices/created-invoice
 <invoice href="https://api.recurly.com/v2/invoices/created-invoice">
   <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
   <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
+  <subscriptions href="https://api.recurly.com/v2/invoices/1001/subscriptions"/>
   <uuid>created-invoice</uuid>
   <state>open</state>
   <invoice_number type="integer">1000</invoice_number>
