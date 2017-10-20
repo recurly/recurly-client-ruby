@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.11.1"></a>
+## v2.11.1 (2017-10-20)
+
+- Added `subscriptions` link to `Invoice` and `Transaction` [PR](https://github.com/recurly/recurly-client-ruby/pull/342)
+
 <a name="v2.11.0"></a>
 ## v2.11.0 (2017-10-04)
 
