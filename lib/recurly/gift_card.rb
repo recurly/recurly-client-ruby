@@ -25,6 +25,7 @@ module Recurly
       updated_at
       canceled_at
     )
+    alias to_param id
 
     # Preview a GiftCard given some attributes
     #
