@@ -21,6 +21,12 @@ describe GiftCard do
     end
   end
 
+  describe "#to_param" do
+    it "should return id" do
+      gift_card.to_param.must_equal 2004005808969875135
+    end
+  end
+
   describe "#find" do
     it "should find a gift card" do
       gift_card.must_be_instance_of Recurly::GiftCard
