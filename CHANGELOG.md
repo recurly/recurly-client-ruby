@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.11.2"></a>
+## v2.11.2 (2017-11-09)
+
+- Fix SSRF vulnerability in `Resource#find`.
+
 <a name="v2.11.1"></a>
 ## v2.11.1 (2017-10-20)
 
@@ -19,7 +24,12 @@ This release will upgrade us to API version 2.8.
 There is one breaking change in this API version you must consider. All `country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your code fails
 validation, you will receive a validation error. This affects anywhere and address is collected.
 
-<a name="v2.10.1"></a>
+<a name="v2.10.3"></a>
+## v2.10.3 (2017-11-09)
+
+- Fix SSRF vulnerability in `Resource#find`.
+
+<a name="v2.10.2"></a>
 ## v2.10.2 (2017-09-27)
 
 - Fix Subscription constructor API breakage [PR](https://github.com/recurly/recurly-client-ruby/pull/339)
@@ -56,6 +66,11 @@ to be cached for you. For more info see [PR #324](https://github.com/recurly/rec
 2. For `POST /v2/subscriptions` Sending `nil` for `total_billing_cycles` attribute will now override plan `total_billing_cycles` setting and will make subscription renew forever.
 Omitting the attribute will cause the setting to default to the value of plan `total_billing_cycles`.
 
+<a name="v2.9.1"></a>
+## v2.9.1 (2017-11-09)
+
+- Fix SSRF vulnerability in `Resource#find`.
+
 <a name="v2.9.0"></a>
 ## v2.9.0 (2017-04-05)
 
@@ -70,6 +85,11 @@ Ruby 1.9 and 2.0 are now deprecated. You may no longer use
 nokogiri on these rubies. Please see [PR #317](https://github.com/recurly/recurly-client-ruby/pull/317) for more information.
 If you wish to use nokogiri and it's not already required (by rails for instance), you will need to explicitly add it as a dependency and require it.
 
+<a name="v2.8.1"></a>
+## v2.8.1 (2017-11-09)
+
+- Fix SSRF vulnerability in `Resource#find`.
+
 <a name="v2.8.0"></a>
 ## v2.8.0 (2017-03-21)
 
@@ -82,7 +102,12 @@ If you wish to use nokogiri and it's not already required (by rails for instance
 - Add yard docs link #305 [PR](https://github.com/recurly/recurly-client-ruby/pull/305)
 
 ### Upgrade Notes:
-If you are using `as_json` on a Resource (previously unsupported) we are now returning the attributes as json rather than the resource as json. This means your returned Hash will not have an `attributes` key but will rather BE the `attributes` value. See #295 
+If you are using `as_json` on a Resource (previously unsupported) we are now returning the attributes as json rather than the resource as json. This means your returned Hash will not have an `attributes` key but will rather BE the `attributes` value. See #295
+
+<a name="v2.7.7"></a>
+## v2.7.7 (2017-11-09)
+
+- Fix SSRF vulnerability in `Resource#find`.
 
 <a name="v2.7.6"></a>
 ## v2.7.6 (2017-01-30)
@@ -131,6 +156,11 @@ Bumps to API version 2.4
 
 - API Version 2.3 [PR](https://github.com/recurly/recurly-client-ruby/pull/253)
 
+<a name="v2.6.2"></a>
+## v2.6.2 (2017-11-09)
+
+- Fix SSRF vulnerability in `Resource#find`.
+
 <a name="v2.6.1"></a>
 ## v2.6.1 (2016-06-01)
 
@@ -148,6 +178,11 @@ Bumps to API version 2.4
 
 ### Upgrade Notes
 This version has a bug around creating accounts. We recommend using 2.6.1 or later https://github.com/recurly/recurly-client-ruby/releases/tag/v2.6.1
+
+<a name="v2.5.3"></a>
+## v2.5.3 (2017-11-09)
+
+- Fix SSRF vulnerability in `Resource#find`.
 
 <a name="v2.5.2"></a>
 ## v2.5.2 (2016-05-02)
@@ -168,6 +203,11 @@ This version has a bug around creating accounts. We recommend using 2.6.1 or lat
 
 ### Upgrade Notes
 This release has API breaking changes around coupon redemptions. See [PR](https://github.com/recurly/recurly-client-ruby/pull/227) to see if you are affected.
+
+<a name="v2.4.10"></a>
+## v2.4.10 (2017-11-09)
+
+- Fix SSRF vulnerability in `Resource#find`.
 
 <a name="v2.4.9"></a>
 ## v2.4.9 (2015-11-18)
@@ -242,6 +282,11 @@ This release has API breaking changes around coupon redemptions. See [PR](https:
 ## v2.4.0 (2015-1-7)
 * Add `Invoice#original_invoice` for refund invoices [PR](https://github.com/recurly/recurly-client-ruby/pull/169)
 
+<a name="v2.3.9"></a>
+## v2.3.9 (2017-11-09)
+
+- Fix SSRF vulnerability in `Resource#find`.
+
 <a name="v2.3.8"></a>
 ## v2.3.8 (2014-12-22)
 
@@ -306,6 +351,12 @@ This release has API breaking changes around coupon redemptions. See [PR](https:
 * Added `tax_exempt` to accounts, adjustments and plans [b542b8a](https://github.com/recurly/recurly-client-ruby/commit/b542b8a16616ba7d4cc1da22200ea3eb7ba426b0)
 * Added `tax_rate`, `tax_type` to invoices and subscriptions [6a43f37](https://github.com/recurly/recurly-client-ruby/commit/6a43f37b86eb659aa99be4cf48bed0f07927b197)
 * Added `tax_in_cents` to subscriptions [6a43f37](https://github.com/recurly/recurly-client-ruby/commit/6a43f37b86eb659aa99be4cf48bed0f07927b197)
+
+<a name="v2.2.4"></a>
+## v2.2.4 (2017-11-09)
+
+- Fix SSRF vulnerability in `Resource#find`.
+- Backported fix for URL encoding [#157](https://github.com/recurly/recurly-client-ruby/pull/157)
 
 <a name="v2.2.3"></a>
 ## v2.2.3 (2014-5-9)
