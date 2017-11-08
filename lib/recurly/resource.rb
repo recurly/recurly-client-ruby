@@ -321,9 +321,8 @@ module Recurly
           request_options[:head] = { 'If-None-Match' => etag }
         end
 
-        uri = uuid =~ /^http/ ? uuid : member_path(uuid)
         begin
-          from_response API.get(uri, {}, request_options)
+          from_response API.get(member_path(uuid), {}, options)
         rescue API::NotFound => e
           raise NotFound, e.description
         end

@@ -39,6 +39,7 @@ module Recurly
           if options[:params] && !options[:params].empty?
             uri += "?#{options[:params].map { |k, v| "#{k}=#{v}" }.join '&' }"
           end
+          self.validate_uri!(uri)
           request = METHODS[method].new uri.request_uri, head
           request.basic_auth Recurly.api_key, nil
           if options[:body]
