@@ -43,6 +43,7 @@ module Recurly
             }
             uri += "?#{pairs.join '&'}"
           end
+          self.validate_uri!(uri)
           request = METHODS[method].new uri.request_uri, head
           request.basic_auth(*[Recurly.api_key, nil].flatten[0, 2])
           if options[:body]
