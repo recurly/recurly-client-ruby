@@ -29,7 +29,7 @@ describe Purchase do
     end
     it "should raise a Transaction::Error error when transaction fails" do
       stub_api_request(:post, 'purchases', 'purchases/invoice-declined-422')
-      proc {Purchase.invoice!(purchase)}.must_raise Transaction::Error
+      proc {Purchase.invoice!(purchase)}.must_raise Transaction::DeclinedError
     end
   end
 
