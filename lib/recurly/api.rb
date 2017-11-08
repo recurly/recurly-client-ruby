@@ -15,6 +15,7 @@ module Recurly
     require 'recurly/api/errors'
 
     @@base_uri = "https://api.recurly.com/v2/"
+    @@valid_domains = [".recurly.com"]
 
     RECURLY_API_VERSION = '2.8'
 
@@ -73,6 +74,13 @@ module Recurly
       # @return [URI::Generic]
       def base_uri
         URI.parse @@base_uri.sub('api', Recurly.subdomain)
+      end
+
+      def validate_uri!(uri)
+        domain = @@valid_domains.detect { |d| uri.host.end_with?(d) }
+        unless domain
+          raise ArgumentError, "URI #{uri} is invalid. You may only make requests to a Recurly domain."
+        end
       end
 
       # @return [String]
