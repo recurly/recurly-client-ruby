@@ -633,9 +633,12 @@ module Recurly
         return if response.body.to_s.length.zero?
         fresh = self.class.from_response response
       else
-        fresh = self.class.find(
-          @href || to_param, :etag => (etag unless changed?)
-        )
+        options = {:etag => (etag unless changed?)}
+        fresh = if @href
+                  self.class.from_response API.get(@href, {}, options)
+                else
+                  self.class.find(to_param, options)
+                end
       end
       fresh and copy_from fresh
       persist! true
