@@ -333,6 +333,30 @@ XML
         record.reload
         record[:name].must_equal 'The Matrix'
       end
+
+      it "must reload attributes for persistent records when they have an href" do
+        stub_api_request(:get, 'resources/neo') { <<XML }
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<resource href="https://api.recurly.com/v2/resources/neo">
+  <uuid>neo</uuid>
+  <name>The Matrix</name>
+</resource>
+XML
+        record = resource.find('neo')
+        stub_api_request(:get, 'resources/neo') { <<XML }
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<resource href="https://api.recurly.com/v2/resources/neo">
+  <uuid>neo</uuid>
+  <name>The Matrix Reloaded</name>
+</resource>
+XML
+        record.reload
+        record.name.must_equal 'The Matrix Reloaded'
+      end
     end
 
     describe "#persisted?" do
