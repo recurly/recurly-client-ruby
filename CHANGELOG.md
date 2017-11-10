@@ -1,6 +1,8 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+- Fix `Resource#reload` method.
+
 <a name="v2.11.2"></a>
 ## v2.11.2 (2017-11-09)
 
