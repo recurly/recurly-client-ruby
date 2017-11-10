@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    recurly (2.4.10)
+    recurly (2.4.11)
 
 GEM
   remote: https://rubygems.org/
@@ -243,4 +243,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.10.6
+   1.16.0
