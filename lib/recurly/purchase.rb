@@ -102,12 +102,12 @@ module Recurly
 
     class << self
 
-      # Generate an invoice for the purchase and run any needed transactions
+      # Generate an invoice for the purchase and run any needed transactions.
       #
-      # @param purchase [Purchase] The purchase data for the request
-      # @return [Invoice] The new invoice representing this purchase
-      # @raise [Invalid] Raised if the account cannot be invoiced.
-      # @raise [Transaction::Error] Raised if the transaction failed
+      # @param purchase [Purchase] The purchase data for the request.
+      # @return [Invoice] The saved invoice representing this purchase.
+      # @raise [Invalid] Raised if the purchase cannot be invoiced.
+      # @raise [Transaction::Error] Raised if the transaction failed.
       def invoice!(purchase)
         post(purchase, collection_path)
       end
@@ -115,9 +115,9 @@ module Recurly
       # Generate a preview invoice for the purchase. Runs validations
       # but does not run any transactions.
       #
-      # @param purchase [Purchase] The purchase data for the request
-      # @return [Invoice] The new invoice representing this purchase
-      # @raise [Invalid] Raised if the account cannot be invoiced.
+      # @param purchase [Purchase] The purchase data for the request.
+      # @return [Invoice] The preview invoice representing this purchase.
+      # @raise [Invalid] Raised if the purchase cannot be invoiced.
       def preview!(purchase)
         post(purchase, "#{collection_path}/preview")
       end
