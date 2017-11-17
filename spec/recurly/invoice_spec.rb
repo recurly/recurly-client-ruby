@@ -7,7 +7,6 @@ describe Invoice do
       stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
 
       invoice = Invoice.find 'created-invoice'
-      invoice.subscription.must_be_instance_of Subscription
       invoice.subscriptions.must_be_instance_of Recurly::Resource::Pager
     end
 
@@ -15,7 +14,6 @@ describe Invoice do
       stub_api_request :get, 'invoices/created-invoice', 'invoices/show-200-nosub'
 
       invoice = Invoice.find 'created-invoice'
-      invoice.subscription.must_equal nil
       invoice.subscriptions.must_equal []
     end
   end

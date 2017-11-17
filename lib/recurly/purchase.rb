@@ -122,6 +122,19 @@ module Recurly
         post(purchase, "#{collection_path}/preview")
       end
 
+      # Generate an authorized invoice for the purchase. Runs validations
+      # but does not run any transactions. This endpoint will create a
+      # pending purchase that can be activated at a later time once payment
+      # has been completed on an external source (e.g. Adyen's Hosted
+      # Payment Pages).
+      #
+      # @param purchase [Purchase] The purchase data for the request.
+      # @return [Invoice] The authorized invoice representing this purchase.
+      # @raise [Invalid] Raised if the purchase cannot be invoiced.
+      def authorize!(purchase)
+        post(purchase, "#{collection_path}/authorize")
+      end
+
       def post(purchase, path)
         response = API.send(:post, path, purchase.to_xml)
         Invoice.from_response(response)

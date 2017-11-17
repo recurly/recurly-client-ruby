@@ -16,8 +16,6 @@ module Recurly
     belongs_to :account
     # @return [Invoice, nil]
     belongs_to :invoice
-    # @return [Subscription, nil]
-    belongs_to :subscription
 
     # @return [Pager<Subscription>, nil]
     has_many :subscriptions
