@@ -1,6 +1,21 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.12.0"></a>
+## v2.12.0 (2017-11-20)
+
+- Added purchase authorize endpoint and other API version 2.9 changes. [PR](https://github.com/recurly/recurly-client-ruby/pull/347)
+
+### Upgrade Notes
+
+This version bumps us to API version 2.9. There are a few breaking changes.
+
+1. The 'subscription' link on an instance of `Adjustment` is now only created if adjustment is
+originating from a subscription plan charge, setup fee, add on, trial or proration credit.
+It is no longer created for other adjustments.
+2. Instances of `Transaction` and `Invoice` no longer have a `subscription` link and you must now
+use the `subscriptions` link.
+
 <a name="v2.11.3"></a>
 ## v2.11.3 (2017-11-10)
 
