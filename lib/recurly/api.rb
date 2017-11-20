@@ -17,7 +17,7 @@ module Recurly
     @@base_uri = "https://api.recurly.com/v2/"
     @@valid_domains = [".recurly.com"]
 
-    RECURLY_API_VERSION = '2.8'
+    RECURLY_API_VERSION = '2.9'
 
     FORMATS = Helper.hash_with_indifferent_read_access(
       'pdf' => 'application/pdf',

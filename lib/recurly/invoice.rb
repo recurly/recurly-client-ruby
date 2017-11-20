@@ -18,9 +18,6 @@ module Recurly
     # @return [Account]
     belongs_to :account
 
-    # @return [Subscription]
-    belongs_to :subscription
-
     # @return [Pager<Subscription>, []]
     has_many :subscriptions
 
