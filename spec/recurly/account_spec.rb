@@ -224,6 +224,32 @@ XML
     end
   end
 
+  describe "#verify_cvv!" do
+    let(:account) {
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+      Account.find('abcdef1234567890')
+    }
+
+    it "should call endpoint and set new billing info details" do
+      stub_api_request :post, 'accounts/abcdef1234567890/billing_info/verify_cvv', 'billing_info/verify-cvv-200'
+      bi = account.verify_cvv! "504"
+      bi.first_name.must_equal "Good"
+      bi.last_name.must_equal  "CVV"
+    end
+
+    it "should raise BadRequest when checking too many times and cvv locked" do
+      stub_api_request :post, 'accounts/abcdef1234567890/billing_info/verify_cvv', 'billing_info/verify-cvv-locked-400'
+      error = proc { account.verify_cvv! "504" }.must_raise API::BadRequest
+      error.message.must_equal "This credit card has too many cvv check attempts."
+    end
+
+    it "should raise Transaction::Error when payment gateway declines cvv" do
+      stub_api_request :post, 'accounts/abcdef1234567890/billing_info/verify_cvv', 'billing_info/verify-cvv-transaction-err-422'
+      error = proc { account.verify_cvv! "504" }.must_raise Transaction::Error
+      error.transaction_error_code.must_equal "fraud_security_code"
+    end
+  end
+
   describe "associations" do
     let(:account) {
       stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
