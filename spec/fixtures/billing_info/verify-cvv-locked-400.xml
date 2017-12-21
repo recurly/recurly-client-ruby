@@ -1,0 +1,8 @@
+HTTP/1.1 400 Bad Request
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<error>
+  <symbol>cvv_verify_locked</symbol>
+  <description>This credit card has too many cvv check attempts.</description>
+</error>
