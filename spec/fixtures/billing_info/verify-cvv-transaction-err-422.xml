@@ -1,0 +1,13 @@
+HTTP/1.1 422 Unprocessable Entity
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<errors>
+  <transaction_error>
+    <error_code>fraud_security_code</error_code>
+    <error_category>fraud</error_category>
+    <merchant_message>The payment gateway declined the transaction because the security code (CVV) or expiration date did not match.</merchant_message>
+    <customer_message>The security code you entered does not match. Please update the CVV and try again.</customer_message>
+  </transaction_error>
+  <error field="billing_info.billing_info.credit_card_verification_value" symbol="declined_bad">did not match</error>
+</errors>

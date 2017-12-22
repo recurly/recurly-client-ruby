@@ -106,6 +106,39 @@ module Recurly
       true
     end
 
+    # Verify a cvv code for the account's billing info.
+    #
+    # @example
+    #   acct = Recurly::Account.find('benjamin-du-monde')
+    #   begin
+    #     # If successful, returned billing_info will contain
+    #     # updated billing info details.
+    #     billing_info = acct.verify_cvv!("504")
+    #   rescue Recurly::API::BadRequest => e
+    #     e.message # => "This credit card has too many cvv check attempts."
+    #   rescue Recurly::Transaction::Error => e
+    #     # this will be the errors coming back from gateway
+    #     e.transaction_error_code # => "fraud_security_code"
+    #     e.gateway_error_code # => "fraud"
+    #   rescue Recurly::Resource::Invalid => e
+    #     e.message # => "verification_value must be three digits"
+    #   end
+    #
+    # @param [String] verification_value The CVV code to check
+    # @return [BillingInfo] The updated billing info
+    # @raise [Recurly::Transaction::Error] A Transaction Error will be raised if the gateway declines
+    # the cvv code.
+    # @raise [API::BadRequest] A BadRequest error will be raised if you attempt to check too many times
+    # and are locked out.
+    # @raise [Resource::Invalid] An Invalid Error will be raised if you send an invalid request (such as
+    # a value that is not a propert verification number).
+    def verify_cvv!(verification_value)
+      bi = BillingInfo.new(verification_value: verification_value)
+      bi.uri = "#{path}/billing_info/verify_cvv"
+      bi.save!
+      bi
+    end
+
     def changed_attributes
       attrs = super
       if address.respond_to?(:changed?) && address.changed?
