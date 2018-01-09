@@ -5,24 +5,26 @@ script:
 cache: bundler
 sudo: false
 before_install:
+  - gem update --system
   - gem update bundler
 rvm:
   - jruby-9.1.9.0
   - jruby-9000
-  - 1.9.3
-  - 2.0.0
-  - 2.1.0
-  - 2.2.4
-  - 2.3.0
-  - 2.4.0
+  - 1.9.3-p551
+  - 2.0.0-p648
+  - 2.1.10
+  - 2.2.9
+  - 2.3.6
+  - 2.4.3
+  - 2.5.0
 env:
   - XML=rexml
   - XML=nokogiri
 matrix:
   allow_failures:
-    - rvm: 1.9.3
+    - rvm: 1.9.3-p551
       env: XML=nokogiri
-    - rvm: 2.0.0
+    - rvm: 2.0.0-p648
       env: XML=nokogiri
-    - rvm: jruby
+    - rvm: jruby-9.1.9.0
       env: XML=nokogiri
