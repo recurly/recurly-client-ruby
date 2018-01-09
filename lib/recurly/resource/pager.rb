@@ -20,6 +20,34 @@ module Recurly
     #
     #   account.transactions.new(attributes) # or #create, or #create!
     #   # => #<Recurly::Transaction ...>
+    #
+    #   account.transactions.find_each do |transaction|
+    #     puts transaction
+    #   end
+    # @example Iterate through a page of invoices at a time
+    #   opts = {
+    #     order: :desc,
+    #     state: :collected
+    #   }
+    #   invoices = Recurly::Invoice.paginate(opts)
+    #   begin
+    #     invoices.each do |invoice|
+    #       puts invoice.invoice_number
+    #     end
+    #     puts "fetching next page..."
+    #   end while invoices.next
+    # @example Passing sorting and filtering parameters
+    #   opts = {
+    #     begin_time: DateTime.new(2016,1,1),
+    #     end_time: DateTime.new(2017,1,1),
+    #     sort: :updated_at,
+    #     order: :desc,
+    #     state: :collected
+    #   }
+    #   Recurly::Invoice.find_each(opts) do |invoice|
+    #     puts invoice
+    #   end
+    #
     class Pager
       include Enumerable
 
@@ -68,6 +96,13 @@ module Recurly
         @collection = nil
       end
 
+      # This will tell you if there are any associated resources
+      # on the server by checking the presence of a link in the xml
+      #
+      # @example
+      #   # if <invoices href="..." /> is present, will return true
+      #   account.invoices.any?
+      #   #=> true
       # @return [Boolean] whether or not the xml element is present
       def any?
         !@uri.nil?
@@ -78,6 +113,17 @@ module Recurly
         @uri ||= resource_class.collection_path
       end
 
+      # Calls the server to get the count of server side resources.
+      #
+      # @example Count collected invoices in 2016
+      #   opts = {
+      #     begin_time: DateTime.new(2016,1,1),
+      #     end_time: DateTime.new(2017,1,1),
+      #     state: :collected
+      #   }
+      #   count = Recurly::Invoice.paginate(opts).count
+      #   #=> 42
+      #
       # @return [Integer] The total record count of the resource in question.
       # @see Resource.count
       def count
@@ -127,12 +173,25 @@ module Recurly
       end
       alias reload load!
 
+
       # @return [Pager] Duplicates the pager, updating it with the options
       #   supplied. Useful for resource scopes.
-      # @see #initialize
+      # @option options [String, Symbol] :sort The attribute that will be used to order
+      #   records: <tt>created_at</tt>, <tt>updated_at</tt>. Defaults to <tt>created_at</tt>.
+      # @option options [String, Symbol] :order The order in which records will be
+      #   returned: <tt>asc</tt> for ascending order, <tt>desc</tt> for descending order.
+      #   Defaults to <tt>desc</tt>.
+      # @option options [DateTime, String] :begin_time Operates on the attribute specified by the
+      #   <tt>sort</tt> parameter. Filters records to only include those with datetimes
+      #   greater than or equal to the supplied datetime. Accepts an ISO 8601
+      #   date or date and time.
+      # @option options [DateTime, String] :end_time Operates on the attribute specified by
+      #   the <tt>sort</tt> parameter. Filters records to only include those with
+      #   datetimes less than or equal to the supplied datetime. Accepts an
+      #   ISO 8601 date or date and time.
       # @example
-      #   Recurly::Account.active.paginate :per_page => 20
-      def paginate options = {}
+      #   Recurly::Account.paginate(sort: :updated_at, per_page: 20)
+      def paginate(options = {})
         dup.instance_eval {
           @collection = @etag = nil
           @options = @options.merge options
