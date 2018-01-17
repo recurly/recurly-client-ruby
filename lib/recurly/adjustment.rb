@@ -44,6 +44,7 @@ module Recurly
       tax_code
       tax_details
       tax_types
+      proration_rate
     )
     alias to_param uuid
 
