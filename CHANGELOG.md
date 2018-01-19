@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.12.1"></a>
+## v2.12.1 (2018-01-19)
+
+- Update Rubies on Travis (and add 2.5.0) [PR](https://github.com/recurly/recurly-client-ruby/pull/356)
+- Added `proration_rate` float to Adjustment [PR](https://github.com/recurly/recurly-client-ruby/pull/357)
+
 <a name="v2.12.0"></a>
 ## v2.12.0 (2017-11-20)
 
