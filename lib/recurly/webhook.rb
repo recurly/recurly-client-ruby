@@ -47,6 +47,7 @@ module Recurly
     autoload :ProcessingInvoiceNotification,    'recurly/webhook/processing_invoice_notification'
     autoload :ScheduledPaymentNotification,     'recurly/webhook/scheduled_payment_notification'
     autoload :NewDunningEventNotification,      'recurly/webhook/new_dunning_event_notification'
+    autoload :NewUsageNotification,             'recurly/webhook/new_usage_notification'
 
     # This exception is raised if the Webhook Notification initialization fails
     class NotificationError < Error
