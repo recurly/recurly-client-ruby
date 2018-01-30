@@ -36,5 +36,6 @@ Gem::Specification.new do |s|
     s.add_development_dependency 'redcarpet'
     s.add_development_dependency 'racc'
     s.add_development_dependency 'pry'
+    s.add_development_dependency 'simplecov'
   end
 end

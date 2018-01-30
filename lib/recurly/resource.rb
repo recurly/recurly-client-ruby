@@ -415,21 +415,31 @@ module Recurly
           # we dont care about text nodes, let's just skip them
           next if defined?(Nokogiri::XML::Node::TEXT_NODE) && el.node_type == Nokogiri::XML::Node::TEXT_NODE
 
-          if el.children.empty? && href = el.attribute('href')
-            resource_name = klass.association_class_name(el.name) || el.attribute('type') || el.name
-            resource_class = find_resource_class(resource_name)
+          if association = find_association(el.name)
+            class_name = klass.association_class_name(association, el.name)
+            resource_class = Recurly.const_get(class_name)
+            is_many = association.relation == :has_many
 
-            case el.name
-            when *klass.associations_for_relation(:has_many)
-              record[el.name] = Pager.new(
-                resource_class, :uri => href.value, :parent => record
-              )
-            when *(klass.associations_for_relation(:has_one) + klass.associations_for_relation(:belongs_to))
-              record.links[el.name] = {
-                :resource_class => resource_class,
-                :method => :get,
-                :href => href.value
-              }
+            # Determine is this a link, or is it embedded data?
+            if el.children.empty? && href = el.attribute('href')
+              if is_many
+                record[el.name] = Pager.new(
+                  resource_class, :uri => href.value, :parent => record
+                )
+              else
+                record.links[el.name] = {
+                  :resource_class => resource_class,
+                  :method => :get,
+                  :href => href.value
+                }
+              end
+            else
+              if is_many
+                resources = el.elements.map { |e| resource_class.from_xml(e) }
+                record[el.name] = resources
+              else
+                record[el.name] = resource_class.from_xml(el)
+              end
             end
           else
             # TODO name tax_type conflicts with the TaxType
@@ -438,16 +448,7 @@ module Recurly
             if el.name == 'tax_type'
               record[el.name] = el.text
             else
-              # This could be an embedded association
-              if class_name = klass.association_class_name(el.name)
-                if resource = Recurly::Resource.find_resource_class(class_name)
-                  val = resource.from_xml(el)
-                else
-                  raise ArgumentError, "Could not find Recurly Resource class: #{class_name}"
-                end
-              else
-                val = XML.cast(el)
-              end
+              val = XML.cast(el)
 
               # TODO we have to clear changed attributes after
               # parsing here or else it always serializes. Need
@@ -478,12 +479,9 @@ module Recurly
         associations.select{ |a| a.relation == relation }.map(&:resource_class)
       end
 
-      # @return [String, nil] The actual associated resource class name
-      # for the current class if the resource class does not match the
-      # actual class.
-      def association_class_name(resource_class)
-        association = find_association(resource_class)
-        association.class_name if association
+      def association_class_name(association, el_name)
+        return association.class_name if association.class_name
+        Helper.classify(el_name)
       end
 
       # @return [Association, nil] Find association for the current class

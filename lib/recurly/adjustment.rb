@@ -19,10 +19,10 @@ module Recurly
     belongs_to :subscription
 
     # @return [Adjustment, nil]
-    belongs_to :original_adjustment
+    belongs_to :original_adjustment, class_name: :Adjustment
 
     # @return Pager<Adjustment>
-    has_many :credit_adjustments
+    has_many :credit_adjustments, class_name: :Adjustment
 
     define_attribute_methods %w(
       uuid
