@@ -438,7 +438,16 @@ module Recurly
             if el.name == 'tax_type'
               record[el.name] = el.text
             else
-              val = XML.cast(el)
+              # This could be an embedded association
+              if class_name = klass.association_class_name(el.name)
+                if resource = Recurly::Resource.find_resource_class(class_name)
+                  val = resource.from_xml(el)
+                else
+                  raise ArgumentError, "Could not find Recurly Resource class: #{class_name}"
+                end
+              else
+                val = XML.cast(el)
+              end
 
               # TODO we have to clear changed attributes after
               # parsing here or else it always serializes. Need

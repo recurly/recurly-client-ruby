@@ -83,7 +83,6 @@ describe Invoice do
         refund_invoice = invoice_collection.charge_invoice
         refund_invoice.must_be_instance_of Invoice
         refund_invoice.original_invoices.must_be_instance_of Recurly::Resource::Pager
-        #refund_invoice.original_invoices.must_equal @invoice
         refund_invoice.line_items.each do |key, adjustment|
           adjustment.quantity_remaining.must_equal 1
         end
