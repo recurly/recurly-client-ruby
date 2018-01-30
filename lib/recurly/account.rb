@@ -39,6 +39,9 @@ module Recurly
     # @return [AccountBalance, nil]
     has_one :account_balance, readonly: true
 
+    # @return [Pager<CreditPayment>, []
+    has_many :credit_payments, class_name: :CreditPayment, readonly: true
+
     # Get's the first redemption given a coupon code
     # @deprecated Use #{redemptions} instead
     # @param coupon_code [String] The coupon code for the redemption
@@ -76,10 +79,10 @@ module Recurly
     # Creates an invoice from the pending charges on the account.
     # Raises an error if it fails.
     #
-    # @return [Invoice] A newly-created invoice.
+    # @return [InvoiceCollection] A newly-created invoice.
     # @raise [Invalid] Raised if the account cannot be invoiced.
     def invoice!(attrs={})
-      Invoice.from_response API.post(invoices.uri, attrs.empty? ? nil : Invoice.to_xml(attrs))
+      InvoiceCollection.from_response API.post(invoices.uri, attrs.empty? ? nil : Invoice.to_xml(attrs))
     rescue Recurly::API::UnprocessableEntity => e
       raise Invalid, e.message
     end
@@ -87,10 +90,10 @@ module Recurly
     # Builds an invoice from the pending charges on the account but does not persist the invoice.
     # Raises an error if it fails.
     #
-    # @return [Invoice] The newly-built invoice that has not been persisted.
+    # @return [InvoiceCollection] The newly-built invoice that has not been persisted.
     # @raise [Invalid] Raised if the account cannot be invoiced.
     def build_invoice
-      Invoice.from_response API.post("#{invoices.uri}/preview")
+      InvoiceCollection.from_response API.post("#{invoices.uri}/preview")
     rescue Recurly::API::UnprocessableEntity => e
       raise Invalid, e.message
     end

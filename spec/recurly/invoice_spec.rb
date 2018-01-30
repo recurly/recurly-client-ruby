@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Invoice do
   describe "#subscription" do
     it "has a subscription if present" do
-      stub_api_request :get, 'invoices/created-invoice', 'invoices/create-201'
+      stub_api_request :get, 'invoices/created-invoice', 'invoices/show-200'
       stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
 
       invoice = Invoice.find 'created-invoice'
@@ -20,7 +20,7 @@ describe Invoice do
 
   describe 'attributes' do
     it 'includes the invoice number prefix' do
-      stub_api_request :get, 'invoices/invoice-with-prefix', 'invoices/create-201-prefix'
+      stub_api_request :get, 'invoices/invoice-with-prefix', 'invoices/show-200-prefix'
 
       invoice = Invoice.find('invoice-with-prefix')
       invoice.invoice_number.must_equal 1001
@@ -79,10 +79,11 @@ describe Invoice do
 
     describe "#refund" do
       it "creates a refund invoice for the line items refunded" do
-        refund_invoice = @invoice.refund @line_items
+        invoice_collection = @invoice.refund @line_items
+        refund_invoice = invoice_collection.charge_invoice
         refund_invoice.must_be_instance_of Invoice
-        refund_invoice.original_invoice.must_be_instance_of Invoice
-        refund_invoice.original_invoice.must_equal @invoice
+        refund_invoice.original_invoices.must_be_instance_of Recurly::Resource::Pager
+        #refund_invoice.original_invoices.must_equal @invoice
         refund_invoice.line_items.each do |key, adjustment|
           adjustment.quantity_remaining.must_equal 1
         end
@@ -108,10 +109,10 @@ describe Invoice do
 
     describe "#refund" do
       it "creates a refund invoice for the line items refunded" do
-        refund_invoice = @invoice.refund_amount 1000
+        invoice_collection = @invoice.refund_amount 1000
+        refund_invoice = invoice_collection.charge_invoice
         refund_invoice.must_be_instance_of Invoice
-        refund_invoice.original_invoice.must_be_instance_of Invoice
-        refund_invoice.original_invoice.must_equal @invoice
+        refund_invoice.original_invoices.must_be_instance_of Recurly::Resource::Pager
         refund_invoice.amount_remaining_in_cents.must_equal 100
       end
     end

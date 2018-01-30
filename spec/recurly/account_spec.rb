@@ -12,15 +12,18 @@ describe Account do
         stub_api_request(
           :post, 'accounts/abcdef1234567890/invoices/preview', 'invoices/preview-200'
         )
-        account.build_invoice.must_be_instance_of Invoice
+        collection = account.build_invoice
+        collection.must_be_instance_of InvoiceCollection
+        collection.charge_invoice.must_be_instance_of Invoice
       end
 
       it 'derives and parses the account from the invoice preview' do
         stub_api_request(
           :post, 'accounts/abcdef1234567890/invoices/preview', 'invoices/preview-200'
         )
-        account.build_invoice.address.must_be_instance_of Address
-        account.build_invoice.address.country.must_equal 'US'
+        collection = account.build_invoice
+        collection.charge_invoice.address.must_be_instance_of Address
+        collection.charge_invoice.address.country.must_equal 'US'
       end
 
       it 'raises an exception if unsuccessful' do
@@ -37,18 +40,21 @@ describe Account do
         stub_api_request(
           :post, 'accounts/abcdef1234567890/invoices', 'invoices/create-201'
         )
-        account.invoice!.must_be_instance_of Invoice
+        collection = account.invoice!
+        collection.must_be_instance_of InvoiceCollection
+        collection.charge_invoice.must_be_instance_of Invoice
       end
 
       it "must add optional attributes to the invoice if given" do
         stub_api_request(
           :post, 'accounts/abcdef1234567890/invoices', 'invoices/create-with-optionals-201'
         )
-        invoice = account.invoice!({
+        collection = account.invoice!({
           terms_and_conditions: 'Some Terms and Conditions',
           customer_notes: 'Some Customer Notes'
         })
 
+        invoice = collection.charge_invoice
         invoice.must_be_instance_of Invoice
         invoice.customer_notes.must_equal 'Some Customer Notes'
         invoice.terms_and_conditions.must_equal 'Some Terms and Conditions'

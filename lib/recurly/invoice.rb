@@ -10,19 +10,20 @@ module Recurly
     # @macro [attach] scope
     #   @scope class
     #   @return [Pager<Invoice>] A pager that yields +$1+ invoices.
-    scope :open,      :state => :open
-    scope :collected, :state => :collected
+    scope :pending,   :state => :pending
+    scope :paid,      :state => :paid
     scope :failed,    :state => :failed
     scope :past_due,  :state => :past_due
+
+    # These are deprecated as the states were renamed
+    scope :open,      :state => :pending
+    scope :collected, :state => :paid
 
     # @return [Account]
     belongs_to :account
 
     # @return [Pager<Subscription>, []]
     has_many :subscriptions
-
-    # @return [Invoice]
-    belongs_to :original_invoice, class_name: :Invoice
 
     # This will only be present if the invoice has > 500 line items
     # @return [Pager<Adjustment>, []]
@@ -33,6 +34,15 @@ module Recurly
 
     # @return [Pager<ShippingAddress>, [ShippingAddress], []]
     has_one :shipping_address, resource_class: :ShippingAddress, readonly: true
+
+    # @return [Pager<Invoice>, []]
+    has_many :credit_invoices, class_name: :Invoice
+
+    # @returni [[CreditPayment]]
+    has_many :credit_payments, class_name: :CreditPayment, readonly: true
+
+    # @return [Pager<Invoice>, []]
+    has_many :original_invoices, class_name: :Invoice, readonly: true
 
     # Returns the first redemption in the Invoice's redemptions.
     # This was placed here for backwards compatibility when we went from
@@ -76,9 +86,16 @@ module Recurly
       tax_types
       refund_tax_date
       refund_geo_code
-      subtotal_after_discount_in_cents
+      subtotal_before_discount_in_cents
       attempt_next_collection_at
       recovery_reason
+      discount_in_cents
+      balance_in_cents
+      due_on
+      type
+      origin
+      credit_customer_notes
+      refund_method
     )
     alias to_param invoice_number_with_prefix
 
@@ -93,8 +110,7 @@ module Recurly
     #   (e.g., the invoice is no longer open).
     def mark_successful
       return false unless link? :mark_successful
-      reload follow_link :mark_successful
-      true
+      InvoiceCollection.from_response follow_link :mark_successful
     end
 
     # Marks an invoice as failing collection.
@@ -103,8 +119,7 @@ module Recurly
     #   (e.g., the invoice is no longer open).
     def mark_failed
       return false unless link? :mark_failed
-      reload follow_link :mark_failed
-      true
+      InvoiceCollection.from_response follow_link :mark_failed
     end
 
     # Initiate a collection attempt on an invoice.
@@ -113,8 +128,12 @@ module Recurly
     #   (e.g., the invoice has already been collected, a collection attempt was already made)
     def force_collect
       return false unless link? :force_collect
-      reload follow_link :force_collect
-      true
+      InvoiceCollection.from_response follow_link :force_collect
+    end
+
+    def void
+      return false unless link? :void
+      InvoiceCollection.from_response follow_link :void
     end
 
     # Posts an offline payment on this invoice
@@ -140,10 +159,9 @@ module Recurly
     # @param line_items [Array, nil] An array of line items to refund.
     def refund line_items = nil, refund_apply_order = 'credit'
       return false unless link? :refund
-      refund = self.class.from_response(
+      InvoiceCollection.from_response(
         follow_link :refund, :body => refund_line_items_to_xml(line_items, refund_apply_order)
       )
-      refund
     end
 
     # Refunds the invoice for a specific amount.
@@ -154,10 +172,9 @@ module Recurly
     # @param amount_in_cents [Integer, nil] The amount (in cents) to refund.
     def refund_amount amount_in_cents = nil, refund_apply_order = 'credit'
       return false unless link? :refund
-      refund = self.class.from_response(
+      InvoiceCollection.from_response(
         follow_link :refund, :body => refund_amount_to_xml(amount_in_cents, refund_apply_order)
       )
-      refund
     end
 
     def xml_keys

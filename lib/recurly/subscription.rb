@@ -76,6 +76,7 @@ module Recurly
       converted_at
       no_billing_info_reason
       imported_trial
+      credit_customer_notes
     )
     alias to_param uuid
 
