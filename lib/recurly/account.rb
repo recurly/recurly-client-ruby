@@ -39,7 +39,7 @@ module Recurly
     # @return [AccountBalance, nil]
     has_one :account_balance, readonly: true
 
-    # @return [Pager<CreditPayment>, []
+    # @return [Pager<CreditPayment>, []]
     has_many :credit_payments, class_name: :CreditPayment, readonly: true
 
     # Get's the first redemption given a coupon code

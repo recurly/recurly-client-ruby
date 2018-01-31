@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+Link: https://api.recurly.com/v2/credit_payments12345
+
+<?xml version="1.0" encoding="UTF-8"?>
+<credit_payment href="https://api.recurly.com/v2/credit_payments/12345" type="payment">
+  <account href="https://api.recurly.com/v2/accounts/3465345645345"/>
+  <uuid>12345</uuid>
+  <action>payment</action>
+  <currency>USD</currency>
+  <amount_in_cents type="integer">1000</amount_in_cents>
+  <original_invoice href="https://api.recurly.com/v2/invoices/1000"/>
+  <applied_to_invoice href="https://api.recurly.com/v2/invoices/1001"/>
+  <created_at type="datetime">2017-07-06T15:51:38Z</created_at>
+  <updated_at type="datetime">2017-07-06T15:51:38Z</updated_at>
+  <voided_at type="datetime">2017-07-22T15:51:38Z</voided_at>
+</credit_payment>

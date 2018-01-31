@@ -89,6 +89,7 @@ describe Account do
       stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
       account = Account.find 'abcdef1234567890'
       account.must_be_instance_of Account
+      account.credit_payments.must_be_instance_of Resource::Pager
       account.account_code.must_equal 'abcdef1234567890'
       account.username.must_equal 'shmohawk58'
       account.email.must_equal 'larry.david@example.com'

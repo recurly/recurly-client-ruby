@@ -1,13 +1,13 @@
 module Recurly
   class CreditPayment < Resource
     # @return [Account, nil]
-    belongs_to :account
+    belongs_to :account, class_name: :Account, readonly: true
 
     # @return [Invoice, nil]
-    has_one :original_invoice
+    has_one :original_invoice, class_name: :Invoice, readonly: true
 
     # @return [Invoice, nil]
-    has_one :applied_to_invoice
+    has_one :applied_to_invoice, class_name: :Invoice, readonly: true
 
     define_attribute_methods %w(
       action

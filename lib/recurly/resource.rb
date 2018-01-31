@@ -391,7 +391,6 @@ module Recurly
       # @see from_response
       def from_xml(xml)
         xml = XML.new xml
-        klass = self
         record = new
 
         xml.root.attributes.each do |name, value|
@@ -416,11 +415,11 @@ module Recurly
           next if defined?(Nokogiri::XML::Node::TEXT_NODE) && el.node_type == Nokogiri::XML::Node::TEXT_NODE
 
           if association = find_association(el.name)
-            class_name = klass.association_class_name(association, el.name)
+            class_name = association_class_name(association, el.name)
             resource_class = Recurly.const_get(class_name)
             is_many = association.relation == :has_many
 
-            # Determine is this a link, or is it embedded data?
+            # Is this a link, or is it embedded data?
             if el.children.empty? && href = el.attribute('href')
               if is_many
                 record[el.name] = Pager.new(

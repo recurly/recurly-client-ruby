@@ -38,7 +38,7 @@ module Recurly
     # @return [Pager<Invoice>, []]
     has_many :credit_invoices, class_name: :Invoice
 
-    # @returni [[CreditPayment]]
+    # @return [[CreditPayment]]
     has_many :credit_payments, class_name: :CreditPayment, readonly: true
 
     # @return [Pager<Invoice>, []]
@@ -106,7 +106,7 @@ module Recurly
 
     # Marks an invoice as paid successfully.
     #
-    # @return [InvoiceCollection] The resultant charge and credit invoices.
+    # @return [InvoiceCollection, false] The resultant charge and credit invoices.
     def mark_successful
       return false unless link? :mark_successful
       InvoiceCollection.from_response follow_link :mark_successful
@@ -114,7 +114,7 @@ module Recurly
 
     # Marks an invoice as failing collection.
     #
-    # @return [InvoiceCollection] The resultant charge and credit invoices.
+    # @return [InvoiceCollection, false] The resultant charge and credit invoices.
     def mark_failed
       return false unless link? :mark_failed
       InvoiceCollection.from_response follow_link :mark_failed
@@ -122,7 +122,7 @@ module Recurly
 
     # Initiate a collection attempt on an invoice.
     #
-    # @return [InvoiceCollection] The resultant charge and credit invoices.
+    # @return [InvoiceCollection, false] The resultant charge and credit invoices.
     def force_collect
       return false unless link? :force_collect
       InvoiceCollection.from_response follow_link :force_collect
@@ -130,7 +130,7 @@ module Recurly
 
     # Voids the invoice.
     #
-    # @return [InvoiceCollection] The resultant charge and credit invoices.
+    # @return [InvoiceCollection, false] The resultant charge and credit invoices.
     def void
       return false unless link? :void
       InvoiceCollection.from_response follow_link :void
@@ -153,7 +153,7 @@ module Recurly
 
     # Refunds specific line items on the invoice.
     #
-    # @return [Invoice, false] A new refund invoice, false if the invoice isn't
+    # @return [InvoiceCollection, false] A new refund invoice, false if the invoice isn't
     # refundable.
     # @raise [Error] If the refund fails.
     # @param line_items [Array, nil] An array of line items to refund.

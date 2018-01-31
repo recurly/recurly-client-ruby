@@ -19,6 +19,17 @@ describe Invoice do
   end
 
   describe 'attributes' do
+    it 'should have proper links' do
+      stub_api_request :get, 'invoices/1000', 'invoices/show-200'
+
+      invoice = Invoice.find('1000')
+      invoice.redemptions.must_be_instance_of Resource::Pager
+      invoice.subscriptions.must_be_instance_of Resource::Pager
+      invoice.original_invoices.must_be_instance_of Resource::Pager
+      invoice.credit_payments.must_be_instance_of Array
+      invoice.credit_payments.first.must_be_instance_of CreditPayment
+    end
+
     it 'includes the invoice number prefix' do
       stub_api_request :get, 'invoices/invoice-with-prefix', 'invoices/show-200-prefix'
 
