@@ -8,10 +8,10 @@ describe GiftCard do
 
   let(:gift_cards) {
     stub_api_request :get, 'gift_cards', 'gift_cards/index-200'
-    Recurly::GiftCard.all
+    Recurly::GiftCard.paginate
   }
 
-  describe "#all" do
+  describe "#paginate" do
     it "should return list of cards" do
       gift_cards.length.must_equal 2
     end
