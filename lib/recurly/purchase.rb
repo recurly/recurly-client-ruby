@@ -129,15 +129,15 @@ module Recurly
       # Payment Pages).
       #
       # @param purchase [Purchase] The purchase data for the request.
-      # @return [Invoice] The authorized invoice representing this purchase.
+      # @return [InvoiceCollection] The authorized invoice collection representing this purchase.
       # @raise [Invalid] Raised if the purchase cannot be invoiced.
       def authorize!(purchase)
-        post(purchase, "#{collection_path}/authorize", Invoice)
+        post(purchase, "#{collection_path}/authorize")
       end
 
-      def post(purchase, path, response_class=InvoiceCollection)
+      def post(purchase, path)
         response = API.send(:post, path, purchase.to_xml)
-        response_class.from_response(response)
+        InvoiceCollection.from_response(response)
       rescue API::UnprocessableEntity => e
         purchase.apply_errors(e)
         Transaction::Error.validate!(e, nil)

@@ -50,8 +50,9 @@ describe Purchase do
 
   describe "Purchase.authorize!" do
     it "should return an authorized invoice when valid" do
-      stub_api_request(:post, 'purchases/authorize', 'purchases/authorize-201')
-      authorized_invoice = Purchase.authorize!(purchase)
+      stub_api_request(:post, 'purchases/authorize', 'purchases/preview-201')
+      authorized_collection = Purchase.authorize!(purchase)
+      authorized_invoice = authorized_collection.charge_invoice
       authorized_invoice.must_be_instance_of Invoice
     end
     it "should raise an Invalid error when data is invalid" do
