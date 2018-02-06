@@ -102,8 +102,8 @@ describe Invoice do
 
     describe "#refund_to_xml" do
       it "must serialize line_items" do
-        @invoice.send(:refund_line_items_to_xml, @line_items, 'credit').must_equal(
-          '<invoice><refund_apply_order>credit</refund_apply_order><line_items><adjustment><uuid>charge1</uuid><quantity>1</quantity><prorate>false</prorate></adjustment></line_items></invoice>'
+        @invoice.send(:refund_line_items_to_xml, @line_items, 'credit_first').must_equal(
+          '<invoice><refund_method>credit_first</refund_method><line_items><adjustment><uuid>charge1</uuid><quantity>1</quantity><prorate>false</prorate></adjustment></line_items></invoice>'
         )
       end
     end
@@ -129,8 +129,8 @@ describe Invoice do
 
     describe "#refund_to_xml" do
       it "must serialize amount_in_cents" do
-        @invoice.send(:refund_amount_to_xml, 1000, 'credit').must_equal(
-          '<invoice><refund_apply_order>credit</refund_apply_order><amount_in_cents>1000</amount_in_cents></invoice>'
+        @invoice.send(:refund_amount_to_xml, 1000, 'credit_first').must_equal(
+          '<invoice><refund_method>credit_first</refund_method><amount_in_cents>1000</amount_in_cents></invoice>'
         )
       end
     end
