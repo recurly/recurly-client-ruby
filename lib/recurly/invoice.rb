@@ -106,34 +106,42 @@ module Recurly
 
     # Marks an invoice as paid successfully.
     #
-    # @return [InvoiceCollection, false] The resultant charge and credit invoices.
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the invoice is no longer open).
     def mark_successful
       return false unless link? :mark_successful
-      InvoiceCollection.from_response follow_link :mark_successful
+      reload follow_link :mark_successful
+      true
     end
 
     # Marks an invoice as failing collection.
     #
-    # @return [InvoiceCollection, false] The resultant charge and credit invoices.
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the invoice is no longer open).
     def mark_failed
       return false unless link? :mark_failed
-      InvoiceCollection.from_response follow_link :mark_failed
+      reload follow_link :mark_failed
+      true
     end
 
     # Initiate a collection attempt on an invoice.
     #
-    # @return [InvoiceCollection, false] The resultant charge and credit invoices.
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the invoice is no longer open).
     def force_collect
       return false unless link? :force_collect
-      InvoiceCollection.from_response follow_link :force_collect
+      reload follow_link :force_collect
+      true
     end
 
     # Voids the invoice.
     #
-    # @return [InvoiceCollection, false] The resultant charge and credit invoices.
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the invoice is no longer open).
     def void
       return false unless link? :void
-      InvoiceCollection.from_response follow_link :void
+      reload follow_link :void
+      true
     end
 
     # Posts an offline payment on this invoice
