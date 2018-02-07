@@ -252,7 +252,7 @@ XML
 
     it "should raise Transaction::Error when payment gateway declines cvv" do
       stub_api_request :post, 'accounts/abcdef1234567890/billing_info/verify_cvv', 'billing_info/verify-cvv-transaction-err-422'
-      error = proc { account.verify_cvv! "504" }.must_raise Transaction::Error
+      error = proc { account.verify_cvv! "504" }.must_raise Transaction::DeclinedError
       error.transaction_error_code.must_equal "fraud_security_code"
     end
   end
