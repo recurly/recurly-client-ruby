@@ -2,45 +2,47 @@ HTTP/1.1 200 OK
 Content-Type: application/xml; charset=utf-8
 
 <?xml version="1.0" encoding="UTF-8"?>
-<invoice href="">
-  <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
-  <address>
-    <address1>400 Alabama St</address1>
-    <address2>Suite 202</address2>
-    <state>CA</state>
-    <country>US</country>
-    <zip>94110</zip>
-  </address>
-  <uuid>previewed-invoice</uuid>
-  <state>open</state>
-  <invoice_number type="integer">1000</invoice_number>
-  <invoice_number_prefix></invoice_number_prefix>
-  <po_number nil="nil"></po_number>
-  <vat_number nil="nil"></vat_number>
-  <subtotal_in_cents type="integer">300</subtotal_in_cents>
-  <tax_in_cents type="integer">0</tax_in_cents>
-  <total_in_cents type="integer">300</total_in_cents>
-  <currency>USD</currency>
-  <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
-  <line_items>
-    <adjustment href="" type="charge">
-      <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
-      <uuid>charge</uuid>
-      <state>invoiced</state>
-      <description>Special charge</description>
-      <origin>one_time</origin>
-      <unit_amount_in_cents type="integer">100</unit_amount_in_cents>
-      <quantity type="integer">1</quantity>
-      <discount_in_cents type="integer">0</discount_in_cents>
-      <tax_in_cents type="integer">0</tax_in_cents>
-      <total_in_cents type="integer">100</total_in_cents>
-      <currency>USD</currency>
-      <taxable type="boolean">false</taxable>
-      <start_date nil="nil"></start_date>
-      <end_date nil="nil"></end_date>
-      <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
-    </adjustment>
-  </line_items>
-  <transactions>
-  </transactions>
-</invoice>
+<invoice_collection>
+  <charge_invoice href="">
+    <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
+    <address>
+      <address1>400 Alabama St</address1>
+      <address2>Suite 202</address2>
+      <state>CA</state>
+      <country>US</country>
+      <zip>94110</zip>
+    </address>
+    <uuid>previewed-invoice</uuid>
+    <state>open</state>
+    <invoice_number type="integer">1000</invoice_number>
+    <invoice_number_prefix></invoice_number_prefix>
+    <po_number nil="nil"></po_number>
+    <vat_number nil="nil"></vat_number>
+    <subtotal_in_cents type="integer">300</subtotal_in_cents>
+    <tax_in_cents type="integer">0</tax_in_cents>
+    <total_in_cents type="integer">300</total_in_cents>
+    <currency>USD</currency>
+    <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
+    <line_items>
+      <adjustment href="" type="charge">
+        <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
+        <uuid>charge</uuid>
+        <state>invoiced</state>
+        <description>Special charge</description>
+        <origin>one_time</origin>
+        <unit_amount_in_cents type="integer">100</unit_amount_in_cents>
+        <quantity type="integer">1</quantity>
+        <discount_in_cents type="integer">0</discount_in_cents>
+        <tax_in_cents type="integer">0</tax_in_cents>
+        <total_in_cents type="integer">100</total_in_cents>
+        <currency>USD</currency>
+        <taxable type="boolean">false</taxable>
+        <start_date nil="nil"></start_date>
+        <end_date nil="nil"></end_date>
+        <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
+      </adjustment>
+    </line_items>
+    <transactions>
+    </transactions>
+  </charge_invoice>
+</invoice_collection>

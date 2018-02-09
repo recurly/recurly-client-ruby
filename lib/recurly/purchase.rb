@@ -105,7 +105,7 @@ module Recurly
       # Generate an invoice for the purchase and run any needed transactions.
       #
       # @param purchase [Purchase] The purchase data for the request.
-      # @return [Invoice] The saved invoice representing this purchase.
+      # @return [InvoiceCollection] The saved invoice(s) representing this purchase.
       # @raise [Invalid] Raised if the purchase cannot be invoiced.
       # @raise [Transaction::Error] Raised if the transaction failed.
       def invoice!(purchase)
@@ -116,7 +116,7 @@ module Recurly
       # but does not run any transactions.
       #
       # @param purchase [Purchase] The purchase data for the request.
-      # @return [Invoice] The preview invoice representing this purchase.
+      # @return [InvoiceCollection] The preview invoice(s) representing this purchase.
       # @raise [Invalid] Raised if the purchase cannot be invoiced.
       def preview!(purchase)
         post(purchase, "#{collection_path}/preview")
@@ -129,7 +129,7 @@ module Recurly
       # Payment Pages).
       #
       # @param purchase [Purchase] The purchase data for the request.
-      # @return [Invoice] The authorized invoice representing this purchase.
+      # @return [InvoiceCollection] The authorized invoice collection representing this purchase.
       # @raise [Invalid] Raised if the purchase cannot be invoiced.
       def authorize!(purchase)
         post(purchase, "#{collection_path}/authorize")
@@ -137,7 +137,7 @@ module Recurly
 
       def post(purchase, path)
         response = API.send(:post, path, purchase.to_xml)
-        Invoice.from_response(response)
+        InvoiceCollection.from_response(response)
       rescue API::UnprocessableEntity => e
         purchase.apply_errors(e)
         Transaction::Error.validate!(e, nil)
