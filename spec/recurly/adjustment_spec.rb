@@ -38,6 +38,11 @@ describe Adjustment do
       county.type.must_equal 'county'
       county.tax_rate.must_equal 0.02
       county.tax_in_cents.to_i.must_equal 2000
+
+      adjustment.original_adjustment_uuid.must_equal 'abcdefg1234567'
+
+      stub_api_request(:get, 'adjustments/abcdef1234567890', 'adjustments/show-200')
+      adjustment.credit_adjustments.must_be_instance_of Resource::Pager
     end
 
     it 'must return tax info when the site has it enabled' do

@@ -391,18 +391,7 @@ module Recurly
       # @see from_response
       def from_xml(xml)
         xml = XML.new xml
-
-        if self != Resource || xml.name == member_name
-          record = new
-        elsif Recurly.const_defined?(class_name = Helper.classify(xml.name), false)
-          klass = Recurly.const_get class_name, false
-          record = klass.send :new
-        elsif root = xml.root and root.elements.empty?
-          return XML.cast root
-        else
-          record = {}
-        end
-        klass ||= self
+        record = new
 
         xml.root.attributes.each do |name, value|
           record.instance_variable_set "@#{name}", value.to_s
@@ -425,26 +414,31 @@ module Recurly
           # we dont care about text nodes, let's just skip them
           next if defined?(Nokogiri::XML::Node::TEXT_NODE) && el.node_type == Nokogiri::XML::Node::TEXT_NODE
 
-          if el.children.empty? && href = el.attribute('href')
-            klass_name = Helper.classify(klass.association_class_name(el.name) ||
-                                         el.attribute('type') ||
-                                         el.name)
+          if association = find_association(el.name)
+            class_name = association_class_name(association, el.name)
+            resource_class = Recurly.const_get(class_name)
+            is_many = association.relation == :has_many
 
-            next unless Recurly.const_defined?(klass_name)
-
-            resource_class = Recurly.const_get(klass_name, false)
-
-            case el.name
-            when *klass.associations_for_relation(:has_many)
-              record[el.name] = Pager.new(
-                resource_class, :uri => href.value, :parent => record
-              )
-            when *(klass.associations_for_relation(:has_one) + klass.associations_for_relation(:belongs_to))
-              record.links[el.name] = {
-                :resource_class => resource_class,
-                :method => :get,
-                :href => href.value
-              }
+            # Is this a link, or is it embedded data?
+            if el.children.empty? && href = el.attribute('href')
+              if is_many
+                record[el.name] = Pager.new(
+                  resource_class, :uri => href.value, :parent => record
+                )
+              else
+                record.links[el.name] = {
+                  :resource_class => resource_class,
+                  :method => :get,
+                  :href => href.value
+                }
+              end
+            else
+              if is_many
+                resources = el.elements.map { |e| resource_class.from_xml(e) }
+                record[el.name] = resources
+              else
+                record[el.name] = resource_class.from_xml(el)
+              end
             end
           else
             # TODO name tax_type conflicts with the TaxType
@@ -484,12 +478,9 @@ module Recurly
         associations.select{ |a| a.relation == relation }.map(&:resource_class)
       end
 
-      # @return [String, nil] The actual associated resource class name
-      # for the current class if the resource class does not match the
-      # actual class.
-      def association_class_name(resource_class)
-        association = find_association(resource_class)
-        association.class_name if association
+      def association_class_name(association, el_name)
+        return association.class_name if association.class_name
+        Helper.classify(el_name)
       end
 
       # @return [Association, nil] Find association for the current class
@@ -597,6 +588,13 @@ module Recurly
         private_class_method(*%w(create create!))
         unless root_index
           private_class_method(*%w(all find_each first paginate scoped where))
+        end
+      end
+
+      def find_resource_class(name)
+        resource_name = Helper.classify(name)
+        if Recurly.const_defined?(resource_name, false)
+          Recurly.const_get(resource_name, false)
         end
       end
     end

@@ -1,0 +1,57 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+Link: <https://api.recurly.com/v2/credit_payments?cursor=1234567890&per_page=20>; rel="start", <https://api.recurly.com/v2/credit_payments?cursor=1234566890&per_page=20>; rel="next"
+
+<?xml version="1.0" encoding="UTF-8"?>
+<credit_payments type="array">
+  <credit_payment href="https://api.recurly.com/v2/credit_payments/3d3f6754c6df41b9d2a32e43029adc55" type="payment">
+    <account href="https://api.recurly.com/v2/accounts/3465345645345"/>
+    <uuid>3d3f6754c6df41b9d2a32e43029adc55</uuid>
+    <action>payment</action>
+    <currency>USD</currency>
+    <amount_in_cents type="integer">1000</amount_in_cents>
+    <original_invoice href="https://api.recurly.com/v2/invoices/1000"/>
+    <applied_to_invoice href="https://api.recurly.com/v2/invoices/1001"/>
+    <created_at type="datetime">2017-07-06T15:51:38Z</created_at>
+    <updated_at type="datetime">2017-07-06T15:51:38Z</updated_at>
+    <voided_at type="datetime">2017-07-22T15:51:38Z</voided_at>
+  </credit_payment>
+  <credit_payment href="https://api.recurly.com/v2/credit_payments/3e823e405e7f752988536947c08349ae" type="credit">
+    <account href="https://api.recurly.com/v2/accounts/3465345645345"/>
+    <uuid>3d3f6754c6df41b9d2a32e43029adc55</uuid>
+    <action>reduction</action>
+    <currency>USD</currency>
+    <amount_in_cents>1000</amount_in_cents>
+    <original_invoice href="https://api.recurly.com/v2/invoices/1000"/>
+    <applied_to_invoice href="https://api.recurly.com/v2/invoices/1000"/>
+    <created_at type="datetime">2017-07-06T15:51:38Z</created_at>
+    <updated_at type="datetime">2017-07-06T15:51:38Z</updated_at>
+    <voided_at nil="nil"></voided_at>
+  </credit_payment>
+  <credit_payment href="https://api.recurly.com/v2/credit_payments/3e8764beb04add789fb3b54778838e17" type="charge">
+    <account href="https://api.recurly.com/v2/accounts/3465345645345"/>
+    <uuid>3d3f6754c6df41b9d2a32e43029adc55</uuid>
+    <action>refund</action>
+    <currency>USD</currency>
+    <amount_in_cents>1000</amount_in_cents>
+    <original_invoice href="https://api.recurly.com/v2/invoices/1000"/>
+    <applied_to_invoice href="https://api.recurly.com/v2/invoices/1000"/>
+    <original_credit_payment href="https://api.recurly.com/v2/credit_payments/3d3f6754c6df41b9d2a32e43029adc55"/>
+    <refund_transaction href="https://api.recurly.com/v2/transactions/3e823e405e7f752988536947c08349ae"/>
+    <created_at type="datetime">2017-07-06T15:51:38Z</created_at>
+    <updated_at type="datetime">2017-07-06T15:51:38Z</updated_at>
+    <voided_at nil="nil"></voided_at>
+  </credit_payment>
+  <credit_payment href="https://api.recurly.com/v2/credit_payments/3d3f6754c6df41b9d2a32e43029adc55" type="payment">
+    <account href="https://api.recurly.com/v2/accounts/3465345645345"/>
+    <uuid>3d3f6754c6df41b9d2a32e43029adc55</uuid>
+    <action>write_off</action>
+    <currency>USD</currency>
+    <amount_in_cents>1000</amount_in_cents>
+    <original_invoice href="https://api.recurly.com/v2/invoices/1002"/>
+    <applied_to_invoice href="https://api.recurly.com/v2/invoices/1000"/>
+    <created_at type="datetime">2017-07-06T15:51:38Z</created_at>
+    <updated_at type="datetime">2017-07-06T15:51:38Z</updated_at>
+    <voided_at nil="nil"></updated_at>
+  </credit_payment>
+</credit_payments>

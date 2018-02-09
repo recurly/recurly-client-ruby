@@ -39,6 +39,9 @@ module Recurly
     # @return [AccountBalance, nil]
     has_one :account_balance, readonly: true
 
+    # @return [Pager<CreditPayment>, []]
+    has_many :credit_payments, class_name: :CreditPayment, readonly: true
+
     # Get's the first redemption given a coupon code
     # @deprecated Use #{redemptions} instead
     # @param coupon_code [String] The coupon code for the redemption
@@ -76,10 +79,10 @@ module Recurly
     # Creates an invoice from the pending charges on the account.
     # Raises an error if it fails.
     #
-    # @return [Invoice] A newly-created invoice.
+    # @return [InvoiceCollection] A newly-created invoice.
     # @raise [Invalid] Raised if the account cannot be invoiced.
     def invoice!(attrs={})
-      Invoice.from_response API.post(invoices.uri, attrs.empty? ? nil : Invoice.to_xml(attrs))
+      InvoiceCollection.from_response API.post(invoices.uri, attrs.empty? ? nil : Invoice.to_xml(attrs))
     rescue Recurly::API::UnprocessableEntity => e
       raise Invalid, e.message
     end
@@ -87,10 +90,10 @@ module Recurly
     # Builds an invoice from the pending charges on the account but does not persist the invoice.
     # Raises an error if it fails.
     #
-    # @return [Invoice] The newly-built invoice that has not been persisted.
+    # @return [InvoiceCollection] The newly-built invoice that has not been persisted.
     # @raise [Invalid] Raised if the account cannot be invoiced.
     def build_invoice
-      Invoice.from_response API.post("#{invoices.uri}/preview")
+      InvoiceCollection.from_response API.post("#{invoices.uri}/preview")
     rescue Recurly::API::UnprocessableEntity => e
       raise Invalid, e.message
     end
@@ -104,6 +107,39 @@ module Recurly
       return false unless link? :reopen
       reload follow_link :reopen
       true
+    end
+
+    # Verify a cvv code for the account's billing info.
+    #
+    # @example
+    #   acct = Recurly::Account.find('benjamin-du-monde')
+    #   begin
+    #     # If successful, returned billing_info will contain
+    #     # updated billing info details.
+    #     billing_info = acct.verify_cvv!("504")
+    #   rescue Recurly::API::BadRequest => e
+    #     e.message # => "This credit card has too many cvv check attempts."
+    #   rescue Recurly::Transaction::Error => e
+    #     # this will be the errors coming back from gateway
+    #     e.transaction_error_code # => "fraud_security_code"
+    #     e.gateway_error_code # => "fraud"
+    #   rescue Recurly::Resource::Invalid => e
+    #     e.message # => "verification_value must be three digits"
+    #   end
+    #
+    # @param [String] verification_value The CVV code to check
+    # @return [BillingInfo] The updated billing info
+    # @raise [Recurly::Transaction::Error] A Transaction Error will be raised if the gateway declines
+    # the cvv code.
+    # @raise [API::BadRequest] A BadRequest error will be raised if you attempt to check too many times
+    # and are locked out.
+    # @raise [Resource::Invalid] An Invalid Error will be raised if you send an invalid request (such as
+    # a value that is not a propert verification number).
+    def verify_cvv!(verification_value)
+      bi = BillingInfo.new(verification_value: verification_value)
+      bi.uri = "#{path}/billing_info/verify_cvv"
+      bi.save!
+      bi
     end
 
     def changed_attributes

@@ -1,6 +1,90 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.13.0"></a>
+## v2.13.0 (2018-02-09)
+
+- Add NewUsageNotification class for Recurly webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/354)
+- Verify CVV Endpoint [PR](https://github.com/recurly/recurly-client-ruby/pull/353)
+- Credit Memos [PR](https://github.com/recurly/recurly-client-ruby/pull/358)
+
+### Upgrade Notes
+
+This version bumps us to API version 2.10. There are many breaking changes due to the Credit Memos [PR](https://github.com/recurly/recurly-client-ruby/pull/353)
+
+#### 1. InvoiceCollection
+
+When creating or refunding invoices, we now return an `InvoiceCollection` object rather than an `Invoice`. If you wish to upgrade your application without changing functionality, we recommend that you use the `charge_invoice` on the `InvoiceCollection`. Example:
+
+```ruby
+# Change this
+invoice = my_account.invoice!       # Returns an Invoice
+
+# To this
+collection = my_account.invoice!    # Returns an InvoiceCollection
+invoice = collection.charge_invoice # Returns an Invoice
+```
+
+These methods, which before returned `Invoice` now return `InvoiceCollection`:
+
+* `Purchase.preview!`
+* `Purchase.invoice!`
+* `Purchase.authorize!`
+* `Account#invoice!`
+* `Account#build_invoice`
+
+#### 2. Invoice#original_invoice removed
+
+`Invoice#original_invoice` was removed in favor of `Invoice#original_invoices`. If you want to maintain functionality, change your code grab the first invoice from that endpoint:
+
+```ruby
+# Change this
+invoice = Recurly::Invoice.find('1001')
+original = invoice.original_invoice
+
+# To this
+invoice = Recurly::Invoice.find('1001')
+original = invoice.original_invoices.first
+```
+
+#### 3. Invoice subtotal_* changes
+
+If you want to preserve functionality, change any use of `Invoice#subtotal_after_discount_in_cents` to  `Invoice#subtotal_in_cents`. If you were previously using `Invoice#subtotal_in_cents`, this has been changed to `Invoice#subtotal_before_discount_in_cents`.
+
+#### 4. Invoice Refund -- `refund_apply_order` changed to `refund_method`
+
+If you were using `refund_apply_order` on any refunds, then you need to change this to use `refund_method` instead. The keys from this have changed from (`credit`, `transaction`) to (`credit_first`, `transaction_first`)
+
+```ruby
+# If you use `credit` with refund_amount or refund
+invoice.refund_amount(1000, 'credit')
+invoice.refund(line_items, 'credit')
+# Change to use `credit_first`
+invoice.refund(line_items, 'credit_first')
+
+# If you use `transaction` with refund_amount or refund
+invoice.refund_amount(1000, 'transaction')
+invoice.refund(line_items, 'transaction')
+# Change to use `transaction_first`
+invoice.refund(line_items, 'transaction_first')
+```
+
+#### 4. Invoice States
+
+If you are checking `Invoice#state` anywhere, you will want to check that you have the new correct values. `collected` has changed to `paid` and `open` has changed to `pending`. Example:
+
+```ruby
+# Change this
+if invoice.state == 'collected'
+# To this
+if invoice.state == 'paid'
+
+# Change this
+if invoice.state == 'open'
+# To this
+if invoice.state == 'pending'
+```
+
 <a name="v2.12.1"></a>
 ## v2.12.1 (2018-01-19)
 

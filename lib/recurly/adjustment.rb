@@ -18,6 +18,9 @@ module Recurly
     # @return [Subscription, nil]
     belongs_to :subscription
 
+    # @return [Pager<Adjustment>, []]
+    has_many :credit_adjustments, class_name: :Adjustment, readonly: true
+
     define_attribute_methods %w(
       uuid
       state
@@ -45,6 +48,8 @@ module Recurly
       tax_details
       tax_types
       proration_rate
+      credit_reason_code
+      original_adjustment_uuid
     )
     alias to_param uuid
 
