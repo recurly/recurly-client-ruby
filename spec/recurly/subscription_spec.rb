@@ -288,7 +288,8 @@ describe Subscription do
       subscription.preview
 
       subscription.cost_in_cents.must_equal subscription.unit_amount_in_cents * 5
-      subscription.invoice.must_be_instance_of Invoice
+      subscription.invoice_collection.must_be_instance_of InvoiceCollection
+      subscription.invoice_collection.charge_invoice.must_be_instance_of Invoice
     end
   end
 
