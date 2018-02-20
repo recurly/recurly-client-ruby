@@ -14,7 +14,7 @@ Recurly is packaged as a Ruby gem. We recommend you install it with
 [Bundler](http://gembundler.com/) by adding the following line to your Gemfile:
 
 ``` ruby
-gem 'recurly', '~> 2.13.0'
+gem 'recurly', '~> 2.14.0'
 ```
 
 Recurly will automatically use [Nokogiri](http://nokogiri.org/) (for a nice
