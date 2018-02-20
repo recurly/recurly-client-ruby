@@ -1,6 +1,39 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.14.0"></a>
+## v2.14.0 (2018-02-20)
+
+- Updates to credit memos feature [PR](https://github.com/recurly/recurly-client-ruby/pull/360)
+
+### Upgrade Notes
+
+#### 1. `Invoice#mark_failed` now returns `InvoiceCollection`
+
+`mark_failed` no longer reloads the invoice with the response returning true or false, it returns either an `InvoiceCollection` if failable and request is successful, it returns `false` if invoice cannot be marked failed. To keep functionality, take the `charge_invoice` of the returned collection:
+
+```ruby
+invoice = Recurly::Invoice.find('1001')
+
+failed_collection = invoice.mark_failed
+if failed_collection
+  invoice = failed_collection.charge_invoice
+end
+```
+
+#### 2. Subscription previews and `InvoiceCollection`
+
+Subscription previews and preview changes now return `InvoiceCollection`s rather than `Invoice`. Utilize the `charge_invoice` to keep functionality the same:
+
+```ruby
+subscription.preview
+
+# Change
+invoice = subscription.invoice
+# To
+invoice = subscription.invoice_collection.charge_invoice
+```
+
 <a name="v2.13.0"></a>
 ## v2.13.0 (2018-02-09)
 
