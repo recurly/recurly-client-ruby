@@ -25,45 +25,47 @@ Content-Type: application/xml; charset=utf-8
   <cost_in_cents type="integer">5000</cost_in_cents>
   <subscription_add_ons type="array">
   </subscription_add_ons>
-  <invoice href="">
-    <account href="https://api.recurly.com/v2/accounts/account_code"/>
-    <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
-    <uuid>abcdefg123</uuid>
-    <state>open</state>
-    <invoice_number nil="nil"></invoice_number>
-    <invoice_number_prefix></invoice_number_prefix>
-    <po_number nil="nil"></po_number>
-    <vat_number></vat_number>
-    <subtotal_in_cents type="integer">5000</subtotal_in_cents>
-    <tax_in_cents type="integer">0</tax_in_cents>
-    <total_in_cents type="integer">5000</total_in_cents>
-    <currency>USD</currency>
-    <created_at nil="nil"></created_at>
-    <closed_at nil="nil"></closed_at>
-    <line_items type="array">
-      <adjustment href="https://api.recurly.com/v2/adjustments/abcdefg111" type="charge">
-        <account href="https://api.recurly.com/v2/accounts/account_code"/>
-        <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
-        <uuid>abcdefg111</uuid>
-        <state>pending</state>
-        <description>plan_code</description>
-        <accounting_code></accounting_code>
-        <product_code>plan_code</product_code>
-        <origin>plan</origin>
-        <unit_amount_in_cents type="integer">5000</unit_amount_in_cents>
-        <quantity type="integer">5</quantity>
-        <discount_in_cents type="integer">0</discount_in_cents>
-        <tax_in_cents type="integer">0</tax_in_cents>
-        <total_in_cents type="integer">5000</total_in_cents>
-        <currency>USD</currency>
-        <taxable type="boolean">false</taxable>
-        <tax_exempt type="boolean">false</tax_exempt>
-        <start_date type="datetime">2014-05-20T18:14:08Z</start_date>
-        <end_date type="datetime">2014-06-20T16:29:59Z</end_date>
-        <created_at nil="nil"></created_at>
-      </adjustment>
-    </line_items>
-    <transactions type="array">
-    </transactions>
-  </invoice>
+  <invoice_collection>
+    <charge_invoice>
+      <account href="https://api.recurly.com/v2/accounts/account_code"/>
+      <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
+      <uuid>abcdefg123</uuid>
+      <state>open</state>
+      <invoice_number nil="nil"></invoice_number>
+      <invoice_number_prefix></invoice_number_prefix>
+      <po_number nil="nil"></po_number>
+      <vat_number></vat_number>
+      <subtotal_in_cents type="integer">5000</subtotal_in_cents>
+      <tax_in_cents type="integer">0</tax_in_cents>
+      <total_in_cents type="integer">5000</total_in_cents>
+      <currency>USD</currency>
+      <created_at nil="nil"></created_at>
+      <closed_at nil="nil"></closed_at>
+      <line_items type="array">
+        <adjustment href="https://api.recurly.com/v2/adjustments/abcdefg111" type="charge">
+          <account href="https://api.recurly.com/v2/accounts/account_code"/>
+          <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
+          <uuid>abcdefg111</uuid>
+          <state>pending</state>
+          <description>plan_code</description>
+          <accounting_code></accounting_code>
+          <product_code>plan_code</product_code>
+          <origin>plan</origin>
+          <unit_amount_in_cents type="integer">5000</unit_amount_in_cents>
+          <quantity type="integer">5</quantity>
+          <discount_in_cents type="integer">0</discount_in_cents>
+          <tax_in_cents type="integer">0</tax_in_cents>
+          <total_in_cents type="integer">5000</total_in_cents>
+          <currency>USD</currency>
+          <taxable type="boolean">false</taxable>
+          <tax_exempt type="boolean">false</tax_exempt>
+          <start_date type="datetime">2014-05-20T18:14:08Z</start_date>
+          <end_date type="datetime">2014-06-20T16:29:59Z</end_date>
+          <created_at nil="nil"></created_at>
+        </adjustment>
+      </line_items>
+      <transactions type="array">
+      </transactions>
+    </charge_invoice>
+  </invoice_collection>
 </subscription>

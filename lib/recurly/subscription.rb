@@ -35,6 +35,9 @@ module Recurly
     # @return [ShippingAddress, nil]
     has_one :shipping_address, class_name: :ShippingAddress, readonly: false
 
+    # @return [InvoiceCollection, nil]
+    has_one :invoice_collection, class_name: :InvoiceCollection, readonly: true
+
     define_attribute_methods %w(
       uuid
       state

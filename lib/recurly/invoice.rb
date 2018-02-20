@@ -115,13 +115,16 @@ module Recurly
     end
 
     # Marks an invoice as failing collection.
+    # Returns a new {InvoiceCollection} and does not
+    # reload this invoice.
     #
-    # @return [true, false] +true+ when successful, +false+ when unable to
+    # @return [InvoiceCollection, false] InvoiceCollection when successful, +false+ when unable to
     #   (e.g., the invoice is no longer open).
     def mark_failed
       return false unless link? :mark_failed
-      reload follow_link :mark_failed
-      true
+      InvoiceCollection.from_response follow_link(:mark_failed)
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
     end
 
     # Initiate a collection attempt on an invoice.
