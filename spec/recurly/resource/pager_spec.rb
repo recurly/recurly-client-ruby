@@ -25,11 +25,26 @@ describe Resource::Pager do
     end
 
     it "must iterate across pages" do
-      stub_api_request(:get, 'resources') { XML[200][:index] }
+      stub_api_request(:get, 'resources') { XML[200][:index][0] }
       stub_api_request(:get, 'resources?cursor=1234567890&per_page=2') {
-        XML[200][:index]
+        XML[200][:index][1]
       }
       pager.find_each { |r| r.must_be_instance_of pager.resource_class }
+    end
+
+    describe "#find_each" do
+      it "must restart from the beginning each time" do
+        stub_api_request(:get, 'resources') { XML[200][:index][0] }
+        stub_api_request(:get, 'resources?cursor=1234567890&per_page=2') {
+          XML[200][:index][1]
+        }
+        count1 = 0
+        count2 = 0
+        pager.find_each { |r| count1 += 1 }
+        pager.find_each { |r| count2 += 1 }
+        count1.must_equal 3
+        count2.must_equal count1
+      end
     end
 
     describe "#count" do

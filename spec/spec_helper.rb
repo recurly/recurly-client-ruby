@@ -73,7 +73,7 @@ EOR
 HTTP/1.1 200 OK
 Content-Type: application/xml; charset=utf-8
 Link: \
-<https://api.recurly.com/v2/resources?per_page=2>; rel="start"
+<https://api.recurly.com/v2/resources?per_page=2>; rel="start", <https://api.recurly.com/v2/resources?per_page=2&cursor=-11306277>; rel="prev"
 X-Records: 3
 
 <resources>
