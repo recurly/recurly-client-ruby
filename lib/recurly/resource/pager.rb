@@ -4,7 +4,7 @@ module Recurly
   class Resource
     # Pages through an index resource, yielding records as it goes. It's rare
     # to instantiate one on its own: use {Resource.paginate},
-    # {Resource.find_each}, and <tt>Resource#{has_many_association}</tt>
+    # {Resource.each}, and <tt>Resource#{has_many_association}</tt>
     # instead.
     #
     # Because pagers handle +has_many+ associations, pagers can also build and
@@ -13,7 +13,7 @@ module Recurly
     # @example Through a resource class:
     #   Recurly::Account.paginate # => #<Recurly::Resource::Pager...>
     #
-    #   Recurly::Account.find_each { |a| p a }
+    #   Recurly::Account.each { |a| p a }
     # @example Through an resource instance:
     #   account.transactions
     #   # => #<Recurly::Resource::Pager...>
@@ -84,23 +84,31 @@ module Recurly
         API.head(uri, @options)['X-Records'].to_i
       end
 
-      # @return [Array] Iterates through the current page of records.
+      # @return [Array,Enumerator] Iterates through the current page of records.
       # @yield [record]
-      def each
-        return enum_for :each unless block_given?
+      # Yields each record of the current page.
+      def each_current_page
+        return enum_for :each_current_page unless block_given?
         load! unless @collection
         @collection.each { |record| yield record }
       end
 
-      # @return [nil]
-      # @see Resource.find_each
+      # @return [Enumerator] Iterates through the current page of records.
       # @yield [record]
-      def find_each
-        return enum_for :find_each unless block_given?
+      # Yields each record of the collection, iterating over each page if there are multiple. 
+      def each
+        return enum_for :each unless block_given?
+        # if links['prev'] exists, we are not on the first page; if not, we're on the first page or no page yet. 
+        @collection = nil if links && links['prev']
         begin
-          each { |record| yield record }
+          each_current_page { |record| yield record }
         end while self.next
+        # we didn't collect the records array to return, so just return an enumerator 
+        enum_for :each
       end
+
+      # legacy method name; #each used to behave differently and find_each had each's behavior. 
+      alias find_each each
 
       # @return [Array, nil] Refreshes the pager's collection of records with
       #   the next page.
