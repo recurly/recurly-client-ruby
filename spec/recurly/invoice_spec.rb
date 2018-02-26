@@ -90,8 +90,7 @@ describe Invoice do
 
     describe "#refund" do
       it "creates a refund invoice for the line items refunded" do
-        invoice_collection = @invoice.refund @line_items
-        refund_invoice = invoice_collection.charge_invoice
+        refund_invoice = @invoice.refund @line_items
         refund_invoice.must_be_instance_of Invoice
         refund_invoice.original_invoices.must_be_instance_of Recurly::Resource::Pager
         refund_invoice.line_items.each do |key, adjustment|
@@ -119,8 +118,7 @@ describe Invoice do
 
     describe "#refund" do
       it "creates a refund invoice for the line items refunded" do
-        invoice_collection = @invoice.refund_amount 1000
-        refund_invoice = invoice_collection.charge_invoice
+        refund_invoice = @invoice.refund_amount 1000
         refund_invoice.must_be_instance_of Invoice
         refund_invoice.original_invoices.must_be_instance_of Recurly::Resource::Pager
         refund_invoice.amount_remaining_in_cents.must_equal 100
