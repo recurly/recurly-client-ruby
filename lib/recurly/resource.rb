@@ -285,14 +285,24 @@ module Recurly
 
       # Iterates through every record by automatically paging.
       #
+      # @option options [Hash] Optional hash to pass to Pager#paginate
+      #
       # @return [nil]
       # @param [Integer] per_page The number of records returned per request.
       # @yield [record]
-      # @see Pager#find_each
+      # @see Pager#paginate
       # @example
       #   Recurly::Account.find_each { |a| p a }
-      def find_each(per_page = 50, &block)
-        paginate(:per_page => per_page).find_each(&block)
+      # @example With sorting and filter
+      #   opts = {
+      #     begin_time: DateTime.new(2016,1,1),
+      #     sort: :updated_at
+      #   }
+      #   Recurly::Account.find_each(opts) do |a|
+      #     puts a.inspect
+      #   end
+      def find_each(options = {}, &block)
+        paginate(options).find_each(&block)
       end
 
       # @return [Integer] The total record count of the resource in question.

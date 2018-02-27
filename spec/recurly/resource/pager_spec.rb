@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe Resource::Pager do
-  let(:pager) { Resource::Pager.new resource }
+  let(:options) { {} }
+  let(:pager) { Resource::Pager.new resource, options }
   let(:resource) { Class.new(Resource) { def self.name() 'Resource' end } }
 
   describe "an instance" do
@@ -34,7 +35,7 @@ describe Resource::Pager do
 
     describe "#count" do
       it "must fetch the count via HEAD" do
-        stub_api_request(:head, 'resources') { XML[200][:index] }
+        stub_api_request(:head, 'resources') { XML[200][:head] }
         pager.count.must_equal 3
       end
     end
@@ -81,6 +82,29 @@ describe Resource::Pager do
 
         it "must return nil if the page is not available" do
           pager.next.must_be_nil
+        end
+      end
+    end
+
+    describe "with extra options" do
+      let(:options) do
+        {
+          begin_time: DateTime.new(2016,1,1),
+          end_time: DateTime.new(2017,1,1),
+          sort: :updated_at,
+          order: :desc,
+          state: :active
+        }
+      end
+
+      describe "#load!" do
+        it "must send the extra encoded query params" do
+          stub_api_request(:get, "resources?begin_time=2016-01-01T00:00:00%2B00:00&end_time=2017-01-01T00:00:00%2B00:00&order=desc&sort=updated_at&state=active") { XML[200][:index] }
+          pager.load!
+        end
+        it "must fetch the count via HEAD with the extra params" do
+          stub_api_request(:head, "resources?begin_time=2016-01-01T00:00:00%2B00:00&end_time=2017-01-01T00:00:00%2B00:00&order=desc&sort=updated_at&state=active") { XML[200][:head] }
+          pager.count.must_equal(3)
         end
       end
     end
