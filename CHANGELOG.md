@@ -1,8 +1,40 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.15.0"></a>
+## v2.15.0 (2018-02-27)
+
+- Invoice refunds do not return InvoiceCollection [PR](https://github.com/recurly/recurly-client-ruby/pull/363)
+- Support gift card webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/344)
+- Fixes to Resource#find_each [PR](https://github.com/recurly/recurly-client-ruby/pull/355)
+
+### Upgrade Notes
+
+#### 1. `Invoice#refund` and `Invoice#refund_amount` return type
+
+If you are upgrading from 2.13.X or 2.14.X, a design bug was fixed. `Invoice#refund` and `Invoice#refund_amount` once again return an `Invoice` and not
+an `InvoiceCollection`.
+
+#### 2. `Resource#find_each` arguments
+
+`Resource#find_each` previously only accepted `per_page` but now accepts an `options` Hash for pagination params. If you want to preserve functionality:
+
+```ruby
+# Change This
+Recurly::Invoice.find_each(50) do |invoice|
+  puts invoice
+end
+
+# To This
+Recurly::Invoice.find_each(per_page: 50) do |invoice|
+  puts invoice
+end
+```
+
 <a name="v2.14.0"></a>
 ## v2.14.0 (2018-02-20)
+
+*Note*: We recommend upgrading to 2.15.X for a bug fix around Invoice refunds.
 
 - Updates to credit memos feature [PR](https://github.com/recurly/recurly-client-ruby/pull/360)
 
@@ -36,6 +68,8 @@ invoice = subscription.invoice_collection.charge_invoice
 
 <a name="v2.13.0"></a>
 ## v2.13.0 (2018-02-09)
+
+*Note*: We recommend upgrading to 2.15.X for a bug fix around Invoice refunds.
 
 - Add NewUsageNotification class for Recurly webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/354)
 - Verify CVV Endpoint [PR](https://github.com/recurly/recurly-client-ruby/pull/353)
