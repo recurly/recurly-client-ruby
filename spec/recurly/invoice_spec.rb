@@ -3,11 +3,10 @@ require 'spec_helper'
 describe Invoice do
   describe "#subscription" do
     it "has a subscription if present" do
-      stub_api_request :get, 'invoices/created-invoice', 'invoices/create-201'
+      stub_api_request :get, 'invoices/created-invoice', 'invoices/show-200'
       stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
 
       invoice = Invoice.find 'created-invoice'
-      invoice.subscription.must_be_instance_of Subscription
       invoice.subscriptions.must_be_instance_of Recurly::Resource::Pager
     end
 
@@ -15,14 +14,24 @@ describe Invoice do
       stub_api_request :get, 'invoices/created-invoice', 'invoices/show-200-nosub'
 
       invoice = Invoice.find 'created-invoice'
-      invoice.subscription.must_equal nil
       invoice.subscriptions.must_equal []
     end
   end
 
   describe 'attributes' do
+    it 'should have proper links' do
+      stub_api_request :get, 'invoices/1000', 'invoices/show-200'
+
+      invoice = Invoice.find('1000')
+      invoice.redemptions.must_be_instance_of Resource::Pager
+      invoice.subscriptions.must_be_instance_of Resource::Pager
+      invoice.original_invoices.must_be_instance_of Resource::Pager
+      invoice.credit_payments.must_be_instance_of Array
+      invoice.credit_payments.first.must_be_instance_of CreditPayment
+    end
+
     it 'includes the invoice number prefix' do
-      stub_api_request :get, 'invoices/invoice-with-prefix', 'invoices/create-201-prefix'
+      stub_api_request :get, 'invoices/invoice-with-prefix', 'invoices/show-200-prefix'
 
       invoice = Invoice.find('invoice-with-prefix')
       invoice.invoice_number.must_equal 1001
@@ -83,8 +92,7 @@ describe Invoice do
       it "creates a refund invoice for the line items refunded" do
         refund_invoice = @invoice.refund @line_items
         refund_invoice.must_be_instance_of Invoice
-        refund_invoice.original_invoice.must_be_instance_of Invoice
-        refund_invoice.original_invoice.must_equal @invoice
+        refund_invoice.original_invoices.must_be_instance_of Recurly::Resource::Pager
         refund_invoice.line_items.each do |key, adjustment|
           adjustment.quantity_remaining.must_equal 1
         end
@@ -93,8 +101,8 @@ describe Invoice do
 
     describe "#refund_to_xml" do
       it "must serialize line_items" do
-        @invoice.send(:refund_line_items_to_xml, @line_items, 'credit').must_equal(
-          '<invoice><refund_apply_order>credit</refund_apply_order><line_items><adjustment><uuid>charge1</uuid><quantity>1</quantity><prorate>false</prorate></adjustment></line_items></invoice>'
+        @invoice.send(:refund_line_items_to_xml, @line_items, 'credit_first').must_equal(
+          '<invoice><refund_method>credit_first</refund_method><line_items><adjustment><uuid>charge1</uuid><quantity>1</quantity><prorate>false</prorate></adjustment></line_items></invoice>'
         )
       end
     end
@@ -112,16 +120,15 @@ describe Invoice do
       it "creates a refund invoice for the line items refunded" do
         refund_invoice = @invoice.refund_amount 1000
         refund_invoice.must_be_instance_of Invoice
-        refund_invoice.original_invoice.must_be_instance_of Invoice
-        refund_invoice.original_invoice.must_equal @invoice
+        refund_invoice.original_invoices.must_be_instance_of Recurly::Resource::Pager
         refund_invoice.amount_remaining_in_cents.must_equal 100
       end
     end
 
     describe "#refund_to_xml" do
       it "must serialize amount_in_cents" do
-        @invoice.send(:refund_amount_to_xml, 1000, 'credit').must_equal(
-          '<invoice><refund_apply_order>credit</refund_apply_order><amount_in_cents>1000</amount_in_cents></invoice>'
+        @invoice.send(:refund_amount_to_xml, 1000, 'credit_first').must_equal(
+          '<invoice><refund_method>credit_first</refund_method><amount_in_cents>1000</amount_in_cents></invoice>'
         )
       end
     end

@@ -285,14 +285,24 @@ module Recurly
 
       # Iterates through every record by automatically paging.
       #
+      # @option options [Hash] Optional hash to pass to Pager#paginate
+      #
       # @return [nil]
       # @param [Integer] per_page The number of records returned per request.
       # @yield [record]
-      # @see Pager#find_each
+      # @see Pager#paginate
       # @example
       #   Recurly::Account.find_each { |a| p a }
-      def find_each(per_page = 50, &block)
-        paginate(:per_page => per_page).find_each(&block)
+      # @example With sorting and filter
+      #   opts = {
+      #     begin_time: DateTime.new(2016,1,1),
+      #     sort: :updated_at
+      #   }
+      #   Recurly::Account.find_each(opts) do |a|
+      #     puts a.inspect
+      #   end
+      def find_each(options = {}, &block)
+        paginate(options).find_each(&block)
       end
 
       # @return [Integer] The total record count of the resource in question.
@@ -335,9 +345,8 @@ module Recurly
           raise NotFound, "can't find a record with nil identifier"
         end
 
-        uri = uuid =~ /^http/ ? uuid : member_path(uuid)
         begin
-          from_response API.get(uri, {}, options)
+          from_response API.get(member_path(uuid), {}, options)
         rescue API::NotFound => e
           raise NotFound, e.description
         end
@@ -392,18 +401,7 @@ module Recurly
       # @see from_response
       def from_xml(xml)
         xml = XML.new xml
-
-        if self != Resource || xml.name == member_name
-          record = new
-        elsif Recurly.const_defined?(class_name = Helper.classify(xml.name), false)
-          klass = Recurly.const_get class_name, false
-          record = klass.send :new
-        elsif root = xml.root and root.elements.empty?
-          return XML.cast root
-        else
-          record = {}
-        end
-        klass ||= self
+        record = new
 
         xml.root.attributes.each do |name, value|
           record.instance_variable_set "@#{name}", value.to_s
@@ -426,26 +424,31 @@ module Recurly
           # we dont care about text nodes, let's just skip them
           next if defined?(Nokogiri::XML::Node::TEXT_NODE) && el.node_type == Nokogiri::XML::Node::TEXT_NODE
 
-          if el.children.empty? && href = el.attribute('href')
-            klass_name = Helper.classify(klass.association_class_name(el.name) ||
-                                         el.attribute('type') ||
-                                         el.name)
+          if association = find_association(el.name)
+            class_name = association_class_name(association, el.name)
+            resource_class = Recurly.const_get(class_name)
+            is_many = association.relation == :has_many
 
-            next unless Recurly.const_defined?(klass_name)
-
-            resource_class = Recurly.const_get(klass_name, false)
-
-            case el.name
-            when *klass.associations_for_relation(:has_many)
-              record[el.name] = Pager.new(
-                resource_class, :uri => href.value, :parent => record
-              )
-            when *(klass.associations_for_relation(:has_one) + klass.associations_for_relation(:belongs_to))
-              record.links[el.name] = {
-                :resource_class => resource_class,
-                :method => :get,
-                :href => href.value
-              }
+            # Is this a link, or is it embedded data?
+            if el.children.empty? && href = el.attribute('href')
+              if is_many
+                record[el.name] = Pager.new(
+                  resource_class, :uri => href.value, :parent => record
+                )
+              else
+                record.links[el.name] = {
+                  :resource_class => resource_class,
+                  :method => :get,
+                  :href => href.value
+                }
+              end
+            else
+              if is_many
+                resources = el.elements.map { |e| resource_class.from_xml(e) }
+                record[el.name] = resources
+              else
+                record[el.name] = resource_class.from_xml(el)
+              end
             end
           else
             # TODO name tax_type conflicts with the TaxType
@@ -485,12 +488,9 @@ module Recurly
         associations.select{ |a| a.relation == relation }.map(&:resource_class)
       end
 
-      # @return [String, nil] The actual associated resource class name
-      # for the current class if the resource class does not match the
-      # actual class.
-      def association_class_name(resource_class)
-        association = find_association(resource_class)
-        association.class_name if association
+      def association_class_name(association, el_name)
+        return association.class_name if association.class_name
+        Helper.classify(el_name)
       end
 
       # @return [Association, nil] Find association for the current class
@@ -600,6 +600,13 @@ module Recurly
           private_class_method(*%w(all find_each first paginate scoped where))
         end
       end
+
+      def find_resource_class(name)
+        resource_name = Helper.classify(name)
+        if Recurly.const_defined?(resource_name, false)
+          Recurly.const_get(resource_name, false)
+        end
+      end
     end
 
     # @return [Hash] The raw hash of record attributes.
@@ -634,9 +641,12 @@ module Recurly
         return if response.body.to_s.length.zero?
         fresh = self.class.from_response response
       else
-        fresh = self.class.find(
-          @href || to_param, :etag => (etag unless changed?)
-        )
+        options = {:etag => (etag unless changed?)}
+        fresh = if @href
+                  self.class.from_response API.get(@href, {}, options)
+                else
+                  self.class.find(to_param, options)
+                end
       end
       fresh and copy_from fresh
       persist! true

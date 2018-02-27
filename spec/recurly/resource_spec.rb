@@ -105,18 +105,18 @@ XML
 
     describe ".find_each" do
       it "must accept a block" do
-        stub_api_request(:get, 'resources?per_page=50') { XML[200][:index] }
+        stub_api_request(:get, 'resources?per_page=2') { XML[200][:index] }
         stub_api_request(:get, 'resources?cursor=1234567890&per_page=2') { XML[200][:index] }
         results = []
-        resource.find_each { |r| r.must_be_instance_of resource ; results << r }
+        resource.find_each(per_page: 2) { |r| r.must_be_instance_of resource ; results << r }
         results.wont_be_empty
       end
 
       it "must allow chaining of iterator methods without passing a block" do
         stub_api_request(:get, 'resources?cursor=1234567890&per_page=2') { XML[200][:index] }
-        stub_api_request(:get, 'resources?per_page=50') { XML[200][:index] }
+        stub_api_request(:get, 'resources?per_page=2') { XML[200][:index] }
         results = []
-        resource.find_each.to_a.map.each { |r| r.must_be_instance_of resource ; results << r }
+        resource.find_each(per_page: 2).to_a.map.each { |r| r.must_be_instance_of resource ; results << r }
         results.wont_be_empty
       end
     end
@@ -356,6 +356,30 @@ Content-Type: application/xml; charset=utf-8
 XML
         record.reload
         record[:name].must_equal 'The Matrix'
+      end
+
+      it "must reload attributes for persistent records when they have an href" do
+        stub_api_request(:get, 'resources/neo') { <<XML }
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<resource href="https://api.recurly.com/v2/resources/neo">
+  <uuid>neo</uuid>
+  <name>The Matrix</name>
+</resource>
+XML
+        record = resource.find('neo')
+        stub_api_request(:get, 'resources/neo') { <<XML }
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<resource href="https://api.recurly.com/v2/resources/neo">
+  <uuid>neo</uuid>
+  <name>The Matrix Reloaded</name>
+</resource>
+XML
+        record.reload
+        record.name.must_equal 'The Matrix Reloaded'
       end
     end
 

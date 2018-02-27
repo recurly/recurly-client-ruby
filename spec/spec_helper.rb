@@ -1,3 +1,6 @@
+require 'simplecov'
+SimpleCov.start
+
 require 'environment'
 require 'logger'
 require 'cgi'
@@ -49,13 +52,19 @@ end
 
 XML = {
   200 => {
+    :head => [
+      <<EOR,
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+X-Records: 3
+EOR
+    ],
     :index   => [
       <<EOR,
 HTTP/1.1 200 OK
 Content-Type: application/xml; charset=utf-8
 Link: \
 <https://api.recurly.com/v2/resources?per_page=2&cursor=1234567890>; rel="next"
-X-Records: 3
 
 <resources>
 <resource>
@@ -71,7 +80,6 @@ HTTP/1.1 200 OK
 Content-Type: application/xml; charset=utf-8
 Link: \
 <https://api.recurly.com/v2/resources?per_page=2>; rel="start"
-X-Records: 3
 
 <resources>
 <resource>

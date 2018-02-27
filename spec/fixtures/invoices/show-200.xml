@@ -7,6 +7,8 @@ Content-Type: application/xml; charset=utf-8
   <redemptions href="https://api.recurly.com/v2/invoices/created-invoice/redemptions"/>
   <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
   <subscriptions href="https://api.recurly.com/v2/invoices/1001/subscriptions"/>
+  <original_invoices href="https://api.recurly.com/v2/invoices/created-invoice/original_invoices" />
+  <credit_invoices href="https://api.recurly.com/v2/invoices/created-invoice/credit_invoices" />
   <uuid>created-invoice</uuid>
   <state>open</state>
   <invoice_number type="integer">1000</invoice_number>
@@ -98,4 +100,18 @@ Content-Type: application/xml; charset=utf-8
       <a name="refund" href="https://api.recurly.com/v2/transactions/transaction" method="delete"/>
     </transaction>
   </transactions>
+  <credit_payments type="array">
+    <credit_payment href="https://api.recurly.com/v2/credit_payments/3d3f6754c6df41b9d2a32e43029adc55" type="payment">
+      <account href="https://api.recurly.com/v2/accounts/3465345645345"/>
+      <uuid>3d3f6754c6df41b9d2a32e43029adc55</uuid>
+      <action>payment</action>
+      <currency>USD</currency>
+      <amount_in_cents type="integer">1000</amount_in_cents>
+      <original_invoice href="https://api.recurly.com/v2/invoices/1000"/>
+      <applied_to_invoice href="https://api.recurly.com/v2/invoices/1001"/>
+      <created_at type="datetime">2017-07-06T15:51:38Z</created_at>
+      <updated_at type="datetime">2017-07-06T15:51:38Z</updated_at>
+      <voided_at type="datetime">2017-07-22T15:51:38Z</voided_at>
+    </credit_payment>
+  </credit_payments>
 </invoice>

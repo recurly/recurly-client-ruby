@@ -16,3 +16,5 @@ bin/*
 Gemfile.lock
 
 TODO
+coverage/
+.ruby-version

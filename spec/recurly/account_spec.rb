@@ -12,15 +12,18 @@ describe Account do
         stub_api_request(
           :post, 'accounts/abcdef1234567890/invoices/preview', 'invoices/preview-200'
         )
-        account.build_invoice.must_be_instance_of Invoice
+        collection = account.build_invoice
+        collection.must_be_instance_of InvoiceCollection
+        collection.charge_invoice.must_be_instance_of Invoice
       end
 
       it 'derives and parses the account from the invoice preview' do
         stub_api_request(
           :post, 'accounts/abcdef1234567890/invoices/preview', 'invoices/preview-200'
         )
-        account.build_invoice.address.must_be_instance_of Address
-        account.build_invoice.address.country.must_equal 'US'
+        collection = account.build_invoice
+        collection.charge_invoice.address.must_be_instance_of Address
+        collection.charge_invoice.address.country.must_equal 'US'
       end
 
       it 'raises an exception if unsuccessful' do
@@ -37,18 +40,21 @@ describe Account do
         stub_api_request(
           :post, 'accounts/abcdef1234567890/invoices', 'invoices/create-201'
         )
-        account.invoice!.must_be_instance_of Invoice
+        collection = account.invoice!
+        collection.must_be_instance_of InvoiceCollection
+        collection.charge_invoice.must_be_instance_of Invoice
       end
 
       it "must add optional attributes to the invoice if given" do
         stub_api_request(
           :post, 'accounts/abcdef1234567890/invoices', 'invoices/create-with-optionals-201'
         )
-        invoice = account.invoice!({
+        collection = account.invoice!({
           terms_and_conditions: 'Some Terms and Conditions',
           customer_notes: 'Some Customer Notes'
         })
 
+        invoice = collection.charge_invoice
         invoice.must_be_instance_of Invoice
         invoice.customer_notes.must_equal 'Some Customer Notes'
         invoice.terms_and_conditions.must_equal 'Some Terms and Conditions'
@@ -83,6 +89,7 @@ describe Account do
       stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
       account = Account.find 'abcdef1234567890'
       account.must_be_instance_of Account
+      account.credit_payments.must_be_instance_of Resource::Pager
       account.account_code.must_equal 'abcdef1234567890'
       account.username.must_equal 'shmohawk58'
       account.email.must_equal 'larry.david@example.com'
@@ -221,6 +228,32 @@ XML
       account.to_xml.must_equal(
         '<account><username>importantbreakfast</username></account>'
       )
+    end
+  end
+
+  describe "#verify_cvv!" do
+    let(:account) {
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+      Account.find('abcdef1234567890')
+    }
+
+    it "should call endpoint and set new billing info details" do
+      stub_api_request :post, 'accounts/abcdef1234567890/billing_info/verify_cvv', 'billing_info/verify-cvv-200'
+      bi = account.verify_cvv! "504"
+      bi.first_name.must_equal "Good"
+      bi.last_name.must_equal  "CVV"
+    end
+
+    it "should raise BadRequest when checking too many times and cvv locked" do
+      stub_api_request :post, 'accounts/abcdef1234567890/billing_info/verify_cvv', 'billing_info/verify-cvv-locked-400'
+      error = proc { account.verify_cvv! "504" }.must_raise API::BadRequest
+      error.message.must_equal "This credit card has too many cvv check attempts."
+    end
+
+    it "should raise Transaction::Error when payment gateway declines cvv" do
+      stub_api_request :post, 'accounts/abcdef1234567890/billing_info/verify_cvv', 'billing_info/verify-cvv-transaction-err-422'
+      error = proc { account.verify_cvv! "504" }.must_raise Transaction::DeclinedError
+      error.transaction_error_code.must_equal "fraud_security_code"
     end
   end
 

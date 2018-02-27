@@ -51,6 +51,7 @@ module Recurly
     autoload :PurchasedGiftCardNotification,    'recurly/webhook/purchased_gift_card_notification'
     autoload :RedeemedGiftCardNotification,     'recurly/webhook/redeemed_gift_card_notification'
     autoload :UpdatedBalanceGiftCardNotification,'recurly/webhook/updated_balance_gift_card_notification'
+    autoload :NewUsageNotification,             'recurly/webhook/new_usage_notification'
     # This exception is raised if the Webhook Notification initialization fails
     class NotificationError < Error
     end

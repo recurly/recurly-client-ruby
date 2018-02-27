@@ -33,7 +33,10 @@ module Recurly
     has_one :gift_card
 
     # @return [ShippingAddress, nil]
-    has_one :shipping_address, resource_class: :ShippingAddress, readonly: false
+    has_one :shipping_address, class_name: :ShippingAddress, readonly: false
+
+    # @return [InvoiceCollection, nil]
+    has_one :invoice_collection, class_name: :InvoiceCollection, readonly: true
 
     define_attribute_methods %w(
       uuid
@@ -76,6 +79,7 @@ module Recurly
       converted_at
       no_billing_info_reason
       imported_trial
+      credit_customer_notes
     )
     alias to_param uuid
 
