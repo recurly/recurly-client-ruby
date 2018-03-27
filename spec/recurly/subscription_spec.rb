@@ -293,6 +293,24 @@ describe Subscription do
     end
   end
 
+  describe 'pausing and resuming' do
+    before do
+      stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
+      stub_api_request :put, 'https://api.recurly.com/v2/subscriptions/abcdef1234567890/pause', 'subscriptions/pause-200'
+      stub_api_request :put, 'https://api.recurly.com/v2/subscriptions/abcdef1234567890/resume', 'subscriptions/resume-200'
+    end
+
+    it "should be able to pause and resume a subscription" do
+      sub = Recurly::Subscription.find('abcdef1234567890')
+      sub.paused_at.must_equal nil
+      sub.pause(1).must_equal true
+      sub.paused_at.must_be_instance_of DateTime
+      sub.remaining_pause_cycles.must_equal 1
+      sub.resume.must_equal true
+      sub.remaining_pause_cycles.must_equal nil
+    end
+  end
+
   describe 'notes' do
     it 'previews new subscriptions' do
       stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'

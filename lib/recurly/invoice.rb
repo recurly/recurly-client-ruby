@@ -32,7 +32,7 @@ module Recurly
     # @return [Pager<Redemption>, []]
     has_many :redemptions
 
-    # @return [Pager<ShippingAddress>, [ShippingAddress], []]
+    # @return [ShippingAddress, nil]
     has_one :shipping_address, class_name: :ShippingAddress, readonly: true
 
     # @return [Pager<Invoice>, []]

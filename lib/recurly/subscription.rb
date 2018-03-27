@@ -80,6 +80,8 @@ module Recurly
       no_billing_info_reason
       imported_trial
       credit_customer_notes
+      remaining_pause_cycles
+      paused_at
     )
     alias to_param uuid
 
@@ -220,12 +222,46 @@ module Recurly
 
     # Update the notes sections of the subscription
     #
+    # @param notes [Hash] should be the notes parameters you wish to update
     # @return [true, false] +true+ when successful, +false+ when unable to
-    # @params notes [Hash] should be the notes parameters you wish to update
     def update_notes(notes)
       return false unless link? :notes
       self.attributes = notes
       reload follow_link(:notes, body: to_xml)
+      true
+    end
+
+    # Pauses a subscription or cancels a scheduled pause.
+    #
+    # * For an active subscription without a pause scheduled already,
+    # this will schedule a pause period to begin at the next renewal
+    # date for the specified number of billing cycles (remaining_pause_cycles).
+    # * When a scheduled pause already exists, this will update the remaining
+    # pause cycles with the new value sent. When zero (0) remaining_pause_cycles
+    # is sent for a subscription with a scheduled pause, the pause will be canceled.
+    # * For a paused subscription, the remaining_pause_cycles will adjust the
+    # length of the current pause period. Sending zero (0) in the remaining_pause_cycles
+    # field will cause the subscription to be resumed at the next renewal date.
+    #
+    # @param remaining_pause_cycles [Integer] The number of billing cycles that the subscription will be paused.
+    # @return true
+    def pause(remaining_pause_cycles)
+      builder = XML.new("<subscription/>")
+      builder.add_element('remaining_pause_cycles', remaining_pause_cycles)
+      reload API.put("#{uri}/pause", builder.to_s)
+      true
+    end
+
+    # Resumes a paused subscription.
+    #
+    # For a paused subscription, this will immediately resume the subscription
+    # from the pause, produce an invoice, and return the newly resumed subscription.
+    # Any at-renewal subscription changes will be immediately applied
+    # when the subscription resumes.
+    #
+    # @return true
+    def resume
+      reload API.put("#{uri}/resume")
       true
     end
 

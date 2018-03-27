@@ -73,6 +73,8 @@ module Recurly
       has_future_subscription
       has_canceled_subscription
       has_past_due_invoice
+      has_paused_subscription
+      preferred_locale
     )
     alias to_param account_code
 

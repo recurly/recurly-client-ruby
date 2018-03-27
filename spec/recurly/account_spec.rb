@@ -110,6 +110,7 @@ describe Account do
       account.has_active_subscription.must_equal true
       account.has_future_subscription.must_equal false
       account.has_past_due_invoice.must_equal false
+      account.preferred_locale.must_equal 'fr-FR'
     end
 
     it 'must return an account with tax state' do
