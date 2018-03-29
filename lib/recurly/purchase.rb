@@ -19,18 +19,42 @@ module Recurly
   # in the same way you would when creating a {Subscription} with a new account.
   #
   # You can also pass in adjustments and invoicing data to be passed to the invoice.
+  #
+  # There are multiple ways to set the shipping addresses:
+  # 1. Use {Purchase#shipping_address_id} If you want to apply an existing shipping
+  #    address to all subscriptions and adjustments in this purchase.
+  # 2. Add multiple shipping addresses to {Account#shipping_addresses}. The last
+  #    address in the list will apply to all subscriptions and adjustments
+  #    in this purchase.
+  # 3. Use {Subscription#shipping_address_id} or {Subscription#shipping_address}
+  #    to set a shipping address for only the subscription.
+  # 4. Use {Adjustment#shipping_address_id} or {Adjustment#shipping_address}
+  #    to set a shipping address for only the adjustment.
+  #
   # @example
   #   require 'securerandom'
   #
-  #   purchase = Recurly::Purchase.new({
+  #   purchase = Recurly::Purchase.new(
   #     currency: 'USD',
   #     collection_method: :automatic,
   #     account: {
   #       account_code: SecureRandom.uuid,
+  #       shipping_addresses: [
+  #         {
+  #           first_name: 'Benjamin',
+  #           last_name: 'Du Monde',
+  #           address1: '400 Dolores St.',
+  #           city: 'San Francisco',
+  #           state: 'CA',
+  #           zip: '94110',
+  #           country: 'US',
+  #           nickname: 'Home'
+  #         }
+  #       ],
   #       billing_info: {
   #         first_name: 'Benjamin',
   #         last_name: 'Du Monde',
-  #         address1: '400 Alabama St',
+  #         address1: '400 Alabama St.',
   #         city: 'San Francisco',
   #         state: 'CA',
   #         zip: '94110',
@@ -54,7 +78,7 @@ module Recurly
   #         revenue_schedule_type: :at_invoice
   #       }
   #     ]
-  #   })
+  #   )
   #
   #   begin
   #     preview_invoice = Recurly::Purchase.preview!(purchase)
@@ -98,6 +122,7 @@ module Recurly
       terms_and_conditions
       customer_notes
       vat_reverse_charge_notes
+      shipping_address_id
     )
 
     class << self

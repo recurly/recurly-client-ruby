@@ -21,6 +21,9 @@ module Recurly
     # @return [Pager<Adjustment>, []]
     has_many :credit_adjustments, class_name: :Adjustment, readonly: true
 
+    # @return [ShippingAddress, nil]
+    has_one :shipping_address, class_name: :ShippingAddress, readonly: false
+
     define_attribute_methods %w(
       uuid
       state
@@ -50,6 +53,7 @@ module Recurly
       proration_rate
       credit_reason_code
       original_adjustment_uuid
+      shipping_address_id
     )
     alias to_param uuid
 

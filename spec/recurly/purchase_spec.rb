@@ -19,6 +19,8 @@ describe Purchase do
       stub_api_request(:post, 'purchases', 'purchases/invoice-201')
       collection = Purchase.invoice!(purchase)
       collection.charge_invoice.must_be_instance_of Invoice
+      shipping_address = collection.charge_invoice.line_items.first.shipping_address
+      shipping_address.must_be_instance_of ShippingAddress
     end
     it "should raise an Invalid error when data is invalid" do
       stub_api_request(:post, 'purchases', 'purchases/invoice-422')

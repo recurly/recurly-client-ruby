@@ -40,4 +40,5 @@ Content-Type: application/xml; charset=utf-8
   <has_future_subscription type="boolean">false</has_future_subscription>
   <has_canceled_subscription type="boolean">false</has_canceled_subscription>
   <has_past_due_invoice type="boolean">false</has_past_due_invoice>
+  <preferred_locale>fr-FR</preferred_locale>
 </account>
