@@ -84,17 +84,36 @@ module Recurly
 end
 
 if defined? Nokogiri
+  insecure_noko_msg = <<-MSG
+
+    You are attempting to use an insecure version of
+    nokogiri on an insecure version of ruby. Please see
+    the documentation on supported versions for more information:
+    https://github.com/recurly/recurly-client-ruby#supported-versions
+
+  MSG
   if RUBY_VERSION < "2.1.0"
-    raise <<-MSG
-
-      You are attempting to use an insecure version of
-      nokogiri on an insecure version of ruby. Please see
-      the documentation on supported versions for more information:
-      https://github.com/recurly/recurly-client-ruby#supported-versions
-
-    MSG
+    raise insecure_noko_msg
   else
     require 'recurly/xml/nokogiri'
+    version = Gem::Version.new(Nokogiri::VERSION)
+
+    if version.segments.length == 3
+      major, minor, patch = version.segments
+    else
+      major, minor, patch, _pre = version.segments
+    end
+
+    # Only warning users for now
+    if minor < 6
+      puts insecure_noko_msg
+    elsif minor == 6 && patch < 8
+      puts insecure_noko_msg
+    elsif minor == 7 && patch < 2
+      puts insecure_noko_msg
+    elsif minor == 8 && patch < 2
+      puts insecure_noko_msg
+    end
   end
 else
   require 'recurly/xml/rexml'
