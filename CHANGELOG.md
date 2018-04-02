@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.15.1"></a>
+## v2.15.1 (2018-04-02)
+
+- Fix nokogiri security warnings [PR](https://github.com/recurly/recurly-client-ruby/pull/367)
+- API v2.11 changes [PR](https://github.com/recurly/recurly-client-ruby/pull/366)
+
 <a name="v2.15.0"></a>
 ## v2.15.0 (2018-02-27)
 
