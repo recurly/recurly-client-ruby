@@ -204,8 +204,33 @@ This release will upgrade us to API version 2.8.
 
 ### Upgrade Notes
 
-There is one breaking change in this API version you must consider. All `country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your code fails
-validation, you will receive a validation error. This affects anywhere and address is collected.
+There are two breaking changes in this API version you must consider. 
+
+#### Country Codes
+
+All `country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your country code fails validation, you will receive a validation error. This affects any endpoint where an address is collected.
+
+#### Purchase Currency
+
+The purchases endpoint can create and invoice multiple adjustments at once but our invoices can only contain items in one currency. To make this explicit the currency can no longer be provided on an adjustment, it must be set once for the entire purchase:
+
+```ruby
+purchase = Recurly::Purchase.new(
+  # The purchase object is the only place you can set the currency:
+  currency: 'USD',
+  account: {
+    account_code: 'someone'
+  }
+  adjustments: [
+    {
+       # Remove this currency
+       # You can no longer set the currency on adjustment level
+       currency: 'USD',
+       unit_amount_in_cents: 1000
+    }
+  ]
+)
+```
 
 <a name="v2.10.4"></a>
 ## v2.10.4 (2017-11-10)
