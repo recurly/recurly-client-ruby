@@ -22,7 +22,9 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 1.9.3'
 
-  if RUBY_VERSION >= "2.1.0"
+  if RUBY_VERSION < "2.2"
+    puts "WARNING: The recurly library is only supported on ruby 2.2 and above."
+  else
     s.add_development_dependency('nokogiri','~> 1.8.2')
   end
 

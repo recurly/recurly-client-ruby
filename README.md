@@ -94,17 +94,20 @@ Any configuration items you do not include in the above config call will be defa
 configuration items. For example if you do not define default_currency then Recurly.default_currency
 will be used.
 
-## Supported Versions
+## Supported Ruby Versions
 
-We are currently supporting versions `2.1.0` and above. `1.9` and `2.0` will still work but are deprecated.
+We are currently supporting ruby language versions `2.2` and above. `1.9`, `2.0`, and `2.1` may still work but are not officially supported.
 
 If you are still using one of these rubies, you should know that support for them ended in
-2015 (1.9) and 2016 (2.0) and continuing to use them is a security risk.
+2015 (1.9), 2016 (2.0), and 2017 (2.1) and continuing to use them is a security risk.
 
 - https://www.ruby-lang.org/en/news/2015/02/23/support-for-ruby-1-9-3-has-ended/
 - https://www.ruby-lang.org/en/news/2016/02/24/support-plan-of-ruby-2-0-0-and-2-1/
+- https://www.ruby-lang.org/en/news/2017/04/01/support-of-ruby-2-1-has-ended/
 
-For now, we are still running the tests on 1.9 and 2.0 but without `nokogiri` and only `rexml`. Nokogiri is
+## Nokogiri Support
+
+For now, we are still running the tests on 2.0 and below but without `nokogiri` and only `rexml`. Nokogiri is
 no longer supported on 1.9 or 2.0 and has patched known vulnerabilities since dropping support.
 If you must run one of these rubies (this includes jruby1.7), you must use rexml and not nokogiri.
 
