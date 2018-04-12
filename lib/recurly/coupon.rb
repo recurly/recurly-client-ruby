@@ -110,10 +110,11 @@ module Recurly
     #
     # @param account_code [String] Acccount's account code
     # @param currency [String] Three-letter currency code
+    # @raise [Invalid] If the coupon cannot be redeemed
     # @return [Redemption] The Coupon Redemption
     def redeem!(account_code, currency = nil)
       redemption = redeem(account_code, currency)
-      raise Invalid.new(redemption) unless redemption.persisted?
+      raise Invalid.new(self) unless redemption && redemption.persisted?
       redemption
     end
 
