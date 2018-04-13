@@ -44,6 +44,9 @@ module Recurly
     # @return [Pager<Invoice>, []]
     has_many :original_invoices, class_name: :Invoice, readonly: true
 
+    # @return [Invoice, nil]
+    has_one :original_invoice, class_name: :Invoice, readonly: true
+
     # Returns the first redemption in the Invoice's redemptions.
     # This was placed here for backwards compatibility when we went from
     # having a single redemption per invoice to multiple redemptions per invoice.

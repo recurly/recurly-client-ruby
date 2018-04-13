@@ -8,6 +8,7 @@ Content-Type: application/xml; charset=utf-8
   <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
   <subscriptions href="https://api.recurly.com/v2/invoices/1001/subscriptions"/>
   <original_invoices href="https://api.recurly.com/v2/invoices/created-invoice/original_invoices" />
+  <original_invoice href="https://api.recurly.com/v2/invoices/1001" />
   <credit_invoices href="https://api.recurly.com/v2/invoices/created-invoice/credit_invoices" />
   <uuid>created-invoice</uuid>
   <state>open</state>
