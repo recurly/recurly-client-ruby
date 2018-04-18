@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.15.2"></a>
+## v2.15.2 (2018-04-18)
+
+- Keep original_invoice link on Invoice [PR](https://github.com/recurly/recurly-client-ruby/pull/372)
+- Coupon#redeem! should raise Invalid on failure [PR](https://github.com/recurly/recurly-client-ruby/pull/371)
+
 <a name="v2.15.1"></a>
 ## v2.15.1 (2018-04-02)
 
