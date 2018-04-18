@@ -106,25 +106,11 @@ These methods, which before returned `Invoice` now return `InvoiceCollection`:
 * `Account#invoice!`
 * `Account#build_invoice`
 
-#### 2. Invoice#original_invoice removed
-
-`Invoice#original_invoice` was removed in favor of `Invoice#original_invoices`. If you want to maintain functionality, change your code grab the first invoice from that endpoint:
-
-```ruby
-# Change this
-invoice = Recurly::Invoice.find('1001')
-original = invoice.original_invoice
-
-# To this
-invoice = Recurly::Invoice.find('1001')
-original = invoice.original_invoices.first
-```
-
-#### 3. Invoice subtotal_* changes
+#### 2. Invoice subtotal_* changes
 
 If you want to preserve functionality, change any use of `Invoice#subtotal_after_discount_in_cents` to  `Invoice#subtotal_in_cents`. If you were previously using `Invoice#subtotal_in_cents`, this has been changed to `Invoice#subtotal_before_discount_in_cents`.
 
-#### 4. Invoice Refund -- `refund_apply_order` changed to `refund_method`
+#### 3. Invoice Refund -- `refund_apply_order` changed to `refund_method`
 
 If you were using `refund_apply_order` on any refunds, then you need to change this to use `refund_method` instead. The keys from this have changed from (`credit`, `transaction`) to (`credit_first`, `transaction_first`)
 
