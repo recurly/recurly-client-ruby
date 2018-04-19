@@ -23,8 +23,6 @@ env:
 matrix:
   allow_failures:
     - rvm: 1.9.3-p551
-      env: XML=nokogiri
     - rvm: 2.0.0-p648
-      env: XML=nokogiri
+    - rvm: 2.1.10
     - rvm: jruby-9.1.9.0
-      env: XML=nokogiri
