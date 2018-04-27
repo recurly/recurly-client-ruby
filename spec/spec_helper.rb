@@ -37,7 +37,6 @@ module SpecHelper
     Recurly.subdomain = 'api'
     Recurly.api_key = 'api_key'
     Recurly.default_currency = 'USD'
-    Recurly.logger = Logger.new nil
   end
 end
 
