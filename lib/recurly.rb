@@ -88,6 +88,8 @@ module Recurly
     end
 
     # Assigns a logger to log requests/responses and more.
+    # The logger can only be set if the environment variable
+    # `RECURLY_INSECURE_DEBUG` equals `true`.
     #
     # @return [Logger, nil]
     # @example
@@ -98,6 +100,22 @@ module Recurly
     # @example Turn off logging entirely:
     #   Recurly.logger = nil # Or Recurly.logger = Logger.new nil
     attr_accessor :logger
+
+    def logger=(logger)
+      if ENV['RECURLY_INSECURE_DEBUG'].to_s.downcase == 'true'
+        @logger = logger
+        puts <<-MSG
+        [WARNING] Recurly logger enabled. The logger has the potential to leak
+        PII and should never be used in production environments.
+        MSG
+      else
+        puts <<-MSG
+        [WARNING] Recurly logger has been disabled. If you wish to use it,
+        only do so in a non-production environment and make sure
+        the `RECURLY_INSECURE_DEBUG` environment variable is set to `true`.
+        MSG
+      end
+    end
 
     # Convenience logging method includes a Logger#progname dynamically.
     # @return [true, nil]
