@@ -45,6 +45,11 @@ describe GiftCard do
       gift_card.unit_amount_in_cents.must_equal 2_000
       gift_card.updated_at.must_equal DateTime.parse("2016-07-28T00:01:46Z")
 
+      stub_api_request :get, 'invoices/1017', 'invoices/show-200'
+      gift_card.redemption_invoice.must_be_instance_of Invoice
+      stub_api_request :get, 'invoices/1017', 'invoices/show-200'
+      gift_card.purchase_invoice.must_be_instance_of Invoice
+
       delivery = gift_card.delivery
 
       delivery.must_be_instance_of Recurly::Delivery
