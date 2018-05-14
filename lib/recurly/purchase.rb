@@ -160,6 +160,16 @@ module Recurly
         post(purchase, "#{collection_path}/authorize")
       end
 
+      # Use for Adyen HPP transaction requests. Runs validations
+      # but does not run any transactions.
+      #
+      # @param purchase [Purchase] The purchase data for the request.
+      # @return [InvoiceCollection] The authorized invoice collection representing this purchase.
+      # @raise [Invalid] Raised if the purchase cannot be invoiced.
+      def pending!(purchase)
+        post(purchase, "#{collection_path}/pending")
+      end
+
       def post(purchase, path)
         response = API.send(:post, path, purchase.to_xml)
         InvoiceCollection.from_response(response)
