@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<new_charge_invoice_notification>
+  <account>
+    <account_code>1234</account_code>
+    <username></username>
+    <email></email>
+    <first_name></first_name>
+    <last_name></last_name>
+    <company_name></company_name>
+    <phone></phone>
+  </account>
+  <invoice>
+    <uuid>42feb03ce368c0e1ead35d4bfa89b82e</uuid>
+    <state>pending</state>
+    <origin type="symbol">renewal</origin>
+    <invoice_number_prefix></invoice_number_prefix>
+    <invoice_number type="integer">2405</invoice_number>
+    <address>
+      <address1></address1>
+      <address2></address2>
+      <city></city>
+      <state></state>
+      <zip></zip>
+      <country></country>
+      <phone></phone>
+    </address>
+    <vat_number></vat_number>
+    <currency>USD</currency>
+    <balance_in_cents type="integer">100000</balance_in_cents>
+    <total_in_cents type="integer">100000</total_in_cents>
+    <tax_in_cents type="integer">0</tax_in_cents>
+    <subtotal_in_cents type="integer">100000</subtotal_in_cents>
+    <subtotal_before_discount_in_cents type="integer">100000</subtotal_before_discount_in_cents>
+    <discount_in_cents type="integer">0</discount_in_cents>
+    <subscription_ids type="array">
+      <subscription_id>40b8f5e99df03b8684b99d4993b6e089</subscription_id>
+    </subscription_ids>
+    <customer_notes>Thanks for your business!</customer_notes>
+    <created_at type="datetime">2018-02-13T16:00:04Z</created_at>
+    <updated_at type="datetime">2018-02-13T16:00:04Z</updated_at>
+    <closed_at type="datetime" nil="true"></closed_at>
+    <po_number></po_number>
+    <terms_and_conditions>Payment can be made out to Acme, Co.</terms_and_conditions>
+    <due_on type="dateTime">2018-03-16T15:00:04Z</due_on>
+    <net_terms type="integer">30</net_terms>
+    <collection_method>manual</collection_method>
+  </invoice>
+</new_charge_invoice_notification>
