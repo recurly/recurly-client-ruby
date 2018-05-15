@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<closed_credit_invoice_notification>
+  <account>
+    <account_code>1234</account_code>
+    <username></username>
+    <email></email>
+    <first_name></first_name>
+    <last_name></last_name>
+    <company_name></company_name>
+    <phone></phone>
+  </account>
+  <invoice>
+    <uuid>42fb74de65e9395eb004614144a7b91f</uuid>
+    <state>closed</state>
+    <origin type="symbol">write_off</origin>
+    <invoice_number_prefix></invoice_number_prefix>
+    <invoice_number type="integer">2404</invoice_number>
+    <address>
+      <address1>123 Main St.</address1>
+      <address2></address2>
+      <city>San Francisco</city>
+      <state>CA</state>
+      <zip>94110</zip>
+      <country>US</country>
+      <phone></phone>
+    </address>
+    <vat_number></vat_number>
+    <currency>USD</currency>
+    <balance_in_cents type="integer">0</balance_in_cents>
+    <total_in_cents type="integer">-4882</total_in_cents>
+    <tax_in_cents type="integer">-382</tax_in_cents>
+    <subtotal_in_cents type="integer">-4500</subtotal_in_cents>
+    <subtotal_before_discount_in_cents type="integer">-5000</subtotal_before_discount_in_cents>
+    <discount_in_cents type="integer">-500</discount_in_cents>
+    <subscription_ids type="array">
+      <subscription_id>42fb74ba9efe4c6981c2064436a4e9cd</subscription_id>
+    </subscription_ids>
+    <customer_notes nil="true"></customer_notes>
+    <created_at type="datetime">2018-02-13T00:56:22Z</created_at>
+    <updated_at type="datetime">2018-02-13T00:56:22Z</updated_at>
+    <closed_at type="datetime">2018-02-13T00:56:21Z</closed_at>
+  </invoice>
+</closed_credit_invoice_notification>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<voided_credit_payment_notification>
+  <account>
+    <account_code>1234</account_code>
+    <username></username>
+    <email></email>
+    <first_name></first_name>
+    <last_name></last_name>
+    <company_name></company_name>
+    <phone></phone>
+  </account>
+  <credit_payment>
+    <uuid>42fa2a56dfeca2ace39b0e4a9198f835</uuid>
+    <action type="symbol">payment</action>
+    <currency>USD</currency>
+    <amount_in_cents type="integer">3579</amount_in_cents>
+    <original_nvoice_number type="integer">2389</original_nvoice_number>
+    <applied_to_invoice_number type="integer">2390</applied_to_invoice_number>
+    <original_credit_payment_uuid nil="true"></original_credit_payment_uuid>
+    <refund_transaction_uuid nil="true"></refund_transaction_uuid>
+    <created_at type="datetime">2018-02-12T18:55:20Z</created_at>
+    <updated_at type="datetime">2018-02-12T18:55:20Z</updated_at>
+    <voided_at type="datetime" nil="true"></voided_at>
+  </credit_payment>
+</voided_credit_payment_notification>
