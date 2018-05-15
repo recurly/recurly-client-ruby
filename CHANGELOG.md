@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.15.4"></a>
+## v2.15.4 (2018-05-15)
+
+- API version 2.12 [PR](https://github.com/recurly/recurly-client-ruby/pull/378)
+- New Credit Invoice Webhooks [PR](https://github.com/recurly/recurly-client-ruby/pull/380)
+
 <a name="v2.15.2"></a>
 ## v2.15.2 (2018-04-18)
 
