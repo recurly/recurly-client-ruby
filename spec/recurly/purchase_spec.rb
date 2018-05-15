@@ -65,4 +65,20 @@ describe Purchase do
       purchase.adjustments.first.errors["unit_amount_in_cents"].must_equal ["is not a number"]
     end
   end
+
+  describe "Purchase.pending!" do
+    it "should return an authorized invoice when valid" do
+      stub_api_request(:post, 'purchases/pending', 'purchases/preview-201')
+      authorized_collection = Purchase.pending!(purchase)
+      authorized_invoice = authorized_collection.charge_invoice
+      authorized_invoice.must_be_instance_of Invoice
+    end
+    it "should raise an Invalid error when data is invalid" do
+      stub_api_request(:post, 'purchases/pending', 'purchases/invoice-422')
+      # ensure error is raised
+      proc {Purchase.pending!(purchase)}.must_raise Resource::Invalid
+      # ensure error details are mapped back
+      purchase.adjustments.first.errors["unit_amount_in_cents"].must_equal ["is not a number"]
+    end
+  end
 end

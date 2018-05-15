@@ -12,6 +12,12 @@ module Recurly
     # @return [Delivery, nil] Delivery information of the recipient.
     has_one :delivery, class_name: :Delivery, readonly: false
 
+    # @return [Invoice, nil] The credit invoice for the gift card redemption.
+    has_one :redemption_invoice, class_name: :Invoice, readonly: true
+
+    # @return [Invoice, nil] The charge invoice for the gift card redemption.
+    has_one :purchase_invoice, class_name: :Invoice, readonly: true
+
     define_attribute_methods %w(
       balance_in_cents
       currency
