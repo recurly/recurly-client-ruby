@@ -135,4 +135,13 @@ describe Invoice do
       end
     end
   end
+
+  describe "#all_transactions" do
+    it "must provide a link to all transactions if present" do
+      stub_api_request :get, 'invoices/1001', 'invoices/show-200'
+      invoice = Invoice.find(1001)
+      invoice.all_transactions.must_be_instance_of Resource::Pager
+      invoice.all_transactions.any?.must_equal true
+    end
+  end
 end
