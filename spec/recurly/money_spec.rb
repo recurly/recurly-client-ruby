@@ -23,4 +23,11 @@ describe Money do
       proc { Money.new(:USD => 1, :EUR => 2).to_i }.must_raise TypeError
     end
   end
+
+  describe "#eql?" do
+    it 'is true for two instances of Money with the same attributes' do
+      comparison = Money.new(:USD => 1).eql?(Money.new(:USD => 1))
+      comparison.must_equal true
+    end
+  end
 end

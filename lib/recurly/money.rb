@@ -99,8 +99,6 @@ module Recurly
     end
     alias to_s inspect
 
-    protected
-
     attr_reader :currencies
 
     private
