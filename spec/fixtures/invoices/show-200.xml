@@ -10,6 +10,7 @@ Content-Type: application/xml; charset=utf-8
   <original_invoices href="https://api.recurly.com/v2/invoices/created-invoice/original_invoices" />
   <original_invoice href="https://api.recurly.com/v2/invoices/1001" />
   <credit_invoices href="https://api.recurly.com/v2/invoices/created-invoice/credit_invoices" />
+  <all_transactions href="https://api.recurly.com/v2/invoices/1001/transactions" />
   <uuid>created-invoice</uuid>
   <state>open</state>
   <invoice_number type="integer">1000</invoice_number>

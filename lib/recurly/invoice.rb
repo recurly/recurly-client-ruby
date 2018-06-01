@@ -29,6 +29,10 @@ module Recurly
     # @return [Pager<Adjustment>, []]
     has_many :all_line_items, class_name: :Adjustment
 
+    # This will only be present if the invoice has > 500 transactions
+    # @return [Pager<Transaction>, []]
+    has_many :all_transactions, class_name: :Transaction
+
     # @return [Pager<Redemption>, []]
     has_many :redemptions
 
