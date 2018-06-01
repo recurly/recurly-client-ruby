@@ -123,6 +123,7 @@ module Recurly
       customer_notes
       vat_reverse_charge_notes
       shipping_address_id
+      gateway_code
     )
 
     class << self
