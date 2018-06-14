@@ -171,11 +171,30 @@ module Recurly
         post(purchase, "#{collection_path}/pending")
       end
 
+      # Allows the merchant to cancel an authorization.
+      #
+      # @param transaction_uuid [String] The uuid for the transaction representing the authorization. Can typically be found at invoice_collection.charge_invoice.transactions.first.uuid.
+      # @return [InvoiceCollection] The canceled invoice collection.
+      # @raise [Invalid] Raised if the authorization cannot be canceled.
+      def cancel!(transaction_uuid)
+        post(nil, "#{collection_path}/transaction-uuid-#{transaction_uuid}/cancel")
+      end
+
+      # Allows the merchants to initiate a capture transaction tied to the original authorization.
+      #
+      # @param transaction_uuid [String] The uuid for the transaction representing the authorization. Can typically be found at invoice_collection.charge_invoice.transactions.first.uuid.
+      # @return [InvoiceCollection] The captured invoice collection.
+      # @raise [Invalid] Raised if the authorization cannot be captured.
+      def capture!(transaction_uuid)
+        post(nil, "#{collection_path}/transaction-uuid-#{transaction_uuid}/capture")
+      end
+
       def post(purchase, path)
-        response = API.send(:post, path, purchase.to_xml)
+        body = purchase.nil? ? nil : purchase.to_xml
+        response = API.send(:post, path, body)
         InvoiceCollection.from_response(response)
       rescue API::UnprocessableEntity => e
-        purchase.apply_errors(e)
+        purchase.apply_errors(e) if purchase
         Transaction::Error.validate!(e, nil)
         raise Resource::Invalid.new(purchase)
       end
