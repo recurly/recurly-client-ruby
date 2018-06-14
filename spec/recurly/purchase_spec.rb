@@ -81,4 +81,36 @@ describe Purchase do
       purchase.adjustments.first.errors["unit_amount_in_cents"].must_equal ["is not a number"]
     end
   end
+
+  describe "Purchase.capture!" do
+    it "should return a captured invoice collection when valid" do
+      tr_uuid = 'abcd1234'
+      stub_api_request(:post, "purchases/transaction-uuid-#{tr_uuid}/capture", 'purchases/preview-201')
+      captured_collection = Purchase.capture!(tr_uuid)
+      captured_invoice = captured_collection.charge_invoice
+      captured_invoice.must_be_instance_of Invoice
+    end
+    it "should raise an Invalid error when data is invalid" do
+      tr_uuid = 'abcd1234'
+      stub_api_request(:post, "purchases/transaction-uuid-#{tr_uuid}/capture", 'purchases/invoice-422')
+      # ensure error is raised
+      proc {Purchase.capture!(tr_uuid)}.must_raise Resource::Invalid
+    end
+  end
+
+  describe "Purchase.cancel!" do
+    it "should return a canceled invoice collection when valid" do
+      tr_uuid = 'abcd1234'
+      stub_api_request(:post, "purchases/transaction-uuid-#{tr_uuid}/cancel", 'purchases/preview-201')
+      canceled_collection = Purchase.cancel!(tr_uuid)
+      canceled_invoice = canceled_collection.charge_invoice
+      canceled_invoice.must_be_instance_of Invoice
+    end
+    it "should raise an Invalid error when data is invalid" do
+      tr_uuid = 'abcd1234'
+      stub_api_request(:post, "purchases/transaction-uuid-#{tr_uuid}/cancel", 'purchases/invoice-422')
+      # ensure error is raised
+      proc {Purchase.cancel!(tr_uuid)}.must_raise Resource::Invalid
+    end
+  end
 end
