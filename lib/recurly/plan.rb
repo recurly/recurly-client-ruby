@@ -31,6 +31,7 @@ module Recurly
       tax_exempt
       tax_code
       trial_requires_billing_info
+      auto_renew
       created_at
       updated_at
     )
