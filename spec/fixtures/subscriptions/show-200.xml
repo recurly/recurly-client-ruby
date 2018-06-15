@@ -41,6 +41,12 @@ Content-Type: application/xml; charset=utf-8
       <usage_percentage nil="nil"/>
     </subscription_add_on>
   </subscription_add_ons>
+  <custom_fields type="array">
+    <custom_field>
+      <name>sub_field1</name>
+      <value>sub-value-1</value>
+    </custom_field>
+  </custom_fields>
   <a name="cancel" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/cancel" method="put"/>
   <a name="terminate" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/terminate" method="put"/>
   <a name="notes" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/notes" method="put"/>

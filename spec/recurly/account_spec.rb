@@ -296,4 +296,15 @@ XML
       end
     end
   end
+
+  describe 'custom fields' do
+    let(:account) {
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+      Account.find 'abcdef1234567890'
+    }
+
+    it 'should have a custom field' do
+      account.custom_fields.must_equal [CustomField.new(name: 'acct_field', value: 'acct value')]
+    end
+  end
 end

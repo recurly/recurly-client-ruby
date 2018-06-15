@@ -144,6 +144,17 @@ describe Subscription do
     end
   end
 
+  describe "custom fields" do
+    let(:subscription) {
+      stub_api_request :get, 'subscriptions/active', 'subscriptions/show-200'
+      Subscription.find 'active'
+    }
+
+    it 'should have a custom field' do
+      subscription.custom_fields.must_equal [CustomField.new(name: 'sub_field1', value: 'sub-value-1')]
+    end
+  end
+
   describe "active and inactive" do
     let(:active) {
       stub_api_request :get, 'subscriptions/active', 'subscriptions/show-200'
