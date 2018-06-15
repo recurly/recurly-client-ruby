@@ -20,6 +20,9 @@ module Recurly
     # @return [Pager<Redemption>, []]
     has_many :redemptions
 
+    # @return [[CustomField], []]
+    has_many :custom_fields, class_name: :CustomField, readonly: false
+
     # @return [Account]
     belongs_to :account
 
@@ -280,6 +283,15 @@ module Recurly
     def signable_attributes
       super.merge :plan_code => plan_code
     end
+
+    def changed_attributes
+      attrs = super
+      if custom_fields.any?(&:changed?)
+        attrs['custom_fields'] = custom_fields.select(&:changed?)
+      end
+      attrs
+    end
+
 
     private
 

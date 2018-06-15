@@ -202,7 +202,7 @@ This release will upgrade us to API version 2.8.
 
 ### Upgrade Notes
 
-There are two breaking changes in this API version you must consider. 
+There are two breaking changes in this API version you must consider.
 
 #### Country Codes
 

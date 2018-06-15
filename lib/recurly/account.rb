@@ -42,6 +42,9 @@ module Recurly
     # @return [Pager<CreditPayment>, []]
     has_many :credit_payments, class_name: :CreditPayment, readonly: true
 
+    # @return [[CustomField], []]
+    has_many :custom_fields, class_name: :CustomField, readonly: false
+
     # Get's the first redemption given a coupon code
     # @deprecated Use #{redemptions} instead
     # @param coupon_code [String] The coupon code for the redemption
@@ -148,6 +151,9 @@ module Recurly
       attrs = super
       if address.respond_to?(:changed?) && address.changed?
         attrs['address'] = address
+      end
+      if custom_fields.any?(&:changed?)
+        attrs['custom_fields'] = custom_fields.select(&:changed?)
       end
       attrs
     end
