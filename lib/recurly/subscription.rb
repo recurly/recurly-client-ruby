@@ -82,6 +82,13 @@ module Recurly
       credit_customer_notes
       remaining_pause_cycles
       paused_at
+      auto_renew
+      renewal_billing_cycles
+      first_billing_date
+      first_bill_date
+      next_bill_date
+      current_term_started_at
+      current_term_ends_at
     )
     alias to_param uuid
 
