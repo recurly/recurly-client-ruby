@@ -232,6 +232,11 @@ XML
         resource.new.reasons.must_be_kind_of Enumerable
       end
 
+      it "must return the same object_id when uninitialized" do
+        instance = resource.new
+        instance.reasons.object_id.must_equal instance.reasons.object_id
+      end
+
       it "should not set changed attributes when reading a resource" do
         record = resource.new
         record.reasons
