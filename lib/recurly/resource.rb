@@ -508,7 +508,7 @@ module Recurly
       # @return [Proc, nil]
       # @param collection_name [Symbol] Association name.
       # @param options [Hash] A hash of association options.
-      # @option options [true, false] :readonly Don't define a setter.
+      # @option options [true, false] :readonly Define a setter when false, defaults to true
       #                 [String] :class_name Actual associated resource class name
       #                                      if not same as collection_name.
       def has_many(collection_name, options = {})
@@ -518,7 +518,7 @@ module Recurly
             if self[collection_name]
               self[collection_name]
             else
-              attributes[collection_name] = []
+              attributes[collection_name.to_s] = []
             end
           end
           if options.key?(:readonly) && options[:readonly] == false
