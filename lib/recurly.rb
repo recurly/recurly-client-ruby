@@ -137,5 +137,3 @@ module Recurly
     end
   end
 end
-
-require 'rails/recurly' if defined? Rails::Railtie
