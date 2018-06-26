@@ -1,6 +1,24 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.16.0"></a>
+## v2.16.0 (2018-06-26)
+
+- Don't set the logger in railtie [PR](https://github.com/recurly/recurly-client-ruby/pull/382)
+- Make currencies method public [PR](https://github.com/recurly/recurly-client-ruby/pull/386)
+- Allow programmer to set gateway code in purchases [PR](https://github.com/recurly/recurly-client-ruby/pull/387)
+- Add all_transactions link to Invoice [PR](https://github.com/recurly/recurly-client-ruby/pull/384)
+- Auth and Capture for Purchases [PR](https://github.com/recurly/recurly-client-ruby/pull/389)
+- Custom Fields [PR](https://github.com/recurly/recurly-client-ruby/pull/391)
+- Remove rails code and railtie [PR](https://github.com/recurly/recurly-client-ruby/pull/388)
+- Subscription Terms [PR](https://github.com/recurly/recurly-client-ruby/pull/390)
+
+### Upgrade Notes
+
+This brings us up to API version 2.13. The only breaking change is the [removal of the railtie](https://github.com/recurly/recurly-client-ruby/pull/388/commits/c0d038512204c9baa83512620b9585d61ce07845).
+The railtie was being included automatically on detecting rails and was automatically setting the `accept_language` for each request.
+If this is something you wish to continue doing, you'll need to set this yourself.
+
 <a name="v2.15.4"></a>
 ## v2.15.4 (2018-05-15)
 
