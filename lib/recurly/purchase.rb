@@ -1,5 +1,5 @@
 module Recurly
-  # The Purchase object works a slightly differently than the rest of the models.
+  # The Purchase object works in a slightly different way than the rest of the models.
   # You build up the purchase data into an object then pass to either:
   # {Purchase.invoice!} or {Purchase.preview!} and it will
   # return an {Invoice}.
@@ -18,7 +18,7 @@ module Recurly
   # For a new account, you can pass in {Account} data, {BillingInfo} data, etc
   # in the same way you would when creating a {Subscription} with a new account.
   #
-  # You can also pass in adjustments and invoicing data to be passed to the invoice.
+  # You can also pass in adjustments and invoicing data to be added to the invoice.
   #
   # There are multiple ways to set the shipping addresses:
   # 1. Use {Purchase#shipping_address_id} If you want to apply an existing shipping
@@ -72,7 +72,7 @@ module Recurly
   #          revenue_schedule_type: :at_invoice
   #       },
   #       {
-  #         product_code: 'product_2'
+  #         product_code: 'product_2',
   #         unit_amount_in_cents: 3000,
   #         quantity: 5,
   #         revenue_schedule_type: :at_invoice
