@@ -2,7 +2,7 @@ module Recurly
   # The Purchase object works in a slightly different way than the rest of the models.
   # You build up the purchase data into an object then pass to either:
   # {Purchase.invoice!} or {Purchase.preview!} and it will
-  # return an {Invoice}.
+  # return an {InvoiceCollection}.
   #
   # You can build your purchase object with a new account or an existing account.
   # For an existing account, you just need an account_code:
@@ -81,14 +81,15 @@ module Recurly
   #   )
   #
   #   begin
-  #     preview_invoice = Recurly::Purchase.preview!(purchase)
-  #     puts preview_invoice.inspect
+  #     preview_collection = Recurly::Purchase.preview!(purchase)
+  #     puts preview_collection.inspect
   #   rescue Recurly::Resource::Invalid => e
   #     # Invalid data
   #   end
   #
   #   begin
-  #     invoice = Recurly::Purchase.invoice!(purchase)
+  #     invoice_collection = Recurly::Purchase.invoice!(purchase)
+  #     puts invoice_collection.inspect
   #   rescue Recurly::Resource::Invalid => e
   #     # Invalid data
   #   rescue Recurly::Transaction::DeclinedError => e
