@@ -1,0 +1,194 @@
+require 'faraday'
+require 'logger'
+require_relative './schema/json_parser'
+
+module Recurly
+  class Client
+    require_relative './client/operations'
+
+    BASE_URL = "https://partner-api.recurly.com/"
+
+    # The last result of the *X-RateLimit-Limit* header
+    # @return [Integer] The rate limit applied to this client.
+    attr_reader :rate_limit
+
+    # The last result of the *X-RateLimit-Remaining* header
+    # @return [Integer] The number of remaining requests, decrements per request.
+    attr_reader :rate_limit_remaining
+
+    # The last result of the *X-RateLimit-Reset* header
+    # @return [DateTime] The DateTime in which the request count will be reset.
+    attr_reader :rate_limit_reset
+
+    # Initialize a client. It requires an API key.
+    #
+    # @example
+    #   API_KEY = '83749879bbde395b5fe0cc1a5abf8e5'
+    #   SITE_ID = 'dqzlv9shi7wa'
+    #   client = Recurly::Client.new(api_key: API_KEY)
+    #   sub = client.get_subscription(site_id: SITE_ID, subscription_id: 'abcd123456')
+    # @example
+    #   # You can also pass the initializer a block. This will give you
+    #   # a client scoped for just that block
+    #   Recurly::Client.new(api_key: API_KEY) do |client|
+    #     sub = client.get_subscription(site_id: SITE_ID, subscription_id: 'abcd123456')
+    #   end
+    # @example
+    #   # If you only plan on using the client for one site, you may pass
+    #   # in a `site_id` or a `subdomain` to the initializer.
+    #   # This makes all `site_id` parameters optional.
+    #
+    #   # Give a `site_id`
+    #   client = Recurly::Client.new(api_key: API_KEY, site_id: SITE_ID)
+    #
+    #   # Or use the subdomain
+    #   client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-dev') 
+    #
+    #   # You no longer need to provide `site_id` to these methods
+    #   sub = client.get_subscription(subscription_id: 'abcd123456')
+    # @param api_key [String] The private API key
+    # @param site_id [String] Optional id for the site you wish to be scoped to. Providing this makes all the `site_id` parameters optional.
+    # @param subdomain [String] Optional subdomain for the site you wish to be scoped to. Providing this makes all the `site_id` parameters optional.
+    def initialize(api_key:, site_id: nil, subdomain: nil, **options)
+      if site_id
+        @site_id = site_id
+      elsif subdomain
+        @site_id = "subdomain-#{subdomain}"
+      end
+
+      @log_level = options[:log_level] || Logger::WARN
+      @logger = Logger.new(STDOUT)
+      @logger.level = @log_level
+
+      @conn = Faraday.new(url: BASE_URL) do |faraday|
+        if @log_level == Logger::INFO
+          faraday.response :logger
+        end
+        faraday.basic_auth(api_key, '')
+        faraday.adapter :net_http do |http| # yields Net::HTTP
+          # Let's not use the bundled cert in production yet
+          # but we will use these certs for any other staging or dev environment
+          unless BASE_URL.end_with?('.recurly.com')
+            http.ca_file = File.join(File.dirname(__FILE__), '../data/ca-certificates.crt')
+          end
+          http.use_ssl = true
+          http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          http.open_timeout = 50
+          http.read_timeout = 60
+          http.keep_alive_timeout = 60
+        end
+      end
+
+      # TODO this is undocumented until we finalize it
+      @extra_headers = options[:headers] || {}
+
+      # execute block with this client if given
+      yield(self) if block_given?
+    end
+
+    def next_page(pager)
+      run_request(:get, pager.next, nil, headers)
+    end
+
+    protected
+
+    def validate_site_id!(site_id_param)
+      return site_id_param if site_id_param
+      return @site_id if @site_id
+      # TODO needs to be a more specific error raised
+      raise ArgumentError, "No Site ID"
+    end
+
+    def pager(path, **options)
+      Pager.new(client: self, path: path, options: options)
+    end
+
+    def get(path, **options)
+      response = run_request(:get, path, options.compact, headers)
+      raise_api_error!(response) if response.status != 200
+      JSONParser.parse(self, response.body)
+    rescue Faraday::ClientError => ex
+      raise_network_error!(ex)
+    end
+
+    def post(path, request_data, request_class, **options)
+      request = request_class.new(request_data)
+      request.validate!
+      logger.info("POST BODY #{JSON.dump(request_data)}")
+      response = run_request(:post, path, JSON.dump(request.attributes), headers)
+      raise_api_error!(response) if response.status != 201
+      JSONParser.parse(self, response.body)
+    rescue Faraday::ClientError => ex
+      raise_network_error!(ex)
+    end
+
+    def put(path, request_data, request_class, **options)
+      request = request_class.new(request_data)
+      request.validate!
+      logger.info("PUT BODY #{JSON.dump(request_data)}")
+      response = run_request(:put, path, JSON.dump(request_data), headers)
+      raise_api_error!(response) if ![200, 201].include?(response.status)
+      JSONParser.parse(self, response.body)
+    rescue Faraday::ClientError => ex
+      raise_network_error!(ex)
+    end
+
+    def delete(path, **options)
+      response = run_request(:delete, path, options.compact, headers)
+      raise_api_error!(response) if ![200, 201].include?(response.status)
+      JSONParser.parse(self, response.body)
+    rescue Faraday::ClientError => ex
+      raise_network_error!(ex)
+    end
+
+    private
+
+    # @return [Logger]
+    attr_reader :logger
+
+    def run_request(method, url, body, headers)
+      read_headers @conn.run_request(method, url, body, headers)
+    end
+
+    def raise_network_error!(ex)
+      error_class = case ex
+                    when Faraday::TimeoutError
+                      Errors::TimeoutError
+                    when Faraday::ConnectionFailed
+                      Errors::ConnectionFailed
+                    when Faraday::SSLError
+                      Errors::SSLError
+                    else
+                      Errors::NetworkError
+                    end
+
+      raise error_class, ex.message
+    end
+
+    def raise_api_error!(response)
+      error = JSONParser.parse(self, response.body)
+      error_class = Errors::APIError.error_class(error.type)
+      raise error_class.new(response, error)
+    end
+
+    def read_headers(response)
+      @rate_limit = response.headers['x-ratelimit-limit'].to_i
+      @rate_limit_remaining = response.headers['x-ratelimit-remaining'].to_i
+      @rate_limit_reset = Time.at(response.headers['x-ratelimit-reset'].to_i).to_datetime
+      response
+    end
+
+    def headers
+      {
+        'Accept' => "application/vnd.recurly.#{api_version}", # got this method from operations.rb
+        'Content-Type' => 'application/json',
+        'User-Agent' => "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}"
+      }.merge(@extra_headers)
+    end
+
+    def interpolate_path(path, **options)
+      path = path.gsub("{", "%{")
+      path % options
+    end
+  end
+end

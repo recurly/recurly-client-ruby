@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+bundle install --binstubs --quiet
+./bin/yard --quiet
