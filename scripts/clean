@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+rm -f ./lib/recurly/resources/*
+rm -f ./lib/recurly/requests/*
+rm -f ./lib/recurly/errors/api_errors.rb
+rm -f ./lib/recurly/client/operations.rb

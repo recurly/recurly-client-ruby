@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute currencies
       #   @return [Array[String]] Add-on pricing
-      define_attribute :currencies, Array, {:item_type=>String}
+      define_attribute :currencies, Array, {:item_type => String}
 
       # @!attribute default_quantity
       #   @return [Integer] Default quantity for the hosted pages.
@@ -24,7 +24,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Add-on ID
-      define_attribute :id, String, {:read_only=>true}
+      define_attribute :id, String, {:read_only => true}
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.
@@ -33,7 +33,6 @@ module Recurly
       # @!attribute tax_code
       #   @return [String] Optional field for EU VAT merchants and Avalara AvaTax Pro merchants. If you are using Recurly's EU VAT feature, you can use values of 'unknown', 'physical', or 'digital'. If you have your own AvaTax account configured, you can use Avalara tax codes to assign custom tax rules.
       define_attribute :tax_code, String
-
     end
   end
 end

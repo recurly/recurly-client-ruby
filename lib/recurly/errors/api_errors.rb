@@ -1,6 +1,5 @@
 module Recurly
   module Errors
-
     class BadRequestError < Errors::APIError; end
 
     class InternalServerError < Errors::APIError; end

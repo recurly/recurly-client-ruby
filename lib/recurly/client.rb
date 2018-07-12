@@ -25,35 +25,41 @@ module Recurly
     # @example
     #   API_KEY = '83749879bbde395b5fe0cc1a5abf8e5'
     #   SITE_ID = 'dqzlv9shi7wa'
-    #   client = Recurly::Client.new(api_key: API_KEY)
-    #   sub = client.get_subscription(site_id: SITE_ID, subscription_id: 'abcd123456')
+    #   client = Recurly::Client.new(site_id: SITE_ID, api_key: API_KEY)
+    #   # You can optionally use the subdomain instead of the site id
+    #   client = Recurly::Client.new(subdomain: 'mysite-prod', api_key: API_KEY)
+    #   sub = client.get_subscription(subscription_id: 'abcd123456')
     # @example
     #   # You can also pass the initializer a block. This will give you
     #   # a client scoped for just that block
-    #   Recurly::Client.new(api_key: API_KEY) do |client|
-    #     sub = client.get_subscription(site_id: SITE_ID, subscription_id: 'abcd123456')
+    #   Recurly::Client.new(subdomain: 'mysite-prod', api_key: API_KEY) do |client|
+    #     sub = client.get_subscription(subscription_id: 'abcd123456')
     #   end
     # @example
-    #   # If you only plan on using the client for one site, you may pass
-    #   # in a `site_id` or a `subdomain` to the initializer.
-    #   # This makes all `site_id` parameters optional.
+    #   # If you only plan on using the client for more than one site,
+    #   # you should initialize a new client for each site.
     #
     #   # Give a `site_id`
     #   client = Recurly::Client.new(api_key: API_KEY, site_id: SITE_ID)
-    #
     #   # Or use the subdomain
     #   client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-dev') 
     #
-    #   # You no longer need to provide `site_id` to these methods
     #   sub = client.get_subscription(subscription_id: 'abcd123456')
+    #
+    #   # you should create a new client to connect to another site
+    #   client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-prod') 
+    #   sub = client.get_subscription(subscription_id: 'abcd7890')
+    #
     # @param api_key [String] The private API key
-    # @param site_id [String] Optional id for the site you wish to be scoped to. Providing this makes all the `site_id` parameters optional.
+    # @param site_id [String] The site you wish to be scoped to.
     # @param subdomain [String] Optional subdomain for the site you wish to be scoped to. Providing this makes all the `site_id` parameters optional.
     def initialize(api_key:, site_id: nil, subdomain: nil, **options)
       if site_id
         @site_id = site_id
       elsif subdomain
         @site_id = "subdomain-#{subdomain}"
+      else
+        raise ArgumentError, "You must pass a site_id or subdomain argument to initialize the Client"
       end
 
       @log_level = options[:log_level] || Logger::WARN
@@ -91,13 +97,6 @@ module Recurly
     end
 
     protected
-
-    def validate_site_id!(site_id_param)
-      return site_id_param if site_id_param
-      return @site_id if @site_id
-      # TODO needs to be a more specific error raised
-      raise ArgumentError, "No Site ID"
-    end
 
     def pager(path, **options)
       Pager.new(client: self, path: path, options: options)
@@ -140,6 +139,11 @@ module Recurly
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
     end
+
+    protected
+
+    # Used by the operations.rb file to interpolate paths
+    attr_reader :site_id
 
     private
 

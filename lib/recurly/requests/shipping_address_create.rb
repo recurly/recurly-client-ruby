@@ -53,7 +53,6 @@ module Recurly
       # @!attribute vat_number
       #   @return [String]
       define_attribute :vat_number, String
-
     end
   end
 end

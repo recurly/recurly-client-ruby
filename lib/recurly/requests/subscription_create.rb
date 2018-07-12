@@ -8,11 +8,11 @@ module Recurly
 
       # @!attribute add_ons
       #   @return [Array[String]] Add-ons
-      define_attribute :add_ons, Array, {:item_type=>String}
+      define_attribute :add_ons, Array, {:item_type => String}
 
       # @!attribute collection_method
       #   @return [String] Collection method
-      define_attribute :collection_method, String, {:enum=>["automatic", "manual"]}
+      define_attribute :collection_method, String, {:enum => ["automatic", "manual"]}
 
       # @!attribute coupon_code
       #   @return [String] Optional coupon code to redeem on the account and discount the subscription. Please note, the subscription request will fail if the coupon is invalid.
@@ -81,7 +81,6 @@ module Recurly
       # @!attribute unit_amount
       #   @return [Float] Override the unit amount of the subscription plan by setting this value in cents. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
       define_attribute :unit_amount, Float
-
     end
   end
 end

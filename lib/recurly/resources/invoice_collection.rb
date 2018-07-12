@@ -8,12 +8,11 @@ module Recurly
 
       # @!attribute credit_invoices
       #   @return [Array[Invoice]] Credit invoices
-      define_attribute :credit_invoices, Array, {:item_type=>:Invoice}
+      define_attribute :credit_invoices, Array, {:item_type => :Invoice}
 
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
-
     end
   end
 end

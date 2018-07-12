@@ -17,7 +17,6 @@ module Recurly
       # @!attribute unit_amount
       #   @return [Float] Override the default unit amount of the add-on by setting this value.
       define_attribute :unit_amount, Float
-
     end
   end
 end

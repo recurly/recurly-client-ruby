@@ -13,7 +13,6 @@ module Recurly
       # @!attribute type
       #   @return [String] Provides the tax type as "vat" for EU VAT, "usst" for U.S. Sales Tax, or the 2 letter country code for country level tax types like Canada, Australia, New Zealand, Israel, and all non-EU European countries.
       define_attribute :type, String
-
     end
   end
 end

@@ -25,7 +25,6 @@ module Recurly
       # @!attribute redeem_by_date
       #   @return [String] The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
       define_attribute :redeem_by_date, String
-
     end
   end
 end

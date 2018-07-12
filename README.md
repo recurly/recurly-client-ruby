@@ -13,34 +13,38 @@ Client instances are now explicitly created and managed as opposed to the previo
 initialized clients. This makes multithreaded environments a lot easier and also provides one place where every
 operation on recurly can be found (rather than having them spread out amongst classes).
 
-`Recurly::Client#new` initializes a new client. It requires an API key:
+`Recurly::Client#new` initializes a new client. It requires an API key and a site id:
 
 ```ruby
 API_KEY = '83749879bbde395b5fe0cc1a5abf8e5'
 SITE_ID = 'dqzlv9shi7wa'
-client = Recurly::Client.new(api_key: API_KEY)
-sub = client.get_subscription(site_id: SITE_ID, subscription_id: 'abcd123456')
+client = Recurly::Client.new(site_id: SITE_ID, api_key: API_KEY)
+# You can optionally use the subdomain instead of the site id
+client = Recurly::Client.new(subdomain: 'mysite-prod', api_key: API_KEY)
+sub = client.get_subscription(subscription_id: 'abcd123456')
 ```
+
 You can also pass the initializer a block. This will give you a client scoped for just that block:
 
 ```ruby
-Recurly::Client.new(api_key: API_KEY) do |client|
-  sub = client.get_subscription(site_id: SITE_ID, subscription_id: 'abcd123456')
+Recurly::Client.new(subdomain: 'mysite-prod', api_key: API_KEY) do |client|
+  sub = client.get_subscription(subscription_id: 'abcd123456')
 end
 ```
 
-If you only plan on using the client for one site, you may pass in a `site_id` or a `subdomain` to the initializer.
-This makes all `site_id` parameters optional.
+If you only plan on using the client for more than one site, you should initialize a new client for each site.
 
 ```ruby
 # Give a `site_id`
 client = Recurly::Client.new(api_key: API_KEY, site_id: SITE_ID)
-
 # Or use the subdomain
 client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-dev') 
 
-# You no longer need to provide `site_id` to these methods
 sub = client.get_subscription(subscription_id: 'abcd123456')
+
+# you should create a new client to connect to another site
+client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-prod') 
+sub = client.get_subscription(subscription_id: 'abcd7890')
 ```
 
 ### Operations

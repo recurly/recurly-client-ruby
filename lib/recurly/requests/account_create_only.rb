@@ -12,8 +12,7 @@ module Recurly
 
       # @!attribute shipping_addresses
       #   @return [Array[ShippingAddressCreate]]
-      define_attribute :shipping_addresses, Array, {:item_type=>:ShippingAddressCreate}
-
+      define_attribute :shipping_addresses, Array, {:item_type => :ShippingAddressCreate}
     end
   end
 end

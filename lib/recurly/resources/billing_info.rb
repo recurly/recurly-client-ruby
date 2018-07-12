@@ -4,7 +4,7 @@ module Recurly
 
       # @!attribute [r] account_id
       #   @return [String]
-      define_attribute :account_id, String, {:read_only=>true}
+      define_attribute :account_id, String, {:read_only => true}
 
       # @!attribute address
       #   @return [Address]
@@ -16,7 +16,7 @@ module Recurly
 
       # @!attribute [r] created_at
       #   @return [DateTime] When the billing information was created.
-      define_attribute :created_at, DateTime, {:read_only=>true}
+      define_attribute :created_at, DateTime, {:read_only => true}
 
       # @!attribute first_name
       #   @return [String]
@@ -24,11 +24,11 @@ module Recurly
 
       # @!attribute [r] fraud
       #   @return [Hash] Most recent fraud result.
-      define_attribute :fraud, Hash, {:read_only=>true}
+      define_attribute :fraud, Hash, {:read_only => true}
 
       # @!attribute [r] id
       #   @return [String]
-      define_attribute :id, String, {:read_only=>true}
+      define_attribute :id, String, {:read_only => true}
 
       # @!attribute last_name
       #   @return [String]
@@ -36,7 +36,7 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only=>true}
+      define_attribute :object, String, {:read_only => true}
 
       # @!attribute payment_method
       #   @return [Hash]
@@ -44,20 +44,19 @@ module Recurly
 
       # @!attribute [r] updated_at
       #   @return [DateTime] When the billing information was last changed.
-      define_attribute :updated_at, DateTime, {:read_only=>true}
+      define_attribute :updated_at, DateTime, {:read_only => true}
 
       # @!attribute [r] updated_by
       #   @return [Hash]
-      define_attribute :updated_by, Hash, {:read_only=>true}
+      define_attribute :updated_by, Hash, {:read_only => true}
 
       # @!attribute [r] valid
       #   @return [Boolean]
-      define_attribute :valid, :Boolean, {:read_only=>true}
+      define_attribute :valid, :Boolean, {:read_only => true}
 
       # @!attribute vat_number
       #   @return [String] Customer's VAT number (to avoid having the VAT applied). This is only used for automatically collected invoices.
       define_attribute :vat_number, String
-
     end
   end
 end

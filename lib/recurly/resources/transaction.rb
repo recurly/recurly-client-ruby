@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute avs_check
       #   @return [String] When processed, result from checking the overall AVS on the transaction.
-      define_attribute :avs_check, String, {:enum=>["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]}
+      define_attribute :avs_check, String, {:enum => ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]}
 
       # @!attribute billing_address
       #   @return [Address]
@@ -40,7 +40,7 @@ module Recurly
 
       # @!attribute cvv_check
       #   @return [String] When processed, result from checking the CVV/CVC value on the transaction.
-      define_attribute :cvv_check, String, {:enum=>["D", "I", "M", "N", "P", "S", "U", "X"]}
+      define_attribute :cvv_check, String, {:enum => ["D", "I", "M", "N", "P", "S", "U", "X"]}
 
       # @!attribute gateway_approval_code
       #   @return [String] Transaction approval code from the payment gateway.
@@ -88,7 +88,7 @@ module Recurly
 
       # @!attribute origin
       #   @return [String] Describes how the transaction was triggered.
-      define_attribute :origin, String, {:enum=>["api", "hpp", "merchant", "recurly_admin", "recurlyjs", "recurring", "transparent", "force_collect", "refunded_externally", "chargeback"]}
+      define_attribute :origin, String, {:enum => ["api", "hpp", "merchant", "recurly_admin", "recurlyjs", "recurring", "transparent", "force_collect", "refunded_externally", "chargeback"]}
 
       # @!attribute original_transaction_id
       #   @return [String] If this transaction is a refund (`type=refund`), this will be the ID of the original transaction on the invoice being refunded.
@@ -108,7 +108,7 @@ module Recurly
 
       # @!attribute status
       #   @return [String] The current transaction status. Note that the status may change, e.g. a `pending` transaction may become `declined` or `success` may later become `void`.
-      define_attribute :status, String, {:enum=>["pending", "scheduled", "processing", "success", "void", "declined", "error", "chargeback"]}
+      define_attribute :status, String, {:enum => ["pending", "scheduled", "processing", "success", "void", "declined", "error", "chargeback"]}
 
       # @!attribute status_code
       #   @return [String] Status code
@@ -120,7 +120,7 @@ module Recurly
 
       # @!attribute subscription_ids
       #   @return [Array[String]] If the transaction is charging or refunding for one or more subscriptions, these are their IDs.
-      define_attribute :subscription_ids, Array, {:item_type=>String}
+      define_attribute :subscription_ids, Array, {:item_type => String}
 
       # @!attribute success
       #   @return [Boolean] Did this transaction complete successfully?
@@ -128,7 +128,7 @@ module Recurly
 
       # @!attribute type
       #   @return [String] Transaction type
-      define_attribute :type, String, {:enum=>["authorization", "capture", "purchase", "refund", "verify"]}
+      define_attribute :type, String, {:enum => ["authorization", "capture", "purchase", "refund", "verify"]}
 
       # @!attribute uuid
       #   @return [String] The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
@@ -141,7 +141,6 @@ module Recurly
       # @!attribute voided_by_invoice
       #   @return [InvoiceMini]
       define_attribute :voided_by_invoice, :InvoiceMini
-
     end
   end
 end

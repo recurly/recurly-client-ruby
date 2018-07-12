@@ -53,7 +53,6 @@ module Recurly
       # @!attribute year
       #   @return [String] Expiration year
       define_attribute :year, String
-
     end
   end
 end

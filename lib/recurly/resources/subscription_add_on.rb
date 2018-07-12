@@ -37,7 +37,6 @@ module Recurly
       # @!attribute updated_at
       #   @return [DateTime] Updated at
       define_attribute :updated_at, DateTime
-
     end
   end
 end

@@ -32,7 +32,7 @@ module Recurly
 
       # @!attribute preferred_locale
       #   @return [String] Used to determine the language and locale of emails sent on behalf of the merchant to the customer. The list of locales is restricted to those the merchant has enabled on the site.
-      define_attribute :preferred_locale, String, {:enum=>["da-DK", "de-CH", "de-DE", "en-AU", "en-CA", "en-GB", "en-NZ", "en-US", "es-ES", "es-MX", "es-US", "fr-CA", "fr-FR", "hi-IN", "ja-JP", "nl-BE", "nl-NL", "pt-BR", "pt-PT", "ru-RU", "tr-TR", "zh-CN"]}
+      define_attribute :preferred_locale, String, {:enum => ["da-DK", "de-CH", "de-DE", "en-AU", "en-CA", "en-GB", "en-NZ", "en-US", "es-ES", "es-MX", "es-US", "fr-CA", "fr-FR", "hi-IN", "ja-JP", "nl-BE", "nl-NL", "pt-BR", "pt-PT", "ru-RU", "tr-TR", "zh-CN"]}
 
       # @!attribute tax_exempt
       #   @return [Boolean] The tax status of the account. `true` exempts tax on the account, `false` applies tax on the account.
@@ -45,7 +45,6 @@ module Recurly
       # @!attribute vat_number
       #   @return [String] The VAT number of the account (to avoid having the VAT applied). This is only used for manually collected invoices.
       define_attribute :vat_number, String
-
     end
   end
 end

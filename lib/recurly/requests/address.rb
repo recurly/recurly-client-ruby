@@ -37,7 +37,6 @@ module Recurly
       # @!attribute street2
       #   @return [String] Street 2
       define_attribute :street2, String
-
     end
   end
 end

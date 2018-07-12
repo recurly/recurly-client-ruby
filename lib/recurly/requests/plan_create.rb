@@ -8,7 +8,7 @@ module Recurly
 
       # @!attribute add_ons
       #   @return [Array[String]] Add Ons
-      define_attribute :add_ons, Array, {:item_type=>String}
+      define_attribute :add_ons, Array, {:item_type => String}
 
       # @!attribute code
       #   @return [String] Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
@@ -16,7 +16,7 @@ module Recurly
 
       # @!attribute currencies
       #   @return [Array[String]] Pricing
-      define_attribute :currencies, Array, {:item_type=>String}
+      define_attribute :currencies, Array, {:item_type => String}
 
       # @!attribute description
       #   @return [String] Optional description, not displayed.
@@ -32,7 +32,7 @@ module Recurly
 
       # @!attribute interval_unit
       #   @return [String] Unit for the plan's billing interval.
-      define_attribute :interval_unit, String, {:enum=>["days", "months"]}
+      define_attribute :interval_unit, String, {:enum => ["days", "months"]}
 
       # @!attribute name
       #   @return [String] This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
@@ -60,8 +60,7 @@ module Recurly
 
       # @!attribute trial_unit
       #   @return [String] Units for the plan's trial period.
-      define_attribute :trial_unit, String, {:enum=>["days", "months"]}
-
+      define_attribute :trial_unit, String, {:enum => ["days", "months"]}
     end
   end
 end
