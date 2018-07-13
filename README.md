@@ -1,17 +1,28 @@
 # Recurly
 
-This gem is the ruby client to the v3, aka API next, aka PAPI, version of Recurly's API. Parts of this gem are generated
-by the `recurly-client-gen` project.
+This gem is the ruby client for Recurly's V3 API (or "partner api"). It's currently Beta software
+and is not yet an official release. Documentation for the API can be [found here](https://partner-docs.recurly.com).
 
 ## Getting Started
 
-Read this before starting to get an overview of how to use this library.
+### Installing
+
+This gem is a pre-release. In your Gemfile, add `recurly` as a dependency.
+
+```ruby
+gem 'recurly', '3.0.0.beta.1'
+```
+
+It's important that you lock on a specific version as there may be breaking changes between releases.
+All beta releases will have the format `3.0.0.beta.x` until we go live.
 
 ### Creating a client
 
-Client instances are now explicitly created and managed as opposed to the previous approach of opaque, statically
-initialized clients. This makes multithreaded environments a lot easier and also provides one place where every
-operation on recurly can be found (rather than having them spread out amongst classes).
+Client instances are now explicitly created and referenced as opposed to V2's use of global, statically
+initialized clients.
+
+This makes multithreaded environments simpler and provides one location where every
+operation can be found (rather than having them spread out among classes).
 
 `Recurly::Client#new` initializes a new client. It requires an API key and a site id:
 
@@ -19,7 +30,7 @@ operation on recurly can be found (rather than having them spread out amongst cl
 API_KEY = '83749879bbde395b5fe0cc1a5abf8e5'
 SITE_ID = 'dqzlv9shi7wa'
 client = Recurly::Client.new(site_id: SITE_ID, api_key: API_KEY)
-# You can optionally use the subdomain instead of the site id
+# You may use the subdomain instead of the site_id if you do not know the site_id
 client = Recurly::Client.new(subdomain: 'mysite-prod', api_key: API_KEY)
 sub = client.get_subscription(subscription_id: 'abcd123456')
 ```
