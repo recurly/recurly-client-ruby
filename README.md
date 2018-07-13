@@ -5,6 +5,11 @@ and is not yet an official release. Documentation for the API can be [found here
 
 ## Getting Started
 
+### Documentation
+
+Documentation can be found at this link: [https://www.rubydoc.info/github/recurly/recurly-client-ruby/3_0_0_beta](https://www.rubydoc.info/github/recurly/recurly-client-ruby/3_0_0_beta).
+This contains everything in the README as well as code-level documentation. We suggest starting there.
+
 ### Installing
 
 This gem is a pre-release. In your Gemfile, add `recurly` as a dependency.
