@@ -2,6 +2,34 @@ require 'spec_helper'
 
 describe BillingInfo do
 
+  let(:binfo) {
+    BillingInfo.new(
+      :first_name     => "Larry",
+      :last_name      => "David",
+      :card_type      => "Visa",
+      :last_four      => "1111",
+      :city           => "Los Angeles",
+      :state          => "CA",
+    )
+  }
+
+  it "must serialize" do
+    binfo.gateway_token = "gatewaytoken123"
+    binfo.gateway_code = "gatewaycode123"
+    binfo.to_xml.must_equal <<XML.chomp
+<billing_info>\
+<card_type>Visa</card_type>\
+<city>Los Angeles</city>\
+<first_name>Larry</first_name>\
+<gateway_code>gatewaycode123</gateway_code>\
+<gateway_token>gatewaytoken123</gateway_token>\
+<last_four>1111</last_four>\
+<last_name>David</last_name>\
+<state>CA</state>\
+</billing_info>
+XML
+  end
+
   describe ".find" do
     it "must return an account's billing info when available" do
       stub_api_request(
