@@ -42,7 +42,7 @@ module Recurly
 
     # Create an account
     #
-    # @param body [Requests::CreateAccount] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::CreateAccount}
+    # @param body [Requests::CreateAccount] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CreateAccount}
     # @return [Resources::Account] An account.
     def create_account(body:)
       path = interpolate_path("/sites/{site_id}/accounts", site_id: site_id)
@@ -74,7 +74,7 @@ module Recurly
     # Modify an account
     #
     # @param account_id [String] Account ID or code (use prefix: `code-`, e.g. `code-bob`).
-    # @param body [Requests::AccountUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::AccountUpdatable}
+    # @param body [Requests::AccountUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountUpdatable}
     # @return [Resources::Account] An account.
     def update_account(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}", site_id: site_id, account_id: account_id)
@@ -102,7 +102,7 @@ module Recurly
     # Update an account's acquisition data
     #
     # @param account_id [String] Account ID or code (use prefix: `code-`, e.g. `code-bob`).
-    # @param body [Requests::AccountAcquisitionUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::AccountAcquisitionUpdatable}
+    # @param body [Requests::AccountAcquisitionUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountAcquisitionUpdatable}
     # @return [Resources::AccountAcquisition] An account's updated acquisition data.
     def update_account_acquisition(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/acquisition", site_id: site_id, account_id: account_id)
@@ -147,7 +147,7 @@ module Recurly
     # Set an account's billing information
     #
     # @param account_id [String] Account ID or code (use prefix: `code-`, e.g. `code-bob`).
-    # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::BillingInfoCreate}
+    # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
     # @return [Resources::BillingInfo] Updated billing information.
     def update_billing_info(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/billing_info", site_id: site_id, account_id: account_id)
@@ -184,7 +184,7 @@ module Recurly
     # Generate an active coupon redemption on an account
     #
     # @param account_id [String] Account ID or code (use prefix: `code-`, e.g. `code-bob`).
-    # @param body [Requests::CreateCouponRedemption] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::CreateCouponRedemption}
+    # @param body [Requests::CreateCouponRedemption] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CreateCouponRedemption}
     # @return [Resources::CouponRedemption] Returns the new coupon redemption.
     def create_coupon_redemption(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/coupon_redemptions/active", site_id: site_id, account_id: account_id)
@@ -233,7 +233,7 @@ module Recurly
     # Create an invoice for pending line items
     #
     # @param account_id [String] Account ID or code (use prefix: `code-`, e.g. `code-bob`).
-    # @param body [Requests::InvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::InvoiceCreate}
+    # @param body [Requests::InvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCreate}
     # @return [Resources::InvoiceCollection] Returns the new invoices.
     def create_invoice(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/invoices", site_id: site_id, account_id: account_id)
@@ -243,7 +243,7 @@ module Recurly
     # Preview new invoice for pending line items
     #
     # @param account_id [String] Account ID or code (use prefix: `code-`, e.g. `code-bob`).
-    # @param body [Requests::InvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::InvoiceCreate}
+    # @param body [Requests::InvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCreate}
     # @return [Resources::InvoiceCollection] Returns the invoice previews.
     def preview_invoice(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/invoices/preview", site_id: site_id, account_id: account_id)
@@ -271,7 +271,7 @@ module Recurly
     # Create a new line item for the account
     #
     # @param account_id [String] Account ID or code (use prefix: `code-`, e.g. `code-bob`).
-    # @param body [Requests::LineItemCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::LineItemCreate}
+    # @param body [Requests::LineItemCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::LineItemCreate}
     # @return [Resources::LineItem] Returns the new line item.
     def create_line_item(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/line_items", site_id: site_id, account_id: account_id)
@@ -316,7 +316,7 @@ module Recurly
     # Create a new shipping address for the account
     #
     # @param account_id [String] Account ID or code (use prefix: `code-`, e.g. `code-bob`).
-    # @param body [Requests::ShippingAddressCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::ShippingAddressCreate}
+    # @param body [Requests::ShippingAddressCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingAddressCreate}
     # @return [Resources::ShippingAddress] Returns the new shipping address.
     def create_shipping_address(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/shipping_addresses", site_id: site_id, account_id: account_id)
@@ -337,7 +337,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code (use prefix: `code-`, e.g. `code-bob`).
     # @param shipping_address_id [String] Shipping Address ID.
-    # @param body [Requests::ShippingAddressUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::ShippingAddressUpdate}
+    # @param body [Requests::ShippingAddressUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingAddressUpdate}
     # @return [Resources::ShippingAddress] The updated shipping address.
     def update_shipping_address(account_id:, shipping_address_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}", site_id: site_id, account_id: account_id, shipping_address_id: shipping_address_id)
@@ -416,7 +416,7 @@ module Recurly
 
     # Create a new coupon
     #
-    # @param body [Requests::CreateCoupon] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::CreateCoupon}
+    # @param body [Requests::CreateCoupon] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CreateCoupon}
     # @return [Resources::Coupon] A new coupon.
     def create_coupon(body:)
       path = interpolate_path("/sites/{site_id}/coupons", site_id: site_id)
@@ -435,7 +435,7 @@ module Recurly
     # Update an active coupon
     #
     # @param coupon_id [String] Coupon ID or code (use prefix: `code-`, e.g. `code-10off`).
-    # @param body [Requests::UpdateCoupon] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::UpdateCoupon}
+    # @param body [Requests::UpdateCoupon] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::UpdateCoupon}
     # @return [Resources::Coupon] The updated coupon.
     def update_coupon(coupon_id:, body:)
       path = interpolate_path("/sites/{site_id}/coupons/{coupon_id}", site_id: site_id, coupon_id: coupon_id)
@@ -579,7 +579,7 @@ module Recurly
     # Refund an invoice
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: `number-`, e.g. `number-1000`).
-    # @param body [Requests::InvoiceRefund] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::InvoiceRefund}
+    # @param body [Requests::InvoiceRefund] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceRefund}
     # @return [Resources::Invoice] Returns the new credit invoice.
     def refund_invoice(invoice_id:, body:)
       path = interpolate_path("/sites/{site_id}/invoices/{invoice_id}/refund", site_id: site_id, invoice_id: invoice_id)
@@ -637,7 +637,7 @@ module Recurly
 
     # Create a plan
     #
-    # @param body [Requests::PlanCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::PlanCreate}
+    # @param body [Requests::PlanCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PlanCreate}
     # @return [Resources::Plan] A plan.
     def create_plan(body:)
       path = interpolate_path("/sites/{site_id}/plans", site_id: site_id)
@@ -656,7 +656,7 @@ module Recurly
     # Update a plan
     #
     # @param plan_id [String] Plan ID or code (use prefix: `code-`, e.g. `code-gold`).
-    # @param body [Requests::PlanUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::PlanUpdate}
+    # @param body [Requests::PlanUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PlanUpdate}
     # @return [Resources::Plan] A plan.
     def update_plan(plan_id:, body:)
       path = interpolate_path("/sites/{site_id}/plans/{plan_id}", site_id: site_id, plan_id: plan_id)
@@ -691,7 +691,7 @@ module Recurly
     # Create an add-on
     #
     # @param plan_id [String] Plan ID or code (use prefix: `code-`, e.g. `code-gold`).
-    # @param body [Requests::AddOnCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::AddOnCreate}
+    # @param body [Requests::AddOnCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AddOnCreate}
     # @return [Resources::AddOn] An add-on.
     def create_plan_add_on(plan_id:, body:)
       path = interpolate_path("/sites/{site_id}/plans/{plan_id}/add_ons", site_id: site_id, plan_id: plan_id)
@@ -712,7 +712,7 @@ module Recurly
     #
     # @param add_on_id [String] Add-on ID or code (use prefix: `code-`, e.g. `code-gold`).
     # @param plan_id [String] Plan ID or code (use prefix: `code-`, e.g. `code-gold`).
-    # @param body [Requests::AddOnUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::AddOnUpdate}
+    # @param body [Requests::AddOnUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AddOnUpdate}
     # @return [Resources::AddOn] An add-on.
     def update_plan_add_on(add_on_id:, plan_id:, body:)
       path = interpolate_path("/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}", site_id: site_id, add_on_id: add_on_id, plan_id: plan_id)
@@ -770,7 +770,7 @@ module Recurly
 
     # Create a new subscription
     #
-    # @param body [Requests::SubscriptionCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::SubscriptionCreate}
+    # @param body [Requests::SubscriptionCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionCreate}
     # @return [Resources::Subscription] A subscription.
     def create_subscription(body:)
       path = interpolate_path("/sites/{site_id}/subscriptions", site_id: site_id)
@@ -802,7 +802,7 @@ module Recurly
     # Modify a subscription
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).
-    # @param body [Requests::SubscriptionUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::SubscriptionUpdate}
+    # @param body [Requests::SubscriptionUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionUpdate}
     # @return [Resources::Subscription] A subscription.
     def modify_subscription(subscription_id:, body:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}", site_id: site_id, subscription_id: subscription_id)
@@ -849,7 +849,7 @@ module Recurly
     # Create a new subscription change
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: `uuid-`, e.g. `uuid-123457890`).
-    # @param body [Requests::SubscriptionChangeCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::Requests::SubscriptionChangeCreate}
+    # @param body [Requests::SubscriptionChangeCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionChangeCreate}
     # @return [Resources::SubscriptionChange] A subscription change.
     def create_subscription_change(subscription_id:, body:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/change", site_id: site_id, subscription_id: subscription_id)
