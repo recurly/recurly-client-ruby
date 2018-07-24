@@ -3,8 +3,8 @@ module Recurly
     class CreditPayment < Resource
 
       # @!attribute account
-      #   @return [AccountMini]
-      define_attribute :account, :AccountMini
+      #   @return [Account]
+      define_attribute :account, :Account
 
       # @!attribute action
       #   @return [String] The action for which the credit was created.
@@ -15,8 +15,8 @@ module Recurly
       define_attribute :amount, Float
 
       # @!attribute applied_to_invoice
-      #   @return [InvoiceMini]
-      define_attribute :applied_to_invoice, :InvoiceMini
+      #   @return [Invoice]
+      define_attribute :applied_to_invoice, :Invoice
 
       # @!attribute [r] created_at
       #   @return [DateTime] Created at
@@ -39,8 +39,8 @@ module Recurly
       define_attribute :original_credit_payment_id, String
 
       # @!attribute original_invoice
-      #   @return [InvoiceMini]
-      define_attribute :original_invoice, :InvoiceMini
+      #   @return [Invoice]
+      define_attribute :original_invoice, :Invoice
 
       # @!attribute refund_transaction
       #   @return [Transaction]

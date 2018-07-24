@@ -3,8 +3,8 @@ module Recurly
     class LineItem < Resource
 
       # @!attribute account
-      #   @return [AccountMini]
-      define_attribute :account, :AccountMini
+      #   @return [Account]
+      define_attribute :account, :Account
 
       # @!attribute accounting_code
       #   @return [String] Internal accounting code to help you reconcile your revenue to the correct ledger. Line items created as part of a subscription invoice will use the plan or add-on's accounting code, otherwise the value will only be present if you define an accounting code when creating the line item.

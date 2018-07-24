@@ -3,8 +3,8 @@ module Recurly
     class SubscriptionAddOn < Resource
 
       # @!attribute add_on
-      #   @return [AddOnMini]
-      define_attribute :add_on, :AddOnMini
+      #   @return [AddOn]
+      define_attribute :add_on, :AddOn
 
       # @!attribute created_at
       #   @return [DateTime] Created at

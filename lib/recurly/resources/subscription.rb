@@ -3,8 +3,8 @@ module Recurly
     class Subscription < Resource
 
       # @!attribute account
-      #   @return [AccountMini]
-      define_attribute :account, :AccountMini
+      #   @return [Account]
+      define_attribute :account, :Account
 
       # @!attribute activated_at
       #   @return [DateTime] Activated at
@@ -79,8 +79,8 @@ module Recurly
       define_attribute :pending_change, :SubscriptionChange
 
       # @!attribute plan
-      #   @return [PlanMini]
-      define_attribute :plan, :PlanMini
+      #   @return [Plan]
+      define_attribute :plan, :Plan
 
       # @!attribute po_number
       #   @return [String] For manual invoicing, this identifies the PO number associated with the subscription.

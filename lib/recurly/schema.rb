@@ -42,7 +42,9 @@ module Recurly
     def self.get_recurly_class(type)
       raise ArgumentError, "#{type.inspect} must be a symbol but is a #{type.class}" unless type.is_a?(Symbol)
 
-      if Requests.const_defined?(type)
+      if type == :Address
+        Resources::Address
+      elsif Requests.const_defined?(type)
         Requests.const_get(type)
       elsif Resources.const_defined?(type)
         Resources.const_get(type)
@@ -99,6 +101,11 @@ module Recurly
 
       def recurly_class
         Schema.get_recurly_class(type == Array ? options[:item_type] : type)
+      end
+
+      def is_primitive?
+        t = type == Array ? options[:item_type] : type
+        t.is_a?(Class) || t == :Boolean
       end
     end
 

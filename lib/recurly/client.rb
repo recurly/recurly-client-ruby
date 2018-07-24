@@ -103,7 +103,7 @@ module Recurly
     end
 
     def get(path, **options)
-      response = run_request(:get, path, options.compact, headers)
+      response = run_request(:get, path, nil, headers)
       raise_api_error!(response) if response.status != 200
       JSONParser.parse(self, response.body)
     rescue Faraday::ClientError => ex
