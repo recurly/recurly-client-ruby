@@ -36,7 +36,7 @@ module Recurly
 
       # Validates an individual attribute
       def validate_attribute!(schema_attr, val)
-        if !schema_attr.type.is_a?(Symbol) && val.class != schema_attr.type
+        unless schema_attr.type.is_a?(Symbol) || val.is_a?(schema_attr.type)
           expected = case schema_attr.type
                      when Array
                        "Array of #{schema_attr.type.item_type}s"
