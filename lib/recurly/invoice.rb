@@ -86,6 +86,7 @@ module Recurly
       line_items
       transactions
       terms_and_conditions
+      vat_reverse_charge_notes # Only shows if reverse charge invoice
       customer_notes
       address
       net_terms
@@ -201,6 +202,22 @@ module Recurly
       super - ['currency']
     end
 
+    # Attempts to update the invoice, returning the success of the request.
+    # Raises an error if attempting to create an invoice using this method.
+    #
+    # @return [true, false]
+    # @raise [RuntimeError] Raises error if you attempt to create an invoice.
+    # @example
+    #   invoice = Recurly::Invoice.find('1000')
+    #   invoice.po_number = '1234'
+    #   invoice.save # => true
+    def save
+      unless persisted?
+        raise "Invoices can only be updated with Invoice#save. New invoices cannot be created using this method."
+      end
+      super
+    end
+
     private
 
     def initialize(attributes = {})
@@ -230,7 +247,6 @@ module Recurly
 
     # Invoices are only writeable through {Account} instances.
     embedded! true
-    undef save
     undef destroy
   end
 end

@@ -1,0 +1,131 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice href="https://api.recurly.com/v2/invoices/created-invoice">
+  <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
+  <redemptions href="https://api.recurly.com/v2/invoices/created-invoice/redemptions"/>
+  <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
+  <subscriptions href="https://api.recurly.com/v2/invoices/1001/subscriptions"/>
+  <original_invoices href="https://api.recurly.com/v2/invoices/created-invoice/original_invoices" />
+  <original_invoice href="https://api.recurly.com/v2/invoices/1001" />
+  <credit_invoices href="https://api.recurly.com/v2/invoices/created-invoice/credit_invoices" />
+  <all_transactions href="https://api.recurly.com/v2/invoices/1001/transactions" />
+  <uuid>created-invoice</uuid>
+  <state>open</state>
+  <invoice_number type="integer">1000</invoice_number>
+  <invoice_number_prefix></invoice_number_prefix>
+  <po_number>9876</po_number>
+  <vat_number nil="nil"></vat_number>
+  <subtotal_in_cents type="integer">300</subtotal_in_cents>
+  <tax_in_cents type="integer">100</tax_in_cents>
+  <total_in_cents type="integer">300</total_in_cents>
+  <currency>USD</currency>
+  <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
+  <tax_type>usst</tax_type>
+  <customer_notes>Oh, well, that's one way to pull a tooth out!</customer_notes>
+  <terms_and_conditions>Dentist not responsible for broken teeth.</terms_and_conditions>
+  <vat_reverse_charge_notes>can't be changed when invoice was not a reverse charge</vat_reverse_charge_notes>
+  <net_terms type="integer">1</net_terms>
+  <collection_method>automatic</collection_method>
+  <subtotal_after_discount_in_cents type="integer">300</subtotal_after_discount_in_cents>
+  <attempt_next_collection_at nil="nil"></attempt_next_collection_at>
+  <recovery_reason nil="nil"></recovery_reason>
+  <tax_types nil="nil"></tax_types>
+  <address>
+    <first_name>P.</first_name>
+    <last_name>Sherman</last_name>
+    <company>Dentist Office</company>
+    <address1>42 Wallaby Way</address1>
+    <address2>Suite 200</address2>
+    <city>Sydney</city>
+    <state>New South Wales</state>
+    <country>Australia</country>
+    <zip>2060</zip>
+  </address>
+  <line_items>
+    <adjustment href="https://api.recurly.com/v2/adjustments/charge" type="charge">
+      <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
+      <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
+      <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
+      <uuid>charge</uuid>
+      <state>invoiced</state>
+      <description>Special charge</description>
+      <origin>one_time</origin>
+      <unit_amount_in_cents type="integer">300</unit_amount_in_cents>
+      <quantity type="integer">1</quantity>
+      <discount_in_cents type="integer">0</discount_in_cents>
+      <tax_in_cents type="integer">100</tax_in_cents>
+      <total_in_cents type="integer">300</total_in_cents>
+      <currency>USD</currency>
+      <taxable type="boolean">false</taxable>
+      <start_date nil="nil"></start_date>
+      <end_date nil="nil"></end_date>
+      <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
+    </adjustment>
+  </line_items>
+  <transactions>
+    <transaction href="https://api.recurly.com/v2/transactions/transaction" type="credit_card">
+      <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
+      <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
+      <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
+      <uuid>transaction</uuid>
+      <action>purchase</action>
+      <amount_in_cents type="integer">300</amount_in_cents>
+      <tax_in_cents type="integer">0</tax_in_cents>
+      <currency>USD</currency>
+      <status>success</status>
+      <reference nil="nil"></reference>
+      <recurring type="boolean">false</recurring>
+      <test type="boolean">true</test>
+      <voidable type="boolean">true</voidable>
+      <refundable type="boolean">true</refundable>
+      <cvv_result code="" nil="nil"></cvv_result>
+      <avs_result code="" nil="nil"></avs_result>
+      <avs_result_street nil="nil"></avs_result_street>
+      <avs_result_postal nil="nil"></avs_result_postal>
+      <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
+      <details>
+        <account>
+          <account_code>abcdef1234567890</account_code>
+          <first_name>Lucille</first_name>
+          <last_name>Bluth</last_name>
+          <company nil="nil"></company>
+          <email>lucille@bluth-company.com</email>
+          <billing_info type="credit_card">
+            <first_name>George</first_name>
+            <last_name>Bluth</last_name>
+            <address1 nil="nil"></address1>
+            <address2 nil="nil"></address2>
+            <city nil="nil"></city>
+            <state nil="nil"></state>
+            <zip nil="nil"></zip>
+            <country nil="nil"></country>
+            <phone nil="nil"></phone>
+            <vat_number nil="nil"></vat_number>
+            <card_type>Visa</card_type>
+            <year type="integer">2014</year>
+            <month type="integer">1</month>
+            <first_six>411111</first_six>
+            <last_four>1111</last_four>
+          </billing_info>
+        </account>
+      </details>
+      <a name="refund" href="https://api.recurly.com/v2/transactions/transaction" method="delete"/>
+    </transaction>
+  </transactions>
+  <credit_payments type="array">
+    <credit_payment href="https://api.recurly.com/v2/credit_payments/3d3f6754c6df41b9d2a32e43029adc55" type="payment">
+      <account href="https://api.recurly.com/v2/accounts/3465345645345"/>
+      <uuid>3d3f6754c6df41b9d2a32e43029adc55</uuid>
+      <action>payment</action>
+      <currency>USD</currency>
+      <amount_in_cents type="integer">1000</amount_in_cents>
+      <original_invoice href="https://api.recurly.com/v2/invoices/1000"/>
+      <applied_to_invoice href="https://api.recurly.com/v2/invoices/1001"/>
+      <created_at type="datetime">2017-07-06T15:51:38Z</created_at>
+      <updated_at type="datetime">2017-07-06T15:51:38Z</updated_at>
+      <voided_at type="datetime">2017-07-22T15:51:38Z</voided_at>
+    </credit_payment>
+  </credit_payments>
+</invoice>

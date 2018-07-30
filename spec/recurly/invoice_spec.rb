@@ -138,10 +138,51 @@ describe Invoice do
 
   describe "#all_transactions" do
     it "must provide a link to all transactions if present" do
-      stub_api_request :get, 'invoices/1001', 'invoices/show-200'
-      invoice = Invoice.find(1001)
+      stub_api_request :get, 'invoices/1000', 'invoices/show-200'
+      invoice = Invoice.find(1000)
       invoice.all_transactions.must_be_instance_of Resource::Pager
       invoice.all_transactions.any?.must_equal true
+    end
+  end
+
+  describe "#save" do
+    it "must update an invoice" do
+      stub_api_request :get, 'invoices/1000', 'invoices/show-200'
+      stub_api_request :put, 'invoices/created-invoice', 'invoices/show-200-updated'
+      invoice = Invoice.find(1000)
+      invoice.address = Address.new({
+        first_name: "P.",
+        last_name: "Sherman",
+        company: "Dentist Office",
+        address1: "42 Wallaby Way",
+        address2: "Suite 200",
+        city: "Sydney",
+        state: "New South Wales",
+        country: "Australia",
+        zip: "2060"
+      })
+      invoice.po_number = "9876"
+      invoice.terms_and_conditions = "Dentist not responsible for broken teeth."
+      invoice.customer_notes = "Oh, well, that's one way to pull a tooth out!"
+      invoice.vat_reverse_charge_notes = "can't be changed when invoice was not a reverse charge"
+      invoice.net_terms = 1
+      invoice.save()
+
+      invoice.address.must_be_instance_of Address
+      invoice.address.first_name.must_equal "P." 
+      invoice.address.last_name.must_equal "Sherman" 
+      invoice.address.company.must_equal "Dentist Office" 
+      invoice.address.address1.must_equal "42 Wallaby Way" 
+      invoice.address.address2.must_equal "Suite 200" 
+      invoice.address.city.must_equal "Sydney" 
+      invoice.address.state.must_equal "New South Wales" 
+      invoice.address.country.must_equal "Australia" 
+      invoice.address.zip.must_equal "2060" 
+      invoice.po_number.must_equal "9876"
+      invoice.terms_and_conditions.must_equal "Dentist not responsible for broken teeth."
+      invoice.customer_notes.must_equal "Oh, well, that's one way to pull a tooth out!"
+      invoice.vat_reverse_charge_notes.must_equal "can't be changed when invoice was not a reverse charge"
+      invoice.net_terms.must_equal 1
     end
   end
 end
