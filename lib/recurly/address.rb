@@ -1,6 +1,10 @@
 module Recurly
   class Address < Resource
     define_attribute_methods %w(
+      first_name
+      last_name
+      name_on_account
+      company
       address1
       address2
       city
