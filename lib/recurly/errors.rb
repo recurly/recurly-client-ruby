@@ -18,7 +18,7 @@ module Recurly
       end
 
       def initialize(response, error)
-        super("#{self.class.name}: #{error.message}")
+        super(error.message)
         @response = response
         @recurly_error = error
       end
