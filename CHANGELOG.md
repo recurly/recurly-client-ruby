@@ -1,6 +1,14 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.16.1"></a>
+## v2.16.1 (2018-08-06)
+
+- Adjust inline documentation for clarity, grammar, and syntax [PR](https://github.com/recurly/recurly-client-ruby/pull/393)
+- Correctly document the response type in Purchases [PR](https://github.com/recurly/recurly-client-ruby/pull/394)
+- Add gateway_token and gateway_code attributes to BillingInfo class [PR](https://github.com/recurly/recurly-client-ruby/pull/395)
+- Remove the old recurly binary [PR](https://github.com/recurly/recurly-client-ruby/pull/398)
+
 <a name="v2.16.0"></a>
 ## v2.16.0 (2018-06-26)
 
