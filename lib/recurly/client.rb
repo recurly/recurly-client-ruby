@@ -42,12 +42,12 @@ module Recurly
     #   # Give a `site_id`
     #   client = Recurly::Client.new(api_key: API_KEY, site_id: SITE_ID)
     #   # Or use the subdomain
-    #   client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-dev') 
+    #   client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-dev')
     #
     #   sub = client.get_subscription(subscription_id: 'abcd123456')
     #
     #   # you should create a new client to connect to another site
-    #   client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-prod') 
+    #   client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-prod')
     #   sub = client.get_subscription(subscription_id: 'abcd7890')
     #
     # @param api_key [String] The private API key
@@ -93,7 +93,9 @@ module Recurly
     end
 
     def next_page(pager)
-      run_request(:get, pager.next, nil, headers)
+      run_request(:get, pager.next, nil, headers).tap do |response|
+        raise_api_error!(response) if response.status != 200
+      end
     end
 
     protected
