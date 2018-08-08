@@ -82,6 +82,10 @@ describe Webhook do
       Webhook.parse(request 'successful-refund-notification').must_be_instance_of Webhook::SuccessfulRefundNotification
     end
 
+    it "must return TransactionAuthorizedNotification instance" do
+      Webhook.parse(request 'transaction-authorized-notification').must_be_instance_of Webhook::TransactionAuthorizedNotification
+    end
+
     it "must return UpdatedSubscriptionNotification instance" do
       Webhook.parse(request 'updated-subscription-notification').must_be_instance_of Webhook::UpdatedSubscriptionNotification
     end
