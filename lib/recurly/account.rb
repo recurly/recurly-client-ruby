@@ -26,6 +26,9 @@ module Recurly
     # @return [Pager<Transaction>, []] A pager that yields Transaction for persisted
     has_many :transactions
 
+    # @return [Pager<Note>, []] A pager that yields Note for persisted
+    has_many :notes
+
     # @return [Pager<Redemption>, []] A pager that yields Redemptions for persisted
     has_many :redemptions
 
@@ -106,7 +109,7 @@ module Recurly
     # Reopen an account.
     #
     # @return [true, false] +true+ when successful, +false+ when unable to
-    #   (e.g., the account is already opwn), and may raise an exception if the
+    #   (e.g., the account is already open), and may raise an exception if the
     #   attempt fails.
     def reopen
       return false unless link? :reopen

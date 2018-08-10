@@ -295,6 +295,21 @@ XML
         balance[:EUR].must_equal(-520)
       end
     end
+
+    describe "when account has notes" do
+      let(:account) {
+        stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+        stub_api_request :get, 'accounts/abcdef1234567890/notes', 'accounts/notes/show-200'
+        Account.find 'abcdef1234567890'
+      }
+
+      it "is able to retrieve and parse notes" do
+        notes = account.notes
+        note = notes.first
+        note.must_be_instance_of Note
+        note.message.must_equal 'This is a very important note'
+      end
+    end
   end
 
   describe 'custom fields' do

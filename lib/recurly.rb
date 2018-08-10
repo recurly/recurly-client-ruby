@@ -23,6 +23,7 @@ module Recurly
   require 'recurly/js'
   require 'recurly/money'
   require 'recurly/measured_unit'
+  require 'recurly/note'
   require 'recurly/plan'
   require 'recurly/redemption'
   require 'recurly/subscription'
