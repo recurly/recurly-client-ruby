@@ -12,6 +12,7 @@ Content-Type: application/xml; charset=utf-8
   <transactions href="https://api.recurly.com/v2/accounts/abcdef1234567890/transactions"/>
   <credit_payments href="https://api.recurly.com/v2/accounts/abcdef1234567890/credit_payments"/>
   <account_balance href="https://api.recurly.com/v2/accounts/abcdef1234567890/balance"/>
+  <notes href="https://api.recurly.com/v2/accounts/abcdef1234567890/notes"/>
   <account_code>abcdef1234567890</account_code>
   <username>shmohawk58</username>
   <email>larry.david@example.com</email>
