@@ -6,6 +6,10 @@ module Recurly
       #   @return [String] Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
       define_attribute :accounting_code, String
 
+      # @!attribute auto_renew
+      #   @return [Boolean] Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.
+      define_attribute :auto_renew, :Boolean
+
       # @!attribute code
       #   @return [String] Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
       define_attribute :code, String
@@ -15,8 +19,8 @@ module Recurly
       define_attribute :created_at, DateTime, {:read_only => true}
 
       # @!attribute currencies
-      #   @return [Array[String]] Pricing
-      define_attribute :currencies, Array, {:item_type => String}
+      #   @return [Array[Hash]] Pricing
+      define_attribute :currencies, Array, {:item_type => Hash}
 
       # @!attribute [r] deleted_at
       #   @return [DateTime] Deleted at

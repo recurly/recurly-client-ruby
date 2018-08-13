@@ -3,8 +3,8 @@ module Recurly
     class LineItem < Resource
 
       # @!attribute account
-      #   @return [Account]
-      define_attribute :account, :Account
+      #   @return [AccountMini]
+      define_attribute :account, :AccountMini
 
       # @!attribute accounting_code
       #   @return [String] Internal accounting code to help you reconcile your revenue to the correct ledger. Line items created as part of a subscription invoice will use the plan or add-on's accounting code, otherwise the value will only be present if you define an accounting code when creating the line item.
@@ -63,7 +63,7 @@ module Recurly
       define_attribute :invoice_number, String
 
       # @!attribute legacy_category
-      #   @return [String] Category to describe the role of a line item on a legacy invoice: - "charges" refers to charges being billed for on this invoice. - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo. - "applied_credits" refers to previous credits applied to this invoice. See their `original_line_item_invoice_id` to determine where the credit first originated. - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
+      #   @return [String] Category to describe the role of a line item on a legacy invoice: - "charges" refers to charges being billed for on this invoice. - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo. - "applied_credits" refers to previous credits applied to this invoice. See their original_line_item_id to determine where the credit first originated. - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
       define_attribute :legacy_category, String, {:enum => ["charge", "credit", "applied_credit", "carryforward"]}
 
       # @!attribute object

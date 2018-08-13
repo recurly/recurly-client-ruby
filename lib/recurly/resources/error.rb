@@ -7,8 +7,8 @@ module Recurly
       define_attribute :message, String
 
       # @!attribute params
-      #   @return [Array[String]] Parameter specific errors
-      define_attribute :params, Array, {:item_type => String}
+      #   @return [Array[Hash]] Parameter specific errors
+      define_attribute :params, Array, {:item_type => Hash}
 
       # @!attribute type
       #   @return [String] Type

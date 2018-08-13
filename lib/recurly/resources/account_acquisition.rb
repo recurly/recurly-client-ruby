@@ -3,8 +3,8 @@ module Recurly
     class AccountAcquisition < Resource
 
       # @!attribute account
-      #   @return [Account]
-      define_attribute :account, :Account
+      #   @return [AccountMini]
+      define_attribute :account, :AccountMini
 
       # @!attribute campaign
       #   @return [String] An arbitrary identifier for the marketing campaign that led to the acquisition of this account.

@@ -26,6 +26,10 @@ module Recurly
       #   @return [DateTime] When the account was created.
       define_attribute :created_at, DateTime, {:read_only => true}
 
+      # @!attribute custom_fields
+      #   @return [Array[CustomField]]
+      define_attribute :custom_fields, Array, {:item_type => :CustomField}
+
       # @!attribute [r] deleted_at
       #   @return [DateTime] If present, when the account was last marked inactive.
       define_attribute :deleted_at, DateTime, {:read_only => true}

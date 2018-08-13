@@ -1,6 +1,6 @@
 module Recurly
   module Requests
-    class AccountUpdatable < Request
+    class AccountUpdate < Request
 
       # @!attribute address
       #   @return [Address]
@@ -17,6 +17,10 @@ module Recurly
       # @!attribute company
       #   @return [String]
       define_attribute :company, String
+
+      # @!attribute custom_fields
+      #   @return [Array[CustomField]]
+      define_attribute :custom_fields, Array, {:item_type => :CustomField}
 
       # @!attribute email
       #   @return [String] The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.

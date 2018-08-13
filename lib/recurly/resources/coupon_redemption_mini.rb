@@ -3,8 +3,8 @@ module Recurly
     class CouponRedemptionMini < Resource
 
       # @!attribute coupon
-      #   @return [Coupon]
-      define_attribute :coupon, :Coupon
+      #   @return [CouponMini]
+      define_attribute :coupon, :CouponMini
 
       # @!attribute [r] created_at
       #   @return [DateTime] Created at

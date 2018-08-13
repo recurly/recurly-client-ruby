@@ -3,8 +3,8 @@ module Recurly
     class Transaction < Resource
 
       # @!attribute account
-      #   @return [Account]
-      define_attribute :account, :Account
+      #   @return [AccountMini]
+      define_attribute :account, :AccountMini
 
       # @!attribute amount
       #   @return [Float] Total transaction amount sent to the payment gateway.
@@ -71,8 +71,8 @@ module Recurly
       define_attribute :id, String
 
       # @!attribute invoice
-      #   @return [Invoice]
-      define_attribute :invoice, :Invoice
+      #   @return [InvoiceMini]
+      define_attribute :invoice, :InvoiceMini
 
       # @!attribute ip_address_country
       #   @return [String] IP address's country
@@ -139,8 +139,8 @@ module Recurly
       define_attribute :voided_at, DateTime
 
       # @!attribute voided_by_invoice
-      #   @return [Invoice]
-      define_attribute :voided_by_invoice, :Invoice
+      #   @return [InvoiceMini]
+      define_attribute :voided_by_invoice, :InvoiceMini
     end
   end
 end

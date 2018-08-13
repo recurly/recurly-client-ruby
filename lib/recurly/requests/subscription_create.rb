@@ -3,12 +3,16 @@ module Recurly
     class SubscriptionCreate < Request
 
       # @!attribute account
-      #   @return [Hash] Account
-      define_attribute :account, Hash
+      #   @return [AccountCreate]
+      define_attribute :account, :AccountCreate
 
       # @!attribute add_ons
-      #   @return [Array[String]] Add-ons
-      define_attribute :add_ons, Array, {:item_type => String}
+      #   @return [Array[SubscriptionAddOnCreate]] Add-ons
+      define_attribute :add_ons, Array, {:item_type => :SubscriptionAddOnCreate}
+
+      # @!attribute auto_renew
+      #   @return [Boolean] Whether the subscription renews at the end of its term.
+      define_attribute :auto_renew, :Boolean
 
       # @!attribute collection_method
       #   @return [String] Collection method
@@ -26,17 +30,21 @@ module Recurly
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
 
+      # @!attribute custom_fields
+      #   @return [Array[CustomField]]
+      define_attribute :custom_fields, Array, {:item_type => :CustomField}
+
       # @!attribute customer_notes
       #   @return [String] This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.
       define_attribute :customer_notes, String
 
-      # @!attribute first_renewal_date
-      #   @return [DateTime] If set,indicates when the first renewal should occur. Subsequent renewals will be offset from this date. The first invoice will be prorated appropriately so that the customer only pays for the portion of the first billing period for which the subscription applies. Useful for forcing a subscription to renew on the first of the month.
-      define_attribute :first_renewal_date, DateTime
-
       # @!attribute net_terms
       #   @return [Integer] Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.
       define_attribute :net_terms, Integer
+
+      # @!attribute next_bill_date
+      #   @return [DateTime] If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. The initial invoice will be prorated for the period between the subscription's activation date and the billing period end date. Subsequent periods will be based off the plan interval. For a subscription with a trial period, this will change when the trial expires.
+      define_attribute :next_bill_date, DateTime
 
       # @!attribute plan_code
       #   @return [String] Plan code
@@ -53,6 +61,10 @@ module Recurly
       # @!attribute quantity
       #   @return [Integer] Optionally override the default quantity of 1.
       define_attribute :quantity, Integer
+
+      # @!attribute renewal_billing_cycles
+      #   @return [Integer] If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.
+      define_attribute :renewal_billing_cycles, Integer
 
       # @!attribute shipping_address
       #   @return [Hash] Create a shipping address on the account and assign it to the subscription.
@@ -71,7 +83,7 @@ module Recurly
       define_attribute :terms_and_conditions, String
 
       # @!attribute total_billing_cycles
-      #   @return [Integer] Renews the subscription for a specified number of total cycles, then automatically cancels. Defaults to the subscription renewing indefinitely.
+      #   @return [Integer] The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.
       define_attribute :total_billing_cycles, Integer
 
       # @!attribute trial_ends_at

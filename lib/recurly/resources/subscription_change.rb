@@ -31,8 +31,8 @@ module Recurly
       define_attribute :object, String
 
       # @!attribute plan
-      #   @return [Plan]
-      define_attribute :plan, :Plan
+      #   @return [PlanMini]
+      define_attribute :plan, :PlanMini
 
       # @!attribute quantity
       #   @return [Integer] Subscription quantity
