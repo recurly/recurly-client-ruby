@@ -1,7 +1,7 @@
 module Recurly
   class Client
     def api_version
-      "v2018-01-24"
+      "v2018-06-06"
     end
 
     # List sites
@@ -74,11 +74,11 @@ module Recurly
 
     # Create an account
     #
-    # @param body [Requests::CreateAccount] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CreateAccount}
+    # @param body [Requests::AccountCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountCreate}
     # @return [Resources::Account] An account.
     def create_account(body:)
       path = interpolate_path("/sites/{site_id}/accounts", site_id: site_id)
-      post(path, body, Requests::CreateAccount)
+      post(path, body, Requests::AccountCreate)
     end
 
     # Fetch an account
@@ -106,11 +106,11 @@ module Recurly
     # Modify an account
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
-    # @param body [Requests::AccountUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountUpdatable}
+    # @param body [Requests::AccountUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountUpdate}
     # @return [Resources::Account] An account.
     def update_account(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}", site_id: site_id, account_id: account_id)
-      put(path, body, Requests::AccountUpdatable)
+      put(path, body, Requests::AccountUpdate)
     end
 
     # Deactivate an account
@@ -226,11 +226,11 @@ module Recurly
     # Generate an active coupon redemption on an account
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
-    # @param body [Requests::CreateCouponRedemption] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CreateCouponRedemption}
+    # @param body [Requests::CouponRedemptionCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponRedemptionCreate}
     # @return [Resources::CouponRedemption] Returns the new coupon redemption.
     def create_coupon_redemption(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/coupon_redemptions/active", site_id: site_id, account_id: account_id)
-      post(path, body, Requests::CreateCouponRedemption)
+      post(path, body, Requests::CouponRedemptionCreate)
     end
 
     # Delete the active coupon redemption from an account
@@ -603,11 +603,11 @@ module Recurly
 
     # Create a new coupon
     #
-    # @param body [Requests::CreateCoupon] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CreateCoupon}
+    # @param body [Requests::CouponCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponCreate}
     # @return [Resources::Coupon] A new coupon.
     def create_coupon(body:)
       path = interpolate_path("/sites/{site_id}/coupons", site_id: site_id)
-      post(path, body, Requests::CreateCoupon)
+      post(path, body, Requests::CouponCreate)
     end
 
     # Fetch a coupon
@@ -622,11 +622,11 @@ module Recurly
     # Update an active coupon
     #
     # @param coupon_id [String] Coupon ID or code (use prefix: +code-+, e.g. +code-10off+).
-    # @param body [Requests::UpdateCoupon] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::UpdateCoupon}
+    # @param body [Requests::CouponUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponUpdate}
     # @return [Resources::Coupon] The updated coupon.
     def update_coupon(coupon_id:, body:)
       path = interpolate_path("/sites/{site_id}/coupons/{coupon_id}", site_id: site_id, coupon_id: coupon_id)
-      put(path, body, Requests::UpdateCoupon)
+      put(path, body, Requests::CouponUpdate)
     end
 
     # List unique coupon codes associated with a bulk coupon
@@ -687,6 +687,46 @@ module Recurly
     # @return [Resources::CreditPayment] A credit payment.
     def get_credit_payment(credit_payment_id:)
       path = interpolate_path("/sites/{site_id}/credit_payments/{credit_payment_id}", site_id: site_id, credit_payment_id: credit_payment_id)
+      get(path)
+    end
+
+    # List a site's custom field definitions
+    #
+    # @param ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1+.
+    #
+    #   *Important notes:*
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    # @param limit [Integer] Limit number of records 1-200.
+    # @param order [String] Sort order.
+    # @param sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @return [Pager<Resources::CustomFieldDefinition>] A list of the site's custom field definitions.
+    def list_custom_field_definitions(**options)
+      path = interpolate_path("/sites/{site_id}/custom_field_definitions", site_id: site_id)
+      pager(path, **options)
+    end
+
+    # Fetch an custom field definition
+    #
+    # @param custom_field_definition_id [String] Custom Field Definition ID
+    # @return [Resources::CustomFieldDefinition] An custom field definition.
+    def get_custom_field_definition(custom_field_definition_id:)
+      path = interpolate_path("/sites/{site_id}/custom_field_definitions/{custom_field_definition_id}", site_id: site_id, custom_field_definition_id: custom_field_definition_id)
       get(path)
     end
 
@@ -1192,6 +1232,25 @@ module Recurly
     # @return [Resources::Subscription] An active subscription.
     def reactivate_subscription(subscription_id:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/reactivate", site_id: site_id, subscription_id: subscription_id)
+      put(path)
+    end
+
+    # Pause subscription
+    #
+    # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
+    # @param body [Requests::SubscriptionPause] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionPause}
+    # @return [Resources::Subscription] A subscription.
+    def pause_subscription(subscription_id:, body:)
+      path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/pause", site_id: site_id, subscription_id: subscription_id)
+      put(path, body, Requests::SubscriptionPause)
+    end
+
+    # Resume subscription
+    #
+    # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
+    # @return [Resources::Subscription] A subscription.
+    def resume_subscription(subscription_id:)
+      path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/resume", site_id: site_id, subscription_id: subscription_id)
       put(path)
     end
 

@@ -1,6 +1,6 @@
 module Recurly
   module Requests
-    class CreateCoupon < Request
+    class CouponCreate < Request
 
       # @!attribute applies_to_all_plans
       #   @return [Boolean] The coupon is valid for all plans if true. If false then `plans` and `plans_names` will list the applicable plans.
@@ -19,8 +19,8 @@ module Recurly
       define_attribute :coupon_type, String, {:enum => ["single_code", "bulk"]}
 
       # @!attribute currencies
-      #   @return [Array[String]] Fixed discount currencies by currency. Required if the coupon type is `fixed`. This parameter should contain the coupon discount values
-      define_attribute :currencies, Array, {:item_type => String}
+      #   @return [Array[Hash]] Fixed discount currencies by currency. Required if the coupon type is `fixed`. This parameter should contain the coupon discount values
+      define_attribute :currencies, Array, {:item_type => Hash}
 
       # @!attribute discount_percent
       #   @return [Integer] The percent of the price discounted by the coupon.  Required if `discount_type` is `percent`.

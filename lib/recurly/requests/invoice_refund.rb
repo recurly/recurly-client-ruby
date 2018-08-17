@@ -15,8 +15,8 @@ module Recurly
       define_attribute :external_refund, Hash
 
       # @!attribute line_items
-      #   @return [Array[String]] The line items to be refunded. This is required when `type=line_items`.
-      define_attribute :line_items, Array, {:item_type => String}
+      #   @return [Array[LineItemRefund]] The line items to be refunded. This is required when `type=line_items`.
+      define_attribute :line_items, Array, {:item_type => :LineItemRefund}
 
       # @!attribute refund_method
       #   @return [String] Indicates how the invoice should be refunded when both a credit and transaction are present on the invoice: - `transaction_first` – Refunds the transaction first, then any amount is issued as credit back to the account. Default value when Credit Invoices feature is enabled. - `credit_first` – Issues credit back to the account first, then refunds any remaining amount back to the transaction. Default value when Credit Invoices feature is not enabled. - `all_credit` – Issues credit to the account for the entire amount of the refund. Only available when the Credit Invoices feature is enabled. - `all_transaction` – Refunds the entire amount back to transactions, using transactions from previous invoices if necessary. Only available when the Credit Invoices feature is enabled.

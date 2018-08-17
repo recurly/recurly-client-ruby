@@ -7,16 +7,20 @@ module Recurly
       define_attribute :accounting_code, String
 
       # @!attribute add_ons
-      #   @return [Array[String]] Add Ons
-      define_attribute :add_ons, Array, {:item_type => String}
+      #   @return [Array[AddOnCreate]] Add Ons
+      define_attribute :add_ons, Array, {:item_type => :AddOnCreate}
+
+      # @!attribute auto_renew
+      #   @return [Boolean] Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.
+      define_attribute :auto_renew, :Boolean
 
       # @!attribute code
       #   @return [String] Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
       define_attribute :code, String
 
       # @!attribute currencies
-      #   @return [Array[String]] Pricing
-      define_attribute :currencies, Array, {:item_type => String}
+      #   @return [Array[Hash]] Pricing
+      define_attribute :currencies, Array, {:item_type => Hash}
 
       # @!attribute description
       #   @return [String] Optional description, not displayed.
@@ -29,14 +33,6 @@ module Recurly
       # @!attribute [r] id
       #   @return [String] Plan ID
       define_attribute :id, String, {:read_only => true}
-
-      # @!attribute interval_length
-      #   @return [Integer] Length of the plan's billing interval in `interval_unit`.
-      define_attribute :interval_length, Integer
-
-      # @!attribute interval_unit
-      #   @return [String] Unit for the plan's billing interval.
-      define_attribute :interval_unit, String, {:enum => ["days", "months"]}
 
       # @!attribute name
       #   @return [String] This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.

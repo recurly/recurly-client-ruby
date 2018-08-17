@@ -1,6 +1,6 @@
 module Recurly
   module Requests
-    class CouponUpdatable < Request
+    class CouponUpdate < Request
 
       # @!attribute hosted_description
       #   @return [String] This description will show up when a customer redeems a coupon on your Hosted Payment Pages, or if you choose to show the description on your own checkout page.

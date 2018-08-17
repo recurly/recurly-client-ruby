@@ -135,7 +135,7 @@ module Recurly
     end
 
     def delete(path, **options)
-      response = run_request(:delete, path, options.compact, headers)
+      response = run_request(:delete, path, nil, headers)
       raise_api_error!(response) if ![200, 201].include?(response.status)
       JSONParser.parse(self, response.body)
     rescue Faraday::ClientError => ex

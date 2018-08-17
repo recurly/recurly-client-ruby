@@ -71,8 +71,8 @@ module Recurly
       define_attribute :object, String, {:read_only => true}
 
       # @!attribute plans
-      #   @return [Array[String]] Plans
-      define_attribute :plans, Array, {:item_type => String}
+      #   @return [Array[PlanMini]] Plans
+      define_attribute :plans, Array, {:item_type => :PlanMini}
 
       # @!attribute plans_names
       #   @return [Array[String]] TODO

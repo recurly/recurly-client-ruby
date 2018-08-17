@@ -3,8 +3,8 @@ module Recurly
     class Invoice < Resource
 
       # @!attribute account
-      #   @return [Account]
-      define_attribute :account, :Account
+      #   @return [AccountMini]
+      define_attribute :account, :AccountMini
 
       # @!attribute address
       #   @return [Address]
@@ -51,8 +51,8 @@ module Recurly
       define_attribute :id, String, {:read_only => true}
 
       # @!attribute line_items
-      #   @return [Array[LineItem]] Line items
-      define_attribute :line_items, Array, {:item_type => :LineItem}
+      #   @return [LineItemList]
+      define_attribute :line_items, :LineItemList
 
       # @!attribute net_terms
       #   @return [Integer] Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.
