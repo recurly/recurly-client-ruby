@@ -230,7 +230,19 @@ module Recurly
       true
     end
 
-    # Update the notes sections of the subscription
+    # Update the notes sections of the subscription. This endpoint also allows you to
+    # update the custom fields.
+    #
+    # @example
+    #   subscription.custom_fields.first.value = nil
+    #   subscription.update_notes(terms_and_conditions: 'New T&C')
+    #   #=>
+    #   #   <subscription>
+    #   #     <custom_fields><custom_field><name>food</name><value nil="nil"/><custom_field></custom_fields>
+    #   #     <terms_and_conditions>New T&C</terms_and_conditions>
+    #   #   </subscription>
+    #   # it's also okay to call without notes
+    #   subscription.update_notes({})
     #
     # @param notes [Hash] should be the notes parameters you wish to update
     # @return [true, false] +true+ when successful, +false+ when unable to

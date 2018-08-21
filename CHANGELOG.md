@@ -1,6 +1,15 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.16.2"></a>
+## v2.16.2 (2018-08-21)
+
+This brings us up to API version 2.14. There are no breaking changes.
+
+- Support TransactionAuthorizedNotification webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/404)
+- Support updating an invoice from client [PR](https://github.com/recurly/recurly-client-ruby/pull/399)
+- Support custom fields on Subscription#update_notes [PR](https://github.com/recurly/recurly-client-ruby/pull/409)
+
 <a name="v2.16.1"></a>
 ## v2.16.1 (2018-08-06)
 
