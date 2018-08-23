@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name             = 'recurly'
   s.version          = Recurly::Version.to_s
   s.summary          = 'Recurly API Client'
-  s.description      = 'An API client library for Recurly: http://recurly.com'
+  s.description      = 'An API client library for Recurly: https://recurly.com'
 
   s.files            = Dir['lib/**/*']
 
