@@ -1,6 +1,7 @@
 require 'faraday'
 require 'logger'
 require_relative './schema/json_parser'
+require_relative './client/adapter'
 
 module Recurly
   class Client
@@ -71,15 +72,7 @@ module Recurly
           faraday.response :logger
         end
         faraday.basic_auth(api_key, '')
-        faraday.adapter :net_http_persistent do |http| # yields Net::HTTP
-          # Let's not use the bundled cert in production yet
-          # but we will use these certs for any other staging or dev environment
-          unless BASE_URL.end_with?('.recurly.com')
-            http.ca_file = File.join(File.dirname(__FILE__), '../data/ca-certificates.crt')
-          end
-          http.open_timeout = 50
-          http.read_timeout = 60
-        end
+        configure_adapter(faraday)
       end
 
       # TODO this is undocumented until we finalize it
