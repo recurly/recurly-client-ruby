@@ -25,4 +25,5 @@ matrix:
     - rvm: 1.9.3-p551
     - rvm: 2.0.0-p648
     - rvm: 2.1.10
+    - rvm: 2.2.9
     - rvm: jruby-9.1.9.0

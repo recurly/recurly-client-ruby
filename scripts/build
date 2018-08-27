@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+
+bundle install --binstubs --quiet --with=development
+./bin/yard --quiet

@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -e
+
+if ! hash brew 2>/dev/null; then
+  echo "✖ Homebrew not found. Please install: https://brew.sh/"
+  exit 1
+else
+  echo "✓ Found homebrew"
+fi
+
+if ! hash rbenv 2>/dev/null; then
+  read -p "✖ 'rbenv' not found. Would you like to install it? [Y/n] " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy\n]$ ]]
+  then
+    brew install rbenv ruby-build && true
+    echo
+    echo "Please follow the rbenv instructions below before continuing:"
+    eval "$(rbenv init -)"
+    echo $(rbenv init)
+    read -p "Press enter to continue"
+    # Installs latest stable version
+    VERSION=$(rbenv install -l | grep -v - | tail -1)
+    rbenv install $VERSION
+    rbenv global $VERSION
+  else
+    exit 1
+  fi
+else
+  echo "✓ Found rbenv"
+fi
+
+if ! hash bundle 2>/dev/null; then
+  read -p "✖ 'bundle' not found. Would you like to install it? [Y/n] " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    gem install bundler
+  else
+    exit 1
+  fi
+else
+  echo "✓ Found bundle"
+fi
