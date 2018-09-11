@@ -19,7 +19,7 @@ module Recurly
 
     module NetHttpAdapter
       protected
-      def configure_adapter(http)
+      def configure_adapter(faraday)
         faraday.adapter :net_http do |http| # yields Net::HTTP
           # Let's not use the bundled cert in production yet
           # but we will use these certs for any other staging or dev environment
