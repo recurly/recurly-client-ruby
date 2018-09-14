@@ -34,6 +34,10 @@ describe Webhook do
       Webhook.parse(request 'failed-payment-notification').must_be_instance_of Webhook::FailedPaymentNotification
     end
 
+    it "must return LowBalanceGiftCardNotification instance" do
+      Webhook.parse(request 'low-balance-gift-card-notification').must_be_instance_of Webhook::LowBalanceGiftCardNotification
+    end
+
     it "must return NewAccountNotification instance" do
       Webhook.parse(request 'new-account-notification').must_be_instance_of Webhook::NewAccountNotification
     end
