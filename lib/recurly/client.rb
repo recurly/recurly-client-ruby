@@ -55,14 +55,7 @@ module Recurly
     # @param site_id [String] The site you wish to be scoped to.
     # @param subdomain [String] Optional subdomain for the site you wish to be scoped to. Providing this makes all the `site_id` parameters optional.
     def initialize(api_key:, site_id: nil, subdomain: nil, **options)
-      if site_id
-        @site_id = site_id
-      elsif subdomain
-        @site_id = "subdomain-#{subdomain}"
-      else
-        raise ArgumentError, "You must pass a site_id or subdomain argument to initialize the Client"
-      end
-
+      set_site_id(site_id, subdomain)
       set_options(options)
       set_faraday_connection(api_key)
 
@@ -173,6 +166,16 @@ module Recurly
     def interpolate_path(path, **options)
       path = path.gsub("{", "%{")
       path % options
+    end
+
+    def set_site_id(site_id, subdomain)
+      if site_id
+        @site_id = site_id
+      elsif subdomain
+        @site_id = "subdomain-#{subdomain}"
+      else
+        raise ArgumentError, "You must pass a site_id or subdomain argument to initialize the Client"
+      end
     end
 
     def set_faraday_connection(api_key)
