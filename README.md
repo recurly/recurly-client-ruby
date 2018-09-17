@@ -15,7 +15,7 @@ This contains everything in the README as well as code-level documentation. We s
 This gem is a pre-release. In your Gemfile, add `recurly` as a dependency.
 
 ```ruby
-gem 'recurly', '3.0.0.beta.1'
+gem 'recurly', '3.0.0.beta.2'
 ```
 
 It's important that you lock on a specific version as there may be breaking changes between releases.
