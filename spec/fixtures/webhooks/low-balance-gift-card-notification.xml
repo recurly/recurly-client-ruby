@@ -2,11 +2,11 @@
 <low_balance_gift_card_notification>
   <account>
     <account_code>1</account_code>
-    <username nil="true">verena</username>
+    <username>verena</username>
     <email>verena@example.com</email>
     <first_name>Verena</first_name>
     <last_name>Example</last_name>
-    <company_name nil="true">Company, Inc.</company_name>
+    <company_name>Company, Inc.</company_name>
   </account>
   <subscription>
     <plan>
