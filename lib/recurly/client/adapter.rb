@@ -4,7 +4,7 @@ module Recurly
   class Client
     module NetHttpPersistentAdapter
       protected
-      def configure_adapter(faraday)
+      def configure_net_adapter(faraday)
         faraday.adapter :net_http_persistent do |http| # yields Net::HTTP
           # Let's not use the bundled cert in production yet
           # but we will use these certs for any other staging or dev environment
@@ -19,7 +19,7 @@ module Recurly
 
     module NetHttpAdapter
       protected
-      def configure_adapter(faraday)
+      def configure_net_adapter(faraday)
         faraday.adapter :net_http do |http| # yields Net::HTTP
           # Let's not use the bundled cert in production yet
           # but we will use these certs for any other staging or dev environment

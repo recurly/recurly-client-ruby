@@ -63,20 +63,8 @@ module Recurly
         raise ArgumentError, "You must pass a site_id or subdomain argument to initialize the Client"
       end
 
-      @log_level = options[:log_level] || Logger::WARN
-      @logger = Logger.new(STDOUT)
-      @logger.level = @log_level
-
-      @conn = Faraday.new(url: BASE_URL) do |faraday|
-        if @log_level == Logger::INFO
-          faraday.response :logger
-        end
-        faraday.basic_auth(api_key, '')
-        configure_adapter(faraday)
-      end
-
-      # TODO this is undocumented until we finalize it
-      @extra_headers = options[:headers] || {}
+      set_options(options)
+      set_faraday_connection(api_key)
 
       # execute block with this client if given
       yield(self) if block_given?
@@ -185,6 +173,25 @@ module Recurly
     def interpolate_path(path, **options)
       path = path.gsub("{", "%{")
       path % options
+    end
+
+    def set_faraday_connection(api_key)
+      @conn = Faraday.new(url: BASE_URL) do |faraday|
+        if @log_level == Logger::INFO
+          faraday.response :logger
+        end
+        faraday.basic_auth(api_key, '')
+        configure_net_adapter(faraday)
+      end
+    end
+
+    def set_options(options)
+      @log_level = options[:log_level] || Logger::WARN
+      @logger = Logger.new(STDOUT)
+      @logger.level = @log_level
+
+      # TODO this is undocumented until we finalize it
+      @extra_headers = options[:headers] || {}
     end
   end
 end
