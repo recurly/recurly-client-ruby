@@ -86,7 +86,7 @@ module Recurly
       line_items
       transactions
       terms_and_conditions
-      vat_reverse_charge_notes # Only shows if reverse charge invoice
+      vat_reverse_charge_notes
       customer_notes
       address
       net_terms
