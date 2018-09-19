@@ -103,8 +103,16 @@ describe Invoice do
 
     describe "#refund_to_xml" do
       it "must serialize line_items" do
-        @invoice.send(:refund_line_items_to_xml, @line_items, 'credit_first').must_equal(
-          '<invoice><refund_method>credit_first</refund_method><line_items><adjustment><uuid>charge1</uuid><quantity>1</quantity><prorate>false</prorate></adjustment></line_items></invoice>'
+        options = {
+          credit_customer_notes: 'Credit Notes',
+          external_refund: true,
+          payment_method: 'check',
+          description: 'Check no. 12345678',
+          refunded_at: DateTime.new(2018, 12, 1, 0, 0, 0),
+          amount_in_cents: 17_500
+        }
+        @invoice.send(:refund_line_items_to_xml, @line_items, 'credit_first', options).must_equal(
+          '<invoice><refund_method>credit_first</refund_method><credit_customer_notes>Credit Notes</credit_customer_notes><external_refund>true</external_refund><payment_method>check</payment_method><description>Check no. 12345678</description><refunded_at>2018-12-01T00:00:00+00:00</refunded_at><amount_in_cents>17500</amount_in_cents><line_items><adjustment><uuid>charge1</uuid><quantity>1</quantity><prorate>false</prorate></adjustment></line_items></invoice>'
         )
       end
     end
@@ -129,8 +137,16 @@ describe Invoice do
 
     describe "#refund_to_xml" do
       it "must serialize amount_in_cents" do
-        @invoice.send(:refund_amount_to_xml, 1000, 'credit_first').must_equal(
-          '<invoice><refund_method>credit_first</refund_method><amount_in_cents>1000</amount_in_cents></invoice>'
+        options = {
+          credit_customer_notes: 'Credit Notes',
+          external_refund: true,
+          payment_method: 'check',
+          description: 'Check no. 12345678',
+          refunded_at: DateTime.new(2018, 12, 1, 0, 0, 0),
+          amount_in_cents: 17_500
+        }
+        @invoice.send(:refund_amount_to_xml, 1000, 'credit_first', options).must_equal(
+          '<invoice><refund_method>credit_first</refund_method><amount_in_cents>1000</amount_in_cents><credit_customer_notes>Credit Notes</credit_customer_notes><external_refund>true</external_refund><payment_method>check</payment_method><description>Check no. 12345678</description><refunded_at>2018-12-01T00:00:00+00:00</refunded_at><amount_in_cents>17500</amount_in_cents></invoice>'
         )
       end
     end
