@@ -179,7 +179,18 @@ module Recurly
     end
 
     def set_faraday_connection(api_key)
-      @conn = Faraday.new(url: BASE_URL) do |faraday|
+      options = {
+        url: BASE_URL,
+        request: { timeout: 60, open_timeout: 50 },
+        ssl: { verify: true }
+      }
+      # Let's not use the bundled cert in production yet
+      # but we will use these certs for any other staging or dev environment
+      unless BASE_URL.end_with?('.recurly.com')
+        options[:ssl][:ca_file] = File.join(File.dirname(__FILE__), '../data/ca-certificates.crt')
+      end
+
+      @conn = Faraday.new(nil, options) do |faraday|
         if @log_level == Logger::INFO
           faraday.response :logger
         end

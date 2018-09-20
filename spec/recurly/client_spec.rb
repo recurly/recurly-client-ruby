@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe Recurly::Client do
   let(:subdomain) { 'test' }
   let(:api_key) { 'recurly-good' }
-  let(:client) { Recurly::Client.new(api_key: api_key, subdomain: subdomain) }
+  subject(:client) { Recurly::Client.new(api_key: api_key, subdomain: subdomain) }
 
   context "#api_version" do
     it "should respond with a valid api version" do
