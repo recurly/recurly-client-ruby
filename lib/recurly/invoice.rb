@@ -176,11 +176,16 @@ module Recurly
     # refundable.
     # @raise [Error] If the refund fails.
     # @param line_items [Array, nil] An array of line items to refund.
-    # @param refund_method ["credit_first", "transaction_first"] The method used to refund.
-    def refund(line_items = nil, refund_method = 'credit_first')
+    # @param refund_method ["credit_first", "transaction_first", "all_transaction", "all_credit"] The method used to refund.
+    # @param external_refund [true, false] Designates that the refund transactions created are manual.
+    # @param credit_customer_notes [String] Adds notes to refund credit invoice.
+    # @param payment_method [String] Creates the manual transactions with this payment method. Allowed if *external_refund* is true.
+    # @param description [String] Sets this value as the *transaction_note* on the manual transactions created. Allowed if *external_refund* is true.
+    # @param refunded_at [DateTime] Sets this value as the *collected_at* on the manual transactions created. Allowed if *external_refund* is true.
+    def refund(line_items = nil, refund_method = 'credit_first', options = {})
       return false unless link? :refund
       self.class.from_response(
-        follow_link :refund, :body => refund_line_items_to_xml(line_items, refund_method)
+        follow_link :refund, :body => refund_line_items_to_xml(line_items, refund_method, options)
       )
     end
 
@@ -190,11 +195,16 @@ module Recurly
     # refundable.
     # @raise [Error] If the refund fails.
     # @param amount_in_cents [Integer, nil] The amount (in cents) to refund.
-    # @param refund_method ["credit_first", "transaction_first"] The method used to refund.
-    def refund_amount amount_in_cents = nil, refund_method = 'credit_first'
+    # @param refund_method ["credit_first", "transaction_first", "all_transaction", "all_credit"] The method used to refund.
+    # @param external_refund [true, false] Designates that the refund transactions created are manual.
+    # @param credit_customer_notes [String] Adds notes to refund credit invoice.
+    # @param payment_method [String] Creates the manual transactions with this payment method. Allowed if *external_refund* is true.
+    # @param description [String] Sets this value as the *transaction_note* on the manual transactions created. Allowed if *external_refund* is true.
+    # @param refunded_at [DateTime] Sets this value as the *collected_at* on the manual transactions created. Allowed if *external_refund* is true.
+    def refund_amount(amount_in_cents = nil, refund_method = 'credit_first', options = {})
       return false unless link? :refund
       self.class.from_response(
-        follow_link :refund, :body => refund_amount_to_xml(amount_in_cents, refund_method)
+        follow_link :refund, :body => refund_amount_to_xml(amount_in_cents, refund_method, options)
       )
     end
 
@@ -224,17 +234,23 @@ module Recurly
       super({ :currency => Recurly.default_currency }.merge attributes)
     end
 
-    def refund_amount_to_xml amount_in_cents = nil, refund_method
+    def refund_amount_to_xml(amount_in_cents = nil, refund_method = nil, options = {})
       builder = XML.new("<invoice/>")
       builder.add_element 'refund_method', refund_method
       builder.add_element 'amount_in_cents', amount_in_cents
+      options.each do |k, v|
+        builder.add_element k.to_s, v
+      end
       builder.to_s
     end
 
-    def refund_line_items_to_xml line_items = [], refund_method
+    def refund_line_items_to_xml(line_items = nil, refund_method = nil, options = {})
       builder = XML.new("<invoice/>")
       builder.add_element 'refund_method', refund_method
-
+      options.each do |k, v|
+        builder.add_element k.to_s, v
+      end
+      line_items ||= []
       node = builder.add_element 'line_items'
       line_items.each do |line_item|
         adj_node = node.add_element 'adjustment'
