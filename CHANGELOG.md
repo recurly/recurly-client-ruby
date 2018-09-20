@@ -1,6 +1,17 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.0"></a>
+## v2.17.0 (2018-09-20)
+
+- Remove Recurly.js v2 code and some other small improvements [PR](https://github.com/recurly/recurly-client-ruby/pull/411)
+- Adds missing credit memo opts to invoice refunds [PR](https://github.com/recurly/recurly-client-ruby/pull/415)
+
+### Upgrade Notes
+
+This release contains one breaking change. Older Recurly.js token signing is not longer supported. You should upgrade to version 4 of Recurly.js: https://dev.recurly.com/docs/recurlyjs
+The `js` module is still around to support storing the `public_key`.
+
 <a name="v2.16.2"></a>
 ## v2.16.2 (2018-08-21)
 
