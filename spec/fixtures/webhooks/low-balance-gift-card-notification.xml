@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<low_balance_gift_card_notification>
+  <account>
+    <account_code>1</account_code>
+    <username>verena</username>
+    <email>verena@example.com</email>
+    <first_name>Verena</first_name>
+    <last_name>Example</last_name>
+    <company_name>Company, Inc.</company_name>
+  </account>
+  <subscription>
+    <plan>
+      <plan_code>bronze</plan_code>
+      <name>Bronze Plan</name>
+      <version type="integer">2</version>
+    </plan>
+    <uuid>8047cb4fd5f874b14d713d785436ebd3</uuid>
+    <state>active</state>
+    <quantity type="integer">2</quantity>
+    <total_amount_in_cents type="integer">2000</total_amount_in_cents>
+    <activated_at type="datetime">2009-11-22T13:10:38Z</activated_at>
+    <canceled_at type="datetime" nil="true"></canceled_at>
+    <expires_at type="datetime" nil="true"></expires_at>
+    <current_period_started_at type="datetime">2009-11-22T13:10:38Z</current_period_started_at>
+    <current_period_ends_at type="datetime">2009-11-29T13:10:38Z</current_period_ends_at>
+    <trial_started_at type="datetime">2009-11-22T13:10:38Z</trial_started_at>
+    <trial_ends_at type="datetime">2009-11-29T13:10:38Z</trial_ends_at>
+    <collection_method>automatic</collection_method>
+  </subscription>
+</low_balance_gift_card_notification>
