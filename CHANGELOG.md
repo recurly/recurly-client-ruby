@@ -1,6 +1,14 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.1"></a>
+## v2.17.1 (2018-09-25)
+
+This brings us up to API version 2.15. There are no breaking changes.
+
+- Add support for Low Balance Gift Card Notification [PR](https://github.com/recurly/recurly-client-ruby/pull/414)
+- Support Account Notes [PR](https://github.com/recurly/recurly-client-ruby/pull/405)
+
 <a name="v2.17.0"></a>
 ## v2.17.0 (2018-09-20)
 
