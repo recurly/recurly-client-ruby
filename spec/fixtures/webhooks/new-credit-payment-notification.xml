@@ -14,7 +14,7 @@
     <action type="symbol">payment</action>
     <currency>USD</currency>
     <amount_in_cents type="integer">3579</amount_in_cents>
-    <original_nvoice_number type="integer">2389</original_nvoice_number>
+    <original_invoice_number type="integer">2389</original_invoice_number>
     <applied_to_invoice_number type="integer">2390</applied_to_invoice_number>
     <original_credit_payment_uuid nil="true"></original_credit_payment_uuid>
     <refund_transaction_uuid nil="true"></refund_transaction_uuid>

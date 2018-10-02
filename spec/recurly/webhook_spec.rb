@@ -42,6 +42,14 @@ describe Webhook do
       Webhook.parse(request 'new-account-notification').must_be_instance_of Webhook::NewAccountNotification
     end
 
+    it "must return NewCreditPaymentNotification instance" do
+      Webhook.parse(request 'new-credit-payment-notification').must_be_instance_of Webhook::NewCreditPaymentNotification
+    end
+
+    it "must return NewDunningEventNotification instance" do
+      Webhook.parse(request 'new-dunning-event-notification').must_be_instance_of Webhook::NewDunningEventNotification
+    end
+
     it "must return UpdatedAccountNotification instance" do
       Webhook.parse(request 'updated-account-notification').must_be_instance_of Webhook::UpdatedAccountNotification
     end
@@ -66,12 +74,20 @@ describe Webhook do
       Webhook.parse(request 'past-due-invoice-notification-manual').must_be_instance_of Webhook::PastDueInvoiceNotification
     end
 
+    it "must return PurchasedGiftCardNotification instance (manual)" do
+      Webhook.parse(request 'purchased-gift-card-notification').must_be_instance_of Webhook::PurchasedGiftCardNotification
+    end
+
     it "must return ReactivatedAccountNotification instance" do
       Webhook.parse(request 'reactivated-account-notification').must_be_instance_of Webhook::ReactivatedAccountNotification
     end
 
     it "must return RenewedSubscriptionNotification instance" do
       Webhook.parse(request 'renewed-subscription-notification').must_be_instance_of Webhook::RenewedSubscriptionNotification
+    end
+
+    it "must return ScheduledPaymentNotification instance" do
+      Webhook.parse(request 'scheduled-payment-notification').must_be_instance_of Webhook::ScheduledPaymentNotification
     end
 
     it "must return SuccessfulPaymentNotification instance" do

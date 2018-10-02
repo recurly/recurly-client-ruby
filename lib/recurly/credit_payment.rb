@@ -12,10 +12,14 @@ module Recurly
     define_attribute_methods %w(
       action
       amount_in_cents
+      applied_to_invoice_number
       currency
       created_at
       original_credit_payment
+      original_credit_payment_uuid
+      original_invoice_number
       refund_transaction
+      refund_transaction_uuid
       updated_at
       uuid
       voided_at

@@ -65,6 +65,7 @@ module Recurly
       last_name
       company_name
       company
+      phone
       accept_language
       hosted_login_token
       vat_number
