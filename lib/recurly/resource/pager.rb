@@ -88,7 +88,6 @@ module Recurly
       # @raise [API::NotModified] If the <tt>:etag</tt> option is set and
       #   matches the server's.
       def initialize resource_class, options = {}
-        options[:cursor] &&= options[:cursor].to_i
         @parent = options.delete :parent
         @uri    = options.delete :uri
         @etag   = options.delete :etag
