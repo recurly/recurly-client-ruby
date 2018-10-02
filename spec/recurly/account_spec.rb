@@ -322,4 +322,12 @@ XML
       account.custom_fields.must_equal [CustomField.new(name: 'acct_field', value: 'acct value')]
     end
   end
+
+  describe "#company" do
+    it "should respond to company_name even if the xml gives you company" do
+      account = Account.from_xml "<account><company>My Company Inc.</company></account>"
+      account.company_name.must_equal "My Company Inc."
+      account.company.must_equal "My Company Inc."
+    end
+  end
 end

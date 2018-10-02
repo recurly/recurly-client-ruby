@@ -64,6 +64,7 @@ module Recurly
       first_name
       last_name
       company_name
+      company
       accept_language
       hosted_login_token
       vat_number
@@ -83,6 +84,7 @@ module Recurly
       preferred_locale
     )
     alias to_param account_code
+    alias company_name company
 
     # Creates an invoice from the pending charges on the account.
     # Raises an error if it fails.
