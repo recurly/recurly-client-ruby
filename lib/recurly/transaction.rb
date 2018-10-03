@@ -40,6 +40,7 @@ module Recurly
       cvv_result
       avs_result
       avs_result_street
+      avs_result_postal
       created_at
       updated_at
       details
@@ -57,6 +58,18 @@ module Recurly
       origin
       message
       approval_code
+      date
+      gateway
+      gateway_error_codes
+      invoice_id
+      invoice_number
+      invoice_number_prefix
+      failure_type
+      billing_phone
+      billing_postal
+      billing_country
+      subscription_id
+      manually_entered
     )
     alias to_param uuid
     alias fraud_info fraud

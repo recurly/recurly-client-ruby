@@ -30,6 +30,9 @@ module Recurly
       unit_amount_in_cents
       updated_at
       canceled_at
+      gifter_account_code
+      recipient_account_code
+      invoice_number
     )
     alias to_param id
 

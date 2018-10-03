@@ -104,6 +104,10 @@ module Recurly
       origin
       credit_customer_notes
       refund_method
+      subscription_id
+      subscription_ids
+      dunning_events_count
+      final_dunning_event
     )
     alias to_param invoice_number_with_prefix
 

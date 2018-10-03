@@ -11,20 +11,41 @@
   </account>
   <invoice>
     <uuid>inv-7wr0r2xuawwCjO</uuid>
-    <subscription_id>396e4e17640ca516c2f3a84e47ae91dd</subscription_id>
+    <subscription_ids type="array">
+      <subscription_id>4110792b3b01967d854f674b7282f542</subscription_id>
+    </subscription_ids>
     <state>failed</state>
+    <origin>renewal</origin>
     <invoice_number_prefix></invoice_number_prefix>
     <invoice_number type="integer">781002</invoice_number>
+    <address>
+      <address1></address1>
+      <address2></address2>
+      <city></city>
+      <state></state>
+      <zip></zip>
+      <country></country>
+      <phone></phone>
+    </address>
     <po_number></po_number>
     <vat_number nil="true"></vat_number>
+    <balance_in_cents type="integer">2499</balance_in_cents>
     <total_in_cents type="integer">2499</total_in_cents>
+    <tax_in_cents type="integer">0</tax_in_cents>
+    <subtotal_in_cents type="integer">4500</subtotal_in_cents>
+    <subtotal_before_discount_in_cents type="integer">4500</subtotal_before_discount_in_cents>
+    <discount_in_cents type="integer">0</discount_in_cents>
     <currency>USD</currency>
-    <date type="datetime">2016-10-26T16:00:12Z</date>
+    <customer_notes>Thanks for your business!</customer_notes>
+    <created_at type="datetime">2018-01-09T16:47:43Z</created_at>
+    <updated_at type="datetime">2018-02-12T16:50:23Z</updated_at>
     <closed_at type="datetime">2016-10-27T16:00:26Z</closed_at>
     <net_terms type="integer">0</net_terms>
     <collection_method>automatic</collection_method>
-    <due_at type="datetime">2016-10-26T16:00:12Z</due_at>
+    <terms_and_conditions></terms_and_conditions>
+    <due_on type="datetime">2018-02-09T16:47:43Z</due_on>
     <dunning_events_count type="integer">2</dunning_events_count>
+    <final_dunning_event type="boolean">false</final_dunning_event>
   </invoice>
   <subscription>
     <plan>
@@ -35,7 +56,26 @@
     <state>active</state>
     <quantity type="integer">1</quantity>
     <total_amount_in_cents type="integer">2499</total_amount_in_cents>
-    <subscription_add_ons type="array"/>
+    <subscription_add_ons type="array">
+      <subscription_add_on>
+        <add_on_code>training_classes</add_on_code>
+        <name>Training Classes</name>
+        <quantity type="integer">1</quantity>
+        <unit_amount_in_cents type="integer">700</unit_amount_in_cents>
+        <add_on_type>fixed</add_on_type>
+        <usage_percentage nil="true"></usage_percentage>
+        <measured_unit_id nil="true"></measured_unit_id>
+      </subscription_add_on>
+      <subscription_add_on>
+        <add_on_code>executive-brief</add_on_code>
+        <name>Executive Brief</name>
+        <quantity type="integer">1</quantity>
+        <unit_amount_in_cents type="integer">2300</unit_amount_in_cents>
+        <add_on_type>fixed</add_on_type>
+        <usage_percentage nil="true"></usage_percentage>
+        <measured_unit_id nil="true"></measured_unit_id>
+      </subscription_add_on>
+    </subscription_add_ons>
     <activated_at type="datetime">2016-10-26T05:42:27Z</activated_at>
     <canceled_at type="datetime" nil="true"></canceled_at>
     <expires_at type="datetime" nil="true"></expires_at>

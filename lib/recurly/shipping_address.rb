@@ -14,8 +14,12 @@ module Recurly
       phone
       nickname
       company
+      company_name
       email
       geo_code
+      vat_number
+      street1
+      street2
     )
     alias to_param address1
   end

@@ -92,6 +92,8 @@ module Recurly
       next_bill_date
       current_term_started_at
       current_term_ends_at
+      total_amount_in_cents
+      resume_at
     )
     alias to_param uuid
 

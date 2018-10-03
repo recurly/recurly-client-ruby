@@ -15,6 +15,10 @@ module Recurly
       billed_at
       created_at
       updated_at
+      subscription_id
+      add_on_code
+      measured_unit_id
+      modified_at
     )
 
     # Usages are only writeable and readable through {SubscriptionAddOns} instances.
