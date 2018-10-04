@@ -47,6 +47,18 @@ describe Recurly::API::ResponseError do
           error.send(:xml).must_be_instance_of Recurly::XML
         end
       end
+
+      if ENV.fetch('XML', 'rexml') == 'rexml'
+        describe "when using REXML and response body is not valid XML" do
+          let(:html) { "<html><body><hr></body></html>" }
+
+          before { 3.times { response.expect :body, html } }
+
+          it "must return nil" do
+            error.send(:xml).must_equal nil
+          end
+        end
+      end
     end
   end
 end
