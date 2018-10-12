@@ -6,6 +6,10 @@ module Recurly
       #   @return [String] The unique identifier of the account.
       define_attribute :code, String
 
+      # @!attribute company
+      #   @return [String]
+      define_attribute :company, String
+
       # @!attribute email
       #   @return [String] The email address used for communicating with this customer.
       define_attribute :email, String

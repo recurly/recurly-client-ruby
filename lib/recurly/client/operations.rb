@@ -1,7 +1,7 @@
 module Recurly
   class Client
     def api_version
-      "v2018-06-06"
+      "v2018-08-09"
     end
 
     # List sites
@@ -539,6 +539,42 @@ module Recurly
       pager(path, **options)
     end
 
+    # List an account's child accounts
+    #
+    # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
+    # @param ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1+.
+    #
+    #   *Important notes:*
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    # @param limit [Integer] Limit number of records 1-200.
+    # @param order [String] Sort order.
+    # @param sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param subscriber [String] Filter accounts accounts with or without a subscription in the +active+,
+    #   +canceled+, or +future+ state.
+    #
+    # @param past_due [String] Filter for accounts with an invoice in the +past_due+ state.
+    # @return [Pager<Resources::Account>] A list of an account's child accounts.
+    def list_child_accounts(account_id:, **options)
+      path = interpolate_path("/sites/{site_id}/accounts/{account_id}/accounts", site_id: site_id, account_id: account_id)
+      pager(path, **options)
+    end
+
     # List a site's account acquisition data
     #
     # @param ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -774,6 +810,16 @@ module Recurly
     def get_invoice(invoice_id:)
       path = interpolate_path("/sites/{site_id}/invoices/{invoice_id}", site_id: site_id, invoice_id: invoice_id)
       get(path)
+    end
+
+    # Update an invoice
+    #
+    # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
+    # @param body [Requests::InvoiceUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceUpdatable}
+    # @return [Resources::Invoice] An invoice.
+    def put_invoice(invoice_id:, body:)
+      path = interpolate_path("/sites/{site_id}/invoices/{invoice_id}", site_id: site_id, invoice_id: invoice_id)
+      put(path, body, Requests::InvoiceUpdatable)
     end
 
     # Collect a pending or past due, automatic invoice
