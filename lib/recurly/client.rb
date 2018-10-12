@@ -190,7 +190,7 @@ module Recurly
         options[:ssl][:ca_file] = File.join(File.dirname(__FILE__), '../data/ca-certificates.crt')
       end
 
-      @conn = Faraday.new(nil, options) do |faraday|
+      @conn = Faraday.new(options) do |faraday|
         if @log_level == Logger::INFO
           faraday.response :logger
         end
