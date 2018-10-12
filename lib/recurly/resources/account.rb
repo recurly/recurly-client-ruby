@@ -58,6 +58,10 @@ module Recurly
       #   @return [String] Object type
       define_attribute :object, String, {:read_only => true}
 
+      # @!attribute parent_account_id
+      #   @return [String] The UUID of the parent account associated with this account.
+      define_attribute :parent_account_id, String
+
       # @!attribute preferred_locale
       #   @return [String] Used to determine the language and locale of emails sent on behalf of the merchant to the customer.
       define_attribute :preferred_locale, String, {:enum => ["da-DK", "de-CH", "de-DE", "en-AU", "en-CA", "en-GB", "en-NZ", "en-US", "es-ES", "es-MX", "es-US", "fr-CA", "fr-FR", "hi-IN", "ja-JP", "nl-BE", "nl-NL", "pt-BR", "pt-PT", "ru-RU", "tr-TR", "zh-CN"]}

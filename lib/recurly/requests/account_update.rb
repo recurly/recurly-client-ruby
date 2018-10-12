@@ -34,6 +34,14 @@ module Recurly
       #   @return [String]
       define_attribute :last_name, String
 
+      # @!attribute parent_account_code
+      #   @return [String] The account code of the parent account to be associated with this account. Passing an empty value removes any existing parent association from this account. If both `parent_account_code` and `parent_account_id` are passed, the non-blank value in `parent_account_id` will be used. Only one level of parent child relationship is allowed. You cannot assign a parent account that itself has a parent account.
+      define_attribute :parent_account_code, String
+
+      # @!attribute parent_account_id
+      #   @return [String] The UUID of the parent account to be associated with this account. Passing an empty value removes any existing parent association from this account. If both `parent_account_code` and `parent_account_id` are passed, the non-blank value in `parent_account_id` will be used. Only one level of parent child relationship is allowed. You cannot assign a parent account that itself has a parent account.
+      define_attribute :parent_account_id, String
+
       # @!attribute preferred_locale
       #   @return [String] Used to determine the language and locale of emails sent on behalf of the merchant to the customer. The list of locales is restricted to those the merchant has enabled on the site.
       define_attribute :preferred_locale, String, {:enum => ["da-DK", "de-CH", "de-DE", "en-AU", "en-CA", "en-GB", "en-NZ", "en-US", "es-ES", "es-MX", "es-US", "fr-CA", "fr-FR", "hi-IN", "ja-JP", "nl-BE", "nl-NL", "pt-BR", "pt-PT", "ru-RU", "tr-TR", "zh-CN"]}
