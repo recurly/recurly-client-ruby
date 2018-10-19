@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -e
+
+function check_for_command {
+  if ! hash eval "$1" 2>/dev/null; then
+    echo "✖ Could not find '$1'" 
+    exit 1
+  fi
+  echo "✓ Found $1"
+}
+
+check_for_command "ruby"
+check_for_command "bundle"
+
+RUBY_VERSION=$(ruby --version)
+RUBY_MAJOR=$(ruby --version | cut -d' ' -f2 | cut -d'.' -f1)
+RUBY_MINOR=$(ruby --version | cut -d' ' -f2 | cut -d'.' -f2)
+
+function unsupported_ruby_version {
+  echo "✖ Unsupported ruby version is ${RUBY_VERSION}"
+  exit 1
+}
+
+if [ "$RUBY_MAJOR" -lt "2" ] || [ "$RUBY_MINOR" -lt "3" ]; then
+  unsupported_ruby_version
+else
+  echo "✓ Version ${RUBY_VERSION} is compatible"
+fi
