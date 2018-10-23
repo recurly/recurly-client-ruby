@@ -5,6 +5,8 @@ module Recurly
     module REXMLAdapter
       def initialize xml
         @root = ::REXML::Document.new(xml).root
+      rescue REXML::ParseException
+        raise ParseError
       end
 
       def add_element name, value = nil

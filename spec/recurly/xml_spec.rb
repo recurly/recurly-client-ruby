@@ -1,6 +1,14 @@
 require 'spec_helper'
 
 describe Recurly::XML do
+  describe ".initialize" do
+    describe "when malformed XML is passed in" do
+      it "raises a Recurly::XML::ParseError" do
+        proc { Recurly::XML.new('<unclosed-root>') }.must_raise Recurly::XML::ParseError
+      end
+    end
+  end
+
   describe ".filter" do
     it "must filter sensitive data only on number and verification_value" do
       [

@@ -1,5 +1,7 @@
 module Recurly
   class XML
+    ParseError = Class.new(StandardError)
+
     class << self
       def cast(el)
         # return nil if the `nil` attribute is present

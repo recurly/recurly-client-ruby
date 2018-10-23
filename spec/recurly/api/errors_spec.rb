@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Recurly::API::ResponseError do
   describe "#xml" do
-    let(:xml) { '<?xml version="1.0"?>' }
+    let(:xml) { '<?xml version="1.0"?><root/>' }
 
     describe "when response not assigned" do
       let(:error) { Recurly::API::ResponseError.new nil, nil }
@@ -48,15 +48,13 @@ describe Recurly::API::ResponseError do
         end
       end
 
-      if ENV.fetch('XML', 'rexml') == 'rexml'
-        describe "when using REXML and response body is not valid XML" do
-          let(:html) { "<html><body><hr></body></html>" }
+      describe "when using response body is not valid XML" do
+        let(:html) { "<html><body><hr></body></html>" }
 
-          before { 3.times { response.expect :body, html } }
+        before { 3.times { response.expect :body, html } }
 
-          it "must return nil" do
-            error.send(:xml).must_equal nil
-          end
+        it "must return nil" do
+          error.send(:xml).must_equal nil
         end
       end
     end
