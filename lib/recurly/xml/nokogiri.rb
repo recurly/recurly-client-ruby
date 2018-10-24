@@ -2,7 +2,9 @@ module Recurly
   class XML
     module NokogiriAdapter
       def initialize xml
-        @root = Nokogiri(xml).root
+        @root = Nokogiri::XML(xml) { |config| config.strict }.root
+      rescue Nokogiri::XML::SyntaxError
+        raise ParseError
       end
 
       def add_element name, value = nil
