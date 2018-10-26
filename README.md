@@ -22,19 +22,14 @@ speed boost) if it's available and loaded in your app's environment.
 
 ## Configuration
 
-If you're using Rails, you can generate an initializer with the following
-command:
-
-``` bash
-$ rails g recurly:config
-```
-
-If you're not using Rails, use the following template:
+Use the following template to configure Recurly:
 
 ``` ruby
 Recurly.subdomain      = ENV['RECURLY_SUBDOMAIN']
 Recurly.api_key        = ENV['RECURLY_API_KEY']
 ```
+
+> Note: In Rails, these would be added in an initializer `config/initializers/recurly.rb`.
 
 Configure the client library with
 [your API credentials](https://app.recurly.com/go/developer/api_access).
