@@ -1,6 +1,18 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.2"></a>
+## v2.17.2 (2018-10-30)
+
+This brings us up to API version 2.16. There are no breaking changes.
+
+- Remove Rails Generator mention in README.md [PR](https://github.com/recurly/recurly-client-ruby/pull/426)
+- Gracefully handle XML parsing errors [PR](https://github.com/recurly/recurly-client-ruby/pull/424)
+- Add missing webhook properties to models [PR](https://github.com/recurly/recurly-client-ruby/pull/422)
+- Do not assume cursor is an integer [PR](https://github.com/recurly/recurly-client-ruby/pull/421)
+- Fix bundler warnings [PR](https://github.com/recurly/recurly-client-ruby/pull/420)
+- Alias company and company_name [PR](https://github.com/recurly/recurly-client-ruby/pull/413)
+
 <a name="v2.17.1"></a>
 ## v2.17.1 (2018-09-25)
 
