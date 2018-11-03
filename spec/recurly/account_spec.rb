@@ -329,5 +329,10 @@ XML
       account.company_name.must_equal "My Company Inc."
       account.company.must_equal "My Company Inc."
     end
+
+    it 'should respond to company_name when company is not included in xml response' do
+      account = Account.from_xml '<account><company_name>My Company Inc.</company_name></account>'
+      account.company_name.must_equal 'My Company Inc.'
+    end
   end
 end

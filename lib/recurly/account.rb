@@ -85,7 +85,10 @@ module Recurly
       preferred_locale
     )
     alias to_param account_code
-    alias company_name company
+
+    def company_name
+      super || company
+    end
 
     # Creates an invoice from the pending charges on the account.
     # Raises an error if it fails.
