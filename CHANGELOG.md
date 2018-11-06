@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.3"></a>
+## v2.17.3 (2018-11-06)
+
+- Fix bug related to aliasing company and company_name [PR](https://github.com/recurly/recurly-client-ruby/pull/428)
+
 <a name="v2.17.2"></a>
 ## v2.17.2 (2018-10-30)
 
