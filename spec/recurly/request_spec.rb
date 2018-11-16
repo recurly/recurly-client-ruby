@@ -2,26 +2,6 @@ require "spec_helper"
 
 RSpec.describe Recurly::Request do
 
-  # These must be in the Recurly::Requests namespace
-  class Recurly::Requests::MySubRequest < Recurly::Request
-    define_attribute :a_string, String
-  end
-
-  # These must be in the Recurly::Requests namespace
-  class Recurly::Requests::MyRequest < Recurly::Request
-    define_attribute :a_string, String
-    define_attribute :a_hash, Hash
-    define_attribute :an_integer, Integer
-    define_attribute :a_float, Float
-    define_attribute :a_boolean, :Boolean
-    define_attribute :a_datetime, DateTime
-    define_attribute :a_string_array, Array, item_type: String
-
-    # Sub Requests
-    define_attribute :a_sub_request, :MySubRequest
-    define_attribute :a_sub_request_array, Array, item_type: :MySubRequest
-  end
-
   let(:hash_data) do
     {
       a_string: "A String",

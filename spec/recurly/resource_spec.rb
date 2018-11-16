@@ -2,26 +2,6 @@ require "spec_helper"
 
 RSpec.describe Recurly::Resource do
   context "with a valid resource" do
-    # These must be in the Recurly::Resources namespace
-    class Recurly::Resources::MySubResource < Recurly::Resource
-      define_attribute :a_string, String
-    end
-
-    # These must be in the Recurly::Resources namespace
-    class Recurly::Resources::MyResource < Recurly::Resource
-      define_attribute :a_string, String
-      define_attribute :a_hash, Hash
-      define_attribute :an_integer, Integer
-      define_attribute :a_float, Float
-      define_attribute :a_boolean, :Boolean
-      define_attribute :a_datetime, DateTime
-      define_attribute :a_string_array, Array, item_type: String
-
-      # Sub Resources
-      define_attribute :a_sub_resource, :MySubResource
-      define_attribute :a_sub_resource_array, Array, item_type: :MySubResource
-    end
-
     let(:json_data) do
       {
         "object" => "my_resource",

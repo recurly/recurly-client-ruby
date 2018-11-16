@@ -2,6 +2,7 @@ require 'bundler/setup'
 require 'simplecov'
 SimpleCov.start
 require 'recurly'
+require_relative './test_schemas'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
