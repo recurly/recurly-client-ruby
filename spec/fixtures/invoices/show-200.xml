@@ -26,6 +26,7 @@ Content-Type: application/xml; charset=utf-8
   <customer_notes>Some Customer Notes</customer_notes>
   <terms_and_conditions>Some Terms and Conditions</terms_and_conditions>
   <net_terms type="integer">0</net_terms>
+  <gateway_code>Gateway Code</gateway_code>
   <collection_method>automatic</collection_method>
   <subtotal_after_discount_in_cents type="integer">300</subtotal_after_discount_in_cents>
   <attempt_next_collection_at nil="nil"></attempt_next_collection_at>

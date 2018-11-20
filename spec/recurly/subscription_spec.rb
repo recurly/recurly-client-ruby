@@ -332,7 +332,8 @@ describe Subscription do
       notes = {
         customer_notes: 'Some New Customer Notes',
         terms_and_conditions: 'Some New Terms and Conditions',
-        vat_reverse_charge_notes: 'Some New Vat Reverse Charge Notes'
+        vat_reverse_charge_notes: 'Some New Vat Reverse Charge Notes',
+        gateway_code: 'Some Gateway Code'
       }
 
       subscription.update_notes(notes)
@@ -340,6 +341,7 @@ describe Subscription do
       subscription.customer_notes.must_equal notes[:customer_notes]
       subscription.terms_and_conditions.must_equal notes[:terms_and_conditions]
       subscription.vat_reverse_charge_notes.must_equal notes[:vat_reverse_charge_notes]
+      subscription.gateway_code.must_equal notes[:gateway_code]
     end
   end
 

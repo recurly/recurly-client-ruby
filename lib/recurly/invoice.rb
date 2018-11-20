@@ -108,6 +108,7 @@ module Recurly
       subscription_ids
       dunning_events_count
       final_dunning_event
+      gateway_code
     )
     alias to_param invoice_number_with_prefix
 
