@@ -48,7 +48,7 @@ Recurly::Client.new(subdomain: 'mysite-prod', api_key: API_KEY) do |client|
 end
 ```
 
-If you only plan on using the client for more than one site, you should initialize a new client for each site.
+If you plan on using the client for more than one site, you should initialize a new client for each site.
 
 ```ruby
 # Give a `site_id`
