@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<transaction_status_updated_notification>
+    <account>
+        <account_code>cd7fbd4816912a5051a1d7789b5424ae</account_code>
+        <username nil="true"></username>
+        <email>user@email.com</email>
+        <first_name nil="true"></first_name>
+        <last_name nil="true"></last_name>
+        <company_name nil="true"></company_name>
+        <phone nil="true"></phone>
+    </account>
+    <transaction>
+        <id>6a65f69ee11c3fdcd0682cd717222750</id>
+        <invoice_id>7378cb8b45c31f642a8f4bb334895b2c</invoice_id>
+        <invoice_number_prefix></invoice_number_prefix>
+        <invoice_number type="integer">1569</invoice_number>
+        <subscription_id nil="true"></subscription_id>
+        <subscription_ids type="array"/>
+        <action>authorization</action>
+        <date type="datetime">2018-08-04T12:43:10Z</date>
+        <gateway>test</gateway>
+        <payment_method>credit_card</payment_method>
+        <amount_in_cents type="integer">3608</amount_in_cents>
+        <status>success</status>
+        <message>Successful test transaction</message>
+        <gateway_error_codes nil="true"></gateway_error_codes>
+        <failure_type nil="true"></failure_type>
+        <reference>1483384</reference>
+        <source>transaction</source>
+        <cvv_result code=""></cvv_result>
+        <avs_result code="D">Street address and postal code match.</avs_result>
+        <avs_result_street nil="true"></avs_result_street>
+        <avs_result_postal nil="true"></avs_result_postal>
+        <billing_phone nil="true"></billing_phone>
+        <billing_postal>54321</billing_postal>
+        <billing_country>US</billing_country>
+        <test type="boolean">true</test>
+        <voidable type="boolean">true</voidable>
+        <refundable type="boolean">true</refundable>
+    </transaction>
+</transaction_status_updated_notification>

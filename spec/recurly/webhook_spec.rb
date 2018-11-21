@@ -106,8 +106,16 @@ describe Webhook do
       Webhook.parse(request 'transaction-authorized-notification').must_be_instance_of Webhook::TransactionAuthorizedNotification
     end
 
+    it "must return TransactionStatusUpdatedNotification instance" do
+      Webhook.parse(request 'transaction-status-updated-notification').must_be_instance_of Webhook::TransactionStatusUpdatedNotification
+    end
+
     it "must return UpdatedSubscriptionNotification instance" do
       Webhook.parse(request 'updated-subscription-notification').must_be_instance_of Webhook::UpdatedSubscriptionNotification
+    end
+
+    it "must return UpdatedInvoiceNotification instance" do
+      Webhook.parse(request 'updated-invoice-notification').must_be_instance_of Webhook::UpdatedInvoiceNotification
     end
 
     it "must return VoidPaymentNotification instance" do
