@@ -68,6 +68,8 @@ module Recurly
     autoload :NewUsageNotification,                 'recurly/webhook/new_usage_notification'
     autoload :TransactionAuthorizedNotification,    'recurly/webhook/transaction_authorized_notification'
     autoload :LowBalanceGiftCardNotification,       'recurly/webhook/low_balance_gift_card_notification'
+    autoload :TransactionStatusUpdatedNotification, 'recurly/webhook/transaction_status_updated_notification'
+    autoload :UpdatedInvoiceNotification,           'recurly/webhook/updated_invoice_notification'
     # This exception is raised if the Webhook Notification initialization fails
     class NotificationError < Error
     end
