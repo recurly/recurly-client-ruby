@@ -64,4 +64,25 @@ XML
     end
   end
 
+  describe 'marshal methods' do
+    it 'must return the same instance variables' do
+      stub_api_request(
+        :get, 'accounts/abcdef1234567890/billing_info', 'billing_info/show-200-bank-account'
+      )
+      billing_info = BillingInfo.find 'abcdef1234567890'
+      billing_info_from_dump = Marshal.load(Marshal.dump(billing_info))
+
+      billing_info.instance_variables.must_equal billing_info_from_dump.instance_variables
+    end
+
+    it 'must return the same values' do
+      stub_api_request(
+        :get, 'accounts/abcdef1234567890/billing_info', 'billing_info/show-200-bank-account'
+      )
+      billing_info = BillingInfo.find 'abcdef1234567890'
+      billing_info_from_dump = Marshal.load(Marshal.dump(billing_info))
+
+      billing_info.type.must_equal billing_info_from_dump.type
+    end
+  end
 end

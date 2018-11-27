@@ -2,7 +2,7 @@ HTTP/1.1 200 OK
 Content-Type: application/xml; charset=utf-8
 
 <?xml version="1.0" encoding="UTF-8"?>
-<transaction href="https://api.recurly.com/v2/transactions/abcdef1234567890">
+<transaction href="https://api.recurly.com/v2/transactions/abcdef1234567890" type="credit_card">
   <account href="https://api.recurly.com/v2/accounts/account"/>
   <original_transaction href="https://api.recurly.com/v2/transactions/0987654321fedcba"/>
   <subscription href="https://api.recurly.com/v2/subscriptions/0987654321fedcba"/>

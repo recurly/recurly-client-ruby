@@ -72,5 +72,36 @@ module Recurly
 
     # Adjustments are only writeable through an {Account} instance.
     embedded! true
+
+    # https://github.com/recurly/recurly-client-ruby/pull/436
+    def marshal_dump
+      [
+        @attributes.reject { |k, v| v.is_a?(Proc) },
+        @new_record,
+        @destroyed,
+        @uri,
+        @href,
+        changed_attributes,
+        previous_changes,
+        response,
+        etag,
+        links,
+        @type
+      ]
+    end
+
+    def marshal_load(serialization)
+      @attributes,
+        @new_record,
+        @destroyed,
+        @uri,
+        @href,
+        @changed_attributes,
+        @previous_changes,
+        @response,
+        @etag,
+        @links,
+        @type = serialization
+    end
   end
 end
