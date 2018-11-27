@@ -97,5 +97,25 @@ describe Adjustment do
       adjustment = Adjustment.find 'abcdef1234567890'
       adjustment.subscription.must_equal nil
     end
+
+    describe '#marshal_dump' do
+      it 'must return the same instance variables' do
+        stub_api_request :get, 'adjustments/abcdef1234567890', 'adjustments/show-200-nosub'
+
+        adjustment = Adjustment.find 'abcdef1234567890'
+        adjustment_from_dump = Marshal.load(Marshal.dump(adjustment))
+
+        adjustment.instance_variables.must_equal adjustment_from_dump.instance_variables
+      end
+
+      it 'must return the same values' do
+        stub_api_request :get, 'adjustments/abcdef1234567890', 'adjustments/show-200-nosub'
+
+        adjustment = Adjustment.find 'abcdef1234567890'
+        adjustment_from_dump = Marshal.load(Marshal.dump(adjustment))
+
+        adjustment.type.must_equal adjustment_from_dump.type
+      end
+    end
   end
 end
