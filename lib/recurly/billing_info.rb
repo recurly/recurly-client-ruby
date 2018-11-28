@@ -76,10 +76,5 @@ module Recurly
 
     # Billing info is only writeable through an {Account} instance.
     embedded!
-
-    # https://github.com/recurly/recurly-client-ruby/pull/436
-    def marshal_dump
-      super << @type
-    end
   end
 end

@@ -125,10 +125,5 @@ module Recurly
       end
       super attributes
     end
-
-    # https://github.com/recurly/recurly-client-ruby/pull/436
-    def marshal_dump
-      super << type
-    end
   end
 end

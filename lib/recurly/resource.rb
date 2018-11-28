@@ -1004,7 +1004,8 @@ module Recurly
         previous_changes,
         response,
         etag,
-        links
+        links,
+        @type
       ]
     end
 
@@ -1025,7 +1026,7 @@ module Recurly
     # @return [String]
     def inspect(attributes = self.class.attribute_names.to_a)
       string = "#<#{self.class}"
-      string << "##@type" if instance_variable_defined? :@type
+      string << "##@type" if respond_to?(:type)
       attributes += %w(errors) if errors.any?
       string << " %s" % attributes.map { |k|
         "#{k}: #{self.send(k).inspect}"

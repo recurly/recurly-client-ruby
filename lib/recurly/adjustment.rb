@@ -72,10 +72,5 @@ module Recurly
 
     # Adjustments are only writeable through an {Account} instance.
     embedded! true
-
-    # https://github.com/recurly/recurly-client-ruby/pull/436
-    def marshal_dump
-      super << @type
-    end
   end
 end
