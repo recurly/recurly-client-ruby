@@ -54,22 +54,4 @@ describe Transaction do
       proc { transaction.save }.must_raise Error
     end
   end
-
-  describe 'marshal methods' do
-    it 'must return the same instance variables' do
-      stub_api_request(:get, 'transactions/abcdef1234567890', 'transactions/show-200')
-      transaction = Transaction.find 'abcdef1234567890'
-      transaction_from_dump = Marshal.load(Marshal.dump(transaction))
-
-      transaction.instance_variables.must_equal transaction_from_dump.instance_variables
-    end
-
-    it 'must return the same values' do
-      stub_api_request(:get, 'transactions/abcdef1234567890', 'transactions/show-200')
-      transaction = Transaction.find 'abcdef1234567890'
-      transaction_from_dump = Marshal.load(Marshal.dump(transaction))
-
-      transaction.type.must_equal transaction_from_dump.type
-    end
-  end
 end

@@ -1018,7 +1018,8 @@ module Recurly
         @previous_changes,
         @response,
         @etag,
-        @links = serialization
+        @links,
+        @type = serialization
     end
 
     # @return [String]

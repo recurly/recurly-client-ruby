@@ -23,7 +23,6 @@ Content-Type: application/xml; charset=utf-8
   <currency>USD</currency>
   <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
   <tax_type>usst</tax_type>
-  <type>charge</type>
   <customer_notes>Some Customer Notes</customer_notes>
   <terms_and_conditions>Some Terms and Conditions</terms_and_conditions>
   <net_terms type="integer">0</net_terms>

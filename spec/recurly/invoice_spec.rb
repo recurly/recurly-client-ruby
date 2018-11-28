@@ -201,19 +201,4 @@ describe Invoice do
       invoice.net_terms.must_equal 1
     end
   end
-
-  describe 'marshal methods' do
-    it 'must return the same instance variables' do
-      stub_api_request :get, 'invoices/show-invoice', 'invoices/show-200'
-      invoice = Invoice.find 'show-invoice'
-      invoice_from_dump = Marshal.load(Marshal.dump(invoice))
-      invoice.instance_variables.must_equal invoice_from_dump.instance_variables
-    end
-     it 'must return the same values' do
-      stub_api_request :get, 'invoices/show-invoice', 'invoices/show-200'
-      invoice = Invoice.find 'show-invoice'
-      invoice_from_dump = Marshal.load(Marshal.dump(invoice))
-      invoice.type.must_equal invoice_from_dump.type
-    end
-  end
 end
