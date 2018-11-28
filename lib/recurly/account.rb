@@ -71,6 +71,7 @@ module Recurly
       vat_number
       address
       tax_exempt
+      exemption_certificate
       entity_use_code
       created_at
       updated_at
