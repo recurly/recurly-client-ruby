@@ -27,4 +27,22 @@ describe CreditPayment do
       payment.applied_to_invoice.must_be_instance_of Invoice
     end
   end
+
+  describe 'marshal methods' do
+    it 'must return the same instance variables' do
+      stub_api_request :get, 'credit_payments/12345', 'credit_payments/show-200'
+      credit_payment = CreditPayment.find('12345')
+
+      credit_payment_from_dump = Marshal.load(Marshal.dump(credit_payment))
+      credit_payment.instance_variables.must_equal credit_payment_from_dump.instance_variables
+    end
+
+    it 'must return the same values' do
+      stub_api_request :get, 'credit_payments/12345', 'credit_payments/show-200'
+      credit_payment = CreditPayment.find('12345')
+
+      credit_payment_from_dump = Marshal.load(Marshal.dump(credit_payment))
+      credit_payment.type.must_equal credit_payment_from_dump.type
+    end
+  end
 end

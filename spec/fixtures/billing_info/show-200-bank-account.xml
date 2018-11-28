@@ -2,7 +2,7 @@ HTTP/1.1 200 OK
 Content-Type: application/xml; charset=utf-8
 
 <?xml version="1.0" encoding="UTF-8"?>
-<billing_info href="https://api.recurly.com/v2/accounts/abcdef1234567890/billing_info">
+<billing_info href="https://api.recurly.com/v2/accounts/abcdef1234567890/billing_info" type="bank_account">
   <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
   <name_on_account>Larry David</name_on_account>
   <first_name nil="nil"></first_name>
