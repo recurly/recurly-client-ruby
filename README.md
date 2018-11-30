@@ -90,7 +90,7 @@ will be used.
 
 ## Supported Ruby Versions
 
-We are currently supporting ruby language versions `2.3` and above. `1.9`, `2.0`, `2.1`, and `2.3` may still work but are not officially supported.
+We are currently supporting ruby language versions `2.3` and above. `1.9`, `2.0`, `2.1`, and `2.2` may still work but are not officially supported.
 
 If you are still using one of these rubies, you should know that support for them ended in
 2015 (1.9), 2016 (2.0), 2017 (2.1), 2018 (2.2) and continuing to use them is a security risk.
