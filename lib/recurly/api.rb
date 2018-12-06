@@ -85,7 +85,7 @@ module Recurly
 
       # @return [String]
       def user_agent
-        "Recurly/#{Version}; #{RUBY_DESCRIPTION}"
+        "Recurly/#{Version}; #{RUBY_DESCRIPTION}; #{OpenSSL::OPENSSL_LIBRARY_VERSION}"
       end
 
       private
