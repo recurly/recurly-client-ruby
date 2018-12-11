@@ -182,6 +182,7 @@ describe Invoice do
       invoice.customer_notes = "Oh, well, that's one way to pull a tooth out!"
       invoice.vat_reverse_charge_notes = "can't be changed when invoice was not a reverse charge"
       invoice.net_terms = 1
+      invoice.gateway_code = "Some Gateway Code"
       invoice.save()
 
       invoice.address.must_be_instance_of Address
@@ -199,6 +200,7 @@ describe Invoice do
       invoice.customer_notes.must_equal "Oh, well, that's one way to pull a tooth out!"
       invoice.vat_reverse_charge_notes.must_equal "can't be changed when invoice was not a reverse charge"
       invoice.net_terms.must_equal 1
+      invoice.gateway_code.must_equal "Some Gateway Code"
     end
   end
 end

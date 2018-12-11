@@ -94,6 +94,7 @@ module Recurly
       current_term_ends_at
       total_amount_in_cents
       resume_at
+      gateway_code
     )
     alias to_param uuid
 

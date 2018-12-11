@@ -21,6 +21,7 @@ Content-Type: application/xml; charset=utf-8
   <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
   <vat_number>12345-67</vat_number>
   <tax_exempt type="boolean">true</tax_exempt>
+  <exemption_certificate>Some Certificate</exemption_certificate>
   <address>
     <address1>123 Main St.</address1>
     <address2 nil="nil"></address2>

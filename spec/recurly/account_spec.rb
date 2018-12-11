@@ -119,6 +119,12 @@ describe Account do
       account.tax_exempt?.must_equal true
     end
 
+    it 'must return an account with exemption certificate' do
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200-taxed'
+      account = Account.find 'abcdef1234567890'
+      account.exemption_certificate.must_equal 'Some Certificate'
+    end
+
     it "must raise an exception when unavailable" do
       stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-404'
       proc { Account.find 'abcdef1234567890' }.must_raise Resource::NotFound

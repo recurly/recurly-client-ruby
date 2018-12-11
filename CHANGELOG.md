@@ -1,6 +1,18 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.4"></a>
+## v2.17.4 (2018-12-11)
+
+This brings us up to API version 2.17. There are no breaking changes.
+
+- Add exemption_certificate to Account [PR](https://github.com/recurly/recurly-client-ruby/pull/434)
+- Add gateway_code to Invoice and Subscription [PR](https://github.com/recurly/recurly-client-ruby/pull/432)
+- Add transaction_status_updated_notification and updated_invoice_notification webhooks [PR](https://github.com/recurly/recurly-client-ruby/pull/433)
+- Fix missing type instance variable [PR](https://github.com/recurly/recurly-client-ruby/pull/436)
+- Fix README [PR](https://github.com/recurly/recurly-client-ruby/pull/437)
+- Add OpenSSL version to user agent [PR](https://github.com/recurly/recurly-client-ruby/pull/438)
+
 <a name="v2.17.3"></a>
 ## v2.17.3 (2018-11-06)
 
