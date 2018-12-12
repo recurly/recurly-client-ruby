@@ -46,7 +46,7 @@ This brings us up to API version 2.15. There are no breaking changes.
 
 ### Upgrade Notes
 
-This release contains one breaking change. Older Recurly.js token signing is not longer supported. You should upgrade to version 4 of Recurly.js: https://dev.recurly.com/docs/recurlyjs
+This release contains one breaking change. Older Recurly.js token signing is no longer supported. You should upgrade to version 4 of Recurly.js: https://dev.recurly.com/docs/recurlyjs
 The `js` module is still around to support storing the `public_key`.
 
 <a name="v2.16.2"></a>
