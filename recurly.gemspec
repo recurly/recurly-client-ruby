@@ -35,7 +35,8 @@ Gem::Specification.new do |s|
     s.add_development_dependency 'yard', '~> 0.9.9'
     s.add_development_dependency 'redcarpet', '~> 3.4', '>= 3.4.0'
     s.add_development_dependency 'racc', '~> 1'
-    s.add_development_dependency 'pry', '~> 0'
+    s.add_development_dependency 'pry', '< 0.11.0', '>= 0.9.10'
+    s.add_development_dependency 'pry-nav', '~> 0.2.4'
 
   end
 end
