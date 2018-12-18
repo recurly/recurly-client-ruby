@@ -89,9 +89,8 @@ if defined? Nokogiri
   insecure_noko_msg = <<-MSG
 
     You are attempting to use an insecure version of
-    nokogiri on an insecure version of ruby. Please see
-    the documentation on supported versions for more information:
-    https://github.com/recurly/recurly-client-ruby#supported-versions
+    nokogiri. Please see the documentation on supported versions for more information:
+    https://github.com/recurly/recurly-client-ruby#nokogiri-support
 
   MSG
   if RUBY_VERSION < "2.1.0"
