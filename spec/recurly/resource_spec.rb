@@ -146,6 +146,12 @@ XML
         stub_api_request(:post, 'resources') { XML[422] }
         proc { resource.create! }.must_raise Resource::Invalid
       end
+
+      it "must have an exception message when invalid" do
+        stub_api_request(:post, 'resources', 'subscriptions/create-422')
+        error = proc { resource.create! }.must_raise Resource::Invalid
+        error.message.must_equal 'account Cannot purchase on canceled account'
+      end
     end
 
     describe ".from_xml" do

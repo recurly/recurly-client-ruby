@@ -1038,9 +1038,17 @@ module Recurly
     def apply_errors(exception)
       @response = exception.response
       document = XML.new exception.response.body
-      document.each_element 'error' do |el|
-        attribute_path = el.attribute('field').value.split '.'
-        invalid! attribute_path[1, attribute_path.length], el.text
+
+      if document.root.name == 'error'
+        # Single error is returned from the API
+        attribute_path = document['symbol'].text.split '.'
+        invalid! [attribute_path[1]], document['description'].text
+      else
+        # Array of errors was returned by the API
+        document.each_element 'error' do |el|
+          attribute_path = el.attribute('field').value.split '.'
+          invalid! attribute_path[1, attribute_path.length], el.text
+        end
       end
     end
 
