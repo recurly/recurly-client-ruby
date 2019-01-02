@@ -106,6 +106,12 @@ For now, we are still running the tests on 2.0 and below but without `nokogiri` 
 no longer supported on 1.9 or 2.0 and has patched known vulnerabilities since dropping support.
 If you must run one of these rubies (this includes jruby1.7), you must use rexml and not nokogiri.
 
+## OpenSSL Support
+
+Please ensure that you are using a supported version of OpenSSL. The [release strategy](https://www.openssl.org/policies/releasestrat.html) lists EOL dates of older versions.
+You can view the latest versions of OpenSSL [here](https://www.openssl.org/). Note that the Recurly API may not work properly with old, unsupported versions of OpenSSL.
+For security reasons, it is strongly encouraged to use the latest version of OpenSSL.
+
 ## Usage
 
 Instructions and examples are available on
