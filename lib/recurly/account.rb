@@ -42,6 +42,12 @@ module Recurly
     # @return [AccountBalance, nil]
     has_one :account_balance, readonly: true
 
+    # @return [Account, nil]
+    belongs_to :parent_account, class_name: :Account
+
+    # @return [Pager<Account>, []] A pager that yields Account for persisted
+    has_many :child_accounts, class_name: :Account
+
     # @return [Pager<CreditPayment>, []]
     has_many :credit_payments, class_name: :CreditPayment, readonly: true
 
@@ -60,6 +66,7 @@ module Recurly
 
     define_attribute_methods %w(
       account_code
+      parent_account_code
       state
       username
       email

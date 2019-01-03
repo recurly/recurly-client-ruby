@@ -356,4 +356,51 @@ XML
       acquisition.campaign.must_equal "mailchimp67a904de95.0914d8f4b4"
     end
   end
+
+  describe 'account hierarchy' do
+    it 'should associate parent account on child creation' do
+      stub_api_request :post, 'accounts', 'accounts/hierarchy/create-201'
+      stub_api_request :get, 'accounts/1234567890', 'accounts/hierarchy/show-parent-200'
+      account = Account.create(
+        :account_code => 'abcdef1234567890',
+        :parent_account_code => '1234567890'
+      )
+      account.parent_account.must_be_instance_of Account
+      account.parent_account.account_code.must_equal '1234567890'
+    end
+
+    it 'should add parent account via update' do
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+      stub_api_request :put, 'accounts/abcdef1234567890', 'accounts/hierarchy/update-200'
+      stub_api_request :get, 'accounts/1234567890', 'accounts/hierarchy/show-parent-200'
+
+      account = Account.find 'abcdef1234567890'
+      account.parent_account_code = '1234567890'
+      account.save!
+
+      account.parent_account.must_be_instance_of Account
+      account.parent_account.account_code.must_equal '1234567890'
+    end
+
+    it 'should remove parent account via update' do
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/hierarchy/show-child-200'
+      stub_api_request :put, 'accounts/abcdef1234567890', 'accounts/hierarchy/update-no-parent-200'
+
+      account = Account.find 'abcdef1234567890'
+      account.parent_account_code = ''
+      account.save!
+
+      account.parent_account.must_be_nil
+    end
+
+    it 'should list child accounts' do
+      stub_api_request :get, 'accounts/1234567890', 'accounts/hierarchy/show-parent-200'
+      stub_api_request :get, 'accounts/1234567890/child_accounts', 'accounts/hierarchy/show-children-200'
+
+      account = Account.find '1234567890'
+      account.child_accounts.must_be_instance_of Resource::Pager
+      account.child_accounts.first.must_be_instance_of Account
+      account.child_accounts.first.account_code.must_equal 'abcdef1234567890'
+    end
+  end
 end
