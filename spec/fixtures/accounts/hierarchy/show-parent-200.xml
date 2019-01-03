@@ -1,0 +1,47 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<account href="https://api.recurly.com/v2/accounts/1234567890">
+  <child_accounts href="https://api.recurly.com/v2/accounts/1234567890/child_accounts"/>
+  <adjustments href="https://api.recurly.com/v2/accounts/1234567890/adjustments"/>
+  <account_balance href="https://api.recurly.com/v2/accounts/1234567890/balance"/>
+  <billing_info href="https://api.recurly.com/v2/accounts/1234567890/billing_info"/>
+  <invoices href="https://api.recurly.com/v2/accounts/1234567890/invoices"/>
+  <shipping_addresses href="https://api.recurly.com/v2/accounts/1234567890/shipping_addresses"/>
+  <subscriptions href="https://api.recurly.com/v2/accounts/1234567890/subscriptions"/>
+  <transactions href="https://api.recurly.com/v2/accounts/1234567890/transactions"/>
+  <notes href="https://api.recurly.com/v2/accounts/1234567890/notes"/>
+  <account_code>1234567890</account_code>
+  <state>active</state>
+  <username nil="nil"></username>
+  <email nil="nil"></email>
+  <cc_emails nil="nil"></cc_emails>
+  <first_name nil="nil"></first_name>
+  <last_name nil="nil"></last_name>
+  <company_name nil="nil"></company_name>
+  <vat_number nil="nil"></vat_number>
+  <preferred_locale nil="nil"></preferred_locale>
+  <address>
+    <address1 nil="nil"></address1>
+    <address2 nil="nil"></address2>
+    <city nil="nil"></city>
+    <state nil="nil"></state>
+    <zip nil="nil"></zip>
+    <country nil="nil"></country>
+    <phone nil="nil"></phone>
+  </address>
+  <accept_language nil="nil"></accept_language>
+  <created_at type="datetime">2018-09-26T15:23:12Z</created_at>
+  <updated_at type="datetime">2018-12-26T15:25:20Z</updated_at>
+  <closed_at nil="nil"></closed_at>
+  <custom_fields type="array">
+  </custom_fields>
+  <has_live_subscription type="boolean">true</has_live_subscription>
+  <has_active_subscription type="boolean">true</has_active_subscription>
+  <has_future_subscription type="boolean">false</has_future_subscription>
+  <has_canceled_subscription type="boolean">false</has_canceled_subscription>
+  <has_past_due_invoice type="boolean">false</has_past_due_invoice>
+  <has_paused_subscription type="boolean">false</has_paused_subscription>
+  <bill_to>self</bill_to>
+</account>
