@@ -1,6 +1,9 @@
 require 'bundler/setup'
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  # we will ignore this generated file
+  add_filter "lib/recurly/client/operations.rb"
+end
 require 'recurly'
 require_relative './test_schemas'
 

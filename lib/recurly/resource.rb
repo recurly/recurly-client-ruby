@@ -20,16 +20,12 @@ module Recurly
 
     protected
 
-    def initialize(attributes = {})
-      @attributes = attributes.clone
-    end
-
-    def to_s
-      self.inspect
-    end
-
     def schema
       self.class.schema
+    end
+
+    def initialize(attributes = {})
+      @attributes = attributes.clone
     end
   end
 end

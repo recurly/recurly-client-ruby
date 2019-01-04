@@ -152,7 +152,7 @@ module Recurly
       @rate_limit = response.headers['x-ratelimit-limit'].to_i
       @rate_limit_remaining = response.headers['x-ratelimit-remaining'].to_i
       @rate_limit_reset = Time.at(response.headers['x-ratelimit-reset'].to_i).to_datetime
-      if !@_ignore_deprecation_warning && response.headers['Recurly-Deprecated'].upcase == 'TRUE'
+      if !@_ignore_deprecation_warning && response.headers['Recurly-Deprecated']&.upcase == 'TRUE'
         puts "[recurly-client-ruby] WARNING: Your current API version \"#{api_version}\" is deprecated and will be sunset on #{response.headers['Recurly-Sunset-Date']}"
       end
       response

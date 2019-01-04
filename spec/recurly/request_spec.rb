@@ -18,6 +18,18 @@ RSpec.describe Recurly::Request do
 
   subject { Recurly::Requests::MyRequest.new(hash_data) }
 
+  describe "==" do
+    it "should be true when two requests have the same attributes" do
+      other = Recurly::Requests::MyRequest.new(hash_data)
+      expect(subject).to eq(other)
+    end
+    it "should be false when two requests have the different attributes" do
+      other = Recurly::Requests::MyRequest.new(hash_data)
+      other.a_string = "Some other string"
+      expect(subject).to_not eq(other)
+    end
+  end
+
   describe "#validate!" do
     context "with valid request body" do
       it "should not raise an error" do

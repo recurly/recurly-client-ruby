@@ -113,7 +113,11 @@ module Recurly
     end
 
     def build_path(path, options)
-      "#{path}?#{URI.encode_www_form(options)}"
+      if options.empty?
+        path
+      else
+        "#{path}?#{URI.encode_www_form(options)}"
+      end
     end
   end
 end
