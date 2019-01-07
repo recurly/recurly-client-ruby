@@ -1,3 +1,7 @@
+# This file is automatically created by Recurly's OpenAPI generation process
+# and thus any edits you make by hand will be lost. If you wish to make a
+# change to this file, please file a Github issue explaining the changes you
+# need and we will usher them to the appropriate places.
 module Recurly
   module Resources
     class Transaction < Resource
@@ -21,6 +25,10 @@ module Recurly
       # @!attribute collected_at
       #   @return [DateTime] Collected at, or if not collected yet, the time the transaction was created.
       define_attribute :collected_at, DateTime
+
+      # @!attribute collection_method
+      #   @return [String] The method by which the payment was collected.
+      define_attribute :collection_method, String, {:enum => ["automatic", "manual"]}
 
       # @!attribute created_at
       #   @return [DateTime] Created at
@@ -99,7 +107,7 @@ module Recurly
       define_attribute :payment_gateway, Hash
 
       # @!attribute payment_method
-      #   @return [Hash] Payment method (TODO: this overlaps with BillinInfo’s payment_method but only documents credit cards)
+      #   @return [Hash] Payment method (TODO: this overlaps with BillingInfo’s payment_method but only documents credit cards)
       define_attribute :payment_method, Hash
 
       # @!attribute refunded

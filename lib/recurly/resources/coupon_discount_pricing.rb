@@ -3,12 +3,12 @@
 # change to this file, please file a Github issue explaining the changes you
 # need and we will usher them to the appropriate places.
 module Recurly
-  module Requests
-    class CouponRedemptionCreate < Request
+  module Resources
+    class CouponDiscountPricing < Resource
 
-      # @!attribute coupon_id
-      #   @return [String] Coupon ID
-      define_attribute :coupon_id, String
+      # @!attribute amount
+      #   @return [Float] Value of the fixed discount that this coupon applies.
+      define_attribute :amount, Float
 
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.

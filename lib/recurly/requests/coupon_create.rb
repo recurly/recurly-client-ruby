@@ -1,3 +1,7 @@
+# This file is automatically created by Recurly's OpenAPI generation process
+# and thus any edits you make by hand will be lost. If you wish to make a
+# change to this file, please file a Github issue explaining the changes you
+# need and we will usher them to the appropriate places.
 module Recurly
   module Requests
     class CouponCreate < Request
@@ -19,8 +23,8 @@ module Recurly
       define_attribute :coupon_type, String, {:enum => ["single_code", "bulk"]}
 
       # @!attribute currencies
-      #   @return [Array[Hash]] Fixed discount currencies by currency. Required if the coupon type is `fixed`. This parameter should contain the coupon discount values
-      define_attribute :currencies, Array, {:item_type => Hash}
+      #   @return [Array[CouponPricing]] Fixed discount currencies by currency. Required if the coupon type is `fixed`. This parameter should contain the coupon discount values
+      define_attribute :currencies, Array, {:item_type => :CouponPricing}
 
       # @!attribute discount_percent
       #   @return [Integer] The percent of the price discounted by the coupon.  Required if `discount_type` is `percent`.
