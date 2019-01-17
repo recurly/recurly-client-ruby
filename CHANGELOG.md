@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.5"></a>
+## v2.17.5 (2019-01-17)
+
+- Fix typo in Changelog [PR](https://github.com/recurly/recurly-client-ruby/pull/440)
+- Ensure error message for a single returned error [PR](https://github.com/recurly/recurly-client-ruby/pull/441)
+
 <a name="v2.17.4"></a>
 ## v2.17.4 (2018-12-11)
 
