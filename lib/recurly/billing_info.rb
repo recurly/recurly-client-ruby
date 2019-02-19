@@ -5,7 +5,7 @@ module Recurly
   class BillingInfo < Resource
     BANK_ACCOUNT_ATTRIBUTES = %w(name_on_account account_type last_four routing_number).freeze
     CREDIT_CARD_ATTRIBUTES = %w(number verification_value card_type year month first_six last_four).freeze
-    AMAZON_ATTRIBUTES = %w(amazon_billing_agreement_id).freeze
+    AMAZON_ATTRIBUTES = %w(amazon_billing_agreement_id amazon_region).freeze
     PAYPAL_ATTRIBUTES = %w(paypal_billing_agreement_id).freeze
     ROKU_ATTRIBUTES = %w(roku_billing_agreement_id last_four).freeze
 
