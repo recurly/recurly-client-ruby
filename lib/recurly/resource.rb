@@ -1068,7 +1068,7 @@ module Recurly
       else
         child, k, v = attribute_path.shift.scan(/[^\[\]=]+/)
         if c = k ? self[child].find { |d| d[k] == v } : self[child]
-          c.invalid! attribute_path, error
+          c.invalid! attribute_path, error if c.methods.include? :invalid!
           e = errors[child] << 'is invalid' and e.uniq!
         end
       end

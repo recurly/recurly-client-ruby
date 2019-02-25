@@ -48,4 +48,18 @@ XML
       plan.must_be_instance_of Plan
     end
   end
+
+  describe ".save!" do
+    it "must raise an Invalid error when currency is not enabled on the site" do
+      stub_api_request :get, 'plans/gold', 'plans/show-200'
+      stub_api_request :put, 'plans/gold', 'plans/show-422'
+
+      plan = Plan.find 'gold'
+      plan.unit_amount_in_cents['BRL'] = 329_00
+      proc{plan.save!}.must_raise Resource::Invalid
+
+      plan.errors['unit_amount_in_cents'].must_equal ["is invalid"]
+      plan.errors['setup_fee_in_cents'].must_equal ["is invalid"]
+    end
+  end
 end
