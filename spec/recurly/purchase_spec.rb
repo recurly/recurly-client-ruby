@@ -10,6 +10,15 @@ describe Purchase do
           unit_amount_in_cents: 1_000,
           quantity: 1
         }
+      ],
+      subscriptions: [
+        {
+          plan_code: 'plan_code',
+          subscription_add_ons: [
+            add_on_code: 'add_on_code',
+            unit_amount_in_cents: 200
+          ]
+        }
       ]
     )
   end
@@ -28,6 +37,7 @@ describe Purchase do
       proc {Purchase.invoice!(purchase)}.must_raise Resource::Invalid
       # ensure error details are mapped back
       purchase.adjustments.first.errors["unit_amount_in_cents"].must_equal ["is not a number"]
+      purchase.subscriptions.first.errors["subscription_add_ons"].must_equal ["is invalid"]
     end
     it "should raise a Transaction::Error error when transaction fails" do
       stub_api_request(:post, 'purchases', 'purchases/invoice-declined-422')
