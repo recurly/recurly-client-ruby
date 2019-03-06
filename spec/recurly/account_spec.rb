@@ -341,4 +341,19 @@ XML
       account.company_name.must_equal 'My Company Inc.'
     end
   end
+
+  describe "account acquisition" do
+    let(:account) {
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+      stub_api_request :get, 'accounts/abcdef1234567890/acquisition', 'account_acquisition/show-200'
+      Account.find 'abcdef1234567890'
+    }
+
+    it 'is able to retrieve and parse acquisition' do
+      acquisition = account.account_acquisition
+      acquisition.cost_in_cents.must_equal 299
+      acquisition.channel.must_equal "blog"
+      acquisition.campaign.must_equal "mailchimp67a904de95.0914d8f4b4"
+    end
+  end
 end

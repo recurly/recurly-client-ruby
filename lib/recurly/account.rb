@@ -48,6 +48,9 @@ module Recurly
     # @return [[CustomField], []]
     has_many :custom_fields, class_name: :CustomField, readonly: false
 
+    # @return [AccountAcquisition, nil]
+    has_one :account_acquisition, class_name: :AccountAcquisition, readonly: false
+
     # Get's the first redemption given a coupon code
     # @deprecated Use #{redemptions} instead
     # @param coupon_code [String] The coupon code for the redemption

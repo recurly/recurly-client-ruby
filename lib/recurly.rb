@@ -7,6 +7,7 @@ module Recurly
   require 'recurly/shipping_address'
   require 'recurly/billing_info'
   require 'recurly/custom_field'
+  require 'recurly/account_acquisition'
   require 'recurly/account'
   require 'recurly/account_balance'
   require 'recurly/add_on'
