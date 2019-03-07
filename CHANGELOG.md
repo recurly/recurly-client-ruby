@@ -1,6 +1,13 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.7"></a>
+## v2.17.7 (2019-03-07)
+
+- Add support for Account Acquisition [PR](https://github.com/recurly/recurly-client-ruby/pull/450)
+- Fix link to supported versions section of README [PR](https://github.com/recurly/recurly-client-ruby/pull/454)
+- Fix NoMethodError thrown by Resource.invalid! [PR](https://github.com/recurly/recurly-client-ruby/pull/455)
+
 <a name="v2.17.6"></a>
 ## v2.17.6 (2019-02-19)
 
