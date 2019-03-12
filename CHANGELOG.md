@@ -1,6 +1,13 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.8"></a>
+## v2.17.8 (2019-03-12)
+
+This brings us up to API version 2.19. There are no breaking changes.
+
+- Add support for Account Hierarchy [PR](https://github.com/recurly/recurly-client-ruby/pull/444)
+
 <a name="v2.17.7"></a>
 ## v2.17.7 (2019-03-07)
 
