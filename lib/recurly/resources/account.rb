@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute bill_to
       #   @return [String] An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.
-      define_attribute :bill_to, String, { :enum => ["self", "parent"] }
+      define_attribute :bill_to, String, {:enum => ["self", "parent"]}
 
       # @!attribute billing_info
       #   @return [BillingInfo]
