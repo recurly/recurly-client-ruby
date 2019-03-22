@@ -38,6 +38,10 @@ module Recurly
       #   @return [Integer] Optionally override the default quantity of 1.
       define_attribute :quantity, Integer
 
+      # @!attribute shipping
+      #   @return [SubscriptionChangeShippingCreate]
+      define_attribute :shipping, :SubscriptionChangeShippingCreate
+
       # @!attribute timeframe
       #   @return [String] The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now or when the subscription renews. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to "renewal" so the change takes affect at the end of the current billing cycle.
       define_attribute :timeframe, String, { :enum => ["now", "renewal"] }

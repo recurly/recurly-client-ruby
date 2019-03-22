@@ -82,6 +82,10 @@ module Recurly
       #   @return [DateTime] Expires at
       define_attribute :expires_at, DateTime
 
+      # @!attribute gateway_code
+      #   @return [String] If present, this subscription's transactions will use the payment gateway with this code.
+      define_attribute :gateway_code, String
+
       # @!attribute id
       #   @return [String] Subscription ID
       define_attribute :id, String
@@ -126,9 +130,9 @@ module Recurly
       #   @return [Integer] If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.
       define_attribute :renewal_billing_cycles, Integer
 
-      # @!attribute shipping_address
-      #   @return [ShippingAddress]
-      define_attribute :shipping_address, :ShippingAddress
+      # @!attribute shipping
+      #   @return [SubscriptionShipping]
+      define_attribute :shipping, :SubscriptionShipping
 
       # @!attribute state
       #   @return [String] State
