@@ -90,6 +90,10 @@ module Recurly
       #   @return [Float] The refundable amount on a charge invoice. It will be null for all other invoices.
       define_attribute :refundable_amount, Float
 
+      # @!attribute shipping_address
+      #   @return [ShippingAddress]
+      define_attribute :shipping_address, :ShippingAddress
+
       # @!attribute state
       #   @return [String] Invoice state
       define_attribute :state, String, { :enum => ["pending", "processing", "past_due", "paid", "failed"] }
