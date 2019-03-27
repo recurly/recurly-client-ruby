@@ -16,7 +16,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Add-on ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.
@@ -24,7 +24,7 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
     end
   end
 end

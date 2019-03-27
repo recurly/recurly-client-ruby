@@ -12,11 +12,11 @@ module Recurly
 
       # @!attribute [r] created_at
       #   @return [DateTime]
-      define_attribute :created_at, DateTime, {:read_only => true}
+      define_attribute :created_at, DateTime, { :read_only => true }
 
       # @!attribute [r] id
       #   @return [String]
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute message
       #   @return [String]
@@ -24,7 +24,7 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
 
       # @!attribute user
       #   @return [User]

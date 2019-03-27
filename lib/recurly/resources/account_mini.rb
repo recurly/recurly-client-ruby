@@ -6,6 +6,10 @@ module Recurly
   module Resources
     class AccountMini < Resource
 
+      # @!attribute bill_to
+      #   @return [String]
+      define_attribute :bill_to, String
+
       # @!attribute code
       #   @return [String] The unique identifier of the account.
       define_attribute :code, String
@@ -24,7 +28,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String]
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute last_name
       #   @return [String]
@@ -32,7 +36,11 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
+
+      # @!attribute parent_account_id
+      #   @return [String]
+      define_attribute :parent_account_id, String
     end
   end
 end

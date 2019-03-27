@@ -14,6 +14,10 @@ module Recurly
       #   @return [Address]
       define_attribute :address, :Address
 
+      # @!attribute bill_to
+      #   @return [String] An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.
+      define_attribute :bill_to, String, { :enum => ["self", "parent"] }
+
       # @!attribute billing_info
       #   @return [BillingInfoCreate]
       define_attribute :billing_info, :BillingInfoCreate
@@ -32,11 +36,15 @@ module Recurly
 
       # @!attribute custom_fields
       #   @return [Array[CustomField]]
-      define_attribute :custom_fields, Array, {:item_type => :CustomField}
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute email
       #   @return [String] The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.
       define_attribute :email, String
+
+      # @!attribute exemption_certificate
+      #   @return [String] The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.
+      define_attribute :exemption_certificate, String
 
       # @!attribute first_name
       #   @return [String]
@@ -56,11 +64,11 @@ module Recurly
 
       # @!attribute preferred_locale
       #   @return [String] Used to determine the language and locale of emails sent on behalf of the merchant to the customer. The list of locales is restricted to those the merchant has enabled on the site.
-      define_attribute :preferred_locale, String, {:enum => ["da-DK", "de-CH", "de-DE", "en-AU", "en-CA", "en-GB", "en-NZ", "en-US", "es-ES", "es-MX", "es-US", "fr-CA", "fr-FR", "hi-IN", "ja-JP", "nl-BE", "nl-NL", "pt-BR", "pt-PT", "ru-RU", "tr-TR", "zh-CN"]}
+      define_attribute :preferred_locale, String, { :enum => ["da-DK", "de-CH", "de-DE", "en-AU", "en-CA", "en-GB", "en-NZ", "en-US", "es-ES", "es-MX", "es-US", "fr-CA", "fr-FR", "hi-IN", "ja-JP", "nl-BE", "nl-NL", "pt-BR", "pt-PT", "ru-RU", "tr-TR", "zh-CN"] }
 
       # @!attribute shipping_addresses
       #   @return [Array[ShippingAddressCreate]]
-      define_attribute :shipping_addresses, Array, {:item_type => :ShippingAddressCreate}
+      define_attribute :shipping_addresses, Array, { :item_type => :ShippingAddressCreate }
 
       # @!attribute tax_exempt
       #   @return [Boolean] The tax status of the account. `true` exempts tax on the account, `false` applies tax on the account.

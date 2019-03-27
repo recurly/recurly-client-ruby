@@ -8,7 +8,7 @@ module Recurly
 
       # @!attribute currencies
       #   @return [Array[CouponDiscountPricing]] This is only present when `type=fixed`.
-      define_attribute :currencies, Array, {:item_type => :CouponDiscountPricing}
+      define_attribute :currencies, Array, { :item_type => :CouponDiscountPricing }
 
       # @!attribute percent
       #   @return [Integer] This is only present when `type=percent`.
@@ -20,7 +20,7 @@ module Recurly
 
       # @!attribute type
       #   @return [String]
-      define_attribute :type, String, {:enum => ["percent", "fixed", "free_trial"]}
+      define_attribute :type, String, { :enum => ["percent", "fixed", "free_trial"] }
     end
   end
 end

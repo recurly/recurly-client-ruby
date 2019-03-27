@@ -16,7 +16,7 @@ module Recurly
 
       # @!attribute add_ons
       #   @return [Array[SubscriptionAddOn]] Add-ons
-      define_attribute :add_ons, Array, {:item_type => :SubscriptionAddOn}
+      define_attribute :add_ons, Array, { :item_type => :SubscriptionAddOn }
 
       # @!attribute add_ons_total
       #   @return [Float] Total price of add-ons
@@ -36,11 +36,11 @@ module Recurly
 
       # @!attribute collection_method
       #   @return [String] Collection method
-      define_attribute :collection_method, String, {:enum => ["automatic", "manual"]}
+      define_attribute :collection_method, String, { :enum => ["automatic", "manual"] }
 
       # @!attribute coupon_redemptions
       #   @return [Array[CouponRedemptionMini]] Coupon redemptions
-      define_attribute :coupon_redemptions, Array, {:item_type => :CouponRedemptionMini}
+      define_attribute :coupon_redemptions, Array, { :item_type => :CouponRedemptionMini }
 
       # @!attribute created_at
       #   @return [DateTime] Created at
@@ -68,7 +68,7 @@ module Recurly
 
       # @!attribute custom_fields
       #   @return [Array[CustomField]]
-      define_attribute :custom_fields, Array, {:item_type => :CustomField}
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute customer_notes
       #   @return [String] Customer notes
@@ -132,7 +132,7 @@ module Recurly
 
       # @!attribute state
       #   @return [String] State
-      define_attribute :state, String, {:enum => ["active", "canceled", "expired", "failed", "future", "paused"]}
+      define_attribute :state, String, { :enum => ["active", "canceled", "expired", "failed", "future", "paused"] }
 
       # @!attribute subtotal
       #   @return [Float] Estimated total, before tax.

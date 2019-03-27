@@ -24,15 +24,15 @@ module Recurly
 
       # @!attribute collection_method
       #   @return [String] An automatic invoice means a corresponding transaction is run using the account's billing information at the same time the invoice is created. Manual invoices are created without a corresponding transaction. The merchant must enter a manual payment transaction or have the customer pay the invoice with an automatic method, like credit card, PayPal, Amazon, or ACH bank payment.
-      define_attribute :collection_method, String, {:enum => ["automatic", "manual"]}
+      define_attribute :collection_method, String, { :enum => ["automatic", "manual"] }
 
       # @!attribute [r] created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, {:read_only => true}
+      define_attribute :created_at, DateTime, { :read_only => true }
 
       # @!attribute credit_payments
       #   @return [Array[CreditPayment]] Credit payments
-      define_attribute :credit_payments, Array, {:item_type => :CreditPayment}
+      define_attribute :credit_payments, Array, { :item_type => :CreditPayment }
 
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
@@ -52,7 +52,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Invoice ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute line_items
       #   @return [LineItemList]
@@ -68,11 +68,11 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
 
       # @!attribute origin
       #   @return [String] The event that created the invoice.
-      define_attribute :origin, String, {:enum => ["purchase", "line_item_refund", "open_amount_refund", "renewal", "immediate_change", "termination", "credit", "gift_card", "write_off"]}
+      define_attribute :origin, String, { :enum => ["purchase", "line_item_refund", "open_amount_refund", "renewal", "immediate_change", "termination", "credit", "gift_card", "write_off"] }
 
       # @!attribute paid
       #   @return [Float] The total amount of successful payments transaction on this invoice.
@@ -92,11 +92,11 @@ module Recurly
 
       # @!attribute state
       #   @return [String] Invoice state
-      define_attribute :state, String, {:enum => ["pending", "processing", "past_due", "paid", "failed"]}
+      define_attribute :state, String, { :enum => ["pending", "processing", "past_due", "paid", "failed"] }
 
       # @!attribute subscription_ids
       #   @return [Array[String]] If the invoice is charging or refunding for one or more subscriptions, these are their IDs.
-      define_attribute :subscription_ids, Array, {:item_type => String}
+      define_attribute :subscription_ids, Array, { :item_type => String }
 
       # @!attribute subtotal
       #   @return [Float] The summation of charges, discounts, and credits, before tax.
@@ -120,15 +120,15 @@ module Recurly
 
       # @!attribute transactions
       #   @return [Array[Transaction]] Transactions
-      define_attribute :transactions, Array, {:item_type => :Transaction}
+      define_attribute :transactions, Array, { :item_type => :Transaction }
 
       # @!attribute type
       #   @return [String] Invoices are either charge, credit, or legacy invoices.
-      define_attribute :type, String, {:enum => ["charge", "credit", "legacy"]}
+      define_attribute :type, String, { :enum => ["charge", "credit", "legacy"] }
 
       # @!attribute [r] updated_at
       #   @return [DateTime] Last updated at
-      define_attribute :updated_at, DateTime, {:read_only => true}
+      define_attribute :updated_at, DateTime, { :read_only => true }
 
       # @!attribute vat_number
       #   @return [String] VAT registration number for the customer on this invoice. This will come from the VAT Number field in the Billing Info or the Account Info depending on your tax settings and the invoice collection method.

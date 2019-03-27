@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute add_ons
       #   @return [Array[SubscriptionAddOnCreate]] Add-ons
-      define_attribute :add_ons, Array, {:item_type => :SubscriptionAddOnCreate}
+      define_attribute :add_ons, Array, { :item_type => :SubscriptionAddOnCreate }
 
       # @!attribute auto_renew
       #   @return [Boolean] Whether the subscription renews at the end of its term.
@@ -20,7 +20,7 @@ module Recurly
 
       # @!attribute collection_method
       #   @return [String] Collection method
-      define_attribute :collection_method, String, {:enum => ["automatic", "manual"]}
+      define_attribute :collection_method, String, { :enum => ["automatic", "manual"] }
 
       # @!attribute coupon_code
       #   @return [String] Optional coupon code to redeem on the account and discount the subscription. Please note, the subscription request will fail if the coupon is invalid.
@@ -36,7 +36,7 @@ module Recurly
 
       # @!attribute custom_fields
       #   @return [Array[CustomField]]
-      define_attribute :custom_fields, Array, {:item_type => :CustomField}
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute customer_notes
       #   @return [String] This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.
@@ -51,11 +51,11 @@ module Recurly
       define_attribute :next_bill_date, DateTime
 
       # @!attribute plan_code
-      #   @return [String] Plan code
+      #   @return [String] You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.
       define_attribute :plan_code, String
 
       # @!attribute plan_id
-      #   @return [String] Plan ID
+      #   @return [String] You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.
       define_attribute :plan_id, String
 
       # @!attribute po_number

@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Plan ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute name
       #   @return [String] This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
@@ -20,7 +20,7 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
     end
   end
 end

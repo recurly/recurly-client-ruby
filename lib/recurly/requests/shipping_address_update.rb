@@ -28,7 +28,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Shipping Address ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute last_name
       #   @return [String]

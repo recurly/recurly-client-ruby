@@ -12,11 +12,11 @@ module Recurly
 
       # @!attribute collection_method
       #   @return [String] Change collection method
-      define_attribute :collection_method, String, {:enum => ["automatic", "manual"]}
+      define_attribute :collection_method, String, { :enum => ["automatic", "manual"] }
 
       # @!attribute custom_fields
       #   @return [Array[CustomField]]
-      define_attribute :custom_fields, Array, {:item_type => :CustomField}
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute customer_notes
       #   @return [String] Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.

@@ -94,11 +94,15 @@ module Recurly
       raise_network_error!(ex)
     end
 
-    def put(path, request_data, request_class, **options)
-      request = request_class.new(request_data)
-      request.validate!
-      logger.info("PUT BODY #{JSON.dump(request_data)}")
-      response = run_request(:put, path, JSON.dump(request_data), headers)
+    def put(path, request_data=nil, request_class=nil, **options)
+      response = if request_data
+        request = request_class.new(request_data)
+        request.validate!
+        logger.info("PUT BODY #{JSON.dump(request_data)}")
+        run_request(:put, path, JSON.dump(request_data), headers)
+      else
+        run_request(:put, path, nil, headers)
+      end
       raise_api_error!(response) unless [200, 201].include?(response.status)
       JSONParser.parse(self, response.body)
     rescue Faraday::ClientError => ex
@@ -107,8 +111,10 @@ module Recurly
 
     def delete(path, **options)
       response = run_request(:delete, path, nil, headers)
-      raise_api_error!(response) unless [200, 201].include?(response.status)
-      JSONParser.parse(self, response.body)
+      raise_api_error!(response) unless (200..204).include?(response.status)
+      if response.body && !response.body.empty?
+        JSONParser.parse(self, response.body)
+      end
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
     end
@@ -194,7 +200,7 @@ module Recurly
       end
 
       @conn = Faraday.new(options) do |faraday|
-        if @log_level == Logger::INFO
+        if [Logger::DEBUG, Logger::INFO].include?(@log_level)
           faraday.response :logger
         end
         faraday.basic_auth(api_key, '')
