@@ -33,8 +33,7 @@ module Recurly
                       e
                     end
                   end
-                elsif attr_name.end_with?("_at") && val && val.is_a?(String)
-                  # TODO should use the schema to determine this probably
+                elsif val && schema_attr.type == DateTime && val.is_a?(String)
                   DateTime.parse(val)
                 else
                   val
