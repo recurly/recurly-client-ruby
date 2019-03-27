@@ -673,10 +673,10 @@ module Recurly
     # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @return [Resources::AccountAcquisition] A list of the site's account acquisition data.
+    # @return [Pager<Resources::AccountAcquisition>] A list of the site's account acquisition data.
     def list_account_acquisition(**options)
       path = interpolate_path("/sites/{site_id}/acquisitions", site_id: site_id)
-      get(path, **options)
+      pager(path, **options)
     end
 
     # List a site's coupons
