@@ -144,4 +144,14 @@ RSpec.describe Recurly::Client do
       end
     end
   end
+
+  context "with bad url parameter arguments" do
+    describe "#get" do
+      it "should throw an ArgumentError" do
+        expect {
+          subject.get_account(account_id: Recurly::Resources::Account.new)
+        }.to raise_error(ArgumentError)
+      end
+    end
+  end
 end

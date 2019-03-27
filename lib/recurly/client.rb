@@ -173,6 +173,15 @@ module Recurly
     end
 
     def interpolate_path(path, **options)
+      options.each do |k, v|
+        unless [String, Symbol, Integer, Float].include?(v.class)
+          message = "We cannot build the url with the given argument #{k}=#{v.inspect}."
+          if k =~ /_id$/
+            message << " Since this appears to be an id, perhaps you meant to pass in a String?"
+          end
+          raise ArgumentError, message
+        end
+      end
       path = path.gsub("{", "%{")
       path % options
     end
