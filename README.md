@@ -129,8 +129,7 @@ end
 **A note on `limit`**:
 
 `limit` defaults to 20 items per page and can be set from 1 to 200. Choosing a lower limit means more network requests but smaller payloads.
-We recommend keeping the default for most cases but increasing the limit if you are planning on iterating through many pages of items (e.g. all
-transactions in your site).
+We recommend keeping the default for most cases but increasing the limit if you are planning on iterating through many pages of items (e.g. all transactions in your site).
 
 
 ### Creating Resources
