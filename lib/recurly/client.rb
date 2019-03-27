@@ -65,7 +65,7 @@ module Recurly
 
     def next_page(pager)
       run_request(:get, pager.next, nil, headers).tap do |response|
-        raise_api_error!(response) if response.status != 200
+        raise_api_error!(response) unless (200...300).include?(response.status)
       end
     end
 
@@ -77,7 +77,7 @@ module Recurly
 
     def get(path, **options)
       response = run_request(:get, path, nil, headers)
-      raise_api_error!(response) unless [200, 201].include? response.status
+      raise_api_error!(response) unless (200...300).include?(response.status)
       JSONParser.parse(self, response.body)
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
@@ -88,7 +88,7 @@ module Recurly
       request.validate!
       logger.info("POST BODY #{JSON.dump(request_data)}")
       response = run_request(:post, path, JSON.dump(request.attributes), headers)
-      raise_api_error!(response) unless [200, 201].include? response.status
+      raise_api_error!(response) unless (200...300).include?(response.status)
       JSONParser.parse(self, response.body)
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
@@ -103,7 +103,7 @@ module Recurly
       else
         run_request(:put, path, nil, headers)
       end
-      raise_api_error!(response) unless [200, 201].include?(response.status)
+      raise_api_error!(response) unless (200...300).include?(response.status)
       JSONParser.parse(self, response.body)
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
@@ -111,7 +111,7 @@ module Recurly
 
     def delete(path, **options)
       response = run_request(:delete, path, nil, headers)
-      raise_api_error!(response) unless (200..204).include?(response.status)
+      raise_api_error!(response) unless (200...300).include?(response.status)
       if response.body && !response.body.empty?
         JSONParser.parse(self, response.body)
       end
