@@ -44,7 +44,11 @@ module Recurly
                        schema_attr.type
                      end
 
-          raise ArgumentError, "Attribute '#{schema_attr.name}' on the resource #{self.class.name} is type #{val.class} but should be a #{expected}"
+          # If it's safely castable, the json deserializer or server
+          # will take care of it for us
+          unless safely_castable?(val.class, schema_attr.type)
+            raise ArgumentError, "Attribute '#{schema_attr.name}' on the resource #{self.class.name} is type #{val.class} but should be a #{expected}"
+          end
         end
 
         # This is the convention for a recurly object
@@ -68,6 +72,17 @@ module Recurly
       end
 
       private
+
+      def safely_castable?(from_type, to_type)
+        case [from_type, to_type]
+        when [Symbol, String]
+          true
+        when [Integer, Float]
+          true
+        else
+          false
+        end
+      end
 
       # This code is copied directly from the did_you mean gem which is based
       # directly on the Text gem implementation.
