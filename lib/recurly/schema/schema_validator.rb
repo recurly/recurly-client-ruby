@@ -37,16 +37,16 @@ module Recurly
       # Validates an individual attribute
       def validate_attribute!(schema_attr, val)
         unless schema_attr.type.is_a?(Symbol) || val.is_a?(schema_attr.type)
-          expected = case schema_attr.type
-                     when Array
-                       "Array of #{schema_attr.type.item_type}s"
-                     else
-                       schema_attr.type
-                     end
-
           # If it's safely castable, the json deserializer or server
           # will take care of it for us
           unless safely_castable?(val.class, schema_attr.type)
+            expected = case schema_attr.type
+                       when Array
+                         "Array of #{schema_attr.type.item_type}s"
+                       else
+                         schema_attr.type
+                       end
+
             raise ArgumentError, "Attribute '#{schema_attr.name}' on the resource #{self.class.name} is type #{val.class} but should be a #{expected}"
           end
         end
@@ -74,10 +74,17 @@ module Recurly
       private
 
       def safely_castable?(from_type, to_type)
+        int_class = if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("2.4.0")
+                      :Integer
+                    else
+                      :Fixnum
+                    end
+
+        int_class = Kernel.const_get(int_class)
         case [from_type, to_type]
         when [Symbol, String]
           true
-        when [Integer, Float]
+        when [int_class, Float]
           true
         else
           false
