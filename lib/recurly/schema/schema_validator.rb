@@ -74,13 +74,14 @@ module Recurly
       private
 
       def safely_castable?(from_type, to_type)
+        # TODO we can drop this switch when 2.3 support is dropped
         int_class = if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("2.4.0")
                       :Integer
                     else
                       :Fixnum
                     end
-
         int_class = Kernel.const_get(int_class)
+
         case [from_type, to_type]
         when [Symbol, String]
           true
