@@ -22,32 +22,30 @@ module Recurly
 
           schema_attr = self.schema.get_attribute(attr_name)
 
-          # if the Hash val is a recurly type, parse it into a Resource
-          val = if val.is_a?(Hash) && !schema_attr.is_primitive?
-                  schema_attr.recurly_class.from_json(val)
-                elsif val.is_a?(Array)
-                  val.map do |e|
-                    if e.is_a?(Hash) && !schema_attr.is_primitive?
-                      schema_attr.recurly_class.from_json(e)
-                    else
-                      e
+          if schema_attr
+            # if the Hash val is a recurly type, parse it into a Resource
+            val = if val.is_a?(Hash) && !schema_attr.is_primitive?
+                    schema_attr.recurly_class.from_json(val)
+                  elsif val.is_a?(Array)
+                    val.map do |e|
+                      if e.is_a?(Hash) && !schema_attr.is_primitive?
+                        schema_attr.recurly_class.from_json(e)
+                      else
+                        e
+                      end
                     end
+                  elsif val && schema_attr.type == DateTime && val.is_a?(String)
+                    DateTime.parse(val)
+                  else
+                    val
                   end
-                elsif attr_name.end_with?("_at") && val && val.is_a?(String)
-                  # TODO should use the schema to determine this probably
-                  DateTime.parse(val)
-                else
-                  val
-                end
 
-          writer = "#{attr_name}="
+            writer = "#{attr_name}="
 
-          # TODO maybe check for protected writer first?
-          begin
             resource.send(writer, val)
-          rescue => e
+          else
             # TODO ignoring these missing fields for now
-            puts e
+            puts "Missing #{attr_name}"
           end
         end
         resource

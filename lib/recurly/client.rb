@@ -65,7 +65,7 @@ module Recurly
 
     def next_page(pager)
       run_request(:get, pager.next, nil, headers).tap do |response|
-        raise_api_error!(response) if response.status != 200
+        raise_api_error!(response) unless (200...300).include?(response.status)
       end
     end
 
@@ -77,7 +77,7 @@ module Recurly
 
     def get(path, **options)
       response = run_request(:get, path, nil, headers)
-      raise_api_error!(response) unless [200, 201].include? response.status
+      raise_api_error!(response) unless (200...300).include?(response.status)
       JSONParser.parse(self, response.body)
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
@@ -88,18 +88,22 @@ module Recurly
       request.validate!
       logger.info("POST BODY #{JSON.dump(request_data)}")
       response = run_request(:post, path, JSON.dump(request.attributes), headers)
-      raise_api_error!(response) unless [200, 201].include? response.status
+      raise_api_error!(response) unless (200...300).include?(response.status)
       JSONParser.parse(self, response.body)
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
     end
 
-    def put(path, request_data, request_class, **options)
-      request = request_class.new(request_data)
-      request.validate!
-      logger.info("PUT BODY #{JSON.dump(request_data)}")
-      response = run_request(:put, path, JSON.dump(request_data), headers)
-      raise_api_error!(response) unless [200, 201].include?(response.status)
+    def put(path, request_data=nil, request_class=nil, **options)
+      response = if request_data
+        request = request_class.new(request_data)
+        request.validate!
+        logger.info("PUT BODY #{JSON.dump(request_data)}")
+        run_request(:put, path, JSON.dump(request_data), headers)
+      else
+        run_request(:put, path, nil, headers)
+      end
+      raise_api_error!(response) unless (200...300).include?(response.status)
       JSONParser.parse(self, response.body)
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
@@ -107,8 +111,10 @@ module Recurly
 
     def delete(path, **options)
       response = run_request(:delete, path, nil, headers)
-      raise_api_error!(response) unless [200, 201].include?(response.status)
-      JSONParser.parse(self, response.body)
+      raise_api_error!(response) unless (200...300).include?(response.status)
+      if response.body && !response.body.empty?
+        JSONParser.parse(self, response.body)
+      end
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
     end
@@ -167,6 +173,15 @@ module Recurly
     end
 
     def interpolate_path(path, **options)
+      options.each do |k, v|
+        unless [String, Symbol, Integer, Float].include?(v.class)
+          message = "We cannot build the url with the given argument #{k}=#{v.inspect}."
+          if k =~ /_id$/
+            message << " Since this appears to be an id, perhaps you meant to pass in a String?"
+          end
+          raise ArgumentError, message
+        end
+      end
       path = path.gsub("{", "%{")
       path % options
     end
@@ -194,7 +209,7 @@ module Recurly
       end
 
       @conn = Faraday.new(options) do |faraday|
-        if @log_level == Logger::INFO
+        if [Logger::DEBUG, Logger::INFO].include?(@log_level)
           faraday.response :logger
         end
         faraday.basic_auth(api_key, '')

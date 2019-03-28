@@ -8,7 +8,7 @@ module Recurly
 
       # @!attribute data
       #   @return [Array[LineItem]]
-      define_attribute :data, Array, {:item_type => :LineItem}
+      define_attribute :data, Array, { :item_type => :LineItem }
 
       # @!attribute has_more
       #   @return [Boolean] Indicates there are more results on subsequent pages.

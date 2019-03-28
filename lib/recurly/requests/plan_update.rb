@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute add_ons
       #   @return [Array[AddOnCreate]] Add Ons
-      define_attribute :add_ons, Array, {:item_type => :AddOnCreate}
+      define_attribute :add_ons, Array, { :item_type => :AddOnCreate }
 
       # @!attribute auto_renew
       #   @return [Boolean] Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.
@@ -24,7 +24,7 @@ module Recurly
 
       # @!attribute currencies
       #   @return [Array[PlanPricing]] Pricing
-      define_attribute :currencies, Array, {:item_type => :PlanPricing}
+      define_attribute :currencies, Array, { :item_type => :PlanPricing }
 
       # @!attribute description
       #   @return [String] Optional description, not displayed.
@@ -36,7 +36,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Plan ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute name
       #   @return [String] This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
@@ -64,7 +64,7 @@ module Recurly
 
       # @!attribute trial_unit
       #   @return [String] Units for the plan's trial period.
-      define_attribute :trial_unit, String, {:enum => ["days", "months"]}
+      define_attribute :trial_unit, String, { :enum => ["days", "months"] }
     end
   end
 end

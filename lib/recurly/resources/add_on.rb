@@ -16,11 +16,11 @@ module Recurly
 
       # @!attribute [r] created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, {:read_only => true}
+      define_attribute :created_at, DateTime, { :read_only => true }
 
       # @!attribute currencies
       #   @return [Array[AddOnPricing]] Add-on pricing
-      define_attribute :currencies, Array, {:item_type => :AddOnPricing}
+      define_attribute :currencies, Array, { :item_type => :AddOnPricing }
 
       # @!attribute default_quantity
       #   @return [Integer] Default quantity for the hosted pages.
@@ -28,7 +28,7 @@ module Recurly
 
       # @!attribute [r] deleted_at
       #   @return [DateTime] Deleted at
-      define_attribute :deleted_at, DateTime, {:read_only => true}
+      define_attribute :deleted_at, DateTime, { :read_only => true }
 
       # @!attribute display_quantity
       #   @return [Boolean] Determines if the quantity field is displayed on the hosted pages for the add-on.
@@ -36,7 +36,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Add-on ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.
@@ -44,15 +44,15 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
 
       # @!attribute [r] plan_id
       #   @return [String] Plan ID
-      define_attribute :plan_id, String, {:read_only => true}
+      define_attribute :plan_id, String, { :read_only => true }
 
       # @!attribute [r] state
       #   @return [String] Add-ons can be either active or inactive.
-      define_attribute :state, String, {:read_only => true, :enum => ["active", "inactive"]}
+      define_attribute :state, String, { :read_only => true, :enum => ["active", "inactive"] }
 
       # @!attribute tax_code
       #   @return [String] Optional field for EU VAT merchants and Avalara AvaTax Pro merchants. If you are using Recurly's EU VAT feature, you can use values of 'unknown', 'physical', or 'digital'. If you have your own AvaTax account configured, you can use Avalara tax codes to assign custom tax rules.
@@ -60,7 +60,7 @@ module Recurly
 
       # @!attribute [r] updated_at
       #   @return [DateTime] Last updated at
-      define_attribute :updated_at, DateTime, {:read_only => true}
+      define_attribute :updated_at, DateTime, { :read_only => true }
     end
   end
 end

@@ -36,7 +36,7 @@ module Recurly
 
       # @!attribute credit_reason_code
       #   @return [String] The reason the credit was given when line item is `type=credit`.
-      define_attribute :credit_reason_code, String, {:enum => ["general", "service", "promotional", "refund", "gift_card", "write_off"]}
+      define_attribute :credit_reason_code, String, { :enum => ["general", "service", "promotional", "refund", "gift_card", "write_off"] }
 
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
@@ -68,7 +68,7 @@ module Recurly
 
       # @!attribute legacy_category
       #   @return [String] Category to describe the role of a line item on a legacy invoice: - "charges" refers to charges being billed for on this invoice. - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo. - "applied_credits" refers to previous credits applied to this invoice. See their original_line_item_id to determine where the credit first originated. - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
-      define_attribute :legacy_category, String, {:enum => ["charge", "credit", "applied_credit", "carryforward"]}
+      define_attribute :legacy_category, String, { :enum => ["charge", "credit", "applied_credit", "carryforward"] }
 
       # @!attribute object
       #   @return [String] Object type
@@ -76,7 +76,7 @@ module Recurly
 
       # @!attribute origin
       #   @return [String] A credit created from an original charge will have the value of the charge's origin.
-      define_attribute :origin, String, {:enum => ["plan", "plan_trial", "setup_fee", "add_on_trial", "add_on", "debit", "one_time", "credit", "coupon", "carryforward"]}
+      define_attribute :origin, String, { :enum => ["plan", "plan_trial", "setup_fee", "add_on_trial", "add_on", "debit", "one_time", "credit", "coupon", "carryforward"] }
 
       # @!attribute original_line_item_invoice_id
       #   @return [String] The invoice where the credit originated. Will only have a value if the line item is a credit created from a previous credit, or if the credit was created from a charge refund.
@@ -114,13 +114,17 @@ module Recurly
       #   @return [Integer] For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).
       define_attribute :refunded_quantity, Integer
 
+      # @!attribute shipping_address
+      #   @return [ShippingAddress]
+      define_attribute :shipping_address, :ShippingAddress
+
       # @!attribute start_date
       #   @return [DateTime] If an end date is present, this is value indicates the beginning of a billing time range. If no end date is present it indicates billing for a specific date.
       define_attribute :start_date, DateTime
 
       # @!attribute state
       #   @return [String] Pending line items are charges or credits on an account that have not been applied to an invoice yet. Invoiced line items will always have an `invoice_id` value.
-      define_attribute :state, String, {:enum => ["pending", "invoiced"]}
+      define_attribute :state, String, { :enum => ["pending", "invoiced"] }
 
       # @!attribute subscription_id
       #   @return [String] If the line item is a charge or credit for a subscription, this is its ID.
@@ -152,7 +156,7 @@ module Recurly
 
       # @!attribute type
       #   @return [String] Charges are positive line items that debit the account. Credits are negative line items that credit the account.
-      define_attribute :type, String, {:enum => ["charge", "credit"]}
+      define_attribute :type, String, { :enum => ["charge", "credit"] }
 
       # @!attribute unit_amount
       #   @return [Float] Positive amount for a charge, negative amount for a credit.

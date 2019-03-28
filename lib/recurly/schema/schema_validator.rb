@@ -37,14 +37,18 @@ module Recurly
       # Validates an individual attribute
       def validate_attribute!(schema_attr, val)
         unless schema_attr.type.is_a?(Symbol) || val.is_a?(schema_attr.type)
-          expected = case schema_attr.type
-                     when Array
-                       "Array of #{schema_attr.type.item_type}s"
-                     else
-                       schema_attr.type
-                     end
+          # If it's safely castable, the json deserializer or server
+          # will take care of it for us
+          unless safely_castable?(val.class, schema_attr.type)
+            expected = case schema_attr.type
+                       when Array
+                         "Array of #{schema_attr.type.item_type}s"
+                       else
+                         schema_attr.type
+                       end
 
-          raise ArgumentError, "Attribute '#{schema_attr.name}' on the resource #{self.class.name} is type #{val.class} but should be a #{expected}"
+            raise ArgumentError, "Attribute '#{schema_attr.name}' on the resource #{self.class.name} is type #{val.class} but should be a #{expected}"
+          end
         end
 
         # This is the convention for a recurly object
@@ -68,6 +72,25 @@ module Recurly
       end
 
       private
+
+      def safely_castable?(from_type, to_type)
+        # TODO we can drop this switch when 2.3 support is dropped
+        int_class = if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("2.4.0")
+                      :Integer
+                    else
+                      :Fixnum
+                    end
+        int_class = Kernel.const_get(int_class)
+
+        case [from_type, to_type]
+        when [Symbol, String]
+          true
+        when [int_class, Float]
+          true
+        else
+          false
+        end
+      end
 
       # This code is copied directly from the did_you mean gem which is based
       # directly on the Text gem implementation.

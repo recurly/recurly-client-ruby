@@ -33,7 +33,7 @@ RSpec.describe Recurly::Request do
   describe "#validate!" do
     context "with valid request body" do
       it "should not raise an error" do
-        expect { subject.validate! }.not_to raise_error(Exception)
+        expect { subject.validate! }.not_to raise_error
       end
     end
     context "with incorrectly typed data" do
@@ -55,10 +55,22 @@ RSpec.describe Recurly::Request do
           expect { subject.validate! }.to raise_error(ArgumentError)
         end
       end
-      context "with integer instead of float" do
+      context "with float instead an integer" do
         it "should raise an error" do
-          hash_data[:a_float] = 100
+          hash_data[:an_integer] = 100.0
           expect { subject.validate! }.to raise_error(ArgumentError)
+        end
+      end
+      context "with integer instead of float" do
+        it "should not raise an error" do
+          hash_data[:a_float] = 100
+          expect { subject.validate! }.not_to raise_error
+        end
+      end
+      context "with a symbol instead of string" do
+        it "should not raise an error" do
+          hash_data[:a_string] = :string
+          expect { subject.validate! }.not_to raise_error
         end
       end
       context "with an incorrectly spelled field" do

@@ -10,6 +10,10 @@ module Recurly
       #   @return [String] City
       define_attribute :city, String
 
+      # @!attribute company
+      #   @return [String] Company
+      define_attribute :company, String
+
       # @!attribute country
       #   @return [String] Country, 2-letter ISO code.
       define_attribute :country, String
@@ -21,6 +25,10 @@ module Recurly
       # @!attribute last_name
       #   @return [String] Last name
       define_attribute :last_name, String
+
+      # @!attribute name_on_account
+      #   @return [String] Name on account
+      define_attribute :name_on_account, String
 
       # @!attribute phone
       #   @return [String] Phone number

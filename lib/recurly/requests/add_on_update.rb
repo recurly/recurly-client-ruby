@@ -16,7 +16,7 @@ module Recurly
 
       # @!attribute currencies
       #   @return [Array[AddOnPricing]] Add-on pricing
-      define_attribute :currencies, Array, {:item_type => :AddOnPricing}
+      define_attribute :currencies, Array, { :item_type => :AddOnPricing }
 
       # @!attribute default_quantity
       #   @return [Integer] Default quantity for the hosted pages.
@@ -28,7 +28,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Add-on ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.

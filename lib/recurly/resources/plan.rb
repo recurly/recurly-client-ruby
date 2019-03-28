@@ -20,15 +20,15 @@ module Recurly
 
       # @!attribute [r] created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, {:read_only => true}
+      define_attribute :created_at, DateTime, { :read_only => true }
 
       # @!attribute currencies
       #   @return [Array[PlanPricing]] Pricing
-      define_attribute :currencies, Array, {:item_type => :PlanPricing}
+      define_attribute :currencies, Array, { :item_type => :PlanPricing }
 
       # @!attribute [r] deleted_at
       #   @return [DateTime] Deleted at
-      define_attribute :deleted_at, DateTime, {:read_only => true}
+      define_attribute :deleted_at, DateTime, { :read_only => true }
 
       # @!attribute description
       #   @return [String] Optional description, not displayed.
@@ -40,7 +40,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Plan ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute interval_length
       #   @return [Integer] Length of the plan's billing interval in `interval_unit`.
@@ -48,7 +48,7 @@ module Recurly
 
       # @!attribute interval_unit
       #   @return [String] Unit for the plan's billing interval.
-      define_attribute :interval_unit, String, {:enum => ["days", "months"]}
+      define_attribute :interval_unit, String, { :enum => ["days", "months"] }
 
       # @!attribute name
       #   @return [String] This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
@@ -56,7 +56,7 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
 
       # @!attribute setup_fee_accounting_code
       #   @return [String] Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
@@ -64,7 +64,7 @@ module Recurly
 
       # @!attribute [r] state
       #   @return [String] The current state of the plan.
-      define_attribute :state, String, {:read_only => true, :enum => ["active", "inactive"]}
+      define_attribute :state, String, { :read_only => true, :enum => ["active", "inactive"] }
 
       # @!attribute tax_code
       #   @return [String] Optional field for EU VAT merchants and Avalara AvaTax Pro merchants. If you are using Recurly's EU VAT feature, you can use values of 'unknown', 'physical', or 'digital'. If you have your own AvaTax account configured, you can use Avalara tax codes to assign custom tax rules.
@@ -84,11 +84,11 @@ module Recurly
 
       # @!attribute trial_unit
       #   @return [String] Units for the plan's trial period.
-      define_attribute :trial_unit, String, {:enum => ["days", "months"]}
+      define_attribute :trial_unit, String, { :enum => ["days", "months"] }
 
       # @!attribute [r] updated_at
       #   @return [DateTime] Last updated at
-      define_attribute :updated_at, DateTime, {:read_only => true}
+      define_attribute :updated_at, DateTime, { :read_only => true }
     end
   end
 end

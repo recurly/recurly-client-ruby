@@ -112,6 +112,7 @@ The names, types, and descriptions of these arguments are listed in the rubydocs
 
 ```ruby
 options = {
+  limit: 200, # number of items per page
   state: :active, # only active plans
   sort: :updated_at,
   order: :asc,
@@ -124,6 +125,12 @@ plans.each do |plan|
   puts "Plan: #{plan.id}"
 end
 ```
+
+**A note on `limit`**:
+
+`limit` defaults to 20 items per page and can be set from 1 to 200. Choosing a lower limit means more network requests but smaller payloads.
+We recommend keeping the default for most cases but increasing the limit if you are planning on iterating through many pages of items (e.g. all transactions in your site).
+
 
 ### Creating Resources
 

@@ -11,12 +11,12 @@ module Recurly
       define_attribute :account, :AccountMini
 
       # @!attribute balances
-      #   @return [Hash] Account balance
-      define_attribute :balances, Hash
+      #   @return [Array[AccountBalanceAmount]]
+      define_attribute :balances, Array, { :item_type => :AccountBalanceAmount }
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
 
       # @!attribute past_due
       #   @return [Boolean]

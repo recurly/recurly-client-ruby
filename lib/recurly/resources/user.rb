@@ -8,11 +8,11 @@ module Recurly
 
       # @!attribute [r] created_at
       #   @return [DateTime]
-      define_attribute :created_at, DateTime, {:read_only => true}
+      define_attribute :created_at, DateTime, { :read_only => true }
 
       # @!attribute [r] deleted_at
       #   @return [DateTime]
-      define_attribute :deleted_at, DateTime, {:read_only => true}
+      define_attribute :deleted_at, DateTime, { :read_only => true }
 
       # @!attribute email
       #   @return [String]
@@ -24,7 +24,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String]
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute last_name
       #   @return [String]
@@ -32,7 +32,7 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
 
       # @!attribute time_zone
       #   @return [String]

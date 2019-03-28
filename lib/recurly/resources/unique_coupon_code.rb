@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute [r] created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, {:read_only => true}
+      define_attribute :created_at, DateTime, { :read_only => true }
 
       # @!attribute expired_at
       #   @return [DateTime] The date and time the coupon was expired early or reached its `max_redemptions`.
@@ -20,23 +20,23 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Unique Coupon Code ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
 
       # @!attribute [r] redeemed_at
       #   @return [DateTime] The date and time the unique coupon code was redeemed.
-      define_attribute :redeemed_at, DateTime, {:read_only => true}
+      define_attribute :redeemed_at, DateTime, { :read_only => true }
 
       # @!attribute state
       #   @return [String] Indicates if the unique coupon code is redeemable or why not.
-      define_attribute :state, String, {:enum => ["redeemable", "maxed_out", "expired", "inactive"]}
+      define_attribute :state, String, { :enum => ["redeemable", "maxed_out", "expired", "inactive"] }
 
       # @!attribute [r] updated_at
       #   @return [DateTime] Updated at
-      define_attribute :updated_at, DateTime, {:read_only => true}
+      define_attribute :updated_at, DateTime, { :read_only => true }
     end
   end
 end
