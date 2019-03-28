@@ -114,6 +114,10 @@ module Recurly
       #   @return [Integer] For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).
       define_attribute :refunded_quantity, Integer
 
+      # @!attribute shipping_address
+      #   @return [ShippingAddress]
+      define_attribute :shipping_address, :ShippingAddress
+
       # @!attribute start_date
       #   @return [DateTime] If an end date is present, this is value indicates the beginning of a billing time range. If no end date is present it indicates billing for a specific date.
       define_attribute :start_date, DateTime
