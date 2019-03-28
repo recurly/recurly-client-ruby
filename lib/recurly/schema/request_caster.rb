@@ -43,7 +43,7 @@ module Recurly
                            elem
                          end
                        end
-                     elsif v.is_a?(Hash) && schema_attr.type.is_a?(Symbol)
+                     elsif v.is_a?(Hash) && schema_attr && schema_attr.type.is_a?(Symbol)
                        cast(v, schema_attr.recurly_class.schema)
                      else
                        v
