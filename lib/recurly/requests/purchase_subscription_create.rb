@@ -8,7 +8,7 @@ module Recurly
 
       # @!attribute add_ons
       #   @return [Array[SubscriptionAddOnCreate]] Add-ons
-      define_attribute :add_ons, Array, {:item_type => :SubscriptionAddOnCreate}
+      define_attribute :add_ons, Array, { :item_type => :SubscriptionAddOnCreate }
 
       # @!attribute auto_renew
       #   @return [Boolean] Whether the subscription renews at the end of its term.
@@ -16,7 +16,7 @@ module Recurly
 
       # @!attribute custom_fields
       #   @return [Array[CustomField]]
-      define_attribute :custom_fields, Array, {:item_type => :CustomField}
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute next_bill_date
       #   @return [DateTime] If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. The initial invoice will be prorated for the period between the subscription's activation date and the billing period end date. Subsequent periods will be based off the plan interval. For a subscription with a trial period, this will change when the trial expires.

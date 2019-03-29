@@ -75,7 +75,7 @@ module Recurly
       define_attribute :object, String, { :read_only => true }
 
       # @!attribute plans
-      #   @return [Array[PlanMini]] Plans
+      #   @return [Array[PlanMini]] A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.
       define_attribute :plans, Array, { :item_type => :PlanMini }
 
       # @!attribute plans_names
@@ -101,10 +101,6 @@ module Recurly
       # @!attribute temporal_unit
       #   @return [String] If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.
       define_attribute :temporal_unit, String, { :enum => ["day", "week", "month", "year"] }
-
-      # @!attribute unique_code_template
-      #   @return [String] On a bulk coupon, the template from which unique coupon codes are generated. - You must start the template with your coupon_code wrapped in single quotes. - Outside of single quotes, use a 9 for a character that you want to be a random number. - Outside of single quotes, use an "x" for a character that you want to be a random letter. - Outside of single quotes, use an * for a character that you want to be a random number or letter. - Use single quotes ' ' for characters that you want to remain static. These strings can be alphanumeric and may contain a - _ or +. For example: "'abc-'****'-def'"
-      define_attribute :unique_code_template, String
 
       # @!attribute [r] unique_coupon_codes_count
       #   @return [Integer] When this number reaches `max_redemptions` the coupon will no longer be redeemable.

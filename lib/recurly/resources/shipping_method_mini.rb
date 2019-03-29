@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute [r] id
       #   @return [String] Shipping Method ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute name
       #   @return [String] The name of the shipping method displayed to customers.
@@ -20,7 +20,7 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
     end
   end
 end

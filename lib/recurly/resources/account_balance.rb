@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute balances
       #   @return [Array[AccountBalanceAmount]]
-      define_attribute :balances, Array, {:item_type => :AccountBalanceAmount}
+      define_attribute :balances, Array, { :item_type => :AccountBalanceAmount }
 
       # @!attribute [r] object
       #   @return [String] Object type

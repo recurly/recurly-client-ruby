@@ -12,11 +12,11 @@ module Recurly
 
       # @!attribute collection_method
       #   @return [String] Collection method
-      define_attribute :collection_method, String, {:enum => ["automatic", "manual"]}
+      define_attribute :collection_method, String, { :enum => ["automatic", "manual"] }
 
       # @!attribute coupon_codes
       #   @return [Array[String]] A list of coupon_codes to be redeemed on the subscription or account during the purchase.
-      define_attribute :coupon_codes, Array, {:item_type => String}
+      define_attribute :coupon_codes, Array, { :item_type => String }
 
       # @!attribute credit_customer_notes
       #   @return [String] Notes to be put on the credit invoice resulting from credits in the purchase, if any.
@@ -40,7 +40,7 @@ module Recurly
 
       # @!attribute line_items
       #   @return [Array[PurchaseLineItemCreate]] A list of one time charges or credits to be created with the purchase.
-      define_attribute :line_items, Array, {:item_type => :PurchaseLineItemCreate}
+      define_attribute :line_items, Array, { :item_type => :PurchaseLineItemCreate }
 
       # @!attribute net_terms
       #   @return [Integer] Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.
@@ -56,7 +56,7 @@ module Recurly
 
       # @!attribute subscriptions
       #   @return [Array[PurchaseSubscriptionCreate]] A list of subscriptions to be created with the purchase.
-      define_attribute :subscriptions, Array, {:item_type => :PurchaseSubscriptionCreate}
+      define_attribute :subscriptions, Array, { :item_type => :PurchaseSubscriptionCreate }
 
       # @!attribute terms_and_conditions
       #   @return [String] Terms and conditions to be put on the purchase invoice.
