@@ -102,10 +102,6 @@ module Recurly
       #   @return [String] If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.
       define_attribute :temporal_unit, String, { :enum => ["day", "week", "month", "year"] }
 
-      # @!attribute unique_code_template
-      #   @return [String] On a bulk coupon, the template from which unique coupon codes are generated.
-      define_attribute :unique_code_template, String
-
       # @!attribute [r] unique_coupon_codes_count
       #   @return [Integer] When this number reaches `max_redemptions` the coupon will no longer be redeemable.
       define_attribute :unique_coupon_codes_count, Integer, { :read_only => true }
