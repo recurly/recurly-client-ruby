@@ -12,15 +12,15 @@ module Recurly
 
       # @!attribute [r] created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, {:read_only => true}
+      define_attribute :created_at, DateTime, { :read_only => true }
 
       # @!attribute [r] deleted_at
       #   @return [DateTime] Deleted at
-      define_attribute :deleted_at, DateTime, {:read_only => true}
+      define_attribute :deleted_at, DateTime, { :read_only => true }
 
       # @!attribute [r] id
       #   @return [String] Shipping Method ID
-      define_attribute :id, String, {:read_only => true}
+      define_attribute :id, String, { :read_only => true }
 
       # @!attribute name
       #   @return [String] The name of the shipping method displayed to customers.
@@ -28,7 +28,7 @@ module Recurly
 
       # @!attribute [r] object
       #   @return [String] Object type
-      define_attribute :object, String, {:read_only => true}
+      define_attribute :object, String, { :read_only => true }
 
       # @!attribute tax_code
       #   @return [String] Optional field for EU VAT merchants, Vertex and Avalara AvaTax Pro merchants.
@@ -36,7 +36,7 @@ module Recurly
 
       # @!attribute [r] updated_at
       #   @return [DateTime] Last updated at
-      define_attribute :updated_at, DateTime, {:read_only => true}
+      define_attribute :updated_at, DateTime, { :read_only => true }
     end
   end
 end
