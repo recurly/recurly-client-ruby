@@ -136,7 +136,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def create_account(body:)
       path = interpolate_path("/sites/{site_id}/accounts", site_id: site_id)
       post(path, body, Requests::AccountCreate)
@@ -158,7 +157,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_account(account_id:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}", site_id: site_id, account_id: account_id)
       get(path)
@@ -188,7 +186,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def update_account(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}", site_id: site_id, account_id: account_id)
       put(path, body, Requests::AccountUpdate)
@@ -231,7 +228,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_account_acquisition(account_id:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/acquisition", site_id: site_id, account_id: account_id)
       get(path)
@@ -306,7 +302,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_account_balance(account_id:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/balance", site_id: site_id, account_id: account_id)
       get(path)
@@ -328,7 +323,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_billing_info(account_id:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/billing_info", site_id: site_id, account_id: account_id)
       get(path)
@@ -358,7 +352,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def update_billing_info(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/billing_info", site_id: site_id, account_id: account_id)
       put(path, body, Requests::BillingInfoCreate)
@@ -441,7 +434,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_active_coupon_redemption(account_id:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/coupon_redemptions/active", site_id: site_id, account_id: account_id)
       get(path)
@@ -471,7 +463,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def create_coupon_redemption(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/coupon_redemptions/active", site_id: site_id, account_id: account_id)
       post(path, body, Requests::CouponRedemptionCreate)
@@ -493,7 +484,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def remove_coupon_redemption(account_id:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/coupon_redemptions/active", site_id: site_id, account_id: account_id)
       delete(path)
@@ -604,7 +594,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def create_invoice(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/invoices", site_id: site_id, account_id: account_id)
       post(path, body, Requests::InvoiceCreate)
@@ -634,7 +623,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def preview_invoice(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/invoices/preview", site_id: site_id, account_id: account_id)
       post(path, body, Requests::InvoiceCreate)
@@ -711,7 +699,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def create_line_item(account_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/line_items", site_id: site_id, account_id: account_id)
       post(path, body, Requests::LineItemCreate)
@@ -765,7 +752,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_account_note(account_id:, account_note_id:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/notes/{account_note_id}", site_id: site_id, account_id: account_id, account_note_id: account_note_id)
       get(path)
@@ -846,7 +832,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_shipping_address(account_id:, shipping_address_id:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}", site_id: site_id, account_id: account_id, shipping_address_id: shipping_address_id)
       get(path)
@@ -879,7 +864,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def update_shipping_address(account_id:, shipping_address_id:, body:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}", site_id: site_id, account_id: account_id, shipping_address_id: shipping_address_id)
       put(path, body, Requests::ShippingAddressUpdate)
@@ -904,7 +888,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def remove_shipping_address(account_id:, shipping_address_id:)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}", site_id: site_id, account_id: account_id, shipping_address_id: shipping_address_id)
       delete(path)
@@ -1077,7 +1060,7 @@ module Recurly
     # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @return [Resources::AccountAcquisition] A list of the site's account acquisition data.
+    # @return [Pager<Resources::AccountAcquisition>] A list of the site's account acquisition data.
     # @example
     #   acquisitions = @client.list_account_acquisition(limit: 200)
     #   acquisitions.each do |acquisition|
@@ -1157,7 +1140,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def create_coupon(body:)
       path = interpolate_path("/sites/{site_id}/coupons", site_id: site_id)
       post(path, body, Requests::CouponCreate)
@@ -1179,7 +1161,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_coupon(coupon_id:)
       path = interpolate_path("/sites/{site_id}/coupons/{coupon_id}", site_id: site_id, coupon_id: coupon_id)
       get(path)
@@ -1375,7 +1356,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_invoice(invoice_id:)
       path = interpolate_path("/sites/{site_id}/invoices/{invoice_id}", site_id: site_id, invoice_id: invoice_id)
       get(path)
@@ -1409,7 +1389,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def collect_invoice(invoice_id:)
       path = interpolate_path("/sites/{site_id}/invoices/{invoice_id}/collect", site_id: site_id, invoice_id: invoice_id)
       put(path)
@@ -1431,7 +1410,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def fail_invoice(invoice_id:)
       path = interpolate_path("/sites/{site_id}/invoices/{invoice_id}/mark_failed", site_id: site_id, invoice_id: invoice_id)
       put(path)
@@ -1453,7 +1431,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def mark_invoice_successful(invoice_id:)
       path = interpolate_path("/sites/{site_id}/invoices/{invoice_id}/mark_successful", site_id: site_id, invoice_id: invoice_id)
       put(path)
@@ -1475,7 +1452,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def reopen_invoice(invoice_id:)
       path = interpolate_path("/sites/{site_id}/invoices/{invoice_id}/reopen", site_id: site_id, invoice_id: invoice_id)
       put(path)
@@ -1594,7 +1570,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def refund_invoice(invoice_id:, body:)
       path = interpolate_path("/sites/{site_id}/invoices/{invoice_id}/refund", site_id: site_id, invoice_id: invoice_id)
       post(path, body, Requests::InvoiceRefund)
@@ -1652,7 +1627,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_line_item(line_item_id:)
       path = interpolate_path("/sites/{site_id}/line_items/{line_item_id}", site_id: site_id, line_item_id: line_item_id)
       get(path)
@@ -1675,7 +1649,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def remove_line_item(line_item_id:)
       path = interpolate_path("/sites/{site_id}/line_items/{line_item_id}", site_id: site_id, line_item_id: line_item_id)
       delete(path)
@@ -1754,7 +1727,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def create_plan(body:)
       path = interpolate_path("/sites/{site_id}/plans", site_id: site_id)
       post(path, body, Requests::PlanCreate)
@@ -1776,7 +1748,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_plan(plan_id:)
       path = interpolate_path("/sites/{site_id}/plans/{plan_id}", site_id: site_id, plan_id: plan_id)
       get(path)
@@ -1880,7 +1851,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_plan_add_on(plan_id:, add_on_id:)
       path = interpolate_path("/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}", site_id: site_id, plan_id: plan_id, add_on_id: add_on_id)
       get(path)
@@ -2027,7 +1997,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def create_subscription(body:)
       path = interpolate_path("/sites/{site_id}/subscriptions", site_id: site_id)
       post(path, body, Requests::SubscriptionCreate)
@@ -2051,7 +2020,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_subscription(subscription_id:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}", site_id: site_id, subscription_id: subscription_id)
       get(path)
@@ -2081,7 +2049,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def modify_subscription(subscription_id:, body:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}", site_id: site_id, subscription_id: subscription_id)
       put(path, body, Requests::SubscriptionUpdate)
@@ -2115,7 +2082,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def terminate_subscription(subscription_id:, **options)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}", site_id: site_id, subscription_id: subscription_id)
       delete(path, **options)
@@ -2139,7 +2105,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def cancel_subscription(subscription_id:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/cancel", site_id: site_id, subscription_id: subscription_id)
       put(path)
@@ -2163,7 +2128,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def reactivate_subscription(subscription_id:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/reactivate", site_id: site_id, subscription_id: subscription_id)
       put(path)
@@ -2192,7 +2156,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def pause_subscription(subscription_id:, body:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/pause", site_id: site_id, subscription_id: subscription_id)
       put(path, body, Requests::SubscriptionPause)
@@ -2216,7 +2179,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def resume_subscription(subscription_id:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/resume", site_id: site_id, subscription_id: subscription_id)
       put(path)
@@ -2240,7 +2202,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_subscription_change(subscription_id:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/change", site_id: site_id, subscription_id: subscription_id)
       get(path)
@@ -2270,7 +2231,6 @@ module Recurly
     #     puts "ValidationError: #{e.recurly_error.params}"
     #   end
     #
-    #   # END_EXAMPLE
     def create_subscription_change(subscription_id:, body:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/change", site_id: site_id, subscription_id: subscription_id)
       post(path, body, Requests::SubscriptionChangeCreate)
@@ -2293,7 +2253,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def remove_subscription_change(subscription_id:)
       path = interpolate_path("/sites/{site_id}/subscriptions/{subscription_id}/change", site_id: site_id, subscription_id: subscription_id)
       delete(path)
@@ -2492,7 +2451,6 @@ module Recurly
     #     puts "Resource Not Found"
     #   end
     #
-    #   # END_EXAMPLE
     def get_transaction(transaction_id:)
       path = interpolate_path("/sites/{site_id}/transactions/{transaction_id}", site_id: site_id, transaction_id: transaction_id)
       get(path)
