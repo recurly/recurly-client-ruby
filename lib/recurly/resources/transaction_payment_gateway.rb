@@ -4,23 +4,23 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Resources
-    class SubscriptionShipping < Resource
+    class TransactionPaymentGateway < Resource
 
-      # @!attribute address
-      #   @return [ShippingAddress]
-      define_attribute :address, :ShippingAddress
+      # @!attribute id
+      #   @return [String]
+      define_attribute :id, String
 
-      # @!attribute amount
-      #   @return [Float] Subscription's shipping cost
-      define_attribute :amount, Float
-
-      # @!attribute method
-      #   @return [ShippingMethodMini]
-      define_attribute :method, :ShippingMethodMini
+      # @!attribute name
+      #   @return [String]
+      define_attribute :name, String
 
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+
+      # @!attribute type
+      #   @return [String]
+      define_attribute :type, String
     end
   end
 end
