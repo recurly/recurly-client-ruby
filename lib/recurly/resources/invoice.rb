@@ -11,8 +11,8 @@ module Recurly
       define_attribute :account, :AccountMini
 
       # @!attribute address
-      #   @return [InvoiceAddress]
-      define_attribute :address, :InvoiceAddress
+      #   @return [Address]
+      define_attribute :address, :Address
 
       # @!attribute balance
       #   @return [Float] The outstanding balance remaining on this invoice.

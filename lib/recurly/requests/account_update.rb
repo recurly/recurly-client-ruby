@@ -10,10 +10,6 @@ module Recurly
       #   @return [Address]
       define_attribute :address, :Address
 
-      # @!attribute bill_to
-      #   @return [String] An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.
-      define_attribute :bill_to, String, { :enum => ["self", "parent"] }
-
       # @!attribute billing_info
       #   @return [BillingInfoCreate]
       define_attribute :billing_info, :BillingInfoCreate
@@ -34,10 +30,6 @@ module Recurly
       #   @return [String] The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.
       define_attribute :email, String
 
-      # @!attribute exemption_certificate
-      #   @return [String] The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.
-      define_attribute :exemption_certificate, String
-
       # @!attribute first_name
       #   @return [String]
       define_attribute :first_name, String
@@ -45,14 +37,6 @@ module Recurly
       # @!attribute last_name
       #   @return [String]
       define_attribute :last_name, String
-
-      # @!attribute parent_account_code
-      #   @return [String] The account code of the parent account to be associated with this account. Passing an empty value removes any existing parent association from this account. If both `parent_account_code` and `parent_account_id` are passed, the non-blank value in `parent_account_id` will be used. Only one level of parent child relationship is allowed. You cannot assign a parent account that itself has a parent account.
-      define_attribute :parent_account_code, String
-
-      # @!attribute parent_account_id
-      #   @return [String] The UUID of the parent account to be associated with this account. Passing an empty value removes any existing parent association from this account. If both `parent_account_code` and `parent_account_id` are passed, the non-blank value in `parent_account_id` will be used. Only one level of parent child relationship is allowed. You cannot assign a parent account that itself has a parent account.
-      define_attribute :parent_account_id, String
 
       # @!attribute preferred_locale
       #   @return [String] Used to determine the language and locale of emails sent on behalf of the merchant to the customer. The list of locales is restricted to those the merchant has enabled on the site.

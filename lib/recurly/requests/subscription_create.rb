@@ -51,11 +51,11 @@ module Recurly
       define_attribute :next_bill_date, DateTime
 
       # @!attribute plan_code
-      #   @return [String] You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.
+      #   @return [String] Plan code
       define_attribute :plan_code, String
 
       # @!attribute plan_id
-      #   @return [String] You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.
+      #   @return [String] Plan ID
       define_attribute :plan_id, String
 
       # @!attribute po_number
@@ -71,8 +71,8 @@ module Recurly
       define_attribute :renewal_billing_cycles, Integer
 
       # @!attribute shipping_address
-      #   @return [Hash] Create a shipping address on the account and assign it to the subscription.
-      define_attribute :shipping_address, Hash
+      #   @return [ShippingAddressCreate] Create a shipping address on the account and assign it to the subscription.
+      define_attribute :shipping_address, :ShippingAddressCreate
 
       # @!attribute shipping_address_id
       #   @return [String] Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.
