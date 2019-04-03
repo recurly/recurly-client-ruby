@@ -31,8 +31,8 @@ module Recurly
       define_attribute :description, String
 
       # @!attribute hosted_pages
-      #   @return [Hash] Hosted pages settings
-      define_attribute :hosted_pages, Hash
+      #   @return [PlanHostedPages] Hosted pages settings
+      define_attribute :hosted_pages, :PlanHostedPages
 
       # @!attribute [r] id
       #   @return [String] Plan ID
