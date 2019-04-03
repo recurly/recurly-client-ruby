@@ -34,10 +34,6 @@ module Recurly
       #   @return [String] Object type
       define_attribute :object, String, { :read_only => true }
 
-      # @!attribute [r] public_api_key
-      #   @return [String] This value is used to configure RecurlyJS to submit tokenized billing information.
-      define_attribute :public_api_key, String, { :read_only => true }
-
       # @!attribute settings
       #   @return [Settings]
       define_attribute :settings, :Settings
