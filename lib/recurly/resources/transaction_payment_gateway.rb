@@ -4,19 +4,23 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Resources
-    class InvoiceCollection < Resource
+    class TransactionPaymentGateway < Resource
 
-      # @!attribute charge_invoice
-      #   @return [Invoice]
-      define_attribute :charge_invoice, :Invoice
+      # @!attribute id
+      #   @return [String]
+      define_attribute :id, String
 
-      # @!attribute credit_invoices
-      #   @return [Array[Invoice]] Credit invoices
-      define_attribute :credit_invoices, Array, { :item_type => :Invoice }
+      # @!attribute name
+      #   @return [String]
+      define_attribute :name, String
 
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+
+      # @!attribute type
+      #   @return [String]
+      define_attribute :type, String
     end
   end
 end

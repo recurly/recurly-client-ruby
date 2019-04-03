@@ -4,11 +4,15 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Requests
-    class SubscriptionPause < Request
+    class AccountAcquisitionCost < Request
 
-      # @!attribute remaining_pause_cycles
-      #   @return [Integer] Number of billing cycles to pause the subscriptions.
-      define_attribute :remaining_pause_cycles, Integer
+      # @!attribute amount
+      #   @return [Float] The amount of the corresponding currency used to acquire the account.
+      define_attribute :amount, Float
+
+      # @!attribute currency
+      #   @return [String] 3-letter ISO 4217 currency code.
+      define_attribute :currency, String
     end
   end
 end

@@ -11,12 +11,8 @@ module Recurly
       define_attribute :account, :AccountMini
 
       # @!attribute address
-      #   @return [InvoiceAddress]
-      define_attribute :address, :InvoiceAddress
-
-      # @!attribute balance
-      #   @return [Float] The outstanding balance remaining on this invoice.
-      define_attribute :balance, Float
+      #   @return [Address]
+      define_attribute :address, :Address
 
       # @!attribute closed_at
       #   @return [DateTime] Date invoice was marked paid or failed.
@@ -30,10 +26,6 @@ module Recurly
       #   @return [DateTime] Created at
       define_attribute :created_at, DateTime, { :read_only => true }
 
-      # @!attribute credit_payments
-      #   @return [Array[CreditPayment]] Credit payments
-      define_attribute :credit_payments, Array, { :item_type => :CreditPayment }
-
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
@@ -46,6 +38,10 @@ module Recurly
       #   @return [Float] Total discounts applied to this invoice.
       define_attribute :discount, Float
 
+      # @!attribute due
+      #   @return [Float] The outstanding balance remaining on this invoice.
+      define_attribute :due, Float
+
       # @!attribute due_at
       #   @return [DateTime] Date invoice is due. This is the date the net terms are reached.
       define_attribute :due_at, DateTime
@@ -55,8 +51,8 @@ module Recurly
       define_attribute :id, String, { :read_only => true }
 
       # @!attribute line_items
-      #   @return [LineItemList]
-      define_attribute :line_items, :LineItemList
+      #   @return [Hash] Line items are grouped by the role they play.
+      define_attribute :line_items, Hash
 
       # @!attribute net_terms
       #   @return [Integer] Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.
@@ -70,10 +66,6 @@ module Recurly
       #   @return [String] Object type
       define_attribute :object, String, { :read_only => true }
 
-      # @!attribute origin
-      #   @return [String] The event that created the invoice.
-      define_attribute :origin, String, { :enum => ["purchase", "line_item_refund", "open_amount_refund", "renewal", "immediate_change", "termination", "credit", "gift_card", "write_off"] }
-
       # @!attribute paid
       #   @return [Float] The total amount of successful payments transaction on this invoice.
       define_attribute :paid, Float
@@ -86,17 +78,13 @@ module Recurly
       #   @return [String] On refund invoices, this value will exist and show the invoice ID of the purchase invoice the refund was created from.
       define_attribute :previous_invoice_id, String
 
-      # @!attribute refundable_amount
-      #   @return [Float] The refundable amount on a charge invoice. It will be null for all other invoices.
-      define_attribute :refundable_amount, Float
-
       # @!attribute state
       #   @return [String] Invoice state
       define_attribute :state, String, { :enum => ["pending", "processing", "past_due", "paid", "failed"] }
 
-      # @!attribute subscription_ids
-      #   @return [Array[String]] If the invoice is charging or refunding for one or more subscriptions, these are their IDs.
-      define_attribute :subscription_ids, Array, { :item_type => String }
+      # @!attribute subscription_id
+      #   @return [String] If the invoice is charging or refunding for a subscription, this is its ID.
+      define_attribute :subscription_id, String
 
       # @!attribute subtotal
       #   @return [Float] The summation of charges, discounts, and credits, before tax.
@@ -123,8 +111,8 @@ module Recurly
       define_attribute :transactions, Array, { :item_type => :Transaction }
 
       # @!attribute type
-      #   @return [String] Invoices are either charge, credit, or legacy invoices.
-      define_attribute :type, String, { :enum => ["charge", "credit", "legacy"] }
+      #   @return [String] The original invoice will have a type of `purchase`. Any refunds or voids will create a negative invoice to cancel out the original. `line_item_refund` indicates that specific line items were refunded, while `open_amount_refund` only indicates money was refunded.
+      define_attribute :type, String, { :enum => ["purchase", "line_item_refund", "open_amount_refund"] }
 
       # @!attribute [r] updated_at
       #   @return [DateTime] Last updated at

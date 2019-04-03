@@ -6,10 +6,6 @@ module Recurly
   module Requests
     class LineItemCreate < Request
 
-      # @!attribute credit_reason_code
-      #   @return [String] The reason the credit was given when line item is `type=credit`. When the Credit Invoices feature is enabled, the value can be set and will default to `general`. When the Credit Invoices feature is not enabled, the value will always be `null`.
-      define_attribute :credit_reason_code, String, { :enum => ["general", "service", "promotional"] }
-
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String

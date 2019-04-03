@@ -26,10 +26,6 @@ module Recurly
       #   @return [DateTime] Collected at, or if not collected yet, the time the transaction was created.
       define_attribute :collected_at, DateTime
 
-      # @!attribute collection_method
-      #   @return [String] The method by which the payment was collected.
-      define_attribute :collection_method, String, { :enum => ["automatic", "manual"] }
-
       # @!attribute created_at
       #   @return [DateTime] Created at
       define_attribute :created_at, DateTime
@@ -82,6 +78,10 @@ module Recurly
       #   @return [InvoiceMini]
       define_attribute :invoice, :InvoiceMini
 
+      # @!attribute invoice_id
+      #   @return [String] If this transaction pays (`type=payment`) for or refunds (`type=refund`) an invoice, this will be the invoice's ID. It will be null for verification (`type=verify`) transactions.
+      define_attribute :invoice_id, String
+
       # @!attribute ip_address_country
       #   @return [String] IP address's country
       define_attribute :ip_address_country, String
@@ -107,7 +107,7 @@ module Recurly
       define_attribute :payment_gateway, Hash
 
       # @!attribute payment_method
-      #   @return [Hash] Payment method (TODO: this overlaps with BillingInfo’s payment_method but only documents credit cards)
+      #   @return [Hash] Payment method (TODO: this overlaps with BillinInfo’s payment_method but only documents credit cards)
       define_attribute :payment_method, Hash
 
       # @!attribute refunded
@@ -126,16 +126,16 @@ module Recurly
       #   @return [String] For declined (`success=false`) transactions, the message displayed to the merchant.
       define_attribute :status_message, String
 
-      # @!attribute subscription_ids
-      #   @return [Array[String]] If the transaction is charging or refunding for one or more subscriptions, these are their IDs.
-      define_attribute :subscription_ids, Array, { :item_type => String }
+      # @!attribute subscription_id
+      #   @return [String] If the transaction is charging or refunding for a subscription, this is its ID.
+      define_attribute :subscription_id, String
 
       # @!attribute success
       #   @return [Boolean] Did this transaction complete successfully?
       define_attribute :success, :Boolean
 
       # @!attribute type
-      #   @return [String] - `authorization` – verifies billing information and places a hold on money in the customer's account. - `capture` – captures funds held by an authorization and completes a purchase. - `purchase` – combines the authorization and capture in one transaction. - `refund` – returns all or a portion of the money collected in a previous transaction to the customer. - `verify` – a $0 or $1 transaction used to verify billing information which is immediately voided.
+      #   @return [String] Transaction type
       define_attribute :type, String, { :enum => ["authorization", "capture", "purchase", "refund", "verify"] }
 
       # @!attribute uuid
@@ -145,10 +145,6 @@ module Recurly
       # @!attribute voided_at
       #   @return [DateTime] Voided at
       define_attribute :voided_at, DateTime
-
-      # @!attribute voided_by_invoice
-      #   @return [InvoiceMini]
-      define_attribute :voided_by_invoice, :InvoiceMini
     end
   end
 end

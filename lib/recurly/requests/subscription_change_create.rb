@@ -23,12 +23,8 @@ module Recurly
       define_attribute :net_terms, Integer
 
       # @!attribute plan_code
-      #   @return [String] If you want to change to a new plan, you can provide the plan's code or id. If both are provided the `plan_id` will be used.
+      #   @return [String] The plan code.
       define_attribute :plan_code, String
-
-      # @!attribute plan_id
-      #   @return [String] If you want to change to a new plan, you can provide the plan's code or id. If both are provided the `plan_id` will be used.
-      define_attribute :plan_id, String
 
       # @!attribute po_number
       #   @return [String] For manual invoicing, this identifies the PO number associated with the subscription.

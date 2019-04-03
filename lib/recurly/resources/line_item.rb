@@ -34,10 +34,6 @@ module Recurly
       #   @return [Float] The amount of credit from this line item that was applied to the invoice.
       define_attribute :credit_applied, Float
 
-      # @!attribute credit_reason_code
-      #   @return [String] The reason the credit was given when line item is `type=credit`.
-      define_attribute :credit_reason_code, String, { :enum => ["general", "service", "promotional", "refund", "gift_card", "write_off"] }
-
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
@@ -66,10 +62,6 @@ module Recurly
       #   @return [String] Once the line item has been invoiced this will be the invoice's number. If VAT taxation and the Country Invoice Sequencing feature are enabled, invoices will have country-specific invoice numbers for invoices billed to EU countries (ex: FR1001). Non-EU invoices will continue to use the site-level invoice number sequence.
       define_attribute :invoice_number, String
 
-      # @!attribute legacy_category
-      #   @return [String] Category to describe the role of a line item on a legacy invoice: - "charges" refers to charges being billed for on this invoice. - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo. - "applied_credits" refers to previous credits applied to this invoice. See their original_line_item_id to determine where the credit first originated. - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
-      define_attribute :legacy_category, String, { :enum => ["charge", "credit", "applied_credit", "carryforward"] }
-
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
@@ -77,6 +69,10 @@ module Recurly
       # @!attribute origin
       #   @return [String] A credit created from an original charge will have the value of the charge's origin.
       define_attribute :origin, String, { :enum => ["plan", "plan_trial", "setup_fee", "add_on_trial", "add_on", "debit", "one_time", "credit", "coupon", "carryforward"] }
+
+      # @!attribute original_line_item_id
+      #   @return [String] The line item where the credit originated. Will only have a value if the line item is a credit created from a previous credit, or if the credit was created from a charge refund. For some older invoices this may reference a carryforward charge.
+      define_attribute :original_line_item_id, String
 
       # @!attribute original_line_item_invoice_id
       #   @return [String] The invoice where the credit originated. Will only have a value if the line item is a credit created from a previous credit, or if the credit was created from a charge refund.
@@ -97,10 +93,6 @@ module Recurly
       # @!attribute product_code
       #   @return [String] For plan related line items this will be the plan's code, for add-on related line items it will be the add-on's code.
       define_attribute :product_code, String
-
-      # @!attribute proration_rate
-      #   @return [Float] When a line item has been prorated, this is the rate of the proration. Proration rates were made available for line items created after March 30, 2017. For line items created prior to that date, the proration rate will be `null`, even if the line item was prorated.
-      define_attribute :proration_rate, Float
 
       # @!attribute quantity
       #   @return [Integer] This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
@@ -145,10 +137,6 @@ module Recurly
       # @!attribute tax_exempt
       #   @return [Boolean] `true` exempts tax on charges, `false` applies tax on charges. If not defined, then defaults to the Plan and Site settings. This attribute does not work for credits (negative line items). Credits are always applied post-tax. Pre-tax discounts should use the Coupons feature.
       define_attribute :tax_exempt, :Boolean
-
-      # @!attribute tax_info
-      #   @return [TaxInfo]
-      define_attribute :tax_info, :TaxInfo
 
       # @!attribute taxable
       #   @return [Boolean] `true` if the line item is taxable, `false` if it is not.

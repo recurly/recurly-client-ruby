@@ -33,7 +33,5 @@ module Recurly
     class UnknownApiVersionError < Errors::APIError; end
 
     class ValidationError < Errors::APIError; end
-
-    class MissingFeatureError < Errors::APIError; end
   end
 end
