@@ -4,15 +4,23 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Resources
-    class CustomField < Resource
+    class TransactionPaymentGateway < Resource
+
+      # @!attribute id
+      #   @return [String]
+      define_attribute :id, String
 
       # @!attribute name
-      #   @return [String] Fields must be created in the UI before values can be assigned to them.
+      #   @return [String]
       define_attribute :name, String
 
-      # @!attribute value
-      #   @return [String] Any values that resemble a credit card number or security code (CVV/CVC) will be rejected.
-      define_attribute :value, String
+      # @!attribute object
+      #   @return [String] Object type
+      define_attribute :object, String
+
+      # @!attribute type
+      #   @return [String]
+      define_attribute :type, String
     end
   end
 end

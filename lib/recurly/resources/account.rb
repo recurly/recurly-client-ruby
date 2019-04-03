@@ -10,10 +10,6 @@ module Recurly
       #   @return [Address]
       define_attribute :address, :Address
 
-      # @!attribute bill_to
-      #   @return [String] An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.
-      define_attribute :bill_to, String, { :enum => ["self", "parent"] }
-
       # @!attribute billing_info
       #   @return [BillingInfo]
       define_attribute :billing_info, :BillingInfo
@@ -34,10 +30,6 @@ module Recurly
       #   @return [DateTime] When the account was created.
       define_attribute :created_at, DateTime, { :read_only => true }
 
-      # @!attribute custom_fields
-      #   @return [Array[CustomField]]
-      define_attribute :custom_fields, Array, { :item_type => :CustomField }
-
       # @!attribute [r] deleted_at
       #   @return [DateTime] If present, when the account was last marked inactive.
       define_attribute :deleted_at, DateTime, { :read_only => true }
@@ -45,10 +37,6 @@ module Recurly
       # @!attribute email
       #   @return [String] The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.
       define_attribute :email, String
-
-      # @!attribute exemption_certificate
-      #   @return [String] The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.
-      define_attribute :exemption_certificate, String
 
       # @!attribute first_name
       #   @return [String]
@@ -69,14 +57,6 @@ module Recurly
       # @!attribute [r] object
       #   @return [String] Object type
       define_attribute :object, String, { :read_only => true }
-
-      # @!attribute parent_account_id
-      #   @return [String] The UUID of the parent account associated with this account.
-      define_attribute :parent_account_id, String
-
-      # @!attribute preferred_locale
-      #   @return [String] Used to determine the language and locale of emails sent on behalf of the merchant to the customer.
-      define_attribute :preferred_locale, String, { :enum => ["da-DK", "de-CH", "de-DE", "en-AU", "en-CA", "en-GB", "en-NZ", "en-US", "es-ES", "es-MX", "es-US", "fr-CA", "fr-FR", "hi-IN", "ja-JP", "nl-BE", "nl-NL", "pt-BR", "pt-PT", "ru-RU", "tr-TR", "zh-CN"] }
 
       # @!attribute shipping_addresses
       #   @return [Array[ShippingAddress]] The shipping addresses on the account.

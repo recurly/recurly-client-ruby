@@ -18,10 +18,6 @@ module Recurly
       #   @return [DateTime] Deleted at
       define_attribute :deleted_at, DateTime, { :read_only => true }
 
-      # @!attribute features
-      #   @return [Array[String]] A list of features enabled for the site.
-      define_attribute :features, Array, { :item_type => String }
-
       # @!attribute [r] id
       #   @return [String] Site ID
       define_attribute :id, String, { :read_only => true }
@@ -33,10 +29,6 @@ module Recurly
       # @!attribute [r] object
       #   @return [String] Object type
       define_attribute :object, String, { :read_only => true }
-
-      # @!attribute [r] public_api_key
-      #   @return [String] This value is used to configure RecurlyJS to submit tokenized billing information.
-      define_attribute :public_api_key, String, { :read_only => true }
 
       # @!attribute settings
       #   @return [Settings]

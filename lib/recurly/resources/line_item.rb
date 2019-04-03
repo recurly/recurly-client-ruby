@@ -67,7 +67,7 @@ module Recurly
       define_attribute :invoice_number, String
 
       # @!attribute legacy_category
-      #   @return [String] Category to describe the role of a line item on a legacy invoice: - "charges" refers to charges being billed for on this invoice. - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo. - "applied_credits" refers to previous credits applied to this invoice. See their original_line_item_id to determine where the credit first originated. - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
+      #   @return [String] Category to describe the role of a line item on a legacy invoice: - "charges" refers to charges being billed for on this invoice. - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo. - "applied_credits" refers to previous credits applied to this invoice. See their `original_line_item_invoice_id` to determine where the credit first originated. - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
       define_attribute :legacy_category, String, { :enum => ["charge", "credit", "applied_credit", "carryforward"] }
 
       # @!attribute object
@@ -145,10 +145,6 @@ module Recurly
       # @!attribute tax_exempt
       #   @return [Boolean] `true` exempts tax on charges, `false` applies tax on charges. If not defined, then defaults to the Plan and Site settings. This attribute does not work for credits (negative line items). Credits are always applied post-tax. Pre-tax discounts should use the Coupons feature.
       define_attribute :tax_exempt, :Boolean
-
-      # @!attribute tax_info
-      #   @return [TaxInfo]
-      define_attribute :tax_info, :TaxInfo
 
       # @!attribute taxable
       #   @return [Boolean] `true` if the line item is taxable, `false` if it is not.
