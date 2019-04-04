@@ -69,6 +69,15 @@ module Recurly
       end
     end
 
+    def set_options(options)
+      @log_level = options[:log_level] || Logger::WARN
+      @logger = Logger.new(STDOUT)
+      @logger.level = @log_level
+
+      # TODO this is undocumented until we finalize it
+      @extra_headers = options[:headers] || {}
+    end
+
     protected
 
     def pager(path, **options)
@@ -215,15 +224,6 @@ module Recurly
         faraday.basic_auth(api_key, '')
         configure_net_adapter(faraday)
       end
-    end
-
-    def set_options(options)
-      @log_level = options[:log_level] || Logger::WARN
-      @logger = Logger.new(STDOUT)
-      @logger.level = @log_level
-
-      # TODO this is undocumented until we finalize it
-      @extra_headers = options[:headers] || {}
     end
   end
 end
