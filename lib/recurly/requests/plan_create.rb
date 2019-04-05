@@ -31,8 +31,8 @@ module Recurly
       define_attribute :description, String
 
       # @!attribute hosted_pages
-      #   @return [PlanHostedPages] Hosted pages settings
-      define_attribute :hosted_pages, :PlanHostedPages
+      #   @return [Hash] Hosted pages settings
+      define_attribute :hosted_pages, Hash
 
       # @!attribute interval_length
       #   @return [Integer] Length of the plan's billing interval in `interval_unit`.
