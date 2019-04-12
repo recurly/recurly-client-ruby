@@ -71,8 +71,8 @@ module Recurly
       define_attribute :renewal_billing_cycles, Integer
 
       # @!attribute shipping_address
-      #   @return [Hash] Create a shipping address on the account and assign it to the subscription.
-      define_attribute :shipping_address, Hash
+      #   @return [ShippingAddressCreate] Create a shipping address on the account and assign it to the subscription.
+      define_attribute :shipping_address, :ShippingAddressCreate
 
       # @!attribute shipping_address_id
       #   @return [String] Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.
