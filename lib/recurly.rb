@@ -13,4 +13,8 @@ require "recurly/errors"
 require "recurly/client"
 
 module Recurly
+  STRICT_MODE = !ENV['RECURLY_STRICT_MODE'].nil?
+  if STRICT_MODE
+    puts "[Recurly] [WARNING] STRICT_MODE enabled. This should only be used for testing purposes."
+  end
 end
