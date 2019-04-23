@@ -36,7 +36,7 @@ module Recurly
 
       # @!attribute collection_method
       #   @return [String] Collection method
-      define_attribute :collection_method, String, { :enum => ["automatic", "manual"] }
+      define_attribute :collection_method, String
 
       # @!attribute coupon_redemptions
       #   @return [Array[CouponRedemptionMini]] Coupon redemptions
@@ -132,7 +132,7 @@ module Recurly
 
       # @!attribute state
       #   @return [String] State
-      define_attribute :state, String, { :enum => ["active", "canceled", "expired", "failed", "future", "paused"] }
+      define_attribute :state, String
 
       # @!attribute subtotal
       #   @return [Float] Estimated total, before tax.

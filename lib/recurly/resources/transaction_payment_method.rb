@@ -8,7 +8,7 @@ module Recurly
 
       # @!attribute card_type
       #   @return [String] Visa, MasterCard, American Express, Discover, JCB, etc.
-      define_attribute :card_type, String, { :enum => ["American Express", "Dankort", "Diners Club", "Discover", "Forbrugsforeningen", "JCB", "Laser", "Maestro", "MasterCard", "Test Card", "Unknown", "Visa"] }
+      define_attribute :card_type, String
 
       # @!attribute exp_month
       #   @return [Integer] Expiration month.
@@ -28,7 +28,7 @@ module Recurly
 
       # @!attribute object
       #   @return [String]
-      define_attribute :object, String, { :enum => ["credit_card", "paypal", "amazon", "roku", "ach", "apple_pay", "sepadirectdebit", "eft", "wire_transfer", "money_order", "check", "other"] }
+      define_attribute :object, String
     end
   end
 end

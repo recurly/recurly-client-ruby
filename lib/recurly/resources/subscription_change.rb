@@ -6,9 +6,9 @@ module Recurly
   module Resources
     class SubscriptionChange < Resource
 
-      # @!attribute [r] activate_at
+      # @!attribute activate_at
       #   @return [DateTime] Activated at
-      define_attribute :activate_at, DateTime, { :read_only => true }
+      define_attribute :activate_at, DateTime
 
       # @!attribute activated
       #   @return [Boolean] Returns `true` if the subscription change is activated.
@@ -18,13 +18,13 @@ module Recurly
       #   @return [Array[SubscriptionAddOn]] These add-ons will be used when the subscription renews.
       define_attribute :add_ons, Array, { :item_type => :SubscriptionAddOn }
 
-      # @!attribute [r] created_at
+      # @!attribute created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, { :read_only => true }
+      define_attribute :created_at, DateTime
 
-      # @!attribute [r] deleted_at
+      # @!attribute deleted_at
       #   @return [DateTime] Deleted at
-      define_attribute :deleted_at, DateTime, { :read_only => true }
+      define_attribute :deleted_at, DateTime
 
       # @!attribute id
       #   @return [String] The ID of the Subscription Change.
@@ -50,9 +50,9 @@ module Recurly
       #   @return [Float] Unit amount
       define_attribute :unit_amount, Float
 
-      # @!attribute [r] updated_at
+      # @!attribute updated_at
       #   @return [DateTime] Updated at
-      define_attribute :updated_at, DateTime, { :read_only => true }
+      define_attribute :updated_at, DateTime
     end
   end
 end

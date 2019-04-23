@@ -8,7 +8,7 @@ module Recurly
 
       # @!attribute credit_reason_code
       #   @return [String] The reason the credit was given when line item is `type=credit`. When the Credit Invoices feature is enabled, the value can be set and will default to `general`. When the Credit Invoices feature is not enabled, the value will always be `null`.
-      define_attribute :credit_reason_code, String, { :enum => ["general", "service", "promotional"] }
+      define_attribute :credit_reason_code, String
 
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
@@ -40,7 +40,7 @@ module Recurly
 
       # @!attribute type
       #   @return [String] Line item type.
-      define_attribute :type, String, { :enum => ["charge", "credit"] }
+      define_attribute :type, String
 
       # @!attribute unit_amount
       #   @return [Float] A positive or negative amount with `type=charge` will result in a positive `unit_amount`. A positive or negative amount with `type=credit` will result in a negative `unit_amount`.

@@ -34,9 +34,9 @@ module Recurly
       #   @return [PlanHostedPages] Hosted pages settings
       define_attribute :hosted_pages, :PlanHostedPages
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String] Plan ID
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
       # @!attribute name
       #   @return [String] This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
@@ -64,7 +64,7 @@ module Recurly
 
       # @!attribute trial_unit
       #   @return [String] Units for the plan's trial period.
-      define_attribute :trial_unit, String, { :enum => ["days", "months"] }
+      define_attribute :trial_unit, String
     end
   end
 end

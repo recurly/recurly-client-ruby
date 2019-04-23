@@ -30,9 +30,9 @@ module Recurly
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.
       define_attribute :name, String
 
-      # @!attribute [r] plan_id
+      # @!attribute plan_id
       #   @return [String] Plan ID
-      define_attribute :plan_id, String, { :read_only => true }
+      define_attribute :plan_id, String
 
       # @!attribute tax_code
       #   @return [String] Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.

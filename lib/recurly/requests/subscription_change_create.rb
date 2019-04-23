@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute collection_method
       #   @return [String] Collection method
-      define_attribute :collection_method, String, { :enum => ["automatic", "manual"] }
+      define_attribute :collection_method, String
 
       # @!attribute coupon_codes
       #   @return [Array[String]] A list of coupon_codes to be redeemed on the subscription during the change. Only allowed if timeframe is now and you change something about the subscription that creates an invoice.
@@ -40,7 +40,7 @@ module Recurly
 
       # @!attribute timeframe
       #   @return [String] The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now or when the subscription renews. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to "renewal" so the change takes affect at the end of the current billing cycle.
-      define_attribute :timeframe, String, { :enum => ["now", "renewal"] }
+      define_attribute :timeframe, String
 
       # @!attribute unit_amount
       #   @return [Float] Optionally, sets custom pricing for the subscription, overriding the plan's default unit amount. The subscription's current currency will be used.

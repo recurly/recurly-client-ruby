@@ -26,9 +26,9 @@ module Recurly
       #   @return [Boolean] Determines if the quantity field is displayed on the hosted pages for the add-on.
       define_attribute :display_quantity, :Boolean
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String] Add-on ID
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.

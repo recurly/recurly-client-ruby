@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute payment_method
       #   @return [String] Payment method used for external refund transaction.
-      define_attribute :payment_method, String, { :enum => ["credit_card", "paypal", "amazon", "roku", "ach", "apple_pay", "sepadirectdebit", "eft", "wire_transfer", "money_order", "check", "other"] }
+      define_attribute :payment_method, String
 
       # @!attribute refunded_at
       #   @return [DateTime] Date the external refund payment was made. Defaults to the current date-time.

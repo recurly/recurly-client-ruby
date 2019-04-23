@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute action
       #   @return [String] The action for which the credit was created.
-      define_attribute :action, String, { :enum => ["payment", "refund", "reduction", "write_off"] }
+      define_attribute :action, String
 
       # @!attribute amount
       #   @return [Float] Total credit payment amount applied to the charge invoice.
@@ -22,9 +22,9 @@ module Recurly
       #   @return [InvoiceMini]
       define_attribute :applied_to_invoice, :InvoiceMini
 
-      # @!attribute [r] created_at
+      # @!attribute created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, { :read_only => true }
+      define_attribute :created_at, DateTime
 
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
@@ -50,17 +50,17 @@ module Recurly
       #   @return [Transaction]
       define_attribute :refund_transaction, :Transaction
 
-      # @!attribute [r] updated_at
+      # @!attribute updated_at
       #   @return [DateTime] Last updated at
-      define_attribute :updated_at, DateTime, { :read_only => true }
+      define_attribute :updated_at, DateTime
 
       # @!attribute uuid
       #   @return [String] The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
       define_attribute :uuid, String
 
-      # @!attribute [r] voided_at
+      # @!attribute voided_at
       #   @return [DateTime] Voided at
-      define_attribute :voided_at, DateTime, { :read_only => true }
+      define_attribute :voided_at, DateTime
     end
   end
 end

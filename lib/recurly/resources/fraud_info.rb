@@ -8,7 +8,7 @@ module Recurly
 
       # @!attribute decision
       #   @return [String] Kount decision
-      define_attribute :decision, String, { :enum => ["approve", "review", "decline", "escalate"] }
+      define_attribute :decision, String
 
       # @!attribute risk_rules_triggered
       #   @return [Hash] Kount rules

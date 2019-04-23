@@ -16,31 +16,31 @@ module Recurly
 
       # @!attribute channel
       #   @return [String] The channel through which the account was acquired.
-      define_attribute :channel, String, { :enum => ["referral", "social_media", "email", "paid_search", "organic_search", "direct_traffic", "marketing_content", "blog", "events", "outbound_sales", "advertising", "public_relations", "other"] }
+      define_attribute :channel, String
 
       # @!attribute cost
       #   @return [Hash] Account balance
       define_attribute :cost, Hash
 
-      # @!attribute [r] created_at
+      # @!attribute created_at
       #   @return [DateTime] When the account acquisition data was created.
-      define_attribute :created_at, DateTime, { :read_only => true }
+      define_attribute :created_at, DateTime
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String]
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
-      # @!attribute [r] object
+      # @!attribute object
       #   @return [String] Object type
-      define_attribute :object, String, { :read_only => true }
+      define_attribute :object, String
 
       # @!attribute subchannel
       #   @return [String] An arbitrary subchannel string representing a distinction/subcategory within a broader channel.
       define_attribute :subchannel, String
 
-      # @!attribute [r] updated_at
+      # @!attribute updated_at
       #   @return [DateTime] When the account acquisition data was last changed.
-      define_attribute :updated_at, DateTime, { :read_only => true }
+      define_attribute :updated_at, DateTime
     end
   end
 end

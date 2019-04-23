@@ -16,7 +16,7 @@ module Recurly
 
       # @!attribute bill_to
       #   @return [String] An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.
-      define_attribute :bill_to, String, { :enum => ["self", "parent"] }
+      define_attribute :bill_to, String
 
       # @!attribute billing_info
       #   @return [BillingInfoCreate]
@@ -64,7 +64,7 @@ module Recurly
 
       # @!attribute preferred_locale
       #   @return [String] Used to determine the language and locale of emails sent on behalf of the merchant to the customer. The list of locales is restricted to those the merchant has enabled on the site.
-      define_attribute :preferred_locale, String, { :enum => ["da-DK", "de-CH", "de-DE", "en-AU", "en-CA", "en-GB", "en-NZ", "en-US", "es-ES", "es-MX", "es-US", "fr-CA", "fr-FR", "hi-IN", "ja-JP", "nl-BE", "nl-NL", "pt-BR", "pt-PT", "ru-RU", "tr-TR", "zh-CN"] }
+      define_attribute :preferred_locale, String
 
       # @!attribute shipping_addresses
       #   @return [Array[ShippingAddressCreate]]

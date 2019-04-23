@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute collection_method
       #   @return [String] Change collection method
-      define_attribute :collection_method, String, { :enum => ["automatic", "manual"] }
+      define_attribute :collection_method, String
 
       # @!attribute custom_fields
       #   @return [Array[CustomField]]

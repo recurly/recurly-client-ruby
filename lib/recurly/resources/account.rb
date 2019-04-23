@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute bill_to
       #   @return [String] An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.
-      define_attribute :bill_to, String, { :enum => ["self", "parent"] }
+      define_attribute :bill_to, String
 
       # @!attribute billing_info
       #   @return [BillingInfo]
@@ -22,25 +22,25 @@ module Recurly
       #   @return [String] Additional email address that should receive account correspondence. These should be separated only by commas. These CC emails will receive all emails that the `email` field also receives.
       define_attribute :cc_emails, String
 
-      # @!attribute [r] code
+      # @!attribute code
       #   @return [String] The unique identifier of the account. This cannot be changed once the account is created.
-      define_attribute :code, String, { :read_only => true }
+      define_attribute :code, String
 
       # @!attribute company
       #   @return [String]
       define_attribute :company, String
 
-      # @!attribute [r] created_at
+      # @!attribute created_at
       #   @return [DateTime] When the account was created.
-      define_attribute :created_at, DateTime, { :read_only => true }
+      define_attribute :created_at, DateTime
 
       # @!attribute custom_fields
       #   @return [Array[CustomField]]
       define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
-      # @!attribute [r] deleted_at
+      # @!attribute deleted_at
       #   @return [DateTime] If present, when the account was last marked inactive.
-      define_attribute :deleted_at, DateTime, { :read_only => true }
+      define_attribute :deleted_at, DateTime
 
       # @!attribute email
       #   @return [String] The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.
@@ -54,21 +54,21 @@ module Recurly
       #   @return [String]
       define_attribute :first_name, String
 
-      # @!attribute [r] hosted_login_token
+      # @!attribute hosted_login_token
       #   @return [String] The unique token for automatically logging the account in to the hosted management pages. You may automatically log the user into their hosted management pages by directing the user to: `https://{subdomain}.recurly.com/account/{hosted_login_token}`.
-      define_attribute :hosted_login_token, String, { :read_only => true }
+      define_attribute :hosted_login_token, String
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String]
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
       # @!attribute last_name
       #   @return [String]
       define_attribute :last_name, String
 
-      # @!attribute [r] object
+      # @!attribute object
       #   @return [String] Object type
-      define_attribute :object, String, { :read_only => true }
+      define_attribute :object, String
 
       # @!attribute parent_account_id
       #   @return [String] The UUID of the parent account associated with this account.
@@ -76,23 +76,23 @@ module Recurly
 
       # @!attribute preferred_locale
       #   @return [String] Used to determine the language and locale of emails sent on behalf of the merchant to the customer.
-      define_attribute :preferred_locale, String, { :enum => ["da-DK", "de-CH", "de-DE", "en-AU", "en-CA", "en-GB", "en-NZ", "en-US", "es-ES", "es-MX", "es-US", "fr-CA", "fr-FR", "hi-IN", "ja-JP", "nl-BE", "nl-NL", "pt-BR", "pt-PT", "ru-RU", "tr-TR", "zh-CN"] }
+      define_attribute :preferred_locale, String
 
       # @!attribute shipping_addresses
       #   @return [Array[ShippingAddress]] The shipping addresses on the account.
       define_attribute :shipping_addresses, Array, { :item_type => :ShippingAddress }
 
-      # @!attribute [r] state
+      # @!attribute state
       #   @return [String] Accounts can be either active or inactive.
-      define_attribute :state, String, { :read_only => true, :enum => ["active", "inactive"] }
+      define_attribute :state, String
 
       # @!attribute tax_exempt
       #   @return [Boolean] The tax status of the account. `true` exempts tax on the account, `false` applies tax on the account.
       define_attribute :tax_exempt, :Boolean
 
-      # @!attribute [r] updated_at
+      # @!attribute updated_at
       #   @return [DateTime] When the account was last changed.
-      define_attribute :updated_at, DateTime, { :read_only => true }
+      define_attribute :updated_at, DateTime
 
       # @!attribute username
       #   @return [String] A secondary value for the account.

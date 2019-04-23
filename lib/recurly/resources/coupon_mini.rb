@@ -12,7 +12,7 @@ module Recurly
 
       # @!attribute coupon_type
       #   @return [String] Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.
-      define_attribute :coupon_type, String, { :enum => ["single_code", "bulk"] }
+      define_attribute :coupon_type, String
 
       # @!attribute discount
       #   @return [CouponDiscount]
@@ -22,21 +22,21 @@ module Recurly
       #   @return [DateTime] The date and time the coupon was expired early or reached its `max_redemptions`.
       define_attribute :expired_at, DateTime
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String] Coupon ID
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
       # @!attribute name
       #   @return [String] The internal name for the coupon.
       define_attribute :name, String
 
-      # @!attribute [r] object
+      # @!attribute object
       #   @return [String] Object type
-      define_attribute :object, String, { :read_only => true }
+      define_attribute :object, String
 
       # @!attribute state
       #   @return [String] Indicates if the coupon is redeemable, and if it is not, why.
-      define_attribute :state, String, { :enum => ["redeemable", "maxed_out", "expired"] }
+      define_attribute :state, String
     end
   end
 end

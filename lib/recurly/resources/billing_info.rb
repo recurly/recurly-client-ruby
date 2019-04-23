@@ -6,9 +6,9 @@ module Recurly
   module Resources
     class BillingInfo < Resource
 
-      # @!attribute [r] account_id
+      # @!attribute account_id
       #   @return [String]
-      define_attribute :account_id, String, { :read_only => true }
+      define_attribute :account_id, String
 
       # @!attribute address
       #   @return [Address]
@@ -18,45 +18,45 @@ module Recurly
       #   @return [String]
       define_attribute :company, String
 
-      # @!attribute [r] created_at
+      # @!attribute created_at
       #   @return [DateTime] When the billing information was created.
-      define_attribute :created_at, DateTime, { :read_only => true }
+      define_attribute :created_at, DateTime
 
       # @!attribute first_name
       #   @return [String]
       define_attribute :first_name, String
 
-      # @!attribute [r] fraud
+      # @!attribute fraud
       #   @return [Hash] Most recent fraud result.
-      define_attribute :fraud, Hash, { :read_only => true }
+      define_attribute :fraud, Hash
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String]
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
       # @!attribute last_name
       #   @return [String]
       define_attribute :last_name, String
 
-      # @!attribute [r] object
+      # @!attribute object
       #   @return [String] Object type
-      define_attribute :object, String, { :read_only => true }
+      define_attribute :object, String
 
       # @!attribute payment_method
       #   @return [Hash]
       define_attribute :payment_method, Hash
 
-      # @!attribute [r] updated_at
+      # @!attribute updated_at
       #   @return [DateTime] When the billing information was last changed.
-      define_attribute :updated_at, DateTime, { :read_only => true }
+      define_attribute :updated_at, DateTime
 
-      # @!attribute [r] updated_by
+      # @!attribute updated_by
       #   @return [Hash]
-      define_attribute :updated_by, Hash, { :read_only => true }
+      define_attribute :updated_by, Hash
 
-      # @!attribute [r] valid
+      # @!attribute valid
       #   @return [Boolean]
-      define_attribute :valid, :Boolean, { :read_only => true }
+      define_attribute :valid, :Boolean
 
       # @!attribute vat_number
       #   @return [String] Customer's VAT number (to avoid having the VAT applied). This is only used for automatically collected invoices.

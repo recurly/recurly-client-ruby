@@ -20,7 +20,7 @@ module Recurly
 
       # @!attribute type
       #   @return [String]
-      define_attribute :type, String, { :enum => ["percent", "fixed", "free_trial"] }
+      define_attribute :type, String
     end
   end
 end

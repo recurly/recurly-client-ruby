@@ -20,11 +20,11 @@ module Recurly
 
       # @!attribute coupon_type
       #   @return [String] Whether the coupon is "single_code" or "bulk". Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.
-      define_attribute :coupon_type, String, { :enum => ["single_code", "bulk"] }
+      define_attribute :coupon_type, String
 
-      # @!attribute [r] created_at
+      # @!attribute created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, { :read_only => true }
+      define_attribute :created_at, DateTime
 
       # @!attribute discount
       #   @return [CouponDiscount]
@@ -32,7 +32,7 @@ module Recurly
 
       # @!attribute duration
       #   @return [String] - "single_use" coupons applies to the first invoice only. - "temporal" coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes.
-      define_attribute :duration, String, { :enum => ["forever", "single_use", "temporal"] }
+      define_attribute :duration, String
 
       # @!attribute expired_at
       #   @return [DateTime] The date and time the coupon was expired early or reached its `max_redemptions`.
@@ -44,15 +44,15 @@ module Recurly
 
       # @!attribute free_trial_unit
       #   @return [String] Description of the unit of time the coupon is for. Used with `free_trial_amount` to determine the duration of time the coupon is for.
-      define_attribute :free_trial_unit, String, { :enum => ["day", "week", "month"] }
+      define_attribute :free_trial_unit, String
 
       # @!attribute hosted_page_description
       #   @return [String] This description will show up when a customer redeems a coupon on your Hosted Payment Pages, or if you choose to show the description on your own checkout page.
       define_attribute :hosted_page_description, String
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String] Coupon ID
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
       # @!attribute invoice_description
       #   @return [String] Description of the coupon on the invoice.
@@ -70,9 +70,9 @@ module Recurly
       #   @return [String] The internal name for the coupon.
       define_attribute :name, String
 
-      # @!attribute [r] object
+      # @!attribute object
       #   @return [String] Object type
-      define_attribute :object, String, { :read_only => true }
+      define_attribute :object, String
 
       # @!attribute plans
       #   @return [Array[PlanMini]] Plans
@@ -88,11 +88,11 @@ module Recurly
 
       # @!attribute redemption_resource
       #   @return [String] Whether the discount is for all eligible charges on the account, or only a specific subscription.
-      define_attribute :redemption_resource, String, { :enum => ["account", "subscription"] }
+      define_attribute :redemption_resource, String
 
       # @!attribute state
       #   @return [String] Indicates if the coupon is redeemable, and if it is not, why.
-      define_attribute :state, String, { :enum => ["redeemable", "maxed_out", "expired"] }
+      define_attribute :state, String
 
       # @!attribute temporal_amount
       #   @return [Integer] If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.
@@ -100,19 +100,19 @@ module Recurly
 
       # @!attribute temporal_unit
       #   @return [String] If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.
-      define_attribute :temporal_unit, String, { :enum => ["day", "week", "month", "year"] }
+      define_attribute :temporal_unit, String
 
       # @!attribute unique_code_template
       #   @return [String] On a bulk coupon, the template from which unique coupon codes are generated.
       define_attribute :unique_code_template, String
 
-      # @!attribute [r] unique_coupon_codes_count
+      # @!attribute unique_coupon_codes_count
       #   @return [Integer] When this number reaches `max_redemptions` the coupon will no longer be redeemable.
-      define_attribute :unique_coupon_codes_count, Integer, { :read_only => true }
+      define_attribute :unique_coupon_codes_count, Integer
 
-      # @!attribute [r] updated_at
+      # @!attribute updated_at
       #   @return [DateTime] Last updated at
-      define_attribute :updated_at, DateTime, { :read_only => true }
+      define_attribute :updated_at, DateTime
     end
   end
 end

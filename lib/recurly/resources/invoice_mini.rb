@@ -20,11 +20,11 @@ module Recurly
 
       # @!attribute state
       #   @return [String] Invoice state
-      define_attribute :state, String, { :enum => ["pending", "processing", "past_due", "paid", "failed"] }
+      define_attribute :state, String
 
       # @!attribute type
       #   @return [String] Invoice type
-      define_attribute :type, String, { :enum => ["charge", "credit", "legacy"] }
+      define_attribute :type, String
     end
   end
 end

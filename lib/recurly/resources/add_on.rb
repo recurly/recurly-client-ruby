@@ -14,9 +14,9 @@ module Recurly
       #   @return [String] The unique identifier for the add-on within its plan.
       define_attribute :code, String
 
-      # @!attribute [r] created_at
+      # @!attribute created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, { :read_only => true }
+      define_attribute :created_at, DateTime
 
       # @!attribute currencies
       #   @return [Array[AddOnPricing]] Add-on pricing
@@ -26,41 +26,41 @@ module Recurly
       #   @return [Integer] Default quantity for the hosted pages.
       define_attribute :default_quantity, Integer
 
-      # @!attribute [r] deleted_at
+      # @!attribute deleted_at
       #   @return [DateTime] Deleted at
-      define_attribute :deleted_at, DateTime, { :read_only => true }
+      define_attribute :deleted_at, DateTime
 
       # @!attribute display_quantity
       #   @return [Boolean] Determines if the quantity field is displayed on the hosted pages for the add-on.
       define_attribute :display_quantity, :Boolean
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String] Add-on ID
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.
       define_attribute :name, String
 
-      # @!attribute [r] object
+      # @!attribute object
       #   @return [String] Object type
-      define_attribute :object, String, { :read_only => true }
+      define_attribute :object, String
 
-      # @!attribute [r] plan_id
+      # @!attribute plan_id
       #   @return [String] Plan ID
-      define_attribute :plan_id, String, { :read_only => true }
+      define_attribute :plan_id, String
 
-      # @!attribute [r] state
+      # @!attribute state
       #   @return [String] Add-ons can be either active or inactive.
-      define_attribute :state, String, { :read_only => true, :enum => ["active", "inactive"] }
+      define_attribute :state, String
 
       # @!attribute tax_code
       #   @return [String] Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature `P0000000` is `physical`, `D0000000` is `digital`, and an empty string is `unknown`.
       define_attribute :tax_code, String
 
-      # @!attribute [r] updated_at
+      # @!attribute updated_at
       #   @return [DateTime] Last updated at
-      define_attribute :updated_at, DateTime, { :read_only => true }
+      define_attribute :updated_at, DateTime
     end
   end
 end

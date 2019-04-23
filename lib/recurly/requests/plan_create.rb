@@ -40,7 +40,7 @@ module Recurly
 
       # @!attribute interval_unit
       #   @return [String] Unit for the plan's billing interval.
-      define_attribute :interval_unit, String, { :enum => ["days", "months"] }
+      define_attribute :interval_unit, String
 
       # @!attribute name
       #   @return [String] This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
@@ -68,7 +68,7 @@ module Recurly
 
       # @!attribute trial_unit
       #   @return [String] Units for the plan's trial period.
-      define_attribute :trial_unit, String, { :enum => ["days", "months"] }
+      define_attribute :trial_unit, String
     end
   end
 end

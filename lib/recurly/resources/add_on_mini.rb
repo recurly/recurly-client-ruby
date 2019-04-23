@@ -14,17 +14,17 @@ module Recurly
       #   @return [String] The unique identifier for the add-on within its plan.
       define_attribute :code, String
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String] Add-on ID
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.
       define_attribute :name, String
 
-      # @!attribute [r] object
+      # @!attribute object
       #   @return [String] Object type
-      define_attribute :object, String, { :read_only => true }
+      define_attribute :object, String
     end
   end
 end

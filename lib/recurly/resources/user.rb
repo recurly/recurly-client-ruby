@@ -6,13 +6,13 @@ module Recurly
   module Resources
     class User < Resource
 
-      # @!attribute [r] created_at
+      # @!attribute created_at
       #   @return [DateTime]
-      define_attribute :created_at, DateTime, { :read_only => true }
+      define_attribute :created_at, DateTime
 
-      # @!attribute [r] deleted_at
+      # @!attribute deleted_at
       #   @return [DateTime]
-      define_attribute :deleted_at, DateTime, { :read_only => true }
+      define_attribute :deleted_at, DateTime
 
       # @!attribute email
       #   @return [String]
@@ -22,17 +22,17 @@ module Recurly
       #   @return [String]
       define_attribute :first_name, String
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String]
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
       # @!attribute last_name
       #   @return [String]
       define_attribute :last_name, String
 
-      # @!attribute [r] object
+      # @!attribute object
       #   @return [String] Object type
-      define_attribute :object, String, { :read_only => true }
+      define_attribute :object, String
 
       # @!attribute time_zone
       #   @return [String]

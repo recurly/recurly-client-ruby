@@ -6,9 +6,9 @@ module Recurly
   module Resources
     class ShippingAddress < Resource
 
-      # @!attribute [r] account_id
+      # @!attribute account_id
       #   @return [String] Account ID
-      define_attribute :account_id, String, { :read_only => true }
+      define_attribute :account_id, String
 
       # @!attribute city
       #   @return [String]
@@ -22,9 +22,9 @@ module Recurly
       #   @return [String] Country, 2-letter ISO code.
       define_attribute :country, String
 
-      # @!attribute [r] created_at
+      # @!attribute created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, { :read_only => true }
+      define_attribute :created_at, DateTime
 
       # @!attribute email
       #   @return [String]
@@ -34,9 +34,9 @@ module Recurly
       #   @return [String]
       define_attribute :first_name, String
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String] Shipping Address ID
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
       # @!attribute last_name
       #   @return [String]
@@ -66,9 +66,9 @@ module Recurly
       #   @return [String]
       define_attribute :street2, String
 
-      # @!attribute [r] updated_at
+      # @!attribute updated_at
       #   @return [DateTime] Updated at
-      define_attribute :updated_at, DateTime, { :read_only => true }
+      define_attribute :updated_at, DateTime
 
       # @!attribute vat_number
       #   @return [String]

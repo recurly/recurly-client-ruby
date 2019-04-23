@@ -10,25 +10,25 @@ module Recurly
       #   @return [CouponMini]
       define_attribute :coupon, :CouponMini
 
-      # @!attribute [r] created_at
+      # @!attribute created_at
       #   @return [DateTime] Created at
-      define_attribute :created_at, DateTime, { :read_only => true }
+      define_attribute :created_at, DateTime
 
       # @!attribute discounted
       #   @return [String] The amount that was discounted upon the application of the coupon, formatted with the currency.
       define_attribute :discounted, String
 
-      # @!attribute [r] id
+      # @!attribute id
       #   @return [String] Coupon Redemption ID
-      define_attribute :id, String, { :read_only => true }
+      define_attribute :id, String
 
-      # @!attribute [r] object
+      # @!attribute object
       #   @return [String] Will always be `coupon`.
-      define_attribute :object, String, { :read_only => true }
+      define_attribute :object, String
 
       # @!attribute state
       #   @return [String] Invoice state
-      define_attribute :state, String, { :enum => ["active", "inactive"] }
+      define_attribute :state, String
     end
   end
 end
