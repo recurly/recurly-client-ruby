@@ -44,8 +44,9 @@ module Recurly
 
             resource.send(writer, val)
           else
-            # TODO ignoring these missing fields for now
-            puts "Missing #{attr_name}"
+            if Recurly::STRICT_MODE
+              raise ArgumentError, "#{resource.class.name} encountered json attribute #{attr_name.inspect}: #{val.inspect} but it's unknown to it's schema"
+            end
           end
         end
         resource
