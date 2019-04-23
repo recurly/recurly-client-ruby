@@ -1020,13 +1020,13 @@ module Recurly
     # @param past_due [String] Filter for accounts with an invoice in the +past_due+ state.
     # @return [Pager<Resources::Account>] A list of an account's child accounts.
     # @example
-    #   # child_accounts = @client.list_child_accounts(
-    #   #   account_id: account_id,
-    #   #   limit: 200
-    #   # )
-    #   # child_accounts.each do |child|
-    #   #   puts "Account: #{child.code}"
-    #   # end
+    #   child_accounts = @client.list_child_accounts(
+    #     account_id: account_id,
+    #     limit: 200
+    #   )
+    #   child_accounts.each do |child|
+    #     puts "Account: #{child.code}"
+    #   end
     #
     def list_child_accounts(account_id:, **options)
       path = interpolate_path("/sites/{site_id}/accounts/{account_id}/accounts", site_id: site_id, account_id: account_id)
