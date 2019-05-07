@@ -22,7 +22,7 @@ module Recurly
   #
   # There are multiple ways to set the shipping addresses:
   # 1. Use {Purchase#shipping_address_id} If you want to apply an existing shipping
-  #    address to all subscriptions and adjustments in this purchase.
+  #    address to all subscriptions, adjustments, and shipping fees in this purchase.
   # 2. Add multiple shipping addresses to {Account#shipping_addresses}. The last
   #    address in the list will apply to all subscriptions and adjustments
   #    in this purchase.
@@ -30,6 +30,12 @@ module Recurly
   #    to set a shipping address for only the subscription.
   # 4. Use {Adjustment#shipping_address_id} or {Adjustment#shipping_address}
   #    to set a shipping address for only the adjustment.
+  # 5. Use {ShippingFee#shipping_address_id} or {ShippingFee#shipping_address}
+  #    to set a shipping address for only the shipping fee. If there are multiple
+  #    shipping fees on a single purchase, each can have its own shipping address.
+  #    This way, if you ship different adjustments to multiple addresses, the
+  #    shipping fees on the purchase can be associated with the same address
+  #    as the adjustment.
   #
   # @example
   #   require 'securerandom'
@@ -77,6 +83,12 @@ module Recurly
   #         quantity: 5,
   #         revenue_schedule_type: :at_invoice
   #       }
+  #     ],
+  #     shipping_fees: [
+  #       {
+  #         shipping_method_code: 'fast_fast_fast',
+  #         shipping_amount_in_cents: '999'
+  #       }
   #     ]
   #   )
   #
@@ -113,6 +125,9 @@ module Recurly
 
     # @return [[Subscription], nil]
     has_many :subscriptions, class_name: :Subscription, readonly: false
+
+    # @return [[ShippingFee], nil]
+    has_many :shipping_fees, class_name: :ShippingFee, readonly: false
 
     define_attribute_methods %w(
       currency

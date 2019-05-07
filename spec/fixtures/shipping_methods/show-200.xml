@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<shipping_method href="https://api.recurly.com/v2/shipping_methods/fedex_ground">
+    <code>fedex_ground</code>
+    <name>FedEx Ground</name>
+    <accounting_code></accounting_code>
+    <tax_code></tax_code>
+    <created_at type="datetime">2019-05-07T16:36:22Z</created_at>
+    <updated_at type="datetime">2019-05-07T16:36:22Z</updated_at>
+</shipping_method>

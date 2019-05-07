@@ -77,6 +77,8 @@ module Recurly
       address
       revenue_schedule_type
       shipping_address_id
+      shipping_method_code
+      shipping_amount_in_cents
       timeframe
       started_with_gift
       converted_at

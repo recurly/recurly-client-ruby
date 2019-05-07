@@ -19,7 +19,10 @@ describe Subscription do
             month: 1,
             year: 2014,
           }
-        }
+        },
+        shipping_address_id: 1234,
+        shipping_method_code: 'ups_ground',
+        shipping_amount_in_cents: 899
       }
     end
 
