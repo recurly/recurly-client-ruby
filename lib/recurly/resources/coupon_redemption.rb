@@ -6,9 +6,9 @@ module Recurly
   module Resources
     class CouponRedemption < Resource
 
-      # @!attribute account_id
-      #   @return [String] The Account ID on which the coupon was applied.
-      define_attribute :account_id, String
+      # @!attribute account
+      #   @return [AccountMini] The Account on which the coupon was applied.
+      define_attribute :account, :AccountMini
 
       # @!attribute coupon
       #   @return [Coupon]
