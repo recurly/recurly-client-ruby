@@ -154,4 +154,25 @@ RSpec.describe Recurly::Client do
       end
     end
   end
+
+  context "with url param needing encoding" do
+    let(:response) do
+      resp = double()
+      allow(resp).to receive(:body) do
+        "{ \"object\": \"account\" }"
+      end
+      allow(resp).to receive(:status) do
+        200
+      end
+      resp
+    end
+
+    describe "#get" do
+      it "should return an account object for get_account even if code has spaces" do
+        expect(client).to receive(:run_request).with(:get, "/sites/subdomain-test/accounts/code-benjamin%20du%20monde", nil, any_args).and_return(response)
+        account = subject.get_account(account_id: "code-benjamin du monde")
+        expect(account).to be_instance_of Recurly::Resources::Account
+      end
+    end
+  end
 end
