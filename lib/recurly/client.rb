@@ -1,5 +1,6 @@
 require 'faraday'
 require 'logger'
+require 'erb'
 require_relative './schema/json_parser'
 require_relative './client/adapter'
 
@@ -174,6 +175,8 @@ module Recurly
 
     def interpolate_path(path, **options)
       options.each do |k, v|
+        # Check to see that we are passing the correct data types
+        # This prevents a confusing error if the user passes in a non-primitive by mistake
         unless [String, Symbol, Integer, Float].include?(v.class)
           message = "We cannot build the url with the given argument #{k}=#{v.inspect}."
           if k =~ /_id$/
@@ -181,6 +184,8 @@ module Recurly
           end
           raise ArgumentError, message
         end
+        # We need to encode the values for the url
+        options[k] = ERB::Util.url_encode(v.to_s)
       end
       path = path.gsub("{", "%{")
       path % options
