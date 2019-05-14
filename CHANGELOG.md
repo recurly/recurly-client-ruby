@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.9"></a>
+## v2.17.9 (2019-05-14)
+
+- Add support for fraud session ID [PR](https://github.com/recurly/recurly-client-ruby/pull/471)
+
 <a name="v2.17.8"></a>
 ## v2.17.8 (2019-03-12)
 
