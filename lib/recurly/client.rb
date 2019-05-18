@@ -139,7 +139,7 @@ module Recurly
                     when Faraday::TimeoutError
                       Errors::TimeoutError
                     when Faraday::ConnectionFailed
-                      Errors::ConnectionFailed
+                      Errors::ConnectionFailedError
                     when Faraday::SSLError
                       Errors::SSLError
                     else
