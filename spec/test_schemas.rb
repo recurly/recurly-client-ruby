@@ -27,6 +27,7 @@ end
 class Recurly::Resources::MyResourceWithClient < Recurly::Resource
   attr_accessor :client
   define_attribute :a_string, String
+
   def requires_client?; true end
 end
 
@@ -44,4 +45,3 @@ class Recurly::Resources::MyResource < Recurly::Resource
   define_attribute :a_sub_resource, :MySubResource
   define_attribute :a_sub_resource_array, Array, item_type: :MySubResource
 end
-

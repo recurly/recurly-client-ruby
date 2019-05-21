@@ -88,7 +88,7 @@ module Recurly
       # @return [String]
       attr_accessor :description
 
-      def initialize(name, type, options={}, description=nil)
+      def initialize(name, type, options = {}, description = nil)
         @name = name
         @type = type
         @options = options
@@ -113,9 +113,8 @@ module Recurly
     private_constant :Attribute
   end
 
-
-  require_relative './schema/schema_factory'
-  require_relative './schema/schema_validator'
-  require_relative './schema/json_deserializer'
-  require_relative './schema/request_caster'
+  require_relative "./schema/schema_factory"
+  require_relative "./schema/schema_validator"
+  require_relative "./schema/json_deserializer"
+  require_relative "./schema/request_caster"
 end

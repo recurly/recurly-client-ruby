@@ -1,18 +1,17 @@
 require "spec_helper"
 
 RSpec.describe Recurly::Request do
-
   let(:hash_data) do
     {
       a_string: "A String",
-      a_hash: {a: 1, b: 2},
+      a_hash: { a: 1, b: 2 },
       an_integer: 42,
       a_float: 4.2,
       a_boolean: false,
       a_datetime: DateTime.new(2020, 1, 1),
       a_string_array: %w(I am a string array),
-      a_sub_request: { a_string: "SubResource String"},
-      a_sub_request_array: [{a_string: "SubResource String"}]
+      a_sub_request: { a_string: "SubResource String" },
+      a_sub_request_array: [{ a_string: "SubResource String" }],
     }
   end
 
@@ -80,7 +79,7 @@ RSpec.describe Recurly::Request do
           expect { subject.validate! }.to raise_error(/Attribute 'a_floa' does not exist on request Recurly::Requests::MyRequest. Did you mean 'a_float'?/)
         end
         it "should raise an error with did_you_mean description" do
-          hash_data[:a_string_arra] = ['string']
+          hash_data[:a_string_arra] = ["string"]
           expect { subject.validate! }.to raise_error(ArgumentError)
           expect { subject.validate! }.to raise_error(/Attribute 'a_string_arra' does not exist on request Recurly::Requests::MyRequest. Did you mean 'a_string_array'?/)
         end
@@ -143,12 +142,12 @@ RSpec.describe Recurly::Request do
     end
     context "with mixed types" do
       it "should not cast the Resource to a Hash" do
-        hash_data[:a_sub_request] = Recurly::Requests::MySubRequest.new(a_string: 'a_string')
-        hash_data[:a_sub_request_array] = [Recurly::Requests::MySubRequest.new(a_string: 'a_string')]
+        hash_data[:a_sub_request] = Recurly::Requests::MySubRequest.new(a_string: "a_string")
+        hash_data[:a_sub_request_array] = [Recurly::Requests::MySubRequest.new(a_string: "a_string")]
         casted = Recurly::Requests::MyRequest.cast(hash_data)
         expect(casted).to_not eql(hash_data)
-        expect(casted[:a_sub_request]).to eql(a_string: 'a_string')
-        expect(casted[:a_sub_request_array]).to eql([a_string: 'a_string'])
+        expect(casted[:a_sub_request]).to eql(a_string: "a_string")
+        expect(casted[:a_sub_request_array]).to eql([a_string: "a_string"])
       end
     end
   end

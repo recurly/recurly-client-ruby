@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe Recurly::JSONParser do
   let(:json_data) { '{"object": "my_resource", "a_string": "A String"}' }
   let(:client) {
-    Recurly::Client.new(subdomain: 'test', api_key: 'test123')
+    Recurly::Client.new(subdomain: "test", api_key: "test123")
   }
 
   describe ".parse" do
@@ -22,14 +22,14 @@ RSpec.describe Recurly::JSONParser do
       end
     end
     context "when the resource is an error" do
-      let(:resource) { Recurly::Resources::Error.new(message: 'A String') }
+      let(:resource) { Recurly::Resources::Error.new(message: "A String") }
       let(:json_data) { '{"error": {"message": "A String"}}' }
       it { is_expected.to eq(resource) }
     end
     context "when the class can't be found" do
       let(:json_data) { '{"object": "unknown"}' }
       it "should raise an ArgumentError" do
-        expect{subject}.to raise_error(ArgumentError)
+        expect { subject }.to raise_error(ArgumentError)
       end
     end
   end
@@ -41,15 +41,15 @@ RSpec.describe Recurly::JSONParser do
       it { is_expected.to eq nil }
     end
     context "when type is list" do
-      let(:type) { 'list' }
+      let(:type) { "list" }
       it { is_expected.to eq Recurly::Pager }
     end
     context "when type is known class type" do
-      let(:type) { 'my_resource' }
+      let(:type) { "my_resource" }
       it { is_expected.to eq Recurly::Resources::MyResource }
     end
     context "when type is unknown class type" do
-      let(:type) { 'unknown' }
+      let(:type) { "unknown" }
       it { is_expected.to eq nil }
     end
   end

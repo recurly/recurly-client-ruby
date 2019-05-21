@@ -1,4 +1,4 @@
-require 'date'
+require "date"
 
 module Recurly
   class Schema
@@ -25,13 +25,13 @@ module Recurly
       # @param data [Hash,Resource,Request] The data to transform into a JSON Hash.
       # @param schema [Schema] The schema to use to transform the data into a JSON Hash.
       # @return [Hash] The pure Hash ready to be serialized into JSON.
-      def cast(data, schema=self.schema)
+      def cast(data, schema = self.schema)
         casted = {}
         if data.is_a?(Resource) || data.is_a?(Request)
           data = as_json(data, schema)
         end
 
-        data.each do |k,v|
+        data.each do |k, v|
           schema_attr = schema.get_attribute(k)
           norm_val = if v.respond_to?(:attributes)
                        cast(v, schema_attr.recurly_class.schema)
@@ -59,7 +59,7 @@ module Recurly
 
       def as_json(resource, schema)
         writeable_attributes = schema.attributes.reject(&:read_only?).map(&:name)
-        resource.attributes.select { |k,_| writeable_attributes.include?(k) }
+        resource.attributes.select { |k, _| writeable_attributes.include?(k) }
       end
     end
   end

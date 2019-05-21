@@ -1,8 +1,8 @@
 require "spec_helper"
 
 RSpec.describe Recurly::Client do
-  let(:subdomain) { 'test' }
-  let(:api_key) { 'recurly-good' }
+  let(:subdomain) { "test" }
+  let(:api_key) { "recurly-good" }
   subject(:client) { Recurly::Client.new(api_key: api_key, subdomain: subdomain) }
 
   context "#api_version" do
@@ -26,7 +26,7 @@ RSpec.describe Recurly::Client do
 
     describe "headers" do
       it "should include the necessary headers in each request" do
-        expected = hash_including('Accept' => /application\/vnd\.recurly/, 'Content-Type' => 'application/json', 'User-Agent' => /Recurly\//)
+        expected = hash_including("Accept" => /application\/vnd\.recurly/, "Content-Type" => "application/json", "User-Agent" => /Recurly\//)
         expect(client).to receive(:run_request).with(:get, "/sites/subdomain-test/accounts/code-benjamin-du-monde", nil, expected).and_return(response)
         _account = subject.get_account(account_id: "code-benjamin-du-monde")
       end

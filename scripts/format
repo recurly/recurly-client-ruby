@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+if [ "$1" == "--check" ]; then
+  rufo . --check
+else
+  rufo . -x
+fi

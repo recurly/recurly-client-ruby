@@ -72,11 +72,11 @@ module Recurly
     private
 
     def from_json(data)
-      @data = data['data'].map do |resource_data|
+      @data = data["data"].map do |resource_data|
         JSONParser.from_json(resource_data)
       end
-      @next = data['next']
-      @has_more = data['has_more']
+      @next = data["next"]
+      @has_more = data["has_more"]
     end
 
     def item_enumerator
