@@ -27,6 +27,8 @@ module Recurly
   require 'recurly/note'
   require 'recurly/plan'
   require 'recurly/redemption'
+  require 'recurly/shipping_fee'
+  require 'recurly/shipping_method'
   require 'recurly/subscription'
   require 'recurly/subscription_add_on'
   require 'recurly/transaction'

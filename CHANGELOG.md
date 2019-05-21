@@ -1,6 +1,13 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.10"></a>
+## v2.17.10 (2019-05-21)
+
+This brings us up to API version 2.20. There are no breaking changes.
+
+- Add support for shipping fees [PR](https://github.com/recurly/recurly-client-ruby/pull/470)
+
 <a name="v2.17.9"></a>
 ## v2.17.9 (2019-05-14)
 

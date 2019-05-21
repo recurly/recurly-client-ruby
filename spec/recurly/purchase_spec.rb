@@ -19,6 +19,11 @@ describe Purchase do
             unit_amount_in_cents: 200
           ]
         }
+      ],
+      shipping_address_id: 1234,
+      shipping_fees: [
+        shipping_method_code: 'fedex_ground',
+        shipping_amount_in_cents: 999
       ]
     )
   end
