@@ -1,3 +1,14 @@
 #!/usr/bin/env bash
 
-./bin/rspec
+# First check formatting
+echo "Checking style..."
+./scripts/format --check
+if [ $? -ne 0 ]; then
+  echo "Code does not conform to style guide. To autoformat, run './scripts/format'."
+  exit 1
+else
+  echo "Style check passed"
+fi
+
+# Run tests
+rake spec

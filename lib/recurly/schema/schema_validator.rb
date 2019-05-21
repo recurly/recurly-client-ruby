@@ -118,7 +118,7 @@ module Recurly
           while j < m
             cost = (char1 == str2_codepoints[j]) ? 0 : 1
             x = min3(
-              d[j+1] + 1, # insertion
+              d[j + 1] + 1, # insertion
               i + 1,      # deletion
               d[j] + cost # substitution
             )
@@ -145,4 +145,3 @@ module Recurly
     end
   end
 end
-

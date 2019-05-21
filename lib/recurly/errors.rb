@@ -12,7 +12,7 @@ module Recurly
       # @param error_key [String]
       # @return [Errors::APIError,Errors::NetworkError]
       def self.error_class(error_key)
-        class_name = error_key.split('_').map(&:capitalize).join
+        class_name = error_key.split("_").map(&:capitalize).join
         class_name += "Error" unless class_name.end_with?("Error")
         Errors.const_get(class_name)
       end

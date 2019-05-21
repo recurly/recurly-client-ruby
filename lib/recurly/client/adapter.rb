@@ -1,9 +1,10 @@
-require 'openssl'
+require "openssl"
 
 module Recurly
   class Client
     module NetHttpPersistentAdapter
       protected
+
       def configure_net_adapter(faraday)
         faraday.adapter :net_http_persistent do |http|
           # yields Net::HTTP::Persistent
@@ -19,6 +20,7 @@ module Recurly
 
     module NetHttpAdapter
       protected
+
       def configure_net_adapter(faraday)
         faraday.adapter :net_http do |http|
           # yields Net::HTTP
@@ -29,7 +31,7 @@ module Recurly
     include NetHttpAdapter
 
     begin
-      require 'net/http/persistent'
+      require "net/http/persistent"
       include NetHttpPersistentAdapter
     rescue LoadError
     end

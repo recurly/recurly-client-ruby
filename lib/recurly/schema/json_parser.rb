@@ -1,4 +1,4 @@
-require 'json'
+require "json"
 
 module Recurly
   # This is a wrapper class to help parse responses into Recurly objects.
@@ -23,7 +23,7 @@ module Recurly
       type = if data.has_key?("error")
                "error"
              else
-               data.delete('object')
+               data.delete("object")
              end
       klazz = self.recurly_class(type)
 
@@ -52,10 +52,10 @@ module Recurly
       case type
       when nil
         nil
-      when 'list'
+      when "list"
         Pager
       else
-        type_camelized = type.split('_').map(&:capitalize).join
+        type_camelized = type.split("_").map(&:capitalize).join
         if Resources.const_defined?(type_camelized)
           klazz = Resources.const_get(type_camelized)
           if klazz.ancestors.include?(Resource)

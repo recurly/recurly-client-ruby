@@ -1,12 +1,12 @@
 require "spec_helper"
-require 'date'
+require "date"
 
 RSpec.describe Recurly::Pager do
-  let(:subdomain) { 'test' }
-  let(:api_key) { 'recurly-good' }
+  let(:subdomain) { "test" }
+  let(:api_key) { "recurly-good" }
   let(:client) { Recurly::Client.new(api_key: api_key, subdomain: subdomain) }
-  let(:path) { '/next_url' }
-  let(:options) { {a: 1, b: DateTime.new(2020,1,1)} }
+  let(:path) { "/next_url" }
+  let(:options) { { a: 1, b: DateTime.new(2020, 1, 1) } }
   subject do
     Recurly::Pager.new(client: client, path: path, options: options)
   end

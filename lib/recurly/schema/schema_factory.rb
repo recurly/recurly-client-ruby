@@ -28,7 +28,7 @@ module Recurly
       #   acount.code = "newcode" # this method protected since read_only = true
       #   account.code
       #   #=> "mycode"
-      def define_attribute(name, type, options={})
+      def define_attribute(name, type, options = {})
         attribute = schema.add_attribute(name, type, options)
 
         # Define the reader

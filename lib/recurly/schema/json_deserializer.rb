@@ -1,4 +1,4 @@
-require 'date'
+require "date"
 
 module Recurly
   class Schema
@@ -18,7 +18,7 @@ module Recurly
       def from_json(attributes = {})
         resource = new()
         attributes.each do |attr_name, val|
-          next if attr_name == 'object'
+          next if attr_name == "object"
 
           schema_attr = self.schema.get_attribute(attr_name)
 

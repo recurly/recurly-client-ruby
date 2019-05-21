@@ -1,12 +1,12 @@
-require 'faraday'
-require 'logger'
-require 'erb'
-require_relative './schema/json_parser'
-require_relative './client/adapter'
+require "faraday"
+require "logger"
+require "erb"
+require_relative "./schema/json_parser"
+require_relative "./client/adapter"
 
 module Recurly
   class Client
-    require_relative './client/operations'
+    require_relative "./client/operations"
 
     BASE_URL = "https://partner-api.recurly.com/"
 
@@ -95,15 +95,15 @@ module Recurly
       raise_network_error!(ex)
     end
 
-    def put(path, request_data=nil, request_class=nil, **options)
+    def put(path, request_data = nil, request_class = nil, **options)
       response = if request_data
-        request = request_class.new(request_data)
-        request.validate!
-        logger.info("PUT BODY #{JSON.dump(request_data)}")
-        run_request(:put, path, JSON.dump(request_data), headers)
-      else
-        run_request(:put, path, nil, headers)
-      end
+                   request = request_class.new(request_data)
+                   request.validate!
+                   logger.info("PUT BODY #{JSON.dump(request_data)}")
+                   run_request(:put, path, JSON.dump(request_data), headers)
+                 else
+                   run_request(:put, path, nil, headers)
+                 end
       raise_api_error!(response) unless (200...300).include?(response.status)
       JSONParser.parse(self, response.body)
     rescue Faraday::ClientError => ex
@@ -156,20 +156,20 @@ module Recurly
     end
 
     def read_headers(response)
-      @rate_limit = response.headers['x-ratelimit-limit'].to_i
-      @rate_limit_remaining = response.headers['x-ratelimit-remaining'].to_i
-      @rate_limit_reset = Time.at(response.headers['x-ratelimit-reset'].to_i).to_datetime
-      if !@_ignore_deprecation_warning && response.headers['Recurly-Deprecated']&.upcase == 'TRUE'
-        puts "[recurly-client-ruby] WARNING: Your current API version \"#{api_version}\" is deprecated and will be sunset on #{response.headers['Recurly-Sunset-Date']}"
+      @rate_limit = response.headers["x-ratelimit-limit"].to_i
+      @rate_limit_remaining = response.headers["x-ratelimit-remaining"].to_i
+      @rate_limit_reset = Time.at(response.headers["x-ratelimit-reset"].to_i).to_datetime
+      if !@_ignore_deprecation_warning && response.headers["Recurly-Deprecated"]&.upcase == "TRUE"
+        puts "[recurly-client-ruby] WARNING: Your current API version \"#{api_version}\" is deprecated and will be sunset on #{response.headers["Recurly-Sunset-Date"]}"
       end
       response
     end
 
     def headers
       {
-        'Accept' => "application/vnd.recurly.#{api_version}", # got this method from operations.rb
-        'Content-Type' => 'application/json',
-        'User-Agent' => "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}"
+        "Accept" => "application/vnd.recurly.#{api_version}", # got this method from operations.rb
+        "Content-Type" => "application/json",
+        "User-Agent" => "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}",
       }.merge(@extra_headers)
     end
 
@@ -205,19 +205,19 @@ module Recurly
       options = {
         url: BASE_URL,
         request: { timeout: 60, open_timeout: 50 },
-        ssl: { verify: true }
+        ssl: { verify: true },
       }
       # Let's not use the bundled cert in production yet
       # but we will use these certs for any other staging or dev environment
-      unless BASE_URL.end_with?('.recurly.com')
-        options[:ssl][:ca_file] = File.join(File.dirname(__FILE__), '../data/ca-certificates.crt')
+      unless BASE_URL.end_with?(".recurly.com")
+        options[:ssl][:ca_file] = File.join(File.dirname(__FILE__), "../data/ca-certificates.crt")
       end
 
       @conn = Faraday.new(options) do |faraday|
         if [Logger::DEBUG, Logger::INFO].include?(@log_level)
           faraday.response :logger
         end
-        faraday.basic_auth(api_key, '')
+        faraday.basic_auth(api_key, "")
         configure_net_adapter(faraday)
       end
     end

@@ -6,14 +6,14 @@ RSpec.describe Recurly::Resource do
       {
         "object" => "my_resource",
         "a_string" => "A String",
-        "a_hash" => {"a" => 1, "b" => 2},
+        "a_hash" => { "a" => 1, "b" => 2 },
         "an_integer" => 42,
         "a_float" => 4.2,
         "a_boolean" => false,
         "a_datetime" => DateTime.new(2020, 1, 1),
         "a_string_array" => %w(I am a string array),
-        "a_sub_resource" => { "a_string" => "SubResource String", "object" => "my_sub_resource"},
-        "a_sub_resource_array" => [{"a_string" => "SubResource String", "object" => "my_sub_resource"}]
+        "a_sub_resource" => { "a_string" => "SubResource String", "object" => "my_sub_resource" },
+        "a_sub_resource_array" => [{ "a_string" => "SubResource String", "object" => "my_sub_resource" }],
       }
     end
 
