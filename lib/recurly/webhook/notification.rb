@@ -1,6 +1,6 @@
 module Recurly
   module Webhook
-    # The TransactionNotification class provides a generic interface
+    # The Notification class provides a generic interface
     # for account-related webhook notifications.
     class Notification < Resource
       # Provides a convenience method to reload assocated members because Webhook
