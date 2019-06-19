@@ -85,12 +85,20 @@ module Recurly
     class DuplicateError < DeclinedError
     end
 
+    # Raised when a 3DS result token is needed to complete a transaction
+    class ThreeDSecureError < DeclinedError
+      def three_d_secure_action_token_id
+        xml.text '/errors/transaction_error/three_d_secure_action_token_id'
+      end
+    end
+
     class << Error
       CATEGORY_MAP = Hash.new DeclinedError
       CATEGORY_MAP.update(
-        'communication' => RetryableError,
-        'configuration' => ConfigurationError,
-        'duplicate'     => DuplicateError
+        'communication'             => RetryableError,
+        'configuration'             => ConfigurationError,
+        'duplicate'                 => DuplicateError,
+        '3d_secure_action_required' => ThreeDSecureError
       )
 
       def validate! exception, transaction
