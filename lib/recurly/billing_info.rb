@@ -34,6 +34,7 @@ module Recurly
       gateway_token
       gateway_code
       fraud_session_id
+      three_d_secure_action_result_token_id
     ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES | ROKU_ATTRIBUTES
 
     # @return ["credit_card", "paypal", "amazon", "bank_account", "roku", nil] The type of billing info.
