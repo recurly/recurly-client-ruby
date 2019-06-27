@@ -1,6 +1,13 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.17.11"></a>
+## v2.17.11 (2019-06-27)
+
+This brings us up to API version 2.21. There are no breaking changes.
+
+- Add support for 3DS authenticated transactions [PR](https://github.com/recurly/recurly-client-ruby/pull/479)
+
 <a name="v2.17.10"></a>
 ## v2.17.10 (2019-05-21)
 
