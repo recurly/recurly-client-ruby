@@ -67,8 +67,8 @@ module Recurly
       define_attribute :gateway_response_code, String
 
       # @!attribute gateway_response_time
-      #   @return [Integer] Time, in seconds, for gateway to process the transaction.
-      define_attribute :gateway_response_time, Integer
+      #   @return [Float] Time, in seconds, for gateway to process the transaction.
+      define_attribute :gateway_response_time, Float
 
       # @!attribute gateway_response_values
       #   @return [Hash] The values in this field will vary from gateway to gateway.
