@@ -1294,6 +1294,12 @@ module Recurly
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @return [Pager<Resources::CustomFieldDefinition>] A list of the site's custom field definitions.
+    # @example
+    #   custom_fields = @client.list_custom_field_definitions(limit: 200)
+    #   custom_fields.each do |field|
+    #     puts "CustomFieldDefinition: #{field.name}"
+    #   end
+    #
     def list_custom_field_definitions(**options)
       path = interpolate_path("/sites/{site_id}/custom_field_definitions", site_id: site_id)
       pager(path, **options)
@@ -1473,7 +1479,7 @@ module Recurly
       put(path)
     end
 
-    # List a invoice's line items
+    # List an invoice's line items
     #
     # {https://partner-docs.recurly.com/v2018-08-09#operation/list_invoice_line_items list_invoice_line_items api documenation}
     #
@@ -2515,6 +2521,82 @@ module Recurly
     def reactivate_unique_coupon_code(unique_coupon_code_id:)
       path = interpolate_path("/sites/{site_id}/unique_coupon_codes/{unique_coupon_code_id}/restore", site_id: site_id, unique_coupon_code_id: unique_coupon_code_id)
       put(path)
+    end
+
+    # Create a new purchase
+    #
+    # {https://partner-docs.recurly.com/v2018-08-09#operation/create_purchase create_purchase api documenation}
+    #
+    # @param body [Requests::PurchaseCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PurchaseCreate}
+    # @return [Resources::InvoiceCollection] Returns the new invoices
+    # @example
+    #   begin
+    #     purchase = {
+    #       currency: "USD",
+    #       account: {
+    #         code: account_code,
+    #         first_name: "Benjamin",
+    #         last_name: "Du Monde",
+    #         billing_info: {
+    #           token_id: rjs_token_id
+    #         },
+    #       },
+    #       subscriptions: [
+    #         { plan_code: plan_code }
+    #       ]
+    #     }
+    #     invoice_collection = @client.create_purchase(
+    #       body: purchase
+    #     )
+    #     puts "Created Charge Invoice #{invoice_collection.charge_invoice}"
+    #     puts "Created Credit Invoices #{invoice_collection.credit_invoices}"
+    #   rescue Recurly::Errors::ValidationError => e
+    #     # If the request was invalid, you may want to tell your user
+    #     # why. You can find the invalid params and reasons in e.recurly_error.params
+    #     puts "ValidationError: #{e.recurly_error.params}"
+    #   end
+    #
+    def create_purchase(body:)
+      path = interpolate_path("/sites/{site_id}/purchases", site_id: site_id)
+      post(path, body, Requests::PurchaseCreate)
+    end
+
+    # Preview a new purchase
+    #
+    # {https://partner-docs.recurly.com/v2018-08-09#operation/preview_purchase preview_purchase api documenation}
+    #
+    # @param body [Requests::PurchaseCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PurchaseCreate}
+    # @return [Resources::InvoiceCollection] Returns preview of the new invoices
+    # @example
+    #   begin
+    #     purchase = {
+    #       currency: "USD",
+    #       account: {
+    #         code: account_code,
+    #         first_name: "Benjamin",
+    #         last_name: "Du Monde",
+    #         billing_info: {
+    #           token_id: rjs_token_id
+    #         },
+    #       },
+    #       subscriptions: [
+    #         { plan_code: plan_code }
+    #       ]
+    #     }
+    #     invoice_collection = @client.preview_purchase(
+    #       body: purchase
+    #     )
+    #     puts "Preview Charge Invoice #{invoice_collection.charge_invoice}"
+    #     puts "Preview Credit Invoices #{invoice_collection.credit_invoices}"
+    #   rescue Recurly::Errors::ValidationError => e
+    #     # If the request was invalid, you may want to tell your user
+    #     # why. You can find the invalid params and reasons in e.recurly_error.params
+    #     puts "ValidationError: #{e.recurly_error.params}"
+    #   end
+    #
+    def preview_purchase(body:)
+      path = interpolate_path("/sites/{site_id}/purchases/preview", site_id: site_id)
+      post(path, body, Requests::PurchaseCreate)
     end
   end
 end
