@@ -53,21 +53,6 @@ module Recurly
       end
     end
 
-    # Describes a list attribute type
-    class List
-      # The type of the elements of the list
-      # @return [Symbol]
-      attr_accessor :item_type
-
-      def initialize(item_type)
-        @item_type = item_type
-      end
-
-      def to_s
-        "List<#{item_type}>"
-      end
-    end
-
     # Describes and attribute for a schema.
     class Attribute
       # The name of the attribute.
@@ -100,16 +85,15 @@ module Recurly
       end
 
       def recurly_class
-        Schema.get_recurly_class(type == Array ? options[:item_type] : type)
+        Schema.get_recurly_class(options[:item_type] || type)
       end
 
       def is_primitive?
-        t = type == Array ? options[:item_type] : type
+        t = options[:item_type] || type
         t.is_a?(Class) || t == :Boolean
       end
     end
 
-    private_constant :List
     private_constant :Attribute
   end
 

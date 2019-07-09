@@ -44,4 +44,13 @@ class Recurly::Resources::MyResource < Recurly::Resource
   # Sub Resources
   define_attribute :a_sub_resource, :MySubResource
   define_attribute :a_sub_resource_array, Array, item_type: :MySubResource
+
+  # Special CurrencyArray
+  define_attribute :pricing, Array, item_type: :MyPricing
+end
+
+# These must be in the Recurly::Resources namespace
+class Recurly::Resources::MyPricing < Recurly::Resource
+  define_attribute :currency, String
+  define_attribute :amount, Integer
 end

@@ -73,6 +73,39 @@ RSpec.describe Recurly::Resource do
         expect(subject.send(:a_sub_resource_array)).to eq([Recurly::Resources::MySubResource.from_json({ "a_string" => "SubResource String" })])
       end
     end
+
+    context "with currencies" do
+      let(:json_data) {
+        {
+          "pricing" => [
+            {
+              "currency" => "USD",
+              "amount" => 123,
+            },
+            {
+              "currency" => "EUR",
+              "amount" => 456,
+            },
+          ],
+        }
+      }
+
+      describe "pricing" do
+        it "should be a CurrencyArray" do
+          expect(subject.pricing).to be_instance_of Recurly::CurrencyArray
+        end
+      end
+      describe "a_string_array" do
+        it "should not be a CurrencyArray" do
+          expect(subject.a_string_array).to_not be_instance_of Recurly::CurrencyArray
+        end
+      end
+      describe "a_sub_resource_array" do
+        it "should not be a CurrencyArray" do
+          expect(subject.a_sub_resource_array).to_not be_instance_of Recurly::CurrencyArray
+        end
+      end
+    end
   end
 
   context "resource type" do

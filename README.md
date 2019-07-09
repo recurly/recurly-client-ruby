@@ -239,6 +239,33 @@ rescue Recurly::Errors::NotFoundError => e
 end
 ```
 
+### CurrencyArrays
+
+Pricings in the API are often presented as an array of objects. As a convenience, this library will turn these into
+a CurrencyArray. This class is a subclass of Array that allows you to index by currency. Example, consider this plan with
+a currencies attribute:
+
+```ruby
+plan
+#=> #<Recurly::Resources::Plan:0x0000556b25c2ca28
+#=> @attributes=
+#=>  {
+#=>  #...
+#=>  :currencies=>[#<Recurly::Requests::PlanPricing:0x0000556b25c21538 @attributes={:currency=>"USD", :setup_fee=>1000.0, :unit_amount=>234.0}>],
+#=>  #...
+#=>  }>
+```
+
+You can now fetch a PlanPricing by currency rather than searching the array or knowing the index:
+
+```ruby
+plan.currencies[:usd].unit_amount # 234.0
+plan.currencies[:USD].unit_amount # 234.0
+plan.currencies["USD"].unit_amount # 234.0
+# positional index still works
+plan.currencies[0].unit_amount # 234.0
+```
+
 ### Contributing
 
 Please see our [Contributing Guide](CONTRIBUTING.md).

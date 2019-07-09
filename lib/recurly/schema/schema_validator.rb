@@ -83,6 +83,8 @@ module Recurly
         int_class = Kernel.const_get(int_class)
 
         case [from_type, to_type]
+        when [Array, CurrencyArray]
+          true
         when [Symbol, String]
           true
         when [int_class, Float]

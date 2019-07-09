@@ -1,4 +1,5 @@
 require "recurly/version"
+require "recurly/currency_array"
 require "recurly/schema"
 require "recurly/request"
 require "recurly/resource"

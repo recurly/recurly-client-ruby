@@ -27,12 +27,19 @@ module Recurly
             val = if val.is_a?(Hash) && !schema_attr.is_primitive?
                     schema_attr.recurly_class.from_json(val)
                   elsif val.is_a?(Array)
-                    val.map do |e|
+                    items = val.map do |e|
                       if e.is_a?(Hash) && !schema_attr.is_primitive?
                         schema_attr.recurly_class.from_json(e)
                       else
                         e
                       end
+                    end
+                    # If the item type has a "currency" key, let's assume we can
+                    # safely index by currency and return a CurrencyArray
+                    if !schema_attr.is_primitive? && schema_attr.recurly_class.schema.get_attribute(:currency)
+                      CurrencyArray.new(items)
+                    else
+                      items
                     end
                   elsif val && schema_attr.type == DateTime && val.is_a?(String)
                     DateTime.parse(val)
