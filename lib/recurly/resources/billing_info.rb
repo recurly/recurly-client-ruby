@@ -27,8 +27,8 @@ module Recurly
       define_attribute :first_name, String
 
       # @!attribute fraud
-      #   @return [Hash] Most recent fraud result.
-      define_attribute :fraud, Hash
+      #   @return [FraudInfo]
+      define_attribute :fraud, :FraudInfo
 
       # @!attribute id
       #   @return [String]
@@ -43,16 +43,16 @@ module Recurly
       define_attribute :object, String
 
       # @!attribute payment_method
-      #   @return [Hash]
-      define_attribute :payment_method, Hash
+      #   @return [BillingInfoPaymentMethod]
+      define_attribute :payment_method, :BillingInfoPaymentMethod
 
       # @!attribute updated_at
       #   @return [DateTime] When the billing information was last changed.
       define_attribute :updated_at, DateTime
 
       # @!attribute updated_by
-      #   @return [Hash]
-      define_attribute :updated_by, Hash
+      #   @return [BillingInfoUpdatedBy]
+      define_attribute :updated_by, :BillingInfoUpdatedBy
 
       # @!attribute valid
       #   @return [Boolean]

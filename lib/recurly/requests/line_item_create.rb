@@ -22,6 +22,10 @@ module Recurly
       #   @return [DateTime] If this date is provided, it indicates the end of a time range.
       define_attribute :end_date, DateTime
 
+      # @!attribute product_code
+      #   @return [String] Optional field to track a product code or SKU for the line item. This can be used to later reporting on product purchases. For Vertex tax calculations, this field will be used as the Vertex `product` field.
+      define_attribute :product_code, String
+
       # @!attribute quantity
       #   @return [Integer] This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
       define_attribute :quantity, Integer

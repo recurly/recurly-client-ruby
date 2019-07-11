@@ -15,8 +15,8 @@ module Recurly
       define_attribute :percent, Integer
 
       # @!attribute trial
-      #   @return [Hash] This is only present when `type=free_trial`.
-      define_attribute :trial, Hash
+      #   @return [CouponDiscountTrial]
+      define_attribute :trial, :CouponDiscountTrial
 
       # @!attribute type
       #   @return [String]

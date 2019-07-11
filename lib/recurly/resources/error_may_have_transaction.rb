@@ -15,8 +15,8 @@ module Recurly
       define_attribute :params, Array, { :item_type => Hash }
 
       # @!attribute transaction_error
-      #   @return [Hash] This is only included on errors with `type=transaction`.
-      define_attribute :transaction_error, Hash
+      #   @return [TransactionError]
+      define_attribute :transaction_error, :TransactionError
 
       # @!attribute type
       #   @return [String] Type

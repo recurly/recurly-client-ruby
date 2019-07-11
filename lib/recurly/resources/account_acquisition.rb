@@ -19,8 +19,8 @@ module Recurly
       define_attribute :channel, String
 
       # @!attribute cost
-      #   @return [Hash] Account balance
-      define_attribute :cost, Hash
+      #   @return [AccountAcquisitionCost]
+      define_attribute :cost, :AccountAcquisitionCost
 
       # @!attribute created_at
       #   @return [DateTime] When the account acquisition data was created.
