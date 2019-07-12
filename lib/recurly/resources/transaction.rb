@@ -103,12 +103,12 @@ module Recurly
       define_attribute :original_transaction_id, String
 
       # @!attribute payment_gateway
-      #   @return [Hash]
-      define_attribute :payment_gateway, Hash
+      #   @return [TransactionPaymentGateway]
+      define_attribute :payment_gateway, :TransactionPaymentGateway
 
       # @!attribute payment_method
-      #   @return [Hash] Payment method (TODO: this overlaps with BillingInfo’s payment_method but only documents credit cards)
-      define_attribute :payment_method, Hash
+      #   @return [TransactionPaymentMethod]
+      define_attribute :payment_method, :TransactionPaymentMethod
 
       # @!attribute refunded
       #   @return [Boolean] Indicates if part or all of this transaction was refunded.

@@ -15,8 +15,8 @@ module Recurly
       define_attribute :credit_customer_notes, String
 
       # @!attribute external_refund
-      #   @return [Hash] Indicates that the refund was settled outside of Recurly, and a manual transaction should be created to track it in Recurly.  Required when: - refunding a manually collected charge invoice, and `refund_method` is not `all_credit` - refunding a credit invoice that refunded manually collecting invoices - refunding a credit invoice for a partial amount  This field can only be included when the Credit Invoices feature is enabled.
-      define_attribute :external_refund, Hash
+      #   @return [ExternalRefund]
+      define_attribute :external_refund, :ExternalRefund
 
       # @!attribute line_items
       #   @return [Array[LineItemRefund]] The line items to be refunded. This is required when `type=line_items`.

@@ -15,8 +15,8 @@ module Recurly
       define_attribute :channel, String
 
       # @!attribute cost
-      #   @return [Hash] Account balance
-      define_attribute :cost, Hash
+      #   @return [AccountAcquisitionCost]
+      define_attribute :cost, :AccountAcquisitionCost
 
       # @!attribute subchannel
       #   @return [String] An arbitrary subchannel string representing a distinction/subcategory within a broader channel.
