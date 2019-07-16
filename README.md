@@ -203,3 +203,7 @@ rescue Recurly::Errors::NetworkError => ex
   # catch a generic network error
 end
 ```
+
+### Contributing
+
+Please see our [Contributing Guide](CONTRIBUTING.md).
