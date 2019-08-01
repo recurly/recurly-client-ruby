@@ -22,6 +22,10 @@ module Recurly
       self.inspect
     end
 
+    def get_response
+      @response
+    end
+
     protected
 
     def schema

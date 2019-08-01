@@ -10,18 +10,6 @@ module Recurly
 
     BASE_URL = "https://partner-api.recurly.com/"
 
-    # The last result of the *X-RateLimit-Limit* header
-    # @return [Integer] The rate limit applied to this client.
-    attr_reader :rate_limit
-
-    # The last result of the *X-RateLimit-Remaining* header
-    # @return [Integer] The number of remaining requests, decrements per request.
-    attr_reader :rate_limit_remaining
-
-    # The last result of the *X-RateLimit-Reset* header
-    # @return [DateTime] The DateTime in which the request count will be reset.
-    attr_reader :rate_limit_reset
-
     # Initialize a client. It requires an API key.
     #
     # @example
@@ -65,9 +53,9 @@ module Recurly
     end
 
     def next_page(pager)
-      run_request(:get, pager.next, nil, headers).tap do |response|
-        raise_api_error!(response) unless (200...300).include?(response.status)
-      end
+      req = HTTP::Request.new(:get, pager.next, nil)
+      faraday_resp = run_request(req, headers)
+      handle_response! req, faraday_resp
     end
 
     protected
@@ -77,45 +65,39 @@ module Recurly
     end
 
     def get(path, **options)
-      response = run_request(:get, path, nil, headers)
-      raise_api_error!(response) unless (200...300).include?(response.status)
-      JSONParser.parse(self, response.body)
+      request = HTTP::Request.new(:get, path, nil)
+      faraday_resp = run_request(request, headers)
+      handle_response! request, faraday_resp
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
     end
 
     def post(path, request_data, request_class, **options)
-      request = request_class.new(request_data)
-      request.validate!
-      logger.info("POST BODY #{JSON.dump(request_data)}")
-      response = run_request(:post, path, JSON.dump(request.attributes), headers)
-      raise_api_error!(response) unless (200...300).include?(response.status)
-      JSONParser.parse(self, response.body)
+      request_class.new(request_data).validate!
+      request = HTTP::Request.new(:post, path, JSON.dump(request_data))
+      faraday_resp = run_request(request, headers)
+      handle_response! request, faraday_resp
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
     end
 
     def put(path, request_data = nil, request_class = nil, **options)
-      response = if request_data
-                   request = request_class.new(request_data)
-                   request.validate!
-                   logger.info("PUT BODY #{JSON.dump(request_data)}")
-                   run_request(:put, path, JSON.dump(request_data), headers)
-                 else
-                   run_request(:put, path, nil, headers)
-                 end
-      raise_api_error!(response) unless (200...300).include?(response.status)
-      JSONParser.parse(self, response.body)
+      request = HTTP::Request.new(:put, path)
+      if request_data
+        request_class.new(request_data).validate!
+        logger.info("PUT BODY #{JSON.dump(request_data)}")
+        request.body = JSON.dump(request_data)
+      end
+      faraday_resp = run_request(request, headers)
+      handle_response! request, faraday_resp
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
     end
 
     def delete(path, **options)
-      response = run_request(:delete, path, nil, headers)
-      raise_api_error!(response) unless (200...300).include?(response.status)
-      if response.body && !response.body.empty?
-        JSONParser.parse(self, response.body)
-      end
+      request = HTTP::Request.new(:delete, path, nil)
+      faraday_resp = run_request(request, headers)
+      handle_response! request, faraday_resp
     rescue Faraday::ClientError => ex
       raise_network_error!(ex)
     end
@@ -130,8 +112,21 @@ module Recurly
     # @return [Logger]
     attr_reader :logger
 
-    def run_request(method, url, body, headers)
-      read_headers @conn.run_request(method, url, body, headers)
+    def run_request(request, headers)
+      read_headers @conn.run_request(request.method, request.path, request.body, headers)
+    end
+
+    def handle_response!(request, faraday_resp)
+      response = HTTP::Response.new(faraday_resp, request)
+      raise_api_error!(response) unless (200...300).include?(response.status)
+      resource = if response.body
+                   JSONParser.parse(self, response.body)
+                 else
+                   Resources::Empty.new
+                 end
+      # Keep this interface "private"
+      resource.instance_variable_set(:@response, response)
+      resource
     end
 
     def raise_network_error!(ex)
@@ -156,9 +151,6 @@ module Recurly
     end
 
     def read_headers(response)
-      @rate_limit = response.headers["x-ratelimit-limit"].to_i
-      @rate_limit_remaining = response.headers["x-ratelimit-remaining"].to_i
-      @rate_limit_reset = Time.at(response.headers["x-ratelimit-reset"].to_i).to_datetime
       if !@_ignore_deprecation_warning && response.headers["Recurly-Deprecated"]&.upcase == "TRUE"
         puts "[recurly-client-ruby] WARNING: Your current API version \"#{api_version}\" is deprecated and will be sunset on #{response.headers["Recurly-Sunset-Date"]}"
       end

@@ -27,7 +27,7 @@ module Recurly
       define_attribute :first_name, String
 
       # @!attribute fraud
-      #   @return [FraudInfo]
+      #   @return [FraudInfo] Most recent fraud result.
       define_attribute :fraud, :FraudInfo
 
       # @!attribute id

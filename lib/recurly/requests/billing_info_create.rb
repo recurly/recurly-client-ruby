@@ -26,6 +26,10 @@ module Recurly
       #   @return [String] First name
       define_attribute :first_name, String
 
+      # @!attribute fraud_session_id
+      #   @return [String] Fraud Session ID
+      define_attribute :fraud_session_id, String
+
       # @!attribute ip_address
       #   @return [String] *STRONGLY RECOMMENDED* Customer's IP address when updating their billing information.
       define_attribute :ip_address, String

@@ -25,31 +25,25 @@ RSpec.describe Recurly::Pager do
 
   context "enumerators" do
     let(:more_response) do
-      more_resp = double()
-      allow(more_resp).to receive(:body) do
-        <<-JSON
-        {
-          "object": "list",
-          "has_more": true,
-          "next": "https://partner-api.recurly.com/next_url",
-          "data": [{"object": "account", "id": "1"}, {"object": "account", "id": "2"}]
-        }
-        JSON
-      end
-      more_resp
+      page = Recurly::Resources::Page.new
+      page.data = [
+        { "object" => "account", "id" => "1" },
+        { "object" => "account", "id" => "2" },
+        { "object" => "account", "id" => "3" },
+      ]
+      page.has_more = true
+      page.next = "https://partner-api.recurly.com/next_url"
+      page
     end
     let(:done_response) do
-      done_resp = double()
-      allow(done_resp).to receive(:body) do
-        <<-JSON
-        {
-          "object": "list",
-          "has_more": false,
-          "data": [{"object": "account", "id": "1"}, {"object": "account", "id": "2"}]
-        }
-        JSON
-      end
-      done_resp
+      page = Recurly::Resources::Page.new
+      page.data = [
+        { "object" => "account", "id" => "4" },
+        { "object" => "account", "id" => "5" },
+      ]
+      page.has_more = false
+      page.next = nil
+      page
     end
 
     describe "#each_page" do
@@ -78,7 +72,7 @@ RSpec.describe Recurly::Pager do
         item_num = 0
         subject.each do |item|
           item_num += 1
-          if item_num / 2 == 2
+          if item_num >= 6
             # on the 3rd call (2 items per page) let's return the done_response
             allow(client).to receive(:next_page).and_return(done_response)
           end

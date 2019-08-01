@@ -80,7 +80,7 @@ module Recurly
     # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param subscriber [String] Filter accounts accounts with or without a subscription in the +active+,
+    # @param subscriber [String] Filter accounts with or without a subscription in the +active+,
     #   +canceled+, or +future+ state.
     #
     # @param past_due [String] Filter for accounts with an invoice in the +past_due+ state.
@@ -252,6 +252,7 @@ module Recurly
     # {https://partner-docs.recurly.com/v2018-08-09#operation/remove_account_acquisition remove_account_acquisition api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
+    # @return [Empty] Acquisition data was succesfully deleted.
     # @example
     #   begin
     #     acquisition = @client.remove_account_acquisition(account_id: account_id)
@@ -364,6 +365,7 @@ module Recurly
     # {https://partner-docs.recurly.com/v2018-08-09#operation/remove_billing_info remove_billing_info api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
+    # @return [Empty] Billing information deleted
     # @example
     #   begin
     #     @client.remove_billing_info(account_id: account_id)
@@ -882,6 +884,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param shipping_address_id [String] Shipping Address ID.
+    # @return [Empty] Shipping address deleted.
     # @example
     #   begin
     #     @client.remove_shipping_address(
@@ -1025,7 +1028,7 @@ module Recurly
     # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param subscriber [String] Filter accounts accounts with or without a subscription in the +active+,
+    # @param subscriber [String] Filter accounts with or without a subscription in the +active+,
     #   +canceled+, or +future+ state.
     #
     # @param past_due [String] Filter for accounts with an invoice in the +past_due+ state.
@@ -1662,6 +1665,7 @@ module Recurly
     # {https://partner-docs.recurly.com/v2018-08-09#operation/remove_line_item remove_line_item api documenation}
     #
     # @param line_item_id [String] Line Item ID.
+    # @return [Empty] Line item deleted.
     # @example
     #   begin
     #     @client.remove_line_item(
@@ -2271,6 +2275,7 @@ module Recurly
     # {https://partner-docs.recurly.com/v2018-08-09#operation/remove_subscription_change remove_subscription_change api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
+    # @return [Empty] Subscription change was deleted.
     # @example
     #   begin
     #     @client.remove_subscription_change(

@@ -26,6 +26,10 @@ module Recurly
       def status_code
         @response.status
       end
+
+      def get_response
+        @response
+      end
     end
   end
 

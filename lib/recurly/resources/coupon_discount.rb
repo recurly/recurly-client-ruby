@@ -15,7 +15,7 @@ module Recurly
       define_attribute :percent, Integer
 
       # @!attribute trial
-      #   @return [CouponDiscountTrial]
+      #   @return [CouponDiscountTrial] This is only present when `type=free_trial`.
       define_attribute :trial, :CouponDiscountTrial
 
       # @!attribute type
