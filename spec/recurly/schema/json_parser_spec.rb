@@ -42,7 +42,7 @@ RSpec.describe Recurly::JSONParser do
     end
     context "when type is list" do
       let(:type) { "list" }
-      it { is_expected.to eq Recurly::Pager }
+      it { is_expected.to eq Recurly::Resources::Page }
     end
     context "when type is known class type" do
       let(:type) { "my_resource" }

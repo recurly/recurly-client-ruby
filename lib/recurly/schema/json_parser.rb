@@ -23,7 +23,7 @@ module Recurly
       type = if data.has_key?("error")
                "error"
              else
-               data.delete("object")
+               data["object"]
              end
       klazz = self.recurly_class(type)
 
@@ -41,7 +41,7 @@ module Recurly
     #
     # @example
     #   JSONParser.recurly_class('list')
-    #   #=> Recurly::Pager
+    #   #=> Recurly::Page
     # @example
     #   JSONParser.recurly_class('shipping_address')
     #   #=> Recurly::Resources::ShippingAddress
@@ -53,7 +53,7 @@ module Recurly
       when nil
         nil
       when "list"
-        Pager
+        Resources::Page
       else
         type_camelized = type.split("_").map(&:capitalize).join
         if Resources.const_defined?(type_camelized)

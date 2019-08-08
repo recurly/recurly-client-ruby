@@ -71,14 +71,6 @@ module Recurly
 
     private
 
-    def from_json(data)
-      @data = data["data"].map do |resource_data|
-        JSONParser.from_json(resource_data)
-      end
-      @next = data["next"]
-      @has_more = data["has_more"]
-    end
-
     def item_enumerator
       Enumerator.new do |yielder|
         page_enumerator.each do |data|
@@ -103,8 +95,10 @@ module Recurly
     end
 
     def fetch_next!
-      response = @client.next_page(self)
-      from_json(JSON.parse(response.body))
+      page = @client.next_page(self)
+      @data = page.data.map { |d| JSONParser.from_json(d) }
+      @has_more = page.has_more
+      @next = page.next
     end
 
     def rewind!

@@ -204,6 +204,41 @@ rescue Recurly::Errors::NetworkError => ex
 end
 ```
 
+### HTTP Metadata
+
+Sometimes you might want to get some additional information about the underlying HTTP request and response. Instead of
+returning this information directly and forcing the programmer to unwrap it, we inject this metadata into the top level
+resource that was returned. You can access the {Recurly::HTTP::Response} by calling `#get_response` on any {Recurly::Resource}.
+
+**Warning**: Do not log or render whole requests or responses as they may contain PII or sensitive data.
+
+```ruby
+account = @client.get_account(account_id: "code-benjamin")
+response = account.get_response
+response.rate_limit_remaining #=> 1985
+response.request_id #=> "0av50sm5l2n2gkf88ehg"
+response.request.path #=> "/sites/subdomain-mysite/accounts/code-benjamin"
+response.request.body #=> None
+```
+
+This also works on {Recurly::Resources::Empty} responses:
+
+```ruby
+response = @client.remove_line_item(
+  line_item_id: "a959576b2b10b012"
+).get_response
+```
+And it can be captured on exceptions through the {Recurly::ApiError} object:
+
+```ruby
+begin
+  account = client.get_account(account_id: "code-benjamin")
+rescue Recurly::Errors::NotFoundError => e
+  response = e.get_response()
+  puts "Give this request id to Recurly Support: #{response.request_id}"
+end
+```
+
 ### Contributing
 
 Please see our [Contributing Guide](CONTRIBUTING.md).

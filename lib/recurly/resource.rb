@@ -18,8 +18,21 @@ module Recurly
       self.attributes == other_resource.attributes
     end
 
+    # Hide instance variables to keep from accidental logging
+    def inspect
+      "#<#{self.class.name}:#{object_id}} @attributes=#{attributes}>"
+    end
+
     def to_s
       self.inspect
+    end
+
+    def to_json
+      raise NoMethodError, "to_json is not implemented for Resources. Please use Resource#attributes"
+    end
+
+    def get_response
+      @response
     end
 
     protected
