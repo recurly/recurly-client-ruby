@@ -23,17 +23,17 @@ Content-Type: application/xml; charset=utf-8
   <refund_geo_code>ABC123</refund_geo_code>
   <tax_types type="array">
     <tax_type>
-      <type>STATE</type>
+      <tax_classification>surcharge</tax_classification>
       <tax_in_cents type="integer">115</tax_in_cents>
       <description>Sales Tax</description>
     </tax_type>
     <tax_type>
-      <type>COUNTY</type>
+      <tax_classification>surcharge</tax_classification>
       <tax_in_cents type="integer">10</tax_in_cents>
       <description>Sales Tax</description>
     </tax_type>
     <tax_type>
-      <type>DISTRICT</type>
+      <tax_classification>surcharge</tax_classification>
       <tax_in_cents type="integer">103</tax_in_cents>
       <description>Sales Tax</description>
     </tax_type>
