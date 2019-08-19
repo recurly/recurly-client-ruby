@@ -5,6 +5,7 @@ module Recurly
       tax_in_cents
       type
       juris_details
+      tax_classification
     )
 
     embedded! true

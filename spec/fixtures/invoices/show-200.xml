@@ -31,6 +31,7 @@ Content-Type: application/xml; charset=utf-8
   <subtotal_after_discount_in_cents type="integer">300</subtotal_after_discount_in_cents>
   <attempt_next_collection_at nil="nil"></attempt_next_collection_at>
   <recovery_reason nil="nil"></recovery_reason>
+  <surcharge_in_cents type="integer">100</surcharge_in_cents>
   <tax_types nil="nil"></tax_types>
   <line_items>
     <adjustment href="https://api.recurly.com/v2/adjustments/charge" type="charge">

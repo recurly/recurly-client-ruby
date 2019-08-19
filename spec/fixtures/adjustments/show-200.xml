@@ -23,6 +23,7 @@ Content-Type: application/xml; charset=utf-8
   <currency>USD</currency>
   <product_code>basic</product_code>
   <revenue_schedule_type>evenly</revenue_schedule_type>
+  <surcharge_in_cents type="integer">100</surcharge_in_cents>
   <tax_details type="array">
     <tax_detail>
       <name>california</name>

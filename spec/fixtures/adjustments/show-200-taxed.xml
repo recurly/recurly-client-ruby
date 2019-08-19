@@ -25,6 +25,7 @@ Content-Type: application/xml; charset=utf-8
       <type>General Sales and Use Tax</type>
       <juris_details type="array">
         <juris_detail>
+          <classification>tax</classification>
           <jurisdiction>STATE</jurisdiction>
           <jurisdiction_name nil="nil"></jurisdiction_name>
           <tax_in_cents type="integer">115</tax_in_cents>
@@ -32,6 +33,7 @@ Content-Type: application/xml; charset=utf-8
           <rate type="float">0.056</rate>
         </juris_detail>
         <juris_detail>
+          <classification>tax</classification>
           <jurisdiction>COUNTY</jurisdiction>
           <jurisdiction_name nil="nil"></jurisdiction_name>
           <tax_in_cents type="integer">10</tax_in_cents>
@@ -39,6 +41,7 @@ Content-Type: application/xml; charset=utf-8
           <rate type="float">0.005</rate>
         </juris_detail>
         <juris_detail>
+          <classification>tax</classification>
           <jurisdiction>DISTRICT</jurisdiction>
           <jurisdiction_name nil="nil"></jurisdiction_name>
           <tax_in_cents type="integer">103</tax_in_cents>

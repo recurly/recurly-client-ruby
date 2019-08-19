@@ -54,6 +54,7 @@ module Recurly
       credit_reason_code
       original_adjustment_uuid
       shipping_address_id
+      surcharge_in_cents
     )
     alias to_param uuid
 
