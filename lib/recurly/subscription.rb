@@ -97,6 +97,7 @@ module Recurly
       total_amount_in_cents
       resume_at
       gateway_code
+      transaction_type
     )
     alias to_param uuid
 

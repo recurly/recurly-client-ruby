@@ -161,6 +161,15 @@ describe Invoice do
     end
   end
 
+  describe "#force_collect" do
+    it "must call /collect with body" do
+      stub_api_request :get, 'invoices/1000', 'invoices/show-200'
+      stub_api_request :put, 'invoices/created-invoice/collect', 'invoices/show-200-updated'
+      invoice = Invoice.find(1000)
+      invoice.force_collect(transaction_type: 'moto')
+    end
+  end
+
   describe "#save" do
     it "must update an invoice" do
       stub_api_request :get, 'invoices/1000', 'invoices/show-200'
