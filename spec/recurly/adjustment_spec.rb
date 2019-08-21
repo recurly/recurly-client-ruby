@@ -24,6 +24,7 @@ describe Adjustment do
       adjustment.tax_rate.must_equal 0.0875
       adjustment.revenue_schedule_type.must_equal 'evenly'
       adjustment.proration_rate.must_equal 0.5
+      adjustment.surcharge_in_cents.must_equal 100
 
       tax_details = adjustment.tax_details
       tax_details.length.must_equal 2
@@ -69,6 +70,7 @@ describe Adjustment do
       tax_type.juris_details.length.must_equal 3
 
       juris_detail = tax_type.juris_details.first
+      juris_detail.classification.must_equal 'tax'
       juris_detail.jurisdiction.must_equal 'STATE'
       juris_detail.tax_in_cents[:USD].must_equal 115
       juris_detail.rate.must_equal 0.056

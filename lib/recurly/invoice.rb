@@ -109,6 +109,7 @@ module Recurly
       dunning_events_count
       final_dunning_event
       gateway_code
+      surcharge_in_cents
     )
     alias to_param invoice_number_with_prefix
 
@@ -142,11 +143,20 @@ module Recurly
 
     # Initiate a collection attempt on an invoice.
     #
+    # @example
+    #   # Optionally set transaction type
+    #   invoice.force_collect(transaction_type: 'moto')
+    #
+    # @param options [Hash] Optional set of details to send to collect endpoint.
     # @return [true, false] +true+ when successful, +false+ when unable to
     #   (e.g., the invoice is no longer open).
-    def force_collect
+    def force_collect(options = {})
       return false unless link? :force_collect
-      reload follow_link :force_collect
+      http_opts = {}
+      if options[:transaction_type]
+        http_opts[:body] = transaction_type_xml(options[:transaction_type])
+      end
+      reload follow_link(:force_collect, http_opts)
       true
     end
 
@@ -263,6 +273,12 @@ module Recurly
         adj_node.add_element 'quantity', line_item[:quantity]
         adj_node.add_element 'prorate', line_item[:prorate]
       end
+      builder.to_s
+    end
+
+    def transaction_type_xml(transaction_type)
+      builder = XML.new("<invoice/>")
+      builder.add_element 'transaction_type', transaction_type.to_s
       builder.to_s
     end
 

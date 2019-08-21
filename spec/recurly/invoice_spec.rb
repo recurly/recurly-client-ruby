@@ -32,6 +32,12 @@ describe Invoice do
       invoice.credit_payments.first.must_be_instance_of CreditPayment
     end
 
+    it 'should have surcharge_in_cents' do
+      stub_api_request :get, 'invoices/1000', 'invoices/show-200'
+      invoice = Invoice.find('1000')
+      invoice.surcharge_in_cents.must_equal 100
+    end
+
     it 'includes the invoice number prefix' do
       stub_api_request :get, 'invoices/invoice-with-prefix', 'invoices/show-200-prefix'
 
@@ -61,7 +67,7 @@ describe Invoice do
 
         tax_type = tax_types.first
         tax_type.must_be_instance_of TaxType
-        tax_type.type.must_equal 'STATE'
+        tax_type.tax_classification.must_equal 'surcharge'
         tax_type.tax_in_cents[:USD].must_equal 115
         tax_type.description.must_equal 'Sales Tax'
       end
@@ -158,6 +164,15 @@ describe Invoice do
       invoice = Invoice.find(1000)
       invoice.all_transactions.must_be_instance_of Resource::Pager
       invoice.all_transactions.any?.must_equal true
+    end
+  end
+
+  describe "#force_collect" do
+    it "must call /collect with body" do
+      stub_api_request :get, 'invoices/1000', 'invoices/show-200'
+      stub_api_request :put, 'invoices/created-invoice/collect', 'invoices/show-200-updated'
+      invoice = Invoice.find(1000)
+      invoice.force_collect(transaction_type: 'moto')
     end
   end
 

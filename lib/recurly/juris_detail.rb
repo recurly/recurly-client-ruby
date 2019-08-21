@@ -7,6 +7,7 @@ module Recurly
       tax_in_cents
       sub_type
       jurisdiction_name
+      classification
     )
 
     embedded! true
