@@ -1,6 +1,18 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.0"></a>
+## v2.18.0 (2019-08-21)
+
+This bumps us to API version 2.22.
+
+* MOTO transactions [PR](//github.com/recurly/recurly-client-ruby/pull/493)
+* Changes for Vertex customers [PR](https://github.com/recurly/recurly-client-ruby/pull/491)
+
+There is one breaking change. It only applies to Vertex users so will not likely affect you.
+`Invoice#tax_types[].type` on invoice and preview invoice endpoints is no longer returned.
+
+
 <a name="v2.17.11"></a>
 ## v2.17.11 (2019-06-27)
 
