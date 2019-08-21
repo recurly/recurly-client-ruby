@@ -94,6 +94,7 @@ module Recurly
       has_past_due_invoice
       has_paused_subscription
       preferred_locale
+      transaction_type
     )
     alias to_param account_code
 

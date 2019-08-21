@@ -4,6 +4,7 @@ describe Purchase do
   let(:purchase) do
     Purchase.new(
       account: {account_code: 'account123'},
+      transaction_type: 'moto',
       adjustments: [
         {
           product_code: 'product_code',

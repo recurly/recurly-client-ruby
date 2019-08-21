@@ -140,6 +140,7 @@ module Recurly
       vat_reverse_charge_notes
       shipping_address_id
       gateway_code
+      transaction_type
     )
 
     class << self
