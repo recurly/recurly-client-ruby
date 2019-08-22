@@ -384,6 +384,7 @@ module Recurly
           response.body
         when %r{application/xml}
           record = from_xml response.body
+          File.open("/tmp/#{cookie[:file]}")
           record.instance_eval { @etag, @response = response['ETag'], response }
           record
         else
