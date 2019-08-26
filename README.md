@@ -7,8 +7,10 @@ and is not yet an official release. Documentation for the API can be [found here
 
 ### Documentation
 
+*NOTE*: Until rubydoc.info respects our `.yardopts` file, see documentation [here](docs/README.md).
+
 Ruby documentation and the getting started instructions can be found
-on rubydoc.ino: [https://www.rubydoc.info/github/recurly/recurly-client-ruby/3_0_0_beta](https://www.rubydoc.info/github/recurly/recurly-client-ruby/3_0_0_beta).
+on rubydoc.info: [https://www.rubydoc.info/github/recurly/recurly-client-ruby/3_0_0_beta](https://www.rubydoc.info/github/recurly/recurly-client-ruby/3_0_0_beta).
 
 ### Contributing
 
