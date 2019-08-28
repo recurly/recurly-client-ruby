@@ -43,8 +43,8 @@ module Recurly
       define_attribute :object, String
 
       # @!attribute payment_method
-      #   @return [PaymentMethod]
-      define_attribute :payment_method, :PaymentMethod
+      #   @return [BillingInfoPaymentMethod]
+      define_attribute :payment_method, :BillingInfoPaymentMethod
 
       # @!attribute updated_at
       #   @return [DateTime] When the billing information was last changed.

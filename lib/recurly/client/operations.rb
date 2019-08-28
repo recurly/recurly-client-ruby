@@ -80,7 +80,7 @@ module Recurly
     # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param subscriber [String] Filter accounts with or without a subscription in the +active+,
+    # @param subscriber [Boolean] Filter accounts with or without a subscription in the +active+,
     #   +canceled+, or +future+ state.
     #
     # @param past_due [String] Filter for accounts with an invoice in the +past_due+ state.
@@ -108,27 +108,6 @@ module Recurly
     #       code: account_code,
     #       first_name: "Benjamin",
     #       last_name: "Du Monde",
-    #       acquisition: {
-    #         campaign: "podcast-marketing",
-    #         channel: "social_media",
-    #         subchannel: "twitter",
-    #         cost: {
-    #           currency: "USD",
-    #           amount: 0.50
-    #         }
-    #       },
-    #       shipping_addresses: [
-    #         {
-    #           nickname: "Home",
-    #           street1: "1 Tchoupitoulas St",
-    #           city: "New Orleans",
-    #           region: "LA",
-    #           country: "US",
-    #           postal_code: "70115",
-    #           first_name: "Benjamin",
-    #           last_name: "Du Monde"
-    #         }
-    #       ]
     #     }
     #     account = @client.create_account(body: account_create)
     #     puts "Created Account #{account}"
@@ -1028,7 +1007,7 @@ module Recurly
     # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param subscriber [String] Filter accounts with or without a subscription in the +active+,
+    # @param subscriber [Boolean] Filter accounts with or without a subscription in the +active+,
     #   +canceled+, or +future+ state.
     #
     # @param past_due [String] Filter for accounts with an invoice in the +past_due+ state.
