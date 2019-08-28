@@ -108,6 +108,27 @@ module Recurly
     #       code: account_code,
     #       first_name: "Benjamin",
     #       last_name: "Du Monde",
+    #       acquisition: {
+    #         campaign: "podcast-marketing",
+    #         channel: "social_media",
+    #         subchannel: "twitter",
+    #         cost: {
+    #           currency: "USD",
+    #           amount: 0.50
+    #         }
+    #       },
+    #       shipping_addresses: [
+    #         {
+    #           nickname: "Home",
+    #           street1: "1 Tchoupitoulas St",
+    #           city: "New Orleans",
+    #           region: "LA",
+    #           country: "US",
+    #           postal_code: "70115",
+    #           first_name: "Benjamin",
+    #           last_name: "Du Monde"
+    #         }
+    #       ]
     #     }
     #     account = @client.create_account(body: account_create)
     #     puts "Created Account #{account}"
