@@ -80,7 +80,7 @@ module Recurly
     # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param subscriber [String] Filter accounts with or without a subscription in the +active+,
+    # @param subscriber [Boolean] Filter accounts with or without a subscription in the +active+,
     #   +canceled+, or +future+ state.
     #
     # @param past_due [String] Filter for accounts with an invoice in the +past_due+ state.
@@ -1028,7 +1028,7 @@ module Recurly
     # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param subscriber [String] Filter accounts with or without a subscription in the +active+,
+    # @param subscriber [Boolean] Filter accounts with or without a subscription in the +active+,
     #   +canceled+, or +future+ state.
     #
     # @param past_due [String] Filter for accounts with an invoice in the +past_due+ state.
