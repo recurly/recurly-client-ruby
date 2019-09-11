@@ -1,6 +1,6 @@
 module Recurly
     module Webhook
-      class NewShippingAddressNotification < SubscriptionNotification
+      class NewShippingAddressNotification < AccountNotification
       end
     end
   end
