@@ -121,6 +121,10 @@ describe Webhook do
     it "must return VoidPaymentNotification instance" do
       Webhook.parse(request 'void-payment-notification').must_be_instance_of Webhook::VoidPaymentNotification
     end
+
+    it "must return NewShippingAddressNotification instance" do
+      Webhook.parse(request 'new-shipping-address-notification').must_be_instance_of Webhook::NewShippingAddressNotification
+    end
     
     it "must handle unknown notifications" do
       proc { Webhook.parse(request 'unknown-notification') }.must_raise Webhook::NotificationError
