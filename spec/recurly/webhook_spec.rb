@@ -121,6 +121,13 @@ describe Webhook do
     it "must return VoidPaymentNotification instance" do
       Webhook.parse(request 'void-payment-notification').must_be_instance_of Webhook::VoidPaymentNotification
     end
+
+    it "must return NewShippingAddressNotification instance" do
+      webhook = Webhook.parse(request 'new-shipping-address-notification')
+      webhook.must_be_instance_of Webhook::NewShippingAddressNotification
+      webhook.account.must_be_instance_of Recurly::Account
+      webhook.shipping_address.must_be_instance_of Recurly::ShippingAddress
+    end
     
     it "must handle unknown notifications" do
       proc { Webhook.parse(request 'unknown-notification') }.must_raise Webhook::NotificationError

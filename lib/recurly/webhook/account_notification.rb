@@ -5,6 +5,9 @@ module Recurly
     class AccountNotification < Notification
       # @return [Account]
       has_one :account
+
+      # @return [ShippingAddress]
+      has_one :shipping_address
     end
   end
 end
