@@ -1,7 +1,7 @@
 # Recurly
 
-This gem is the ruby client for Recurly's V3 API (or "partner api"). It's currently Beta software
-and is not yet an official release. Documentation for the API can be [found here](https://partner-docs.recurly.com).
+This gem is the ruby client for Recurly's V3 API. It's currently Beta software
+and is not yet an official release. Documentation for the API can be [found here](https://developers.recurly.com/api/v2019-10-01/).
 
 ## Getting Started
 
