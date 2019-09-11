@@ -4,11 +4,15 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Requests
-    class SubscriptionAddOnCreate < Request
+    class SubscriptionAddOnUpdate < Request
 
       # @!attribute code
       #   @return [String] Add-on code
       define_attribute :code, String
+
+      # @!attribute id
+      #   @return [String] Set this to include or modify an existing subscription add-on.
+      define_attribute :id, String
 
       # @!attribute quantity
       #   @return [Integer] Quantity

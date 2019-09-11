@@ -7,8 +7,8 @@ module Recurly
     class SubscriptionChangeCreate < Request
 
       # @!attribute add_ons
-      #   @return [Array[SubscriptionAddOnCreate]] If you set this value you include all the add-ons and their quantities and amounts. The values you include will replace the previous values entirely.
-      define_attribute :add_ons, Array, { :item_type => :SubscriptionAddOnCreate }
+      #   @return [Array[SubscriptionAddOnUpdate]] If you provide a value for this field it will replace any existing add-ons. So, when adding or modifying an add-on, you need to include the existing subscription add-ons. Unchanged add-ons can be included just using the subscription add-on's ID: `{"id": "abc123"}`.
+      define_attribute :add_ons, Array, { :item_type => :SubscriptionAddOnUpdate }
 
       # @!attribute collection_method
       #   @return [String] Collection method
