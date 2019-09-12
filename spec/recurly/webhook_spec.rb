@@ -132,6 +132,13 @@ describe Webhook do
       webhook.account.must_be_instance_of Recurly::Account
       webhook.shipping_address.must_be_instance_of Recurly::ShippingAddress
     end
+
+    it "must return UpdatedShippingAddressNotification instance" do
+      webhook = Webhook.parse(request 'updated-shipping-address-notification')
+      webhook.must_be_instance_of Webhook::UpdatedShippingAddressNotification
+      webhook.account.must_be_instance_of Recurly::Account
+      webhook.shipping_address.must_be_instance_of Recurly::ShippingAddress
+    end
     
     it "must handle unknown notifications" do
       proc { Webhook.parse(request 'unknown-notification') }.must_raise Webhook::NotificationError
