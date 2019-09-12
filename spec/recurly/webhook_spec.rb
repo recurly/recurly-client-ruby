@@ -18,6 +18,10 @@ describe Webhook do
       Webhook.parse(request 'canceled-account-notification').must_be_instance_of Webhook::CanceledAccountNotification
     end
 
+    it "must return SubscriptionPausedNotification instance" do
+      Webhook.parse(request 'subscription-paused-notification').must_be_instance_of Webhook::SubscriptionPausedNotification
+    end
+    
     it "must return CanceledSubscriptionNotification instance" do
       Webhook.parse(request 'canceled-subscription-notification').must_be_instance_of Webhook::CanceledSubscriptionNotification
     end
@@ -146,7 +150,7 @@ describe Webhook do
       webhook.account.must_be_instance_of Recurly::Account
       webhook.shipping_address.must_be_instance_of Recurly::ShippingAddress
     end
-    
+
     it "must handle unknown notifications" do
       proc { Webhook.parse(request 'unknown-notification') }.must_raise Webhook::NotificationError
     end

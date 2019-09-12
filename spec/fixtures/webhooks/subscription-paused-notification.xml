@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<subscription_paused_notification>
+  <account>
+    <account_code>1</account_code>
+    <username>test-user</username>
+    <email>test+2605@recurly.com</email>
+    <first_name>test</first_name>
+    <last_name>test-last</last_name>
+    <company_name>Recurly, Inc.</company_name>
+    <phone>555-1212</phone>
+  </account>
+  <subscription>
+    <plan>
+      <plan_code>daily_plan</plan_code>
+      <name>daily_plan</name>
+    </plan>
+    <uuid>437a818b9dba81065e444448de931842</uuid>
+    <state>paused</state>
+    <quantity type="integer">10</quantity>
+    <total_amount_in_cents type="integer">10000</total_amount_in_cents>
+    <subscription_add_ons type="array"/>
+    <activated_at type="datetime">2018-03-09T17:01:59Z</activated_at>
+    <canceled_at type="datetime" nil="true"></canceled_at>
+    <expires_at type="datetime" nil="true"></expires_at>
+    <current_period_started_at type="datetime">2018-03-10T22:12:08Z</current_period_started_at>
+    <current_period_ends_at type="datetime">2018-03-11T22:12:08Z</current_period_ends_at>
+    <trial_started_at type="datetime" nil="true"></trial_started_at>
+    <trial_ends_at type="datetime" nil="true"></trial_ends_at>
+    <paused_at type="datetime">2018-03-10T22:12:08Z</paused_at>
+    <resume_at type="datetime">2018-03-20T22:12:08Z</resume_at>
+    <remaining_pause_cycles type="integer">9</remaining_pause_cycles>
+  </subscription>
+</subscription_paused_notification>
