@@ -106,6 +106,10 @@ describe Webhook do
       Webhook.parse(request 'purchased-gift-card-notification').must_be_instance_of Webhook::PurchasedGiftCardNotification
     end
 
+    it "must return CanceledGiftCardNotification instance" do
+      Webhook.parse(request 'canceled-gift-card-notification').must_be_instance_of Webhook::CanceledGiftCardNotification
+    end
+
     it "must return ReactivatedAccountNotification instance" do
       Webhook.parse(request 'reactivated-account-notification').must_be_instance_of Webhook::ReactivatedAccountNotification
     end

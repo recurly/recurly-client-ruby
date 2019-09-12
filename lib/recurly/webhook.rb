@@ -70,6 +70,7 @@ module Recurly
     autoload :NewDunningEventNotification,          'recurly/webhook/new_dunning_event_notification'
     autoload :GiftCardNotification,                 'recurly/webhook/gift_card_notification'
     autoload :PurchasedGiftCardNotification,        'recurly/webhook/purchased_gift_card_notification'
+    autoload :CanceledGiftCardNotification,         'recurly/webhook/canceled_gift_card_notification'
     autoload :RedeemedGiftCardNotification,         'recurly/webhook/redeemed_gift_card_notification'
     autoload :UpdatedBalanceGiftCardNotification,   'recurly/webhook/updated_balance_gift_card_notification'
     autoload :NewUsageNotification,                 'recurly/webhook/new_usage_notification'
