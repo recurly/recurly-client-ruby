@@ -32,6 +32,7 @@ module Recurly
     autoload :SubscriptionPausedNotification,       'recurly/webhook/subscription_paused_notification'
     autoload :SubscriptionResumedNotification,      'recurly/webhook/subscription_resumed_notification'
     autoload :CanceledSubscriptionNotification,     'recurly/webhook/canceled_subscription_notification'
+    autoload :ScheduledSubscriptionPauseNotification,'recurly/webhook/scheduled_subscription_pause_notification'
     autoload :CanceledAccountNotification,          'recurly/webhook/canceled_account_notification'
     autoload :ClosedInvoiceNotification,            'recurly/webhook/closed_invoice_notification'
     autoload :ClosedCreditInvoiceNotification,      'recurly/webhook/closed_credit_invoice_notification'

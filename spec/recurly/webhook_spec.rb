@@ -30,6 +30,10 @@ describe Webhook do
       Webhook.parse(request 'canceled-subscription-notification').must_be_instance_of Webhook::CanceledSubscriptionNotification
     end
 
+    it "must return ScheduledSubscriptionPauseNotification instance" do
+      Webhook.parse(request 'scheduled-subscription-pause-notification').must_be_instance_of Webhook::ScheduledSubscriptionPauseNotification
+    end
+
     it "must return ClosedInvoiceNotification instance" do
       Webhook.parse(request 'closed-invoice-notification').must_be_instance_of Webhook::ClosedInvoiceNotification
     end
