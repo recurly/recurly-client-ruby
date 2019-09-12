@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Webhook::UpdatedGiftCardNotification do
-  let(:notification) { Webhook::UpdatedGiftCardNotification.from_xml(get_raw_xml 'webhooks/updated-gift-card-notification.xml') }
+describe Webhook::RegeneratedGiftCardNotification do
+  let(:notification) { Webhook::RegeneratedGiftCardNotification.from_xml(get_raw_xml 'webhooks/regenerated-gift-card-notification.xml') }
 
   describe "gift_card" do
     it "must return the gift card" do
