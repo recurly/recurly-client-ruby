@@ -73,6 +73,7 @@ module Recurly
     autoload :UpdatedInvoiceNotification,           'recurly/webhook/updated_invoice_notification'
     autoload :NewShippingAddressNotification,       'recurly/webhook/new_shipping_address_notification'
     autoload :UpdatedShippingAddressNotification,   'recurly/webhook/updated_shipping_address_notification'
+    autoload :DeletedShippingAddressNotification,   'recurly/webhook/deleted_shipping_address_notification'
     # This exception is raised if the Webhook Notification initialization fails
     class NotificationError < Error
     end

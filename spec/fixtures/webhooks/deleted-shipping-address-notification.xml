@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deleted_shipping_address_notification>
+  <account>
+    <account_code>SamSmith</account_code>
+    <username></username>
+    <email></email>
+    <first_name>Sam</first_name>
+    <last_name>Smith</last_name>
+    <company_name>Smith Co</company_name>
+    <phone></phone>
+  </account>
+  <shipping_address>
+    <id type="integer">2019760742762202549</id>
+    <nickname>Steven</nickname>
+    <first_name>Steven</first_name>
+    <last_name>Smith</last_name>
+    <company_name></company_name>
+    <vat_number></vat_number>
+    <street1>231 Oregon Street</street1>
+    <street2></street2>
+    <city>Portland</city>
+    <state>OR</state>
+    <zip>97201</zip>
+    <country>US</country>
+    <email>stevensmith@example.com</email>
+    <phone></phone>
+  </shipping_address>
+</deleted_shipping_address_notification>
