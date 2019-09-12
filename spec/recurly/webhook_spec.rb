@@ -22,6 +22,10 @@ describe Webhook do
       Webhook.parse(request 'subscription-paused-notification').must_be_instance_of Webhook::SubscriptionPausedNotification
     end
 
+    it "must return SubscriptionPauseModifiedNotification instance" do
+      Webhook.parse(request 'subscription-pause-modified-notification').must_be_instance_of Webhook::SubscriptionPauseModifiedNotification
+    end
+
     it "must return SubscriptionResumedNotification instance" do
       Webhook.parse(request 'subscription-resumed-notification').must_be_instance_of Webhook::SubscriptionResumedNotification
     end
