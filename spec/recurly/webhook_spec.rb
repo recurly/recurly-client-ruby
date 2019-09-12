@@ -10,6 +10,10 @@ describe Webhook do
       Webhook.parse(request 'billing-info-updated-notification').must_be_instance_of Webhook::BillingInfoUpdatedNotification
     end
 
+    it "must return BillingInfoUpdateFailedNotification instance" do
+      Webhook.parse(request 'billing-info-update-failed-notification').must_be_instance_of Webhook::BillingInfoUpdateFailedNotification
+    end
+
     it "must return CanceledAccountNotification instance" do
       Webhook.parse(request 'canceled-account-notification').must_be_instance_of Webhook::CanceledAccountNotification
     end

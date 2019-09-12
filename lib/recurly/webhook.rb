@@ -28,6 +28,7 @@ module Recurly
     autoload :DunningNotification,                  'recurly/webhook/dunning_notification'
     autoload :CreditPaymentNotification,            'recurly/webhook/credit_payment_notification'
     autoload :BillingInfoUpdatedNotification,       'recurly/webhook/billing_info_updated_notification'
+    autoload :BillingInfoUpdateFailedNotification,  'recurly/webhook/billing_info_update_failed_notification'
     autoload :CanceledSubscriptionNotification,     'recurly/webhook/canceled_subscription_notification'
     autoload :CanceledAccountNotification,          'recurly/webhook/canceled_account_notification'
     autoload :ClosedInvoiceNotification,            'recurly/webhook/closed_invoice_notification'
