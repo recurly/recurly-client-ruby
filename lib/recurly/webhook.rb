@@ -31,6 +31,7 @@ module Recurly
     autoload :BillingInfoUpdateFailedNotification,  'recurly/webhook/billing_info_update_failed_notification'
     autoload :SubscriptionPausedNotification,       'recurly/webhook/subscription_paused_notification'
     autoload :SubscriptionPauseModifiedNotification,'recurly/webhook/subscription_pause_modified_notification'
+    autoload :PausedSubscriptionRenewalNotification,'recurly/webhook/paused_subscription_renewal_notification'
     autoload :SubscriptionResumedNotification,      'recurly/webhook/subscription_resumed_notification'
     autoload :CanceledSubscriptionNotification,     'recurly/webhook/canceled_subscription_notification'
     autoload :ScheduledSubscriptionPauseNotification,'recurly/webhook/scheduled_subscription_pause_notification'
