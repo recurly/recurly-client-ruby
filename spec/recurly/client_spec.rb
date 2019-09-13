@@ -1,9 +1,9 @@
 require "spec_helper"
 
 RSpec.describe Recurly::Client do
+  subject(:client) { Recurly::Client.new(api_key: api_key) }
   let(:subdomain) { "test" }
   let(:api_key) { "recurly-good" }
-  subject(:client) { Recurly::Client.new(api_key: api_key, subdomain: subdomain) }
   let(:resp_headers) do
     {
       "x-request-id" => "0av50sm5l2n2gkf88ehg",
@@ -39,7 +39,7 @@ RSpec.describe Recurly::Client do
     describe "headers" do
       it "should include the necessary headers in each request" do
         expected = hash_including("Accept" => /application\/vnd\.recurly/, "Content-Type" => "application/json", "User-Agent" => /Recurly\//)
-        req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-test/accounts/code-benjamin-du-monde", nil)
+        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
         expect(client).to receive(:run_request).with(req, expected).and_return(response)
         _account = subject.get_account(account_id: "code-benjamin-du-monde")
       end
@@ -47,14 +47,14 @@ RSpec.describe Recurly::Client do
 
     describe "#get" do
       it "should return an account object for get_account" do
-        req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-test/accounts/code-benjamin-du-monde", nil)
+        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
         expect(client).to receive(:run_request).with(req, any_args).and_return(response)
         account = subject.get_account(account_id: "code-benjamin-du-monde")
         expect(account).to be_instance_of Recurly::Resources::Account
       end
 
       it "should inject the response metatada" do
-        req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-test/accounts/code-benjamin-du-monde", nil)
+        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
         expect(client).to receive(:run_request).with(req, any_args).and_return(response)
         account = subject.get_account(account_id: "code-benjamin-du-monde")
         expect(account.get_response).to be_instance_of Recurly::HTTP::Response
@@ -63,7 +63,7 @@ RSpec.describe Recurly::Client do
 
     describe "#delete" do
       it "should return a the deleted account for deactivate_account" do
-        req = Recurly::HTTP::Request.new(:delete, "/sites/subdomain-test/accounts/code-benjamin-du-monde", nil)
+        req = Recurly::HTTP::Request.new(:delete, "/accounts/code-benjamin-du-monde", nil)
         expect(client).to receive(:run_request).with(req, any_args).and_return(response)
         account = subject.deactivate_account(account_id: "code-benjamin-du-monde")
         expect(account).to be_instance_of Recurly::Resources::Account
@@ -73,7 +73,7 @@ RSpec.describe Recurly::Client do
     describe "#put" do
       it "should return a the updated account for update_account" do
         body = { first_name: "Benjamin" }
-        req = Recurly::HTTP::Request.new(:put, "/sites/subdomain-test/accounts/code-benjamin-du-monde", JSON.dump(body))
+        req = Recurly::HTTP::Request.new(:put, "/accounts/code-benjamin-du-monde", JSON.dump(body))
         expect(client).to receive(:run_request).with(req, any_args).and_return(response)
         account = subject.update_account(account_id: "code-benjamin-du-monde", body: body)
         expect(account).to be_instance_of Recurly::Resources::Account
@@ -95,7 +95,7 @@ RSpec.describe Recurly::Client do
 
       it "should return a the created account for create_account" do
         body = { account_code: "benjamin-du-monde" }
-        req = Recurly::HTTP::Request.new(:post, "/sites/subdomain-test/accounts", JSON.dump(body))
+        req = Recurly::HTTP::Request.new(:post, "/accounts", JSON.dump(body))
         expect(client).to receive(:run_request).with(req, any_args).and_return(response)
         account = subject.create_account(body: body)
         expect(account).to be_instance_of Recurly::Resources::Account
@@ -122,11 +122,38 @@ RSpec.describe Recurly::Client do
       end
 
       it "should return a pager of accounts from list_accounts" do
-        req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-test/accounts", nil)
+        req = Recurly::HTTP::Request.new(:get, "/accounts", nil)
         expect(client).to receive(:run_request).with(req, any_args).and_return(response)
         pager = subject.list_accounts
         expect(pager).to be_instance_of Recurly::Pager
         expect(pager.each).to all(be_a Recurly::Resources::Account)
+      end
+    end
+
+    context "when passed an optional site_id" do
+      describe "get" do
+        it "should scope the url by site" do
+          req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-my-subdomain/accounts/code-benjamin-du-monde", nil)
+          expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+          _account = subject.get_account(account_id: "code-benjamin-du-monde", site_id: "subdomain-my-subdomain")
+        end
+      end
+    end
+
+    context "when initialized with a site_id" do
+      subject(:client) do
+        Recurly::Client.new(
+          api_key: api_key,
+          subdomain: "my-subdomain",
+        )
+      end
+
+      describe "get" do
+        it "should scope the url by site" do
+          req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-my-subdomain/accounts/code-benjamin-du-monde", nil)
+          expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+          _account = subject.get_account(account_id: "code-benjamin-du-monde")
+        end
       end
     end
   end
@@ -154,7 +181,7 @@ RSpec.describe Recurly::Client do
 
     describe "#get" do
       it "should raise an APIError" do
-        req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-test/accounts/code-benjamin-du-monde", nil)
+        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
         expect(client).to receive(:run_request).with(req, any_args).and_return(response)
         expect {
           subject.get_account(account_id: "code-benjamin-du-monde")
@@ -166,7 +193,7 @@ RSpec.describe Recurly::Client do
   context "with network errors" do
     describe "#get" do
       it "should return an account object for get_account" do
-        req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-test/accounts/code-benjamin-du-monde", nil)
+        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
         expect(client).to receive(:run_request).with(req, any_args).and_raise(Faraday::TimeoutError, "Request timed out")
         expect {
           subject.get_account(account_id: "code-benjamin-du-monde")
@@ -200,7 +227,7 @@ RSpec.describe Recurly::Client do
 
     describe "#get" do
       it "should return an account object for get_account even if code has spaces" do
-        req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-test/accounts/code-benjamin%20du%20monde", nil)
+        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin%20du%20monde", nil)
         expect(client).to receive(:run_request).with(req, any_args).and_return(response)
         account = subject.get_account(account_id: "code-benjamin du monde")
         expect(account).to be_instance_of Recurly::Resources::Account

@@ -14,31 +14,24 @@ module Recurly
     #
     # @example
     #   API_KEY = '83749879bbde395b5fe0cc1a5abf8e5'
-    #   SITE_ID = 'dqzlv9shi7wa'
-    #   client = Recurly::Client.new(site_id: SITE_ID, api_key: API_KEY)
-    #   # You can optionally use the subdomain instead of the site id
-    #   client = Recurly::Client.new(subdomain: 'mysite-prod', api_key: API_KEY)
+    #   client = Recurly::Client.new(api_key: API_KEY)
     #   sub = client.get_subscription(subscription_id: 'abcd123456')
     # @example
     #   # You can also pass the initializer a block. This will give you
     #   # a client scoped for just that block
-    #   Recurly::Client.new(subdomain: 'mysite-prod', api_key: API_KEY) do |client|
+    #   Recurly::Client.new(api_key: API_KEY) do |client|
     #     sub = client.get_subscription(subscription_id: 'abcd123456')
     #   end
     # @example
     #   # If you only plan on using the client for more than one site,
     #   # you should initialize a new client for each site.
     #
-    #   # Give a `site_id`
-    #   client = Recurly::Client.new(api_key: API_KEY, site_id: SITE_ID)
-    #   # Or use the subdomain
-    #   client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-dev')
-    #
-    #   sub = client.get_subscription(subscription_id: 'abcd123456')
+    #   client = Recurly::Client.new(api_key: API_KEY1)
+    #   sub = client.get_subscription(subscription_id: 'uuid-abcd123456')
     #
     #   # you should create a new client to connect to another site
-    #   client = Recurly::Client.new(api_key: API_KEY, subdomain: 'mysite-prod')
-    #   sub = client.get_subscription(subscription_id: 'abcd7890')
+    #   client = Recurly::Client.new(api_key: API_KEY2)
+    #   sub = client.get_subscription(subscription_id: 'uuid-abcd7890')
     #
     # @param api_key [String] The private API key
     # @param site_id [String] The site you wish to be scoped to.
@@ -61,10 +54,16 @@ module Recurly
     protected
 
     def pager(path, **options)
-      Pager.new(client: self, path: path, options: options)
+      path = scope_by_site(path, **options)
+      Pager.new(
+        client: self,
+        path: path,
+        options: options,
+      )
     end
 
     def get(path, **options)
+      path = scope_by_site(path, **options)
       request = HTTP::Request.new(:get, path, nil)
       faraday_resp = run_request(request, headers)
       handle_response! request, faraday_resp
@@ -74,6 +73,7 @@ module Recurly
 
     def post(path, request_data, request_class, **options)
       request_class.new(request_data).validate!
+      path = scope_by_site(path, **options)
       request = HTTP::Request.new(:post, path, JSON.dump(request_data))
       faraday_resp = run_request(request, headers)
       handle_response! request, faraday_resp
@@ -82,6 +82,7 @@ module Recurly
     end
 
     def put(path, request_data = nil, request_class = nil, **options)
+      path = scope_by_site(path, **options)
       request = HTTP::Request.new(:put, path)
       if request_data
         request_class.new(request_data).validate!
@@ -95,6 +96,7 @@ module Recurly
     end
 
     def delete(path, **options)
+      path = scope_by_site(path, **options)
       request = HTTP::Request.new(:delete, path, nil)
       faraday_resp = run_request(request, headers)
       handle_response! request, faraday_resp
@@ -188,8 +190,14 @@ module Recurly
         @site_id = site_id
       elsif subdomain
         @site_id = "subdomain-#{subdomain}"
+      end
+    end
+
+    def scope_by_site(path, **options)
+      if site = site_id || options[:site_id]
+        "/sites/#{site}#{path}"
       else
-        raise ArgumentError, "You must pass a site_id or subdomain argument to initialize the Client"
+        path
       end
     end
 
