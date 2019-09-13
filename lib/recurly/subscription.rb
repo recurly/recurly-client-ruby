@@ -41,6 +41,9 @@ module Recurly
     # @return [InvoiceCollection, nil]
     has_one :invoice_collection, class_name: :InvoiceCollection, readonly: true
 
+    # @return [BillingInfo, nil]
+    has_one :billing_info, class_name: :BillingInfo, readonly: false
+
     define_attribute_methods %w(
       uuid
       state

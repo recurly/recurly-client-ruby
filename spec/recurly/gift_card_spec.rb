@@ -164,5 +164,28 @@ describe GiftCard do
         actual_xml.must_equal expected_xml
       end
     end
+
+    describe "when adding a top level billing info" do
+      let(:gift_card) {
+        Recurly::GiftCard.new(
+          billing_info: Recurly::BillingInfo.new(token_id: '1234')
+        )
+      }
+
+      it "should embed the billing info" do
+        expected_xml = <<-XML
+        <gift_card>
+          <billing_info>
+            <token_id>1234</token_id>
+          </billing_info>
+        </gift_card>
+        XML
+
+        expected_xml = expected_xml.gsub("\n", "").gsub(" ", "")
+        actual_xml = gift_card.to_xml.gsub("\n", "").gsub(" ", "")
+
+        actual_xml.must_equal expected_xml
+      end
+    end
   end
 end
