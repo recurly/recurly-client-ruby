@@ -183,6 +183,10 @@ describe Webhook do
       webhook.shipping_address.must_be_instance_of Recurly::ShippingAddress
     end
 
+    it "must return FraudInfoUpdatedNotification instance" do
+      Webhook.parse(request 'fraud-info-updated-notification').must_be_instance_of Webhook::FraudInfoUpdatedNotification
+    end
+
     it "must handle unknown notifications" do
       proc { Webhook.parse(request 'unknown-notification') }.must_raise Webhook::NotificationError
     end
