@@ -18,6 +18,9 @@ module Recurly
     # @return [Invoice, nil] The charge invoice for the gift card redemption.
     has_one :purchase_invoice, class_name: :Invoice, readonly: true
 
+    # @return [BillingInfo, nil]
+    has_one :billing_info, class_name: :BillingInfo, readonly: false
+
     define_attribute_methods %w(
       balance_in_cents
       currency

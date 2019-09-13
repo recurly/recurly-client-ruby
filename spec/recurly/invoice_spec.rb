@@ -172,7 +172,10 @@ describe Invoice do
       stub_api_request :get, 'invoices/1000', 'invoices/show-200'
       stub_api_request :put, 'invoices/created-invoice/collect', 'invoices/show-200-updated'
       invoice = Invoice.find(1000)
-      invoice.force_collect(transaction_type: 'moto')
+      invoice.force_collect(
+        transaction_type: 'moto',
+        billing_info: Recurly::BillingInfo.new(token_id: '1234')
+      )
     end
   end
 

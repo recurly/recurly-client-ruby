@@ -153,8 +153,8 @@ module Recurly
     def force_collect(options = {})
       return false unless link? :force_collect
       http_opts = {}
-      if options[:transaction_type]
-        http_opts[:body] = transaction_type_xml(options[:transaction_type])
+      if body = force_collect_xml(options)
+        http_opts[:body] = body
       end
       reload follow_link(:force_collect, http_opts)
       true
@@ -276,14 +276,21 @@ module Recurly
       builder.to_s
     end
 
-    def transaction_type_xml(transaction_type)
-      builder = XML.new("<invoice/>")
-      builder.add_element 'transaction_type', transaction_type.to_s
-      builder.to_s
+    # Returns an xml body or nil given some options
+    def force_collect_xml(options = {})
+      if options[:transaction_type] || options[:billing_info]
+        ForceCollect.new(options).to_xml
+      end
     end
 
     # Invoices are only writeable through {Account} instances.
     embedded! true
     undef destroy
+
+    # Represents a body for the force collect endpoint
+    class ForceCollect < Resource
+      has_one :billing_info, class_name: :BillingInfo, readonly: false
+      define_attribute_methods %w[transaction_type]
+    end
   end
 end
