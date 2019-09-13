@@ -1,12 +1,18 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.1"></a>
+## v2.18.1 (2019-09-13)
+
+* Adds NewShippingAddressNotification webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/502)
+* PSD2 billing info changes [PR](https://github.com/recurly/recurly-client-ruby/pull/505)
+
 <a name="v2.18.0"></a>
 ## v2.18.0 (2019-08-21)
 
 This bumps us to API version 2.22.
 
-* MOTO transactions [PR](//github.com/recurly/recurly-client-ruby/pull/493)
+* MOTO transactions [PR](https://github.com/recurly/recurly-client-ruby/pull/493)
 * Changes for Vertex customers [PR](https://github.com/recurly/recurly-client-ruby/pull/491)
 
 There is one breaking change. It only applies to Vertex users so will not likely affect you.
