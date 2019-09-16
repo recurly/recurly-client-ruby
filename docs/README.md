@@ -24,7 +24,8 @@ initialized clients.
 This makes multithreaded environments simpler and provides one location where every
 operation can be found (rather than having them spread out among classes).
 
-`Recurly::Client#new` initializes a new client. It only requires an API key:
+`Recurly::Client#new` initializes a new client. It only requires an API key which can be obtained on
+the [API Credentials Page](https://app.recurly.com/go/integrations/api_keys).
 
 ```ruby
 API_KEY = '83749879bbde395b5fe0cc1a5abf8e5'

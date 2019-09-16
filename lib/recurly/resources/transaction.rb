@@ -107,8 +107,8 @@ module Recurly
       define_attribute :payment_gateway, :TransactionPaymentGateway
 
       # @!attribute payment_method
-      #   @return [TransactionPaymentMethod]
-      define_attribute :payment_method, :TransactionPaymentMethod
+      #   @return [PaymentMethod]
+      define_attribute :payment_method, :PaymentMethod
 
       # @!attribute refunded
       #   @return [Boolean] Indicates if part or all of this transaction was refunded.
