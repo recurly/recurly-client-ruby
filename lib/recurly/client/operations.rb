@@ -5,12 +5,12 @@
 module Recurly
   class Client
     def api_version
-      "v2018-08-09"
+      "v2018-10-04"
     end
 
     # List sites
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_sites list_sites api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_sites list_sites api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -44,7 +44,7 @@ module Recurly
 
     # Fetch a site
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_site get_site api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_site get_site api documenation}
     #
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
     # @return [Resources::Site] A site.
@@ -55,7 +55,7 @@ module Recurly
 
     # List a site's accounts
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_accounts list_accounts api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_accounts list_accounts api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -100,7 +100,7 @@ module Recurly
 
     # Create an account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_account create_account api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_account create_account api documenation}
     #
     # @param body [Requests::AccountCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountCreate}
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -148,7 +148,7 @@ module Recurly
 
     # Fetch an account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_account get_account api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_account get_account api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -170,7 +170,7 @@ module Recurly
 
     # Modify an account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/update_account update_account api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/update_account update_account api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param body [Requests::AccountUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountUpdate}
@@ -200,7 +200,7 @@ module Recurly
 
     # Deactivate an account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/deactivate_account deactivate_account api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/deactivate_account deactivate_account api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -222,7 +222,7 @@ module Recurly
 
     # Fetch an account's acquisition data
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_account_acquisition get_account_acquisition api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_account_acquisition get_account_acquisition api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -244,7 +244,7 @@ module Recurly
 
     # Update an account's acquisition data
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/update_account_acquisition update_account_acquisition api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/update_account_acquisition update_account_acquisition api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param body [Requests::AccountAcquisitionUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountAcquisitionUpdatable}
@@ -257,7 +257,7 @@ module Recurly
 
     # Remove an account's acquisition data
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/remove_account_acquisition remove_account_acquisition api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/remove_account_acquisition remove_account_acquisition api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -279,7 +279,7 @@ module Recurly
 
     # Reactivate an inactive account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/reactivate_account reactivate_account api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/reactivate_account reactivate_account api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -301,7 +301,7 @@ module Recurly
 
     # Fetch an account's balance and past due status
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_account_balance get_account_balance api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_account_balance get_account_balance api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -323,7 +323,7 @@ module Recurly
 
     # Fetch an account's billing information
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_billing_info get_billing_info api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_billing_info get_billing_info api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -345,7 +345,7 @@ module Recurly
 
     # Set an account's billing information
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/update_billing_info update_billing_info api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/update_billing_info update_billing_info api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
@@ -375,7 +375,7 @@ module Recurly
 
     # Remove an account's billing information
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/remove_billing_info remove_billing_info api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/remove_billing_info remove_billing_info api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -397,7 +397,7 @@ module Recurly
 
     # Show the coupon redemptions for an account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_account_coupon_redemptions list_account_coupon_redemptions api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_account_coupon_redemptions list_account_coupon_redemptions api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -440,7 +440,7 @@ module Recurly
 
     # Show the coupon redemption that is active on an account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_active_coupon_redemption get_active_coupon_redemption api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_active_coupon_redemption get_active_coupon_redemption api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -462,7 +462,7 @@ module Recurly
 
     # Generate an active coupon redemption on an account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_coupon_redemption create_coupon_redemption api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_coupon_redemption create_coupon_redemption api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param body [Requests::CouponRedemptionCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponRedemptionCreate}
@@ -492,7 +492,7 @@ module Recurly
 
     # Delete the active coupon redemption from an account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/remove_coupon_redemption remove_coupon_redemption api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/remove_coupon_redemption remove_coupon_redemption api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -514,7 +514,7 @@ module Recurly
 
     # List an account's credit payments
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_account_credit_payments list_account_credit_payments api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_account_credit_payments list_account_credit_payments api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param limit [Integer] Limit number of records 1-200.
@@ -547,7 +547,7 @@ module Recurly
 
     # List an account's invoices
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_account_invoices list_account_invoices api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_account_invoices list_account_invoices api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -598,7 +598,7 @@ module Recurly
 
     # Create an invoice for pending line items
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_invoice create_invoice api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_invoice create_invoice api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param body [Requests::InvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCreate}
@@ -628,7 +628,7 @@ module Recurly
 
     # Preview new invoice for pending line items
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/preview_invoice preview_invoice api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/preview_invoice preview_invoice api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param body [Requests::InvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCreate}
@@ -658,7 +658,7 @@ module Recurly
 
     # List an account's line items
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_account_line_items list_account_line_items api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_account_line_items list_account_line_items api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -706,7 +706,7 @@ module Recurly
 
     # Create a new line item for the account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_line_item create_line_item api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_line_item create_line_item api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param body [Requests::LineItemCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::LineItemCreate}
@@ -737,7 +737,7 @@ module Recurly
 
     # Fetch a list of an account's notes
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_account_notes list_account_notes api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_account_notes list_account_notes api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -767,7 +767,7 @@ module Recurly
 
     # Fetch an account note
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_account_note get_account_note api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_account_note get_account_note api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param account_note_id [String] Account Note ID.
@@ -793,7 +793,7 @@ module Recurly
 
     # Fetch a list of an account's shipping addresses
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_shipping_addresses list_shipping_addresses api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_shipping_addresses list_shipping_addresses api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -838,7 +838,7 @@ module Recurly
 
     # Create a new shipping address for the account
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_shipping_address create_shipping_address api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_shipping_address create_shipping_address api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param body [Requests::ShippingAddressCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingAddressCreate}
@@ -851,7 +851,7 @@ module Recurly
 
     # Fetch an account's shipping address
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_shipping_address get_shipping_address api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_shipping_address get_shipping_address api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param shipping_address_id [String] Shipping Address ID.
@@ -877,7 +877,7 @@ module Recurly
 
     # Update an account's shipping address
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/update_shipping_address update_shipping_address api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/update_shipping_address update_shipping_address api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param shipping_address_id [String] Shipping Address ID.
@@ -910,7 +910,7 @@ module Recurly
 
     # Remove an account's shipping address
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/remove_shipping_address remove_shipping_address api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/remove_shipping_address remove_shipping_address api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param shipping_address_id [String] Shipping Address ID.
@@ -936,7 +936,7 @@ module Recurly
 
     # List an account's subscriptions
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_account_subscriptions list_account_subscriptions api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_account_subscriptions list_account_subscriptions api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -987,7 +987,7 @@ module Recurly
 
     # List an account's transactions
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_account_transactions list_account_transactions api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_account_transactions list_account_transactions api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -1034,7 +1034,7 @@ module Recurly
 
     # List an account's child accounts
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_child_accounts list_child_accounts api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_child_accounts list_child_accounts api documenation}
     #
     # @param account_id [String] Account ID or code (use prefix: +code-+, e.g. +code-bob+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -1083,7 +1083,7 @@ module Recurly
 
     # List a site's account acquisition data
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_account_acquisition list_account_acquisition api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_account_acquisition list_account_acquisition api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -1124,7 +1124,7 @@ module Recurly
 
     # List a site's coupons
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_coupons list_coupons api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_coupons list_coupons api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -1165,7 +1165,7 @@ module Recurly
 
     # Create a new coupon
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_coupon create_coupon api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_coupon create_coupon api documenation}
     #
     # @param body [Requests::CouponCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponCreate}
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1200,7 +1200,7 @@ module Recurly
 
     # Fetch a coupon
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_coupon get_coupon api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_coupon get_coupon api documenation}
     #
     # @param coupon_id [String] Coupon ID or code (use prefix: +code-+, e.g. +code-10off+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1222,7 +1222,7 @@ module Recurly
 
     # Update an active coupon
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/update_coupon update_coupon api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/update_coupon update_coupon api documenation}
     #
     # @param coupon_id [String] Coupon ID or code (use prefix: +code-+, e.g. +code-10off+).
     # @param body [Requests::CouponUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponUpdate}
@@ -1235,7 +1235,7 @@ module Recurly
 
     # List unique coupon codes associated with a bulk coupon
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_unique_coupon_codes list_unique_coupon_codes api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_unique_coupon_codes list_unique_coupon_codes api documenation}
     #
     # @param coupon_id [String] Coupon ID or code (use prefix: +code-+, e.g. +code-10off+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -1271,7 +1271,7 @@ module Recurly
 
     # List a site's credit payments
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_credit_payments list_credit_payments api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_credit_payments list_credit_payments api documenation}
     #
     # @param limit [Integer] Limit number of records 1-200.
     # @param order [String] Sort order.
@@ -1300,7 +1300,7 @@ module Recurly
 
     # Fetch a credit payment
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_credit_payment get_credit_payment api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_credit_payment get_credit_payment api documenation}
     #
     # @param credit_payment_id [String] Credit Payment ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1312,7 +1312,7 @@ module Recurly
 
     # List a site's custom field definitions
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_custom_field_definitions list_custom_field_definitions api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_custom_field_definitions list_custom_field_definitions api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -1340,12 +1340,6 @@ module Recurly
     #
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
     # @return [Pager<Resources::CustomFieldDefinition>] A list of the site's custom field definitions.
-    # @example
-    #   custom_fields = @client.list_custom_field_definitions(limit: 200)
-    #   custom_fields.each do |field|
-    #     puts "CustomFieldDefinition: #{field.name}"
-    #   end
-    #
     def list_custom_field_definitions(**options)
       path = interpolate_path("/custom_field_definitions")
       pager(path, **options)
@@ -1353,7 +1347,7 @@ module Recurly
 
     # Fetch an custom field definition
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_custom_field_definition get_custom_field_definition api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_custom_field_definition get_custom_field_definition api documenation}
     #
     # @param custom_field_definition_id [String] Custom Field Definition ID
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1365,7 +1359,7 @@ module Recurly
 
     # List a site's invoices
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_invoices list_invoices api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_invoices list_invoices api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -1412,7 +1406,7 @@ module Recurly
 
     # Fetch an invoice
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_invoice get_invoice api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_invoice get_invoice api documenation}
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1434,7 +1428,7 @@ module Recurly
 
     # Update an invoice
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/put_invoice put_invoice api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/put_invoice put_invoice api documenation}
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
     # @param body [Requests::InvoiceUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceUpdatable}
@@ -1447,7 +1441,7 @@ module Recurly
 
     # Collect a pending or past due, automatic invoice
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/collect_invoice collect_invoice api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/collect_invoice collect_invoice api documenation}
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1469,7 +1463,7 @@ module Recurly
 
     # Mark an open invoice as failed
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/fail_invoice fail_invoice api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/fail_invoice fail_invoice api documenation}
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1491,7 +1485,7 @@ module Recurly
 
     # Mark an open invoice as successful
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/mark_invoice_successful mark_invoice_successful api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/mark_invoice_successful mark_invoice_successful api documenation}
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1513,7 +1507,7 @@ module Recurly
 
     # Reopen a closed, manual invoice
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/reopen_invoice reopen_invoice api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/reopen_invoice reopen_invoice api documenation}
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1535,7 +1529,7 @@ module Recurly
 
     # List an invoice's line items
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_invoice_line_items list_invoice_line_items api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_invoice_line_items list_invoice_line_items api documenation}
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -1574,7 +1568,7 @@ module Recurly
 
     # Show the coupon redemptions applied to an invoice
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_invoice_coupon_redemptions list_invoice_coupon_redemptions api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_invoice_coupon_redemptions list_invoice_coupon_redemptions api documenation}
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -1617,7 +1611,7 @@ module Recurly
 
     # List an invoice's related credit or charge invoices
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_related_invoices list_related_invoices api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_related_invoices list_related_invoices api documenation}
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1629,7 +1623,7 @@ module Recurly
 
     # Refund an invoice
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/refund_invoice refund_invoice api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/refund_invoice refund_invoice api documenation}
     #
     # @param invoice_id [String] Invoice ID or number (use prefix: +number-+, e.g. +number-1000+).
     # @param body [Requests::InvoiceRefund] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceRefund}
@@ -1659,7 +1653,7 @@ module Recurly
 
     # List a site's line items
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_line_items list_line_items api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_line_items list_line_items api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -1697,7 +1691,7 @@ module Recurly
 
     # Fetch a line item
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_line_item get_line_item api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_line_item get_line_item api documenation}
     #
     # @param line_item_id [String] Line Item ID.
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1719,7 +1713,7 @@ module Recurly
 
     # Delete an uninvoiced line item
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/remove_line_item remove_line_item api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/remove_line_item remove_line_item api documenation}
     #
     # @param line_item_id [String] Line Item ID.
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1743,7 +1737,7 @@ module Recurly
 
     # List a site's plans
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_plans list_plans api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_plans list_plans api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -1785,7 +1779,7 @@ module Recurly
 
     # Create a plan
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_plan create_plan api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_plan create_plan api documenation}
     #
     # @param body [Requests::PlanCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PlanCreate}
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1824,7 +1818,7 @@ module Recurly
 
     # Fetch a plan
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_plan get_plan api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_plan get_plan api documenation}
     #
     # @param plan_id [String] Plan ID or code (use prefix: +code-+, e.g. +code-gold+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1846,7 +1840,7 @@ module Recurly
 
     # Update a plan
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/update_plan update_plan api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/update_plan update_plan api documenation}
     #
     # @param plan_id [String] Plan ID or code (use prefix: +code-+, e.g. +code-gold+).
     # @param body [Requests::PlanUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PlanUpdate}
@@ -1859,7 +1853,7 @@ module Recurly
 
     # Remove a plan
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/remove_plan remove_plan api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/remove_plan remove_plan api documenation}
     #
     # @param plan_id [String] Plan ID or code (use prefix: +code-+, e.g. +code-gold+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -1871,7 +1865,7 @@ module Recurly
 
     # List a plan's add-ons
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_plan_add_ons list_plan_add_ons api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_plan_add_ons list_plan_add_ons api documenation}
     #
     # @param plan_id [String] Plan ID or code (use prefix: +code-+, e.g. +code-gold+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -1917,7 +1911,7 @@ module Recurly
 
     # Create an add-on
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_plan_add_on create_plan_add_on api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_plan_add_on create_plan_add_on api documenation}
     #
     # @param plan_id [String] Plan ID or code (use prefix: +code-+, e.g. +code-gold+).
     # @param body [Requests::AddOnCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AddOnCreate}
@@ -1930,7 +1924,7 @@ module Recurly
 
     # Fetch a plan's add-on
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_plan_add_on get_plan_add_on api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_plan_add_on get_plan_add_on api documenation}
     #
     # @param plan_id [String] Plan ID or code (use prefix: +code-+, e.g. +code-gold+).
     # @param add_on_id [String] Add-on ID or code (use prefix: +code-+, e.g. +code-gold+).
@@ -1955,7 +1949,7 @@ module Recurly
 
     # Update an add-on
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/update_plan_add_on update_plan_add_on api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/update_plan_add_on update_plan_add_on api documenation}
     #
     # @param plan_id [String] Plan ID or code (use prefix: +code-+, e.g. +code-gold+).
     # @param add_on_id [String] Add-on ID or code (use prefix: +code-+, e.g. +code-gold+).
@@ -1969,7 +1963,7 @@ module Recurly
 
     # Remove an add-on
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/remove_plan_add_on remove_plan_add_on api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/remove_plan_add_on remove_plan_add_on api documenation}
     #
     # @param plan_id [String] Plan ID or code (use prefix: +code-+, e.g. +code-gold+).
     # @param add_on_id [String] Add-on ID or code (use prefix: +code-+, e.g. +code-gold+).
@@ -1982,7 +1976,7 @@ module Recurly
 
     # List a site's add-ons
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_add_ons list_add_ons api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_add_ons list_add_ons api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -2018,7 +2012,7 @@ module Recurly
 
     # Fetch an add-on
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_add_on get_add_on api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_add_on get_add_on api documenation}
     #
     # @param add_on_id [String] Add-on ID or code (use prefix: +code-+, e.g. +code-gold+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2028,9 +2022,56 @@ module Recurly
       get(path, **options)
     end
 
+    # List a site's shipping methods
+    #
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_shipping_methods list_shipping_methods api documenation}
+    #
+    # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    # @param limit [Integer] Limit number of records 1-200.
+    # @param order [String] Sort order.
+    # @param sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
+    # @return [Pager<Resources::ShippingMethod>] A list of the site's shipping methods.
+    def list_shipping_methods(**options)
+      path = interpolate_path("/shipping_methods")
+      pager(path, **options)
+    end
+
+    # Fetch a shipping method
+    #
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_shipping_method get_shipping_method api documenation}
+    #
+    # @param id [String] Shipping Method ID or code (use prefix: +code-+, e.g. +code-usps_2-day+).
+    # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
+    # @return [Resources::ShippingMethod] A shipping_method.
+    def get_shipping_method(id:, **options)
+      path = interpolate_path("/shipping_methods/{id}", id: id)
+      get(path, **options)
+    end
+
     # List a site's subscriptions
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_subscriptions list_subscriptions api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_subscriptions list_subscriptions api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -2077,7 +2118,7 @@ module Recurly
 
     # Create a new subscription
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_subscription create_subscription api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_subscription create_subscription api documenation}
     #
     # @param body [Requests::SubscriptionCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionCreate}
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2110,7 +2151,7 @@ module Recurly
 
     # Fetch a subscription
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_subscription get_subscription api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_subscription get_subscription api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2134,7 +2175,7 @@ module Recurly
 
     # Modify a subscription
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/modify_subscription modify_subscription api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/modify_subscription modify_subscription api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param body [Requests::SubscriptionUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionUpdate}
@@ -2164,7 +2205,7 @@ module Recurly
 
     # Terminate a subscription
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/terminate_subscription terminate_subscription api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/terminate_subscription terminate_subscription api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param refund [String] The type of refund to perform:
@@ -2198,7 +2239,7 @@ module Recurly
 
     # Cancel a subscription
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/cancel_subscription cancel_subscription api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/cancel_subscription cancel_subscription api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2222,7 +2263,7 @@ module Recurly
 
     # Reactivate a canceled subscription
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/reactivate_subscription reactivate_subscription api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/reactivate_subscription reactivate_subscription api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2246,7 +2287,7 @@ module Recurly
 
     # Pause subscription
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/pause_subscription pause_subscription api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/pause_subscription pause_subscription api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param body [Requests::SubscriptionPause] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionPause}
@@ -2275,7 +2316,7 @@ module Recurly
 
     # Resume subscription
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/resume_subscription resume_subscription api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/resume_subscription resume_subscription api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2299,7 +2340,7 @@ module Recurly
 
     # Fetch a subscription's pending change
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_subscription_change get_subscription_change api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_subscription_change get_subscription_change api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2323,7 +2364,7 @@ module Recurly
 
     # Create a new subscription change
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_subscription_change create_subscription_change api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_subscription_change create_subscription_change api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param body [Requests::SubscriptionChangeCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionChangeCreate}
@@ -2353,7 +2394,7 @@ module Recurly
 
     # Delete the pending subscription change
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/remove_subscription_change remove_subscription_change api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/remove_subscription_change remove_subscription_change api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2377,7 +2418,7 @@ module Recurly
 
     # List a subscription's invoices
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_subscription_invoices list_subscription_invoices api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_subscription_invoices list_subscription_invoices api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -2428,7 +2469,7 @@ module Recurly
 
     # List a subscription's line items
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_subscription_line_items list_subscription_line_items api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_subscription_line_items list_subscription_line_items api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -2476,7 +2517,7 @@ module Recurly
 
     # Show the coupon redemptions for a subscription
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_subscription_coupon_redemptions list_subscription_coupon_redemptions api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_subscription_coupon_redemptions list_subscription_coupon_redemptions api documenation}
     #
     # @param subscription_id [String] Subscription ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -2519,7 +2560,7 @@ module Recurly
 
     # List a site's transactions
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/list_transactions list_transactions api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/list_transactions list_transactions api documenation}
     #
     # @param ids [string] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -2562,7 +2603,7 @@ module Recurly
 
     # Fetch a transaction
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_transaction get_transaction api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_transaction get_transaction api documenation}
     #
     # @param transaction_id [String] Transaction ID or UUID (use prefix: +uuid-+, e.g. +uuid-123457890+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2584,7 +2625,7 @@ module Recurly
 
     # Fetch a unique coupon code
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/get_unique_coupon_code get_unique_coupon_code api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/get_unique_coupon_code get_unique_coupon_code api documenation}
     #
     # @param unique_coupon_code_id [String] Unique Coupon Code ID or code (use prefix: +code-+, e.g. +code-abc-8dh2-def+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2596,7 +2637,7 @@ module Recurly
 
     # Deactivate a unique coupon code
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/deactivate_unique_coupon_code deactivate_unique_coupon_code api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/deactivate_unique_coupon_code deactivate_unique_coupon_code api documenation}
     #
     # @param unique_coupon_code_id [String] Unique Coupon Code ID or code (use prefix: +code-+, e.g. +code-abc-8dh2-def+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2608,7 +2649,7 @@ module Recurly
 
     # Restore a unique coupon code
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/reactivate_unique_coupon_code reactivate_unique_coupon_code api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/reactivate_unique_coupon_code reactivate_unique_coupon_code api documenation}
     #
     # @param unique_coupon_code_id [String] Unique Coupon Code ID or code (use prefix: +code-+, e.g. +code-abc-8dh2-def+).
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2620,7 +2661,7 @@ module Recurly
 
     # Create a new purchase
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/create_purchase create_purchase api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/create_purchase create_purchase api documenation}
     #
     # @param body [Requests::PurchaseCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PurchaseCreate}
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).
@@ -2659,7 +2700,7 @@ module Recurly
 
     # Preview a new purchase
     #
-    # {https://developers.recurly.com/api/v2018-08-09#operation/preview_purchase preview_purchase api documenation}
+    # {https://developers.recurly.com/api/v2018-10-04#operation/preview_purchase preview_purchase api documenation}
     #
     # @param body [Requests::PurchaseCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PurchaseCreate}
     # @param site_id [String] Site ID or subdomain (use prefix: +subdomain-+, e.g. +subdomain-recurly+).

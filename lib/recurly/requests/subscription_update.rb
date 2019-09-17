@@ -42,13 +42,9 @@ module Recurly
       #   @return [Integer] If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.
       define_attribute :renewal_billing_cycles, Integer
 
-      # @!attribute shipping_address
-      #   @return [ShippingAddressCreate] Create a shipping address on the account and assign it to the subscription. If this and `shipping_address_id` are both present, `shipping_address_id` will take precedence.
-      define_attribute :shipping_address, :ShippingAddressCreate
-
-      # @!attribute shipping_address_id
-      #   @return [String] Assign a shipping address from the account's existing shipping addresses.
-      define_attribute :shipping_address_id, String
+      # @!attribute shipping
+      #   @return [SubscriptionShippingUpdate]
+      define_attribute :shipping, :SubscriptionShippingUpdate
 
       # @!attribute terms_and_conditions
       #   @return [String] Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.
