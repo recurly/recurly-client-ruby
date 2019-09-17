@@ -5,7 +5,7 @@ module Recurly
   # and get a new Resource.
   class Resource
     extend Schema::SchemaFactory
-    extend Schema::JsonDeserializer
+    extend Schema::ResourceCaster
     include Schema::SchemaValidator
 
     attr_reader :attributes

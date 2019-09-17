@@ -5,7 +5,7 @@ module Recurly
   class Request
     extend Schema::SchemaFactory
     extend Schema::RequestCaster
-    extend Schema::JsonDeserializer
+    extend Schema::ResourceCaster
     include Schema::SchemaValidator
 
     attr_reader :attributes

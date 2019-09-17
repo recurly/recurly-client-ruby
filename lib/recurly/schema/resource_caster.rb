@@ -5,7 +5,7 @@ module Recurly
     # The purpose of this class is to turn Recurly defined
     # JSON data into Recurly ruby objects. It's to be used
     # by the Resource as an extension.
-    module JsonDeserializer
+    module ResourceCaster
       # Gives the class the ability to initialize itself
       # given some json data.
       #

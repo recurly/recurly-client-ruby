@@ -115,6 +115,6 @@ module Recurly
 
   require_relative "./schema/schema_factory"
   require_relative "./schema/schema_validator"
-  require_relative "./schema/json_deserializer"
+  require_relative "./schema/resource_caster"
   require_relative "./schema/request_caster"
 end
