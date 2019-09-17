@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fraud_info_updated_notification>
+  <account>
+    <account_code>1</account_code>
+    <username nil="true">verena</username>
+    <email>verena@example.com</email>
+    <first_name>Verena</first_name>
+    <last_name>Example</last_name>
+    <company_name nil="true">Company, Inc.</company_name>
+  </account>
+  <transaction>
+    <id>a5143c1d3a6f4a8287d0e2cc1d4c0427</id>
+    <invoice_id>8fjk3sd7j90s0789dsf099798jkliy65</invoice_id>
+    <invoice_number type="integer">2059</invoice_number>
+    <subscription_id>41e4e03e10be199252613d424290c5c6</subscription_id>
+    <subscription_ids type="array">
+      <subscription_id>41e4e03e10be199252613d424290c5c6</subscription_id>
+    </subscription_ids>
+    <action>purchase</action>
+    <date type="datetime">2017-10-20T22:39:35Z</date>
+    <gateway>authorize</gateway>
+    <payment_method>credit_card</payment_method>
+    <amount_in_cents type="integer">1000</amount_in_cents>
+    <status>success</status>
+    <message>This transaction has been approved.</message>
+    <gateway_error_codes>1</gateway_error_codes>
+    <failure_type nil="true"></failure_type>
+    <reference></reference>
+    <source>subscription</source>
+    <cvv_result code=""></cvv_result>
+    <avs_result code=""></avs_result>
+    <avs_result_street></avs_result_street>
+    <avs_result_postal></avs_result_postal>
+    <billing_phone nil="true"></billing_phone>
+    <billing_postal></billing_postal>
+    <billing_country></billing_country>
+    <test type="boolean">true</test>
+    <voidable type="boolean">true</voidable>
+    <refundable type="boolean">true</refundable>
+  </transaction>
+</fraud_info_updated_notification>

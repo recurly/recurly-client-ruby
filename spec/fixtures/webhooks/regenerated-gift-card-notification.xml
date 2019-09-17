@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<regenerated_gift_card_notification>
+  <gift_card>
+    <redemption_code>1A5069E266AED435</redemption_code>
+    <id type="integer">2008976331180115114</id>
+    <product_code>gift_card</product_code>
+    <unit_amount_in_cents type="integer">1000</unit_amount_in_cents>
+    <currency>USD</currency>
+    <gifter_account_code>84395</gifter_account_code>
+    <recipient_account_code nil="true"></recipient_account_code>
+    <invoice_number type="integer">1105</invoice_number>
+    <delivery>
+      <method>email</method>
+      <email_address>john@example.com</email_address>
+      <deliver_at nil="true"></deliver_at>
+      <first_name>John</first_name>
+      <last_name>Smith</last_name>
+      <address>
+        <address1 nil="true"></address1>
+        <address2 nil="true"></address2>
+        <city nil="true"></city>
+        <state nil="true"></state>
+        <zip nil="true"></zip>
+        <country nil="true"></country>
+        <phone nil="true"></phone>
+      </address>
+      <gifter_name>Sally</gifter_name>
+      <personal_message>
+        Hi John, Happy Birthday! I hope you have a great day! Love, Sally</personal_message>
+    </delivery>
+    <created_at type="datetime">2016-08-03T20:37:21Z</created_at>
+    <updated_at type="datetime">2016-08-03T22:00:00Z</updated_at>
+    <delivered_at type="datetime">2016-08-03T20:37:22Z</delivered_at>
+    <redeemed_at type="datetime" nil="true"></redeemed_at>
+    <canceled_at type="datetime" nil="true"></canceled_at>
+  </gift_card>
+</regenerated_gift_card_notification>

@@ -10,12 +10,40 @@ describe Webhook do
       Webhook.parse(request 'billing-info-updated-notification').must_be_instance_of Webhook::BillingInfoUpdatedNotification
     end
 
+    it "must return BillingInfoUpdateFailedNotification instance" do
+      Webhook.parse(request 'billing-info-update-failed-notification').must_be_instance_of Webhook::BillingInfoUpdateFailedNotification
+    end
+
     it "must return CanceledAccountNotification instance" do
       Webhook.parse(request 'canceled-account-notification').must_be_instance_of Webhook::CanceledAccountNotification
     end
 
+    it "must return SubscriptionPausedNotification instance" do
+      Webhook.parse(request 'subscription-paused-notification').must_be_instance_of Webhook::SubscriptionPausedNotification
+    end
+
+    it "must return SubscriptionPauseCanceledNotification instance" do
+      Webhook.parse(request 'subscription-pause-canceled-notification').must_be_instance_of Webhook::SubscriptionPauseCanceledNotification
+    end
+
+    it "must return SubscriptionPauseModifiedNotification instance" do
+      Webhook.parse(request 'subscription-pause-modified-notification').must_be_instance_of Webhook::SubscriptionPauseModifiedNotification
+    end
+
+    it "must return PausedSubscriptionRenewalNotification instance" do
+      Webhook.parse(request 'paused-subscription-renewal-notification').must_be_instance_of Webhook::PausedSubscriptionRenewalNotification
+    end
+
+    it "must return SubscriptionResumedNotification instance" do
+      Webhook.parse(request 'subscription-resumed-notification').must_be_instance_of Webhook::SubscriptionResumedNotification
+    end
+
     it "must return CanceledSubscriptionNotification instance" do
       Webhook.parse(request 'canceled-subscription-notification').must_be_instance_of Webhook::CanceledSubscriptionNotification
+    end
+
+    it "must return ScheduledSubscriptionPauseNotification instance" do
+      Webhook.parse(request 'scheduled-subscription-pause-notification').must_be_instance_of Webhook::ScheduledSubscriptionPauseNotification
     end
 
     it "must return ClosedInvoiceNotification instance" do
@@ -78,6 +106,18 @@ describe Webhook do
       Webhook.parse(request 'purchased-gift-card-notification').must_be_instance_of Webhook::PurchasedGiftCardNotification
     end
 
+    it "must return UpdatedGiftCardNotification instance" do
+      Webhook.parse(request 'updated-gift-card-notification').must_be_instance_of Webhook::UpdatedGiftCardNotification
+    end
+
+    it "must return RegeneratedGiftCardNotification instance" do
+      Webhook.parse(request 'regenerated-gift-card-notification').must_be_instance_of Webhook::RegeneratedGiftCardNotification
+    end
+
+    it "must return CanceledGiftCardNotification instance" do
+      Webhook.parse(request 'canceled-gift-card-notification').must_be_instance_of Webhook::CanceledGiftCardNotification
+    end
+
     it "must return ReactivatedAccountNotification instance" do
       Webhook.parse(request 'reactivated-account-notification').must_be_instance_of Webhook::ReactivatedAccountNotification
     end
@@ -128,7 +168,25 @@ describe Webhook do
       webhook.account.must_be_instance_of Recurly::Account
       webhook.shipping_address.must_be_instance_of Recurly::ShippingAddress
     end
-    
+
+    it "must return UpdatedShippingAddressNotification instance" do
+      webhook = Webhook.parse(request 'updated-shipping-address-notification')
+      webhook.must_be_instance_of Webhook::UpdatedShippingAddressNotification
+      webhook.account.must_be_instance_of Recurly::Account
+      webhook.shipping_address.must_be_instance_of Recurly::ShippingAddress
+    end
+
+    it "must return DeletedShippingAddressNotification instance" do
+      webhook = Webhook.parse(request 'deleted-shipping-address-notification')
+      webhook.must_be_instance_of Webhook::DeletedShippingAddressNotification
+      webhook.account.must_be_instance_of Recurly::Account
+      webhook.shipping_address.must_be_instance_of Recurly::ShippingAddress
+    end
+
+    it "must return FraudInfoUpdatedNotification instance" do
+      Webhook.parse(request 'fraud-info-updated-notification').must_be_instance_of Webhook::FraudInfoUpdatedNotification
+    end
+
     it "must handle unknown notifications" do
       proc { Webhook.parse(request 'unknown-notification') }.must_raise Webhook::NotificationError
     end

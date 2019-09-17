@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<subscription_pause_modified_notification>
+  <account>
+    <account_code>1</account_code>
+    <username>test-user</username>
+    <email>test+2605@recurly.com</email>
+    <first_name>test</first_name>
+    <last_name>test-last</last_name>
+    <company_name>Recurly, Inc.</company_name>
+    <phone>555-1212</phone>
+  </account>
+  <subscription>
+    <plan>
+      <plan_code>4ec9adacbc37be072f0d6e2d1affc538</plan_code>
+      <name>Aut Fugiat Officia 6eae19a51 plan</name>
+    </plan>
+    <uuid>437a818b9dba81065e444448de931842</uuid>
+    <state>active</state>
+    <quantity type="integer">1</quantity>
+    <total_amount_in_cents type="integer">709</total_amount_in_cents>
+    <subscription_add_ons type="array"/>
+    <activated_at type="datetime">2018-03-09T17:01:59Z</activated_at>
+    <canceled_at type="datetime" nil="true"></canceled_at>
+    <expires_at type="datetime" nil="true"></expires_at>
+    <current_period_started_at type="datetime">2018-03-09T13:33:09Z</current_period_started_at>
+    <current_period_ends_at type="datetime">2018-03-09T13:38:22Z</current_period_ends_at>
+    <trial_started_at type="datetime" nil="true"></trial_started_at>
+    <trial_ends_at type="datetime" nil="true"></trial_ends_at>
+    <paused_at type="datetime">2018-03-09T13:38:22Z</paused_at>
+    <resume_at type="datetime">2023-03-09T13:38:22Z</resume_at>
+    <remaining_pause_cycles type="integer">5</remaining_pause_cycles>
+  </subscription>
+</subscription_pause_modified_notification>
