@@ -15,8 +15,8 @@ module Recurly
       define_attribute :code, String
 
       # @!attribute currencies
-      #   @return [Array[AddOnPricing]] Add-on pricing
-      define_attribute :currencies, Array, { :item_type => :AddOnPricing }
+      #   @return [Array[Pricing]] Add-on pricing
+      define_attribute :currencies, Array, { :item_type => :Pricing }
 
       # @!attribute default_quantity
       #   @return [Integer] Default quantity for the hosted pages.

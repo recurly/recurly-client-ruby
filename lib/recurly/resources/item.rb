@@ -4,14 +4,14 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Resources
-    class AddOn < Resource
+    class Item < Resource
 
       # @!attribute accounting_code
-      #   @return [String] Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code.
+      #   @return [String] Accounting code for invoice line items.
       define_attribute :accounting_code, String
 
       # @!attribute code
-      #   @return [String] The unique identifier for the add-on within its plan.
+      #   @return [String] Unique code to identify the item.
       define_attribute :code, String
 
       # @!attribute created_at
@@ -19,44 +19,52 @@ module Recurly
       define_attribute :created_at, DateTime
 
       # @!attribute currencies
-      #   @return [Array[Pricing]] Add-on pricing
+      #   @return [Array[Pricing]] Item Pricing
       define_attribute :currencies, Array, { :item_type => :Pricing }
 
-      # @!attribute default_quantity
-      #   @return [Integer] Default quantity for the hosted pages.
-      define_attribute :default_quantity, Integer
+      # @!attribute custom_fields
+      #   @return [Array[CustomField]]
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute deleted_at
       #   @return [DateTime] Deleted at
       define_attribute :deleted_at, DateTime
 
-      # @!attribute display_quantity
-      #   @return [Boolean] Determines if the quantity field is displayed on the hosted pages for the add-on.
-      define_attribute :display_quantity, :Boolean
+      # @!attribute description
+      #   @return [String] Optional, description.
+      define_attribute :description, String
+
+      # @!attribute external_sku
+      #   @return [String] Optional, stock keeping unit to link the item to other inventory systems.
+      define_attribute :external_sku, String
 
       # @!attribute id
-      #   @return [String] Add-on ID
+      #   @return [String] Item ID
       define_attribute :id, String
 
       # @!attribute name
-      #   @return [String] Describes your add-on and will appear in subscribers' invoices.
+      #   @return [String] This name describes your item and will appear on the invoice when it's purchased on a one time basis.
       define_attribute :name, String
 
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
 
-      # @!attribute plan_id
-      #   @return [String] Plan ID
-      define_attribute :plan_id, String
+      # @!attribute revenue_schedule_type
+      #   @return [String] Revenue schedule type
+      define_attribute :revenue_schedule_type, String
 
       # @!attribute state
-      #   @return [String] Add-ons can be either active or inactive.
+      #   @return [String] The current state of the item.
       define_attribute :state, String
 
       # @!attribute tax_code
       #   @return [String] Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
       define_attribute :tax_code, String
+
+      # @!attribute tax_exempt
+      #   @return [Boolean] `true` exempts tax on the item, `false` applies tax on the item.
+      define_attribute :tax_exempt, :Boolean
 
       # @!attribute updated_at
       #   @return [DateTime] Last updated at

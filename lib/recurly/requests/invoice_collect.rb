@@ -4,15 +4,11 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Requests
-    class AddOnPricing < Request
+    class InvoiceCollect < Request
 
-      # @!attribute currency
-      #   @return [String] 3-letter ISO 4217 currency code.
-      define_attribute :currency, String
-
-      # @!attribute unit_amount
-      #   @return [Float] Unit price
-      define_attribute :unit_amount, Float
+      # @!attribute transaction_type
+      #   @return [String] An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
+      define_attribute :transaction_type, String
     end
   end
 end

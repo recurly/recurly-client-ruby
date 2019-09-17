@@ -50,13 +50,9 @@ module Recurly
       #   @return [String] For manual invoicing, this identifies the PO number associated with the subscription.
       define_attribute :po_number, String
 
-      # @!attribute shipping_address
-      #   @return [ShippingAddressCreate]
-      define_attribute :shipping_address, :ShippingAddressCreate
-
-      # @!attribute shipping_address_id
-      #   @return [String] Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.
-      define_attribute :shipping_address_id, String
+      # @!attribute shipping
+      #   @return [ShippingPurchase]
+      define_attribute :shipping, :ShippingPurchase
 
       # @!attribute subscriptions
       #   @return [Array[SubscriptionPurchase]] A list of subscriptions to be created with the purchase.
@@ -65,6 +61,10 @@ module Recurly
       # @!attribute terms_and_conditions
       #   @return [String] Terms and conditions to be put on the purchase invoice.
       define_attribute :terms_and_conditions, String
+
+      # @!attribute transaction_type
+      #   @return [String] An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
+      define_attribute :transaction_type, String
 
       # @!attribute vat_reverse_charge_notes
       #   @return [String] VAT reverse charge notes for cross border European tax settlement.
