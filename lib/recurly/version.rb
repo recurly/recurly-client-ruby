@@ -1,11 +1,6 @@
 module Recurly
   module Version
-    MAJOR   = 2
-    MINOR   = 18
-    PATCH   = 1
-    PRE     = nil
-
-    VERSION = [MAJOR, MINOR, PATCH, PRE].compact.join('.').freeze
+    VERSION = "2.18.1"
 
     class << self
       def inspect
