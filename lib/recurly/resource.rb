@@ -198,6 +198,11 @@ module Recurly
         [collection_path, uuid].compact.join '/'
       end
 
+      # @return [String] The root key for this resource's xml document
+      def xml_root_key
+        self.member_name
+      end
+
       # @return [Array] Per attribute, defines readers, writers, boolean and
       #   change-tracking methods.
       # @param attribute_names [Array] An array of attribute names.
@@ -557,7 +562,7 @@ module Recurly
             define_method "build_#{member_name}" do |*args|
               attributes = args.shift || {}
               self[member_name] = associated.send(
-                :new, attributes.merge(:uri => "#{path}/#{member_name}")
+                :new, attributes.merge(:uri => "#{path}/#{associated.member_name}")
               ).tap { |child| child.attributes[self.class.member_name] = self }
             end
             define_method "create_#{member_name}" do |*args|
@@ -812,7 +817,7 @@ module Recurly
     #   Recurly::Account.new(:account_code => 'code').to_xml
     #   # => "<account><account_code>code</account_code></account>"
     def to_xml(options = {})
-      builder = options[:builder] || XML.new("<#{self.class.member_name}/>")
+      builder = options[:builder] || XML.new("<#{self.class.xml_root_key}/>")
       xml_keys.each { |key|
         value = respond_to?(key) ? send(key) : self[key]
         node = builder.add_element key
