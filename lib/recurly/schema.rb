@@ -3,21 +3,21 @@ module Recurly
   # This is used for requests and resources.
   class Schema
     # The attributes in the schema
-    # @return [Array<Attribute>]
+    # @return [Hash<String,Attribute>]
     attr_reader :attributes
 
     def initialize
-      @attributes = []
+      @attributes = {}
     end
 
     # Adds an attribute to the schema definition
     #
     # @param name [Symbol] The name of the attribute
     # @param type [Class,Symbol] The type of the attribute. Use capitalized symbol for Recurly class. Example: :Account.
-    # @param options [Hash] The attribute options. See {Attribute#options}
+    # @param options [Schema::Attribute] The created and registered attribute object.
     def add_attribute(name, type, options)
-      attribute = Attribute.new(name, type, options)
-      @attributes.push(attribute)
+      attribute = Attribute.build(type, options)
+      @attributes[name.to_s] = attribute
       attribute
     end
 
@@ -26,8 +26,7 @@ module Recurly
     # @param name [String,Symbol] The name/key of the attribute
     # @return [Attribute,nil] The found Attribute. nil if not found.
     def get_attribute(name)
-      name = name.to_s
-      @attributes.find { |a| a.name.to_s == name }
+      @attributes[name.to_s]
     end
 
     # Gets a recurly class given a symbol name.
@@ -46,71 +45,108 @@ module Recurly
         Resources::Address
       elsif Requests.const_defined?(type)
         Requests.const_get(type)
-      elsif Resources.const_defined?(type)
+      elsif Recurly::Resources.const_defined?(type)
         Resources.const_get(type)
       else
         raise ArgumentError, "Recurly type '#{type}' is unknown"
       end
     end
 
-    # Describes a list attribute type
-    class List
-      # The type of the elements of the list
-      # @return [Symbol]
-      attr_accessor :item_type
-
-      def initialize(item_type)
-        @item_type = item_type
-      end
-
-      def to_s
-        "List<#{item_type}>"
-      end
-    end
-
-    # Describes and attribute for a schema.
     class Attribute
-      # The name of the attribute.
-      # @return [Symbol]
-      attr_accessor :name
-
       # The type of the attribute. Might be a class like `DateTime`
       # or could be a Recurly object. In this case a symbol should be used.
-      # Example: :Account
+      # Example: :Account. To get the Recurly type use #recurly_class
       # @return [Class,Symbol]
-      attr_accessor :type
+      attr_reader :type
 
-      # Options for the attribute.
-      # @return [Hash]
-      attr_accessor :options
+      PRIMITIVE_TYPES = [
+        String,
+        Integer,
+        Float,
+        Hash,
+      ].freeze
 
-      # The description of the attribute for documentation.
-      # @return [String]
-      attr_accessor :description
-
-      def initialize(name, type, options = {}, description = nil)
-        @name = name
-        @type = type
-        @options = options
-        @description = description
+      def self.build(type, options = {})
+        if PRIMITIVE_TYPES.include? type
+          PrimitiveAttribute.new(type)
+        elsif type == :Boolean
+          BooleanAttribute.new
+        elsif type == DateTime
+          DateTimeAttribute.new
+        elsif type.is_a? Symbol
+          ResourceAttribute.new(type)
+        elsif type == Array
+          item_attr = build(options[:item_type])
+          ArrayAttribute.new(item_attr)
+        else
+          throw ArgumentError
+        end
       end
 
-      def read_only?
-        @options.fetch(:read_only, false)
+      def initialize(type = nil)
+        @type = type
+      end
+
+      def cast(value)
+        value
       end
 
       def recurly_class
-        Schema.get_recurly_class(type == Array ? options[:item_type] : type)
-      end
-
-      def is_primitive?
-        t = type == Array ? options[:item_type] : type
-        t.is_a?(Class) || t == :Boolean
+        @recurly_class ||= Schema.get_recurly_class(type)
       end
     end
 
-    private_constant :List
-    private_constant :Attribute
+    class PrimitiveAttribute < Attribute
+      def is_valid?(value)
+        value.is_a? self.type
+      end
+    end
+
+    class BooleanAttribute < Attribute
+      def is_valid?(value)
+        [true, false].include? value
+      end
+    end
+
+    class DateTimeAttribute < Attribute
+      def is_valid?(value)
+        value.is_a?(String) || value.is_a?(DateTime)
+      end
+
+      def cast(value)
+        if value.is_a?(DateTime)
+          value
+        else
+          DateTime.parse(value)
+        end
+      end
+
+      def type
+        DateTime
+      end
+    end
+
+    class ResourceAttribute < Attribute
+      def is_valid?(value)
+        value.is_a? Hash
+      end
+
+      def cast(value)
+        self.recurly_class.cast(value)
+      end
+    end
+
+    class ArrayAttribute < Attribute
+      def is_valid?(value)
+        value.is_a? Array
+      end
+
+      def cast(value)
+        value.map do |v|
+          self.type.cast(v)
+        end
+      end
+    end
   end
 
   require_relative "./schema/schema_factory"

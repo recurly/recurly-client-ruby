@@ -41,8 +41,6 @@ module Recurly
           self.attributes[name] = val
         end
 
-        protected "#{name}=" if attribute.read_only?
-
         self
       end
     end

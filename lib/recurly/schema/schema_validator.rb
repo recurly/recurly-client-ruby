@@ -24,45 +24,42 @@ module Recurly
             err_msg = "Attribute '#{attr_name}' does not exist on request #{self.class.name}."
             if did_you_mean = get_did_you_mean(schema, attr_name)
               err_msg << " Did you mean '#{did_you_mean}'?"
-              raise ArgumentError, err_msg
             end
-          elsif schema_attr.read_only?
-            raise ArgumentError, "Attribute '#{attr_name}' on resource #{self.class.name} is not writeable"
+            raise ArgumentError, err_msg
           else
-            validate_attribute!(schema_attr, val)
+            validate_attribute!(attr_name, schema_attr, val)
           end
         end
       end
 
       # Validates an individual attribute
-      def validate_attribute!(schema_attr, val)
-        unless schema_attr.type.is_a?(Symbol) || val.is_a?(schema_attr.type)
+      def validate_attribute!(name, schema_attr, val)
+        unless schema_attr.is_valid?(val)
           # If it's safely castable, the json deserializer or server
           # will take care of it for us
           unless safely_castable?(val.class, schema_attr.type)
-            expected = case schema_attr.type
-                       when Array
-                         "Array of #{schema_attr.type.item_type}s"
+            expected = case schema_attr
+                       when Schema::ArrayAttribute
+                         "Array of #{schema_attr.type}s"
                        else
                          schema_attr.type
                        end
 
-            raise ArgumentError, "Attribute '#{schema_attr.name}' on the resource #{self.class.name} is type #{val.class} but should be a #{expected}"
+            raise ArgumentError, "Attribute '#{name}' on the resource #{self.class.name} is type #{val.class} but should be a #{expected}"
           end
         end
 
         # This is the convention for a recurly object
-        if schema_attr.type.is_a?(Symbol) && val.is_a?(Hash)
-          klazz = Schema.get_recurly_class(schema_attr.type)
+        if schema_attr.is_a?(Schema::ResourceAttribute) && val.is_a?(Hash)
           # Using send because the initializer may be private
-          instance = klazz.send(:new, val)
+          instance = schema_attr.recurly_class.send(:new, val)
           instance.validate!
         end
       end
 
       # Gets the closest term to the misspelled attribute
       def get_did_you_mean(schema, misspelled_attr)
-        closest = schema.attributes.map(&:name).sort_by do |v|
+        closest = schema.attributes.keys.sort_by do |v|
           levenshtein_distance(v, misspelled_attr)
         end.first
 
