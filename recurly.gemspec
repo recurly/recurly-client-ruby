@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "faraday", ">= 0.8.11", "<= 1.0.0"
 
   spec.add_development_dependency "net-http-persistent", "~> 2.9.4"
-  spec.add_development_dependency "bundler", "~> 1.14"
+  spec.add_development_dependency "bundler", "~> 2.0"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "yard", "~> 0.9"
