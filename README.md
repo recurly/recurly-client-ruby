@@ -90,15 +90,9 @@ will be used.
 
 ## Supported Ruby Versions
 
-We are currently supporting ruby language versions `2.3` and above. `1.9`, `2.0`, `2.1`, and `2.2` may still work but are not officially supported.
-
-If you are still using one of these rubies, you should know that support for them ended in
-2015 (1.9), 2016 (2.0), 2017 (2.1), 2018 (2.2) and continuing to use them is a security risk.
-
-- https://www.ruby-lang.org/en/news/2015/02/23/support-for-ruby-1-9-3-has-ended/
-- https://www.ruby-lang.org/en/news/2016/02/24/support-plan-of-ruby-2-0-0-and-2-1/
-- https://www.ruby-lang.org/en/news/2017/04/01/support-of-ruby-2-1-has-ended/
-- https://www.ruby-lang.org/en/news/2018/06/20/support-of-ruby-2-2-has-ended/
+Recurly will support whichever versions the [Ruby maintainers are supporting](https://www.ruby-lang.org/en/downloads/branches/).
+We support all versions with status `* maintenance`. We do not support `eol` versions or `preview` versions. This library
+may work on EOL versions of ruby, but we may not be able to support you if you use one.
 
 ## Nokogiri Support
 
