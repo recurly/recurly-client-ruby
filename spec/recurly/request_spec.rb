@@ -136,7 +136,7 @@ RSpec.describe Recurly::Request do
   describe "#cast" do
     context "with primitive Hash type" do
       it "should not transform the same Hash" do
-        casted = Recurly::Requests::MyRequest.cast(hash_data)
+        casted = Recurly::Requests::MyRequest.cast_request(hash_data)
         expect(casted).to eql(hash_data)
       end
     end
@@ -144,7 +144,7 @@ RSpec.describe Recurly::Request do
       it "should not cast the Resource to a Hash" do
         hash_data[:a_sub_request] = Recurly::Requests::MySubRequest.new(a_string: "a_string")
         hash_data[:a_sub_request_array] = [Recurly::Requests::MySubRequest.new(a_string: "a_string")]
-        casted = Recurly::Requests::MyRequest.cast(hash_data)
+        casted = Recurly::Requests::MyRequest.cast_request(hash_data)
         expect(casted).to_not eql(hash_data)
         expect(casted[:a_sub_request]).to eql(a_string: "a_string")
         expect(casted[:a_sub_request_array]).to eql([a_string: "a_string"])
