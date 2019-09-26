@@ -1,6 +1,15 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.2"></a>
+## v2.18.2 (2019-09-27)
+
+* Fix account acquisition href problems [PR](https://github.com/recurly/recurly-client-ruby/pull/508)
+* V2 bump script [PR](https://github.com/recurly/recurly-client-ruby/pull/509)
+* Update travis options [PR](https://github.com/recurly/recurly-client-ruby/pull/512)
+* Reference Ruby support page [PR](https://github.com/recurly/recurly-client-ruby/pull/513)
+* Include OpenSSL::OPENSSL_LIBRARY_VERSION [PR](https://github.com/recurly/recurly-client-ruby/pull/514)
+
 <a name="v2.18.1"></a>
 ## v2.18.1 (2019-09-13)
 
