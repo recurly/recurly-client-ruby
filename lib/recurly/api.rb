@@ -13,6 +13,7 @@ module Recurly
   #   Recurly::API.delete 'accounts/1'        # => #<Net::HTTPNoContent ...>
   class API
     require 'recurly/api/errors'
+    require 'openssl'
 
     @@base_uri = "https://api.recurly.com/v2/"
     @@valid_domains = [".recurly.com"]
@@ -85,7 +86,15 @@ module Recurly
 
       # @return [String]
       def user_agent
-        "Recurly/#{Version}; #{RUBY_DESCRIPTION}; #{OpenSSL::OPENSSL_LIBRARY_VERSION}"
+        agent_string = "Recurly/#{Version}; #{RUBY_DESCRIPTION};"
+
+        if OpenSSL.const_defined?(:OPENSSL_VERSION)       
+          "#{agent_string} #{OpenSSL::OPENSSL_VERSION}"
+        elsif OpenSSL.const_defined?(:OPENSSL_LIBRARY_VERSION)
+          "#{agent_string} #{OpenSSL::OPENSSL_LIBRARY_VERSION}"
+        else
+          agent_string
+        end
       end
 
       private
