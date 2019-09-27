@@ -8,7 +8,7 @@ module Recurly
   class Client
     require_relative "./client/operations"
 
-    BASE_URL = "https://partner-api.recurly.com/"
+    BASE_URL = "https://v3.recurly.com/"
 
     # Initialize a client. It requires an API key.
     #
