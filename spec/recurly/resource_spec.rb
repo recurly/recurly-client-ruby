@@ -17,7 +17,7 @@ RSpec.describe Recurly::Resource do
       }
     end
 
-    subject! { Recurly::Resources::MyResource.from_json(json_data) }
+    subject! { Recurly::Resources::MyResource.cast(json_data) }
 
     describe "#attributes" do
       let(:attributes) { subject.attributes }
@@ -25,22 +25,6 @@ RSpec.describe Recurly::Resource do
       it "returns a Hash" do
         attributes.is_a? Hash
       end
-
-      # TODO expecting to turn hash elements into keys
-      # TODO expecting use overridden == for resources
-      # it "returns the expected Hash" do
-      #   expect(attributes).to eq({
-      #     a_string: "A String",
-      #     a_hash: {a: 1, b: 2},
-      #     an_integer: 42,
-      #     a_float: 4.2,
-      #     a_boolean: false,
-      #     a_datetime: DateTime.new(2020, 1, 1),
-      #     a_string_array: %w(I am a string array),
-      #     a_sub_resource: Recurly::Resources::MySubResource.from_json({ "a_string" => "SubResource String" }),
-      #     a_sub_resource_array: [Recurly::Resources::MySubResource.from_json({"a_string" => "SubResource String"})]
-      #   })
-      # end
     end
 
     describe "attributes methods" do
@@ -49,7 +33,7 @@ RSpec.describe Recurly::Resource do
       end
       # TODO expecting to turn hash elements into keys
       # it "should respond to a_hash" do
-      #   expect(subject.send(:a_hash)).to eq({a: 1, b: 2})
+      #   expect(subject.send(:a_hash)).to eq({ a: 1, b: 2 })
       # end
       it "should respond to an_integer" do
         expect(subject.send(:an_integer)).to eq(42)
@@ -67,10 +51,10 @@ RSpec.describe Recurly::Resource do
         expect(subject.send(:a_string_array)).to eq(%w(I am a string array))
       end
       it "should respond to a_sub_resource" do
-        expect(subject.send(:a_sub_resource)).to eq(Recurly::Resources::MySubResource.from_json({ "a_string" => "SubResource String" }))
+        expect(subject.send(:a_sub_resource)).to eq(Recurly::Resources::MySubResource.cast({ "a_string" => "SubResource String" }))
       end
       it "should respond to a_sub_resource_array" do
-        expect(subject.send(:a_sub_resource_array)).to eq([Recurly::Resources::MySubResource.from_json({ "a_string" => "SubResource String" })])
+        expect(subject.send(:a_sub_resource_array)).to eq([Recurly::Resources::MySubResource.cast({ "a_string" => "SubResource String" })])
       end
     end
   end
@@ -94,7 +78,7 @@ RSpec.describe Recurly::Resource do
         end
 
         it "should be buildable from json data" do
-          expect(res_class.from_json({})).to be_instance_of(res_class)
+          expect(res_class.cast({})).to be_instance_of(res_class)
         end
       end
     end

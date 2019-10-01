@@ -94,7 +94,7 @@ RSpec.describe Recurly::Client do
       end
 
       it "should return a the created account for create_account" do
-        body = { account_code: "benjamin-du-monde" }
+        body = { code: "benjamin-du-monde" }
         req = Recurly::HTTP::Request.new(:post, "/accounts", JSON.dump(body))
         expect(client).to receive(:run_request).with(req, any_args).and_return(response)
         account = subject.create_account(body: body)

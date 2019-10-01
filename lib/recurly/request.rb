@@ -17,7 +17,7 @@ module Recurly
     protected
 
     def initialize(attributes = {})
-      @attributes = self.class.cast(attributes.clone)
+      @attributes = self.class.cast_request(attributes)
     end
 
     def to_s

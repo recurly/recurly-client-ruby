@@ -1,8 +1,9 @@
 require "json"
 
 module Recurly
-  # This is a wrapper class to help parse responses into Recurly objects.
+  # This is a wrapper class to help parse http response into Recurly objects.
   class JSONParser
+
     # Parses the json body into a recurly object.
     #
     # @param client [Client] The Recurly client which made the request.
@@ -16,6 +17,11 @@ module Recurly
     end
 
     # Converts the parsed JSON into a Recurly object.
+    #
+    # *TODO*: Instead of inferring this type from the `object`
+    # attribute. We should instead "register" the response type
+    # in the client/operations code. The `get`, `post`, etc methods
+    # could explicitly state their response types.
     #
     # @param data [Hash] The parsed JSON data
     # @return [Error,Resource]
@@ -33,11 +39,10 @@ module Recurly
 
       data = data["error"] if klazz == Resources::Error
 
-      klazz.from_json(data)
+      klazz.cast(data)
     end
 
     # Returns the Recurly ruby class responsible for the Recurly json key.
-    # TODO figure out how we should handle nil types
     #
     # @example
     #   JSONParser.recurly_class('list')
@@ -61,8 +66,11 @@ module Recurly
           if klazz.ancestors.include?(Resource)
             klazz
           else
-            # TODO might want to throw an error?
-            nil
+            if Recurly::STRICT_MODE
+              raise ArgumentError, "Could not find Recurly Resource responsible for key #{type}"
+            else
+              nil
+            end
           end
         end
       end
