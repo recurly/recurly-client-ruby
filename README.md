@@ -1,7 +1,6 @@
 # Recurly
 
-This gem is the ruby client for Recurly's V3 API. It's currently Beta software
-and is not yet an official release. Documentation for the API can be [found here](https://developers.recurly.com/api/v2019-10-01/).
+This repo houses the official ruby client for Recurly's V3 API.
 
 ## Getting Started
 
@@ -11,6 +10,9 @@ and is not yet an official release. Documentation for the API can be [found here
 
 Ruby documentation and the getting started instructions can be found
 on rubydoc.info: [https://www.rubydoc.info/github/recurly/recurly-client-ruby/3_0_0_beta](https://www.rubydoc.info/github/recurly/recurly-client-ruby/3_0_0_beta).
+
+Documentation for the HTTP API can be
+[found on our Developer Portal](https://developers.recurly.com/api/v2019-10-10/).
 
 ### Contributing
 
