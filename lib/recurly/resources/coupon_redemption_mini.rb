@@ -15,8 +15,8 @@ module Recurly
       define_attribute :created_at, DateTime
 
       # @!attribute discounted
-      #   @return [String] The amount that was discounted upon the application of the coupon, formatted with the currency.
-      define_attribute :discounted, String
+      #   @return [Float] The amount that was discounted upon the application of the coupon, formatted with the currency.
+      define_attribute :discounted, Float
 
       # @!attribute id
       #   @return [String] Coupon Redemption ID
