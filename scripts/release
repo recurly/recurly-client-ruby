@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+# Clean up any leftover gems
+rm -f *.gem
+
+# Build the new gem
+gem build recurly.gemspec
+
+# Push what should be the only gem present
+gem push *.gem
