@@ -42,6 +42,10 @@ module Recurly
       #   @return [Integer] Subscription quantity
       define_attribute :quantity, Integer
 
+      # @!attribute shipping
+      #   @return [SubscriptionShipping]
+      define_attribute :shipping, :SubscriptionShipping
+
       # @!attribute subscription_id
       #   @return [String] The ID of the subscription that is going to be changed.
       define_attribute :subscription_id, String

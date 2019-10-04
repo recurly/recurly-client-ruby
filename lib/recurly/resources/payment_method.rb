@@ -41,6 +41,10 @@ module Recurly
       # @!attribute routing_number
       #   @return [String] The bank account's routing number. Only present for ACH payment methods.
       define_attribute :routing_number, String
+
+      # @!attribute routing_number_bank
+      #   @return [String] The bank name of this routing number.
+      define_attribute :routing_number_bank, String
     end
   end
 end
