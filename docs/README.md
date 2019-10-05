@@ -1,20 +1,17 @@
 # Recurly
 
-This gem is the ruby client for Recurly's V3 API. It's currently Beta software
-and is not yet an official release. Documentation for the API can be [found here](https://developers.recurly.com/api/v2019-10-01/).
-
 ## Getting Started
 
 ### Installing
 
-This gem is a pre-release. In your Gemfile, add `recurly` as a dependency.
+In your Gemfile, add `recurly` as a dependency.
 
 ```ruby
-gem 'recurly', '3.0.0.beta.6'
+gem 'recurly', '~> 3.0'
 ```
 
-It's important that you lock on a specific version as there may be breaking changes between releases.
-All beta releases will have the format `3.0.0.beta.x` until we go live.
+We try to follow [semantic versioning](https://semver.org/) and will only apply breaking changes to
+major versions.
 
 ### Creating a client
 
