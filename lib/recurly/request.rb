@@ -14,14 +14,14 @@ module Recurly
       self.attributes == other_resource.attributes
     end
 
+    def to_s
+      self.inspect
+    end
+
     protected
 
     def initialize(attributes = {})
       @attributes = self.class.cast_request(attributes)
-    end
-
-    def to_s
-      self.inspect
     end
 
     def schema
