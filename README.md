@@ -10,7 +10,7 @@ This repository houses the official ruby client for Recurly's V3 API.
 ### Documentation
 
 > *Note*:
-> Until rubydoc.info respects our `.yardopts` file, see documentation [here](docs/README.md).
+> Until rubydoc.info respects our `.yardopts` file, see documentation [here](GETTING_STARTED.md).
 
 Ruby documentation and the getting started instructions can be found
 on rubydoc.info: [https://www.rubydoc.info/github/recurly/recurly-client-ruby/](https://www.rubydoc.info/github/recurly/recurly-client-ruby/).
