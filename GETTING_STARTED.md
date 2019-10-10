@@ -1,8 +1,6 @@
-# Recurly
+This repository houses the official ruby client for Recurly's V3 API.
 
-## Getting Started
-
-### Installing
+# Installing
 
 In your Gemfile, add `recurly` as a dependency.
 
@@ -12,7 +10,7 @@ gem 'recurly', '~> 3.0'
 
 > *Note*: We try to follow [semantic versioning](https://semver.org/) and will only apply breaking changes to major versions.
 
-### Creating a client
+# Creating a client
 
 A client represents a connection to the Recurly servers. Every call
 to the server exists as a method on this class. To initialize, you only need the private API key
@@ -43,14 +41,14 @@ client = Recurly::Client.new(api_key: API_KEY2)
 sub = client.get_subscription(subscription_id: 'abcd7890')
 ```
 
-### Operations
+# Operations
 
 The {Recurly::Client} contains every `operation` you can perform on the site as a list of methods. Each method is documented explaining
 the types and descriptions for each input and return type. You can view all available operations by looking at the `Instance Methods Summary` list
 on the {Recurly::Client} documentation page. Clicking a method will give you detailed information about its inputs and returns. Take the `create_account`
 operation as an example: {Recurly::Client#create_account}.
 
-### Pagination
+# Pagination
 
 Pagination is done by the class {Recurly::Pager}. All `list_*` methods on the client return an instance of this class.
 The pager has an `each` method which accepts a block for each object in the entire list. Each page is fetched automatically
@@ -112,7 +110,7 @@ end
 We recommend keeping the default for most cases but increasing the limit if you are planning on iterating through many pages of items (e.g. all transactions in your site).
 
 
-### Creating Resources
+# Creating Resources
 
 Currently, resources are created by passing in a `body` keyword argument in the form of a `Hash`.
 This Hash must follow the schema of the documented request type. For example, the `create_plan` operation
@@ -140,7 +138,7 @@ plan_data = {
 plan = client.create_plan(body: plan_data)
 ```
 
-### Error Handling
+# Error Handling
 
 This library currently throws 2 types of exceptions. {Recurly::Errors::APIError} and {Recurly::Errors::NetworkError}. See these 2 files for the types of exceptions you can catch:
 
@@ -184,7 +182,7 @@ rescue Recurly::Errors::NetworkError => ex
 end
 ```
 
-### HTTP Metadata
+# HTTP Metadata
 
 Sometimes you might want to get some additional information about the underlying HTTP request and response. Instead of
 returning this information directly and forcing the programmer to unwrap it, we inject this metadata into the top level
@@ -219,7 +217,7 @@ rescue Recurly::Errors::NotFoundError => e
 end
 ```
 
-### Webhooks
+# Webhooks
 
 Recurly can send webhooks to any publicly accessible server.
 When an event in Recurly triggers a webhook (e.g., an account is opened),
