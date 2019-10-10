@@ -23,14 +23,9 @@ gem 'recurly', '~> 3.0'
 
 ### Creating a client
 
-Client instances are now explicitly created and referenced as opposed to V2's use of global, statically
-initialized clients.
-
-This makes multithreaded environments simpler and provides one location where every
-operation can be found (rather than having them spread out among classes).
-
-`Recurly::Client#new` initializes a new client. It only requires an API key which can be obtained on
-the [API Credentials Page](https://app.recurly.com/go/integrations/api_keys).
+A client represents a connection to the Recurly servers. Every call
+to the server exists as a method on this class. To initialize, you only need the private API key
+which can be obtained on the [API Credentials Page](https://app.recurly.com/go/integrations/api_keys).
 
 ```ruby
 API_KEY = '83749879bbde395b5fe0cc1a5abf8e5'
