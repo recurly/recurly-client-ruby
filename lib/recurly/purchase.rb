@@ -123,6 +123,9 @@ module Recurly
     # @return [GiftCard, nil]
     has_one :gift_card, class_name: :GiftCard, readonly: false
 
+    # @return [ShippingAddress, nil]
+    has_one :shipping_address, class_name: :ShippingAddress, readonly: false
+
     # @return [[Subscription], nil]
     has_many :subscriptions, class_name: :Subscription, readonly: false
 
