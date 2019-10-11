@@ -21,11 +21,9 @@ module Recurly
   # You can also pass in adjustments and invoicing data to be added to the invoice.
   #
   # There are multiple ways to set the shipping addresses:
-  # 1. Use {Purchase#shipping_address_id} If you want to apply an existing shipping
+  # 1. Use {Purchase#shipping_address_id} if you want to apply an existing shipping
   #    address to all subscriptions, adjustments, and shipping fees in this purchase.
-  # 2. Add multiple shipping addresses to {Account#shipping_addresses}. The last
-  #    address in the list will apply to all subscriptions and adjustments
-  #    in this purchase.
+  # 2. Use {Purchase#shipping_address} if you want to add and apply a single shipping address.
   # 3. Use {Subscription#shipping_address_id} or {Subscription#shipping_address}
   #    to set a shipping address for only the subscription.
   # 4. Use {Adjustment#shipping_address_id} or {Adjustment#shipping_address}
@@ -45,18 +43,6 @@ module Recurly
   #     collection_method: :automatic,
   #     account: {
   #       account_code: SecureRandom.uuid,
-  #       shipping_addresses: [
-  #         {
-  #           first_name: 'Benjamin',
-  #           last_name: 'Du Monde',
-  #           address1: '400 Dolores St.',
-  #           city: 'San Francisco',
-  #           state: 'CA',
-  #           zip: '94110',
-  #           country: 'US',
-  #           nickname: 'Home'
-  #         }
-  #       ],
   #       billing_info: {
   #         first_name: 'Benjamin',
   #         last_name: 'Du Monde',
@@ -84,6 +70,16 @@ module Recurly
   #         revenue_schedule_type: :at_invoice
   #       }
   #     ],
+  #     shipping_address: {
+  #       first_name: 'Benjamin',
+  #       last_name: 'Du Monde',
+  #       address1: '400 Dolores St.',
+  #       city: 'San Francisco',
+  #       state: 'CA',
+  #       zip: '94110',
+  #       country: 'US',
+  #       nickname: 'Home'
+  #     },
   #     shipping_fees: [
   #       {
   #         shipping_method_code: 'fast_fast_fast',
