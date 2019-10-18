@@ -25,7 +25,20 @@ describe Purchase do
       shipping_fees: [
         shipping_method_code: 'fedex_ground',
         shipping_amount_in_cents: 999
-      ]
+      ],
+      shipping_address:  {
+        nickname: "Work",
+        first_name: "Verena",
+        last_name: "Example",
+        company: "Recurly Inc.",
+        phone: "555-555-5555",
+        email: "verena@example.com",
+        address1: "400 Alabama St.",
+        city: "San Francisco",
+        state: "CA",
+        zip: "94110",
+        country: "US"
+      }
     )
   end
 
