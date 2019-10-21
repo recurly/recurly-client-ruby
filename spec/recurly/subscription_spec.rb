@@ -184,6 +184,16 @@ describe Subscription do
       it "won't cancel an inactive subscription" do
         inactive.cancel.must_equal false
       end
+
+      it "will send the timeframe parameter if given" do
+        stub_api_request(
+          :put,
+          'subscriptions/abcdef1234567890/cancel?timeframe=term_end',
+          'subscriptions/show-200'
+        )
+
+        active.cancel('term_end').must_equal true
+      end
     end
 
     describe "#terminate" do

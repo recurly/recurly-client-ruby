@@ -176,15 +176,17 @@ module Recurly
 
     # Cancel a subscription so that it will not renew.
     #
+    # @param [String] optional timeframe. Choose one of "bill_date" or "term_end"
     # @return [true, false] +true+ when successful, +false+ when unable to
     #   (e.g., the subscription is not active).
     # @example
     #   account = Account.find account_code
     #   subscription = account.subscriptions.first
     #   subscription.cancel # => true
-    def cancel
+    def cancel(timeframe = nil)
       return false unless link? :cancel
-      reload follow_link :cancel
+      params = timeframe.nil? ? {} : { 'timeframe': timeframe }
+      reload follow_link :cancel, params: params
       true
     end
 
