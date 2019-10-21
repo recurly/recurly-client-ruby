@@ -24,6 +24,7 @@ env:
   - XML=nokogiri
 matrix:
   allow_failures:
+    - rvm: 2.7
     - rvm: 1.9.3-p551
     - rvm: 2.0.0-p648
     - rvm: 2.1
