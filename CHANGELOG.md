@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.3"></a>
+## v2.18.3 (2019-10-22)
+
+* Subscription timeframe changes [PR] (https://github.com/recurly/recurly-client-ruby/pull/492)
+* Add shipping address to purchase object [PR] (https://github.com/recurly/recurly-client-ruby/pull/522)
+
 <a name="v2.18.2"></a>
 ## v2.18.2 (2019-09-27)
 
