@@ -21,6 +21,7 @@ module Recurly
   require 'recurly/helper'
   require 'recurly/invoice'
   require 'recurly/invoice_collection'
+  require 'recurly/item'
   require 'recurly/js'
   require 'recurly/money'
   require 'recurly/measured_unit'
