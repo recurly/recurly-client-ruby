@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<item href="https://api.recurly.com/v2/items/plastic_gloves">
+  <item_code>plastic_gloves</item_code>
+  <name>Sleek Plastic Gloves</name>
+  <description>Sleek Plastic</description>
+  <external_sku>awesome-plastic-gloves</external_sku>
+  <accounting_code>1569273944</accounting_code>
+  <revenue_schedule_type>never</revenue_schedule_type>
+  <tax_exempt type="boolean">true</tax_exempt>
+  <tax_code nil="nil"/>
+  <state>inactive</state>
+  <custom_fields type="array">
+    <custom_field>
+      <name>color</name>
+      <value>blue</value>
+    </custom_field>
+  </custom_fields>
+  <created_at type="datetime">2019-09-23T21:25:45Z</created_at>
+  <updated_at type="datetime">2019-09-23T21:25:45Z</updated_at>
+  <deleted_at nil="nil"/>
+  <a name="reactivate" href="https://api.recurly.com/v2/items/plastic_gloves/reactivate" method="put"/> 
+</item>
