@@ -50,9 +50,13 @@ module Recurly
       #   @return [String] For manual invoicing, this identifies the PO number associated with the subscription.
       define_attribute :po_number, String
 
-      # @!attribute shipping
-      #   @return [ShippingPurchase]
-      define_attribute :shipping, :ShippingPurchase
+      # @!attribute shipping_address
+      #   @return [ShippingAddressCreate]
+      define_attribute :shipping_address, :ShippingAddressCreate
+
+      # @!attribute shipping_address_id
+      #   @return [String] Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.
+      define_attribute :shipping_address_id, String
 
       # @!attribute subscriptions
       #   @return [Array[SubscriptionPurchase]] A list of subscriptions to be created with the purchase.
