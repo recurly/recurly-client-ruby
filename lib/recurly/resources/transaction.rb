@@ -87,7 +87,7 @@ module Recurly
       define_attribute :ip_address_country, String
 
       # @!attribute ip_address_v4
-      #   @return [String] IP address provided when the billing information was collected:  - When the customer enters billing information into the Recurly.JS or Hosted Payment Pages, Recurly records the IP address. - When the merchant enters billing information using the API, the merchant may provide an IP address. - When the merchant enters billing information using the UI, no IP address is recorded.
+      #   @return [String] IP address provided when the billing information was collected:  - When the customer enters billing information into the Recurly.js or Hosted Payment Pages, Recurly records the IP address. - When the merchant enters billing information using the API, the merchant may provide an IP address. - When the merchant enters billing information using the UI, no IP address is recorded.
       define_attribute :ip_address_v4, String
 
       # @!attribute object
@@ -145,10 +145,6 @@ module Recurly
       # @!attribute voided_at
       #   @return [DateTime] Voided at
       define_attribute :voided_at, DateTime
-
-      # @!attribute voided_by_invoice
-      #   @return [InvoiceMini]
-      define_attribute :voided_by_invoice, :InvoiceMini
     end
   end
 end

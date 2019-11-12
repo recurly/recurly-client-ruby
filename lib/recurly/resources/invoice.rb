@@ -11,12 +11,8 @@ module Recurly
       define_attribute :account, :AccountMini
 
       # @!attribute address
-      #   @return [InvoiceAddress]
-      define_attribute :address, :InvoiceAddress
-
-      # @!attribute balance
-      #   @return [Float] The outstanding balance remaining on this invoice.
-      define_attribute :balance, Float
+      #   @return [Address]
+      define_attribute :address, :Address
 
       # @!attribute closed_at
       #   @return [DateTime] Date invoice was marked paid or failed.
@@ -45,6 +41,10 @@ module Recurly
       # @!attribute discount
       #   @return [Float] Total discounts applied to this invoice.
       define_attribute :discount, Float
+
+      # @!attribute due
+      #   @return [Float] The outstanding balance remaining on this invoice.
+      define_attribute :due, Float
 
       # @!attribute due_at
       #   @return [DateTime] Date invoice is due. This is the date the net terms are reached.
@@ -89,10 +89,6 @@ module Recurly
       # @!attribute refundable_amount
       #   @return [Float] The refundable amount on a charge invoice. It will be null for all other invoices.
       define_attribute :refundable_amount, Float
-
-      # @!attribute shipping_address
-      #   @return [ShippingAddress]
-      define_attribute :shipping_address, :ShippingAddress
 
       # @!attribute state
       #   @return [String] Invoice state
