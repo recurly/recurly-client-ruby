@@ -10,10 +10,6 @@ module Recurly
       #   @return [String] Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
       define_attribute :accounting_code, String
 
-      # @!attribute auto_renew
-      #   @return [Boolean] Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.
-      define_attribute :auto_renew, :Boolean
-
       # @!attribute code
       #   @return [String] Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
       define_attribute :code, String
@@ -23,8 +19,8 @@ module Recurly
       define_attribute :created_at, DateTime
 
       # @!attribute currencies
-      #   @return [Array[PlanPricing]] Pricing
-      define_attribute :currencies, Array, { :item_type => :PlanPricing }
+      #   @return [Array[Hash]] Pricing
+      define_attribute :currencies, Array, { :item_type => Hash }
 
       # @!attribute deleted_at
       #   @return [DateTime] Deleted at
@@ -63,11 +59,11 @@ module Recurly
       define_attribute :setup_fee_accounting_code, String
 
       # @!attribute state
-      #   @return [String] The current state of the plan.
+      #   @return [String] Plans can be either active or inactive.
       define_attribute :state, String
 
       # @!attribute tax_code
-      #   @return [String] Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
+      #   @return [String] Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature `P0000000` is `physical`, `D0000000` is `digital`, and an empty string is `unknown`.
       define_attribute :tax_code, String
 
       # @!attribute tax_exempt

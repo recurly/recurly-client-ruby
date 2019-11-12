@@ -6,21 +6,17 @@ module Recurly
   module Requests
     class InvoiceCreate < Request
 
-      # @!attribute charge_customer_notes
-      #   @return [String] This will default to the Customer Notes text specified on the Invoice Settings for charge invoices. Specify custom notes to add or override Customer Notes on charge invoices.
-      define_attribute :charge_customer_notes, String
-
       # @!attribute collection_method
       #   @return [String] An automatic invoice means a corresponding transaction is run using the account's billing information at the same time the invoice is created. Manual invoices are created without a corresponding transaction. The merchant must enter a manual payment transaction or have the customer pay the invoice with an automatic method, like credit card, PayPal, Amazon, or ACH bank payment.
       define_attribute :collection_method, String
 
-      # @!attribute credit_customer_notes
-      #   @return [String] This will default to the Customer Notes text specified on the Invoice Settings for credit invoices. Specify customer notes to add or override Customer Notes on credit invoices.
-      define_attribute :credit_customer_notes, String
-
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
+
+      # @!attribute customer_notes
+      #   @return [String] This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes.
+      define_attribute :customer_notes, String
 
       # @!attribute net_terms
       #   @return [Integer] Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.

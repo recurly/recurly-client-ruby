@@ -75,7 +75,7 @@ module Recurly
       define_attribute :object, String
 
       # @!attribute plans
-      #   @return [Array[PlanMini]] A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.
+      #   @return [Array[PlanMini]] Plans
       define_attribute :plans, Array, { :item_type => :PlanMini }
 
       # @!attribute plans_names
@@ -101,10 +101,6 @@ module Recurly
       # @!attribute temporal_unit
       #   @return [String] If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.
       define_attribute :temporal_unit, String
-
-      # @!attribute unique_code_template
-      #   @return [String] On a bulk coupon, the template from which unique coupon codes are generated.
-      define_attribute :unique_code_template, String
 
       # @!attribute unique_coupon_codes_count
       #   @return [Integer] When this number reaches `max_redemptions` the coupon will no longer be redeemable.

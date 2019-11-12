@@ -6,10 +6,6 @@ module Recurly
   module Requests
     class LineItemCreate < Request
 
-      # @!attribute credit_reason_code
-      #   @return [String] The reason the credit was given when line item is `type=credit`. When the Credit Invoices feature is enabled, the value can be set and will default to `general`. When the Credit Invoices feature is not enabled, the value will always be `null`.
-      define_attribute :credit_reason_code, String
-
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
@@ -21,10 +17,6 @@ module Recurly
       # @!attribute end_date
       #   @return [DateTime] If this date is provided, it indicates the end of a time range.
       define_attribute :end_date, DateTime
-
-      # @!attribute product_code
-      #   @return [String] Optional field to track a product code or SKU for the line item. This can be used to later reporting on product purchases. For Vertex tax calculations, this field will be used as the Vertex `product` field.
-      define_attribute :product_code, String
 
       # @!attribute quantity
       #   @return [Integer] This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.

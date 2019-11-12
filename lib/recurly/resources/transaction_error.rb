@@ -22,6 +22,10 @@ module Recurly
       #   @return [String] Customer message
       define_attribute :message, String
 
+      # @!attribute object
+      #   @return [String] Object type
+      define_attribute :object, String
+
       # @!attribute transaction_id
       #   @return [String] Transaction ID
       define_attribute :transaction_id, String

@@ -3,12 +3,12 @@
 # change to this file, please create a Github issue explaining the changes you
 # need and we will usher them to the appropriate places.
 module Recurly
-  module Requests
-    class SubscriptionPause < Request
+  module Resources
+    class BooleanResponse < Resource
 
-      # @!attribute remaining_pause_cycles
-      #   @return [Integer] Number of billing cycles to pause the subscriptions.
-      define_attribute :remaining_pause_cycles, Integer
+      # @!attribute success
+      #   @return [Boolean]
+      define_attribute :success, :Boolean
     end
   end
 end
