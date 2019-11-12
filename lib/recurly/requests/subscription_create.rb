@@ -51,11 +51,11 @@ module Recurly
       define_attribute :next_bill_date, DateTime
 
       # @!attribute plan_code
-      #   @return [String] You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.
+      #   @return [String] Plan code
       define_attribute :plan_code, String
 
       # @!attribute plan_id
-      #   @return [String] You must provide either a `plan_code` or `plan_id`. If both are provided the `plan_id` will be used.
+      #   @return [String] Plan ID
       define_attribute :plan_id, String
 
       # @!attribute po_number
@@ -70,9 +70,13 @@ module Recurly
       #   @return [Integer] If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.
       define_attribute :renewal_billing_cycles, Integer
 
-      # @!attribute shipping
-      #   @return [SubscriptionShippingCreate] Create a shipping address on the account and assign it to the subscription.
-      define_attribute :shipping, :SubscriptionShippingCreate
+      # @!attribute shipping_address
+      #   @return [ShippingAddressCreate] Create a shipping address on the account and assign it to the subscription.
+      define_attribute :shipping_address, :ShippingAddressCreate
+
+      # @!attribute shipping_address_id
+      #   @return [String] Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.
+      define_attribute :shipping_address_id, String
 
       # @!attribute starts_at
       #   @return [DateTime] If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.

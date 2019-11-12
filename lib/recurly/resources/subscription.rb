@@ -126,9 +126,9 @@ module Recurly
       #   @return [Integer] If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.
       define_attribute :renewal_billing_cycles, Integer
 
-      # @!attribute shipping
-      #   @return [SubscriptionShipping]
-      define_attribute :shipping, :SubscriptionShipping
+      # @!attribute shipping_address
+      #   @return [ShippingAddress]
+      define_attribute :shipping_address, :ShippingAddress
 
       # @!attribute state
       #   @return [String] State
