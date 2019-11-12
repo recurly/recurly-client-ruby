@@ -14,10 +14,6 @@ module Recurly
       #   @return [Array[AddOnCreate]] Add Ons
       define_attribute :add_ons, Array, { :item_type => :AddOnCreate }
 
-      # @!attribute auto_renew
-      #   @return [Boolean] Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.
-      define_attribute :auto_renew, :Boolean
-
       # @!attribute code
       #   @return [String] Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
       define_attribute :code, String

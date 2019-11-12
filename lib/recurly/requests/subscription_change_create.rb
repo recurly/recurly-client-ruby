@@ -7,8 +7,8 @@ module Recurly
     class SubscriptionChangeCreate < Request
 
       # @!attribute add_ons
-      #   @return [Array[SubscriptionAddOnUpdate]] If you provide a value for this field it will replace any existing add-ons. So, when adding or modifying an add-on, you need to include the existing subscription add-ons. Unchanged add-ons can be included just using the subscription add-on's ID: `{"id": "abc123"}`.
-      define_attribute :add_ons, Array, { :item_type => :SubscriptionAddOnUpdate }
+      #   @return [Array[SubscriptionAddOnCreate]] If you set this value you include all the add-ons and their quantities and amounts. The values you include will replace the previous values entirely.
+      define_attribute :add_ons, Array, { :item_type => :SubscriptionAddOnCreate }
 
       # @!attribute collection_method
       #   @return [String] Collection method
@@ -23,12 +23,8 @@ module Recurly
       define_attribute :net_terms, Integer
 
       # @!attribute plan_code
-      #   @return [String] If you want to change to a new plan, you can provide the plan's code or id. If both are provided the `plan_id` will be used.
+      #   @return [String] The plan code.
       define_attribute :plan_code, String
-
-      # @!attribute plan_id
-      #   @return [String] If you want to change to a new plan, you can provide the plan's code or id. If both are provided the `plan_id` will be used.
-      define_attribute :plan_id, String
 
       # @!attribute po_number
       #   @return [String] For manual invoicing, this identifies the PO number associated with the subscription.
@@ -38,12 +34,8 @@ module Recurly
       #   @return [Integer] Optionally override the default quantity of 1.
       define_attribute :quantity, Integer
 
-      # @!attribute shipping
-      #   @return [SubscriptionChangeShippingCreate]
-      define_attribute :shipping, :SubscriptionChangeShippingCreate
-
       # @!attribute timeframe
-      #   @return [String] The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now, when the subscription is next billed, or when the subscription renews. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to "renewal" so the change takes affect at the end of the current subscription term.
+      #   @return [String] The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now or when the subscription renews. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to "renewal" so the change takes affect at the end of the current billing cycle.
       define_attribute :timeframe, String
 
       # @!attribute unit_amount

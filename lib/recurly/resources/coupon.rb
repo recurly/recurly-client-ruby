@@ -75,7 +75,7 @@ module Recurly
       define_attribute :object, String
 
       # @!attribute plans
-      #   @return [Array[PlanMini]] A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.
+      #   @return [Array[PlanMini]] Plans
       define_attribute :plans, Array, { :item_type => :PlanMini }
 
       # @!attribute plans_names
