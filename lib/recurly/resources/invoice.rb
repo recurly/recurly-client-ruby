@@ -11,8 +11,8 @@ module Recurly
       define_attribute :account, :AccountMini
 
       # @!attribute address
-      #   @return [InvoiceAddress]
-      define_attribute :address, :InvoiceAddress
+      #   @return [Address]
+      define_attribute :address, :Address
 
       # @!attribute balance
       #   @return [Float] The outstanding balance remaining on this invoice.
@@ -89,10 +89,6 @@ module Recurly
       # @!attribute refundable_amount
       #   @return [Float] The refundable amount on a charge invoice. It will be null for all other invoices.
       define_attribute :refundable_amount, Float
-
-      # @!attribute shipping_address
-      #   @return [ShippingAddress]
-      define_attribute :shipping_address, :ShippingAddress
 
       # @!attribute state
       #   @return [String] Invoice state
