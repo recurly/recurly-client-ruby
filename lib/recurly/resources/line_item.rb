@@ -66,6 +66,14 @@ module Recurly
       #   @return [String] Once the line item has been invoiced this will be the invoice's number. If VAT taxation and the Country Invoice Sequencing feature are enabled, invoices will have country-specific invoice numbers for invoices billed to EU countries (ex: FR1001). Non-EU invoices will continue to use the site-level invoice number sequence.
       define_attribute :invoice_number, String
 
+      # @!attribute item_code
+      #   @return [String] Unique code to identify an `Item`.
+      define_attribute :item_code, String
+
+      # @!attribute item_id
+      #   @return [String] Item ID
+      define_attribute :item_id, String
+
       # @!attribute legacy_category
       #   @return [String] Category to describe the role of a line item on a legacy invoice: - "charges" refers to charges being billed for on this invoice. - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo. - "applied_credits" refers to previous credits applied to this invoice. See their original_line_item_id to determine where the credit first originated. - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
       define_attribute :legacy_category, String
@@ -95,7 +103,7 @@ module Recurly
       define_attribute :previous_line_item_id, String
 
       # @!attribute product_code
-      #   @return [String] For plan related line items this will be the plan's code, for add-on related line items it will be the add-on's code.
+      #   @return [String] For plan-related line items this will be the plan's code, for add-on related line items it will be the add-on's code. For item-related line itmes it will be the item's `external_sku`.
       define_attribute :product_code, String
 
       # @!attribute proration_rate
@@ -113,6 +121,10 @@ module Recurly
       # @!attribute refunded_quantity
       #   @return [Integer] For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).
       define_attribute :refunded_quantity, Integer
+
+      # @!attribute revenue_schedule_type
+      #   @return [String] Revenue schedule type
+      define_attribute :revenue_schedule_type, String
 
       # @!attribute shipping_address
       #   @return [ShippingAddress]

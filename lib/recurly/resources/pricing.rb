@@ -4,7 +4,7 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Resources
-    class AddOnPricing < Resource
+    class Pricing < Resource
 
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.

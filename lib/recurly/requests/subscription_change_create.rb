@@ -43,8 +43,12 @@ module Recurly
       define_attribute :shipping, :SubscriptionChangeShippingCreate
 
       # @!attribute timeframe
-      #   @return [String] The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now, when the subscription is next billed, or when the subscription renews. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to "renewal" so the change takes affect at the end of the current subscription term.
+      #   @return [String] The timeframe parameter controls when the upgrade or downgrade takes place. The subscription change can occur now, when the subscription is next billed, or when the subscription term ends. Generally, if you're performing an upgrade, you will want the change to occur immediately (now). If you're performing a downgrade, you should set the timeframe to `term_end` or `bill_date` so the change takes effect at a scheduled billing date. The `renewal` timeframe option is accepted as an alias for `term_end`.
       define_attribute :timeframe, String
+
+      # @!attribute transaction_type
+      #   @return [String] An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
+      define_attribute :transaction_type, String
 
       # @!attribute unit_amount
       #   @return [Float] Optionally, sets custom pricing for the subscription, overriding the plan's default unit amount. The subscription's current currency will be used.

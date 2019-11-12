@@ -4,15 +4,11 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Requests
-    class AddOnPricing < Request
+    class SubscriptionCancel < Request
 
-      # @!attribute currency
-      #   @return [String] 3-letter ISO 4217 currency code.
-      define_attribute :currency, String
-
-      # @!attribute unit_amount
-      #   @return [Float] Unit price
-      define_attribute :unit_amount, Float
+      # @!attribute timeframe
+      #   @return [String] The option for when a subscription cancellation will expire the subscription.
+      define_attribute :timeframe, String
     end
   end
 end
