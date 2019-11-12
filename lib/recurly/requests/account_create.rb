@@ -74,6 +74,10 @@ module Recurly
       #   @return [Boolean] The tax status of the account. `true` exempts tax on the account, `false` applies tax on the account.
       define_attribute :tax_exempt, :Boolean
 
+      # @!attribute transaction_type
+      #   @return [String] An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
+      define_attribute :transaction_type, String
+
       # @!attribute username
       #   @return [String] A secondary value for the account.
       define_attribute :username, String

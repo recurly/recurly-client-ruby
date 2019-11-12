@@ -86,6 +86,10 @@ module Recurly
       #   @return [Integer] The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.
       define_attribute :total_billing_cycles, Integer
 
+      # @!attribute transaction_type
+      #   @return [String] An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
+      define_attribute :transaction_type, String
+
       # @!attribute trial_ends_at
       #   @return [DateTime] If set, overrides the default trial behavior for the subscription. The date must be in the future.
       define_attribute :trial_ends_at, DateTime
