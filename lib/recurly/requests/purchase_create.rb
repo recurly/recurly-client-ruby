@@ -62,6 +62,10 @@ module Recurly
       #   @return [String] Terms and conditions to be put on the purchase invoice.
       define_attribute :terms_and_conditions, String
 
+      # @!attribute transaction_type
+      #   @return [String] An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
+      define_attribute :transaction_type, String
+
       # @!attribute vat_reverse_charge_notes
       #   @return [String] VAT reverse charge notes for cross border European tax settlement.
       define_attribute :vat_reverse_charge_notes, String

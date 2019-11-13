@@ -27,7 +27,7 @@ module Recurly
       define_attribute :net_terms, Integer
 
       # @!attribute next_bill_date
-      #   @return [DateTime] If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. For a subscription in a trial period, this will change when the trial expires.
+      #   @return [DateTime] If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. For a subscription in a trial period, this will change when the trial expires. This parameter is useful for postponement of a subscription to change its billing date without proration.
       define_attribute :next_bill_date, DateTime
 
       # @!attribute po_number
