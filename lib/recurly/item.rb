@@ -14,7 +14,6 @@ module Recurly
       created_at
       updated_at
       deleted_at
-      total_amount_in_cents
     )
 
     def changed_attributes
