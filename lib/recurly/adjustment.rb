@@ -36,6 +36,7 @@ module Recurly
       total_in_cents
       currency
       product_code
+      item_code
       start_date
       end_date
       created_at
