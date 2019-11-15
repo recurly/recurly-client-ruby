@@ -143,6 +143,74 @@ info:
     ## Change Log
 
     ### v2019-10-10
+    Starting to add support for .pdf routes
+    * Added `GET /sites/:site_id/invoices/{invoice_id}.pdf`.
+    * Added BinaryFile schema
+
+    Improving the ability to work with Custom Field Definitions.
+    * Added a `related_type` filter to the listing end point.
+
+    Added support for the Revenue Recognition feature to LineItem, when the `Revenue Recognition` feature is enabled
+    * Changed LineItemCreate request format:
+      * Added `revenue_schedule_type`.
+    * `LineItem` response format:
+      * Added `revenue_schedule_type`.
+
+    Added support for the Revenue Recognition feature to Purchase, when the `Revenue Recognition` feature is enabled
+    * Changed PurchaseCreate request format:
+      * Added `line_items.revenue_schedule_type`.
+    * Changed Purchase response format:
+      * Added `line_items.revenue_schedule_type`.
+
+    Added support for Items, when the Catalog feature is enabled:
+    * Added `GET /sites/:site_id/items`.
+    * Added `POST /sites/:site_id/items`.
+    * Added `GET /sites/:site_id/items/:id`.
+    * Added `PUT /sites/:site_id/items/:id`.
+    * Added `PUT /sites/:site_id/items/:id/reactivate`.
+    * Added `DELETE /sites/:site_id/items/:id`.
+
+    Added support for `Item` to `LineItem`, when the Catalog feature is enabled
+    * `LineItem` request format updates
+      * Added `item_code`.
+      * Added `item_id`.
+      * The following parameters are no longer acceptable if `item_code`/`item_id` is present
+        * `product_code`
+        * `accounting_code`
+        * `tax_exempt`
+        * `tax_code`
+        * `description`
+
+      * The following parameters can be passed in if `item_code`/`item_id` are present, to override the values on the referenced `Item`.
+        * `currency` - if there are multiple currencies defined on the site. The site's default will be used otherwise.
+        * `unit_amount` - can be used to override the default `unit_amount` on the `Item`.
+        * `revenue_schedule_type` - can be used to override the default `revenue_schedule_type` on the `Item`.
+
+    * `LineItem` response format updates
+      * Added `item_code`.
+      * Added `item_id`.
+      * `product_code` will be populated with `external_sku` of the `Item` when an `item_code` or `item_id` is passed in the request.
+
+    Added support for Items in Purchases, when the Catalog feature is enabled
+    * Changed PurchaseCreate request format:
+      * Added `line_items.item_code`/`line_items.item_id`.
+      * The following parameters are no longer acceptable if `line_items.item_code`/`line_items.item_id` is present
+        * `line_items.product_code`
+        * `line_items.accounting_code`
+        * `line_items.tax_exempt`
+        * `line_items.tax_code`
+        * `line_items.description`
+
+      * If `line_items.item_code`/`line_items.item_id` is present, the following parameters can be passed in to override the values on the referenced Item:
+        * `line_items.currency` - if there are multiple currencies defined on the site. The site's default will be used otherwise.
+        * `line_items.unit_amount` - can be used to override the default `unit_amount` on the Item.
+        * `line_items.revenue_schedule_type` - can be used to override the default `revenue_schedule_type` on the Item.
+
+      * Changed Purchase response format:
+        * Added `line_items.item_code`.
+        * Added `line_items.item_id`.
+        * `line_items.product_code` will be populated with the `external_sku` of the Item when an `item_code` or `item_id` is passed in the request.
+
     Starting to improve support for shipping:
     * Added `GET /sites/:site_id/shipping_methods/`.
     * Added `GET /sites/:site_id/shipping_methods/:id/`.
@@ -563,6 +631,7 @@ x-tagGroups:
   - purchase
 - name: Products and Promotions
   tags:
+  - item
   - plan
   - add-on
   - coupon
@@ -586,6 +655,12 @@ tags:
   x-displayName: Custom Field Definition
   description: Describes the fields that can use used as custom fields on accounts
     or subscriptions.
+- name: item
+  x-displayName: Item
+  description: |-
+    For merchants who sell the same things to many customers, documenting those offerings in a catalog allows for faster charge creation, easier management of offerings, and analytics about your offerings across all sales channels. Because your offerings can be physical, digital, or service-oriented, Recurly collectively calls these offerings "Items".
+
+    Recurly's item catalog is currently in the beta testing phase. If you're interested in participating in the beta, please contact Recurly Support to enable this feature on your site.
 - name: plan
   x-displayName: Plan
   description: A plan tells Recurly how often and how much to charge your customers.
@@ -4554,6 +4629,15 @@ paths:
       - "$ref": "#/components/parameters/sort_dates"
       - "$ref": "#/components/parameters/filter_begin_time"
       - "$ref": "#/components/parameters/filter_end_time"
+      - name: related_type
+        in: query
+        description: Filter by related type.
+        schema:
+          type: string
+          enum:
+          - account
+          - item
+          - subscription
       responses:
         '200':
           description: A list of the site's custom field definitions.
@@ -4690,6 +4774,228 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
+  "/sites/{site_id}/items":
+    get:
+      tags:
+      - item
+      operationId: list_items
+      summary: List a site's items
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/order"
+      - "$ref": "#/components/parameters/sort_dates"
+      - "$ref": "#/components/parameters/filter_begin_time"
+      - "$ref": "#/components/parameters/filter_end_time"
+      - "$ref": "#/components/parameters/filter_state"
+      responses:
+        '200':
+          description: A list of the site's items.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ItemList"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+    post:
+      tags:
+      - item
+      operationId: create_item
+      summary: Create a new item
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ItemCreate"
+        required: true
+      responses:
+        '201':
+          description: A new item.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Item"
+        '400':
+          description: Bad request, perhaps invalid JSON?
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/sites/{site_id}/items/{item_id}":
+    get:
+      tags:
+      - item
+      operationId: get_item
+      summary: Fetch an item
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/item_id"
+      responses:
+        '200':
+          description: An item.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Item"
+        '404':
+          description: Incorrect site or item ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+    put:
+      tags:
+      - item
+      operationId: update_item
+      summary: Update an active item
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/item_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ItemUpdate"
+        required: true
+      responses:
+        '200':
+          description: The updated item.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Item"
+        '400':
+          description: Bad request, perhaps invalid JSON?
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or item ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+    delete:
+      tags:
+      - item
+      operationId: deactivate_item
+      summary: Deactivate an item
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/item_id"
+      description: Deactivating an item makes it unavailable for new purchases. It
+        will not affect existing line items.
+      responses:
+        '200':
+          description: An item.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Item"
+        '422':
+          description: Item may already be inactive.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+  "/sites/{site_id}/items/{item_id}/reactivate":
+    parameters:
+    - "$ref": "#/components/parameters/site_id"
+    - "$ref": "#/components/parameters/item_id"
+    put:
+      tags:
+      - item
+      operationId: reactivate_item
+      summary: Reactivate an inactive item
+      description: Reactivating an item makes it available for new purchases. It will
+        not affect existing line items.
+      responses:
+        '200':
+          description: An item.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Item"
+        '404':
+          description: Incorrect site or item ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Item is already active.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
   "/sites/{site_id}/invoices":
     get:
       tags:
@@ -4956,6 +5262,126 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
+  "/sites/{site_id}/invoices/{invoice_id}.pdf":
+    get:
+      tags:
+      - invoice
+      operationId: get_invoice_pdf
+      summary: Fetch an invoice as a PDF
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/invoice_id"
+      responses:
+        '200':
+          description: An invoice as a PDF.
+          content:
+            application/pdf:
+              schema:
+                "$ref": "#/components/schemas/BinaryFile"
+        '404':
+          description: Incorrect site or invoice ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Python
+        source: |
+          try:
+              invoice = client.get_invoice_pdf(invoice_id)
+              print("Got Invoice %s" % invoice)
+              filename = "%s/pythoninvoice-%s.pdf" % (download_directory, invoice_id)
+              with open(filename, 'wb') as file:
+                  file.write(invoice.data)
+                  print("Saved Invoice PDF to %s" % filename)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: Java
+        source: |
+          try {
+              final BinaryFile invoice = client.getInvoicePdf(invoiceId);
+              //System.out.println("Fetched invoice " + invoice.getData());
+              String filename = downloadDirectory + "/javainvoice-" + invoiceId + ".pdf";
+
+              FileOutputStream fos = new FileOutputStream(filename);
+              fos.write(invoice.getData());
+              fos.close();
+              System.out.println("Saved Invoice PDF to " + filename);
+          } catch (NotFoundException e) {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              System.out.println("Resource Not Found: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          } catch (java.io.IOException e) {
+              System.out.println("Unexpected File Writing Error: " + e.toString());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              BinaryFile invoice = client.GetInvoicePdf(invoiceId);
+              string filename = $"{downloadDirectory}/dotnetinvoice-{invoiceId}.pdf";
+              System.IO.File.WriteAllBytes(filename, invoice.Data);
+              Console.WriteLine($"Saved Invoice PDF to {filename}");
+          }
+          catch (Recurly.Errors.NotFound ex)
+          {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              Console.WriteLine($"Resource Not Found: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Node.js
+        source: |
+          try {
+            const invoice = await client.getInvoicePdf(invoiceId)
+            console.log('Fetched Invoice: ', invoice)
+            const filename = `${downloadDirectory}/nodeinvoice-${invoiceId}.pdf`
+            await fs.writeFile(filename, invoice.data, 'binary', (err) => {
+              // throws an error, you could also catch it here
+              if (err) throw err;
+
+              // success case, the file was saved
+              console.log('Saved Invoice PDF to', filename)
+            })
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Ruby
+        source: |
+          begin
+            invoice = @client.get_invoice_pdf(invoice_id: invoice_id)
+            puts "Got invoice #{invoice}"
+            filename = "#{download_directory}/rubyinvoice-#{invoice_id}.pdf"
+            IO.write(filename, invoice.data)
+            puts "Saved Invoice PDF to #{filename}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
   "/sites/{site_id}/invoices/{invoice_id}/collect":
     put:
       tags:
@@ -9045,6 +9471,14 @@ components:
       required: true
       schema:
         type: string
+    item_id:
+      name: item_id
+      in: path
+      description: Item ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`.
+        For code use prefix `code-`, e.g. `code-red`.
+      required: true
+      schema:
+        type: string
     invoice_id:
       name: invoice_id
       in: path
@@ -9296,6 +9730,10 @@ components:
     Empty:
       type: object
       properties: {}
+    BinaryFile:
+      type: string
+      format: binary
+      readOnly: true
     AccountAcquisitionList:
       type: object
       properties:
@@ -9432,6 +9870,23 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/CustomFieldDefinition"
+    ItemList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Item"
     InvoiceList:
       type: object
       properties:
@@ -10168,23 +10623,6 @@ components:
       - code
       - name
       - currencies
-    AddOnPricing:
-      type: object
-      properties:
-        currency:
-          type: string
-          title: Currency
-          description: 3-letter ISO 4217 currency code.
-          maxLength: 3
-        unit_amount:
-          type: number
-          format: float
-          title: Unit price
-          minimum: 0
-          maximum: 100000
-      required:
-      - currency
-      - unit_amount
     AddOnCreate:
       type: object
       title: Add-on
@@ -11152,6 +11590,216 @@ components:
             are removed from the accouts or subscriptions, will be hard deleted an
             no longer visible.
           readOnly: true
+    Item:
+      type: object
+      description: Full item details.
+      properties:
+        id:
+          type: string
+          title: Item ID
+          maxLength: 13
+          readOnly: true
+        object:
+          type: string
+          title: Object type
+          readOnly: true
+        code:
+          type: string
+          title: Item code
+          description: Unique code to identify the item.
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 50
+        state:
+          type: string
+          title: State
+          description: The current state of the item.
+          readOnly: true
+          enum:
+          - active
+          - inactive
+        name:
+          type: string
+          title: Name
+          description: This name describes your item and will appear on the invoice
+            when it's purchased on a one time basis.
+          maxLength: 255
+        description:
+          type: string
+          title: Description
+          description: Optional, description.
+        external_sku:
+          type: string
+          title: External SKU
+          description: Optional, stock keeping unit to link the item to other inventory
+            systems.
+          maxLength: 50
+        accounting_code:
+          type: string
+          title: Item accounting code
+          description: Accounting code for invoice line items.
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 20
+        revenue_schedule_type:
+          type: string
+          title: Revenue schedule type
+          enum:
+          - never
+          - evenly
+          - at_range_end
+          - at_range_start
+        tax_code:
+          type: string
+          title: Tax code
+          description: Used by Avalara, Vertex, and Recurly’s EU VAT tax feature.
+            The tax code values are specific to each tax system. If you are using
+            Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
+          maxLength: 50
+        tax_exempt:
+          type: boolean
+          title: Tax exempt?
+          description: "`true` exempts tax on the item, `false` applies tax on the
+            item."
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
+        currencies:
+          type: array
+          title: Item Pricing
+          items:
+            "$ref": "#/components/schemas/Pricing"
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          title: Last updated at
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          title: Deleted at
+          readOnly: true
+    ItemCreate:
+      type: object
+      properties:
+        code:
+          type: string
+          title: Item code
+          description: Unique code to identify the item.
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 50
+        name:
+          type: string
+          title: Name
+          description: This name describes your item and will appear on the invoice
+            when it's purchased on a one time basis.
+          maxLength: 255
+        description:
+          type: string
+          title: Description
+          description: Optional, description.
+        external_sku:
+          type: string
+          title: External SKU
+          description: Optional, stock keeping unit to link the item to other inventory
+            systems.
+          maxLength: 50
+        accounting_code:
+          type: string
+          title: Item accounting code
+          description: Accounting code for invoice line items.
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 20
+        revenue_schedule_type:
+          type: string
+          title: Revenue schedule type
+          enum:
+          - never
+          - evenly
+          - at_range_end
+          - at_range_start
+        tax_code:
+          type: string
+          title: Tax code
+          description: Used by Avalara, Vertex, and Recurly’s EU VAT tax feature.
+            The tax code values are specific to each tax system. If you are using
+            Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
+          maxLength: 50
+        tax_exempt:
+          type: boolean
+          title: Tax exempt?
+          description: "`true` exempts tax on the item, `false` applies tax on the
+            item."
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
+        currencies:
+          type: array
+          title: Item Pricing
+          items:
+            "$ref": "#/components/schemas/Pricing"
+      required:
+      - code
+      - name
+    ItemUpdate:
+      type: object
+      properties:
+        code:
+          type: string
+          title: Item code
+          description: Unique code to identify the item.
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 50
+        name:
+          type: string
+          title: Name
+          description: This name describes your item and will appear on the invoice
+            when it's purchased on a one time basis.
+          maxLength: 255
+        description:
+          type: string
+          title: Description
+          description: Optional, description.
+        external_sku:
+          type: string
+          title: External SKU
+          description: Optional, stock keeping unit to link the item to other inventory
+            systems.
+          maxLength: 50
+        accounting_code:
+          type: string
+          title: Item accounting code
+          description: Accounting code for invoice line items.
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 20
+        revenue_schedule_type:
+          type: string
+          title: Revenue schedule type
+          enum:
+          - never
+          - evenly
+          - at_range_end
+          - at_range_start
+        tax_code:
+          type: string
+          title: Tax code
+          description: Used by Avalara, Vertex, and Recurly’s EU VAT tax feature.
+            The tax code values are specific to each tax system. If you are using
+            Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
+          maxLength: 50
+        tax_exempt:
+          type: boolean
+          title: Tax exempt?
+          description: "`true` exempts tax on the item, `false` applies tax on the
+            item."
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
+        currencies:
+          type: array
+          title: Item Pricing
+          items:
+            "$ref": "#/components/schemas/Pricing"
     Invoice:
       type: object
       properties:
@@ -11630,6 +12278,27 @@ components:
           enum:
           - charge
           - credit
+        item_code:
+          type: string
+          title: Item Code
+          description: Unique code to identify an item, when the Catalog feature is
+            enabled.
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 50
+        item_id:
+          type: string
+          title: Item ID
+          description: Available when the Catalog feature is enabled.
+          maxLength: 13
+        revenue_schedule_type:
+          type: string
+          title: Revenue schedule type
+          enum:
+          - never
+          - evenly
+          - at_range_end
+          - at_range_start
+          - at_invoice
         state:
           type: string
           title: Current state of the line item
@@ -11740,8 +12409,9 @@ components:
         product_code:
           type: string
           title: Product code
-          description: For plan related line items this will be the plan's code, for
-            add-on related line items it will be the add-on's code.
+          description: For plan-related line items this will be the plan's code, for
+            add-on related line items it will be the add-on's code. For item-related
+            line itmes it will be the item's `external_sku`.
           maxLength: 50
         credit_reason_code:
           type: string
@@ -11889,7 +12559,11 @@ components:
         currency:
           type: string
           title: Currency
-          description: 3-letter ISO 4217 currency code.
+          description: 3-letter ISO 4217 currency code. If `item_code`/`item_id` is
+            part of the request then `currency` is optional, if the site has a single
+            default currency. `currency` is required if `item_code`/`item_id` is present,
+            and there are multiple currencies defined on the site. If `item_code`/`item_id`
+            is not present `currency` is required.
           maxLength: 3
         unit_amount:
           type: number
@@ -11898,6 +12572,7 @@ components:
           description: |
             A positive or negative amount with `type=charge` will result in a positive `unit_amount`.
             A positive or negative amount with `type=credit` will result in a negative `unit_amount`.
+            If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the `Item`'s `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
         quantity:
           type: integer
           title: Quantity
@@ -11907,12 +12582,36 @@ components:
         description:
           type: string
           title: Description
-          description: Description that appears on the invoice.
+          description: Description that appears on the invoice. If `item_code`/`item_id`
+            is part of the request then `description` must be absent.
           maxLength: 255
+        item_code:
+          type: string
+          title: Item Code
+          description: Unique code to identify an item, when the Catalog feature is
+            enabled.
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 50
+        item_id:
+          type: string
+          title: Item ID
+          description: Available when the Catalog feature is enabled.
+          maxLength: 13
+        revenue_schedule_type:
+          type: string
+          title: Revenue schedule type
+          enum:
+          - never
+          - evenly
+          - at_range_end
+          - at_range_start
+          - at_invoice
         type:
           type: string
           title: Type
-          description: Line item type.
+          description: Line item type. If `item_code`/`item_id` is present then `type`
+            should not be present. If `item_code`/`item_id` is not present then `type`
+            is required.
           enum:
           - charge
           - credit
@@ -11928,6 +12627,13 @@ components:
           - service
           - promotional
           default: general
+        accounting_code:
+          type: string
+          title: Accounting Code
+          description: Accounting Code for the `LineItem`. If `item_code`/`item_id`
+            is part of the request then `accounting_code` must be absent.
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 20
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -11950,6 +12656,8 @@ components:
           description: Optional field to track a product code or SKU for the line
             item. This can be used to later reporting on product purchases. For Vertex
             tax calculations, this field will be used as the Vertex `product` field.
+            If `item_code`/`item_id` is part of the request then `product_code` must
+            be absent.
           maxLength: 50
         start_date:
           type: string
@@ -12386,6 +13094,40 @@ components:
           title: Add Ons
           items:
             "$ref": "#/components/schemas/AddOnCreate"
+    AddOnPricing:
+      type: object
+      properties:
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        unit_amount:
+          type: number
+          format: float
+          title: Unit price
+          minimum: 0
+          maximum: 100000
+      required:
+      - currency
+      - unit_amount
+    Pricing:
+      type: object
+      properties:
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        unit_amount:
+          type: number
+          format: float
+          title: Unit price
+          minimum: 0
+          maximum: 100000
+      required:
+      - currency
+      - unit_amount
     Settings:
       type: object
       properties:

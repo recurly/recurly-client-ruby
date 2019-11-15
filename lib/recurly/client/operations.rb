@@ -1340,6 +1340,7 @@ module Recurly
     # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
+    # @param related_type [String] Filter by related type.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Pager<Resources::CustomFieldDefinition>] A list of the site's custom field definitions.
     # @example
@@ -1363,6 +1364,103 @@ module Recurly
     def get_custom_field_definition(custom_field_definition_id:, **options)
       path = interpolate_path("/custom_field_definitions/{custom_field_definition_id}", custom_field_definition_id: custom_field_definition_id)
       get(path, **options)
+    end
+
+    # List a site's items
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/list_items list_items api documenation}
+    #
+    # @param ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    # @param limit [Integer] Limit number of records 1-200.
+    # @param order [String] Sort order.
+    # @param sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param state [String] Filter by state.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Pager<Resources::Item>] A list of the site's items.
+    def list_items(**options)
+      path = interpolate_path("/items")
+      pager(path, **options)
+    end
+
+    # Create a new item
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/create_item create_item api documenation}
+    #
+    # @param body [Requests::ItemCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ItemCreate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::Item] A new item.
+    def create_item(body:, **options)
+      path = interpolate_path("/items")
+      post(path, body, Requests::ItemCreate, **options)
+    end
+
+    # Fetch an item
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/get_item get_item api documenation}
+    #
+    # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::Item] An item.
+    def get_item(item_id:, **options)
+      path = interpolate_path("/items/{item_id}", item_id: item_id)
+      get(path, **options)
+    end
+
+    # Update an active item
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/update_item update_item api documenation}
+    #
+    # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
+    # @param body [Requests::ItemUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ItemUpdate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::Item] The updated item.
+    def update_item(item_id:, body:, **options)
+      path = interpolate_path("/items/{item_id}", item_id: item_id)
+      put(path, body, Requests::ItemUpdate, **options)
+    end
+
+    # Deactivate an item
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/deactivate_item deactivate_item api documenation}
+    #
+    # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::Item] An item.
+    def deactivate_item(item_id:, **options)
+      path = interpolate_path("/items/{item_id}", item_id: item_id)
+      delete(path, **options)
+    end
+
+    # Reactivate an inactive item
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/reactivate_item reactivate_item api documenation}
+    #
+    # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::Item] An item.
+    def reactivate_item(item_id:, **options)
+      path = interpolate_path("/items/{item_id}/reactivate", item_id: item_id)
+      put(path, **options)
     end
 
     # List a site's invoices
@@ -1445,6 +1543,31 @@ module Recurly
     def put_invoice(invoice_id:, body:, **options)
       path = interpolate_path("/invoices/{invoice_id}", invoice_id: invoice_id)
       put(path, body, Requests::InvoiceUpdatable, **options)
+    end
+
+    # Fetch an invoice as a PDF
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/get_invoice_pdf get_invoice_pdf api documenation}
+    #
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::BinaryFile] An invoice as a PDF.
+    # @example
+    #   begin
+    #     invoice = @client.get_invoice_pdf(invoice_id: invoice_id)
+    #     puts "Got invoice #{invoice}"
+    #     filename = "#{download_directory}/rubyinvoice-#{invoice_id}.pdf"
+    #     IO.write(filename, invoice.data)
+    #     puts "Saved Invoice PDF to #{filename}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
+    def get_invoice_pdf(invoice_id:, **options)
+      path = interpolate_path("/invoices/{invoice_id}.pdf", invoice_id: invoice_id)
+      get(path, **options)
     end
 
     # Collect a pending or past due, automatic invoice
