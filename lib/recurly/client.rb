@@ -2,6 +2,7 @@ require "faraday"
 require "logger"
 require "erb"
 require_relative "./schema/json_parser"
+require_relative "./schema/file_parser"
 require_relative "./client/adapter"
 
 module Recurly
@@ -9,6 +10,9 @@ module Recurly
     require_relative "./client/operations"
 
     BASE_URL = "https://v3.recurly.com/"
+    BINARY_TYPES = [
+      "application/pdf",
+    ]
 
     # Initialize a client. It requires an API key.
     #
@@ -122,7 +126,11 @@ module Recurly
       response = HTTP::Response.new(faraday_resp, request)
       raise_api_error!(response) unless (200...300).include?(response.status)
       resource = if response.body
-                   JSONParser.parse(self, response.body)
+                   if BINARY_TYPES.include?(response.content_type)
+                     FileParser.parse(response.body)
+                   else
+                     JSONParser.parse(self, response.body)
+                   end
                  else
                    Resources::Empty.new
                  end
