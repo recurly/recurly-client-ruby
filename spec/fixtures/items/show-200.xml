@@ -21,5 +21,4 @@ Content-Type: application/xml; charset=utf-8
   <created_at type="datetime">2019-09-23T21:25:45Z</created_at>
   <updated_at type="datetime">2019-09-23T21:25:45Z</updated_at>
   <deleted_at nil="nil"/>
-  <!-- <a name="delete" href="https://api.recurly.com/v2/items/plastic_gloves/delete" method="put"> -->
 </item>
