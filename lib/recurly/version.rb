@@ -1,6 +1,6 @@
 module Recurly
   module Version
-    VERSION = "2.18.3"
+    VERSION = "2.18.4"
 
     class << self
       def inspect
