@@ -2,7 +2,7 @@
 ## Unreleased
 
 <a name="v2.18.4"></a>
-## v2.18.4 (2019-10-21)
+## v2.18.4 (2019-11-21)
 
 This bumps us to API version 2.24.
 
