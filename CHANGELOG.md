@@ -1,6 +1,14 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.4"></a>
+## v2.18.4 (2019-11-21)
+
+This bumps us to API version 2.24.
+
+* Add Item class [PR] (https://github.com/recurly/recurly-client-ruby/pull/527)
+* Hardcode reactivate function for Item class [PR] (https://github.com/recurly/recurly-client-ruby/pull/531)
+
 <a name="v2.18.3"></a>
 ## v2.18.3 (2019-10-22)
 
