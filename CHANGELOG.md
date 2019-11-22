@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name= "v2.18.5"></a>
+## v2.18.5 (2019-11-22)
+
+* Add Item notification webhooks [PR] (https://github.com/recurly/recurly-client-ruby/pull/533)
+
 <a name="v2.18.4"></a>
 ## v2.18.4 (2019-11-21)
 
