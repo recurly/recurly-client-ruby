@@ -162,6 +162,22 @@ describe Webhook do
       Webhook.parse(request 'void-payment-notification').must_be_instance_of Webhook::VoidPaymentNotification
     end
 
+    it "must return NewItemNotification instance" do
+      Webhook.parse(request 'new-item-notification').must_be_instance_of Webhook::NewItemNotification
+    end
+
+    it "must return UpdatedItemNotification instance" do
+      Webhook.parse(request 'updated-item-notification').must_be_instance_of Webhook::UpdatedItemNotification
+    end
+
+    it "must return DeactivatedItemNotification instance" do
+      Webhook.parse(request 'deactivated-item-notification').must_be_instance_of Webhook::DeactivatedItemNotification
+    end
+
+    it "must return ReactivatedItemNotification instance" do
+      Webhook.parse(request 'reactivated-item-notification').must_be_instance_of Webhook::ReactivatedItemNotification
+    end
+
     it "must return NewShippingAddressNotification instance" do
       webhook = Webhook.parse(request 'new-shipping-address-notification')
       webhook.must_be_instance_of Webhook::NewShippingAddressNotification
