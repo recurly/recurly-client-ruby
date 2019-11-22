@@ -24,6 +24,7 @@ module Recurly
     autoload :AccountNotification,                  'recurly/webhook/account_notification'
     autoload :SubscriptionNotification,             'recurly/webhook/subscription_notification'
     autoload :InvoiceNotification,                  'recurly/webhook/invoice_notification'
+    autoload :ItemNotification,                     'recurly/webhook/item_notification'
     autoload :TransactionNotification,              'recurly/webhook/transaction_notification'
     autoload :DunningNotification,                  'recurly/webhook/dunning_notification'
     autoload :CreditPaymentNotification,            'recurly/webhook/credit_payment_notification'
@@ -84,6 +85,11 @@ module Recurly
     autoload :UpdatedShippingAddressNotification,   'recurly/webhook/updated_shipping_address_notification'
     autoload :DeletedShippingAddressNotification,   'recurly/webhook/deleted_shipping_address_notification'
     autoload :FraudInfoUpdatedNotification,         'recurly/webhook/fraud_info_updated_notification'
+    autoload :NewItemNotification,                  'recurly/webhook/new_item_notification'
+    autoload :UpdatedItemNotification,              'recurly/webhook/updated_item_notification'
+    autoload :DeactivatedItemNotification,          'recurly/webhook/deactivated_item_notification'
+    autoload :ReactivatedItemNotification,          'recurly/webhook/reactivated_item_notification'
+
     # This exception is raised if the Webhook Notification initialization fails
     class NotificationError < Error
     end

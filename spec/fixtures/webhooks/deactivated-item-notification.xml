@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deactivated_item_notification>
+  <item>
+    <item_code>gray_socks</item_code>
+    <name>Gray Socks</name>
+    <description>Gray Socks</description>
+    <external_sku>socks-12345</external_sku>
+    <accounting_code>acc-12345</accounting_code>
+    <revenue_schedule_type>evenly</revenue_schedule_type>
+    <tax_exempt type="boolean">true</tax_exempt>
+    <tax_code nil="nil"/>
+    <pricing_type>fixed</pricing_type>
+    <custom_fields type="array">
+      <custom_field>
+        <name>color</name>
+        <value>gray</value>
+      </custom_field>
+    </custom_fields>
+    <unit_amount_in_cents>
+      <CAD type="integer">6000</CAD>
+      <USD type="integer">1000</USD>
+    </unit_amount_in_cents>
+    <created_at type="datetime">2019-07-15T18:48:01Z</created_at>
+    <updated_at type="datetime">2019-07-15T18:48:01Z</updated_at>
+    <deleted_at nil="nil"/>
+  </item>
+</deactivated_item_notification>
