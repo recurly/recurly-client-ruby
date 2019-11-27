@@ -42,11 +42,11 @@ module Recurly
       raise ArgumentError, "#{type.inspect} must be a symbol but is a #{type.class}" unless type.is_a?(Symbol)
 
       if type == :Address
-        Resources::Address
-      elsif Requests.const_defined?(type)
-        Requests.const_get(type)
-      elsif Recurly::Resources.const_defined?(type)
-        Resources.const_get(type)
+        Recurly::Resources::Address
+      elsif Recurly::Requests.const_defined?(type, false)
+        Recurly::Requests.const_get(type, false)
+      elsif Recurly::Resources.const_defined?(type, false)
+        Recurly::Resources.const_get(type, false)
       else
         raise ArgumentError, "Recurly type '#{type}' is unknown"
       end

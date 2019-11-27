@@ -61,17 +61,10 @@ module Recurly
         Resources::Page
       else
         type_camelized = type.split("_").map(&:capitalize).join
-        if Resources.const_defined?(type_camelized)
-          klazz = Resources.const_get(type_camelized)
-          if klazz.ancestors.include?(Resource)
-            klazz
-          else
-            if Recurly::STRICT_MODE
-              raise ArgumentError, "Could not find Recurly Resource responsible for key #{type}"
-            else
-              nil
-            end
-          end
+        if Resources.const_defined?(type_camelized, false)
+          Resources.const_get(type_camelized, false)
+        elsif Recurly::STRICT_MODE
+          raise ArgumentError, "Could not find Recurly Resource responsible for key #{type}"
         end
       end
     end
