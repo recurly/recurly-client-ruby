@@ -35,9 +35,9 @@ RSpec.describe Recurly::Request do
         expect { subject.validate! }.not_to raise_error
       end
       context "with a nil value" do
-        it "should raise an error" do
+        it "should not raise an error" do
           hash_data[:a_string] = nil
-          expect { subject.validate! }.not_to raise_error(ArgumentError)
+          expect { subject.validate! }.not_to raise_error
         end
       end
     end
