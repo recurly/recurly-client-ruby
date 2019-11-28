@@ -34,6 +34,12 @@ RSpec.describe Recurly::Request do
       it "should not raise an error" do
         expect { subject.validate! }.not_to raise_error
       end
+      context "with a nil value" do
+        it "should raise an error" do
+          hash_data[:a_string] = nil
+          expect { subject.validate! }.not_to raise_error(ArgumentError)
+        end
+      end
     end
     context "with incorrectly typed data" do
       context "with int instead of string" do
