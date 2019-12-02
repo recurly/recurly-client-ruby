@@ -34,7 +34,7 @@ module Recurly
 
       # Validates an individual attribute
       def validate_attribute!(name, schema_attr, val)
-        unless schema_attr.is_valid?(val)
+        unless val.nil? || schema_attr.is_valid?(val)
           # If it's safely castable, the json deserializer or server
           # will take care of it for us
           unless safely_castable?(val.class, schema_attr.type)
