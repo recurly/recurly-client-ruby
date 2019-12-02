@@ -27,7 +27,7 @@ module Recurly
     # @return [Error,Resource]
     def self.from_json(data)
       type = if data.has_key?("error")
-               "error"
+               "error_may_have_transaction"
              else
                data["object"]
              end
@@ -37,7 +37,7 @@ module Recurly
         raise ArgumentError, "Unknown resource for json type #{type}"
       end
 
-      data = data["error"] if klazz == Resources::Error
+      data = data["error"] if klazz == Resources::ErrorMayHaveTransaction
 
       klazz.cast(data)
     end
