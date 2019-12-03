@@ -46,6 +46,10 @@ module Recurly
       #   @return [String]
       define_attribute :nickname, String
 
+      # @!attribute object
+      #   @return [String] Object type
+      define_attribute :object, String
+
       # @!attribute phone
       #   @return [String]
       define_attribute :phone, String

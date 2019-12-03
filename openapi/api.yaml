@@ -13162,6 +13162,10 @@ components:
           title: Shipping Address ID
           maxLength: 13
           readOnly: true
+        object:
+          type: string
+          title: Object type
+          readOnly: true
         account_id:
           type: string
           title: Account ID

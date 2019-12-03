@@ -12,6 +12,7 @@ module Recurly
       define_attribute :data, Array, item_type: Hash
       define_attribute :has_more, :Boolean
       define_attribute :next, String
+      define_attribute :object, String
     end
   end
 end
