@@ -19,8 +19,6 @@ module Recurly
       def cast(attributes = {})
         resource = new()
         attributes.each do |attr_name, val|
-          next if attr_name == "object"
-
           schema_attr = self.schema.get_attribute(attr_name)
 
           if schema_attr
