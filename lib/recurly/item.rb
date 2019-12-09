@@ -24,12 +24,9 @@ module Recurly
       attrs
     end
 
-    # method should be changed to use a link once it is added to api
-    # example:
-    #   return false unless link? :reactivate
-    #   reload follow_link :reactivate
     def reactivate
-      reload API.put("#{uri}/reactivate")
+      return false unless link? :reactivate
+      reload follow_link :reactivate
       true
     end
 
