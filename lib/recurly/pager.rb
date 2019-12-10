@@ -6,7 +6,7 @@ module Recurly
     def initialize(client:, path:, options: {})
       @client = client
       @path = path
-      @options = options
+      @options = map_array_params(options)
       @next = build_path(@path, @options)
     end
 
@@ -111,6 +111,16 @@ module Recurly
         path
       else
         "#{path}?#{URI.encode_www_form(options)}"
+      end
+    end
+
+    # Converts array parameters to CSV strings to maintain consistency with
+    # how the server expects the request to be formatted while providing the
+    # developer with an array type to maintain developer happiness!
+    def map_array_params(params)
+      @options = params.map do |key, param|
+        new_param = param.is_a?(Array) ? param.join(",") : param
+        [key, new_param]
       end
     end
   end
