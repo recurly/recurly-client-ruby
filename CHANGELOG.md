@@ -1,7 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
-<a name= "v2.18.5"></a>
+<a name="v2.18.6"></a>
+## v2.18.6 (2019-12-18)
+
+* Reference reactivate href in xml [PR] (https://github.com/recurly/recurly-client-ruby/pull/535)
+
+<a name="v2.18.5"></a>
 ## v2.18.5 (2019-11-22)
 
 * Add Item notification webhooks [PR] (https://github.com/recurly/recurly-client-ruby/pull/533)
