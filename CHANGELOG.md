@@ -4,26 +4,26 @@
 <a name="v2.18.6"></a>
 ## v2.18.6 (2019-12-18)
 
-* Reference reactivate href in xml [PR] (https://github.com/recurly/recurly-client-ruby/pull/535)
+* Reference reactivate href in xml [PR](https://github.com/recurly/recurly-client-ruby/pull/535)
 
 <a name="v2.18.5"></a>
 ## v2.18.5 (2019-11-22)
 
-* Add Item notification webhooks [PR] (https://github.com/recurly/recurly-client-ruby/pull/533)
+* Add Item notification webhooks [PR](https://github.com/recurly/recurly-client-ruby/pull/533)
 
 <a name="v2.18.4"></a>
 ## v2.18.4 (2019-11-21)
 
 This bumps us to API version 2.24.
 
-* Add Item class [PR] (https://github.com/recurly/recurly-client-ruby/pull/527)
-* Hardcode reactivate function for Item class [PR] (https://github.com/recurly/recurly-client-ruby/pull/531)
+* Add Item class [PR](https://github.com/recurly/recurly-client-ruby/pull/527)
+* Hardcode reactivate function for Item class [PR](https://github.com/recurly/recurly-client-ruby/pull/531)
 
 <a name="v2.18.3"></a>
 ## v2.18.3 (2019-10-22)
 
-* Subscription timeframe changes [PR] (https://github.com/recurly/recurly-client-ruby/pull/492)
-* Add shipping address to purchase object [PR] (https://github.com/recurly/recurly-client-ruby/pull/522)
+* Subscription timeframe changes [PR](https://github.com/recurly/recurly-client-ruby/pull/492)
+* Add shipping address to purchase object [PR](https://github.com/recurly/recurly-client-ruby/pull/522)
 
 <a name="v2.18.2"></a>
 ## v2.18.2 (2019-09-27)
