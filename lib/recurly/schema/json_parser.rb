@@ -27,10 +27,10 @@ module Recurly
     # @return [Error,Resource]
     def self.from_json(data)
       type = if data.has_key?("error")
-               "error_may_have_transaction"
-             else
-               data["object"]
-             end
+          "error_may_have_transaction"
+        else
+          data["object"]
+        end
       klazz = self.recurly_class(type)
 
       unless klazz

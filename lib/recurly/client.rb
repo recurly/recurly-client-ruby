@@ -126,14 +126,14 @@ module Recurly
       response = HTTP::Response.new(faraday_resp, request)
       raise_api_error!(response) unless (200...300).include?(response.status)
       resource = if response.body
-                   if BINARY_TYPES.include?(response.content_type)
-                     FileParser.parse(response.body)
-                   else
-                     JSONParser.parse(self, response.body)
-                   end
-                 else
-                   Resources::Empty.new
-                 end
+          if BINARY_TYPES.include?(response.content_type)
+            FileParser.parse(response.body)
+          else
+            JSONParser.parse(self, response.body)
+          end
+        else
+          Resources::Empty.new
+        end
       # Keep this interface "private"
       resource.instance_variable_set(:@response, response)
       resource
@@ -141,15 +141,15 @@ module Recurly
 
     def raise_network_error!(ex)
       error_class = case ex
-                    when Faraday::TimeoutError
-                      Errors::TimeoutError
-                    when Faraday::ConnectionFailed
-                      Errors::ConnectionFailedError
-                    when Faraday::SSLError
-                      Errors::SSLError
-                    else
-                      Errors::NetworkError
-                    end
+        when Faraday::TimeoutError
+          Errors::TimeoutError
+        when Faraday::ConnectionFailed
+          Errors::ConnectionFailedError
+        when Faraday::SSLError
+          Errors::SSLError
+        else
+          Errors::NetworkError
+        end
 
       raise error_class, ex.message
     end
