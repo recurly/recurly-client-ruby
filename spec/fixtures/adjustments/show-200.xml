@@ -9,6 +9,7 @@ Content-Type: application/xml; charset=utf-8
   <credit_adjustments href="https://api.recurly.com/v2/adjustments/abcdef1234567890/credit_adjustments"/>
   <item href="https://api.recurly.com/v2/items/plastic_gloves"/>
   <item_code>plastic_gloves</item_code>
+  <external_sku>plastic_gloves</external_sku>
   <uuid>abcdef1234567890</uuid>
   <state>pending</state>
   <accounting_code nil="nil"></accounting_code>

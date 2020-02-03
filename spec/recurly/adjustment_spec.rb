@@ -26,6 +26,7 @@ describe Adjustment do
       adjustment.proration_rate.must_equal 0.5
       adjustment.surcharge_in_cents.must_equal 100
       adjustment.item_code.must_equal 'plastic_gloves'
+      adjustment.external_sku.must_equal 'plastic-gloves'
 
       tax_details = adjustment.tax_details
       tax_details.length.must_equal 2

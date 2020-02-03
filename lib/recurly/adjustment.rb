@@ -37,6 +37,7 @@ module Recurly
       currency
       product_code
       item_code
+      external_sku
       start_date
       end_date
       created_at
