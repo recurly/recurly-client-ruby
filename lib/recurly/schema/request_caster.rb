@@ -35,20 +35,20 @@ module Recurly
         data.each do |k, v|
           schema_attr = schema.get_attribute(k)
           norm_val = if v.respond_to?(:attributes)
-                       cast_request(v, v.class.schema)
-                     elsif v.is_a?(Array)
-                       v.map do |elem|
-                         if elem.respond_to?(:attributes)
-                           cast_request(elem, elem.class.schema)
-                         else
-                           elem
-                         end
-                       end
-                     elsif v.is_a?(Hash) && schema_attr && schema_attr.is_a?(Schema::ResourceAttribute)
-                       cast_request(v, schema_attr.recurly_class.schema)
-                     else
-                       v
-                     end
+              cast_request(v, v.class.schema)
+            elsif v.is_a?(Array)
+              v.map do |elem|
+                if elem.respond_to?(:attributes)
+                  cast_request(elem, elem.class.schema)
+                else
+                  elem
+                end
+              end
+            elsif v.is_a?(Hash) && schema_attr && schema_attr.is_a?(Schema::ResourceAttribute)
+              cast_request(v, schema_attr.recurly_class.schema)
+            else
+              v
+            end
 
           casted[k] = norm_val
         end
