@@ -335,6 +335,30 @@ describe Subscription do
     end
   end
 
+  describe 'convert trial' do
+    before do
+      stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200-trial'
+      stub_api_request :put, 'https://api.recurly.com/v2/subscriptions/abcdef1234567890/convert_trial', 'subscriptions/convert-trial-200'
+    end
+    
+    it "should convert trial to paid subscription is valid 3ds token is provided" do
+      sub = Recurly::Subscription.find('abcdef1234567890')
+      sub.convert_trial("token").must_equal true
+      sub.trial_ends_at.must_equal sub.current_period_started_at
+    end
+
+    it "should convert trial with billing info but without valid 3ds token" do
+      sub = Recurly::Subscription.find('abcdef1234567890')
+      sub.convert_trial().must_equal true
+    end
+
+    it "should convert trial to paid subscription when transaction_type is moto" do
+      sub = Recurly::Subscription.find('abcdef1234567890')
+      sub.convert_trial_moto().must_equal true
+      sub.trial_ends_at.must_equal sub.current_period_started_at
+    end
+  end
+
   describe 'notes' do
     it 'previews new subscriptions' do
       stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
