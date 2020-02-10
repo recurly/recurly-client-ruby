@@ -7,7 +7,7 @@ module Recurly
     class SubscriptionAddOn < Resource
 
       # @!attribute add_on
-      #   @return [AddOnMini]
+      #   @return [AddOnMini] Just the important parts.
       define_attribute :add_on, :AddOnMini
 
       # @!attribute created_at

@@ -7,7 +7,7 @@ module Recurly
     class AccountBalance < Resource
 
       # @!attribute account
-      #   @return [AccountMini]
+      #   @return [AccountMini] Account mini details
       define_attribute :account, :AccountMini
 
       # @!attribute balances

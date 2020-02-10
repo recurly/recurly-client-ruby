@@ -34,6 +34,10 @@ module Recurly
       #   @return [String] Available when the Catalog feature is enabled.
       define_attribute :item_id, String
 
+      # @!attribute origin
+      #   @return [String] Only allowed if the Gift Cards feature is enabled on your site and `type` is `credit`. Can only have a value of `external_gift_card`. Set this value in order to track gift card credits from external gift cards (like InComm). It also skips billing information requirements.
+      define_attribute :origin, String
+
       # @!attribute product_code
       #   @return [String] Optional field to track a product code or SKU for the line item. This can be used to later reporting on product purchases. For Vertex tax calculations, this field will be used as the Vertex `product` field. If `item_code`/`item_id` is part of the request then `product_code` must be absent.
       define_attribute :product_code, String

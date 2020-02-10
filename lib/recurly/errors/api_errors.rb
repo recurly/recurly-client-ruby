@@ -35,5 +35,7 @@ module Recurly
     class ValidationError < Errors::APIError; end
 
     class MissingFeatureError < Errors::APIError; end
+
+    class RateLimitedError < Errors::APIError; end
   end
 end

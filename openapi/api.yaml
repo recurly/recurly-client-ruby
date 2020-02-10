@@ -143,6 +143,28 @@ info:
     ## Change Log
 
     ### v2019-10-10
+    Support `gateway_token` and `gateway_code` for Billing Infos
+    * `BillingInfoCreate` request format:
+      * Added `gateway_token`
+      * Added `gateway_code`
+    * `PaymentMethod` response format:
+      * Added `gateway_token`
+      * Added `gateway_code`
+
+    Adding fields to the `Account` schema to view `Subscription` and `Invoice` statuses without making multiple requests:
+    * Subscription status fields:
+      * `has_live_subscription`
+      * `has_active_subscription`
+      * `has_future_subscription`
+      * `has_canceled_subscription`
+      * `has_paused_subscription`
+    * Invoice status fields:
+      * `has_past_due_invoice`
+
+    Support `external_gift_card` origins for Line Items
+    * Changed LineItemCreate request format:
+      * Added `origin`.
+
     Starting to add support for .pdf routes
     * Added `GET /sites/:site_id/invoices/{invoice_id}.pdf`.
     * Added BinaryFile schema
@@ -189,7 +211,8 @@ info:
     * `LineItem` response format updates
       * Added `item_code`.
       * Added `item_id`.
-      * `product_code` will be populated with `external_sku` of the `Item` when an `item_code` or `item_id` is passed in the request.
+      * Added `external_sku`.
+      * `product_code` will be populated with `item_code` of the `Item` when an `item_code` or `item_id` is passed in the request.
 
     Added support for Items in Purchases, when the Catalog feature is enabled
     * Changed PurchaseCreate request format:
@@ -209,7 +232,8 @@ info:
       * Changed Purchase response format:
         * Added `line_items.item_code`.
         * Added `line_items.item_id`.
-        * `line_items.product_code` will be populated with the `external_sku` of the Item when an `item_code` or `item_id` is passed in the request.
+        * Added `line_items.external_sku`.
+        * `line_items.product_code` will be populated with the `item_code` of the Item when an `item_code` or `item_id` is passed in the request.
 
     Starting to improve support for shipping:
     * Added `GET /sites/:site_id/shipping_methods/`.
@@ -776,11 +800,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          sites = client.list_sites(limit=200).items()
-          for site in sites:
-              print(site.subdomain)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -797,6 +816,12 @@ paths:
           {
               Console.WriteLine(site.Subdomain);
           }
+      - lang: Ruby
+        source: |
+          sites = @client.list_sites(limit: 200)
+          sites.each do |site|
+            puts "Site: #{site.subdomain}"
+          end
       - lang: Node.js
         source: |
           const sites = client.listSites({ limit: 200 })
@@ -804,12 +829,11 @@ paths:
           for await (const site of sites.each()) {
             console.log(site.subdomain)
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          sites = @client.list_sites(limit: 200)
-          sites.each do |site|
-            puts "Site: #{site.subdomain}"
-          end
+          sites = client.list_sites(limit=200).items()
+          for site in sites:
+              print(site.subdomain)
   "/sites/{site_id}":
     get:
       operationId: get_site
@@ -837,6 +861,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/accounts":
     get:
       tags:
@@ -880,11 +905,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          accounts = client.list_accounts(limit=200).items()
-          for account in accounts:
-              print(account.code)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -901,6 +921,12 @@ paths:
           {
               Console.WriteLine(account.Code);
           }
+      - lang: Ruby
+        source: |
+          accounts = @client.list_accounts(limit: 200)
+          accounts.each do |account|
+            puts "Account: #{account.code}"
+          end
       - lang: Node.js
         source: |
           const accounts = client.listAccounts({ limit: 200 })
@@ -908,12 +934,11 @@ paths:
           for await (const account of accounts.each()) {
             console.log(account.code)
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          accounts = @client.list_accounts(limit: 200)
-          accounts.each do |account|
-            puts "Account: #{account.code}"
-          end
+          accounts = client.list_accounts(limit=200).items()
+          for account in accounts:
+              print(account.code)
     post:
       tags:
       - account
@@ -960,39 +985,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              account_create = {
-                  "code": account_code,
-                  "first_name": "Benjamin",
-                  "last_name": "Du Monde",
-                  "acquisition": {
-                      "campaign": "podcast-marketing",
-                      "channel": "social_media",
-                      "subchannel": "twitter",
-                      "cost": {"currency": "USD", "amount": 0.50},
-                  },
-                  "shipping_addresses": [
-                      {
-                          "nickname": "Home",
-                          "street1": "1 Tchoupitoulas St",
-                          "city": "New Orleans",
-                          "region": "LA",
-                          "country": "US",
-                          "postal_code": "70115",
-                          "first_name": "Aaron",
-                          "last_name": "Du Monde",
-                      }
-                  ],
-              }
-              account = client.create_account(account_create)
-              print("Created Account %s" % account)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -1053,34 +1045,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const accountCreate = {
-              code: accountCode,
-              firstName: 'Benjamin',
-              lastName: 'Du Monde',
-              address: {
-                street1: '900 Camp St',
-                city: 'New Orleans',
-                region: 'LA',
-                postalCode: '70115',
-                country: 'US'
-              }
-            }
-            const account = await client.createAccount(accountCreate)
-            console.log('Created Account: ', account.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Ruby
         source: |
           begin
@@ -1117,6 +1081,67 @@ paths:
             # why. You can find the invalid params and reasons in e.recurly_error.params
             puts "ValidationError: #{e.recurly_error.params}"
           end
+      - lang: Node.js
+        source: |
+          try {
+            const accountCreate = {
+              code: accountCode,
+              firstName: 'Benjamin',
+              lastName: 'Du Monde',
+              address: {
+                street1: '900 Camp St',
+                city: 'New Orleans',
+                region: 'LA',
+                postalCode: '70115',
+                country: 'US'
+              }
+            }
+            const account = await client.createAccount(accountCreate)
+            console.log('Created Account: ', account.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              account_create = {
+                  "code": account_code,
+                  "first_name": "Benjamin",
+                  "last_name": "Du Monde",
+                  "acquisition": {
+                      "campaign": "podcast-marketing",
+                      "channel": "social_media",
+                      "subchannel": "twitter",
+                      "cost": {"currency": "USD", "amount": 0.50},
+                  },
+                  "shipping_addresses": [
+                      {
+                          "nickname": "Home",
+                          "street1": "1 Tchoupitoulas St",
+                          "city": "New Orleans",
+                          "region": "LA",
+                          "country": "US",
+                          "postal_code": "70115",
+                          "first_name": "Aaron",
+                          "last_name": "Du Monde",
+                      }
+                  ],
+              }
+              account = client.create_account(account_create)
+              print("Created Account %s" % account)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/accounts/{account_id}":
     parameters:
     - "$ref": "#/components/parameters/site_id"
@@ -1140,15 +1165,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              account = client.get_account(account_id)
-              print("Got Account %s" % account)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -1180,6 +1196,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            account = @client.get_account(account_id: account_id)
+            puts "Got Account #{account}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -1196,16 +1222,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            account = @client.get_account(account_id: account_id)
-            puts "Got Account #{account}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              account = client.get_account(account_id)
+              print("Got Account %s" % account)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     put:
       tags:
       - account
@@ -1250,17 +1275,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              account_update = {"first_name": "Aaron", "last_name": "Du Monde"}
-              account = client.update_account(account_id, account_update)
-              print("Updated Account %s" % account)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -1303,6 +1317,23 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            account_update = {
+              first_name: "Aaron",
+              last_name: "Du Monde",
+            }
+            account = @client.update_account(
+              account_id: account_id,
+              body: account_update
+            )
+            puts "Updated Account #{account}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -1323,23 +1354,17 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            account_update = {
-              first_name: "Aaron",
-              last_name: "Du Monde",
-            }
-            account = @client.update_account(
-              account_id: account_id,
-              body: account_update
-            )
-            puts "Updated Account #{account}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              account_update = {"first_name": "Aaron", "last_name": "Du Monde"}
+              account = client.update_account(account_id, account_update)
+              print("Updated Account %s" % account)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
     delete:
       tags:
       - account
@@ -1369,15 +1394,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              account = client.deactivate_account(account_id)
-              print("Deactivated Account %s" % account)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -1409,6 +1425,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            account = @client.deactivate_account(account_id: account_id)
+            puts "Deactivated Account #{account}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -1424,16 +1450,15 @@ paths:
             // probably re-raise and let our web framework and logger handle it
             throw err
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            account = @client.deactivate_account(account_id: account_id)
-            puts "Deactivated Account #{account}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              account = client.deactivate_account(account_id)
+              print("Deactivated Account %s" % account)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/accounts/{account_id}/acquisition":
     parameters:
     - "$ref": "#/components/parameters/site_id"
@@ -1459,15 +1484,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              acquisition = client.get_account_acquisition(account_id)
-              print("Got AccountAcquisition %s" % acquisition)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -1499,6 +1515,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            @client.get_account_acquisition(account_id: account_id)
+            puts "Got AccountAcquisition"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -1515,16 +1541,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            @client.get_account_acquisition(account_id: account_id)
-            puts "Got AccountAcquisition"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              acquisition = client.get_account_acquisition(account_id)
+              print("Got AccountAcquisition %s" % acquisition)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     put:
       tags:
       - account
@@ -1563,22 +1588,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              acquisition_update = {
-                  "campaign": "podcast-marketing",
-                  "channel": "social_media",
-                  "subchannel": "twitter",
-                  "cost": {"currency": "USD", "amount": 0.50},
-              }
-              acquisition = client.update_account_acquisition(account_id, acquisition_update)
-              print("Updated AccountAcquisition %s" % acquisition)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -1642,6 +1651,22 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
+      - lang: Python
+        source: |
+          try:
+              acquisition_update = {
+                  "campaign": "podcast-marketing",
+                  "channel": "social_media",
+                  "subchannel": "twitter",
+                  "cost": {"currency": "USD", "amount": 0.50},
+              }
+              acquisition = client.update_account_acquisition(account_id, acquisition_update)
+              print("Updated AccountAcquisition %s" % acquisition)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
     delete:
       tags:
       - account
@@ -1658,15 +1683,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              client.remove_account_acquisition(account_id)
-              print("Removed AccountAcquisition for Account id=%s" % account_id)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -1698,6 +1714,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            acquisition = @client.remove_account_acquisition(account_id: account_id)
+            puts "Removed AccountAcqusition #{acquisition}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -1714,16 +1740,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            acquisition = @client.remove_account_acquisition(account_id: account_id)
-            puts "Removed AccountAcqusition #{acquisition}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              client.remove_account_acquisition(account_id)
+              print("Removed AccountAcquisition for Account id=%s" % account_id)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/accounts/{account_id}/reactivate":
     parameters:
     - "$ref": "#/components/parameters/site_id"
@@ -1761,15 +1786,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              account = client.reactivate_account(account_id)
-              print("Reactivated Account %s" % account)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -1801,6 +1817,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            account = @client.reactivate_account(account_id: account_id)
+            puts "Reactivated account #{account}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -1816,16 +1842,15 @@ paths:
             // probably re-raise and let our web framework and logger handle it
             throw err
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            account = @client.reactivate_account(account_id: account_id)
-            puts "Reactivated account #{account}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              account = client.reactivate_account(account_id)
+              print("Reactivated Account %s" % account)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/accounts/{account_id}/balance":
     parameters:
     - "$ref": "#/components/parameters/site_id"
@@ -1855,15 +1880,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              balance = client.get_account_balance(account_id)
-              print("Got AccountBalance %s" % balance)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -1895,6 +1911,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            balance = @client.get_account_balance(account_id: account_id)
+            puts "Got AccountBalance #{balance}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -1911,16 +1937,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            balance = @client.get_account_balance(account_id: account_id)
-            puts "Got AccountBalance #{balance}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              balance = client.get_account_balance(account_id)
+              print("Got AccountBalance %s" % balance)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/accounts/{account_id}/billing_info":
     get:
       tags:
@@ -1952,15 +1977,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              binfo = client.get_billing_info(account_id)
-              print("Got BillingInfo %s" % binfo)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -1992,6 +2008,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            billing = @client.get_billing_info(account_id: account_id)
+            puts "Got BillingInfo #{billing}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -2008,16 +2034,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            billing = @client.get_billing_info(account_id: account_id)
-            puts "Got BillingInfo #{billing}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              binfo = client.get_billing_info(account_id)
+              print("Got BillingInfo %s" % binfo)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     put:
       tags:
       - account
@@ -2034,6 +2059,13 @@ paths:
         - number
         - month
         - year
+
+        For tokenized payments you'll need the following required fields:
+
+        - first_name
+        - last_name
+        - gateway_token
+        - gateway_code
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -2070,17 +2102,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/ErrorMayHaveTransaction"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              billing_update = {"first_name": "Aaron", "last_name": "Du Monde"}
-              billing = client.update_billing_info(account_id, billing_update)
-              print("Updated BillingInfo %s" % billing)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -2120,6 +2141,23 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            billing_update = {
+              first_name: "Aaron",
+              last_name: "Du Monde",
+            }
+            billing = @client.update_billing_info(
+              account_id: account_id,
+              body: billing_update
+            )
+            puts "Updated BillingInfo #{billing}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -2140,23 +2178,17 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            billing_update = {
-              first_name: "Aaron",
-              last_name: "Du Monde",
-            }
-            billing = @client.update_billing_info(
-              account_id: account_id,
-              body: billing_update
-            )
-            puts "Updated BillingInfo #{billing}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              billing_update = {"first_name": "Aaron", "last_name": "Du Monde"}
+              billing = client.update_billing_info(account_id, billing_update)
+              print("Updated BillingInfo %s" % billing)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
     delete:
       tags:
       - account
@@ -2180,15 +2212,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              client.remove_billing_info(account_id)
-              print("Removed BillingInfo for Account id=%s" % account_id)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -2220,6 +2243,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            @client.remove_billing_info(account_id: account_id)
+            puts "Removed BillingInfo #{account_id}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -2236,16 +2269,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            @client.remove_billing_info(account_id: account_id)
-            puts "Removed BillingInfo #{account_id}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              client.remove_billing_info(account_id)
+              print("Removed BillingInfo for Account id=%s" % account_id)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/accounts/{account_id}/coupon_redemptions":
     get:
       tags:
@@ -2280,11 +2312,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          redemptions = client.list_account_coupon_redemptions(account_id, limit=200).items()
-          for redemption in redemptions:
-              print(redemption.id)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -2303,6 +2330,11 @@ paths:
           redemptions.each do |redemption|
             puts "CouponRedemption: #{redemption.id}"
           end
+      - lang: Python
+        source: |
+          redemptions = client.list_account_coupon_redemptions(account_id, limit=200).items()
+          for redemption in redemptions:
+              print(redemption.id)
   "/sites/{site_id}/accounts/{account_id}/coupon_redemptions/active":
     get:
       tags:
@@ -2333,15 +2365,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              redemption = client.get_active_coupon_redemption(account_id)
-              print("Got Redemption %s" % redemption)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -2373,6 +2396,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            redemption = @client.get_active_coupon_redemption(account_id: account_id)
+            puts "Got CouponRedemption #{redemption}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -2389,16 +2422,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            redemption = @client.get_active_coupon_redemption(account_id: account_id)
-            puts "Got CouponRedemption #{redemption}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              redemption = client.get_active_coupon_redemption(account_id)
+              print("Got Redemption %s" % redemption)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     post:
       tags:
       - account
@@ -2440,17 +2472,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              redemption_create = {"currency": "USD", "coupon_id": coupon_id}
-              redemption = client.create_coupon_redemption(account_id, redemption_create)
-              print("Created Redemption %s" % redemption)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -2484,6 +2505,17 @@ paths:
             # why. You can find the invalid params and reasons in e.recurly_error.params
             puts "ValidationError: #{e.recurly_error.params}"
           end
+      - lang: Python
+        source: |
+          try:
+              redemption_create = {"currency": "USD", "coupon_id": coupon_id}
+              redemption = client.create_coupon_redemption(account_id, redemption_create)
+              print("Created Redemption %s" % redemption)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
     delete:
       tags:
       - account
@@ -2513,15 +2545,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              client.remove_coupon_redemption(account_id)
-              print("Removed Redemption from Account id=%s" % account_id)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -2545,6 +2568,15 @@ paths:
             # just return nil
             puts "Resource Not Found"
           end
+      - lang: Python
+        source: |
+          try:
+              client.remove_coupon_redemption(account_id)
+              print("Removed Redemption from Account id=%s" % account_id)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/accounts/{account_id}/credit_payments":
     get:
       tags:
@@ -2586,11 +2618,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          payments = client.list_account_credit_payments(account_id, limit=200).items()
-          for payment in payments:
-              print(payment.id)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -2607,13 +2634,6 @@ paths:
           {
               Console.WriteLine(payment.Uuid);
           }
-      - lang: Node.js
-        source: |
-          const payments = client.listAccountCreditPayments(accountId, { limit: 200 })
-
-          for await (const payment of payments.each()) {
-            console.log(payment.uuid)
-          }
       - lang: Ruby
         source: |
           payments = @client.list_account_credit_payments(
@@ -2623,6 +2643,18 @@ paths:
           payments.each do |payment|
             puts "CreditPayment: #{payment.id}"
           end
+      - lang: Node.js
+        source: |
+          const payments = client.listAccountCreditPayments(accountId, { limit: 200 })
+
+          for await (const payment of payments.each()) {
+            console.log(payment.uuid)
+          }
+      - lang: Python
+        source: |
+          payments = client.list_account_credit_payments(account_id, limit=200).items()
+          for payment in payments:
+              print(payment.id)
   "/sites/{site_id}/accounts/{account_id}/invoices":
     get:
       tags:
@@ -2666,11 +2698,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          invoices = client.list_account_invoices(account_id, limit=200).items()
-          for invoice in invoices:
-              print(invoice.number)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -2689,6 +2716,11 @@ paths:
           invoices.each do |invoice|
             puts "Invoice: #{invoice.number}"
           end
+      - lang: Python
+        source: |
+          invoices = client.list_account_invoices(account_id, limit=200).items()
+          for invoice in invoices:
+              print(invoice.number)
     post:
       tags:
       - invoice
@@ -2737,17 +2769,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              invoice_create = {"currency": "USD", "collection_method": "automatic"}
-              invoice_collection = client.create_invoice(account_id, invoice_create)
-              print("Created InvoiceCollection %s" % invoice_collection)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -2792,6 +2813,23 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            invoice_create = {
+              currency: 'USD',
+              collection_method: 'automatic'
+            }
+            collection = @client.create_invoice(
+              account_id: account_id,
+              body: invoice_create
+            )
+            puts "Created InvoiceCollection #{collection}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -2814,23 +2852,17 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            invoice_create = {
-              currency: 'USD',
-              collection_method: 'automatic'
-            }
-            collection = @client.create_invoice(
-              account_id: account_id,
-              body: invoice_create
-            )
-            puts "Created InvoiceCollection #{collection}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              invoice_create = {"currency": "USD", "collection_method": "automatic"}
+              invoice_collection = client.create_invoice(account_id, invoice_create)
+              print("Created InvoiceCollection %s" % invoice_collection)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/accounts/{account_id}/invoices/preview":
     post:
       tags:
@@ -2879,17 +2911,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              invoice_preview = {"currency": "USD", "collection_method": "automatic"}
-              invoice_collection = client.preview_invoice(account_id, invoice_preview)
-              print("Preview InvoiceCollection %s" % invoice_collection)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -2934,6 +2955,23 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            invoice_preview = {
+              currency: "USD",
+              collection_method: "automatic"
+            }
+            collection = @client.create_invoice(
+              account_id: account_id,
+              body: invoice_preview
+            )
+            puts "Created InvoiceCollection #{collection}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -2956,23 +2994,17 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            invoice_preview = {
-              currency: "USD",
-              collection_method: "automatic"
-            }
-            collection = @client.create_invoice(
-              account_id: account_id,
-              body: invoice_preview
-            )
-            puts "Created InvoiceCollection #{collection}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              invoice_preview = {"currency": "USD", "collection_method": "automatic"}
+              invoice_collection = client.preview_invoice(account_id, invoice_preview)
+              print("Preview InvoiceCollection %s" % invoice_collection)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/accounts/{account_id}/line_items":
     get:
       tags:
@@ -3018,11 +3050,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          line_items = client.list_account_line_items(account_id, limit=200).items()
-          for line_item in line_items:
-              print(line_item.id)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -3041,6 +3068,11 @@ paths:
           line_items.each do |line_item|
             puts "LineItem: #{line_item.id}"
           end
+      - lang: Python
+        source: |
+          line_items = client.list_account_line_items(account_id, limit=200).items()
+          for line_item in line_items:
+              print(line_item.id)
     post:
       tags:
       - account
@@ -3082,21 +3114,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              line_item_create = {
-                  "currency": "USD",
-                  "unit_amount": 1000,
-                  "type": "charge",  # choose "credit" for a credit
-              }
-              line_item = client.create_line_item(account_id, line_item_create)
-              print("Created LineItem %s" % line_item)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -3140,6 +3157,24 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            line_item_create = {
+              currency: 'USD',
+              unit_amount: 1_000,
+              type: :charge
+            }
+            line_item = @client.create_line_item(
+              account_id: account_id,
+              body: line_item_create
+            )
+            puts "Created LineItem #{line_item}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -3161,24 +3196,21 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            line_item_create = {
-              currency: 'USD',
-              unit_amount: 1_000,
-              type: :charge
-            }
-            line_item = @client.create_line_item(
-              account_id: account_id,
-              body: line_item_create
-            )
-            puts "Created LineItem #{line_item}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              line_item_create = {
+                  "currency": "USD",
+                  "unit_amount": 1000,
+                  "type": "charge",  # choose "credit" for a credit
+              }
+              line_item = client.create_line_item(account_id, line_item_create)
+              print("Created LineItem %s" % line_item)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/accounts/{account_id}/notes":
     get:
       tags:
@@ -3210,11 +3242,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          line_items = client.list_account_line_items(account_id, limit=200).items()
-          for line_item in line_items:
-              print(line_item.id)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -3231,6 +3258,12 @@ paths:
           {
               Console.WriteLine(note.Message);
           }
+      - lang: Ruby
+        source: |
+          account_notes = @client.list_account_notes(account_id: account_id, limit: 200)
+          account_notes.each do |note|
+            puts "AccountNote: #{note.message}"
+          end
       - lang: Node.js
         source: |
           const notes = client.listAccountNotes(accountId, { limit: 200 })
@@ -3238,12 +3271,11 @@ paths:
           for await (const note of notes.each()) {
             console.log(note.message)
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          account_notes = @client.list_account_notes(account_id: account_id, limit: 200)
-          account_notes.each do |note|
-            puts "AccountNote: #{note.message}"
-          end
+          line_items = client.list_account_line_items(account_id, limit=200).items()
+          for line_item in line_items:
+              print(line_item.id)
   "/sites/{site_id}/accounts/{account_id}/notes/{account_note_id}":
     get:
       tags:
@@ -3280,15 +3312,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              note = client.get_account_note(account_id, note_id)
-              print("Got AccountNote %s" % note)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -3320,6 +3343,19 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            note = @client.get_account_note(
+              account_id: account_id,
+              account_note_id: note_id
+            )
+            puts "Got AccountNote #{note}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -3337,19 +3373,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            note = @client.get_account_note(
-              account_id: account_id,
-              account_note_id: note_id
-            )
-            puts "Got AccountNote #{note}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              note = client.get_account_note(account_id, note_id)
+              print("Got AccountNote %s" % note)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/accounts/{account_id}/shipping_addresses":
     get:
       tags:
@@ -3386,11 +3418,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          shipping_addresses = client.list_shipping_addresses(account_id).items()
-          for shipping_address in shipping_addresses:
-              print(shipping_address.id)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -3407,13 +3434,6 @@ paths:
           {
               Console.WriteLine(address.Street1);
           }
-      - lang: Node.js
-        source: |
-          const addresses = client.listShippingAddresses(accountId, { limit: 200 })
-
-          for await (const address of addresses.each()) {
-            console.log(address.street1)
-          }
       - lang: Ruby
         source: |
           shipping_addresses = @client.list_shipping_addresses(
@@ -3423,6 +3443,18 @@ paths:
           shipping_addresses.each do |addr|
             puts "ShippingAddress: #{addr.nickname} - #{addr.street1}"
           end
+      - lang: Node.js
+        source: |
+          const addresses = client.listShippingAddresses(accountId, { limit: 200 })
+
+          for await (const address of addresses.each()) {
+            console.log(address.street1)
+          }
+      - lang: Python
+        source: |
+          shipping_addresses = client.list_shipping_addresses(account_id).items()
+          for shipping_address in shipping_addresses:
+              print(shipping_address.id)
     post:
       tags:
       - account
@@ -3464,24 +3496,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              shipping_addr_create = {
-                  "first_name": "Aaron",
-                  "last_name": "Du Monde",
-                  "street1": "900 Camp St.",
-                  "city": "New Orleans",
-                  "postal_code": "70115",
-                  "country": "US",
-              }
-              shad = client.create_shipping_address(account_id, shipping_addr_create)
-              print("Created ShippingAddress %s" % shad)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -3557,6 +3571,24 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
+      - lang: Python
+        source: |
+          try:
+              shipping_addr_create = {
+                  "first_name": "Aaron",
+                  "last_name": "Du Monde",
+                  "street1": "900 Camp St.",
+                  "city": "New Orleans",
+                  "postal_code": "70115",
+                  "country": "US",
+              }
+              shad = client.create_shipping_address(account_id, shipping_addr_create)
+              print("Created ShippingAddress %s" % shad)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}":
     get:
       tags:
@@ -3588,15 +3620,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              subscription = client.get_subscription(subscription_id)
-              print("Got Subscription %s" % subscription)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -3628,6 +3651,19 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            address = @client.get_shipping_address(
+              account_id: account_id,
+              shipping_address_id: shipping_address_id
+            )
+            puts "Got ShippingAddress #{address}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -3644,19 +3680,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            address = @client.get_shipping_address(
-              account_id: account_id,
-              shipping_address_id: shipping_address_id
-            )
-            puts "Got ShippingAddress #{address}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              subscription = client.get_subscription(subscription_id)
+              print("Got Subscription %s" % subscription)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     put:
       tags:
       - account
@@ -3705,23 +3737,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              address_update = {
-                  "first_name": "Aaron",
-                  "last_name": "Du Monde",
-                  "postal_code": "70130",
-              }
-              address = client.update_shipping_address(
-                  account_id, shipping_address_id, address_update
-              )
-              print("Updated ShippingAddress %s" % address)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -3762,6 +3777,25 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            address_update = {
+              first_name: "Aaron",
+              last_name: "Du Monde",
+              postal_code: "70130"
+            }
+            address = @client.update_shipping_address(
+              account_id: account_id,
+              shipping_address_id: shipping_address_id,
+              body: address_update
+            )
+            puts "Updated ShippingAddress #{address}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -3782,25 +3816,23 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            address_update = {
-              first_name: "Aaron",
-              last_name: "Du Monde",
-              postal_code: "70130"
-            }
-            address = @client.update_shipping_address(
-              account_id: account_id,
-              shipping_address_id: shipping_address_id,
-              body: address_update
-            )
-            puts "Updated ShippingAddress #{address}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              address_update = {
+                  "first_name": "Aaron",
+                  "last_name": "Du Monde",
+                  "postal_code": "70130",
+              }
+              address = client.update_shipping_address(
+                  account_id, shipping_address_id, address_update
+              )
+              print("Updated ShippingAddress %s" % address)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
     delete:
       tags:
       - account
@@ -3821,15 +3853,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              client.remove_shipping_address(account_id, shipping_address_id)
-              print("Removed ShippingAddress %s" % shipping_address_id)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -3861,6 +3884,19 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            @client.remove_shipping_address(
+              account_id: account_id,
+              shipping_address_id: shipping_address_id
+            )
+            puts "Removed ShippingAddress #{shipping_address_id}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -3877,19 +3913,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            @client.remove_shipping_address(
-              account_id: account_id,
-              shipping_address_id: shipping_address_id
-            )
-            puts "Removed ShippingAddress #{shipping_address_id}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              client.remove_shipping_address(account_id, shipping_address_id)
+              print("Removed ShippingAddress %s" % shipping_address_id)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/accounts/{account_id}/subscriptions":
     get:
       tags:
@@ -4106,17 +4138,17 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          acquisitions = client.list_account_acquisition(limit=200).items()
-          for acquisition in acquisitions:
-              print(acquisition.id)
       - lang: Ruby
         source: |
           acquisitions = @client.list_account_acquisition(limit: 200)
           acquisitions.each do |acquisition|
             puts "AccountAcquisition: #{acquisition.cost}"
           end
+      - lang: Python
+        source: |
+          acquisitions = client.list_account_acquisition(limit=200).items()
+          for acquisition in acquisitions:
+              print(acquisition.id)
   "/sites/{site_id}/coupons":
     get:
       tags:
@@ -4157,11 +4189,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          coupons = client.list_coupons(limit=200).items()
-          for coupon in coupons:
-              print(coupon.code)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -4178,6 +4205,12 @@ paths:
           {
               Console.WriteLine(coupon.Code);
           }
+      - lang: Ruby
+        source: |
+          coupons = @client.list_coupons(limit: 200)
+          coupons.each do |coupon|
+            puts "coupon: #{coupon.code}"
+          end
       - lang: Node.js
         source: |
           const coupons = client.listCoupons({ limit: 200 })
@@ -4185,12 +4218,11 @@ paths:
           for await (const coupon of coupons.each()) {
             console.log(coupon.code)
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          coupons = @client.list_coupons(limit: 200)
-          coupons.each do |coupon|
-            puts "coupon: #{coupon.code}"
-          end
+          coupons = client.list_coupons(limit=200).items()
+          for coupon in coupons:
+              print(coupon.code)
     post:
       tags:
       - coupon
@@ -4236,22 +4268,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              coupon_create = {
-                  "name": "Promotional Coupon",
-                  "code": coupon_code,
-                  "discount_type": "fixed",
-                  "currencies": [{"currency": "USD", "discount": 10000}],
-              }
-              coupon = client.create_coupon(coupon_create)
-              print("Created Coupon %s" % coupon)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -4301,6 +4317,22 @@ paths:
             # why. You can find the invalid params and reasons in e.recurly_error.params
             puts "ValidationError: #{e.recurly_error.params}"
           end
+      - lang: Python
+        source: |
+          try:
+              coupon_create = {
+                  "name": "Promotional Coupon",
+                  "code": coupon_code,
+                  "discount_type": "fixed",
+                  "currencies": [{"currency": "USD", "discount": 10000}],
+              }
+              coupon = client.create_coupon(coupon_create)
+              print("Created Coupon %s" % coupon)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/coupons/{coupon_id}":
     get:
       tags:
@@ -4330,15 +4362,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              coupon = client.get_coupon(coupon_id)
-              print("Got Coupon %s" % coupon)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -4370,6 +4393,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            coupon = @client.get_coupon(coupon_id: coupon_id)
+            puts "Got Coupon #{coupon}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -4386,16 +4419,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            coupon = @client.get_coupon(coupon_id: coupon_id)
-            puts "Got Coupon #{coupon}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              coupon = client.get_coupon(coupon_id)
+              print("Got Coupon %s" % coupon)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     put:
       tags:
       - coupon
@@ -4441,6 +4473,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/coupons/{coupon_id}/generate":
     post:
       tags:
@@ -4484,6 +4517,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/coupons/{coupon_id}/unique_coupon_codes":
     get:
       tags:
@@ -4519,6 +4553,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/credit_payments":
     get:
       tags:
@@ -4574,6 +4609,12 @@ paths:
           {
               Console.WriteLine(payment.Uuid);
           }
+      - lang: Ruby
+        source: |
+          payments = @client.list_credit_payments(limit: 200)
+          payments.each do |payment|
+            puts "CreditPayment: #{payment.id}"
+          end
       - lang: Node.js
         source: |
           const payments = client.listCreditPayments({ limit: 200 })
@@ -4581,12 +4622,6 @@ paths:
           for await (const payment of payments.each()) {
             console.log(payment.uuid)
           }
-      - lang: Ruby
-        source: |
-          payments = @client.list_credit_payments(limit: 200)
-          payments.each do |payment|
-            puts "CreditPayment: #{payment.id}"
-          end
   "/sites/{site_id}/credit_payments/{credit_payment_id}":
     get:
       tags:
@@ -4615,6 +4650,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/custom_field_definitions":
     get:
       tags:
@@ -4664,11 +4700,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          custom_fields = client.list_custom_field_definitions(limit=200).items()
-          for custom_field in custom_fields:
-              print(custom_field.name)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -4685,6 +4716,12 @@ paths:
           {
               Console.WriteLine(def.DisplayName);
           }
+      - lang: Ruby
+        source: |
+          custom_fields = @client.list_custom_field_definitions(limit: 200)
+          custom_fields.each do |field|
+            puts "CustomFieldDefinition: #{field.name}"
+          end
       - lang: Node.js
         source: |
           const definitions = client.listCustomFieldDefinitions({ limit: 200 })
@@ -4692,12 +4729,11 @@ paths:
           for await (const definition of definitions.each()) {
             console.log(definition.displayName)
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          custom_fields = @client.list_custom_field_definitions(limit: 200)
-          custom_fields.each do |field|
-            puts "CustomFieldDefinition: #{field.name}"
-          end
+          custom_fields = client.list_custom_field_definitions(limit=200).items()
+          for custom_field in custom_fields:
+              print(custom_field.name)
   "/sites/{site_id}/custom_field_definitions/{custom_field_definition_id}":
     get:
       tags:
@@ -4814,6 +4850,41 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Java
+        source: |
+          QueryParams params = new QueryParams();
+          params.setLimit(200); // Pull 200 records at a time
+          Pager<Item> items = client.listItems(params);
+
+          for (Item item : items) {
+              System.out.println(item.getCode());
+          }
+      - lang: ".NET"
+        source: |
+          var items = client.ListItems(limit: 200);
+          foreach(Item item in items)
+          {
+              Console.WriteLine(item.Code);
+          }
+      - lang: Ruby
+        source: |
+          items = @client.list_items(limit: 200)
+          items.each do |item|
+            puts "Item: #{item.code}"
+          end
+      - lang: Node.js
+        source: |
+          const items = client.listItems({ limit: 200 })
+
+          for await (const item of items.each()) {
+            console.log(item.code)
+          }
+      - lang: Python
+        source: |
+          items = client.list_items(limit=200).items()
+          for item in items:
+              print(item.code)
     post:
       tags:
       - item
@@ -4858,6 +4929,143 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Java
+        source: |
+          try {
+              ItemCreate itemReq = new ItemCreate();
+
+              itemReq.setCode(itemCode);
+              itemReq.setName("Item Name");
+              itemReq.setDescription("Item Description");
+              itemReq.setExternalSku("a35JE-44");
+              itemReq.setAccountingCode("item-code-127");
+              itemReq.setRevenueScheduleType("at_range_end");
+
+              List<CustomField> customFields = new ArrayList<>();
+              CustomField customField = new CustomField();
+              customField.setName("custom-field-1");
+              customField.setValue("Custom Field 1 value");
+              customFields.add(customField);
+
+              itemReq.setCustomFields(customFields);
+
+
+              Item item = client.createItem(itemReq);
+              System.out.println("Created item " + item.getCode());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              var itemReq = new ItemCreate()
+              {
+                  Code = itemCode,
+                  Name = "Item Name",
+                  Description = "Item Description",
+                  ExternalSku = "a35JE-44",
+                  AccountingCode = "item-code-127",
+                  RevenueScheduleType = "at_range_end",
+                  CustomFields = new List<CustomField>() {
+                      new CustomField() {
+                          Name = "custom-field-1",
+                          Value = "Custom Field 1 value"
+                      }
+                  }
+              };
+              Item item = client.CreateItem(itemReq);
+              Console.WriteLine($"Created item {item.Code}");
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            item_create = {
+              code: item_code,
+              name: "Item Name",
+              description: "Item Description",
+              external_sku: "a35JE-44",
+              accounting_code: "item-code-127",
+              revenue_schedule_type: "at_range_end",
+              custom_fields: [{
+                name: "custom-field-1",
+                value: "Custom Field 1 value"
+              }]
+            }
+            item = @client.create_item(body: item_create)
+            puts "Created Item #{item}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
+      - lang: Node.js
+        source: |
+          try {
+            const itemCreate = {
+              code: itemCode,
+              name: "Item Name",
+              description: "Item Description",
+              external_sku: "a35JE-44",
+              accounting_code: "item-code-127",
+              revenue_schedule_type: "at_range_end",
+              custom_fields: [{
+                name: "custom-field-1",
+                value: "Custom Field 1 value"
+              }]
+            }
+            const item = await client.createItem(itemCreate)
+            console.log('Created Item: ', item.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              item_create = {
+                  "code": item_code,
+                  "name": "Item Name",
+                  "description": "Item Description",
+                  "external_sku": "a35JE-44",
+                  "accounting_code": "item-code-127",
+                  "revenue_schedule_type": "at_range_end",
+                  "custom_fields": [{
+                      "name": "custom-field-1",
+                      "value": "Custom Field 1 value"
+                  }]
+              }
+              item = client.create_item(item_create)
+              print("Created Item %s" % item)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/items/{item_id}":
     get:
       tags:
@@ -4886,6 +5094,73 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Java
+        source: |
+          try {
+              final Item item = client.getItem(itemId);
+              System.out.println("Fetched item: " + item.getCode());
+          } catch (NotFoundException e) {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              System.out.println("Resource Not Found: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              Item item = client.GetItem(itemId);
+              Console.WriteLine($"Fetched item {item.Code}");
+          }
+          catch (Recurly.Errors.NotFound ex)
+          {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              Console.WriteLine($"Resource Not Found: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            item = @client.get_item(item_id: item_id)
+            puts "Got Item #{item}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Node.js
+        source: |
+          try {
+            const item = await client.getItem(itemId)
+            console.log('Fetched item: ', item.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              item = client.get_item(item_id)
+              print("Got Item %s" % item)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     put:
       tags:
       - item
@@ -4931,6 +5206,100 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Java
+        source: |
+          try {
+              final ItemUpdate itemUpdate = new ItemUpdate();
+              itemUpdate.setName("New Item Name");
+              itemUpdate.setDescription("New Item Description");
+
+              final Item item = client.updateItem(itemId, itemUpdate);
+              System.out.println("Updated item: " + item.getCode());
+              System.out.println(item.getName());
+              System.out.println(item.getDescription());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              var itemReq = new ItemUpdate() {
+                  Name = "New Item Name",
+                  Description = "New Item Description",
+              };
+              Item item = client.UpdateItem(itemId, itemReq);
+              Console.WriteLine(item.Name);
+              Console.WriteLine(item.Description);
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            item_update = {
+              name: "New Item Name",
+              description: "New Item Description"
+            }
+            item = @client.update_item(
+              item_id: item_id,
+              body: item_update
+            )
+            puts "Updated Item #{item}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
+      - lang: Node.js
+        source: |
+          try {
+            const itemUpdate = {
+              name: 'New Item Name',
+              description: 'New Item Description'
+            }
+            const item = await client.updateItem(itemId, itemUpdate)
+            console.log('Updated item: ', item)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              item_update = {
+                  "name": "New Item Name",
+                  "description": "New Item Description",
+              }
+              item = client.update_item(item_id, item_update)
+              print("Updated Item %s" % item)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
     delete:
       tags:
       - item
@@ -4960,6 +5329,72 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Java
+        source: |
+          try {
+              Item item = client.deactivateItem(itemId);
+              System.out.println("deactivated item " + item.getCode());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              Item item = client.DeactivateItem(itemId);
+              Console.WriteLine($"Deactivated item {item.Code}");
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            item = @client.deactivate_item(item_id: item_id)
+            puts "Deactivated Item #{item}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Node.js
+        source: |
+          try {
+            const item = await client.deactivateItem(itemId)
+            console.log('Deleted item: ', item.code)
+          } catch (err) {
+            if (err && err.type === 'not-found') {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            }
+            // If we don't know what to do with the err, we should
+            // probably re-raise and let our web framework and logger handle it
+            throw err
+          }
+      - lang: Python
+        source: |
+          try:
+              item = client.deactivate_item(item_id)
+              print("Deactivated Item %s" % item)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/items/{item_id}/reactivate":
     parameters:
     - "$ref": "#/components/parameters/site_id"
@@ -4996,6 +5431,72 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Java
+        source: |
+          try {
+              final Item item = client.reactivateItem(itemId);
+              System.out.println("Reactivated item: " + item.getCode());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: ".NET"
+        source: |
+          try
+          {
+              Item item = client.ReactivateItem(itemId);
+              Console.WriteLine($"Reactivated item {item.Code}");
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            item = @client.reactivate_item(item_id: item_id)
+            puts "Reactivated Item #{item}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Node.js
+        source: |
+          try {
+            const item = await client.reactivateItem(itemId)
+            console.log('Reactivated item: ', item.code)
+          } catch (err) {
+            if (err && err.type === 'not_found') {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            }
+            // If we don't know what to do with the err, we should
+            // probably re-raise and let our web framework and logger handle it
+            throw err
+          }
+      - lang: Python
+        source: |
+          try:
+              item = client.reactivate_item(item_id)
+              print("Reactivated Item %s" % item)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/invoices":
     get:
       tags:
@@ -5037,11 +5538,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          invoices = client.list_invoices(limit=200).items()
-          for invoice in invoices:
-              print(invoice.number)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -5058,6 +5554,12 @@ paths:
           {
               Console.WriteLine(invoice.Number);
           }
+      - lang: Ruby
+        source: |
+          invoices = @client.list_invoices(limit: 200)
+          invoices.each do |invoice|
+            puts "Invoice: #{invoice.number}"
+          end
       - lang: Node.js
         source: |
           const invoices = client.listInvoices({ limit: 200 })
@@ -5065,12 +5567,11 @@ paths:
           for await (const invoice of invoices.each()) {
             console.log(invoice.number)
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          invoices = @client.list_invoices(limit: 200)
-          invoices.each do |invoice|
-            puts "Invoice: #{invoice.number}"
-          end
+          invoices = client.list_invoices(limit=200).items()
+          for invoice in invoices:
+              print(invoice.number)
   "/sites/{site_id}/invoices/{invoice_id}":
     get:
       tags:
@@ -5100,15 +5601,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              invoice = client.get_invoice(invoice_id)
-              print("Got Invoice %s" % invoice)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -5140,6 +5632,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            invoice = @client.get_invoice(invoice_id: invoice_id)
+            puts "Got invoice #{invoice}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -5156,16 +5658,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            invoice = @client.get_invoice(invoice_id: invoice_id)
-            puts "Got invoice #{invoice}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              invoice = client.get_invoice(invoice_id)
+              print("Got Invoice %s" % invoice)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     put:
       tags:
       - invoice
@@ -5291,19 +5792,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              invoice = client.get_invoice_pdf(invoice_id)
-              print("Got Invoice %s" % invoice)
-              filename = "%s/pythoninvoice-%s.pdf" % (download_directory, invoice_id)
-              with open(filename, 'wb') as file:
-                  file.write(invoice.data)
-                  print("Saved Invoice PDF to %s" % filename)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -5345,6 +5833,19 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            invoice = @client.get_invoice_pdf(invoice_id: invoice_id)
+            puts "Got invoice #{invoice}"
+            filename = "#{download_directory}/rubyinvoice-#{invoice_id}.pdf"
+            IO.write(filename, invoice.data)
+            puts "Saved Invoice PDF to #{filename}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -5369,19 +5870,19 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            invoice = @client.get_invoice_pdf(invoice_id: invoice_id)
-            puts "Got invoice #{invoice}"
-            filename = "#{download_directory}/rubyinvoice-#{invoice_id}.pdf"
-            IO.write(filename, invoice.data)
-            puts "Saved Invoice PDF to #{filename}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              invoice = client.get_invoice_pdf(invoice_id)
+              print("Got Invoice %s" % invoice)
+              filename = "%s/pythoninvoice-%s.pdf" % (download_directory, invoice_id)
+              with open(filename, 'wb') as file:
+                  file.write(invoice.data)
+                  print("Saved Invoice PDF to %s" % filename)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/invoices/{invoice_id}/collect":
     put:
       tags:
@@ -5457,6 +5958,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            invoice = @client.collect_invoice(invoice_id: invoice_id)
+            puts "Collected invoice #{invoice}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -5473,16 +5984,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
-        source: |
-          begin
-            invoice = @client.collect_invoice(invoice_id: invoice_id)
-            puts "Collected invoice #{invoice}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
   "/sites/{site_id}/invoices/{invoice_id}/mark_failed":
     put:
       tags:
@@ -5553,6 +6054,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            invoice = @client.fail_invoice(invoice_id: invoice_id)
+            puts "Failed invoice #{invoice}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -5569,16 +6080,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
-        source: |
-          begin
-            invoice = @client.fail_invoice(invoice_id: invoice_id)
-            puts "Failed invoice #{invoice}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
   "/sites/{site_id}/invoices/{invoice_id}/mark_successful":
     put:
       tags:
@@ -5618,16 +6119,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              invoice = client.mark_invoice_successful(invoice_id)
-              print("Marked Invoice successful %s" % invoice)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -5659,6 +6150,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            invoice = @client.mark_invoice_successful(invoice_id: invoice_id)
+            puts "Marked invoice sucessful #{invoice}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -5676,16 +6177,16 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            invoice = @client.mark_invoice_successful(invoice_id: invoice_id)
-            puts "Marked invoice sucessful #{invoice}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              invoice = client.mark_invoice_successful(invoice_id)
+              print("Marked Invoice successful %s" % invoice)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/invoices/{invoice_id}/reopen":
     put:
       tags:
@@ -5753,6 +6254,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            invoice = @client.reopen_invoice(invoice_id: invoice_id)
+            puts "Reopened invoice #{invoice}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -5769,16 +6280,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
-        source: |
-          begin
-            invoice = @client.reopen_invoice(invoice_id: invoice_id)
-            puts "Reopened invoice #{invoice}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
   "/sites/{site_id}/invoices/{invoice_id}/void":
     put:
       tags:
@@ -5815,6 +6316,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/invoices/{invoice_id}/line_items":
     get:
       tags:
@@ -5859,6 +6361,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/invoices/{invoice_id}/coupon_redemptions":
     get:
       tags:
@@ -6013,17 +6516,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              invoice_refund = {"type": "amount", "amount": 100}
-              invoice = client.refund_invoice(invoice_id, invoice_refund)
-              print("Refunded Invoice %s" % invoice)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -6065,6 +6557,23 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            invoice_refund = {
+              type: "amount",
+              amount: 100,
+            }
+            invoice = @client.refund_invoice(
+              invoice_id: invoice_id,
+              body: invoice_refund
+            )
+            puts "Refunded invoice #{invoice}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -6088,23 +6597,17 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            invoice_refund = {
-              type: "amount",
-              amount: 100,
-            }
-            invoice = @client.refund_invoice(
-              invoice_id: invoice_id,
-              body: invoice_refund
-            )
-            puts "Refunded invoice #{invoice}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              invoice_refund = {"type": "amount", "amount": 100}
+              invoice = client.refund_invoice(invoice_id, invoice_refund)
+              print("Refunded Invoice %s" % invoice)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/line_items":
     get:
       tags:
@@ -6148,11 +6651,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          line_items = client.list_line_items(limit=200).items()
-          for line_item in line_items:
-              print(line_item.id)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -6176,6 +6674,11 @@ paths:
           for await (const item of lineItems.each()) {
             console.log(`Item ${item.id} for ${item.amount}`)
           }
+      - lang: Python
+        source: |
+          line_items = client.list_line_items(limit=200).items()
+          for line_item in line_items:
+              print(line_item.id)
   "/sites/{site_id}/line_items/{line_item_id}":
     get:
       tags:
@@ -6205,15 +6708,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              line_item = client.get_line_item(line_item_id)
-              print("Got LineItem %s" % line_item)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -6245,6 +6739,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            line_item = @client.get_line_item(line_item_id: line_item_id)
+            puts "Got LineItem #{line_item}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -6261,16 +6765,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            line_item = @client.get_line_item(line_item_id: line_item_id)
-            puts "Got LineItem #{line_item}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              line_item = client.get_line_item(line_item_id)
+              print("Got LineItem %s" % line_item)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     delete:
       tags:
       - line_item
@@ -6301,15 +6804,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              client.remove_line_item(line_item_id)
-              print("Removed LineItem %s" % line_item_id)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -6341,6 +6835,18 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            @client.remove_line_item(
+              line_item_id: line_item_id
+            )
+            puts "Removed LineItem #{line_item_id}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -6357,18 +6863,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            @client.remove_line_item(
-              line_item_id: line_item_id
-            )
-            puts "Removed LineItem #{line_item_id}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              client.remove_line_item(line_item_id)
+              print("Removed LineItem %s" % line_item_id)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/plans":
     get:
       tags:
@@ -6410,11 +6913,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          plans = client.list_plans(limit=200).items()
-          for plan in plans:
-              print(plan.code)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -6431,6 +6929,12 @@ paths:
           {
               Console.WriteLine(plan.Code);
           }
+      - lang: Ruby
+        source: |
+          plans = @client.list_plans(limit: 200)
+          plans.each do |plan|
+            puts "Plan: #{plan.code}"
+          end
       - lang: Node.js
         source: |
           const plans = client.listPlans({ limit: 200 })
@@ -6438,12 +6942,11 @@ paths:
           for await (const plan of plans.each()) {
             console.log(plan.code)
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          plans = @client.list_plans(limit: 200)
-          plans.each do |plan|
-            puts "Plan: #{plan.code}"
-          end
+          plans = client.list_plans(limit=200).items()
+          for plan in plans:
+              print(plan.code)
     post:
       tags:
       - plan
@@ -6483,21 +6986,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              plan_create = {
-                  "name": "Monthly Coffee Subscription",
-                  "code": plan_code,
-                  "currencies": [{"currency": "USD", "unit_amount": 10000}],
-              }
-              plan = client.create_plan(plan_create)
-              print("Created Plan %s" % plan)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -6553,32 +7041,6 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Node.js
-        source: |
-          try {
-            const planCreate = {
-              name: 'Monthly Coffee Subscription',
-              code: planCode,
-              currencies: [
-                {
-                  currency: 'USD',
-                  unitAmount: 10000
-                }
-              ]
-            }
-            const plan = await client.createPlan(planCreate)
-            console.log('Created Plan: ', plan.code)
-          } catch (err) {
-            if (err instanceof recurly.errors.ValidationError) {
-              // If the request was not valid, you may want to tell your user
-              // why. You can find the invalid params and reasons in err.params
-              console.log('Failed validation', err.params)
-            } else {
-              // If we don't know what to do with the err, we should
-              // probably re-raise and let our web framework and logger handle it
-              console.log('Unknown Error: ', err)
-            }
-          }
       - lang: Ruby
         source: |
           begin
@@ -6606,6 +7068,47 @@ paths:
             # why. You can find the invalid params and reasons in e.recurly_error.params
             puts "ValidationError: #{e.recurly_error.params}"
           end
+      - lang: Node.js
+        source: |
+          try {
+            const planCreate = {
+              name: 'Monthly Coffee Subscription',
+              code: planCode,
+              currencies: [
+                {
+                  currency: 'USD',
+                  unitAmount: 10000
+                }
+              ]
+            }
+            const plan = await client.createPlan(planCreate)
+            console.log('Created Plan: ', plan.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              plan_create = {
+                  "name": "Monthly Coffee Subscription",
+                  "code": plan_code,
+                  "currencies": [{"currency": "USD", "unit_amount": 10000}],
+              }
+              plan = client.create_plan(plan_create)
+              print("Created Plan %s" % plan)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/plans/{plan_id}":
     get:
       tags:
@@ -6635,15 +7138,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              plan = client.get_plan(plan_id)
-              print("Got Plan %s" % plan)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -6675,6 +7169,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            plan = @client.get_plan(plan_id: plan_id)
+            puts "Got plan #{plan}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -6691,16 +7195,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            plan = @client.get_plan(plan_id: plan_id)
-            puts "Got plan #{plan}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              plan = client.get_plan(plan_id)
+              print("Got Plan %s" % plan)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     put:
       tags:
       - plan
@@ -6909,11 +7412,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          add_ons = client.list_plan_add_ons(plan_id).items()
-          for add_on in add_ons:
-              print(add_on.code)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -6932,6 +7430,11 @@ paths:
           add_ons.each do |add_on|
             puts "AddOn: #{add_on.code}"
           end
+      - lang: Python
+        source: |
+          add_ons = client.list_plan_add_ons(plan_id).items()
+          for add_on in add_ons:
+              print(add_on.code)
     post:
       tags:
       - add-on
@@ -6973,22 +7476,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              add_on_create = {
-                  "code": "coffee_grinder",
-                  "name": "A quality grinder for your beans",
-                  "default_quantity": 1,
-                  "currencies": [{"currency": "USD", "unit_amount": 10000}],
-              }
-              add_on = client.create_plan_add_on(plan_id, add_on_create)
-              print("Created PlanAddOn %s" % add_on)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -7045,6 +7532,22 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Python
+        source: |
+          try:
+              add_on_create = {
+                  "code": "coffee_grinder",
+                  "name": "A quality grinder for your beans",
+                  "default_quantity": 1,
+                  "currencies": [{"currency": "USD", "unit_amount": 10000}],
+              }
+              add_on = client.create_plan_add_on(plan_id, add_on_create)
+              print("Created PlanAddOn %s" % add_on)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}":
     get:
       tags:
@@ -7076,15 +7579,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              shipping_addr = client.get_shipping_address(account_id, shipping_address_id)
-              print("Got ShippingAddress %s" % shipping_addr)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -7128,6 +7622,15 @@ paths:
             # just return nil
             puts "Resource Not Found"
           end
+      - lang: Python
+        source: |
+          try:
+              shipping_addr = client.get_shipping_address(account_id, shipping_address_id)
+              print("Got ShippingAddress %s" % shipping_addr)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     put:
       tags:
       - plan
@@ -7169,6 +7672,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
     delete:
       tags:
       - plan
@@ -7192,6 +7696,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/add_ons":
     get:
       tags:
@@ -7277,6 +7782,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/shipping_methods":
     get:
       tags:
@@ -7316,6 +7822,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/shipping_methods/{id}":
     get:
       tags:
@@ -7350,6 +7857,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/subscriptions":
     get:
       tags:
@@ -7391,11 +7899,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          subscriptions = client.list_subscriptions(limit=200).items()
-          for subscription in subscriptions:
-              print(subscription.uuid)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -7412,6 +7915,12 @@ paths:
           {
               Console.WriteLine(subscription.Uuid);
           }
+      - lang: Ruby
+        source: |
+          subscriptions = @client.list_subscriptions(limit: 200)
+          subscriptions.each do |subscription|
+            puts "Subscription: #{subscription.uuid}"
+          end
       - lang: Node.js
         source: |
           const subscriptions = client.listSubscriptions({ limit: 200 })
@@ -7419,12 +7928,11 @@ paths:
           for await (const subscription of subscriptions.each()) {
             console.log(subscription.uuid)
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          subscriptions = @client.list_subscriptions(limit: 200)
-          subscriptions.each do |subscription|
-            puts "Subscription: #{subscription.uuid}"
-          end
+          subscriptions = client.list_subscriptions(limit=200).items()
+          for subscription in subscriptions:
+              print(subscription.uuid)
     post:
       tags:
       - subscription
@@ -7465,21 +7973,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              sub_create = {
-                  "plan_code": plan_code,
-                  "currency": "USD",
-                  "account": {"code": account_code},
-              }
-              sub = client.create_subscription(sub_create)
-              print("Created Subscription %s" % sub)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -7528,6 +8021,27 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            subscription_create = {
+              plan_code: plan_code,
+              currency: "USD",
+              # This can be an existing account or
+              # a new acocunt
+              account: {
+                code: account_code,
+              }
+            }
+            subscription = @client.create_subscription(
+              body: subscription_create
+            )
+            puts "Created Subscription #{subscription}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -7551,27 +8065,21 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            subscription_create = {
-              plan_code: plan_code,
-              currency: "USD",
-              # This can be an existing account or
-              # a new acocunt
-              account: {
-                code: account_code,
+          try:
+              sub_create = {
+                  "plan_code": plan_code,
+                  "currency": "USD",
+                  "account": {"code": account_code},
               }
-            }
-            subscription = @client.create_subscription(
-              body: subscription_create
-            )
-            puts "Created Subscription #{subscription}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+              sub = client.create_subscription(sub_create)
+              print("Created Subscription %s" % sub)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/subscriptions/{subscription_id}":
     get:
       tags:
@@ -7601,15 +8109,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              subscription = client.get_subscription(subscription_id)
-              print("Got Subscription %s" % subscription)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -7641,6 +8140,18 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            subscription = @client.get_subscription(
+              subscription_id: subscription_id
+            )
+            puts "Got Subscription #{subscription}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -7657,18 +8168,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            subscription = @client.get_subscription(
-              subscription_id: subscription_id
-            )
-            puts "Got Subscription #{subscription}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              subscription = client.get_subscription(subscription_id)
+              print("Got Subscription %s" % subscription)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     put:
       tags:
       - subscription
@@ -7700,17 +8208,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              sub_update = {"customer_notes": "New Notes", "terms_and_conditions": "New TaC"}
-              subscription = client.modify_subscription(subscription_id, sub_update)
-              print("Modified Subscription %s" % subscription)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -7750,6 +8247,23 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            subscription_update = {
+              customer_notes: "New Notes",
+              terms_and_conditions: "New ToC"
+            }
+            subscription = @client.modify_subscription(
+              subscription_id: subscription_id,
+              body: subscription_update
+            )
+            puts "Modified Subscription #{subscription}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -7771,23 +8285,17 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            subscription_update = {
-              customer_notes: "New Notes",
-              terms_and_conditions: "New ToC"
-            }
-            subscription = @client.modify_subscription(
-              subscription_id: subscription_id,
-              body: subscription_update
-            )
-            puts "Modified Subscription #{subscription}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              sub_update = {"customer_notes": "New Notes", "terms_and_conditions": "New TaC"}
+              subscription = client.modify_subscription(subscription_id, sub_update)
+              print("Modified Subscription %s" % subscription)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
     delete:
       tags:
       - subscription
@@ -7846,15 +8354,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              subscription = client.terminate_subscription(subscription_id)
-              print("Terminated Subscription %s" % subscription)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -7888,6 +8387,18 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            subscription = @client.terminate_subscription(
+              subscription_id: subscription_id,
+            )
+            puts "Terminated Subscription #{subscription}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -7904,18 +8415,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            subscription = @client.terminate_subscription(
-              subscription_id: subscription_id,
-            )
-            puts "Terminated Subscription #{subscription}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              subscription = client.terminate_subscription(subscription_id)
+              print("Terminated Subscription %s" % subscription)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/subscriptions/{subscription_id}/cancel":
     put:
       tags:
@@ -7963,15 +8471,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              subscription = client.cancel_subscription(subscription_id)
-              print("Canceled Subscription %s" % subscription)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -8003,6 +8502,18 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            subscription = @client.cancel_subscription(
+              subscription_id: subscription_id
+            )
+            puts "Canceled Subscription #{subscription}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -8019,18 +8530,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            subscription = @client.cancel_subscription(
-              subscription_id: subscription_id
-            )
-            puts "Canceled Subscription #{subscription}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              subscription = client.cancel_subscription(subscription_id)
+              print("Canceled Subscription %s" % subscription)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/subscriptions/{subscription_id}/reactivate":
     put:
       tags:
@@ -8102,6 +8610,18 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            subscription = @client.reactivate_subscription(
+              subscription_id: subscription_id
+            )
+            puts "Reactivated Canceled Subscription #{subscription}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -8119,18 +8639,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
-        source: |
-          begin
-            subscription = @client.reactivate_subscription(
-              subscription_id: subscription_id
-            )
-            puts "Reactivated Canceled Subscription #{subscription}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
   "/sites/{site_id}/subscriptions/{subscription_id}/pause":
     put:
       tags:
@@ -8179,17 +8687,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              sub_pause = {"remaining_pause_cycles": 10}
-              subscription = client.pause_subscription(subscription_id, sub_pause)
-              print("Paused Subscription %s" % subscription)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -8222,6 +8719,17 @@ paths:
             # just return nil
             puts "Resource Not Found"
           end
+      - lang: Python
+        source: |
+          try:
+              sub_pause = {"remaining_pause_cycles": 10}
+              subscription = client.pause_subscription(subscription_id, sub_pause)
+              print("Paused Subscription %s" % subscription)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/subscriptions/{subscription_id}/resume":
     put:
       tags:
@@ -8263,16 +8771,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              subscription = client.resume_subscription(subscription_id)
-              print("Resumed Subscription %s" % subscription)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Ruby
         source: |
           begin
@@ -8285,6 +8783,16 @@ paths:
             # just return nil
             puts "Resource Not Found"
           end
+      - lang: Python
+        source: |
+          try:
+              subscription = client.resume_subscription(subscription_id)
+              print("Resumed Subscription %s" % subscription)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/subscriptions/{subscription_id}/change":
     get:
       tags:
@@ -8328,15 +8836,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              change = client.get_subscription_change(subscription_id)
-              print("Got SubscriptionChange %s" % change)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -8368,6 +8867,18 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            change = @client.get_subscription_change(
+              subscription_id: subscription_id
+            )
+            puts "Got SubscriptionChange #{change}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -8384,18 +8895,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            change = @client.get_subscription_change(
-              subscription_id: subscription_id
-            )
-            puts "Got SubscriptionChange #{change}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              change = client.get_subscription_change(subscription_id)
+              print("Got SubscriptionChange %s" % change)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
     post:
       tags:
       - subscription
@@ -8439,17 +8947,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              sub_change_create = {"plan_code": new_plan_code, "timeframe": "now"}
-              change = client.create_subscription_change(subscription_id, sub_change_create)
-              print("Created SubscriptionChange %s" % change)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -8491,6 +8988,23 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            change_create = {
+              timeframe: "now",
+              plan_code: new_plan_code
+            }
+            change = @client.create_subscription_change(
+              subscription_id: subscription_id,
+              body: change_create
+            )
+            puts "Created SubscriptionChange #{change}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -8512,23 +9026,17 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            change_create = {
-              timeframe: "now",
-              plan_code: new_plan_code
-            }
-            change = @client.create_subscription_change(
-              subscription_id: subscription_id,
-              body: change_create
-            )
-            puts "Created SubscriptionChange #{change}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              sub_change_create = {"plan_code": new_plan_code, "timeframe": "now"}
+              change = client.create_subscription_change(subscription_id, sub_change_create)
+              print("Created SubscriptionChange %s" % change)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
     delete:
       tags:
       - subscription
@@ -8556,15 +9064,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              client.remove_subscription_change(subscription_id)
-              print("Removed SubscriptionChange from Subscription id=%s" % subscription_id)
-          except recurly.errors.NotFoundError:
-              # If the resource was not found, you may want to alert the user or
-              # just return nil
-              print("Resource Not Found")
       - lang: Java
         source: |
           try {
@@ -8596,6 +9095,18 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            @client.remove_subscription_change(
+              subscription_id: subscription_id
+            )
+            puts "Removed SubscriptionChange #{subscription_id}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -8612,18 +9123,15 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            @client.remove_subscription_change(
-              subscription_id: subscription_id
-            )
-            puts "Removed SubscriptionChange #{subscription_id}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
+          try:
+              client.remove_subscription_change(subscription_id)
+              print("Removed SubscriptionChange from Subscription id=%s" % subscription_id)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
   "/sites/{site_id}/subscriptions/{subscription_id}/invoices":
     get:
       tags:
@@ -8667,11 +9175,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          invoices = client.list_subscription_invoices(subscription_id).items()
-          for invoice in invoices:
-              print(invoice.number)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -8690,6 +9193,11 @@ paths:
           invoices.each do |invoice|
             puts "Invoice: #{invoice.number}"
           end
+      - lang: Python
+        source: |
+          invoices = client.list_subscription_invoices(subscription_id).items()
+          for invoice in invoices:
+              print(invoice.number)
   "/sites/{site_id}/subscriptions/{subscription_id}/line_items":
     get:
       tags:
@@ -8734,11 +9242,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          line_items = client.list_subscription_line_items(subscription_id).items()
-          for line_item in line_items:
-              print(line_item.id)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -8757,6 +9260,11 @@ paths:
           line_items.each do |line_item|
             puts "LineItem: #{line_item.id}"
           end
+      - lang: Python
+        source: |
+          line_items = client.list_subscription_line_items(subscription_id).items()
+          for line_item in line_items:
+              print(line_item.id)
   "/sites/{site_id}/subscriptions/{subscription_id}/coupon_redemptions":
     get:
       tags:
@@ -8791,11 +9299,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          redemptions = client.list_subscription_coupon_redemptions(subscription_id).items()
-          for redemption in redemptions:
-              print(redemption.uuid)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -8814,6 +9317,11 @@ paths:
           coupon_redemptions.each do |redemption|
             puts "CouponRedemption: #{redemption.id}"
           end
+      - lang: Python
+        source: |
+          redemptions = client.list_subscription_coupon_redemptions(subscription_id).items()
+          for redemption in redemptions:
+              print(redemption.uuid)
   "/sites/{site_id}/transactions":
     get:
       tags:
@@ -8856,11 +9364,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          transactions = client.list_transactions(limit=200).items()
-          for transaction in transactions:
-              print(transaction.uuid)
       - lang: Java
         source: |
           QueryParams params = new QueryParams();
@@ -8877,6 +9380,12 @@ paths:
           {
               Console.WriteLine(transaction.Uuid);
           }
+      - lang: Ruby
+        source: |
+          transactions = @client.list_transactions(limit: 200)
+          transactions.each do |transaction|
+            puts "Transaction: #{transaction.uuid}"
+          end
       - lang: Node.js
         source: |
           const transactions = client.listTransactions({ limit: 200 })
@@ -8884,12 +9393,11 @@ paths:
           for await (const transaction of transactions.each()) {
             console.log(transaction.uuid)
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          transactions = @client.list_transactions(limit: 200)
-          transactions.each do |transaction|
-            puts "Transaction: #{transaction.uuid}"
-          end
+          transactions = client.list_transactions(limit=200).items()
+          for transaction in transactions:
+              print(transaction.uuid)
   "/sites/{site_id}/transactions/{transaction_id}":
     get:
       tags:
@@ -8950,6 +9458,16 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            transaction = @client.get_transaction(transaction_id: transaction_id)
+            puts "Got Transaction #{transaction}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
       - lang: Node.js
         source: |
           try {
@@ -8966,16 +9484,6 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
-        source: |
-          begin
-            transaction = @client.get_transaction(transaction_id: transaction_id)
-            puts "Got Transaction #{transaction}"
-          rescue Recurly::Errors::NotFoundError
-            # If the resource was not found, you may want to alert the user or
-            # just return nil
-            puts "Resource Not Found"
-          end
   "/sites/{site_id}/unique_coupon_codes/{unique_coupon_code_id}":
     parameters:
     - "$ref": "#/components/parameters/site_id"
@@ -9004,6 +9512,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
     delete:
       tags:
       - unique_coupon_code
@@ -9036,6 +9545,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/unique_coupon_codes/{unique_coupon_code_id}/restore":
     parameters:
     - "$ref": "#/components/parameters/site_id"
@@ -9070,6 +9580,7 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/purchases":
     post:
       tags:
@@ -9113,27 +9624,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              purchase = {
-                  "currency": "USD",
-                  "account": {
-                      "code": account_code,
-                      "first_name": "Benjamin",
-                      "last_name": "Du Monde",
-                      "billing_info": {"token_id": rjs_token_id},
-                  },
-                  "subscriptions": [{"plan_code": plan_code}],
-              }
-              invoice_collection = client.create_purchase(purchase)
-              print("Created Charge Invoice %s" % invoice_collection.charge_invoice)
-              print("Created Credit Invoices %s" % invoice_collection.credit_invoices)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: Java
         source: |
           try {
@@ -9204,6 +9694,33 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            purchase = {
+              currency: "USD",
+              account: {
+                code: account_code,
+                first_name: "Benjamin",
+                last_name: "Du Monde",
+                billing_info: {
+                  token_id: rjs_token_id
+                },
+              },
+              subscriptions: [
+                { plan_code: plan_code }
+              ]
+            }
+            invoice_collection = @client.create_purchase(
+              body: purchase
+            )
+            puts "Created Charge Invoice #{invoice_collection.charge_invoice}"
+            puts "Created Credit Invoices #{invoice_collection.credit_invoices}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -9235,33 +9752,27 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            purchase = {
-              currency: "USD",
-              account: {
-                code: account_code,
-                first_name: "Benjamin",
-                last_name: "Du Monde",
-                billing_info: {
-                  token_id: rjs_token_id
-                },
-              },
-              subscriptions: [
-                { plan_code: plan_code }
-              ]
-            }
-            invoice_collection = @client.create_purchase(
-              body: purchase
-            )
-            puts "Created Charge Invoice #{invoice_collection.charge_invoice}"
-            puts "Created Credit Invoices #{invoice_collection.credit_invoices}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              purchase = {
+                  "currency": "USD",
+                  "account": {
+                      "code": account_code,
+                      "first_name": "Benjamin",
+                      "last_name": "Du Monde",
+                      "billing_info": {"token_id": rjs_token_id},
+                  },
+                  "subscriptions": [{"plan_code": plan_code}],
+              }
+              invoice_collection = client.create_purchase(purchase)
+              print("Created Charge Invoice %s" % invoice_collection.charge_invoice)
+              print("Created Credit Invoices %s" % invoice_collection.credit_invoices)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
   "/sites/{site_id}/purchases/preview":
     post:
       tags:
@@ -9305,27 +9816,6 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
-      - lang: Python
-        source: |
-          try:
-              purchase = {
-                  "currency": "USD",
-                  "account": {
-                      "code": account_code,
-                      "first_name": "Benjamin",
-                      "last_name": "Du Monde",
-                      "billing_info": {"token_id": rjs_token_id},
-                  },
-                  "subscriptions": [{"plan_code": plan_code}],
-              }
-              invoice_collection = client.preview_purchase(purchase)
-              print("Preview Charge Invoice %s" % invoice_collection.charge_invoice)
-              print("Preview Credit Invoices %s" % invoice_collection.credit_invoices)
-          except recurly.errors.ValidationError as e:
-              # If the request was invalid, you may want to tell your user
-              # why. You can find the invalid params and reasons in e.error.params
-              print("ValidationError: %s" % e.error.message)
-              print(e.error.params)
       - lang: ".NET"
         source: |
           try
@@ -9362,6 +9852,33 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
+      - lang: Ruby
+        source: |
+          begin
+            purchase = {
+              currency: "USD",
+              account: {
+                code: account_code,
+                first_name: "Benjamin",
+                last_name: "Du Monde",
+                billing_info: {
+                  token_id: rjs_token_id
+                },
+              },
+              subscriptions: [
+                { plan_code: plan_code }
+              ]
+            }
+            invoice_collection = @client.preview_purchase(
+              body: purchase
+            )
+            puts "Preview Charge Invoice #{invoice_collection.charge_invoice}"
+            puts "Preview Credit Invoices #{invoice_collection.credit_invoices}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
       - lang: Node.js
         source: |
           try {
@@ -9393,33 +9910,27 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-      - lang: Ruby
+      - lang: Python
         source: |
-          begin
-            purchase = {
-              currency: "USD",
-              account: {
-                code: account_code,
-                first_name: "Benjamin",
-                last_name: "Du Monde",
-                billing_info: {
-                  token_id: rjs_token_id
-                },
-              },
-              subscriptions: [
-                { plan_code: plan_code }
-              ]
-            }
-            invoice_collection = @client.preview_purchase(
-              body: purchase
-            )
-            puts "Preview Charge Invoice #{invoice_collection.charge_invoice}"
-            puts "Preview Credit Invoices #{invoice_collection.credit_invoices}"
-          rescue Recurly::Errors::ValidationError => e
-            # If the request was invalid, you may want to tell your user
-            # why. You can find the invalid params and reasons in e.recurly_error.params
-            puts "ValidationError: #{e.recurly_error.params}"
-          end
+          try:
+              purchase = {
+                  "currency": "USD",
+                  "account": {
+                      "code": account_code,
+                      "first_name": "Benjamin",
+                      "last_name": "Du Monde",
+                      "billing_info": {"token_id": rjs_token_id},
+                  },
+                  "subscriptions": [{"plan_code": plan_code}],
+              }
+              invoice_collection = client.preview_purchase(purchase)
+              print("Preview Charge Invoice %s" % invoice_collection.charge_invoice)
+              print("Preview Credit Invoices %s" % invoice_collection.credit_invoices)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
 servers:
 - url: https://v3.recurly.com
 components:
@@ -10113,6 +10624,25 @@ components:
           description: The shipping addresses on the account.
           items:
             "$ref": "#/components/schemas/ShippingAddress"
+        has_live_subscription:
+          type: boolean
+          description: Indicates if the account has a subscription that is either
+            active, canceled, future, or paused.
+        has_active_subscription:
+          type: boolean
+          description: Indicates if the account has an active subscription.
+        has_future_subscription:
+          type: boolean
+          description: Indicates if the account has a future subscription.
+        has_canceled_subscription:
+          type: boolean
+          description: Indicates if the account has a canceled subscription.
+        has_paused_subscription:
+          type: boolean
+          description: Indicates if the account has a paused subscription.
+        has_past_due_invoice:
+          type: boolean
+          description: Indicates if the account has a past due invoice.
         created_at:
           type: string
           format: date-time
@@ -10863,6 +11393,16 @@ components:
           description: "*STRONGLY RECOMMENDED* Customer's IP address when updating
             their billing information."
           maxLength: 20
+        gateway_token:
+          type: string
+          title: A token used in place of a credit card in order to perform transactions.
+            Must be used in conjunction with `gateway_code`.
+          maxLength: 50
+        gateway_code:
+          type: string
+          title: An identifier for a specific payment gateway. Must be used in conjunction
+            with `gateway_token`.
+          maxLength: 12
         amazon_billing_agreement_id:
           type: string
           title: Amazon billing agreement ID
@@ -12290,6 +12830,12 @@ components:
           title: Item ID
           description: Available when the Catalog feature is enabled.
           maxLength: 13
+        external_sku:
+          type: string
+          title: External SKU
+          description: Optional Stock Keeping Unit assigned to an item, when the Catalog
+            feature is enabled.
+          maxLength: 50
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -12659,6 +13205,15 @@ components:
             If `item_code`/`item_id` is part of the request then `product_code` must
             be absent.
           maxLength: 50
+        origin:
+          type: string
+          title: Origin
+          description: Only allowed if the Gift Cards feature is enabled on your site
+            and `type` is `credit`. Can only have a value of `external_gift_card`.
+            Set this value in order to track gift card credits from external gift
+            cards (like InComm). It also skips billing information requirements.
+          enum:
+          - external_gift_card
         start_date:
           type: string
           format: date-time
@@ -14709,6 +15264,9 @@ components:
         collection_method:
           type: string
           title: Collection method
+          description: Must be set to manual in order to preview a purchase for an
+            Account that does not have payment information associated with the Billing
+            Info.
           enum:
           - automatic
           - manual
@@ -14825,6 +15383,7 @@ components:
           - check
           - amazon_billing_agreement
           - paypal_billing_agreement
+          - gateway_token
           - other
         card_type:
           type: string
@@ -14859,6 +15418,15 @@ components:
           type: integer
           description: Expiration year.
           maxLength: 4
+        gateway_token:
+          type: string
+          description: A token used in place of a credit card in order to perform
+            transactions.
+          maxLength: 50
+        gateway_code:
+          type: string
+          description: An identifier for a specific payment gateway.
+          maxLength: 13
         billing_agreement_id:
           type: string
           description: Billing Agreement identifier. Only present for Amazon or Paypal
@@ -14899,6 +15467,7 @@ components:
           - unknown_api_version
           - validation
           - missing_feature
+          - rate_limited
         message:
           type: string
           title: Message

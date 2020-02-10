@@ -15,7 +15,7 @@ module Recurly
       define_attribute :channel, String
 
       # @!attribute cost
-      #   @return [AccountAcquisitionCost]
+      #   @return [AccountAcquisitionCost] Account balance
       define_attribute :cost, :AccountAcquisitionCost
 
       # @!attribute subchannel

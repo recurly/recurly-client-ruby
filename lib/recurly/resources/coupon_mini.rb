@@ -15,7 +15,7 @@ module Recurly
       define_attribute :coupon_type, String
 
       # @!attribute discount
-      #   @return [CouponDiscount]
+      #   @return [CouponDiscount] Details of the discount a coupon applies. Will contain a `type` property and one of the following properties: `percent`, `fixed`, `trial`.
       define_attribute :discount, :CouponDiscount
 
       # @!attribute expired_at

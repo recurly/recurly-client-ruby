@@ -7,7 +7,7 @@ module Recurly
     class AccountAcquisition < Resource
 
       # @!attribute account
-      #   @return [AccountMini]
+      #   @return [AccountMini] Account mini details
       define_attribute :account, :AccountMini
 
       # @!attribute campaign
@@ -19,7 +19,7 @@ module Recurly
       define_attribute :channel, String
 
       # @!attribute cost
-      #   @return [AccountAcquisitionCost]
+      #   @return [AccountAcquisitionCost] Account balance
       define_attribute :cost, :AccountAcquisitionCost
 
       # @!attribute created_at

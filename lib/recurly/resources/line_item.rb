@@ -7,7 +7,7 @@ module Recurly
     class LineItem < Resource
 
       # @!attribute account
-      #   @return [AccountMini]
+      #   @return [AccountMini] Account mini details
       define_attribute :account, :AccountMini
 
       # @!attribute accounting_code
@@ -53,6 +53,10 @@ module Recurly
       # @!attribute end_date
       #   @return [DateTime] If this date is provided, it indicates the end of a time range.
       define_attribute :end_date, DateTime
+
+      # @!attribute external_sku
+      #   @return [String] Optional Stock Keeping Unit assigned to an item, when the Catalog feature is enabled.
+      define_attribute :external_sku, String
 
       # @!attribute id
       #   @return [String] Line item ID
@@ -159,7 +163,7 @@ module Recurly
       define_attribute :tax_exempt, :Boolean
 
       # @!attribute tax_info
-      #   @return [TaxInfo]
+      #   @return [TaxInfo] Tax info
       define_attribute :tax_info, :TaxInfo
 
       # @!attribute taxable

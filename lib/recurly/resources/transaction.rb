@@ -7,7 +7,7 @@ module Recurly
     class Transaction < Resource
 
       # @!attribute account
-      #   @return [AccountMini]
+      #   @return [AccountMini] Account mini details
       define_attribute :account, :AccountMini
 
       # @!attribute amount
@@ -79,7 +79,7 @@ module Recurly
       define_attribute :id, String
 
       # @!attribute invoice
-      #   @return [InvoiceMini]
+      #   @return [InvoiceMini] Invoice mini details
       define_attribute :invoice, :InvoiceMini
 
       # @!attribute ip_address_country
@@ -147,7 +147,7 @@ module Recurly
       define_attribute :voided_at, DateTime
 
       # @!attribute voided_by_invoice
-      #   @return [InvoiceMini]
+      #   @return [InvoiceMini] Invoice mini details
       define_attribute :voided_by_invoice, :InvoiceMini
     end
   end

@@ -39,7 +39,7 @@ module Recurly
       define_attribute :quantity, Integer
 
       # @!attribute shipping
-      #   @return [SubscriptionChangeShippingCreate]
+      #   @return [SubscriptionChangeShippingCreate] The shipping address can currently only be changed immediately, using SubscriptionUpdate.
       define_attribute :shipping, :SubscriptionChangeShippingCreate
 
       # @!attribute timeframe
