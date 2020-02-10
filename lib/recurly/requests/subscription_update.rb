@@ -15,7 +15,7 @@ module Recurly
       define_attribute :collection_method, String
 
       # @!attribute custom_fields
-      #   @return [Array[CustomField]]
+      #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
       define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute customer_notes
@@ -43,7 +43,7 @@ module Recurly
       define_attribute :renewal_billing_cycles, Integer
 
       # @!attribute shipping
-      #   @return [SubscriptionShippingUpdate]
+      #   @return [SubscriptionShippingUpdate] Subscription shipping details
       define_attribute :shipping, :SubscriptionShippingUpdate
 
       # @!attribute terms_and_conditions

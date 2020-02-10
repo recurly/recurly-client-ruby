@@ -35,7 +35,7 @@ module Recurly
       define_attribute :created_at, DateTime
 
       # @!attribute custom_fields
-      #   @return [Array[CustomField]]
+      #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
       define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute deleted_at
@@ -53,6 +53,30 @@ module Recurly
       # @!attribute first_name
       #   @return [String]
       define_attribute :first_name, String
+
+      # @!attribute has_active_subscription
+      #   @return [Boolean] Indicates if the account has an active subscription.
+      define_attribute :has_active_subscription, :Boolean
+
+      # @!attribute has_canceled_subscription
+      #   @return [Boolean] Indicates if the account has a canceled subscription.
+      define_attribute :has_canceled_subscription, :Boolean
+
+      # @!attribute has_future_subscription
+      #   @return [Boolean] Indicates if the account has a future subscription.
+      define_attribute :has_future_subscription, :Boolean
+
+      # @!attribute has_live_subscription
+      #   @return [Boolean] Indicates if the account has a subscription that is either active, canceled, future, or paused.
+      define_attribute :has_live_subscription, :Boolean
+
+      # @!attribute has_past_due_invoice
+      #   @return [Boolean] Indicates if the account has a past due invoice.
+      define_attribute :has_past_due_invoice, :Boolean
+
+      # @!attribute has_paused_subscription
+      #   @return [Boolean] Indicates if the account has a paused subscription.
+      define_attribute :has_paused_subscription, :Boolean
 
       # @!attribute hosted_login_token
       #   @return [String] The unique token for automatically logging the account in to the hosted management pages. You may automatically log the user into their hosted management pages by directing the user to: `https://{subdomain}.recurly.com/account/{hosted_login_token}`.

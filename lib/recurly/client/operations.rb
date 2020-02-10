@@ -262,7 +262,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
-    # @return [Empty] Acquisition data was succesfully deleted.
+    # @return [Resources::Empty] Acquisition data was succesfully deleted.
     # @example
     #   begin
     #     acquisition = @client.remove_account_acquisition(account_id: account_id)
@@ -380,7 +380,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
-    # @return [Empty] Billing information deleted
+    # @return [Resources::Empty] Billing information deleted
     # @example
     #   begin
     #     @client.remove_billing_info(account_id: account_id)
@@ -916,7 +916,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param shipping_address_id [String] Shipping Address ID.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
-    # @return [Empty] Shipping address deleted.
+    # @return [Resources::Empty] Shipping address deleted.
     # @example
     #   begin
     #     @client.remove_shipping_address(
@@ -1397,6 +1397,12 @@ module Recurly
     # @param state [String] Filter by state.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Pager<Resources::Item>] A list of the site's items.
+    # @example
+    #   items = @client.list_items(limit: 200)
+    #   items.each do |item|
+    #     puts "Item: #{item.code}"
+    #   end
+    #
     def list_items(**options)
       path = interpolate_path("/items")
       pager(path, **options)
@@ -1409,6 +1415,28 @@ module Recurly
     # @param body [Requests::ItemCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ItemCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Item] A new item.
+    # @example
+    #   begin
+    #     item_create = {
+    #       code: item_code,
+    #       name: "Item Name",
+    #       description: "Item Description",
+    #       external_sku: "a35JE-44",
+    #       accounting_code: "item-code-127",
+    #       revenue_schedule_type: "at_range_end",
+    #       custom_fields: [{
+    #         name: "custom-field-1",
+    #         value: "Custom Field 1 value"
+    #       }]
+    #     }
+    #     item = @client.create_item(body: item_create)
+    #     puts "Created Item #{item}"
+    #   rescue Recurly::Errors::ValidationError => e
+    #     # If the request was invalid, you may want to tell your user
+    #     # why. You can find the invalid params and reasons in e.recurly_error.params
+    #     puts "ValidationError: #{e.recurly_error.params}"
+    #   end
+    #
     def create_item(body:, **options)
       path = interpolate_path("/items")
       post(path, body, Requests::ItemCreate, **options)
@@ -1421,6 +1449,16 @@ module Recurly
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Item] An item.
+    # @example
+    #   begin
+    #     item = @client.get_item(item_id: item_id)
+    #     puts "Got Item #{item}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def get_item(item_id:, **options)
       path = interpolate_path("/items/{item_id}", item_id: item_id)
       get(path, **options)
@@ -1434,6 +1472,23 @@ module Recurly
     # @param body [Requests::ItemUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ItemUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Item] The updated item.
+    # @example
+    #   begin
+    #     item_update = {
+    #       name: "New Item Name",
+    #       description: "New Item Description"
+    #     }
+    #     item = @client.update_item(
+    #       item_id: item_id,
+    #       body: item_update
+    #     )
+    #     puts "Updated Item #{item}"
+    #   rescue Recurly::Errors::ValidationError => e
+    #     # If the request was invalid, you may want to tell your user
+    #     # why. You can find the invalid params and reasons in e.recurly_error.params
+    #     puts "ValidationError: #{e.recurly_error.params}"
+    #   end
+    #
     def update_item(item_id:, body:, **options)
       path = interpolate_path("/items/{item_id}", item_id: item_id)
       put(path, body, Requests::ItemUpdate, **options)
@@ -1446,6 +1501,16 @@ module Recurly
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Item] An item.
+    # @example
+    #   begin
+    #     item = @client.deactivate_item(item_id: item_id)
+    #     puts "Deactivated Item #{item}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def deactivate_item(item_id:, **options)
       path = interpolate_path("/items/{item_id}", item_id: item_id)
       delete(path, **options)
@@ -1458,6 +1523,16 @@ module Recurly
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Item] An item.
+    # @example
+    #   begin
+    #     item = @client.reactivate_item(item_id: item_id)
+    #     puts "Reactivated Item #{item}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def reactivate_item(item_id:, **options)
       path = interpolate_path("/items/{item_id}/reactivate", item_id: item_id)
       put(path, **options)
@@ -1861,7 +1936,7 @@ module Recurly
     #
     # @param line_item_id [String] Line Item ID.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
-    # @return [Empty] Line item deleted.
+    # @return [Resources::Empty] Line item deleted.
     # @example
     #   begin
     #     @client.remove_line_item(
@@ -2543,7 +2618,7 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
-    # @return [Empty] Subscription change was deleted.
+    # @return [Resources::Empty] Subscription change was deleted.
     # @example
     #   begin
     #     @client.remove_subscription_change(

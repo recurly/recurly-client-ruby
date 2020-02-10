@@ -11,7 +11,7 @@ module Recurly
       define_attribute :account, :AccountPurchase
 
       # @!attribute collection_method
-      #   @return [String] Collection method
+      #   @return [String] Must be set to manual in order to preview a purchase for an Account that does not have payment information associated with the Billing Info.
       define_attribute :collection_method, String
 
       # @!attribute coupon_codes

@@ -30,6 +30,14 @@ module Recurly
       #   @return [String] Fraud Session ID
       define_attribute :fraud_session_id, String
 
+      # @!attribute gateway_code
+      #   @return [String] An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.
+      define_attribute :gateway_code, String
+
+      # @!attribute gateway_token
+      #   @return [String] A token used in place of a credit card in order to perform transactions. Must be used in conjunction with `gateway_code`.
+      define_attribute :gateway_token, String
+
       # @!attribute ip_address
       #   @return [String] *STRONGLY RECOMMENDED* Customer's IP address when updating their billing information.
       define_attribute :ip_address, String

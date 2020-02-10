@@ -7,7 +7,7 @@ module Recurly
     class Subscription < Resource
 
       # @!attribute account
-      #   @return [AccountMini]
+      #   @return [AccountMini] Account mini details
       define_attribute :account, :AccountMini
 
       # @!attribute activated_at
@@ -67,7 +67,7 @@ module Recurly
       define_attribute :current_term_started_at, DateTime
 
       # @!attribute custom_fields
-      #   @return [Array[CustomField]]
+      #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
       define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute customer_notes
@@ -99,11 +99,11 @@ module Recurly
       define_attribute :paused_at, DateTime
 
       # @!attribute pending_change
-      #   @return [SubscriptionChange]
+      #   @return [SubscriptionChange] Subscription Change
       define_attribute :pending_change, :SubscriptionChange
 
       # @!attribute plan
-      #   @return [PlanMini]
+      #   @return [PlanMini] Just the important parts.
       define_attribute :plan, :PlanMini
 
       # @!attribute po_number
@@ -127,7 +127,7 @@ module Recurly
       define_attribute :renewal_billing_cycles, Integer
 
       # @!attribute shipping
-      #   @return [SubscriptionShipping]
+      #   @return [SubscriptionShipping] Subscription shipping details
       define_attribute :shipping, :SubscriptionShipping
 
       # @!attribute state

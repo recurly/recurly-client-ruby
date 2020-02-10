@@ -7,7 +7,7 @@ module Recurly
     class Invoice < Resource
 
       # @!attribute account
-      #   @return [AccountMini]
+      #   @return [AccountMini] Account mini details
       define_attribute :account, :AccountMini
 
       # @!attribute address
@@ -111,7 +111,7 @@ module Recurly
       define_attribute :tax, Float
 
       # @!attribute tax_info
-      #   @return [TaxInfo]
+      #   @return [TaxInfo] Tax info
       define_attribute :tax_info, :TaxInfo
 
       # @!attribute terms_and_conditions
