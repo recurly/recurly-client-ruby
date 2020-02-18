@@ -226,7 +226,7 @@ You can specify up to 10 endpoints through the application. All notifications wi
 be sent to all configured endpoints for your site. 
 
 See our [product docs](https://docs.recurly.com/docs/webhooks) to learn more about webhooks
-and see our [dev docs](https://dev.recurly.com/page/webhooks) to learn about what payloads
+and see our [dev docs](https://developers.recurly.com/pages/webhooks.html) to learn about what payloads
 are available.
 
 Although our API is now JSON, our webhook payloads are still formatted as XML for the time being.
