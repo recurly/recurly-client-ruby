@@ -1,0 +1,54 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890">
+  <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
+  <redemptions href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/redemptions" />
+  <shipping_address href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/shipping_address" />
+  <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
+  <plan href="https://api.recurly.com/v2/plans/plan_code">
+    <plan_code>plan_code</plan_code>
+    <name>A Man, a Plan, a Canal: Panama</name>
+  </plan>
+  <uuid>abcdef1234567890</uuid>
+  <state>active</state>
+  <quantity type="integer">1</quantity>
+  <net_terms type="integer">10</net_terms>
+  <collection_method>manual</collection_method>
+  <po_number>1000</po_number>
+  <started_with_gift type="boolean">false</started_with_gift>
+  <converted_at nil="nil"></converted_at>
+  <total_amount_in_cents type="integer">1000</total_amount_in_cents>
+  <activated_at type="datetime">2011-04-30T07:00:00Z</activated_at>
+  <canceled_at nil="nil"></canceled_at>
+  <expires_at nil="nil"></expires_at>
+  <current_period_started_at type="datetime">2020-02-10T20:38:21Z</current_period_started_at>
+  <current_period_ends_at type="datetime">2020-03-10T20:38:21Z</current_period_ends_at>
+  <trial_started_at type="datetime">2020-02-10T20:38:17Z</trial_started_at>
+  <trial_ends_at type="datetime">2020-03-10T20:38:21Z</trial_ends_at>
+  <gateway_code>Gateway Code</gateway_code>
+  <revenue_schedule_type>evenly</revenue_schedule_type>
+  <no_billing_info_reason>plan_free_trial</no_billing_info_reason>
+  <subscription_add_ons type="array">
+    <subscription_add_on>
+      <add_on_type>usage</add_on_type>
+      <measured_unit href="https://api.recurly.com/v2/measured_units/388159600349677344"/>
+      <usage href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/add_ons/marketing_email/usage"/>
+      <add_on_code>marketing_email</add_on_code>
+      <unit_amount_in_cents type="integer">5</unit_amount_in_cents>
+      <quantity type="integer">1</quantity>
+      <usage_type>price</usage_type>
+      <usage_percentage nil="nil"/>
+    </subscription_add_on>
+  </subscription_add_ons>
+  <custom_fields type="array">
+    <custom_field>
+      <name>sub_field1</name>
+      <value>sub-value-1</value>
+    </custom_field>
+  </custom_fields>
+  <a name="cancel" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/cancel" method="put"/>
+  <a name="terminate" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/terminate" method="put"/>
+  <a name="notes" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/notes" method="put"/>
+</subscription>

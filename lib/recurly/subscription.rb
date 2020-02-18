@@ -174,6 +174,35 @@ module Recurly
       sub.tap {|e| e.currency = currency} if sub.is_a? Subscription
     end
 
+    # Convert free trial to paid subscription when transaction_type is "moto"
+    # which stands for "Mail Order Telephone Order".
+    # 
+    # @return true
+    def convert_trial_moto()
+      builder = XML.new("<subscription/>")
+      builder.add_element('transaction_type', "moto")
+      reload API.put("#{uri}/convert_trial", builder.to_s)
+      true
+    end
+
+    # Convert free trial to paid subscription. Optionally uses a 3ds token.
+    # 
+    # @param three_d_secure_action_result_token_id [String] three_d_secure_action_result_token_id 
+    #   returned by Recurly.js referencing the result of the 3DS authentication for PSD2
+    # @return true when payment is accepted
+    def convert_trial(three_d_secure_action_result_token_id = nil)
+      body = if three_d_secure_action_result_token_id != nil
+        builder = Recurly::XML.new("<subscription/>")
+        account = builder.add_element('account')
+        billing_info = account.add_element('billing_info')
+        billing_info.add_element('three_d_secure_action_result_token_id', three_d_secure_action_result_token_id)
+        builder.to_s
+      end
+      
+      reload API.put("#{uri}/convert_trial", body) 
+      true
+    end
+
     # Cancel a subscription so that it will not renew.
     #
     # @param [String] optional timeframe. Choose one of "bill_date" or "term_end"
