@@ -143,6 +143,48 @@ info:
     ## Change Log
 
     ### v2019-10-10
+
+    Added support for item-backed AddOns:
+    * `PlanCreate` request:
+      * Added `add_ons.item_code`, when the `Catalog: Item Add-Ons` feature is enabled
+      * Added `add_ons.item_id`, when the `Catalog: Item Add-Ons` feature is enabled
+      * The following parameters are no longer acceptable if `item_code`/`item_id` is present:
+        * `add_ons.code`
+        * `add_ons.name`
+        * `add_ons.accounting_code`
+        * `add_ons.tax_code`
+    * `AddOnCreate` request:
+      * Added `item_code`, when the `Catalog: Item Add-Ons` feature is enabled
+      * Added `item_id`, when the `Catalog: Item Add-Ons` feature is enabled
+      * The following parameters are no longer acceptable if `item_code`/`item_id` is present:
+        * `code`
+        * `name`
+        * `accounting_code`
+        * `tax_code`
+    * `AddOnUpdate` request:
+      * The following parameters are no longer acceptable if an AddOn is item-backed:
+        * `name`
+        * `accounting_code`
+        * `tax_code`
+    * `AddOn` response format updates:
+      * Added `item`:
+        * Added `item.id`
+        * Added `item.object`
+        * Added `item.state`
+        * Added `item.name`
+        * Added `item.description`
+      * Added `external_sku`
+    * `Subscription` response format updates:
+      * Added `add_ons.add_on.item_id`
+      * Added `add_ons.add_on.external_sku`
+
+    Support for `optional` in AddOn
+    * `AddOn` response format:
+      * Added `optional`
+
+    Create convert trial endpoint for immediately converting trial subscription to fully active
+    * Added `PUT /sites/:site_id/subscriptions/:id/convert_trial`.
+
     Support `gateway_token` and `gateway_code` for Billing Infos
     * `BillingInfoCreate` request format:
       * Added `gateway_token`
@@ -306,6 +348,10 @@ info:
       * Added `three_d_secure_action_result_token_id`.
     * Changes the TransactionError response format:
       * Added `three_d_secure_action_token_id` to indicate an SCA flow is required to complete the transaction.
+
+    Support IBAN bank account fields
+    * Changes BillingInfo response format:
+      * Added `last_two` for IBAN bank account types.
 
     ### v2018-08-09
 
@@ -8793,6 +8839,47 @@ paths:
               # why. You can find the invalid params and reasons in e.error.params
               print("ValidationError: %s" % e.error.message)
               print(e.error.params)
+  "/sites/{site_id}/subscriptions/{subscription_id}/convert_trial":
+    put:
+      tags:
+      - subscription
+      operationId: convert_trial
+      summary: Convert trial subscription
+      description: This will immediately convert a trial subscription to a fully active
+        paid subscription, creating and collecting an invoice for auto-collecting
+        subsriptions.  If the invoice cannot be collected, the subscription will remain
+        in trial. The subscription must be in a trial. Active, paused, expired, cancelled,
+        or failed subscriptions cannot be converted.
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/subscription_id"
+      responses:
+        '200':
+          description: A subscription.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Subscription"
+        '404':
+          description: Incorrect site or subscription ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: A validation error such as "Unable to convert active subscription",
+            or a transaction error if the invoice could not be collected.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/subscriptions/{subscription_id}/change":
     get:
       tags:
@@ -11059,6 +11146,18 @@ components:
           title: Name
           description: Describes your add-on and will appear in subscribers' invoices.
           maxLength: 255
+        item_id:
+          type: string
+          title: Item ID
+          maxLength: 13
+          readOnly: true
+        external_sku:
+          type: string
+          title: External SKU
+          description: Optional, stock keeping unit to link the item to other inventory
+            systems.
+          maxLength: 50
+          readOnly: true
         accounting_code:
           type: string
           title: Accounting code
@@ -11128,12 +11227,30 @@ components:
           title: Default quantity
           description: Default quantity for the hosted pages.
           default: 1
+        optional:
+          type: boolean
+          title: Optional
+          description: Whether the add-on is optional for the customer to include
+            in their purchase on the hosted payment page. If false, the add-on will
+            be included when a subscription is created through the Recurly UI. However,
+            the add-on will not be included when a subscription is created through
+            the API.
         currencies:
           type: array
           title: Add-on pricing
           items:
             "$ref": "#/components/schemas/AddOnPricing"
           minItems: 1
+        item:
+          "$ref": "#/components/schemas/ItemMini"
+          readOnly: true
+        external_sku:
+          type: string
+          title: External SKU
+          description: Optional, stock keeping unit to link the item to other inventory
+            systems.
+          maxLength: 50
+          readOnly: true
         created_at:
           type: string
           format: date-time
@@ -11158,15 +11275,33 @@ components:
       title: Add-on
       description: Full add-on details.
       properties:
+        item_code:
+          type: string
+          title: Item Code
+          description: 'Unique code to identify an item, when the `Catalog: Item Add-Ons`
+            feature is enabled. If `item_id` and `item_code` are both present, `item_id`
+            will be used.'
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 50
+        item_id:
+          type: string
+          title: Item ID
+          description: 'Available when the `Catalog: Item Add-Ons` feature is enabled.
+            If `item_id` and `item_code` are both present, `item_id` will be used.'
+          maxLength: 13
         code:
           type: string
           title: Add-on code
-          description: The unique identifier for the add-on within its plan.
+          description: The unique identifier for the add-on within its plan. If `item_code`/`item_id`
+            is part of the request then `code` must be absent. If `item_code`/`item_id`
+            is not present `code` is required.
           maxLength: 50
         name:
           type: string
           title: Name
           description: Describes your add-on and will appear in subscribers' invoices.
+            If `item_code`/`item_id` is part of the request then `code` must be absent.
+            If `item_code`/`item_id` is not present `code` is required.
           maxLength: 255
         plan_id:
           type: string
@@ -11177,7 +11312,8 @@ components:
           type: string
           title: Accounting code
           description: Accounting code for invoice line items for this add-on. If
-            no value is provided, it defaults to add-on's code.
+            no value is provided, it defaults to add-on's code. If `item_code`/`item_id`
+            is part of the request then `code` must be absent.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 20
         display_quantity:
@@ -11198,7 +11334,8 @@ components:
             tax feature to determine taxation rules. If you have your own AvaTax or
             Vertex account configured, use their tax codes to assign specific tax
             rules. If you are using Recurly's EU VAT feature, you can use values of
-            `unknown`, `physical`, or `digital`.
+            `unknown`, `physical`, or `digital`. If `item_code`/`item_id` is part
+            of the request then `code` must be absent.
           maxLength: 50
         currencies:
           type: array
@@ -11206,6 +11343,10 @@ components:
           items:
             "$ref": "#/components/schemas/AddOnPricing"
           minItems: 1
+          description: If `item_code`/`item_id` is part of the request and the item
+            has a default currency then `currencies` is optional. If the item does
+            not have a default currency, then `currencies` is required. If `item_code`/`item_id`
+            is not present `currencies` is required.
       required:
       - code
       - name
@@ -11223,18 +11364,21 @@ components:
         code:
           type: string
           title: Add-on code
-          description: The unique identifier for the add-on within its plan.
+          description: The unique identifier for the add-on within its plan. If an
+            `Item` is associated to the `AddOn` then `code` must be absent.
           maxLength: 50
         name:
           type: string
           title: Name
           description: Describes your add-on and will appear in subscribers' invoices.
+            If an `Item` is associated to the `AddOn` then `name` must be absent.
           maxLength: 255
         accounting_code:
           type: string
           title: Accounting code
           description: Accounting code for invoice line items for this add-on. If
-            no value is provided, it defaults to add-on's code.
+            no value is provided, it defaults to add-on's code. If an `Item` is associated
+            to the `AddOn` then `accounting code` must be absent.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 20
         tax_code:
@@ -11244,7 +11388,8 @@ components:
             tax feature to determine taxation rules. If you have your own AvaTax or
             Vertex account configured, use their tax codes to assign specific tax
             rules. If you are using Recurly's EU VAT feature, you can use values of
-            `unknown`, `physical`, or `digital`.
+            `unknown`, `physical`, or `digital`. If an `Item` is associated to the
+            `AddOn` then `tax code` must be absent.
           maxLength: 50
         display_quantity:
           type: boolean
@@ -12130,6 +12275,44 @@ components:
             are removed from the accouts or subscriptions, will be hard deleted an
             no longer visible.
           readOnly: true
+    ItemMini:
+      type: object
+      title: Item mini details
+      description: Just the important parts.
+      properties:
+        id:
+          type: string
+          title: Item ID
+          maxLength: 13
+          readOnly: true
+        object:
+          type: string
+          title: Object type
+          readOnly: true
+        code:
+          type: string
+          title: Item code
+          description: Unique code to identify the item.
+          pattern: "/^[a-z0-9_+-]+$/"
+          maxLength: 50
+        state:
+          type: string
+          title: State
+          description: The current state of the item.
+          readOnly: true
+          enum:
+          - active
+          - inactive
+        name:
+          type: string
+          title: Name
+          description: This name describes your item and will appear on the invoice
+            when it's purchased on a one time basis.
+          maxLength: 255
+        description:
+          type: string
+          title: Description
+          description: Optional, description.
     Item:
       type: object
       description: Full item details.
@@ -15384,6 +15567,7 @@ components:
           - amazon_billing_agreement
           - paypal_billing_agreement
           - gateway_token
+          - iban_bank_account
           - other
         card_type:
           type: string
@@ -15410,6 +15594,10 @@ components:
           description: Credit card number's last four digits. Will refer to bank account
             if payment method is ACH.
           maxLength: 4
+        last_two:
+          type: string
+          description: The IBAN bank account's last two digits.
+          maxLength: 2
         exp_month:
           type: integer
           description: Expiration month.

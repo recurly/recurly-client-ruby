@@ -42,6 +42,10 @@ module Recurly
       #   @return [String] Credit card number's last four digits. Will refer to bank account if payment method is ACH.
       define_attribute :last_four, String
 
+      # @!attribute last_two
+      #   @return [String] The IBAN bank account's last two digits.
+      define_attribute :last_two, String
+
       # @!attribute object
       #   @return [String]
       define_attribute :object, String
