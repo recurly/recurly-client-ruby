@@ -2558,6 +2558,18 @@ module Recurly
       put(path, **options)
     end
 
+    # Convert trial subscription
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/convert_trial convert_trial api documenation}
+    #
+    # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::Subscription] A subscription.
+    def convert_trial(subscription_id:, **options)
+      path = interpolate_path("/subscriptions/{subscription_id}/convert_trial", subscription_id: subscription_id)
+      put(path, **options)
+    end
+
     # Fetch a subscription's pending change
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/get_subscription_change get_subscription_change api documenation}

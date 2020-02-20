@@ -7,11 +7,11 @@ module Recurly
     class AddOnUpdate < Request
 
       # @!attribute accounting_code
-      #   @return [String] Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code.
+      #   @return [String] Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code. If an `Item` is associated to the `AddOn` then `accounting code` must be absent.
       define_attribute :accounting_code, String
 
       # @!attribute code
-      #   @return [String] The unique identifier for the add-on within its plan.
+      #   @return [String] The unique identifier for the add-on within its plan. If an `Item` is associated to the `AddOn` then `code` must be absent.
       define_attribute :code, String
 
       # @!attribute currencies
@@ -31,11 +31,11 @@ module Recurly
       define_attribute :id, String
 
       # @!attribute name
-      #   @return [String] Describes your add-on and will appear in subscribers' invoices.
+      #   @return [String] Describes your add-on and will appear in subscribers' invoices. If an `Item` is associated to the `AddOn` then `name` must be absent.
       define_attribute :name, String
 
       # @!attribute tax_code
-      #   @return [String] Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.
+      #   @return [String] Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`. If an `Item` is associated to the `AddOn` then `tax code` must be absent.
       define_attribute :tax_code, String
     end
   end

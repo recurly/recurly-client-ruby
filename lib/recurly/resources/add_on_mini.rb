@@ -14,9 +14,17 @@ module Recurly
       #   @return [String] The unique identifier for the add-on within its plan.
       define_attribute :code, String
 
+      # @!attribute external_sku
+      #   @return [String] Optional, stock keeping unit to link the item to other inventory systems.
+      define_attribute :external_sku, String
+
       # @!attribute id
       #   @return [String] Add-on ID
       define_attribute :id, String
+
+      # @!attribute item_id
+      #   @return [String] Item ID
+      define_attribute :item_id, String
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.
