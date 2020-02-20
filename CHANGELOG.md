@@ -1,6 +1,14 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.7"></a>
+## v2.18.7 (2020-2-20)
+
+This bumps us to API version 2.25.
+
+* Add external_sku to Adjustment (included in API version 2.24) [PR](https://github.com/recurly/recurly-client-ruby/pull/551)
+* Add convert_trial() to Subscription [PR](https://github.com/recurly/recurly-client-ruby/pull/553)
+
 <a name="v2.18.6"></a>
 ## v2.18.6 (2019-12-18)
 
