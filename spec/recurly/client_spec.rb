@@ -14,6 +14,7 @@ RSpec.describe Recurly::Client do
       "date" => "Thu, 01 Aug 2019 01:26:44 GMT",
       "server" => "cloudflare",
       "cf-ray" => "4ff4b71268424738-EWR",
+      "recurly-total-records" => "3804",
     }
   end
   let(:net_http) { Recurly::ConnectionPool.new.init_http_connection }
@@ -52,6 +53,20 @@ RSpec.describe Recurly::Client do
 
         expect(net_http).to receive(:request).and_return(response)
         _account = subject.get_account(account_id: "code-benjamin-du-monde")
+      end
+    end
+
+    describe "#get_resource_count" do
+      let(:response) do
+        resp = Net::HTTPOK.new(1.0, "200", "OK")
+        allow(resp).to receive(:body) { nil }
+        resp_headers.each { |key, v| resp[key] = v }
+        resp
+      end
+
+      it "should return the 'recurly-total-records' header value" do
+        expect(net_http).to receive(:request).with(instance_of(Net::HTTP::Head)).and_return(response)
+        expect(subject.list_accounts.count).to eq(resp_headers["recurly-total-records"].to_i)
       end
     end
 

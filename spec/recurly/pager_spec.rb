@@ -23,6 +23,31 @@ RSpec.describe Recurly::Pager do
     end
   end
 
+  describe "#first" do
+    let(:options) { { limit: 200, a: 1 } }
+    let(:first_response) do
+      page = Recurly::Resources::Page.new
+      page.data = [
+        { "object" => "account", "id" => "1" },
+      ]
+      page.has_more = true
+      page.next = "https://partner-api.recurly.com/next_url"
+      page
+    end
+    it "should update the 'limit' param to 1" do
+      expect(client).to receive(:next_page)
+                          .with("/next_url?limit=1&a=1")
+                          .and_return(first_response)
+      subject.first
+    end
+  end
+
+  it "#count" do
+    expect(client).to receive(:get_resource_count)
+                        .with("/next_url?a=1&b=2020-01-01T00%3A00%3A00%2B00%3A00")
+    subject.count
+  end
+
   context "enumerators" do
     let(:more_response) do
       page = Recurly::Resources::Page.new

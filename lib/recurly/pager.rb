@@ -10,6 +10,23 @@ module Recurly
       @next = build_path(@path, @options)
     end
 
+    # Performs a request with the pager `limit` set to 1 and only returns the first
+    # result in the response.
+    def first
+      # Modify the @next url to set the :limit to 1
+      original_next = @next
+      @next = build_path(@path, @options.merge(limit: 1))
+      fetch_next!
+      # Restore the @next url to the original
+      @next = original_next
+      @data.first
+    end
+
+    # Makes a HEAD request to the API to determine how many total records exist.
+    def count
+      @client.get_resource_count(self.next)
+    end
+
     # Enumerates each "page" from the server.
     # This method yields a given block with the array of items
     # in the page `data` and the page number the pagination is on
@@ -95,7 +112,7 @@ module Recurly
     end
 
     def fetch_next!
-      page = @client.next_page(self)
+      page = @client.next_page(self.next)
       @data = page.data.map { |d| JSONParser.from_json(d) }
       @has_more = page.has_more
       @next = page.next
@@ -121,7 +138,7 @@ module Recurly
       @options = params.map do |key, param|
         new_param = param.is_a?(Array) ? param.join(",") : param
         [key, new_param]
-      end
+      end.to_h
     end
   end
 end
