@@ -42,6 +42,14 @@ module Recurly
       #   @return [Integer] Subscription quantity
       define_attribute :quantity, Integer
 
+      # @!attribute revenue_schedule_type
+      #   @return [String] Revenue schedule type
+      define_attribute :revenue_schedule_type, String
+
+      # @!attribute setup_fee_revenue_schedule_type
+      #   @return [String] Setup fee revenue schedule type
+      define_attribute :setup_fee_revenue_schedule_type, String
+
       # @!attribute shipping
       #   @return [SubscriptionShipping] Subscription shipping details
       define_attribute :shipping, :SubscriptionShipping

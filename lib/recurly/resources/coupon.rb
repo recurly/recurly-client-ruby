@@ -86,6 +86,10 @@ module Recurly
       #   @return [DateTime] The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
       define_attribute :redeem_by, DateTime
 
+      # @!attribute redeemed_at
+      #   @return [DateTime] The date and time the unique coupon code was redeemed. This is only present for bulk coupons.
+      define_attribute :redeemed_at, DateTime
+
       # @!attribute redemption_resource
       #   @return [String] Whether the discount is for all eligible charges on the account, or only a specific subscription.
       define_attribute :redemption_resource, String

@@ -62,6 +62,10 @@ module Recurly
       #   @return [String] Plan ID
       define_attribute :plan_id, String
 
+      # @!attribute revenue_schedule_type
+      #   @return [String] When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.
+      define_attribute :revenue_schedule_type, String
+
       # @!attribute state
       #   @return [String] Add-ons can be either active or inactive.
       define_attribute :state, String

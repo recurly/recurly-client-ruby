@@ -14,6 +14,10 @@ module Recurly
       #   @return [Integer] Quantity
       define_attribute :quantity, Integer
 
+      # @!attribute revenue_schedule_type
+      #   @return [String] Revenue schedule type
+      define_attribute :revenue_schedule_type, String
+
       # @!attribute unit_amount
       #   @return [Float] Optionally, override the add-on's default unit amount.
       define_attribute :unit_amount, Float
