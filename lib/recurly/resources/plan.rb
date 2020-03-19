@@ -58,9 +58,17 @@ module Recurly
       #   @return [String] Object type
       define_attribute :object, String
 
+      # @!attribute revenue_schedule_type
+      #   @return [String] Revenue schedule type
+      define_attribute :revenue_schedule_type, String
+
       # @!attribute setup_fee_accounting_code
       #   @return [String] Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
       define_attribute :setup_fee_accounting_code, String
+
+      # @!attribute setup_fee_revenue_schedule_type
+      #   @return [String] Setup fee revenue schedule type
+      define_attribute :setup_fee_revenue_schedule_type, String
 
       # @!attribute state
       #   @return [String] The current state of the plan.
