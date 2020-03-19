@@ -38,6 +38,10 @@ module Recurly
       #   @return [String] A token used in place of a credit card in order to perform transactions. Must be used in conjunction with `gateway_code`.
       define_attribute :gateway_token, String
 
+      # @!attribute iban
+      #   @return [String] The International Bank Account Number, up to 34 alphanumeric characters comprising a country code; two check digits; and a number that includes the domestic bank account number, branch identifier, and potential routing information
+      define_attribute :iban, String
+
       # @!attribute ip_address
       #   @return [String] *STRONGLY RECOMMENDED* Customer's IP address when updating their billing information.
       define_attribute :ip_address, String

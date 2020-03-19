@@ -38,6 +38,10 @@ module Recurly
       #   @return [Integer] Optionally override the default quantity of 1.
       define_attribute :quantity, Integer
 
+      # @!attribute revenue_schedule_type
+      #   @return [String] Revenue schedule type
+      define_attribute :revenue_schedule_type, String
+
       # @!attribute shipping
       #   @return [SubscriptionChangeShippingCreate] The shipping address can currently only be changed immediately, using SubscriptionUpdate.
       define_attribute :shipping, :SubscriptionChangeShippingCreate

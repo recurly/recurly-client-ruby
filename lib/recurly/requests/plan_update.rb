@@ -42,9 +42,17 @@ module Recurly
       #   @return [String] This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
       define_attribute :name, String
 
+      # @!attribute revenue_schedule_type
+      #   @return [String] Revenue schedule type
+      define_attribute :revenue_schedule_type, String
+
       # @!attribute setup_fee_accounting_code
       #   @return [String] Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
       define_attribute :setup_fee_accounting_code, String
+
+      # @!attribute setup_fee_revenue_schedule_type
+      #   @return [String] Setup fee revenue schedule type
+      define_attribute :setup_fee_revenue_schedule_type, String
 
       # @!attribute tax_code
       #   @return [String] Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.
