@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+if [ -z "$GITHUB_TOKEN" ]; then
+  echo "Environment variable GITHUB_TOKEN must be set"
+else
+  if [ "$1" == "--pending" ]; then
+    github_changelog_generator -t $GITHUB_TOKEN --unreleased-only -o "$2"
+  else
+    github_changelog_generator -t $GITHUB_TOKEN
+  fi
+fi
