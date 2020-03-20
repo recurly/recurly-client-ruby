@@ -1,11 +1,30 @@
 #!/usr/bin/env bash
 set -e
 
-# Clean up any leftover gems
-rm -f *.gem
+# TODO this file could be gone
+RELEASED_LOG="/tmp/ruby-pending-changes.md"
+THIS_VERSION=$(./scripts/bump --this-version)
 
+# Finally need to update the full changelog
+./scripts/changelog
+git add CHANGELOG.md
+git commit -m "Update Changelog for Release $THIS_VERSION"
+git push origin master
+
+# publish
+# Clean up any leftover gems
+rm -f ./*.gem
 # Build the new gem
 gem build recurly.gemspec
-
 # Push what should be the only gem present
-gem push *.gem
+gem push ./*.gem
+
+# create release
+hub release create -c -F "$RELEASED_LOG" "$THIS_VERSION"
+
+# Copy-pasteable messages for announcments
+echo ":ruby: Ruby $THIS_VERSION Released :ruby:"
+echo ":rubygems: Rubygems:  https://rubygems.org/gems/recurly/versions/$THIS_VERSION"
+echo "Release: https://github.com/recurly/recurly-client-ruby/releases/tag/$THIS_VERSION"
+echo "Changelog:"
+cat "$RELEASED_LOG"
