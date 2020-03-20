@@ -1,18 +1,22 @@
-require "faraday"
 require "logger"
 require "erb"
+require "net/https"
+require "base64"
 require_relative "./schema/json_parser"
 require_relative "./schema/file_parser"
-require_relative "./client/adapter"
 
 module Recurly
   class Client
     require_relative "./client/operations"
 
-    BASE_URL = "https://v3.recurly.com/"
+    BASE_HOST = "v3.recurly.com"
+    BASE_PORT = 443
+    CA_FILE = File.join(File.dirname(__FILE__), "../data/ca-certificates.crt")
     BINARY_TYPES = [
       "application/pdf",
     ]
+    JSON_CONTENT_TYPE = "application/json"
+    MAX_RETRIES = 3
 
     # Initialize a client. It requires an API key.
     #
@@ -42,17 +46,18 @@ module Recurly
     # @param subdomain [String] Optional subdomain for the site you wish to be scoped to. Providing this makes all the `site_id` parameters optional.
     def initialize(api_key:, site_id: nil, subdomain: nil, **options)
       set_site_id(site_id, subdomain)
+      set_api_key(api_key)
       set_options(options)
-      set_faraday_connection(api_key)
 
       # execute block with this client if given
       yield(self) if block_given?
     end
 
     def next_page(pager)
-      req = HTTP::Request.new(:get, pager.next, nil)
-      faraday_resp = run_request(req, headers)
-      handle_response! req, faraday_resp
+      path = URI(pager.next).path
+      request = Net::HTTP::Get.new path
+      http_response = run_request(request)
+      handle_response! request, http_response
     end
 
     protected
@@ -68,44 +73,40 @@ module Recurly
 
     def get(path, **options)
       path = scope_by_site(path, **options)
-      request = HTTP::Request.new(:get, path, nil)
-      faraday_resp = run_request(request, headers)
-      handle_response! request, faraday_resp
-    rescue Faraday::ClientError => ex
-      raise_network_error!(ex)
+      request = Net::HTTP::Get.new path
+      http_response = run_request(request, options)
+      handle_response! request, http_response
     end
 
     def post(path, request_data, request_class, **options)
       request_class.new(request_data).validate!
       path = scope_by_site(path, **options)
-      request = HTTP::Request.new(:post, path, JSON.dump(request_data))
-      faraday_resp = run_request(request, headers)
-      handle_response! request, faraday_resp
-    rescue Faraday::ClientError => ex
-      raise_network_error!(ex)
+      request = Net::HTTP::Post.new path
+      request.set_content_type(JSON_CONTENT_TYPE)
+      request.body = JSON.dump(request_data)
+      http_response = run_request(request, options)
+      handle_response! request, http_response
     end
 
     def put(path, request_data = nil, request_class = nil, **options)
       path = scope_by_site(path, **options)
-      request = HTTP::Request.new(:put, path)
+      request = Net::HTTP::Put.new path
       if request_data
         request_class.new(request_data).validate!
-        logger.info("PUT BODY #{JSON.dump(request_data)}")
-        request.body = JSON.dump(request_data)
+        json_body = JSON.dump(request_data)
+        logger.info("PUT BODY #{json_body}")
+        request.set_content_type(JSON_CONTENT_TYPE)
+        request.body = json_body
       end
-      faraday_resp = run_request(request, headers)
-      handle_response! request, faraday_resp
-    rescue Faraday::ClientError => ex
-      raise_network_error!(ex)
+      http_response = run_request(request, options)
+      handle_response! request, http_response
     end
 
     def delete(path, **options)
       path = scope_by_site(path, **options)
-      request = HTTP::Request.new(:delete, path, nil)
-      faraday_resp = run_request(request, headers)
-      handle_response! request, faraday_resp
-    rescue Faraday::ClientError => ex
-      raise_network_error!(ex)
+      request = Net::HTTP::Delete.new path
+      http_response = run_request(request, options)
+      handle_response! request, http_response
     end
 
     protected
@@ -118,18 +119,59 @@ module Recurly
     # @return [Logger]
     attr_reader :logger
 
-    def run_request(request, headers)
-      read_headers @conn.run_request(request.method, request.path, request.body, headers)
+    def connection_pool
+      @@connection_pool ||= Recurly::ConnectionPool.new
     end
 
-    def handle_response!(request, faraday_resp)
-      response = HTTP::Response.new(faraday_resp, request)
-      raise_api_error!(response) unless (200...300).include?(response.status)
+    def run_request(request, options = {})
+      request["Accept"] = "application/vnd.recurly.#{api_version}".chomp # got this method from operations.rb
+      request["Authorization"] = "Basic #{Base64.encode64(@api_key)}".chomp
+      request["User-Agent"] = "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}"
+
+      # TODO this is undocumented until we finalize it
+      options[:headers].each { |header, v| request[header] = v } if options[:headers]
+
+      connection_pool.with_connection do |http|
+        http.open_timeout = options[:open_timeout] || 20
+        http.read_timeout = options[:read_timeout] || 60
+
+        retries = 0
+
+        begin
+          http.start unless http.started?
+          http.request(request)
+        rescue EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EHOSTUNREACH, Errno::ECONNABORTED, Errno::EPIPE, Errno::ETIMEDOUT, Net::OpenTimeout => ex
+          retries += 1
+          if retries < MAX_RETRIES
+            retry
+          end
+
+          http.finish if http.started? # do not add back to pool
+
+          if ex.kind_of?(Net::OpenTimeout) || ex.kind_of?(Errno::ETIMEDOUT)
+            raise Recurly::Errors::TimeoutError, "Request timed out"
+          end
+
+          raise Recurly::Errors::ConnectionFailedError, "Failed to connect to Recurly: #{ex.message}"
+        rescue Net::ReadTimeout, Timeout::Error
+          http.finish if http.started? # do not add back to pool
+          raise Recurly::Errors::TimeoutError, "Request timed out"
+        rescue OpenSSL::SSL::SSLError => ex
+          raise Recurly::Errors::SSLError, ex.message
+        end
+      end
+    end
+
+    def handle_response!(request, http_response)
+      response = HTTP::Response.new(http_response, request)
+      raise_api_error!(response) unless http_response.kind_of?(Net::HTTPSuccess)
       resource = if response.body
-          if BINARY_TYPES.include?(response.content_type)
+          if http_response.content_type.include?(JSON_CONTENT_TYPE)
+            JSONParser.parse(self, response.body)
+          elsif BINARY_TYPES.include?(http_response.content_type)
             FileParser.parse(response.body)
           else
-            JSONParser.parse(self, response.body)
+            raise Recurly::Errors::InvalidResponseError, "Unexpected content type: #{http_response.content_type}"
           end
         else
           Resources::Empty.new
@@ -139,25 +181,14 @@ module Recurly
       resource
     end
 
-    def raise_network_error!(ex)
-      error_class = case ex
-        when Faraday::TimeoutError
-          Errors::TimeoutError
-        when Faraday::ConnectionFailed
-          Errors::ConnectionFailedError
-        when Faraday::SSLError
-          Errors::SSLError
-        else
-          Errors::NetworkError
-        end
-
-      raise error_class, ex.message
-    end
-
     def raise_api_error!(response)
-      error = JSONParser.parse(self, response.body)
-      error_class = Errors::APIError.error_class(error.type)
-      raise error_class.new(response, error)
+      if response.content_type.include?(JSON_CONTENT_TYPE)
+        error = JSONParser.parse(self, response.body)
+        error_class = Errors::APIError.error_class(error.type)
+        raise error_class.new(response, error)
+      else
+        raise Recurly::Errors::InvalidResponseError, "Unexpected content type: #{http_response.content_type}"
+      end
     end
 
     def read_headers(response)
@@ -165,14 +196,6 @@ module Recurly
         puts "[recurly-client-ruby] WARNING: Your current API version \"#{api_version}\" is deprecated and will be sunset on #{response.headers["Recurly-Sunset-Date"]}"
       end
       response
-    end
-
-    def headers
-      {
-        "Accept" => "application/vnd.recurly.#{api_version}", # got this method from operations.rb
-        "Content-Type" => "application/json",
-        "User-Agent" => "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}",
-      }.merge(@extra_headers)
     end
 
     def interpolate_path(path, **options)
@@ -201,6 +224,10 @@ module Recurly
       end
     end
 
+    def set_api_key(api_key)
+      @api_key = api_key
+    end
+
     def scope_by_site(path, **options)
       if site = site_id || options[:site_id]
         "/sites/#{site}#{path}"
@@ -209,34 +236,10 @@ module Recurly
       end
     end
 
-    def set_faraday_connection(api_key)
-      options = {
-        url: BASE_URL,
-        request: { timeout: 60, open_timeout: 50 },
-        ssl: { verify: true },
-      }
-      # Let's not use the bundled cert in production yet
-      # but we will use these certs for any other staging or dev environment
-      unless BASE_URL.end_with?(".recurly.com")
-        options[:ssl][:ca_file] = File.join(File.dirname(__FILE__), "../data/ca-certificates.crt")
-      end
-
-      @conn = Faraday.new(options) do |faraday|
-        if [Logger::DEBUG, Logger::INFO].include?(@log_level)
-          faraday.response :logger
-        end
-        faraday.basic_auth(api_key, "")
-        configure_net_adapter(faraday)
-      end
-    end
-
     def set_options(options)
       @log_level = options[:log_level] || Logger::WARN
       @logger = Logger.new(STDOUT)
       @logger.level = @log_level
-
-      # TODO this is undocumented until we finalize it
-      @extra_headers = options[:headers] || {}
     end
   end
 end

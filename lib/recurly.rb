@@ -8,6 +8,7 @@ require "recurly/resources"
 require "recurly/http"
 require "recurly/errors"
 require "recurly/client"
+require "recurly/connection_pool"
 
 module Recurly
   STRICT_MODE = ENV["RECURLY_STRICT_MODE"] && ENV["RECURLY_STRICT_MODE"].downcase == "true"

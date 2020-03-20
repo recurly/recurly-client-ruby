@@ -8,12 +8,16 @@ module Recurly
 
       def initialize(resp, request)
         @request = request
-        @status = resp.status
-        @request_id = resp.headers["x-request-id"]
-        @rate_limit = resp.headers["x-ratelimit-limit"].to_i
-        @rate_limit_remaining = resp.headers["x-ratelimit-remaining"].to_i
-        @rate_limit_reset = Time.at(resp.headers["x-ratelimit-reset"].to_i).to_datetime
-        @content_type = resp.headers["content-type"].split(";").first if resp.headers["content-type"]
+        @status = resp.code.to_i
+        @request_id = resp["x-request-id"]
+        @rate_limit = resp["x-ratelimit-limit"].to_i
+        @rate_limit_remaining = resp["x-ratelimit-remaining"].to_i
+        @rate_limit_reset = Time.at(resp["x-ratelimit-reset"].to_i).to_datetime
+        if resp["content-type"]
+          @content_type = resp["content-type"].split(";").first
+        else
+          @content_type = resp.content_type
+        end
         if resp.body && !resp.body.empty?
           @body = resp.body
         else

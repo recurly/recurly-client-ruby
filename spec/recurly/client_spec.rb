@@ -15,6 +15,16 @@ RSpec.describe Recurly::Client do
       "cf-ray" => "4ff4b71268424738-EWR",
     }
   end
+  let(:net_http) { Recurly::ConnectionPool.new.init_http_connection }
+  let(:connection_pool) {
+    pool = double("ConnectionPool")
+    allow(pool).to receive(:with_connection).and_yield net_http
+    pool
+  }
+
+  before {
+    allow(client).to receive(:connection_pool).and_return connection_pool
+  }
 
   context "#api_version" do
     it "should respond with a valid api version" do
@@ -25,14 +35,12 @@ RSpec.describe Recurly::Client do
 
   context "with sucessful responses" do
     let(:response) do
-      resp = double()
+      resp = Net::HTTPOK.new(1.0, "200", "OK")
       allow(resp).to receive(:body) do
         "{ \"object\": \"account\" }"
       end
-      allow(resp).to receive(:headers) { resp_headers }
-      allow(resp).to receive(:status) do
-        200
-      end
+      allow(resp).to receive(:content_type).and_return "application/json; charset=utf-8"
+      resp_headers.each { |key, v| resp[key] = v }
       resp
     end
 
@@ -40,7 +48,8 @@ RSpec.describe Recurly::Client do
       it "should include the necessary headers in each request" do
         expected = hash_including("Accept" => /application\/vnd\.recurly/, "Content-Type" => "application/json", "User-Agent" => /Recurly\//)
         req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
-        expect(client).to receive(:run_request).with(req, expected).and_return(response)
+
+        expect(net_http).to receive(:request).and_return(response)
         _account = subject.get_account(account_id: "code-benjamin-du-monde")
       end
     end
@@ -48,14 +57,14 @@ RSpec.describe Recurly::Client do
     describe "#get" do
       it "should return an account object for get_account" do
         req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
-        expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+        expect(net_http).to receive(:request).and_return(response)
         account = subject.get_account(account_id: "code-benjamin-du-monde")
         expect(account).to be_instance_of Recurly::Resources::Account
       end
 
       it "should inject the response metatada" do
         req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
-        expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+        expect(net_http).to receive(:request).and_return(response)
         account = subject.get_account(account_id: "code-benjamin-du-monde")
         expect(account.get_response).to be_instance_of Recurly::HTTP::Response
       end
@@ -64,7 +73,7 @@ RSpec.describe Recurly::Client do
     describe "#delete" do
       it "should return a the deleted account for deactivate_account" do
         req = Recurly::HTTP::Request.new(:delete, "/accounts/code-benjamin-du-monde", nil)
-        expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+        expect(net_http).to receive(:request).and_return(response)
         account = subject.deactivate_account(account_id: "code-benjamin-du-monde")
         expect(account).to be_instance_of Recurly::Resources::Account
       end
@@ -74,7 +83,7 @@ RSpec.describe Recurly::Client do
       it "should return a the updated account for update_account" do
         body = { first_name: "Benjamin" }
         req = Recurly::HTTP::Request.new(:put, "/accounts/code-benjamin-du-monde", JSON.dump(body))
-        expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+        expect(net_http).to receive(:request).and_return(response)
         account = subject.update_account(account_id: "code-benjamin-du-monde", body: body)
         expect(account).to be_instance_of Recurly::Resources::Account
       end
@@ -82,21 +91,19 @@ RSpec.describe Recurly::Client do
 
     describe "#post" do
       let(:response) do
-        resp = double()
+        resp = Net::HTTPCreated.new(1.0, "201", "Created")
         allow(resp).to receive(:body) do
           "{ \"object\": \"account\" }"
         end
-        allow(resp).to receive(:headers) { resp_headers }
-        allow(resp).to receive(:status) do
-          201
-        end
+        allow(resp).to receive(:content_type).and_return "application/json; charset=utf-8"
+        resp_headers.each { |key, v| resp[key] = v }
         resp
       end
 
       it "should return a the created account for create_account" do
         body = { code: "benjamin-du-monde" }
         req = Recurly::HTTP::Request.new(:post, "/accounts", JSON.dump(body))
-        expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+        expect(net_http).to receive(:request).and_return(response)
         account = subject.create_account(body: body)
         expect(account).to be_instance_of Recurly::Resources::Account
       end
@@ -104,7 +111,7 @@ RSpec.describe Recurly::Client do
 
     describe "index calls" do
       let(:response) do
-        resp = double()
+        resp = Net::HTTPOK.new(1.0, "200", "OK")
         allow(resp).to receive(:body) do
           <<-JSON
           {
@@ -114,16 +121,14 @@ RSpec.describe Recurly::Client do
           }
           JSON
         end
-        allow(resp).to receive(:headers) { resp_headers }
-        allow(resp).to receive(:status) do
-          200
-        end
+        allow(resp).to receive(:content_type).and_return "application/json; charset=utf-8"
+        resp_headers.each { |key, v| resp[key] = v }
         resp
       end
 
       it "should return a pager of accounts from list_accounts" do
         req = Recurly::HTTP::Request.new(:get, "/accounts", nil)
-        expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+        expect(net_http).to receive(:request).and_return(response)
         pager = subject.list_accounts
         expect(pager).to be_instance_of Recurly::Pager
         expect(pager.each).to all(be_a Recurly::Resources::Account)
@@ -134,7 +139,7 @@ RSpec.describe Recurly::Client do
       describe "get" do
         it "should scope the url by site" do
           req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-my-subdomain/accounts/code-benjamin-du-monde", nil)
-          expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+          expect(net_http).to receive(:request).and_return(response)
           _account = subject.get_account(account_id: "code-benjamin-du-monde", site_id: "subdomain-my-subdomain")
         end
       end
@@ -151,7 +156,7 @@ RSpec.describe Recurly::Client do
       describe "get" do
         it "should scope the url by site" do
           req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-my-subdomain/accounts/code-benjamin-du-monde", nil)
-          expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+          expect(net_http).to receive(:request).and_return(response)
           _account = subject.get_account(account_id: "code-benjamin-du-monde")
         end
       end
@@ -160,7 +165,7 @@ RSpec.describe Recurly::Client do
 
   context "with unsucessful responses" do
     let(:response) do
-      resp = double()
+      resp = Net::HTTPInternalServerError.new(1.0, "500", "Internal server error")
       allow(resp).to receive(:body) do
         <<-JSON
         {
@@ -172,17 +177,15 @@ RSpec.describe Recurly::Client do
         }
         JSON
       end
-      allow(resp).to receive(:headers) { resp_headers }
-      allow(resp).to receive(:status) do
-        500
-      end
+      allow(resp).to receive(:content_type).and_return "application/json; charset=utf-8"
+      resp_headers.each { |key, v| resp[key] = v }
       resp
     end
 
     describe "#get" do
       it "should raise an APIError" do
         req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
-        expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+        expect(net_http).to receive(:request).and_return(response)
         expect {
           subject.get_account(account_id: "code-benjamin-du-monde")
         }.to raise_error(Recurly::Errors::InternalServerError)
@@ -194,7 +197,7 @@ RSpec.describe Recurly::Client do
     describe "#get" do
       it "should return an account object for get_account" do
         req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
-        expect(client).to receive(:run_request).with(req, any_args).and_raise(Faraday::TimeoutError, "Request timed out")
+        allow(net_http).to receive(:request).and_raise(Net::OpenTimeout, "Request timed out")
         expect {
           subject.get_account(account_id: "code-benjamin-du-monde")
         }.to raise_error(Recurly::Errors::TimeoutError)
@@ -214,21 +217,19 @@ RSpec.describe Recurly::Client do
 
   context "with url param needing encoding" do
     let(:response) do
-      resp = double()
+      resp = Net::HTTPOK.new(1.0, "200", "OK")
       allow(resp).to receive(:body) do
         "{ \"object\": \"account\" }"
       end
-      allow(resp).to receive(:headers) { resp_headers }
-      allow(resp).to receive(:status) do
-        200
-      end
+      allow(resp).to receive(:content_type).and_return "application/json; charset=utf-8"
+      resp_headers.each { |key, v| resp[key] = v }
       resp
     end
 
     describe "#get" do
       it "should return an account object for get_account even if code has spaces" do
         req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin%20du%20monde", nil)
-        expect(client).to receive(:run_request).with(req, any_args).and_return(response)
+        expect(net_http).to receive(:request).and_return(response)
         account = subject.get_account(account_id: "code-benjamin du monde")
         expect(account).to be_instance_of Recurly::Resources::Account
       end
