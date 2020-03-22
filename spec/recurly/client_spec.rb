@@ -24,7 +24,7 @@ RSpec.describe Recurly::Client do
   }
 
   before {
-    allow(client).to receive(:connection_pool).and_return connection_pool
+    allow(client.class).to receive(:connection_pool).and_return connection_pool
   }
 
   context "#api_version" do

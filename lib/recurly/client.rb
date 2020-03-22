@@ -56,6 +56,7 @@ module Recurly
     def next_page(pager)
       path = extract_path(pager.next)
       request = Net::HTTP::Get.new path
+      set_headers(request)
       http_response = run_request(request)
       handle_response! request, http_response
     end
@@ -74,6 +75,7 @@ module Recurly
     def get(path, **options)
       path = scope_by_site(path, **options)
       request = Net::HTTP::Get.new path
+      set_headers(request, options[:headers])
       http_response = run_request(request, options)
       handle_response! request, http_response
     end
@@ -83,6 +85,7 @@ module Recurly
       path = scope_by_site(path, **options)
       request = Net::HTTP::Post.new path
       request.set_content_type(JSON_CONTENT_TYPE)
+      set_headers(request, options[:headers])
       request.body = JSON.dump(request_data)
       http_response = run_request(request, options)
       handle_response! request, http_response
@@ -92,6 +95,7 @@ module Recurly
       path = scope_by_site(path, **options)
       request = Net::HTTP::Put.new path
       request.set_content_type(JSON_CONTENT_TYPE)
+      set_headers(request, options[:headers])
       if request_data
         request_class.new(request_data).validate!
         json_body = JSON.dump(request_data)
@@ -105,6 +109,7 @@ module Recurly
     def delete(path, **options)
       path = scope_by_site(path, **options)
       request = Net::HTTP::Delete.new path
+      set_headers(request, options[:headers])
       http_response = run_request(request, options)
       handle_response! request, http_response
     end
@@ -119,30 +124,21 @@ module Recurly
     # @return [Logger]
     attr_reader :logger
 
-    def connection_pool
-      @@connection_pool ||= Recurly::ConnectionPool.new
+    @connection_pool = Recurly::ConnectionPool.new
+
+    class << self
+      # @return [Recurly::ConnectionPool]
+      attr_accessor :connection_pool
     end
 
     def run_request(request, options = {})
-      request["Accept"] = "application/vnd.recurly.#{api_version}".chomp # got this method from operations.rb
-      request["Authorization"] = "Basic #{Base64.encode64(@api_key)}".chomp
-      request["User-Agent"] = "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}"
-
-      # TODO this is undocumented until we finalize it
-      options[:headers].each { |header, v| request[header] = v } if options[:headers]
-
-      connection_pool.with_connection do |http|
-        http.open_timeout = options[:open_timeout] || 20
-        http.read_timeout = options[:read_timeout] || 60
+      self.class.connection_pool.with_connection do |http|
+        set_http_options(http, options)
 
         retries = 0
 
         begin
-          unless http.started?
-            http.set_debug_output(logger) if @log_level <= Logger::INFO
-            http.start
-          end
-
+          http.start unless http.started?
           http.request(request)
         rescue EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EHOSTUNREACH, Errno::ECONNABORTED, Errno::EPIPE, Errno::ETIMEDOUT, Net::OpenTimeout => ex
           retries += 1
@@ -150,20 +146,33 @@ module Recurly
             retry
           end
 
-          http.finish if http.started? # do not add back to pool
-
           if ex.kind_of?(Net::OpenTimeout) || ex.kind_of?(Errno::ETIMEDOUT)
             raise Recurly::Errors::TimeoutError, "Request timed out"
           end
 
           raise Recurly::Errors::ConnectionFailedError, "Failed to connect to Recurly: #{ex.message}"
         rescue Net::ReadTimeout, Timeout::Error
-          http.finish if http.started? # do not add back to pool
           raise Recurly::Errors::TimeoutError, "Request timed out"
         rescue OpenSSL::SSL::SSLError => ex
           raise Recurly::Errors::SSLError, ex.message
         end
       end
+    end
+
+    def set_headers(request, additional_headers = {})
+      request["Accept"] = "application/vnd.recurly.#{api_version}".chomp # got this method from operations.rb
+      request["Authorization"] = "Basic #{Base64.encode64(@api_key)}".chomp
+      request["User-Agent"] = "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}"
+
+      # TODO this is undocumented until we finalize it
+      additional_headers.each { |header, v| request[header] = v } if additional_headers
+    end
+
+    def set_http_options(http, options)
+      http.open_timeout = options[:open_timeout] || 20
+      http.read_timeout = options[:read_timeout] || 60
+
+      http.set_debug_output(logger) if @log_level <= Logger::INFO && !http.started?
     end
 
     def handle_response!(request, http_response)
