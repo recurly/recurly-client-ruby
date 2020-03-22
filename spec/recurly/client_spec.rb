@@ -1,7 +1,8 @@
 require "spec_helper"
 
 RSpec.describe Recurly::Client do
-  subject(:client) { Recurly::Client.new(api_key: api_key) }
+  subject(:client) { Recurly::Client.new(client_options) }
+  let(:client_options) { { api_key: api_key } }
   let(:subdomain) { "test" }
   let(:api_key) { "recurly-good" }
   let(:resp_headers) do
@@ -161,6 +162,30 @@ RSpec.describe Recurly::Client do
         end
       end
     end
+
+    describe "#log_level" do
+      context "set to Logger::DEBUG" do
+        let(:client_options) { { api_key: api_key, log_level: Logger::DEBUG } }
+
+        it "sets the Net::HTTP logger" do
+          expect(net_http).to receive(:set_debug_output).with(client.instance_variable_get(:@logger))
+          expect(client.instance_variable_get(:@logger).level).to eql(Logger::DEBUG)
+
+          expect(net_http).to receive(:request).and_return(response)
+          subject.get_account(account_id: "code-benjamin-du-monde")
+        end
+      end
+
+      context "defaults to Logger::WARN" do
+        it "does not set the Net::HTTP logger" do
+          expect(client.instance_variable_get(:@log_level)).to eql(Logger::WARN)
+          expect(net_http).not_to receive(:set_debug_output)
+
+          expect(net_http).to receive(:request).and_return(response)
+          subject.get_account(account_id: "code-benjamin-du-monde")
+        end
+      end
+    end
   end
 
   context "with unsucessful responses" do
@@ -233,6 +258,18 @@ RSpec.describe Recurly::Client do
         account = subject.get_account(account_id: "code-benjamin du monde")
         expect(account).to be_instance_of Recurly::Resources::Account
       end
+    end
+  end
+
+  describe "#extract_path returns the path and parameters" do
+    let(:path) { "/accounts?cursor=xyz&limit=20&sort=created_at" }
+
+    it "when given a path" do
+      expect(client.send(:extract_path, path)).to eql(path)
+    end
+
+    it "when given a full URI" do
+      expect(client.send(:extract_path, "https://v3.recurly.com#{path}")).to eql(path)
     end
   end
 end

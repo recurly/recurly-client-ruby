@@ -54,7 +54,7 @@ module Recurly
     end
 
     def next_page(pager)
-      path = URI(pager.next).path
+      path = extract_path(pager.next)
       request = Net::HTTP::Get.new path
       http_response = run_request(request)
       handle_response! request, http_response
@@ -91,11 +91,11 @@ module Recurly
     def put(path, request_data = nil, request_class = nil, **options)
       path = scope_by_site(path, **options)
       request = Net::HTTP::Put.new path
+      request.set_content_type(JSON_CONTENT_TYPE)
       if request_data
         request_class.new(request_data).validate!
         json_body = JSON.dump(request_data)
         logger.info("PUT BODY #{json_body}")
-        request.set_content_type(JSON_CONTENT_TYPE)
         request.body = json_body
       end
       http_response = run_request(request, options)
@@ -138,7 +138,11 @@ module Recurly
         retries = 0
 
         begin
-          http.start unless http.started?
+          unless http.started?
+            http.set_debug_output(logger) if @log_level <= Logger::INFO
+            http.start
+          end
+
           http.request(request)
         rescue EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EHOSTUNREACH, Errno::ECONNABORTED, Errno::EPIPE, Errno::ETIMEDOUT, Net::OpenTimeout => ex
           retries += 1
@@ -234,6 +238,12 @@ module Recurly
       else
         path
       end
+    end
+
+    # Returns just the path and parameters so we can safely reuse the connection
+    def extract_path(uri_or_path)
+      uri = URI(uri_or_path)
+      uri.kind_of?(URI::HTTP) ? uri.request_uri : uri_or_path
     end
 
     def set_options(options)
