@@ -7,6 +7,7 @@ require "recurly/requests"
 require "recurly/resources"
 require "recurly/http"
 require "recurly/errors"
+require "recurly/connection_pool"
 require "recurly/client"
 
 module Recurly
