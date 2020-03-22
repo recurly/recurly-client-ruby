@@ -261,6 +261,46 @@ RSpec.describe Recurly::Client do
     end
   end
 
+  describe "unexpected HTML responses" do
+    context "with 200 OK" do
+      let(:response) do
+        resp = Net::HTTPOK.new(1.0, "200", "OK")
+        allow(resp).to receive(:body) do
+          "<html><body><h1>Unexpected HTML</h1></body></html>"
+        end
+        allow(resp).to receive(:content_type).and_return "text/html; charset=utf-8"
+        resp_headers.each { |key, v| resp[key] = v }
+        resp
+      end
+
+      it "should raise Recurly::Errors::InvalidResponseError" do
+        expect(net_http).to receive(:request).and_return(response)
+        expect {
+          subject.get_account(account_id: "code-benjamin-du-monde")
+        }.to raise_error(Recurly::Errors::InvalidResponseError)
+      end
+    end
+
+    context "with 503 Service Unavailable" do
+      let(:response) do
+        resp = Net::HTTPServiceUnavailable.new(1.0, "503", "Service Unavailable")
+        allow(resp).to receive(:body) do
+          "<html><body><h1>Service Unavailable</h1></body></html>"
+        end
+        allow(resp).to receive(:content_type).and_return "text/html; charset=utf-8"
+        resp_headers.each { |key, v| resp[key] = v }
+        resp
+      end
+
+      it "should raise Recurly::Errors::UnavailableError" do
+        expect(net_http).to receive(:request).and_return(response)
+        expect {
+          subject.get_account(account_id: "code-benjamin-du-monde")
+        }.to raise_error(Recurly::Errors::UnavailableError)
+      end
+    end
+  end
+
   describe "#extract_path returns the path and parameters" do
     let(:path) { "/accounts?cursor=xyz&limit=20&sort=created_at" }
 

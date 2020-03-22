@@ -140,7 +140,8 @@ module Recurly
         begin
           http.start unless http.started?
           http.request(request)
-        rescue EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EHOSTUNREACH, Errno::ECONNABORTED, Errno::EPIPE, Errno::ETIMEDOUT, Net::OpenTimeout => ex
+        rescue Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EHOSTUNREACH, Errno::ECONNABORTED,
+               Errno::EPIPE, Errno::ETIMEDOUT, Net::OpenTimeout, EOFError, SocketError => ex
           retries += 1
           if retries < MAX_RETRIES
             retry
@@ -155,6 +156,8 @@ module Recurly
           raise Recurly::Errors::TimeoutError, "Request timed out"
         rescue OpenSSL::SSL::SSLError => ex
           raise Recurly::Errors::SSLError, ex.message
+        rescue StandardError => ex
+          raise Recurly::Errors::NetworkError, ex.message
         end
       end
     end
@@ -177,7 +180,7 @@ module Recurly
 
     def handle_response!(request, http_response)
       response = HTTP::Response.new(http_response, request)
-      raise_api_error!(response) unless http_response.kind_of?(Net::HTTPSuccess)
+      raise_api_error!(http_response, response) unless http_response.kind_of?(Net::HTTPSuccess)
       resource = if response.body
           if http_response.content_type.include?(JSON_CONTENT_TYPE)
             JSONParser.parse(self, response.body)
@@ -194,13 +197,20 @@ module Recurly
       resource
     end
 
-    def raise_api_error!(response)
+    def raise_api_error!(http_response, response)
       if response.content_type.include?(JSON_CONTENT_TYPE)
         error = JSONParser.parse(self, response.body)
         error_class = Errors::APIError.error_class(error.type)
         raise error_class.new(response, error)
+      end
+
+      error_class = Errors::APIError.from_response(http_response)
+
+      if error_class <= Recurly::Errors::APIError
+        error = Recurly::Resources::Error.new(message: "#{http_response.code}: #{http_response.message}")
+        raise error_class.new(response, error)
       else
-        raise Recurly::Errors::InvalidResponseError, "Unexpected content type: #{http_response.content_type}"
+        raise error_class, "#{http_response.code}: #{http_response.message}"
       end
     end
 

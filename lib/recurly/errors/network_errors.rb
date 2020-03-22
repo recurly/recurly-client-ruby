@@ -5,5 +5,6 @@ module Recurly
     class TimeoutError < NetworkError; end
     class ConnectionFailedError < NetworkError; end
     class SSLError < NetworkError; end
+    class UnavailableError < NetworkError; end
   end
 end
