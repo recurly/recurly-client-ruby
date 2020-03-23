@@ -1,7 +1,6 @@
-# Changelog
+# Change Log
 
 ## [3.3.1](https://github.com/recurly/recurly-client-ruby/tree/3.3.1) (2020-03-20)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.3.0...3.3.1)
 
 **Merged pull requests:**
@@ -13,27 +12,24 @@
 - Add request for stack trace in issue report [\#558](https://github.com/recurly/recurly-client-ruby/pull/558) ([bhelx](https://github.com/bhelx))
 
 ## [3.3.0](https://github.com/recurly/recurly-client-ruby/tree/3.3.0) (2020-02-20)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.2.2...3.3.0)
 
 **Merged pull requests:**
 
 - Release 3.3.0 [\#556](https://github.com/recurly/recurly-client-ruby/pull/556) ([bhelx](https://github.com/bhelx))
+- Latest generated changes for v2019-10-10 [\#555](https://github.com/recurly/recurly-client-ruby/pull/555) ([bhelx](https://github.com/bhelx))
 - Link to new dev docs for webhooks [\#554](https://github.com/recurly/recurly-client-ruby/pull/554) ([bhelx](https://github.com/bhelx))
 - Latest v2019-10-10 Changes [\#552](https://github.com/recurly/recurly-client-ruby/pull/552) ([bhelx](https://github.com/bhelx))
 
 ## [3.2.2](https://github.com/recurly/recurly-client-ruby/tree/3.2.2) (2020-02-03)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.2.1...3.2.2)
 
 **Merged pull requests:**
 
-- Latest generated changes for v2019-10-10 [\#555](https://github.com/recurly/recurly-client-ruby/pull/555) ([bhelx](https://github.com/bhelx))
 - Release 3.2.2 [\#550](https://github.com/recurly/recurly-client-ruby/pull/550) ([bhelx](https://github.com/bhelx))
 - Loosen version restriction on faraday [\#549](https://github.com/recurly/recurly-client-ruby/pull/549) ([bhelx](https://github.com/bhelx))
 
 ## [3.2.1](https://github.com/recurly/recurly-client-ruby/tree/3.2.1) (2019-12-10)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.2.0...3.2.1)
 
 **Fixed bugs:**
@@ -41,7 +37,6 @@
 - Convert Array params to CSV strings [\#545](https://github.com/recurly/recurly-client-ruby/pull/545) ([douglasmiller](https://github.com/douglasmiller))
 
 ## [3.2.0](https://github.com/recurly/recurly-client-ruby/tree/3.2.0) (2019-12-03)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.1.3...3.2.0)
 
 **Fixed bugs:**
@@ -55,7 +50,6 @@
 - Allow object attributes through [\#542](https://github.com/recurly/recurly-client-ruby/pull/542) ([bhelx](https://github.com/bhelx))
 
 ## [3.1.3](https://github.com/recurly/recurly-client-ruby/tree/3.1.3) (2019-12-02)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.1.2...3.1.3)
 
 **Fixed bugs:**
@@ -64,7 +58,6 @@
 - Issue 540 error may have transaction [\#541](https://github.com/recurly/recurly-client-ruby/pull/541) ([bhelx](https://github.com/bhelx))
 
 ## [3.1.2](https://github.com/recurly/recurly-client-ruby/tree/3.1.2) (2019-12-02)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.1.1...3.1.2)
 
 **Fixed bugs:**
@@ -72,7 +65,6 @@
 - Skip request property type validation for nil values [\#539](https://github.com/recurly/recurly-client-ruby/pull/539) ([bhelx](https://github.com/bhelx))
 
 ## [3.1.1](https://github.com/recurly/recurly-client-ruby/tree/3.1.1) (2019-11-27)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.1.0...3.1.1)
 
 **Fixed bugs:**
@@ -81,7 +73,6 @@
 - Disable searching ancestors when looking up constants [\#537](https://github.com/recurly/recurly-client-ruby/pull/537) ([douglasmiller](https://github.com/douglasmiller))
 
 ## [3.1.0](https://github.com/recurly/recurly-client-ruby/tree/3.1.0) (2019-11-18)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0...3.1.0)
 
 **Merged pull requests:**
@@ -91,7 +82,6 @@
 - Generated Updates for API version v2019-10-10 [\#528](https://github.com/recurly/recurly-client-ruby/pull/528) ([bhelx](https://github.com/bhelx))
 
 ## [3.0.0](https://github.com/recurly/recurly-client-ruby/tree/3.0.0) (2019-10-09)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.5...3.0.0)
 
 **Merged pull requests:**
@@ -113,14 +103,13 @@
 - Add CONTRIBUTING.md [\#486](https://github.com/recurly/recurly-client-ruby/pull/486) ([bhelx](https://github.com/bhelx))
 - Bump 3.0.0.beta.6 [\#485](https://github.com/recurly/recurly-client-ruby/pull/485) ([bhelx](https://github.com/bhelx))
 -  Latest v2018-08-09 Changes [\#484](https://github.com/recurly/recurly-client-ruby/pull/484) ([bhelx](https://github.com/bhelx))
+- 3.0.0.beta.5 [\#483](https://github.com/recurly/recurly-client-ruby/pull/483) ([bhelx](https://github.com/bhelx))
 
 ## [3.0.0.beta.5](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.5) (2019-06-28)
-
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.4...3.0.0.beta.5)
 
 **Merged pull requests:**
 
-- 3.0.0.beta.5 [\#483](https://github.com/recurly/recurly-client-ruby/pull/483) ([bhelx](https://github.com/bhelx))
 - Latest v2018-08-09 Changes [\#482](https://github.com/recurly/recurly-client-ruby/pull/482) ([bhelx](https://github.com/bhelx))
 - no longer need dep scripts [\#476](https://github.com/recurly/recurly-client-ruby/pull/476) ([bhelx](https://github.com/bhelx))
 - Add format script and check in specs [\#474](https://github.com/recurly/recurly-client-ruby/pull/474) ([bhelx](https://github.com/bhelx))
@@ -128,20 +117,28 @@
 - Add strict mode for json deserializer [\#469](https://github.com/recurly/recurly-client-ruby/pull/469) ([bhelx](https://github.com/bhelx))
 
 ## [3.0.0.beta.4](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.4) (2019-04-04)
-
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.1...3.0.0.beta.4)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.3...3.0.0.beta.4)
 
 **Merged pull requests:**
 
 - V3 Update v2018-08-09 [\#460](https://github.com/recurly/recurly-client-ruby/pull/460) ([aaron-suarez](https://github.com/aaron-suarez))
 - Small fixes for private beta [\#458](https://github.com/recurly/recurly-client-ruby/pull/458) ([bhelx](https://github.com/bhelx))
 - Use Net-http-persistent for persistent connection [\#408](https://github.com/recurly/recurly-client-ruby/pull/408) ([bhelx](https://github.com/bhelx))
+
+## [3.0.0.beta.3](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.3) (2018-08-27)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.2...3.0.0.beta.3)
+
+**Merged pull requests:**
+
 - Update to API 2018-06-06 [\#407](https://github.com/recurly/recurly-client-ruby/pull/407) ([bhelx](https://github.com/bhelx))
 - Regenerating the client [\#406](https://github.com/recurly/recurly-client-ruby/pull/406) ([drewish](https://github.com/drewish))
 - V3 Pager can error [\#401](https://github.com/recurly/recurly-client-ruby/pull/401) ([drewish](https://github.com/drewish))
 - \[V3\] Test more versions of ruby [\#397](https://github.com/recurly/recurly-client-ruby/pull/397) ([drewish](https://github.com/drewish))
 - Allow faraday 0.12 for compatibility with oauth2 gem [\#396](https://github.com/recurly/recurly-client-ruby/pull/396) ([drewish](https://github.com/drewish))
 
+## [3.0.0.beta.2](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.2) (2018-07-17)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.1...3.0.0.beta.2)
 
 
-\* *This Changelog was automatically generated by [github_changelog_generator](https://github.com/github-changelog-generator/github-changelog-generator)*
+
+\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
