@@ -1,5 +1,13 @@
 # Change Log
 
+## [3.4.1](https://github.com/recurly/recurly-client-ruby/tree/3.4.1) (2020-03-26)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.4.0...3.4.1)
+
+**Merged pull requests:**
+
+- Release 3.4.1 [\#571](https://github.com/recurly/recurly-client-ruby/pull/571) ([bhelx](https://github.com/bhelx))
+- Follow up bug fixes for \#568 [\#570](https://github.com/recurly/recurly-client-ruby/pull/570) ([bhelx](https://github.com/bhelx))
+
 ## [3.4.0](https://github.com/recurly/recurly-client-ruby/tree/3.4.0) (2020-03-23)
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.3.1...3.4.0)
 
