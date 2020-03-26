@@ -1,5 +1,16 @@
 # Change Log
 
+## [3.4.0](https://github.com/recurly/recurly-client-ruby/tree/3.4.0) (2020-03-23)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.3.1...3.4.0)
+
+**Implemented enhancements:**
+
+- Replace Faraday gem with Net::HTTP, add connection pooling & keep-alive, update CA roots [\#568](https://github.com/recurly/recurly-client-ruby/pull/568) ([isaachall](https://github.com/isaachall))
+
+**Merged pull requests:**
+
+- Release 3.4.0 [\#569](https://github.com/recurly/recurly-client-ruby/pull/569) ([bhelx](https://github.com/bhelx))
+
 ## [3.3.1](https://github.com/recurly/recurly-client-ruby/tree/3.3.1) (2020-03-20)
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.3.0...3.3.1)
 
@@ -103,13 +114,13 @@
 - Add CONTRIBUTING.md [\#486](https://github.com/recurly/recurly-client-ruby/pull/486) ([bhelx](https://github.com/bhelx))
 - Bump 3.0.0.beta.6 [\#485](https://github.com/recurly/recurly-client-ruby/pull/485) ([bhelx](https://github.com/bhelx))
 -  Latest v2018-08-09 Changes [\#484](https://github.com/recurly/recurly-client-ruby/pull/484) ([bhelx](https://github.com/bhelx))
-- 3.0.0.beta.5 [\#483](https://github.com/recurly/recurly-client-ruby/pull/483) ([bhelx](https://github.com/bhelx))
 
 ## [3.0.0.beta.5](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.5) (2019-06-28)
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.4...3.0.0.beta.5)
 
 **Merged pull requests:**
 
+- 3.0.0.beta.5 [\#483](https://github.com/recurly/recurly-client-ruby/pull/483) ([bhelx](https://github.com/bhelx))
 - Latest v2018-08-09 Changes [\#482](https://github.com/recurly/recurly-client-ruby/pull/482) ([bhelx](https://github.com/bhelx))
 - no longer need dep scripts [\#476](https://github.com/recurly/recurly-client-ruby/pull/476) ([bhelx](https://github.com/bhelx))
 - Add format script and check in specs [\#474](https://github.com/recurly/recurly-client-ruby/pull/474) ([bhelx](https://github.com/bhelx))
