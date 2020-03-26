@@ -182,7 +182,7 @@ module Recurly
       response = HTTP::Response.new(http_response, request)
       raise_api_error!(http_response, response) unless http_response.kind_of?(Net::HTTPSuccess)
       resource = if response.body
-          if http_response.content_type.include?(JSON_CONTENT_TYPE)
+          if http_response.content_type&.include?(JSON_CONTENT_TYPE)
             JSONParser.parse(self, response.body)
           elsif BINARY_TYPES.include?(http_response.content_type)
             FileParser.parse(response.body)

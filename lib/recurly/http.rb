@@ -7,7 +7,7 @@ module Recurly
         :content_type
 
       def initialize(resp, request)
-        @request = request
+        @request = Request.new(request.method, request.path, request.body)
         @status = resp.code.to_i
         @request_id = resp["x-request-id"]
         @rate_limit = resp["x-ratelimit-limit"].to_i

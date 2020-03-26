@@ -68,6 +68,7 @@ RSpec.describe Recurly::Client do
         expect(net_http).to receive(:request).and_return(response)
         account = subject.get_account(account_id: "code-benjamin-du-monde")
         expect(account.get_response).to be_instance_of Recurly::HTTP::Response
+        expect(account.get_response.request).to be_instance_of Recurly::HTTP::Request
       end
     end
 
