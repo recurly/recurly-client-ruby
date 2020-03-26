@@ -5,6 +5,7 @@ module Recurly
 
     define_attribute_methods %w(
       add_on_code
+      item_code
       name
       accounting_code
       default_quantity
