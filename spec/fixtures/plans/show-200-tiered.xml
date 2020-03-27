@@ -1,0 +1,35 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<plan href="https://api.recurly.com/v2/plans/plantfile">
+  <add_ons href="https://api.recurly.com/v2/plans/plantfile/add_ons"/>
+  <plan_code>plantfile</plan_code>
+  <name>plantfile</name>
+  <description/>
+  <success_url nil="nil"/>
+  <cancel_url nil="nil"/>
+  <display_donation_amounts type="boolean">false</display_donation_amounts>
+  <display_quantity type="boolean">false</display_quantity>
+  <display_phone_number type="boolean">false</display_phone_number>
+  <bypass_hosted_confirmation type="boolean">false</bypass_hosted_confirmation>
+  <unit_name>unit</unit_name>
+  <payment_page_tos_link nil="nil"/>
+  <plan_interval_length type="integer">1</plan_interval_length>
+  <plan_interval_unit>months</plan_interval_unit>
+  <trial_interval_length type="integer">0</trial_interval_length>
+  <trial_interval_unit>days</trial_interval_unit>
+  <total_billing_cycles nil="nil"/>
+  <accounting_code nil="nil"/>
+  <setup_fee_accounting_code nil="nil"/>
+  <revenue_schedule_type>evenly</revenue_schedule_type>
+  <setup_fee_revenue_schedule_type>evenly</setup_fee_revenue_schedule_type>
+  <trial_requires_billing_info type="boolean">false</trial_requires_billing_info>
+  <created_at type="datetime">2016-04-13T21:59:18Z</created_at>
+  <unit_amount_in_cents>
+    <USD type="integer">1000</USD>
+  </unit_amount_in_cents>
+  <setup_fee_in_cents>
+    <USD type="integer">0</USD>
+  </setup_fee_in_cents>
+</plan>

@@ -19,6 +19,8 @@ module Recurly
       revenue_schedule_type
       created_at
       updated_at
+      tier_type
+      tiers
     )
     alias to_param add_on_code
     alias quantity default_quantity
