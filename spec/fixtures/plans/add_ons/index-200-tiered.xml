@@ -1,0 +1,33 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<add_ons type="array">
+  <add_on href="https://api.recurly.com/v2/plans/plantfile/add_ons/pothos">
+    <plan href="https://api.recurly.com/v2/plans/plantfile"/>
+    <add_on_code>pothos</add_on_code>
+    <name>Pothos</name>
+    <display_quantity type="boolean">false</display_quantity>
+    <default_quantity nil="nil"></default_quantity>
+    <tiers>
+      <tier>
+        <ending_quantity type="integer">2000</ending_quantity>
+        <unit_amount_in_cents>
+          <USD type="integer">1000</USD>
+        </unit_amount_in_cents>
+      </tier>
+      <tier>
+        <ending_quantity type="integer">999999999</ending_quantity>
+        <unit_amount_in_cents>
+          <USD type="integer">800</USD>
+        </unit_amount_in_cents>
+      </tier>
+    </tiers>
+    <accounting_code nil="nil"></accounting_code>
+    <add_on_type>fixed</add_on_type>
+    <optional type="boolean">true</optional>
+    <revenue_schedule_type>evenly</revenue_schedule_type>
+    <tier_type>tiered</tier_type>
+    <created_at type="datetime">2011-06-28T12:34:56Z</created_at>  
+  </add_on>
+</add_ons>
