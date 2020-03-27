@@ -14,6 +14,12 @@ describe AddOn do
     stub_api_request(
       :get, 'plans/orchidreset/add_ons', 'plans/item_backed_add_ons/index-200'
     )
+    stub_api_request(
+      :get, 'plans/plantfile', 'plans/show-200-tiered'
+    )
+    stub_api_request(
+      :get, 'plans/plantfile/add_ons', 'plans/add_ons/index-200-tiered'
+    )
   end
 
   describe ".find" do
@@ -37,6 +43,24 @@ describe AddOn do
       add_on = add_ons.first
       add_on.must_be_instance_of AddOn
       add_on.add_on_code.must_equal "marfa_brunch"
+    end
+
+    it "must return an addon with tiered-pricing when available" do
+      plan = Plan.find 'plantfile'
+      add_ons = plan.add_ons
+
+      add_on = add_ons.first
+      add_on.must_be_instance_of AddOn
+      add_on.tier_type.must_equal "tiered"
+    end
+
+    it "must return an addon with tiered-pricing when available" do
+      plan = Plan.find 'plantfile'
+      add_ons = plan.add_ons
+
+      add_on = add_ons.first
+      add_on.must_be_instance_of AddOn
+      add_on.tier_type.must_equal "tiered"
     end
   end
 end
