@@ -8,6 +8,7 @@ module Recurly
     AMAZON_ATTRIBUTES = %w(amazon_billing_agreement_id amazon_region).freeze
     PAYPAL_ATTRIBUTES = %w(paypal_billing_agreement_id).freeze
     ROKU_ATTRIBUTES = %w(roku_billing_agreement_id last_four).freeze
+    SEPA_ATTRIBUTES = %w(iban).freeze
 
     # @return [Account]
     belongs_to :account
@@ -36,10 +37,11 @@ module Recurly
       fraud_session_id
       three_d_secure_action_result_token_id
       transaction_type
+      iban
       mandate_reference
-    ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES | ROKU_ATTRIBUTES
+    ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES | ROKU_ATTRIBUTES | SEPA_ATTRIBUTES
 
-    # @return ["credit_card", "paypal", "amazon", "bank_account", "roku", nil] The type of billing info.
+    # @return ["credit_card", "paypal", "amazon", "bank_account", "roku", "sepa", nil] The type of billing info.
     attr_reader :type
 
     # @return [String]
@@ -47,18 +49,21 @@ module Recurly
       attributes = self.class.attribute_names
       case type
       when 'credit_card'
-        attributes -= (AMAZON_ATTRIBUTES + PAYPAL_ATTRIBUTES + BANK_ACCOUNT_ATTRIBUTES + ROKU_ATTRIBUTES)
+        attributes -= (AMAZON_ATTRIBUTES + PAYPAL_ATTRIBUTES + BANK_ACCOUNT_ATTRIBUTES + ROKU_ATTRIBUTES + SEPA_ATTRIBUTES)
         attributes |= CREDIT_CARD_ATTRIBUTES
       when 'paypal'
-        attributes -= (CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES + AMAZON_ATTRIBUTES + ROKU_ATTRIBUTES)
+        attributes -= (CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES + AMAZON_ATTRIBUTES + ROKU_ATTRIBUTES + SEPA_ATTRIBUTES)
       when 'amazon'
-        attributes -= (CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES + PAYPAL_ATTRIBUTES + ROKU_ATTRIBUTES)
+        attributes -= (CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES + PAYPAL_ATTRIBUTES + ROKU_ATTRIBUTES + SEPA_ATTRIBUTES)
       when 'bank_account'
-        attributes -= (CREDIT_CARD_ATTRIBUTES + PAYPAL_ATTRIBUTES + AMAZON_ATTRIBUTES + ROKU_ATTRIBUTES)
+        attributes -= (CREDIT_CARD_ATTRIBUTES + PAYPAL_ATTRIBUTES + AMAZON_ATTRIBUTES + ROKU_ATTRIBUTES + SEPA_ATTRIBUTES)
         attributes |= BANK_ACCOUNT_ATTRIBUTES
       when 'roku'
-        attributes -= (CREDIT_CARD_ATTRIBUTES + PAYPAL_ATTRIBUTES + AMAZON_ATTRIBUTES + BANK_ACCOUNT_ATTRIBUTES)
+        attributes -= (CREDIT_CARD_ATTRIBUTES + PAYPAL_ATTRIBUTES + AMAZON_ATTRIBUTES + BANK_ACCOUNT_ATTRIBUTES + SEPA_ATTRIBUTES)
         attributes |= ROKU_ATTRIBUTES
+      when 'sepa'
+        attributes -= (CREDIT_CARD_ATTRIBUTES + PAYPAL_ATTRIBUTES + AMAZON_ATTRIBUTES + BANK_ACCOUNT_ATTRIBUTES + ROKU_ATTRIBUTES)
+        attributes |= SEPA_ATTRIBUTES
       end
       super attributes
     end
