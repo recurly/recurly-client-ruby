@@ -1235,6 +1235,18 @@ module Recurly
       put(path, body, Requests::CouponUpdate, **options)
     end
 
+    # Expire a coupon
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/deactivate_coupon deactivate_coupon api documenation}
+    #
+    # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::Coupon] The expired Coupon
+    def deactivate_coupon(coupon_id:, **options)
+      path = interpolate_path("/coupons/{coupon_id}", coupon_id: coupon_id)
+      delete(path, **options)
+    end
+
     # List unique coupon codes associated with a bulk coupon
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_unique_coupon_codes list_unique_coupon_codes api documenation}
