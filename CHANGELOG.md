@@ -1,6 +1,16 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.8"></a>
+## v.2.18.8 (2020-3-26)
+
+This bumps us to API version 2.26.
+
+* Add item_code to AddOn (included in API version 2.25) [PR](https://github.com/recurly/recurly-client-ruby/pull/559)
+* Add SEPA IBAN attributes to billing_info [PR](https://github.com/recurly/recurly-client-ruby/pull/562)
+* Tiered pricing [PR](https://github.com/recurly/recurly-client-ruby/pull/565)
+* Add mandate_reference attribute to BillingInfo [PR](https://github.com/recurly/recurly-client-ruby/pull/572)
+
 <a name="v2.18.7"></a>
 ## v2.18.7 (2020-2-20)
 
