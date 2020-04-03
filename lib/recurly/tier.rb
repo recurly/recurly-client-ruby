@@ -8,6 +8,10 @@ module Recurly
       unit_amount_in_cents
     )
 
+    def xml_keys
+      attributes.keys
+    end
+
     embedded! true
   end
 end

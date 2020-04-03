@@ -2,6 +2,7 @@ module Recurly
   class AddOn < Resource
     # @return [Plan]
     belongs_to :plan
+    has_many :tiers, class_name: :Tier, readonly: false
 
     define_attribute_methods %w(
       add_on_code
@@ -21,10 +22,17 @@ module Recurly
       created_at
       updated_at
       tier_type
-      tiers
     )
     alias to_param add_on_code
     alias quantity default_quantity
+
+    def changed_attributes
+      attrs = super
+      if tiers.any?(&:changed?)
+        attrs['tiers'] = tiers.select(&:changed?)
+      end
+      attrs
+    end
 
     # Add-ons are only writeable and readable through {Plan} instances.
     embedded!
