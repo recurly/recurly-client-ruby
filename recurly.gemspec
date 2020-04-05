@@ -14,6 +14,14 @@ Gem::Specification.new do |spec|
   spec.homepage = "https://github.com/recurly/recurly-client-ruby"
   spec.license = "MIT"
 
+  spec.metadata = {
+    "bug_tracker_uri" => "#{spec.homepage}/issues",
+    "changelog_uri" => "#{spec.homepage}/blob/master/CHANGELOG.md",
+    "documentation_uri" => "https://dev.recurly.com/docs",
+    "homepage_uri" => spec.homepage,
+    "source_code_uri" => "#{spec.homepage}/tree/#{spec.version}",
+  }
+
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
