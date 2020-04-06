@@ -2,6 +2,7 @@ require "logger"
 require "erb"
 require "net/https"
 require "base64"
+require "securerandom"
 require_relative "./schema/json_parser"
 require_relative "./schema/file_parser"
 
@@ -17,6 +18,8 @@ module Recurly
     ]
     JSON_CONTENT_TYPE = "application/json"
     MAX_RETRIES = 3
+
+    BASE36_ALPHABET = ("0".."9").to_a + ("a".."z").to_a
 
     # Initialize a client. It requires an API key.
     #
@@ -166,9 +169,19 @@ module Recurly
       request["Accept"] = "application/vnd.recurly.#{api_version}".chomp # got this method from operations.rb
       request["Authorization"] = "Basic #{Base64.encode64(@api_key)}".chomp
       request["User-Agent"] = "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}"
+      request["Idempotency-Key"] ||= generate_idempotency_key unless request.is_a?(Net::HTTP::Get)
 
       # TODO this is undocumented until we finalize it
       additional_headers.each { |header, v| request[header] = v } if additional_headers
+    end
+
+    # from https://github.com/rails/rails/blob/6-0-stable/activesupport/lib/active_support/core_ext/securerandom.rb
+    def generate_idempotency_key(n = 16)
+      SecureRandom.random_bytes(n).unpack("C*").map do |byte|
+        idx = byte % 64
+        idx = SecureRandom.random_number(36) if idx >= 36
+        BASE36_ALPHABET[idx]
+      end.join
     end
 
     def set_http_options(http, options)
