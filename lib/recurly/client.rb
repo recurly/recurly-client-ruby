@@ -79,8 +79,16 @@ module Recurly
       path = scope_by_site(path, **options)
       request = Net::HTTP::Get.new path
       set_headers(request, options[:headers])
-      http_response = run_request(request, options)
-      handle_response! request, http_response
+
+      retries = 0
+      begin
+        http_response = run_request(request, options)
+        handle_response! request, http_response
+      rescue Recurly::Errors::UnavailableError, Recurly::Errors::InternalServerError
+        retries += 1
+        retry if retries < 2 # Retry 5xx once for GET requests only
+        raise
+      end
     end
 
     def post(path, request_data, request_class, **options)
