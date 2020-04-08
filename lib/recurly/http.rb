@@ -4,7 +4,7 @@ module Recurly
       attr_accessor :status, :body, :request,
         :request_id, :rate_limit, :rate_limit_remaining,
         :rate_limit_reset, :date, :proxy_metadata,
-        :content_type
+        :content_type, :total_records
 
       def initialize(resp, request)
         @request = Request.new(request.method, request.path, request.body)
@@ -13,6 +13,7 @@ module Recurly
         @rate_limit = resp["x-ratelimit-limit"].to_i
         @rate_limit_remaining = resp["x-ratelimit-remaining"].to_i
         @rate_limit_reset = Time.at(resp["x-ratelimit-reset"].to_i).to_datetime
+        @total_records = resp["recurly-total-records"]&.to_i
         if resp["content-type"]
           @content_type = resp["content-type"].split(";").first
         else

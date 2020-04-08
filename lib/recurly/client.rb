@@ -53,12 +53,20 @@ module Recurly
       yield(self) if block_given?
     end
 
-    def next_page(pager)
-      path = extract_path(pager.next)
+    def next_page(url)
+      path = extract_path(url)
       request = Net::HTTP::Get.new path
       set_headers(request)
       http_response = run_request(request)
       handle_response! request, http_response
+    end
+
+    def get_resource_count(url)
+      request = Net::HTTP::Head.new url
+      set_headers(request)
+      http_response = run_request(request)
+      resource = handle_response!(request, http_response)
+      resource.get_response.total_records
     end
 
     protected
