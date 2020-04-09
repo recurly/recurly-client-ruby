@@ -79,16 +79,8 @@ module Recurly
       path = scope_by_site(path, **options)
       request = Net::HTTP::Get.new path
       set_headers(request, options[:headers])
-
-      retries = 0
-      begin
-        http_response = run_request(request, options)
-        handle_response! request, http_response
-      rescue Recurly::Errors::UnavailableError, Recurly::Errors::InternalServerError
-        retries += 1
-        retry if retries < 2 # Retry 5xx once for GET requests only
-        raise
-      end
+      http_response = run_request(request, options)
+      handle_response! request, http_response
     end
 
     def post(path, request_data, request_class, **options)
@@ -150,7 +142,15 @@ module Recurly
 
         begin
           http.start unless http.started?
-          http.request(request)
+          response = http.request(request)
+
+          # GETs are safe to retry after a server error, requests with an Idempotency-Key will return the prior response
+          if response.kind_of?(Net::HTTPServerError) && request.is_a?(Net::HTTP::Get)
+            retries += 1
+            response = http.request(request) if retries < MAX_RETRIES
+          end
+
+          response
         rescue Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EHOSTUNREACH, Errno::ECONNABORTED,
                Errno::EPIPE, Errno::ETIMEDOUT, Net::OpenTimeout, EOFError, SocketError => ex
           retries += 1
@@ -177,7 +177,10 @@ module Recurly
       request["Accept"] = "application/vnd.recurly.#{api_version}".chomp # got this method from operations.rb
       request["Authorization"] = "Basic #{Base64.encode64(@api_key)}".chomp
       request["User-Agent"] = "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}"
-      request["Idempotency-Key"] ||= generate_idempotency_key unless request.is_a?(Net::HTTP::Get)
+
+      unless request.is_a?(Net::HTTP::Get) || request.is_a?(Net::HTTP::Head)
+        request["Idempotency-Key"] ||= generate_idempotency_key
+      end
 
       # TODO this is undocumented until we finalize it
       additional_headers.each { |header, v| request[header] = v } if additional_headers
