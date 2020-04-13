@@ -53,14 +53,6 @@ module Recurly
       yield(self) if block_given?
     end
 
-    def next_page(url)
-      path = extract_path(url)
-      request = Net::HTTP::Get.new path
-      set_headers(request)
-      http_response = run_request(request)
-      handle_response! request, http_response
-    end
-
     def get_resource_count(url)
       request = Net::HTTP::Head.new url
       set_headers(request)
@@ -72,7 +64,6 @@ module Recurly
     protected
 
     def pager(path, **options)
-      path = scope_by_site(path, **options)
       Pager.new(
         client: self,
         path: path,
@@ -82,7 +73,7 @@ module Recurly
 
     def get(path, **options)
       path = scope_by_site(path, **options)
-      request = Net::HTTP::Get.new path
+      request = Net::HTTP::Get.new build_path(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
       handle_response! request, http_response
@@ -91,7 +82,7 @@ module Recurly
     def post(path, request_data, request_class, **options)
       request_class.new(request_data).validate!
       path = scope_by_site(path, **options)
-      request = Net::HTTP::Post.new path
+      request = Net::HTTP::Post.new build_path(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
       set_headers(request, options[:headers])
       request.body = JSON.dump(request_data)
@@ -101,7 +92,7 @@ module Recurly
 
     def put(path, request_data = nil, request_class = nil, **options)
       path = scope_by_site(path, **options)
-      request = Net::HTTP::Put.new path
+      request = Net::HTTP::Put.new build_path(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
       set_headers(request, options[:headers])
       if request_data
@@ -116,10 +107,18 @@ module Recurly
 
     def delete(path, **options)
       path = scope_by_site(path, **options)
-      request = Net::HTTP::Delete.new path
+      request = Net::HTTP::Delete.new build_path(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
       handle_response! request, http_response
+    end
+
+    def build_path(path, options)
+      if options.empty?
+        path
+      else
+        "#{path}?#{URI.encode_www_form(options)}"
+      end
     end
 
     protected
@@ -260,17 +259,11 @@ module Recurly
     end
 
     def scope_by_site(path, **options)
-      if site = site_id || options[:site_id]
+      if (site = site_id || options[:site_id]) && !path.start_with?("/sites/#{site}")
         "/sites/#{site}#{path}"
       else
         path
       end
-    end
-
-    # Returns just the path and parameters so we can safely reuse the connection
-    def extract_path(uri_or_path)
-      uri = URI(uri_or_path)
-      uri.kind_of?(URI::HTTP) ? uri.request_uri : uri_or_path
     end
 
     def set_options(options)
