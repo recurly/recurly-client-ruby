@@ -53,14 +53,6 @@ module Recurly
       yield(self) if block_given?
     end
 
-    def get_resource_count(path, options)
-      request = Net::HTTP::Head.new build_path(path, options)
-      set_headers(request)
-      http_response = run_request(request)
-      resource = handle_response!(request, http_response)
-      resource.get_response.total_records
-    end
-
     protected
 
     def pager(path, **options)
@@ -69,6 +61,14 @@ module Recurly
         path: path,
         options: options,
       )
+    end
+
+    def head(path, **options)
+      path = scope_by_site(path, **options)
+      request = Net::HTTP::Head.new build_path(path, options)
+      set_headers(request, options[:headers])
+      http_response = run_request(request, options)
+      handle_response! request, http_response
     end
 
     def get(path, **options)

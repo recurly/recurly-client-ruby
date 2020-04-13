@@ -36,10 +36,21 @@ RSpec.describe Recurly::Pager do
     end
   end
 
-  it "#count" do
-    expect(client).to receive(:get_resource_count)
-                        .with("/next_url", { a: 1, b: "testing" })
-    subject.count
+  describe "#count" do
+    let(:head_response) do
+      response = double("Recurly::HTTP::Response", :total_records => 1337)
+
+      empty = Recurly::Resources::Empty.new
+      empty.instance_variable_set(:@response, response)
+      empty
+    end
+
+    it "#count" do
+      expect(client).to receive(:head)
+                          .with("/next_url", { a: 1, b: "testing" })
+                          .and_return(head_response)
+      expect(subject.count).to eq(1337)
+    end
   end
 
   context "enumerators" do

@@ -56,17 +56,18 @@ RSpec.describe Recurly::Client do
       end
     end
 
-    describe "#get_resource_count" do
+    describe "#head" do
       let(:response) do
         resp = Net::HTTPOK.new(1.0, "200", "OK")
-        allow(resp).to receive(:body) { nil }
+        allow(resp).to receive(:body) { "" }
         resp_headers.each { |key, v| resp[key] = v }
         resp
       end
 
-      it "should return the 'recurly-total-records' header value" do
-        expect(net_http).to receive(:request).with(instance_of(Net::HTTP::Head)).and_return(response)
-        expect(subject.list_accounts.count).to eq(resp_headers["recurly-total-records"].to_i)
+      it "should return an Empty resource" do
+        expect(net_http).to receive(:request).and_return(response)
+        empty = subject.send(:head, "/accounts")
+        expect(empty).to be_instance_of Recurly::Resources::Empty
       end
     end
 
