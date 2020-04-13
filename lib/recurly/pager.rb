@@ -24,7 +24,7 @@ module Recurly
 
     # Makes a HEAD request to the API to determine how many total records exist.
     def count
-      @client.get_resource_count(self.next)
+      @client.get_resource_count(self.next, @options)
     end
 
     # Enumerates each "page" from the server.

@@ -53,8 +53,8 @@ module Recurly
       yield(self) if block_given?
     end
 
-    def get_resource_count(url)
-      request = Net::HTTP::Head.new url
+    def get_resource_count(path, options)
+      request = Net::HTTP::Head.new build_path(path, options)
       set_headers(request)
       http_response = run_request(request)
       resource = handle_response!(request, http_response)
@@ -259,8 +259,10 @@ module Recurly
     end
 
     def scope_by_site(path, **options)
-      if (site = site_id || options[:site_id]) && !path.start_with?("/sites/#{site}")
-        "/sites/#{site}#{path}"
+      if site = site_id || options[:site_id]
+        # Ensure that we are only including the site_id once because the Pager operations
+        # will use the cursor returned from the API which may already have these components
+        path.start_with?("/sites/#{site}") ? path : "/sites/#{site}#{path}"
       else
         path
       end
