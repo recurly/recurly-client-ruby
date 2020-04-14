@@ -18,8 +18,12 @@ module Recurly
       #   @return [String] Revenue schedule type
       define_attribute :revenue_schedule_type, String
 
+      # @!attribute tiers
+      #   @return [Array[SubscriptionAddOnTier]] If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent.
+      define_attribute :tiers, Array, { :item_type => :SubscriptionAddOnTier }
+
       # @!attribute unit_amount
-      #   @return [Float] Optionally, override the add-on's default unit amount.
+      #   @return [Float] * Optionally, override the add-on's default unit amount. * If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount` must be absent.
       define_attribute :unit_amount, Float
     end
   end

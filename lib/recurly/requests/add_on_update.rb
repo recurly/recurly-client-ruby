@@ -15,7 +15,7 @@ module Recurly
       define_attribute :code, String
 
       # @!attribute currencies
-      #   @return [Array[AddOnPricing]] Add-on pricing
+      #   @return [Array[AddOnPricing]] If the add-on's `tier_type` is `tiered`, `volume` or `stairstep`, then `currencies` must be absent.
       define_attribute :currencies, Array, { :item_type => :AddOnPricing }
 
       # @!attribute default_quantity
@@ -34,6 +34,10 @@ module Recurly
       #   @return [String] Describes your add-on and will appear in subscribers' invoices. If an `Item` is associated to the `AddOn` then `name` must be absent.
       define_attribute :name, String
 
+      # @!attribute optional
+      #   @return [Boolean] Whether the add-on is optional for the customer to include in their purchase on the hosted payment page. If false, the add-on will be included when a subscription is created through the Recurly UI. However, the add-on will not be included when a subscription is created through the API.
+      define_attribute :optional, :Boolean
+
       # @!attribute revenue_schedule_type
       #   @return [String] When this add-on is invoiced, the line item will use this revenue schedule. If an `Item` is associated to the `AddOn` then `revenue_schedule_type` must be absent in the request as the value will be set from the item.
       define_attribute :revenue_schedule_type, String
@@ -41,6 +45,10 @@ module Recurly
       # @!attribute tax_code
       #   @return [String] Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`. If an `Item` is associated to the `AddOn` then `tax code` must be absent.
       define_attribute :tax_code, String
+
+      # @!attribute tiers
+      #   @return [Array[Tier]] If tiers are provided in the request, all existing tiers on the Add-on will be removed and replaced by the tiers in the request.
+      define_attribute :tiers, Array, { :item_type => :Tier }
     end
   end
 end

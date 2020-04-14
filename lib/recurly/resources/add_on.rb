@@ -74,6 +74,14 @@ module Recurly
       #   @return [String] Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
       define_attribute :tax_code, String
 
+      # @!attribute tier_type
+      #   @return [String] The type of tiering used by the Add-on.
+      define_attribute :tier_type, String
+
+      # @!attribute tiers
+      #   @return [Array[Tier]] Tiers
+      define_attribute :tiers, Array, { :item_type => :Tier }
+
       # @!attribute updated_at
       #   @return [DateTime] Last updated at
       define_attribute :updated_at, DateTime
