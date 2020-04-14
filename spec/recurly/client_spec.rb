@@ -225,11 +225,29 @@ RSpec.describe Recurly::Client do
 
     describe "#get" do
       it "should raise an APIError" do
-        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
-        expect(net_http).to receive(:request).and_return(response)
+        expect(net_http).to receive(:request).twice.and_return(response)
         expect {
           subject.get_account(account_id: "code-benjamin-du-monde")
         }.to raise_error(Recurly::Errors::InternalServerError)
+      end
+    end
+
+    context "retries" do
+      let(:successful_response) do
+        resp = Net::HTTPOK.new(1.0, "200", "OK")
+        allow(resp).to receive(:body) do
+          "{ \"object\": \"account\" }"
+        end
+        allow(resp).to receive(:content_type).and_return "application/json; charset=utf-8"
+        resp_headers.each { |key, v| resp[key] = v }
+        resp
+      end
+
+      it "should retry and return success" do
+        expect(net_http).to receive(:request).and_return(response)
+        expect(net_http).to receive(:request).and_return(successful_response)
+        account = subject.get_account(account_id: "code-benjamin du monde")
+        expect(account).to be_instance_of Recurly::Resources::Account
       end
     end
   end
@@ -269,7 +287,6 @@ RSpec.describe Recurly::Client do
 
     describe "#get" do
       it "should return an account object for get_account even if code has spaces" do
-        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin%20du%20monde", nil)
         expect(net_http).to receive(:request).and_return(response)
         account = subject.get_account(account_id: "code-benjamin du monde")
         expect(account).to be_instance_of Recurly::Resources::Account
@@ -309,7 +326,7 @@ RSpec.describe Recurly::Client do
       end
 
       it "should raise Recurly::Errors::UnavailableError" do
-        expect(net_http).to receive(:request).and_return(response)
+        expect(net_http).to receive(:request).twice.and_return(response)
         expect {
           subject.get_account(account_id: "code-benjamin-du-monde")
         }.to raise_error(Recurly::Errors::UnavailableError)
