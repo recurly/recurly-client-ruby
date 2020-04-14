@@ -55,6 +55,9 @@ module Recurly
 
     protected
 
+    # Used by the operations.rb file to interpolate paths
+    attr_reader :site_id
+
     def pager(path, **options)
       Pager.new(
         client: self,
@@ -64,16 +67,14 @@ module Recurly
     end
 
     def head(path, **options)
-      path = scope_by_site(path, **options)
-      request = Net::HTTP::Head.new build_path(path, options)
+      request = Net::HTTP::Head.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
       handle_response! request, http_response
     end
 
     def get(path, **options)
-      path = scope_by_site(path, **options)
-      request = Net::HTTP::Get.new build_path(path, options)
+      request = Net::HTTP::Get.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
       handle_response! request, http_response
@@ -81,8 +82,7 @@ module Recurly
 
     def post(path, request_data, request_class, **options)
       request_class.new(request_data).validate!
-      path = scope_by_site(path, **options)
-      request = Net::HTTP::Post.new build_path(path, options)
+      request = Net::HTTP::Post.new build_url(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
       set_headers(request, options[:headers])
       request.body = JSON.dump(request_data)
@@ -91,8 +91,7 @@ module Recurly
     end
 
     def put(path, request_data = nil, request_class = nil, **options)
-      path = scope_by_site(path, **options)
-      request = Net::HTTP::Put.new build_path(path, options)
+      request = Net::HTTP::Put.new build_url(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
       set_headers(request, options[:headers])
       if request_data
@@ -106,25 +105,11 @@ module Recurly
     end
 
     def delete(path, **options)
-      path = scope_by_site(path, **options)
-      request = Net::HTTP::Delete.new build_path(path, options)
+      request = Net::HTTP::Delete.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
       handle_response! request, http_response
     end
-
-    def build_path(path, options)
-      if options.empty?
-        path
-      else
-        "#{path}?#{URI.encode_www_form(options)}"
-      end
-    end
-
-    protected
-
-    # Used by the operations.rb file to interpolate paths
-    attr_reader :site_id
 
     private
 
@@ -256,6 +241,15 @@ module Recurly
 
     def set_api_key(api_key)
       @api_key = api_key
+    end
+
+    def build_url(path, options)
+      path = scope_by_site(path, options)
+      if options.any?
+        "#{path}?#{URI.encode_www_form(options)}"
+      else
+        path
+      end
     end
 
     def scope_by_site(path, **options)

@@ -25,7 +25,7 @@ module Recurly
     # Makes a HEAD request to the API to determine how many total records exist.
     def count
       resource = @client.send(:head, self.next, @options)
-      return resource.get_response.total_records
+      resource.get_response.total_records
     end
 
     # Enumerates each "page" from the server.
