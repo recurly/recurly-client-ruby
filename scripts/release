@@ -5,8 +5,8 @@ set -e
 RELEASED_LOG="/tmp/ruby-pending-changes.md"
 THIS_VERSION=$(./scripts/bump --this-version)
 
-# Finally need to update the full changelog
-./scripts/changelog
+# Generate the changelog with changes in this release
+./scripts/changelog --release-tag "$THIS_VERSION"
 git add CHANGELOG.md
 git commit -m "Update Changelog for Release $THIS_VERSION"
 git push origin master

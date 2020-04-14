@@ -6,6 +6,8 @@ if [ -z "$GITHUB_TOKEN" ]; then
 else
   if [ "$1" == "--pending" ]; then
     github_changelog_generator -t $GITHUB_TOKEN --unreleased-only -o "$2"
+  elif [ "$1" == "--release-tag" ]; then
+    github_changelog_generator -t $GITHUB_TOKEN --unreleased true --unreleased-label "$2"
   else
     github_changelog_generator -t $GITHUB_TOKEN
   fi
