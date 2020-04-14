@@ -15,7 +15,7 @@ module Recurly
       define_attribute :code, String
 
       # @!attribute currencies
-      #   @return [Array[AddOnPricing]] If `item_code`/`item_id` is part of the request and the item has a default currency then `currencies` is optional. If the item does not have a default currency, then `currencies` is required. If `item_code`/`item_id` is not present `currencies` is required.
+      #   @return [Array[AddOnPricing]] * If `item_code`/`item_id` is part of the request and the item has a default currency then `currencies` is optional. If the item does not have a default currency, then `currencies` is required. If `item_code`/`item_id` is not present `currencies` is required. * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `currencies` must be absent.
       define_attribute :currencies, Array, { :item_type => :AddOnPricing }
 
       # @!attribute default_quantity
@@ -38,6 +38,10 @@ module Recurly
       #   @return [String] Describes your add-on and will appear in subscribers' invoices. If `item_code`/`item_id` is part of the request then `name` must be absent. If `item_code`/`item_id` is not present `name` is required.
       define_attribute :name, String
 
+      # @!attribute optional
+      #   @return [Boolean] Whether the add-on is optional for the customer to include in their purchase on the hosted payment page. If false, the add-on will be included when a subscription is created through the Recurly UI. However, the add-on will not be included when a subscription is created through the API.
+      define_attribute :optional, :Boolean
+
       # @!attribute plan_id
       #   @return [String] Plan ID
       define_attribute :plan_id, String
@@ -49,6 +53,14 @@ module Recurly
       # @!attribute tax_code
       #   @return [String] Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`. If `item_code`/`item_id` is part of the request then `tax_code` must be absent.
       define_attribute :tax_code, String
+
+      # @!attribute tier_type
+      #   @return [String] The type of tiering used by the Add-on.
+      define_attribute :tier_type, String
+
+      # @!attribute tiers
+      #   @return [Array[Tier]] At least one tier is required if `tier_type` is not 'flat'.
+      define_attribute :tiers, Array, { :item_type => :Tier }
     end
   end
 end

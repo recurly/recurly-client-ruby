@@ -34,6 +34,14 @@ module Recurly
       #   @return [String] Subscription ID
       define_attribute :subscription_id, String
 
+      # @!attribute tier_type
+      #   @return [String] The type of tiering used by the Add-on.
+      define_attribute :tier_type, String
+
+      # @!attribute tiers
+      #   @return [Array[SubscriptionAddOnTier]] Empty unless `tier_type` is `tiered`, `volume`, or `stairstep`.
+      define_attribute :tiers, Array, { :item_type => :SubscriptionAddOnTier }
+
       # @!attribute unit_amount
       #   @return [Float] This is priced in the subscription's currency.
       define_attribute :unit_amount, Float
