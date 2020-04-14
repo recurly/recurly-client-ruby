@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.9"></a>
+## v.2.18.9 (2020-04-14)
+
+* Add missing association to support Tiered Pricing [PR](https://github.com/recurly/recurly-client-ruby/pull/576)
+
 <a name="v2.18.8"></a>
 ## v.2.18.8 (2020-3-26)
 
