@@ -56,26 +56,12 @@ module Recurly
       yield(self) if block_given?
     end
 
-    def next_page(url)
-      path = extract_path(url)
-      request = Net::HTTP::Get.new path
-      set_headers(request)
-      http_response = run_request(request)
-      handle_response! request, http_response
-    end
-
-    def get_resource_count(url)
-      request = Net::HTTP::Head.new url
-      set_headers(request)
-      http_response = run_request(request)
-      resource = handle_response!(request, http_response)
-      resource.get_response.total_records
-    end
-
     protected
 
+    # Used by the operations.rb file to interpolate paths
+    attr_reader :site_id
+
     def pager(path, **options)
-      path = scope_by_site(path, **options)
       Pager.new(
         client: self,
         path: path,
@@ -83,9 +69,15 @@ module Recurly
       )
     end
 
+    def head(path, **options)
+      request = Net::HTTP::Head.new build_url(path, options)
+      set_headers(request, options[:headers])
+      http_response = run_request(request, options)
+      handle_response! request, http_response
+    end
+
     def get(path, **options)
-      path = scope_by_site(path, **options)
-      request = Net::HTTP::Get.new path
+      request = Net::HTTP::Get.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
       handle_response! request, http_response
@@ -93,8 +85,7 @@ module Recurly
 
     def post(path, request_data, request_class, **options)
       request_class.new(request_data).validate!
-      path = scope_by_site(path, **options)
-      request = Net::HTTP::Post.new path
+      request = Net::HTTP::Post.new build_url(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
       set_headers(request, options[:headers])
       request.body = JSON.dump(request_data)
@@ -103,8 +94,7 @@ module Recurly
     end
 
     def put(path, request_data = nil, request_class = nil, **options)
-      path = scope_by_site(path, **options)
-      request = Net::HTTP::Put.new path
+      request = Net::HTTP::Put.new build_url(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
       set_headers(request, options[:headers])
       if request_data
@@ -118,17 +108,11 @@ module Recurly
     end
 
     def delete(path, **options)
-      path = scope_by_site(path, **options)
-      request = Net::HTTP::Delete.new path
+      request = Net::HTTP::Delete.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
       handle_response! request, http_response
     end
-
-    protected
-
-    # Used by the operations.rb file to interpolate paths
-    attr_reader :site_id
 
     private
 
@@ -283,18 +267,23 @@ module Recurly
       @api_key = api_key
     end
 
-    def scope_by_site(path, **options)
-      if site = site_id || options[:site_id]
-        "/sites/#{site}#{path}"
+    def build_url(path, options)
+      path = scope_by_site(path, options)
+      if options.any?
+        "#{path}?#{URI.encode_www_form(options)}"
       else
         path
       end
     end
 
-    # Returns just the path and parameters so we can safely reuse the connection
-    def extract_path(uri_or_path)
-      uri = URI(uri_or_path)
-      uri.kind_of?(URI::HTTP) ? uri.request_uri : uri_or_path
+    def scope_by_site(path, **options)
+      if site = site_id || options[:site_id]
+        # Ensure that we are only including the site_id once because the Pager operations
+        # will use the cursor returned from the API which may already have these components
+        path.start_with?("/sites/#{site}") ? path : "/sites/#{site}#{path}"
+      else
+        path
+      end
     end
 
     def set_options(options)
