@@ -237,10 +237,10 @@ module Recurly
       response
     end
 
-    def interpolate_path(path, **options)
+    def validate_path_parameters!(**options)
+      # Check to see that we are passing the correct data types
+      # This prevents a confusing error if the user passes in a non-primitive by mistake
       options.each do |k, v|
-        # Check to see that we are passing the correct data types
-        # This prevents a confusing error if the user passes in a non-primitive by mistake
         unless [String, Symbol, Integer, Float].include?(v.class)
           message = "We cannot build the url with the given argument #{k}=#{v.inspect}."
           if k =~ /_id$/
@@ -248,6 +248,17 @@ module Recurly
           end
           raise ArgumentError, message
         end
+      end
+      # Check to make sure that parameters are not empty string values
+      empty_strings = options.select { |_, v| v.is_a?(String) && v.strip.empty? }
+      if empty_strings.any?
+        raise ArgumentError, "#{empty_strings.keys.join(", ")} cannot be an empty string"
+      end
+    end
+
+    def interpolate_path(path, **options)
+      validate_path_parameters!(options)
+      options.each do |k, v|
         # We need to encode the values for the url
         options[k] = ERB::Util.url_encode(v.to_s)
       end

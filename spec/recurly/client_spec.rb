@@ -267,10 +267,18 @@ RSpec.describe Recurly::Client do
 
   context "with bad url parameter arguments" do
     describe "#get" do
-      it "should throw an ArgumentError" do
+      it "should throw an ArgumentError with non-primitive arguments" do
         expect {
           subject.get_account(account_id: Recurly::Resources::Account.new)
         }.to raise_error(ArgumentError)
+      end
+
+      it "should throw an ArgumentError with nil arguments" do
+        expect { subject.get_account(account_id: nil) }.to raise_error(ArgumentError)
+      end
+
+      it "should throw an ArgumentError with empty arguments" do
+        expect { subject.get_account(account_id: "") }.to raise_error(ArgumentError)
       end
     end
   end
