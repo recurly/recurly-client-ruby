@@ -1,5 +1,6 @@
 # Recurly is a Ruby client for Recurly's REST API.
 module Recurly
+  require 'recurly/connection_pool'
   require 'recurly/error'
   require 'recurly/helper'
   require 'recurly/api'

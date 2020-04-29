@@ -198,7 +198,7 @@ module Recurly
         billing_info.add_element('three_d_secure_action_result_token_id', three_d_secure_action_result_token_id)
         builder.to_s
       end
-      
+
       reload API.put("#{uri}/convert_trial", body) 
       true
     end
