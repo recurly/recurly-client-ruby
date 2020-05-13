@@ -109,6 +109,45 @@ end
 `limit` defaults to 20 items per page and can be set from 1 to 200. Choosing a lower limit means more network requests but smaller payloads.
 We recommend keeping the default for most cases but increasing the limit if you are planning on iterating through many pages of items (e.g. all transactions in your site).
 
+## Efficiently Fetch the First or Last Resource
+
+The Pager class implements a first method which allows you to fetch just the first or last resource from the server. On top of being a convenient abstraction, this is implemented efficiently by only asking the server for the 1 item you want.
+
+```ruby
+accounts = client.list_accounts(
+  subscriber: true,
+  order: :desc
+)
+
+last_subscriber = accounts.first
+```
+
+If you want to fetch the last account in this scenario, invert the order from descending `desc` to ascending `asc`:
+
+```ruby
+accounts = client.list_accounts(
+  subscriber: true,
+  order: :asc
+)
+
+first_subscriber = accounts.first
+```
+
+## Counting Resources
+
+The Pager class implements a `count` method which allows you to count the resources the pager would return. It does so by calling the endpoint with `HEAD` and parsing and returning the `Recurly-Total-Records` header. This method respects any filtering parameters you apply to the pager, but the sorting parameters will have no effect.
+
+```ruby
+accounts = client.list_accounts(
+  subscriber: true,
+  begin_time: DateTime.new(2017,1,1)
+)
+
+# Calling count here will return an integer indicating
+# the number of subscribers since 2017
+count = accounts.count
+# => 573
+```
 
 # Creating Resources
 
