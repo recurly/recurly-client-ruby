@@ -96,6 +96,21 @@ module Recurly
       JS
     end
 
+    # Enabling the connection pool will use
+    # keep-alive and maintain a pool of connections to the server.
+    #
+    # @param enable [true, false] set to true to enable connection pool
+    def use_connection_pool(enable)
+      @use_connection_pool = enable
+    end
+
+    # Returns true if connection pooling is enabled
+    #
+    # @return [true, false]
+    def connection_pool_enabled?
+      defined?(@use_connection_pool) ? @use_connection_pool : false
+    end
+
     # Assigns a logger to log requests/responses and more.
     # The logger can only be set if the environment variable
     # `RECURLY_INSECURE_DEBUG` equals `true`.
