@@ -41,6 +41,27 @@ client = Recurly::Client.new(api_key: API_KEY2)
 sub = client.get_subscription(subscription_id: 'abcd7890')
 ```
 
+## Logging
+
+The client constructor optionally accepts a logger provided by the programmer. The logger you pass should be an instance of ruby stdlib's [Logger](https://ruby-doc.org/stdlib/libdoc/logger/rdoc/Logger.html)
+or follow the same interface. By default, the client creates a logger to `STDOUT` with level `INFO`.
+
+```ruby
+require 'logger'
+
+# Create a logger to STDOUT
+logger = Logger.new(STDOUT)
+logger.level = Logger::INFO
+
+# You could also use an existing logger
+# If you are using Rails you may want to use your application's logger
+logger = Rails.logger
+
+client = Recurly::Client.new(api_key: API_KEY, logger: logger)
+```
+
+> *SECURITY WARNING*: The log level should never be set to DEBUG in production. This could potentially result in sensitive data in your logging system.
+
 # Operations
 
 The {Recurly::Client} contains every `operation` you can perform on the site as a list of methods. Each method is documented explaining
