@@ -7,11 +7,11 @@ module Recurly
     class SubscriptionAddOnUpdate < Request
 
       # @!attribute code
-      #   @return [String] Add-on code
+      #   @return [String] If a code is provided without an id, the subscription add-on attributes will be set to the current value for those attributes on the plan add-on unless provided in the request.
       define_attribute :code, String
 
       # @!attribute id
-      #   @return [String] Set this to include or modify an existing subscription add-on.
+      #   @return [String] When an id is provided, the existing subscription add-on attributes will persist unless overridden in the request.
       define_attribute :id, String
 
       # @!attribute quantity

@@ -30,6 +30,10 @@ module Recurly
       #   @return [Integer] Add-on quantity
       define_attribute :quantity, Integer
 
+      # @!attribute revenue_schedule_type
+      #   @return [String] Revenue schedule type
+      define_attribute :revenue_schedule_type, String
+
       # @!attribute subscription_id
       #   @return [String] Subscription ID
       define_attribute :subscription_id, String

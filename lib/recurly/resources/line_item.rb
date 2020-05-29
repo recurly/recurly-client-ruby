@@ -107,7 +107,7 @@ module Recurly
       define_attribute :previous_line_item_id, String
 
       # @!attribute product_code
-      #   @return [String] For plan-related line items this will be the plan's code, for add-on related line items it will be the add-on's code. For item-related line itmes it will be the item's `external_sku`.
+      #   @return [String] For plan-related line items this will be the plan's code, for add-on related line items it will be the add-on's code. For item-related line items it will be the item's `external_sku`.
       define_attribute :product_code, String
 
       # @!attribute proration_rate
