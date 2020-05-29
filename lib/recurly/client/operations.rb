@@ -30,6 +30,7 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
+    # @param state [String] Filter by state.
     # @return [Pager<Resources::Site>] A list of sites.
     # @example
     #   sites = @client.list_sites(limit: 200)
@@ -48,6 +49,16 @@ module Recurly
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Site] A site.
+    # @example
+    #   begin
+    #     site = @client.get_site(site_id: site_id)
+    #     puts "Got Site #{site}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def get_site(site_id:)
       path = interpolate_path("/sites/{site_id}", site_id: site_id)
       get(path)
@@ -251,6 +262,28 @@ module Recurly
     # @param body [Requests::AccountAcquisitionUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountAcquisitionUpdatable}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::AccountAcquisition] An account's updated acquisition data.
+    # @example
+    #   begin
+    #     acquisition_update = {
+    #       campaign: "podcast-marketing",
+    #       channel: "social_media",
+    #       subchannel: "twitter",
+    #       cost: {
+    #         currency: "USD",
+    #         amount: 0.50
+    #       }
+    #     }
+    #     acquisition = @client.update_account_acquisition(
+    #       account_id: account_id,
+    #       body: acquisition_update
+    #     )
+    #     puts "Updated AccountAcqusition #{acquisition}"
+    #   rescue Recurly::Errors::ValidationError => e
+    #     # If the request was invalid, you may want to tell your user
+    #     # why. You can find the invalid params and reasons in e.recurly_error.params
+    #     puts "ValidationError: #{e.recurly_error.params}"
+    #   end
+    #
     def update_account_acquisition(account_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}/acquisition", account_id: account_id)
       put(path, body, Requests::AccountAcquisitionUpdatable, **options)
@@ -845,6 +878,26 @@ module Recurly
     # @param body [Requests::ShippingAddressCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingAddressCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::ShippingAddress] Returns the new shipping address.
+    # @example
+    #   begin
+    #     shipping_address_create = {
+    #       nickname: 'Work',
+    #       street1: '900 Camp St',
+    #       city: 'New Orleans',
+    #       region: 'LA',
+    #       country: 'US',
+    #       postal_code: '70115',
+    #       first_name: 'Joanna',
+    #       last_name: 'Du Monde'
+    #     }
+    #     shipping_address = @client.create_shipping_address(account_id: account_id, body: shipping_address_create)
+    #     puts "Created Shipping Address #{shipping_address}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def create_shipping_address(account_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}/shipping_addresses", account_id: account_id)
       post(path, body, Requests::ShippingAddressCreate, **options)
@@ -1230,6 +1283,19 @@ module Recurly
     # @param body [Requests::CouponUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Coupon] The updated coupon.
+    # @example
+    #   begin
+    #     coupon_update = {
+    #       name: "New Coupon Name"
+    #     }
+    #     coupon = @client.update_coupon(coupon_id: coupon_id, body: coupon_update)
+    #     puts "Updated Coupon #{coupon}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def update_coupon(coupon_id:, body:, **options)
       path = interpolate_path("/coupons/{coupon_id}", coupon_id: coupon_id)
       put(path, body, Requests::CouponUpdate, **options)
@@ -1242,6 +1308,16 @@ module Recurly
     # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Coupon] The expired Coupon
+    # @example
+    #   begin
+    #     coupon = @client.deactivate_coupon(coupon_id: coupon_id)
+    #     puts "Deactivated Coupon #{coupon}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def deactivate_coupon(coupon_id:, **options)
       path = interpolate_path("/coupons/{coupon_id}", coupon_id: coupon_id)
       delete(path, **options)
@@ -1373,6 +1449,18 @@ module Recurly
     # @param custom_field_definition_id [String] Custom Field Definition ID
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::CustomFieldDefinition] An custom field definition.
+    # @example
+    #   begin
+    #     custom_field_definition = @client.get_custom_field_definition(
+    #       custom_field_definition_id: custom_field_definition_id
+    #     )
+    #     puts "Got Custom Field Definition #{custom_field_definition}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def get_custom_field_definition(custom_field_definition_id:, **options)
       path = interpolate_path("/custom_field_definitions/{custom_field_definition_id}", custom_field_definition_id: custom_field_definition_id)
       get(path, **options)
@@ -1627,6 +1715,20 @@ module Recurly
     # @param body [Requests::InvoiceUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceUpdatable}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Invoice] An invoice.
+    # @example
+    #   begin
+    #     invoice_update = {
+    #       customer_notes: "New Notes",
+    #       terms_and_conditions: "New Terms and Conditions"
+    #     }
+    #     invoice = @client.put_invoice(invoice_id: invoice_id, body: invoice_update)
+    #     puts "Updated invoice #{invoice}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def put_invoice(invoice_id:, body:, **options)
       path = interpolate_path("/invoices/{invoice_id}", invoice_id: invoice_id)
       put(path, body, Requests::InvoiceUpdatable, **options)
@@ -1753,9 +1855,32 @@ module Recurly
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Invoice] The updated invoice.
+    # @example
+    #   begin
+    #     invoice = @client.void_invoice(invoice_id: invoice_id)
+    #     puts "Voided invoice #{invoice}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def void_invoice(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/void", invoice_id: invoice_id)
       put(path, **options)
+    end
+
+    # Record an external payment for a manual invoices.
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/record_external_transaction record_external_transaction api documenation}
+    #
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param body [Requests::ExternalTransaction] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalTransaction}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::Transaction] The recorded transaction.
+    def record_external_transaction(invoice_id:, body:, **options)
+      path = interpolate_path("/invoices/{invoice_id}/transactions", invoice_id: invoice_id)
+      post(path, body, Requests::ExternalTransaction, **options)
     end
 
     # List an invoice's line items
@@ -1792,6 +1917,15 @@ module Recurly
     # @param type [String] Filter by type field.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Pager<Resources::LineItem>] A list of the invoice's line items.
+    # @example
+    #   line_items = @client.list_invoice_line_items(
+    #     invoice_id: invoice_id,
+    #     limit: 200
+    #   )
+    #   line_items.each do |line_item|
+    #     puts "Line Item: #{line_item.id}"
+    #   end
+    #
     def list_invoice_line_items(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/line_items", invoice_id: invoice_id)
       pager(path, **options)
@@ -1847,6 +1981,15 @@ module Recurly
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Pager<Resources::Invoice>] A list of the credit or charge invoices associated with the invoice.
+    # @example
+    #   invoices = @client.list_related_invoices(
+    #     invoice_id: invoice_id,
+    #     limit: 200
+    #   )
+    #   invoices.each do |invoice|
+    #     puts "Invoice: #{invoice.number}"
+    #   end
+    #
     def list_related_invoices(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/related_invoices", invoice_id: invoice_id)
       pager(path, **options)
@@ -1915,6 +2058,14 @@ module Recurly
     # @param type [String] Filter by type field.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Pager<Resources::LineItem>] A list of the site's line items.
+    # @example
+    #   line_items = @client.list_line_items(
+    #     limit: 200
+    #   )
+    #   line_items.each do |line_item|
+    #     puts "LineItem: #{line_item.id}"
+    #   end
+    #
     def list_line_items(**options)
       path = interpolate_path("/line_items")
       pager(path, **options)
@@ -2077,6 +2228,19 @@ module Recurly
     # @param body [Requests::PlanUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PlanUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Plan] A plan.
+    # @example
+    #   begin
+    #     plan_update = {
+    #       name: "Monthly Kombucha Subscription"
+    #     }
+    #     plan = @client.update_plan(plan_id: plan_id, body: plan_update)
+    #     puts "Updated plan #{plan}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def update_plan(plan_id:, body:, **options)
       path = interpolate_path("/plans/{plan_id}", plan_id: plan_id)
       put(path, body, Requests::PlanUpdate, **options)
@@ -2089,6 +2253,16 @@ module Recurly
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::Plan] Plan deleted
+    # @example
+    #   begin
+    #     plan = @client.remove_plan(plan_id: plan_id)
+    #     puts "Removed plan #{plan}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def remove_plan(plan_id:, **options)
       path = interpolate_path("/plans/{plan_id}", plan_id: plan_id)
       delete(path, **options)
@@ -2148,6 +2322,27 @@ module Recurly
     # @param body [Requests::AddOnCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AddOnCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::AddOn] An add-on.
+    # @example
+    #   begin
+    #     new_add_on = {
+    #       code: 'coffee_grinder',
+    #       name: 'A quality grinder for your beans',
+    #       default_quantity: 1,
+    #       currencies: [
+    #         {
+    #           currency: 'USD',
+    #           unit_amount: 10_000
+    #         }
+    #       ]
+    #     }
+    #     add_on = @client.create_plan_add_on(plan_id: plan_id, body: new_add_on)
+    #     puts "Created plan add-on #{add_on}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def create_plan_add_on(plan_id:, body:, **options)
       path = interpolate_path("/plans/{plan_id}/add_ons", plan_id: plan_id)
       post(path, body, Requests::AddOnCreate, **options)
@@ -2187,6 +2382,23 @@ module Recurly
     # @param body [Requests::AddOnUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AddOnUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::AddOn] An add-on.
+    # @example
+    #   begin
+    #     add_on_update = {
+    #       name: "A quality grinder for your finest beans"
+    #     }
+    #     add_on = @client.update_plan_add_on(
+    #       plan_id: plan_id,
+    #       add_on_id: add_on_id,
+    #       body: add_on_update
+    #     )
+    #     puts "Updated add-on #{add_on}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def update_plan_add_on(plan_id:, add_on_id:, body:, **options)
       path = interpolate_path("/plans/{plan_id}/add_ons/{add_on_id}", plan_id: plan_id, add_on_id: add_on_id)
       put(path, body, Requests::AddOnUpdate, **options)
@@ -2200,6 +2412,19 @@ module Recurly
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::AddOn] Add-on deleted
+    # @example
+    #   begin
+    #     add_on = @client.remove_plan_add_on(
+    #       plan_id: plan_id,
+    #       add_on_id: add_on_id
+    #     )
+    #     puts "Removed add-on #{add_on}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def remove_plan_add_on(plan_id:, add_on_id:, **options)
       path = interpolate_path("/plans/{plan_id}/add_ons/{add_on_id}", plan_id: plan_id, add_on_id: add_on_id)
       delete(path, **options)
@@ -2236,6 +2461,14 @@ module Recurly
     # @param state [String] Filter by state.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Pager<Resources::AddOn>] A list of add-ons.
+    # @example
+    #   add_ons = @client.list_add_ons(
+    #     limit: 200
+    #   )
+    #   add_ons.each do |add_on|
+    #     puts "AddOn: #{add_on.code}"
+    #   end
+    #
     def list_add_ons(**options)
       path = interpolate_path("/add_ons")
       pager(path, **options)
@@ -2248,6 +2481,16 @@ module Recurly
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Resources::AddOn] An add-on.
+    # @example
+    #   begin
+    #     add_on = @client.get_add_on(add_on_id: add_on_id)
+    #     puts "Got add-on #{add_on}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
     def get_add_on(add_on_id:, **options)
       path = interpolate_path("/add_ons/{add_on_id}", add_on_id: add_on_id)
       get(path, **options)
@@ -2283,6 +2526,14 @@ module Recurly
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     # @return [Pager<Resources::ShippingMethod>] A list of the site's shipping methods.
+    # @example
+    #   shipping_methods = @client.list_shipping_methods(
+    #     limit: 200
+    #   )
+    #   shipping_methods.each do |shipping_method|
+    #     puts "Shipping Method: #{shipping_method.code}"
+    #   end
+    #
     def list_shipping_methods(**options)
       path = interpolate_path("/shipping_methods")
       pager(path, **options)

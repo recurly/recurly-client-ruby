@@ -46,6 +46,10 @@ module Recurly
       #   @return [String] The IBAN bank account's last two digits.
       define_attribute :last_two, String
 
+      # @!attribute name_on_account
+      #   @return [String] The name associated with the bank account.
+      define_attribute :name_on_account, String
+
       # @!attribute object
       #   @return [String]
       define_attribute :object, String

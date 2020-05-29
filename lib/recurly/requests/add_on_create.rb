@@ -27,11 +27,11 @@ module Recurly
       define_attribute :display_quantity, :Boolean
 
       # @!attribute item_code
-      #   @return [String] Unique code to identify an item. Avaliable when the `Catalog: Item Add-Ons` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+      #   @return [String] Unique code to identify an item. Avaliable when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
       define_attribute :item_code, String
 
       # @!attribute item_id
-      #   @return [String] System-generated unique identifier for an item. Available when the `Catalog: Item Add-Ons` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+      #   @return [String] System-generated unique identifier for an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
       define_attribute :item_id, String
 
       # @!attribute name

@@ -6,6 +6,10 @@ module Recurly
   module Resources
     class ShippingMethod < Resource
 
+      # @!attribute accounting_code
+      #   @return [String] Accounting code for shipping method.
+      define_attribute :accounting_code, String
+
       # @!attribute code
       #   @return [String] The internal name used identify the shipping method.
       define_attribute :code, String
