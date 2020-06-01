@@ -180,24 +180,69 @@ RSpec.describe Recurly::Client do
       end
     end
 
-    describe "#log_level" do
-      context "set to Logger::DEBUG" do
-        let(:client_options) { { api_key: api_key, log_level: Logger::DEBUG } }
+    context "logging" do
+      describe "initialize" do
+        context "with a valid logger" do
+          let(:options) do
+            {
+              api_key: api_key,
+              logger: Logger.new(STDOUT).tap { |l| l.level = Logger::WARN },
+            }
+          end
 
-        it "sets the Net::HTTP logger" do
-          expect(net_http).to receive(:set_debug_output).with(client.instance_variable_get(:@logger))
-          expect(client.instance_variable_get(:@logger).level).to eql(Logger::DEBUG)
+          it "should allow a valid Logger to be passed in" do
+            expect {
+              Recurly::Client.new(**options)
+            }.not_to raise_error
+          end
+        end
+
+        context "with a debug logger" do
+          let(:logger) do
+            Logger.new(STDOUT).tap { |l| l.level = Logger::DEBUG }
+          end
+          let(:options) do
+            {
+              api_key: api_key,
+              logger: logger,
+            }
+          end
+
+          it "should allow but warn the programmer" do
+            expect(logger).to receive(:warn)
+            expect {
+              Recurly::Client.new(**options)
+            }.not_to raise_error
+          end
+        end
+
+        context "with a invalid logger" do
+          let(:options) do
+            {
+              api_key: api_key,
+              logger: {}, # some random object
+            }
+          end
+
+          it "should allow a valid Logger to be passed in" do
+            expect {
+              Recurly::Client.new(**options)
+            }.to raise_error(ArgumentError)
+          end
+        end
+      end
+
+      describe "log level" do
+        it "defaults to WARN" do
+          expect(client.instance_variable_get(:@logger).level).to eql(Logger::WARN)
 
           expect(net_http).to receive(:request).and_return(response)
           subject.get_account(account_id: "code-benjamin-du-monde")
         end
-      end
 
-      context "defaults to Logger::WARN" do
-        it "does not set the Net::HTTP logger" do
-          expect(client.instance_variable_get(:@log_level)).to eql(Logger::WARN)
+        # It should never enable net http debug as that is dangerous
+        it "never enables the net_http debug output" do
           expect(net_http).not_to receive(:set_debug_output)
-
           expect(net_http).to receive(:request).and_return(response)
           subject.get_account(account_id: "code-benjamin-du-monde")
         end

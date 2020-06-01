@@ -15,11 +15,11 @@ module Recurly
     CA_FILE = File.join(File.dirname(__FILE__), "../data/ca-certificates.crt")
     BINARY_TYPES = [
       "application/pdf",
-    ]
+    ].freeze
     JSON_CONTENT_TYPE = "application/json"
     MAX_RETRIES = 3
-
-    BASE36_ALPHABET = ("0".."9").to_a + ("a".."z").to_a
+    LOG_LEVELS = %i(debug info warn error fatal).freeze
+    BASE36_ALPHABET = (("0".."9").to_a + ("a".."z").to_a).freeze
 
     # Initialize a client. It requires an API key.
     #
@@ -45,12 +45,31 @@ module Recurly
     #   sub = client.get_subscription(subscription_id: 'uuid-abcd7890')
     #
     # @param api_key [String] The private API key
-    # @param site_id [String] The site you wish to be scoped to.
-    # @param subdomain [String] Optional subdomain for the site you wish to be scoped to. Providing this makes all the `site_id` parameters optional.
-    def initialize(api_key:, site_id: nil, subdomain: nil, **options)
+    # @param logger [Logger] A logger to use. Defaults to creating a new STDOUT logger with level WARN.
+    def initialize(api_key:, site_id: nil, subdomain: nil, logger: nil)
       set_site_id(site_id, subdomain)
       set_api_key(api_key)
-      set_options(options)
+
+      if logger.nil?
+        @logger = Logger.new(STDOUT).tap do |l|
+          l.level = Logger::WARN
+        end
+      else
+        unless LOG_LEVELS.all? { |lev| logger.respond_to?(lev) }
+          raise ArgumentError, "You must pass in a logger implementation that responds to the following messages: #{LOG_LEVELS}"
+        end
+        @logger = logger
+      end
+
+      if @logger.level < Logger::INFO
+        msg = <<-MSG
+        The Recurly logger should not be initialized
+        beyond the level INFO. It is currently configured to emit
+        headers and request / response bodies. This has the potential to leak
+        PII and other sensitive information and should never be used in production.
+        MSG
+        log_warn("SECURITY_WARNING", message: msg)
+      end
 
       # execute block with this client if given
       yield(self) if block_given?
@@ -100,7 +119,6 @@ module Recurly
       if request_data
         request_class.new(request_data).validate!
         json_body = JSON.dump(request_data)
-        logger.info("PUT BODY #{json_body}")
         request.body = json_body
       end
       http_response = run_request(request, options)
@@ -115,9 +133,6 @@ module Recurly
     end
 
     private
-
-    # @return [Logger]
-    attr_reader :logger
 
     @connection_pool = Recurly::ConnectionPool.new
 
@@ -134,13 +149,36 @@ module Recurly
 
         begin
           http.start unless http.started?
+          log_attrs = {
+            method: request.method,
+            path: request.path,
+          }
+          if @logger.level < Logger::INFO
+            log_attrs[:request_body] = request.body
+            # No need to log the authorization header
+            headers = request.to_hash.reject { |k, _| k&.downcase == "authorization" }
+            log_attrs[:request_headers] = headers
+          end
+
+          log_info("Request", **log_attrs)
+          start = Time.now
           response = http.request(request)
+          elapsed = Time.now - start
 
           # GETs are safe to retry after a server error, requests with an Idempotency-Key will return the prior response
           if response.kind_of?(Net::HTTPServerError) && request.is_a?(Net::HTTP::Get)
             retries += 1
+            log_info("Retrying", retries: retries, **log_attrs)
+            start = Time.now
             response = http.request(request) if retries < MAX_RETRIES
+            elapsed = Time.now - start
           end
+
+          if @logger.level < Logger::INFO
+            log_attrs[:response_body] = response.body
+            log_attrs[:response_headers] = response.to_hash
+          end
+          log_info("Response", time_ms: (elapsed * 1_000).floor, status: response.code, **log_attrs)
 
           response
         rescue Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EHOSTUNREACH, Errno::ECONNABORTED,
@@ -190,8 +228,6 @@ module Recurly
     def set_http_options(http, options)
       http.open_timeout = options[:open_timeout] || 20
       http.read_timeout = options[:read_timeout] || 60
-
-      http.set_debug_output(logger) if @log_level <= Logger::INFO && !http.started?
     end
 
     def handle_response!(request, http_response)
@@ -232,7 +268,7 @@ module Recurly
 
     def read_headers(response)
       if !@_ignore_deprecation_warning && response.headers["Recurly-Deprecated"]&.upcase == "TRUE"
-        puts "[recurly-client-ruby] WARNING: Your current API version \"#{api_version}\" is deprecated and will be sunset on #{response.headers["Recurly-Sunset-Date"]}"
+        log_warn("DEPRECTATION WARNING", message: "Your current API version \"#{api_version}\" is deprecated and will be sunset on #{response.headers["Recurly-Sunset-Date"]}")
       end
       response
     end
@@ -297,10 +333,14 @@ module Recurly
       end
     end
 
-    def set_options(options)
-      @log_level = options[:log_level] || Logger::WARN
-      @logger = Logger.new(STDOUT)
-      @logger.level = @log_level
+    # Define a private `log_<level>` method for each log level
+    LOG_LEVELS.each do |level|
+      define_method "log_#{level}" do |tag, **attrs|
+        @logger.send(level, "Recurly") do
+          msg = attrs.each_pair.map { |k, v| "#{k}=#{v.inspect}" }.join(" ")
+          "[#{tag}] #{msg}"
+        end
+      end
     end
   end
 end
