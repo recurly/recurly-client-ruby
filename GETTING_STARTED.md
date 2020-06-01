@@ -44,7 +44,7 @@ sub = client.get_subscription(subscription_id: 'abcd7890')
 ## Logging
 
 The client constructor optionally accepts a logger provided by the programmer. The logger you pass should be an instance of ruby stdlib's [Logger](https://ruby-doc.org/stdlib/libdoc/logger/rdoc/Logger.html)
-or follow the same interface. By default, the client creates a logger to `STDOUT` with level `INFO`.
+or follow the same interface. By default, the client creates a logger to `STDOUT` with level `WARN`.
 
 ```ruby
 require 'logger'

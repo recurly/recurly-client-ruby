@@ -45,14 +45,14 @@ module Recurly
     #   sub = client.get_subscription(subscription_id: 'uuid-abcd7890')
     #
     # @param api_key [String] The private API key
-    # @param logger [Logger] A logger to use. Defaults to creating a new STDOUT logger with level INFO.
+    # @param logger [Logger] A logger to use. Defaults to creating a new STDOUT logger with level WARN.
     def initialize(api_key:, site_id: nil, subdomain: nil, logger: nil, **options)
       set_site_id(site_id, subdomain)
       set_api_key(api_key)
 
       if logger.nil?
         @logger = Logger.new(STDOUT).tap do |l|
-          l.level = Logger::INFO
+          l.level = Logger::WARN
         end
       else
         @logger = logger
@@ -330,6 +330,7 @@ module Recurly
       end
     end
 
+    # Define a private `log_<level>` method for each log level
     %i(debug info warn error fatal).each do |level|
       define_method "log_#{level}" do |tag, **attrs|
         @logger.send(level, "Recurly") do
