@@ -148,12 +148,12 @@ module Recurly
           http.start unless http.started?
           log_attrs = {
             method: request.method,
-            path: request.path
+            path: request.path,
           }
           if @logger.level < Logger::INFO
             log_attrs[:request_body] = request.body
             # No need to log the authorization header
-            headers = request.to_hash.reject { |k,_| k&.downcase == 'authorization' }
+            headers = request.to_hash.reject { |k, _| k&.downcase == "authorization" }
             log_attrs[:request_headers] = headers
           end
 
@@ -333,8 +333,8 @@ module Recurly
     %i(debug info warn error fatal).each do |level|
       define_method "log_#{level}" do |tag, **attrs|
         @logger.send(level, "Recurly") do
-           msg = attrs.each_pair.map { |k,v| "#{k}=#{v.inspect}" }.join(" ")
-           "[#{tag}] #{msg}"
+          msg = attrs.each_pair.map { |k, v| "#{k}=#{v.inspect}" }.join(" ")
+          "[#{tag}] #{msg}"
         end
       end
     end
