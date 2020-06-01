@@ -15,11 +15,11 @@ module Recurly
     CA_FILE = File.join(File.dirname(__FILE__), "../data/ca-certificates.crt")
     BINARY_TYPES = [
       "application/pdf",
-    ]
+    ].freeze
     JSON_CONTENT_TYPE = "application/json"
     MAX_RETRIES = 3
-
-    BASE36_ALPHABET = ("0".."9").to_a + ("a".."z").to_a
+    LOG_LEVELS = %i(debug info warn error fatal).freeze
+    BASE36_ALPHABET = (("0".."9").to_a + ("a".."z").to_a).freeze
 
     # Initialize a client. It requires an API key.
     #
@@ -55,6 +55,9 @@ module Recurly
           l.level = Logger::WARN
         end
       else
+        unless LOG_LEVELS.all? { |lev| logger.respond_to?(lev) }
+          raise ArgumentError, "You must pass in a logger implementation that responds to the following messages: #{LOG_LEVELS}"
+        end
         @logger = logger
       end
 
@@ -331,7 +334,7 @@ module Recurly
     end
 
     # Define a private `log_<level>` method for each log level
-    %i(debug info warn error fatal).each do |level|
+    LOG_LEVELS.each do |level|
       define_method "log_#{level}" do |tag, **attrs|
         @logger.send(level, "Recurly") do
           msg = attrs.each_pair.map { |k, v| "#{k}=#{v.inspect}" }.join(" ")
