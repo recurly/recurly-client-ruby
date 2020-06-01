@@ -1,8 +1,25 @@
 # Changelog
 
-## [3.5.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
+## [3.6.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.4.1...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.5.0...HEAD)
+
+**Implemented enhancements:**
+
+- Latest Features [\#592](https://github.com/recurly/recurly-client-ruby/pull/592) ([bhelx](https://github.com/bhelx))
+- Support the programmer passing their own logger [\#590](https://github.com/recurly/recurly-client-ruby/pull/590) ([bhelx](https://github.com/bhelx))
+
+**Merged pull requests:**
+
+- Release 3.6.0 [\#594](https://github.com/recurly/recurly-client-ruby/pull/594) ([bhelx](https://github.com/bhelx))
+- Better format error message [\#593](https://github.com/recurly/recurly-client-ruby/pull/593) ([bhelx](https://github.com/bhelx))
+- Let bump2version manage the getting started doc [\#591](https://github.com/recurly/recurly-client-ruby/pull/591) ([bhelx](https://github.com/bhelx))
+- Document `Pager#first` and `Pager#count` [\#589](https://github.com/recurly/recurly-client-ruby/pull/589) ([bhelx](https://github.com/bhelx))
+- Ensure that path parameters are not empty strings [\#587](https://github.com/recurly/recurly-client-ruby/pull/587) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.5.0](https://github.com/recurly/recurly-client-ruby/tree/3.5.0) (2020-04-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.4.1...3.5.0)
 
 **Implemented enhancements:**
 
