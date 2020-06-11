@@ -54,6 +54,15 @@ RSpec.describe Recurly::Client do
         expect(net_http).to receive(:request).and_return(response)
         _account = subject.get_account(account_id: "code-benjamin-du-monde")
       end
+
+      it "should include custom headers in each request" do
+        expected = hash_including("Custom-Header" => "custom-value", "Accept" => /application\/vnd\.recurly/, "Content-Type" => "application/json", "User-Agent" => /Recurly\//)
+        headers = { "Custom-Header" => "custom-value" }
+        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", headers: headers)
+
+        expect(net_http).to receive(:request).and_return(response)
+        _account = subject.get_account(account_id: "code-benjamin-du-monde")
+      end
     end
 
     describe "#head" do
