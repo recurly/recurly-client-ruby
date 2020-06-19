@@ -17,7 +17,7 @@ Gem::Specification.new do |spec|
   spec.metadata = {
     "bug_tracker_uri" => "#{spec.homepage}/issues",
     "changelog_uri" => "#{spec.homepage}/blob/master/CHANGELOG.md",
-    "documentation_uri" => "https://dev.recurly.com/docs",
+    "documentation_uri" => "https://recurly.github.io/recurly-client-ruby/",
     "homepage_uri" => spec.homepage,
     "source_code_uri" => "#{spec.homepage}/tree/#{spec.version}",
   }
