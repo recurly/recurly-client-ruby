@@ -128,6 +128,23 @@ describe Subscription do
       ])
     end
 
+    it "must allow add-on from item" do
+      item = Item.new(
+        item_code: 'mockitem',
+        name: 'Mock Item'
+      )
+      subscription = Subscription.new add_ons: [
+        add_on_code: item.item_code,
+        add_on_source: "item", 
+        unit_amount_in_cents: 199, 
+        quantity: 2
+      ]
+
+      subscription.add_ons.to_a.must_equal([
+        SubscriptionAddOn.new("add_on_code": item.item_code, "add_on_source": "item", "unit_amount_in_cents": 199, "quantity": 2)
+      ])
+    end
+
     it "must serialize" do
       subscription = Subscription.new
       subscription.add_ons << :trial
