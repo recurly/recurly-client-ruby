@@ -20,6 +20,7 @@ module Recurly
     MAX_RETRIES = 3
     LOG_LEVELS = %i(debug info warn error fatal).freeze
     BASE36_ALPHABET = (("0".."9").to_a + ("a".."z").to_a).freeze
+    REQUEST_OPTIONS = [:headers].freeze
 
     # Initialize a client. It requires an API key.
     #
@@ -204,6 +205,9 @@ module Recurly
     end
 
     def set_headers(request, additional_headers = {})
+      # TODO this is undocumented until we finalize it
+      additional_headers.each { |header, v| request[header] = v } if additional_headers
+
       request["Accept"] = "application/vnd.recurly.#{api_version}".chomp # got this method from operations.rb
       request["Authorization"] = "Basic #{Base64.encode64(@api_key)}".chomp
       request["User-Agent"] = "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}"
@@ -211,9 +215,6 @@ module Recurly
       unless request.is_a?(Net::HTTP::Get) || request.is_a?(Net::HTTP::Head)
         request["Idempotency-Key"] ||= generate_idempotency_key
       end
-
-      # TODO this is undocumented until we finalize it
-      additional_headers.each { |header, v| request[header] = v } if additional_headers
     end
 
     # from https://github.com/rails/rails/blob/6-0-stable/activesupport/lib/active_support/core_ext/securerandom.rb
@@ -316,8 +317,9 @@ module Recurly
 
     def build_url(path, options)
       path = scope_by_site(path, options)
-      if options.any?
-        "#{path}?#{URI.encode_www_form(options)}"
+      query_params = options.reject { |k, _| REQUEST_OPTIONS.include?(k.to_sym) }
+      if query_params.any?
+        "#{path}?#{URI.encode_www_form(query_params)}"
       else
         path
       end

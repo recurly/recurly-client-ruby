@@ -47,12 +47,34 @@ RSpec.describe Recurly::Client do
     end
 
     describe "headers" do
+      let(:request) do
+        req_dbl = instance_double(Net::HTTP::Get)
+        expect(req_dbl).to receive(:[]=).with("Accept", /application\/vnd\.recurly/)
+        expect(req_dbl).to receive(:[]=).with("Authorization", /Basic .*/)
+        expect(req_dbl).to receive(:[]=).with("User-Agent", /^Recurly\/\d+(\.\d+){0,2}; ruby \d+(\.\d+){0,2}.*$/)
+        expect(req_dbl).to receive(:[]=).with("Idempotency-Key", anything)
+        allow(req_dbl).to receive(:[])
+        allow(req_dbl).to receive(:body).and_return("")
+        allow(req_dbl).to receive(:method).and_return("GET")
+        allow(req_dbl).to receive(:path).and_return("/accounts/code-benjamin-du-monde")
+
+        req_dbl
+      end
+
       it "should include the necessary headers in each request" do
-        expected = hash_including("Accept" => /application\/vnd\.recurly/, "Content-Type" => "application/json", "User-Agent" => /Recurly\//)
-        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
+        allow(Net::HTTP::Get).to receive(:new).and_return(request)
 
         expect(net_http).to receive(:request).and_return(response)
         _account = subject.get_account(account_id: "code-benjamin-du-monde")
+      end
+
+      it "should include custom headers in each request" do
+        expect(request).to receive(:[]=).with("Custom-Header", "custom-value")
+        allow(Net::HTTP::Get).to receive(:new).and_return(request)
+
+        expect(net_http).to receive(:request).and_return(response)
+        headers = { "Custom-Header" => "custom-value" }
+        _account = subject.get_account(account_id: "code-benjamin-du-monde", headers: headers)
       end
     end
 
