@@ -2539,16 +2539,53 @@ module Recurly
       pager(path, **options)
     end
 
+    # Create a new shipping method
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/create_shipping_method create_shipping_method api documenation}
+    #
+    # @param body [Requests::ShippingMethodCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingMethodCreate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::ShippingMethod] A new shipping method.
+    def create_shipping_method(body:, **options)
+      path = interpolate_path("/shipping_methods")
+      post(path, body, Requests::ShippingMethodCreate, **options)
+    end
+
     # Fetch a shipping method
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/get_shipping_method get_shipping_method api documenation}
     #
     # @param id [String] Shipping Method ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-usps_2-day+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
-    # @return [Resources::ShippingMethod] A shipping_method.
+    # @return [Resources::ShippingMethod] A shipping method.
     def get_shipping_method(id:, **options)
       path = interpolate_path("/shipping_methods/{id}", id: id)
       get(path, **options)
+    end
+
+    # Update an active Shipping Method
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/update_shipping_method update_shipping_method api documenation}
+    #
+    # @param shipping_method_id [String] Shipping Method ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-usps_2-day+.
+    # @param body [Requests::ShippingMethodUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingMethodUpdate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::ShippingMethod] The updated shipping method.
+    def update_shipping_method(shipping_method_id:, body:, **options)
+      path = interpolate_path("/shipping_methods/{shipping_method_id}", shipping_method_id: shipping_method_id)
+      put(path, body, Requests::ShippingMethodUpdate, **options)
+    end
+
+    # Deactivate a shipping method
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/deactivate_shipping_method deactivate_shipping_method api documenation}
+    #
+    # @param shipping_method_id [String] Shipping Method ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-usps_2-day+.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::ShippingMethod] A shipping method.
+    def deactivate_shipping_method(shipping_method_id:, **options)
+      path = interpolate_path("/shipping_methods/{shipping_method_id}", shipping_method_id: shipping_method_id)
+      delete(path, **options)
     end
 
     # List a site's subscriptions

@@ -381,6 +381,22 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const site = await client.getSite(siteId)
+            console.log('Fetched site: ', site)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -418,6 +434,19 @@ paths:
             # just return nil
             puts "Resource Not Found"
           end
+      - lang: Java
+        source: |
+          try {
+              final Site site = client.getSite(siteId);
+              System.out.println("Fetched site: " + site.getId());
+            } catch (NotFoundException e) {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              System.out.println("Resource Not Found: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
       - lang: PHP
         source: |
           try {
@@ -2235,6 +2264,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const redemptions = client.listAccountCouponRedemptions(accountId, { limit: 200 })
+
+          for await (const redemption of redemptions.each()) {
+            console.log(redemption.id)
+          }
       - lang: Python
         source: |
           redemptions = client.list_account_coupon_redemptions(account_id, limit=200).items()
@@ -2560,6 +2596,22 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const redemption = await client.removeCouponRedemption(accountId)
+            console.log('Removed coupon redemption: ', redemption.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -2767,6 +2819,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const invoices = client.listAccountInvoices(accountId, { limit: 200 })
+
+          for await (const invoice of invoices.each()) {
+            console.log(invoice.number)
+          }
       - lang: Python
         source: |
           invoices = client.list_account_invoices(account_id, limit=200).items()
@@ -3199,6 +3258,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const lineItems = client.listAccountLineItems(accountId, { limit: 200 })
+
+          for await (const lineItem of lineItems.each()) {
+            console.log(lineItem.id)
+          }
       - lang: Python
         source: |
           line_items = client.list_account_line_items(account_id, limit=200).items()
@@ -4347,6 +4413,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const subscriptions = client.listAccountSubscriptions(accountId, { limit: 200 })
+
+          for await (const subscription of subscriptions.each()) {
+            console.log(subscription.uuid)
+          }
       - lang: Python
         source: |
           subscriptions = client.list_account_subscriptions(account.id, limit=200).items()
@@ -4436,6 +4509,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const transactions = client.listAccountTransactions(accountId, { limit: 200 })
+
+          for await (const transaction of transactions.each()) {
+            console.log(transaction.uuid)
+          }
       - lang: Python
         source: |
           transactions = client.list_account_transactions(account_id, limit=200).items()
@@ -4595,6 +4675,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const acquisitions = client.listAccountAcquisition({ limit: 200 })
+
+          for await (const acquisition of acquisitions.each()) {
+            console.log(acquisition.id)
+          }
       - lang: Python
         source: |
           acquisitions = client.list_account_acquisition(limit=200).items()
@@ -4613,6 +4700,15 @@ paths:
           acquisitions.each do |acquisition|
             puts "AccountAcquisition: #{acquisition.cost}"
           end
+      - lang: Java
+        source: |
+          QueryParams params = new QueryParams();
+          params.setLimit(200); // Pull 200 records at a time
+          final Pager<AccountAcquisition> acquisitions = client.listAccountAcquisition(params);
+
+          for (AccountAcquisition acquisition : acquisitions) {
+              System.out.println(acquisition.getId());
+          }
       - lang: PHP
         source: |
           $params = ['limit' => 200];
@@ -4762,6 +4858,28 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const couponCreate = {
+              name: "Promotional Coupon",
+              code: couponCode,
+              discount_type: "fixed",
+              currencies: [{"currency": "USD", "discount": 10}],
+            }
+            const coupon = await client.createCoupon(couponCreate)
+            console.log('Created coupon: ', coupon.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -5056,6 +5174,25 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const couponUpdate = {
+              name: "New Coupon Name"
+            }
+            const coupon = await client.updateCoupon(couponId, couponUpdate)
+            console.log('Updated coupon: ', coupon)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -5102,6 +5239,23 @@ paths:
             # just return nil
             puts "Resource Not Found"
           end
+      - lang: Java
+        source: |
+          try {
+            final CouponUpdate couponUpdate = new CouponUpdate();
+            couponUpdate.setName("New Coupon Name");
+
+            final Coupon coupon = client.updateCoupon(couponId, couponUpdate);
+            System.out.println("Updated coupon: " + coupon.getCode());
+            System.out.println(coupon.getName());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
       - lang: PHP
         source: |
           try {
@@ -7521,6 +7675,22 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const invoice = await client.voidInvoice(invoiceId)
+            console.log('Voided invoice: ', invoice)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -7540,6 +7710,19 @@ paths:
             # just return nil
             puts "Resource Not Found"
           end
+      - lang: Java
+        source: |
+          try {
+            final Invoice invoice = client.voidInvoice(invoiceId);
+            System.out.println("Voided invoice " + invoice.getId());
+          } catch (final ValidationException e) {
+            // If the request was not valid, you may want to tell your user
+            // why. You can find the invalid params and reasons in e.getError().getParams()
+            System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (final ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
       - lang: PHP
         source: |
           try {
@@ -7672,6 +7855,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const lineItems = client.listInvoiceLineItems(invoiceId, { limit: 200 })
+
+          for await (const lineItem of lineItems.each()) {
+            console.log(lineItem.id)
+          }
       - lang: Python
         source: |
           try:
@@ -7698,6 +7888,15 @@ paths:
           line_items.each do |line_item|
             puts "Line Item: #{line_item.id}"
           end
+      - lang: Java
+        source: |
+          QueryParams params = new QueryParams();
+          params.setLimit(200);
+          Pager<LineItem> lineItems = client.listInvoiceLineItems(invoiceId, params);
+
+          for (LineItem lineItem : lineItems) {
+            System.out.println(lineItem.getId());
+          }
       - lang: PHP
         source: |
           $params = ['limit' => 200];
@@ -7746,6 +7945,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const redemptions = client.listInvoiceCouponRedemptions(invoiceId, { limit: 200 })
+
+          for await (const redemption of redemptions.each()) {
+            console.log(redemption.id)
+          }
       - lang: Python
         source: |
           try:
@@ -9079,6 +9285,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const addOns = client.listPlanAddOns(planId, { limit: 200 })
+
+          for await (const addOn of addOns.each()) {
+            console.log(addOn.code)
+          }
       - lang: Python
         source: |
           add_ons = client.list_plan_add_ons(plan_id).items()
@@ -9165,6 +9378,34 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const addOnCreate = {
+              code: 'coffee_grinder',
+              name: 'A quality grinder for your beans',
+              defaultQuantity: 1,
+              currencies: [
+                {
+                  currency: 'USD',
+                  unitAmount: 10000
+                }
+              ]
+            }
+
+            const addOn = await client.createPlanAddOn(planId, addOnCreate)
+            console.log('Created add-on: ', addOn.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -9325,6 +9566,22 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const addOn = await client.getPlanAddOn(planId, addOnId)
+            console.log('Fetched add-on: ', addOn.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -9441,6 +9698,25 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const addOnUpdate = {
+              name: 'New AddOn Name',
+            }
+            const addOn = await client.updatePlanAddOn(planId, addOnId, addOnUpdate)
+            console.log('Updated add-on: ', addOn)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -9481,6 +9757,23 @@ paths:
           \"Updated add-on #{add_on}\"\nrescue Recurly::Errors::NotFoundError\n  #
           If the resource was not found, you may want to alert the user or\n  # just
           return nil\n  puts \"Resource Not Found\"\nend\n"
+      - lang: Java
+        source: |
+          try {
+              final AddOnUpdate addOnUpdate = new AddOnUpdate();
+              addOnUpdate.setName("New Add-On Name");
+
+              final AddOn addOn = client.updatePlanAddOn(planId, addOnId, addOnUpdate);
+              System.out.println("Updated add-on " + addOn.getCode());
+              System.out.println(addOn.getName());
+          } catch (NotFoundException e) {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              System.out.println("Resource Not Found: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
       - lang: PHP
         source: |
           try {
@@ -9531,6 +9824,22 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const addOn = await client.removePlanAddOn(planId, addOnId)
+            console.log('Removed plan add-on: ', addOn)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -9563,6 +9872,19 @@ paths:
           \n    add_on_id: add_on_id\n  )\n  puts \"Removed add-on #{add_on}\"\nrescue
           Recurly::Errors::NotFoundError\n  # If the resource was not found, you may
           want to alert the user or\n  # just return nil\n  puts \"Resource Not Found\"\nend\n"
+      - lang: Java
+        source: |-
+          try {
+            final AddOn addOn = client.removePlanAddOn(planId, addOnId);
+            System.out.println("Removed add-on " + addOn.getCode());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
       - lang: PHP
         source: |
           try {
@@ -9626,6 +9948,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const addOns = client.listAddOns({ limit: 200 })
+
+          for await (const addOn of addOns.each()) {
+            console.log(addOn.code)
+          }
       - lang: Python
         source: |
           add_ons = client.list_add_ons().items()
@@ -9698,6 +10027,22 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const addOn = await client.getAddOn(addOnId)
+            console.log('Fetched add-on: ', addOn)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -9735,6 +10080,19 @@ paths:
             # just return nil
             puts "Resource Not Found"
           end
+      - lang: Java
+        source: |
+          try {
+              final AddOn addOn = client.getAddOn(addOnId);
+              System.out.println("Fetched add-on " + addOn.getCode());
+          } catch (NotFoundException e) {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              System.out.println("Resource Not Found: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
       - lang: PHP
         source: |
           try {
@@ -9797,6 +10155,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const methods = client.listShippingMethods({ limit: 200 })
+
+          for await (const method of methods.each()) {
+            console.log(method.code)
+          }
       - lang: Python
         source: |
           shipping_methods = client.list_shipping_methods(limit=200).items()
@@ -9817,6 +10182,15 @@ paths:
           shipping_methods.each do |shipping_method|
             puts "Shipping Method: #{shipping_method.code}"
           end
+      - lang: Java
+        source: |
+          QueryParams params = new QueryParams();
+          params.setLimit(200); // Pull 200 records at a time
+          final Pager<ShippingMethod> shippingMethods = client.listShippingMethods(params);
+
+          for (ShippingMethod shippingMethod : shippingMethods) {
+              System.out.println(shippingMethod.getCode());
+          }
       - lang: PHP
         source: |
           $params = ['limit' => 200];
@@ -9833,6 +10207,51 @@ paths:
           ok {\n\t\tfmt.Printf(\"Failed to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor
           i, method := range shippingMethods.Data {\n\t\tfmt.Printf(\"Shipping Method
           %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tmethod.Id,\n\t\t\tmethod.Code,\n\t\t)\n\t}\n}"
+    post:
+      tags:
+      - shipping_method
+      operationId: create_shipping_method
+      summary: Create a new shipping method
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ShippingMethodCreate"
+        required: true
+      responses:
+        '201':
+          description: A new shipping method.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShippingMethod"
+        '400':
+          description: Bad request, perhaps invalid JSON?
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/shipping_methods/{id}":
     get:
       tags:
@@ -9850,19 +10269,96 @@ paths:
           type: string
       responses:
         '200':
-          description: A shipping_method.
+          description: A shipping method.
           content:
             application/json:
               schema:
                 "$ref": "#/components/schemas/ShippingMethod"
         '404':
-          description: Incorrect site or shipping_method ID.
+          description: Incorrect site or shipping method ID.
           content:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
         default:
-          description: Unexpected error
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/sites/{site_id}/shipping_methods/{shipping_method_id}":
+    put:
+      tags:
+      - shipping_method
+      operationId: update_shipping_method
+      summary: Update an active Shipping Method
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/shipping_method_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ShippingMethodUpdate"
+        required: true
+      responses:
+        '200':
+          description: The updated shipping method.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShippingMethod"
+        '400':
+          description: Bad request, perhaps invalid JSON?
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or shipping method ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    delete:
+      tags:
+      - shipping_method
+      operationId: deactivate_shipping_method
+      summary: Deactivate a shipping method
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/shipping_method_id"
+      description: Deactivating a shipping method makes it unavailable for new subscriptions
+        or purchases. It will not affect existing subscriptions.
+      responses:
+        '200':
+          description: A shipping method.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ShippingMethod"
+        '422':
+          description: Shipping method may already be inactive.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
           content:
             application/json:
               schema:
@@ -10872,6 +11368,25 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            let pauseReq = {
+              remaining_pause_cycles: 2,
+            }
+            const subscription = await client.pauseSubscription(subscriptionId, pauseReq)
+            console.log('Paused subscription: ', subscription.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -11001,6 +11516,22 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const subscription = await client.resumeSubscription(subscriptionId)
+            console.log('Resumed subscription: ', subscription.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
       - lang: Python
         source: |
           try:
@@ -11041,6 +11572,19 @@ paths:
             # just return nil
             puts "Resource Not Found"
           end
+      - lang: Java
+        source: |
+          try {
+              final Subscription subscription = client.resumeSubscription(subscriptionId);
+              System.out.println("Resumed Subscription: " + subscription.getUuid());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
       - lang: PHP
         source: |
           try {
@@ -11555,6 +12099,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const invoices = client.listSubscriptionInvoices(subscriptionId, { limit: 200 })
+
+          for await (const invoice of invoices.each()) {
+            console.log(invoice.number)
+          }
       - lang: Python
         source: |
           invoices = client.list_subscription_invoices(subscription_id).items()
@@ -11645,6 +12196,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const lineItems = client.listSubscriptionLineItems(subscriptionId, { limit: 200 })
+
+          for await (const lineItem of lineItems.each()) {
+            console.log(lineItem.id)
+          }
       - lang: Python
         source: |
           line_items = client.list_subscription_line_items(subscription_id).items()
@@ -11725,6 +12283,13 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const redemptions = client.listSubscriptionCouponRedemptions(subscriptionId, { limit: 200 })
+
+          for await (const redemption of redemptions.each()) {
+            console.log(redemption.id)
+          }
       - lang: Python
         source: |
           redemptions = client.list_subscription_coupon_redemptions(subscription_id).items()
@@ -12240,7 +12805,7 @@ paths:
               AccountPurchase account = new AccountPurchase();
               account.setCode(accountCode);
               account.setFirstName("Benjamin");
-              account.setLastName("Eckel");
+              account.setLastName("DuMonde");
 
               BillingInfoCreate billing = new BillingInfoCreate();
               billing.setTokenId(rjsTokenId);
@@ -12467,6 +13032,42 @@ paths:
             # why. You can find the invalid params and reasons in e.recurly_error.params
             puts "ValidationError: #{e.recurly_error.params}"
           end
+      - lang: Java
+        source: |
+          try {
+
+              AccountPurchase account = new AccountPurchase();
+              account.setCode(accountCode);
+              account.setFirstName("Joanna");
+              account.setLastName("DuMonde");
+
+              BillingInfoCreate billing = new BillingInfoCreate();
+              billing.setTokenId(rjsTokenId);
+              account.setBillingInfo(billing);
+
+              List<SubscriptionPurchase> subscriptions = new ArrayList<SubscriptionPurchase>();
+              SubscriptionPurchase sub = new SubscriptionPurchase();
+              sub.setPlanCode(planCode);
+              subscriptions.add(sub);
+
+              PurchaseCreate purchase = new PurchaseCreate();
+              purchase.setCurrency("USD");
+              purchase.setAccount(account);
+              purchase.setSubscriptions(subscriptions);
+
+              InvoiceCollection collection = client.previewPurchase(purchase);
+              System.out.println("Preview Charge Invoice:" + collection.getChargeInvoice());
+              System.out.println("Preview Credit Invoices: " + collection.getCreditInvoices());
+
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+              System.out.println("Params: " + e.getError().getParams());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
       - lang: PHP
         source: |
           try {
@@ -12590,6 +13191,14 @@ components:
       name: shipping_address_id
       in: path
       description: Shipping Address ID.
+      required: true
+      schema:
+        type: string
+    shipping_method_id:
+      name: shipping_method_id
+      in: path
+      description: Shipping Method ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`.
+        For code use prefix `code-`, e.g. `code-usps_2-day`.
       required: true
       schema:
         type: string
@@ -13885,7 +14494,9 @@ components:
         tier_type:
           type: string
           title: Tier type
-          description: The type of tiering used by the Add-on.
+          description: |
+            The pricing model for the add-on.  For more information,
+            [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
           default: flat
           enum:
           - flat
@@ -13897,7 +14508,11 @@ components:
           title: Tiers
           items:
             "$ref": "#/components/schemas/Tier"
-          description: At least one tier is required if `tier_type` is not 'flat'.
+          description: |
+            If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
+            must include one to many tiers with `ending_quantity` and `unit_amount` for
+            the desired `currencies`. There must be one tier with an `ending_quantity` of
+            999999999 which is the default if not provided.
       required:
       - code
       - name
@@ -13987,8 +14602,10 @@ components:
           items:
             "$ref": "#/components/schemas/Tier"
           description: |
-            If tiers are provided in the request, all existing tiers on the Add-on will be
-            removed and replaced by the tiers in the request.
+            If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
+            must include one to many tiers with `ending_quantity` and `unit_amount` for
+            the desired `currencies`. There must be one tier with an `ending_quantity` of
+            999999999 which is the default if not provided.
     BillingInfo:
       type: object
       properties:
@@ -14161,15 +14778,27 @@ components:
         name_on_account:
           type: string
           maxLength: 255
-          description: The name associated with the bank account.
+          description: The name associated with the bank account (ACH, SEPA, Bacs
+            only)
         account_number:
           type: string
           maxLength: 255
-          description: The bank account number. (ACH only)
+          description: The bank account number. (ACH, Bacs only)
         routing_number:
           type: string
           maxLength: 15
           description: The bank's rounting number. (ACH only)
+        sort_code:
+          type: string
+          maxLength: 15
+          description: Bank identifier code for UK based banks. Required for Bacs
+            based billing infos. (Bacs only)
+        type:
+          type: string
+          enum:
+          - bacs
+          description: The payment method type for a non-credit card based billing
+            info. The value of `bacs` is the only accepted value (Bacs only)
         account_type:
           type: string
           enum:
@@ -16130,6 +16759,11 @@ components:
             trial`.
           default: 0
           minimum: 0
+        trial_requires_billing_info:
+          type: boolean
+          title: Trial Requires BillingInfo
+          description: Allow free trial subscriptions to be created without billing
+            info.
         total_billing_cycles:
           type: integer
           title: Total billing cycles
@@ -16198,6 +16832,13 @@ components:
           type: object
           title: Hosted pages settings
           "$ref": "#/components/schemas/PlanHostedPages"
+        allow_any_item_on_subscriptions:
+          type: boolean
+          title: Allow any item on subscriptions
+          description: |
+            Used to determine whether items can be assigned as add-ons to individual subscriptions.
+            If `true`, items can be assigned as add-ons to individual subscription add-ons.
+            If `false`, only plan add-ons can be used.
         created_at:
           type: string
           format: date-time
@@ -16272,6 +16913,13 @@ components:
             trial`.
           default: 0
           minimum: 0
+        trial_requires_billing_info:
+          type: boolean
+          title: Trial Requires BillingInfo
+          description: Allow free trial subscriptions to be created without billing
+            info. Should not be used if billing info is needed for initial invoice
+            due to existing uninvoiced charges or setup fee.
+          default: true
         total_billing_cycles:
           type: integer
           title: Total billing cycles
@@ -16339,6 +16987,14 @@ components:
           title: Add Ons
           items:
             "$ref": "#/components/schemas/AddOnCreate"
+        allow_any_item_on_subscriptions:
+          type: boolean
+          title: Allow any item on subscriptions
+          default: false
+          description: |
+            Used to determine whether items can be assigned as add-ons to individual subscriptions.
+            If `true`, items can be assigned as add-ons to individual subscription add-ons.
+            If `false`, only plan add-ons can be used.
       required:
       - code
       - name
@@ -16436,6 +17092,13 @@ components:
             trial`.
           default: 0
           minimum: 0
+        trial_requires_billing_info:
+          type: boolean
+          title: Trial Requires BillingInfo
+          description: Allow free trial subscriptions to be created without billing
+            info. Should not be used if billing info is needed for initial invoice
+            due to existing uninvoiced charges or setup fee.
+          default: true
         total_billing_cycles:
           type: integer
           title: Total billing cycles
@@ -16503,6 +17166,13 @@ components:
           title: Add Ons
           items:
             "$ref": "#/components/schemas/AddOnCreate"
+        allow_any_item_on_subscriptions:
+          type: boolean
+          title: Allow any item on subscriptions
+          description: |
+            Used to determine whether items can be assigned as add-ons to individual subscriptions.
+            If `true`, items can be assigned as add-ons to individual subscription add-ons.
+            If `false`, only plan add-ons can be used.
     AddOnPricing:
       type: object
       properties:
@@ -16798,6 +17468,79 @@ components:
           title: Name
           description: The name of the shipping method displayed to customers.
           maxLength: 100
+    ShippingMethodCreate:
+      type: object
+      properties:
+        code:
+          type: string
+          title: Code
+          description: The internal name used identify the shipping method.
+          pattern: "/^[a-z0-9_+-]+$/i"
+          maxLength: 50
+        name:
+          type: string
+          title: Name
+          description: The name of the shipping method displayed to customers.
+          maxLength: 100
+        accounting_code:
+          type: string
+          title: Accounting Code
+          description: Accounting code for shipping method.
+          maxLength: 20
+        tax_code:
+          type: string
+          title: Tax code
+          description: |
+            Used by Avalara, Vertex, and Recurly’s built-in tax feature. The tax
+            code values are specific to each tax system. If you are using Recurly’s
+            built-in taxes the values are:
+
+            - `FR` – Common Carrier FOB Destination
+            - `FR022000` – Common Carrier FOB Origin
+            - `FR020400` – Non Common Carrier FOB Destination
+            - `FR020500` – Non Common Carrier FOB Origin
+            - `FR010100` – Delivery by Company Vehicle Before Passage of Title
+            - `FR010200` – Delivery by Company Vehicle After Passage of Title
+            - `NT` – Non-Taxable
+          maxLength: 50
+      required:
+      - code
+      - name
+    ShippingMethodUpdate:
+      type: object
+      properties:
+        code:
+          type: string
+          title: Code
+          description: The internal name used identify the shipping method.
+          pattern: "/^[a-z0-9_+-]+$/i"
+          maxLength: 50
+        name:
+          type: string
+          title: Name
+          description: The name of the shipping method displayed to customers.
+          maxLength: 100
+        accounting_code:
+          type: string
+          title: Accounting Code
+          description: Accounting code for shipping method.
+          maxLength: 20
+        tax_code:
+          type: string
+          title: Tax code
+          description: |
+            Used by Avalara, Vertex, and Recurly’s built-in tax feature. The tax
+            code values are specific to each tax system. If you are using Recurly’s
+            built-in taxes the values are:
+
+            - `FR` – Common Carrier FOB Destination
+            - `FR022000` – Common Carrier FOB Origin
+            - `FR020400` – Non Common Carrier FOB Destination
+            - `FR020500` – Non Common Carrier FOB Origin
+            - `FR010100` – Delivery by Company Vehicle Before Passage of Title
+            - `FR010200` – Delivery by Company Vehicle After Passage of Title
+            - `NT` – Non-Taxable
+          maxLength: 50
     ShippingFeeCreate:
       type: object
       properties:
@@ -17223,8 +17966,11 @@ components:
           items:
             "$ref": "#/components/schemas/SubscriptionAddOnTier"
           minItems: 1
-          description: If the plan add-on's `tier_type` is `flat`, then `tiers` must
-            be absent.
+          description: |
+            If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
+            must include one to many tiers with `ending_quantity` and `unit_amount`.
+            There must be one tier with an `ending_quantity` of 999999999 which is the
+            default if not provided.
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -17269,8 +18015,11 @@ components:
           items:
             "$ref": "#/components/schemas/SubscriptionAddOnTier"
           minItems: 1
-          description: If the plan add-on's `tier_type` is `flat`, then `tiers` must
-            be absent.
+          description: |
+            If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
+            must include one to many tiers with `ending_quantity` and `unit_amount`.
+            There must be one tier with an `ending_quantity` of 999999999 which is the
+            default if not provided.
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -18173,6 +18922,10 @@ components:
           type: string
           format: date-time
           title: Created at
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated at
         voided_at:
           type: string
           format: date-time

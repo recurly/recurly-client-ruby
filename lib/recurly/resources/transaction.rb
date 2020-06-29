@@ -138,6 +138,10 @@ module Recurly
       #   @return [String] - `authorization` – verifies billing information and places a hold on money in the customer's account. - `capture` – captures funds held by an authorization and completes a purchase. - `purchase` – combines the authorization and capture in one transaction. - `refund` – returns all or a portion of the money collected in a previous transaction to the customer. - `verify` – a $0 or $1 transaction used to verify billing information which is immediately voided.
       define_attribute :type, String
 
+      # @!attribute updated_at
+      #   @return [DateTime] Updated at
+      define_attribute :updated_at, DateTime
+
       # @!attribute uuid
       #   @return [String] The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
       define_attribute :uuid, String
