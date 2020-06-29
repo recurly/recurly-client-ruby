@@ -32,6 +32,7 @@ module Recurly
       tax_code
       trial_requires_billing_info
       auto_renew
+      allow_any_item_on_subscriptions
       created_at
       updated_at
     )
