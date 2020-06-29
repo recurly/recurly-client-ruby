@@ -55,11 +55,11 @@ module Recurly
       define_attribute :tax_code, String
 
       # @!attribute tier_type
-      #   @return [String] The type of tiering used by the Add-on.
+      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
       define_attribute :tier_type, String
 
       # @!attribute tiers
-      #   @return [Array[Tier]] At least one tier is required if `tier_type` is not 'flat'.
+      #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`. There must be one tier with an `ending_quantity` of 999999999 which is the default if not provided.
       define_attribute :tiers, Array, { :item_type => :Tier }
     end
   end
