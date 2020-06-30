@@ -1,0 +1,18 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<billing_info href="https://api.recurly.com/v2/accounts/bacs1234567890/billing_info">
+  <account href="https://api.recurly.com/v2/accounts/bacs1234567890"/>
+  <company nil="nil"></company>
+  <address1>123 Fake St.</address1>
+  <address2 nil="nil"></address2>
+  <city>London</city>
+  <state></state>
+  <zip>W1K 6AH</zip>
+  <country>GB</country>
+  <phone nil="nil"></phone>
+  <sort_code>200000</sort_code>
+  <last_two>78</last_two>
+  <name_on_account>BACS</name_on_account>
+</billing_info>
