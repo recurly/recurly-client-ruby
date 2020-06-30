@@ -1,6 +1,14 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.10"></a>
+## v.2.18.10 (2020-06-30)
+
+This bumps us to API version 2.27. There are no breaking changes.
+
+* BACS support [PR](https://github.com/recurly/recurly-client-ruby/pull/595)
+* Support items on subscriptions [PR](https://github.com/recurly/recurly-client-ruby/pull/598)
+
 <a name="v2.18.9"></a>
 ## v.2.18.9 (2020-04-14)
 
