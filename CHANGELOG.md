@@ -1,8 +1,25 @@
 # Changelog
 
-## [3.6.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
+## [3.7.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.5.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.6.0...HEAD)
+
+**Implemented enhancements:**
+
+- Mon Jun 29 17:01:25 UTC 2020 Upgrade API version v2019-10-10 [\#601](https://github.com/recurly/recurly-client-ruby/pull/601) ([douglasmiller](https://github.com/douglasmiller))
+
+**Fixed bugs:**
+
+- Allow :headers to be included in operations [\#597](https://github.com/recurly/recurly-client-ruby/pull/597) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.7.0 [\#602](https://github.com/recurly/recurly-client-ruby/pull/602) ([douglasmiller](https://github.com/douglasmiller))
+- Fix doc link [\#596](https://github.com/recurly/recurly-client-ruby/pull/596) ([bhelx](https://github.com/bhelx))
+
+## [3.6.0](https://github.com/recurly/recurly-client-ruby/tree/3.6.0) (2020-06-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.5.0...3.6.0)
 
 **Implemented enhancements:**
 
