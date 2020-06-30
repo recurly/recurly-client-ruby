@@ -25,7 +25,12 @@ module Recurly
       def << add_on
         add_on = SubscriptionAddOn.new(add_on, @subscription)
 
-        exist = @add_ons.find { |a| a.add_on_code == add_on.add_on_code }
+        exist = @add_ons.find do |a|
+          source1 = a.add_on_source || "plan_add_on"
+          source2 = add_on.add_on_source || "plan_add_on"
+          a.add_on_code == add_on.add_on_code && source1 == source2
+        end
+
         if exist
           exist.quantity ||= 1
           exist.quantity += add_on.quantity || 1

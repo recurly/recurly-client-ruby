@@ -56,13 +56,21 @@ XML
       billing_info.routing_number.must_equal '12309812'
     end
 
-    it "must return an account'ss billing info as iban when available" do
+    it "must return an account's billing info as iban when available" do
       stub_api_request(
         :get, 'accounts/sepa1234567890/billing_info', 'billing_info/show-sepa-200'
       )
       billing_info = BillingInfo.find 'sepa1234567890'
       billing_info.name_on_account.must_equal 'Account Name'
       billing_info.iban.must_equal 'US1234567890'
+    end
+
+    it "must return an account's billing info as bacs when available" do
+      stub_api_request(
+        :get, 'accounts/bacs1234567890/billing_info', 'billing_info/show-bacs-200'
+      )
+      billing_info = BillingInfo.find 'bacs1234567890'
+      billing_info.sort_code.must_equal '200000'
     end
 
     it "must raise an exception when unavailable" do
