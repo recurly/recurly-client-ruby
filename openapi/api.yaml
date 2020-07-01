@@ -12056,6 +12056,51 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Removed Subscription
           Change: %v\", subscriptionChange)"
+  "/sites/{site_id}/subscriptions/{subscription_id}/change/preview":
+    post:
+      tags:
+      - subscription
+      - subscription_change
+      operationId: preview_subscription_change
+      summary: Preview a new subscription change
+      description: Calling this will not save the subscription change or overwrite
+        an existing change.
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/subscription_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SubscriptionChangeCreate"
+        required: true
+      responses:
+        '200':
+          description: A subscription change.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/SubscriptionChangePreview"
+        '404':
+          description: Incorrect site ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: A validation error such as "Subscription hasn't been changed"
+            or error running the verification transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/subscriptions/{subscription_id}/invoices":
     get:
       tags:
@@ -17894,6 +17939,15 @@ components:
           maxLength: 13
         add_on:
           "$ref": "#/components/schemas/AddOnMini"
+        add_on_source:
+          type: string
+          title: Add-on source
+          description: |
+            Used to determine where the associated add-on data is pulled from. If this value is set to
+            `plan_add_on` or left blank, then add-on data will be pulled from the plan's add-ons. If the associated
+            `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
+            the associated add-on data will be pulled from the site's item catalog.
+          default: plan_add_on
         quantity:
           type: integer
           title: Add-on quantity
@@ -17947,6 +18001,15 @@ components:
           type: string
           title: Add-on code
           maxLength: 50
+        add_on_source:
+          type: string
+          title: Add-on source
+          description: |
+            Used to determine where the associated add-on data is pulled from. If this value is set to
+            `plan_add_on` or left blank, then add_on data will be pulled from the plan's add-ons. If the associated
+            `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
+            the associated add-on data will be pulled from the site's item catalog.
+          default: plan_add_on
         quantity:
           type: integer
           title: Quantity
@@ -18245,6 +18308,13 @@ components:
             mail order and telephone transactions.
           enum:
           - moto
+    SubscriptionChangePreview:
+      allOf:
+      - "$ref": "#/components/schemas/SubscriptionChange"
+      type: object
+      properties:
+        invoice_collection:
+          "$ref": "#/components/schemas/InvoiceCollection"
     SubscriptionChangeShippingCreate:
       type: object
       title: Shipping details that will be changed on a subscription

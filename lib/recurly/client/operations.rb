@@ -2948,6 +2948,19 @@ module Recurly
       delete(path, **options)
     end
 
+    # Preview a new subscription change
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/preview_subscription_change preview_subscription_change api documenation}
+    #
+    # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param body [Requests::SubscriptionChangeCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionChangeCreate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    # @return [Resources::SubscriptionChangePreview] A subscription change.
+    def preview_subscription_change(subscription_id:, body:, **options)
+      path = interpolate_path("/subscriptions/{subscription_id}/change/preview", subscription_id: subscription_id)
+      post(path, body, Requests::SubscriptionChangeCreate, **options)
+    end
+
     # List a subscription's invoices
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_subscription_invoices list_subscription_invoices api documenation}

@@ -6,6 +6,10 @@ module Recurly
   module Requests
     class SubscriptionAddOnCreate < Request
 
+      # @!attribute add_on_source
+      #   @return [String] Used to determine where the associated add-on data is pulled from. If this value is set to `plan_add_on` or left blank, then add_on data will be pulled from the plan's add-ons. If the associated `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then the associated add-on data will be pulled from the site's item catalog.
+      define_attribute :add_on_source, String
+
       # @!attribute code
       #   @return [String] Add-on code
       define_attribute :code, String
