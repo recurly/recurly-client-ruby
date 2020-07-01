@@ -12,6 +12,7 @@ module Recurly
       attributes.keys
     end
 
+    # Tiers are only writeable and readable through {AddOn} instances.
     embedded! true
   end
 end
