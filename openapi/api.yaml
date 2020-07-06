@@ -17948,6 +17948,9 @@ components:
             `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
             the associated add-on data will be pulled from the site's item catalog.
           default: plan_add_on
+          enum:
+          - plan_add_on
+          - item
         quantity:
           type: integer
           title: Add-on quantity
@@ -18001,6 +18004,9 @@ components:
           type: string
           title: Add-on code
           maxLength: 50
+          description: |
+            If `add_on_source` is set to `plan_add_on` or left blank, then plan's add-on `code` should be used.
+            If `add_on_source` is set to `item`, then the `code` from the associated item should be used.
         add_on_source:
           type: string
           title: Add-on source
@@ -18010,6 +18016,9 @@ components:
             `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
             the associated add-on data will be pulled from the site's item catalog.
           default: plan_add_on
+          enum:
+          - plan_add_on
+          - item
         quantity:
           type: integer
           title: Quantity
@@ -18061,7 +18070,21 @@ components:
           description: |
             If a code is provided without an id, the subscription add-on attributes
             will be set to the current value for those attributes on the plan add-on
-            unless provided in the request.
+            unless provided in the request. If `add_on_source` is set to `plan_add_on`
+            or left blank, then plan's add-on `code` should be used. If `add_on_source`
+            is set to `item`, then the `code` from the associated item should be used.
+        add_on_source:
+          type: string
+          title: Add-on source
+          description: |
+            Used to determine where the associated add-on data is pulled from. If this value is set to
+            `plan_add_on` or left blank, then add_on data will be pulled from the plan's add-ons. If the associated
+            `plan` has `allow_any_item_on_subscriptions` set to `true` and this field is set to `item`, then
+            the associated add-on data will be pulled from the site's item catalog.
+          default: plan_add_on
+          enum:
+          - plan_add_on
+          - item
         quantity:
           type: integer
           title: Quantity

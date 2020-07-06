@@ -11,7 +11,7 @@ module Recurly
       define_attribute :add_on_source, String
 
       # @!attribute code
-      #   @return [String] Add-on code
+      #   @return [String] If `add_on_source` is set to `plan_add_on` or left blank, then plan's add-on `code` should be used. If `add_on_source` is set to `item`, then the `code` from the associated item should be used.
       define_attribute :code, String
 
       # @!attribute quantity
