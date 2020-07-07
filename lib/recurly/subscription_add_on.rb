@@ -5,6 +5,8 @@ module Recurly
 
     # @return [Pager<Usage>, []]
     has_many :usage
+    # @return [[Tier], []]
+    has_many :tiers, class_name: :Tier, readonly: false
 
     define_attribute_methods %w(
       add_on_code
@@ -17,6 +19,7 @@ module Recurly
     )
 
     attr_reader :subscription
+    attr_reader :tier
 
     def initialize add_on = nil, subscription = nil
       super()
@@ -30,6 +33,12 @@ module Recurly
           self.unit_amount_in_cents = add_on.unit_amount_in_cents.to_i
         end
         self.add_on_source = add_on.add_on_source
+        if add_on.tiers.length != 0
+          # includes tiers array in PUT request
+          puts "ADD-ON.TIERS: #{add_on.tiers}"
+          puts "SELF-ON.TIERS: #{self.tiers}"
+          self.tiers = add_on.tiers 
+        end
       when Hash
         self.attributes = add_on
       when String, Symbol
