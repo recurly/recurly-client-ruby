@@ -19,7 +19,6 @@ module Recurly
     )
 
     attr_reader :subscription
-    attr_reader :tier
 
     def initialize add_on = nil, subscription = nil
       super()
@@ -34,9 +33,6 @@ module Recurly
         end
         self.add_on_source = add_on.add_on_source
         if add_on.tiers.length != 0
-          # includes tiers array in PUT request
-          puts "ADD-ON.TIERS: #{add_on.tiers}"
-          puts "SELF-ON.TIERS: #{self.tiers}"
           self.tiers = add_on.tiers 
         end
       when Hash

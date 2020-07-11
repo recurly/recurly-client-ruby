@@ -829,7 +829,19 @@ module Recurly
           value.to_xml options.merge(:builder => node)
         when Array, Subscription::AddOns
           value.each do |e|
-            if e.is_a? Recurly::Resource
+            if e.is_a? Recurly::Tier
+              if self.is_a? Recurly::AddOn
+                # create a node to hold this resource
+                e_node = node.add_element Helper.singularize(key)
+                # serialize the resource into this node
+                e.to_xml(options.merge(builder: e_node))
+              elsif self.is_a? Recurly::SubscriptionAddOn
+                # create a node to hold this resource
+                e_node = node.add_element Helper.singularize(key)
+                # serialize the resource into this node
+                e.to_xml_tier(options.merge(builder: e_node))
+              end
+            elsif e.is_a? Recurly::Resource
               # create a node to hold this resource
               e_node = node.add_element Helper.singularize(key)
               # serialize the resource into this node
