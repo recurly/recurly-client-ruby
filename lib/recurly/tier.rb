@@ -9,15 +9,16 @@ module Recurly
       unit_amount_in_cents
     )
 
+    # to_xml for subscription add-ons
     def to_xml_tier options = {}
       builder = options[:builder] || XML.new('<tiers/>')
       xml_keys.each { |key|
         node = builder.add_element key
-        if key == "unit_amount_in_cents"
-          value = respond_to?(key) ? send(key).to_i : self[key].to_i
-        else
-          value = respond_to?(key) ? send(key) : self[key]
-        end
+        value = key == "unit_amount_in_cents" ?
+          # converts Recurly::Money to Integer
+          respond_to?(key) ? send(key).to_i : self[key].to_i 
+          :
+          respond_to?(key) ? send(key) : self[key]
         node.text = value
       }
     builder.to_s
