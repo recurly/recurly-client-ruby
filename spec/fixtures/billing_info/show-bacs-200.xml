@@ -2,8 +2,10 @@ HTTP/1.1 200 OK
 Content-Type: application/xml; charset=utf-8
 
 <?xml version="1.0" encoding="UTF-8"?>
-<billing_info href="https://api.recurly.com/v2/accounts/bacs1234567890/billing_info">
+<billing_info href="https://api.recurly.com/v2/accounts/bacs1234567890/billing_info" type="bacs">
   <account href="https://api.recurly.com/v2/accounts/bacs1234567890"/>
+  <first_name>BACS</first_name>
+  <last_name>Test</last_name>
   <company nil="nil"></company>
   <address1>123 Fake St.</address1>
   <address2 nil="nil"></address2>
@@ -12,7 +14,8 @@ Content-Type: application/xml; charset=utf-8
   <zip>W1K 6AH</zip>
   <country>GB</country>
   <phone nil="nil"></phone>
-  <sort_code>200000</sort_code>
+  <name_on_account>BACS Account</name_on_account>
   <last_two>78</last_two>
-  <name_on_account>BACS</name_on_account>
+  <sort_code>200000</sort_code>
+  <updated_at type="datetime">2020-07-13T23:25:50Z</updated_at>
 </billing_info>
