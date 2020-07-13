@@ -128,6 +128,12 @@ describe Subscription do
       ])
     end
 
+    it "must include tiers when add-on is quantity-based" do
+      stub_api_request(:get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200-tiered')
+      subscription = Subscription.find 'abcdef1234567890'
+      subscription.subscription_add_ons[0].tiers.length.must_equal(2)
+    end
+
     it "must allow add-on from item" do
       item = Item.new(
         item_code: 'mockitem',
