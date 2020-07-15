@@ -33,6 +33,8 @@ module Recurly
       trial_requires_billing_info
       auto_renew
       allow_any_item_on_subscriptions
+      avalara_transaction_type
+      avalara_service_type
       created_at
       updated_at
     )

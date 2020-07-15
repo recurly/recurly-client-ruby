@@ -70,6 +70,8 @@ module Recurly
       billing_country
       subscription_id
       manually_entered
+      avalara_transaction_type
+      avalara_service_type
     )
     alias to_param uuid
     alias fraud_info fraud

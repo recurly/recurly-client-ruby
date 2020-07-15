@@ -34,6 +34,17 @@ describe AddOn do
       add_on.add_on_code.must_equal "marketing_email"
     end
 
+    it "must return avalara types available" do
+      plan = Plan.find 'gold'
+      add_ons = plan.add_ons
+
+      add_ons.length.must_equal 1
+
+      add_on = add_ons.first
+      add_on.avalara_service_type.must_equal 600
+      add_on.avalara_transaction_type.must_equal 3
+    end
+
     it "must return an item-backed add-on when available" do
       plan = Plan.find 'orchidreset'
       add_ons = plan.add_ons

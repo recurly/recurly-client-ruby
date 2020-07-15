@@ -11,6 +11,8 @@ module Recurly
       accounting_code
       revenue_schedule_type
       state
+      avalara_transaction_type
+      avalara_service_type
       created_at
       updated_at
       deleted_at

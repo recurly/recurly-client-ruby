@@ -22,6 +22,8 @@ module Recurly
       created_at
       updated_at
       tier_type
+      avalara_service_type
+      avalara_transaction_type
     )
     alias to_param add_on_code
     alias quantity default_quantity

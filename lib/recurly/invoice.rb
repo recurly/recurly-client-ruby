@@ -110,6 +110,7 @@ module Recurly
       final_dunning_event
       gateway_code
       surcharge_in_cents
+      tax_details
     )
     alias to_param invoice_number_with_prefix
 
