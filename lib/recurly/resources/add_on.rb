@@ -19,8 +19,8 @@ module Recurly
       define_attribute :created_at, DateTime
 
       # @!attribute currencies
-      #   @return [Array[AddOnPricing]] Add-on pricing
-      define_attribute :currencies, Array, { :item_type => :AddOnPricing }
+      #   @return [Array[Pricing]] Add-on pricing
+      define_attribute :currencies, Array, { :item_type => :Pricing }
 
       # @!attribute default_quantity
       #   @return [Integer] Default quantity for the hosted pages.
@@ -75,7 +75,7 @@ module Recurly
       define_attribute :tax_code, String
 
       # @!attribute tier_type
-      #   @return [String] The type of tiering used by the Add-on.
+      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
       define_attribute :tier_type, String
 
       # @!attribute tiers

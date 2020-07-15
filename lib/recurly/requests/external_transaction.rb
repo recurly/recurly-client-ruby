@@ -19,7 +19,7 @@ module Recurly
       define_attribute :description, String
 
       # @!attribute payment_method
-      #   @return [String] Payment method used for the external transaction.
+      #   @return [String] Payment method used for external transaction.
       define_attribute :payment_method, String
     end
   end

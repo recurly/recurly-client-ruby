@@ -43,7 +43,7 @@ module Recurly
       define_attribute :subscription_id, String
 
       # @!attribute tier_type
-      #   @return [String] The type of tiering used by the Add-on.
+      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
       define_attribute :tier_type, String
 
       # @!attribute tiers

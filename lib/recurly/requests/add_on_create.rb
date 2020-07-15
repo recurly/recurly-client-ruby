@@ -15,8 +15,8 @@ module Recurly
       define_attribute :code, String
 
       # @!attribute currencies
-      #   @return [Array[AddOnPricing]] * If `item_code`/`item_id` is part of the request and the item has a default currency then `currencies` is optional. If the item does not have a default currency, then `currencies` is required. If `item_code`/`item_id` is not present `currencies` is required. * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `currencies` must be absent.
-      define_attribute :currencies, Array, { :item_type => :AddOnPricing }
+      #   @return [Array[Pricing]] * If `item_code`/`item_id` is part of the request and the item has a default currency then `currencies` is optional. If the item does not have a default currency, then `currencies` is required. If `item_code`/`item_id` is not present `currencies` is required. * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `currencies` must be absent.
+      define_attribute :currencies, Array, { :item_type => :Pricing }
 
       # @!attribute default_quantity
       #   @return [Integer] Default quantity for the hosted pages.
@@ -27,7 +27,7 @@ module Recurly
       define_attribute :display_quantity, :Boolean
 
       # @!attribute item_code
-      #   @return [String] Unique code to identify an item. Avaliable when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+      #   @return [String] Unique code to identify an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
       define_attribute :item_code, String
 
       # @!attribute item_id

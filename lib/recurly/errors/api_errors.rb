@@ -6,9 +6,9 @@ module Recurly
   module Errors
     class BadRequestError < Errors::APIError; end
 
-    class InternalServerError < Errors::APIError; end
-
     class ImmutableSubscriptionError < Errors::APIError; end
+
+    class InternalServerError < Errors::APIError; end
 
     class InvalidApiKeyError < Errors::APIError; end
 
@@ -20,7 +20,11 @@ module Recurly
 
     class InvalidTokenError < Errors::APIError; end
 
+    class MissingFeatureError < Errors::APIError; end
+
     class NotFoundError < Errors::APIError; end
+
+    class RateLimitedError < Errors::APIError; end
 
     class SimultaneousRequestError < Errors::APIError; end
 
@@ -33,9 +37,5 @@ module Recurly
     class UnknownApiVersionError < Errors::APIError; end
 
     class ValidationError < Errors::APIError; end
-
-    class MissingFeatureError < Errors::APIError; end
-
-    class RateLimitedError < Errors::APIError; end
   end
 end
