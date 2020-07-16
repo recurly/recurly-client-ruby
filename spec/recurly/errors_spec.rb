@@ -1,9 +1,9 @@
 require "spec_helper"
 require "date"
 
-RSpec.describe Recurly::Errors::APIError do
+RSpec.describe Recurly::Errors::ApiError do
   describe ".error_class" do
-    error_keys = Recurly::Errors.constants - [:APIError]
+    error_keys = Recurly::Errors.constants - [:ApiError, :ERROR_MAP]
     error_keys = error_keys.map do |key|
       key.to_s.split(/(?=[A-Z])/).map(&:downcase).join("_")
     end
