@@ -27,6 +27,8 @@ describe Adjustment do
       adjustment.surcharge_in_cents.must_equal 100
       adjustment.item_code.must_equal 'plastic_gloves'
       adjustment.external_sku.must_equal 'plastic_gloves'
+      adjustment.avalara_service_type.must_equal 3
+      adjustment.avalara_transaction_type.must_equal 600
 
       tax_details = adjustment.tax_details
       tax_details.length.must_equal 2
@@ -36,6 +38,9 @@ describe Adjustment do
       state.type.must_equal 'state'
       state.tax_rate.must_equal 0.065
       state.tax_in_cents.to_i.must_equal 3000
+      state.level.must_equal 'state'
+      state.surcharge.must_equal true
+      state.billable.must_equal true
 
       county.name.must_equal 'san francisco'
       county.type.must_equal 'county'

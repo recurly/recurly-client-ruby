@@ -7,6 +7,9 @@ module Recurly
       type
       tax_rate
       tax_in_cents
+      level
+      surcharge
+      billable
     )
 
     embedded! true

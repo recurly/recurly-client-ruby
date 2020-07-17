@@ -82,6 +82,31 @@ describe Invoice do
       invoice.net_terms.must_equal 0
       invoice.collection_method.must_equal 'automatic'
     end
+
+    describe 'with avalara for communications' do
+      it 'should have a #tax_details' do
+        stub_api_request :get, 'invoices/show-invoice', 'invoices/show-200-taxed'
+        invoice = Invoice.find 'show-invoice'
+
+        tax_details = invoice.tax_details
+        tax_details.length.must_equal 2
+        tax_details.all? { |d| d.must_be_instance_of Recurly::TaxDetail }
+        state, county = tax_details
+
+        state.name.must_equal 'california'
+        state.type.must_equal 'state'
+        state.tax_rate.must_equal 0.065
+        state.tax_in_cents.to_i.must_equal 3000
+        state.level.must_equal 'state'
+        state.surcharge.must_equal true
+        state.billable.must_equal true
+
+        county.name.must_equal 'san francisco'
+        county.type.must_equal 'county'
+        county.tax_rate.must_equal 0.02
+        county.tax_in_cents.to_i.must_equal 2000
+      end
+    end
   end
 
   describe "line item refund" do

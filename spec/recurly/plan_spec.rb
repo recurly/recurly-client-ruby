@@ -13,7 +13,9 @@ describe Plan do
       :plan_interval_length      => 1,
       :plan_interval_unit        => 'months',
       :tax_exempt                => false,
-      :revenue_schedule_type     => 'evenly'
+      :revenue_schedule_type     => 'evenly',
+      :avalara_transaction_type  => 600,
+      :avalara_service_type      => 3,
     )
   }
 
@@ -21,6 +23,8 @@ describe Plan do
     plan.to_xml.must_equal <<XML.chomp
 <plan>\
 <accounting_code>gold_plan_acc_code</accounting_code>\
+<avalara_service_type>3</avalara_service_type>\
+<avalara_transaction_type>600</avalara_transaction_type>\
 <description>The Gold Plan is for folks who love gold.</description>\
 <name>The Gold Plan</name>\
 <plan_code>gold</plan_code>\
