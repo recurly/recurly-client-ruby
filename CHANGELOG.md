@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.11"></a>
+## v.2.18.11 (2020-07-17)
+
+* Add support for Avalara for Communications [PR](https://github.com/recurly/recurly-client-ruby/pull/613)
+
 <a name="v2.18.10"></a>
 ## v.2.18.10 (2020-06-30)
 
