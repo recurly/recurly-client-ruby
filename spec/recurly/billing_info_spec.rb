@@ -70,6 +70,7 @@ XML
         :get, 'accounts/bacs1234567890/billing_info', 'billing_info/show-bacs-200'
       )
       billing_info = BillingInfo.find 'bacs1234567890'
+      billing_info.type.must_equal 'bacs'
       billing_info.sort_code.must_equal '200000'
     end
 
