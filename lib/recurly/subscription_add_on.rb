@@ -32,9 +32,7 @@ module Recurly
           self.unit_amount_in_cents = add_on.unit_amount_in_cents.to_i
         end
         self.add_on_source = add_on.add_on_source
-        if add_on.tiers.length != 0
-          self.tiers = add_on.tiers 
-        end
+        self.tiers = add_on.tiers if add_on.tiers.any?
       when Hash
         self.attributes = add_on
       when String, Symbol
