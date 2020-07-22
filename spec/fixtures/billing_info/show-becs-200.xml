@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<billing_info href="https://api.recurly.com/v2/accounts/becs1234567890/billing_info" type="becs">
+  <account href="https://api.recurly.com/v2/accounts/becs1234567890"/>
+  <first_name>BECS</first_name>
+  <last_name>Test</last_name>
+  <company nil="nil"></company>
+  <address1>123 Somewhere St.</address1>
+  <address2 nil="nil"></address2>
+  <city>Adelaide</city>
+  <country>AU</country>
+  <phone nil="nil"></phone>
+  <vat_number nil="nil"></vat_number>
+  <ip_address nil="nil"></ip_address>
+  <ip_address_country nil="nil"></ip_address_country>
+  <name_on_account>BECS</name_on_account>
+  <last_two>78</last_two>
+  <bsb_code>082-082</bsb_code>
+  <updated_at type="datetime">2020-07-13T23:03:42Z</updated_at>
+</billing_info>
