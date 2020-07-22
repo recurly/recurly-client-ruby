@@ -1,6 +1,14 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.12"></a>
+## v.2.18.12 (2020-07-22)
+
+This bumps us to API version 2.28. There are no breaking changes.
+
+* Fix sub-add-on init bug [PR](https://github.com/recurly/recurly-client-ruby/pull/615)
+* BECS support [PR](https://github.com/recurly/recurly-client-ruby/pull/612)
+
 <a name="v2.18.11"></a>
 ## v.2.18.11 (2020-07-17)
 
