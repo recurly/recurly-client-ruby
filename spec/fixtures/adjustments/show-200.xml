@@ -36,7 +36,6 @@ Content-Type: application/xml; charset=utf-8
       <tax_rate type="float">0.065</tax_rate>
       <tax_in_cents type="integer">3000</tax_in_cents>
       <level>state</level>
-      <surcharge type="boolean">true</surcharge>
       <billable type="boolean">true</billable>
     </tax_detail>
     <tax_detail>
