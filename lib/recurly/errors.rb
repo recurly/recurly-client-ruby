@@ -1,6 +1,6 @@
 module Recurly
   module Errors
-    class ApiError < StandardError
+    class APIError < StandardError
       # @!attribute recurly_error
       #   @return [Recurly::Resources::Error] The {Recurly::Resources::Error} object
       attr_reader :recurly_error
@@ -10,7 +10,7 @@ module Recurly
       #   Errors.error_class('BadRequestError')
       #   #=> Errors::BadRequestError
       # @param error_key [String]
-      # @return [Errors::ApiError,Errors::NetworkError]
+      # @return [Errors::APIError,Errors::NetworkError]
       def self.error_class(error_key)
         class_name = error_key.split("_").map(&:capitalize).join
         class_name += "Error" unless class_name.end_with?("Error")
@@ -21,12 +21,12 @@ module Recurly
       # Error class based on the response code. This may occur when a load balancer
       # returns an error before it reaches Recurly's API.
       # @param response [Net::Response]
-      # @return [Errors::ApiError]
+      # @return [Errors::APIError]
       def self.from_response(response)
         if Recurly::Errors::ERROR_MAP.has_key?(response.code)
           Recurly::Errors.const_get(Recurly::Errors::ERROR_MAP[response.code])
         else
-          Recurly::Errors::ApiError
+          Recurly::Errors::APIError
         end
       end
 

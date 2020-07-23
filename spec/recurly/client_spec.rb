@@ -292,7 +292,7 @@ RSpec.describe Recurly::Client do
     end
 
     describe "#get" do
-      it "should raise an ApiError" do
+      it "should raise an APIError" do
         expect(net_http).to receive(:request).twice.and_return(response)
         expect {
           subject.get_account(account_id: "code-benjamin-du-monde")

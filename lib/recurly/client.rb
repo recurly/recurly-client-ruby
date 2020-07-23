@@ -253,13 +253,13 @@ module Recurly
     def raise_api_error!(http_response, response)
       if response.content_type.include?(JSON_CONTENT_TYPE)
         error = JSONParser.parse(self, response.body)
-        error_class = Errors::ApiError.error_class(error.type)
+        error_class = Errors::APIError.error_class(error.type)
         raise error_class.new(error.message, response, error)
       end
 
-      error_class = Errors::ApiError.from_response(http_response)
+      error_class = Errors::APIError.from_response(http_response)
 
-      if error_class <= Recurly::Errors::ApiError
+      if error_class <= Recurly::Errors::APIError
         error = Recurly::Resources::Error.new(message: "#{http_response.code}: #{http_response.message}")
         raise error_class.new(error.message, response, error)
       else

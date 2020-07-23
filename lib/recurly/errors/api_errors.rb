@@ -21,7 +21,7 @@ module Recurly
       "429" => "TooManyRequestsError",
     }
 
-    class ResponseError < Errors::ApiError; end
+    class ResponseError < Errors::APIError; end
 
     class ServerError < ResponseError; end
 
@@ -37,7 +37,7 @@ module Recurly
 
     class NotModifiedError < ResponseError; end
 
-    class ClientError < Errors::ApiError; end
+    class ClientError < Errors::APIError; end
 
     class BadRequestError < ClientError; end
 
