@@ -20,7 +20,14 @@ module Recurly
     MAX_RETRIES = 3
     LOG_LEVELS = %i(debug info warn error fatal).freeze
     BASE36_ALPHABET = (("0".."9").to_a + ("a".."z").to_a).freeze
-    REQUEST_OPTIONS = [:headers].freeze
+    ALLOWED_OPTIONS = [
+      :site_id,
+      :open_timeout,
+      :read_timeout,
+      :body,
+      :params,
+      :headers,
+    ].freeze
 
     # Initialize a client. It requires an API key.
     #
@@ -90,6 +97,7 @@ module Recurly
     end
 
     def head(path, **options)
+      validate_options!(options)
       request = Net::HTTP::Head.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
@@ -97,6 +105,7 @@ module Recurly
     end
 
     def get(path, **options)
+      validate_options!(options)
       request = Net::HTTP::Get.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
@@ -104,6 +113,7 @@ module Recurly
     end
 
     def post(path, request_data, request_class, **options)
+      validate_options!(options)
       request_class.new(request_data).validate!
       request = Net::HTTP::Post.new build_url(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
@@ -114,6 +124,7 @@ module Recurly
     end
 
     def put(path, request_data = nil, request_class = nil, **options)
+      validate_options!(options)
       request = Net::HTTP::Put.new build_url(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
       set_headers(request, options[:headers])
@@ -127,6 +138,7 @@ module Recurly
     end
 
     def delete(path, **options)
+      validate_options!(options)
       request = Net::HTTP::Delete.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
@@ -274,6 +286,17 @@ module Recurly
       response
     end
 
+    def validate_options!(**options)
+      invalid_options = options.keys.reject do |k|
+        ALLOWED_OPTIONS.include?(k)
+      end
+      if invalid_options.any?
+        joinedKeys = invalid_options.join(", ")
+        joinedOptions = ALLOWED_OPTIONS.join(", ")
+        raise ArgumentError, "Invalid options: '#{joinedKeys}'. Allowed options: '#{joinedOptions}'"
+      end
+    end
+
     def validate_path_parameters!(**options)
       # Check to see that we are passing the correct data types
       # This prevents a confusing error if the user passes in a non-primitive by mistake
@@ -317,12 +340,21 @@ module Recurly
 
     def build_url(path, options)
       path = scope_by_site(path, options)
-      query_params = options.reject { |k, _| REQUEST_OPTIONS.include?(k.to_sym) }
+      query_params = map_array_params(options.fetch(:params, {}))
       if query_params.any?
         "#{path}?#{URI.encode_www_form(query_params)}"
       else
         path
       end
+    end
+
+    # Converts array parameters to CSV strings to maintain consistency with
+    # how the server expects the request to be formatted while providing the
+    # developer with an array type to maintain developer happiness!
+    def map_array_params(params)
+      params.map do |key, param|
+        [key, param.is_a?(Array) ? param.join(",") : param]
+      end.to_h
     end
 
     def scope_by_site(path, **options)

@@ -6,7 +6,7 @@ module Recurly
     def initialize(client:, path:, options: {})
       @client = client
       @path = path
-      @options = map_array_params(options)
+      @options = options
       rewind!
     end
 
@@ -16,7 +16,7 @@ module Recurly
       # Modify the @next url to set the :limit to 1
       original_next = @next
       @next = @path
-      fetch_next!(@options.merge(limit: 1))
+      fetch_next!(@options.merge(params: @options.fetch(:params, {}).merge({ limit: 1 })))
       # Restore the @next url to the original
       @next = original_next
       @data.first
@@ -103,7 +103,7 @@ module Recurly
       Enumerator.new do |yielder|
         loop do
           # Pass in @options when requesting the first page (@data.empty?)
-          next_options = @data.empty? ? @options : {}
+          next_options = @data.empty? ? @options : @options.merge(params: {})
           fetch_next!(next_options)
           yielder << data
           unless has_more?
@@ -131,16 +131,6 @@ module Recurly
     def extract_path(uri_or_path)
       uri = URI(uri_or_path)
       uri.kind_of?(URI::HTTP) ? uri.request_uri : uri_or_path
-    end
-
-    # Converts array parameters to CSV strings to maintain consistency with
-    # how the server expects the request to be formatted while providing the
-    # developer with an array type to maintain developer happiness!
-    def map_array_params(params)
-      @options = params.map do |key, param|
-        new_param = param.is_a?(Array) ? param.join(",") : param
-        [key, new_param]
-      end.to_h
     end
   end
 end

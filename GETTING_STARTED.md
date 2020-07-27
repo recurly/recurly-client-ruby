@@ -106,17 +106,19 @@ plans.each_page.each_with_index do |data, page_num|
 end
 ```
 
-Pagination endpoints take a number of options to sort and filter the results. They can be passed in as keyword arguments.
+Pagination endpoints take a number of options to sort and filter the results. They can be passed in as a hash provided by the `:params` keyword argument.
 The names, types, and descriptions of these arguments are listed in the rubydocs for each method:
 
 ```ruby
 options = {
-  limit: 200, # number of items per page
-  state: :active, # only active plans
-  sort: :updated_at,
-  order: :asc,
-  begin_time: DateTime.new(2017,1,1), # January 1st 2017,
-  end_time: DateTime.now
+  params: {
+    limit: 200, # number of items per page
+    state: :active, # only active plans
+    sort: :updated_at,
+    order: :asc,
+    begin_time: DateTime.new(2017,1,1), # January 1st 2017,
+    end_time: DateTime.now
+  }
 }
 
 plans = client.list_plans(**options)
