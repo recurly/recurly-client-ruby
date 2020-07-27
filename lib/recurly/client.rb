@@ -240,7 +240,7 @@ module Recurly
           elsif BINARY_TYPES.include?(http_response.content_type)
             FileParser.parse(response.body)
           else
-            raise Recurly::Errors::InvalidResponseError, "Unexpected content type: #{http_response.content_type}"
+            raise Recurly::Errors::InvalidContentTypeError, "Unexpected content type: #{http_response.content_type}"
           end
         else
           Resources::Empty.new
@@ -254,14 +254,14 @@ module Recurly
       if response.content_type.include?(JSON_CONTENT_TYPE)
         error = JSONParser.parse(self, response.body)
         error_class = Errors::APIError.error_class(error.type)
-        raise error_class.new(response, error)
+        raise error_class.new(error.message, response, error)
       end
 
       error_class = Errors::APIError.from_response(http_response)
 
       if error_class <= Recurly::Errors::APIError
         error = Recurly::Resources::Error.new(message: "#{http_response.code}: #{http_response.message}")
-        raise error_class.new(response, error)
+        raise error_class.new(error.message, response, error)
       else
         raise error_class, "#{http_response.code}: #{http_response.message}"
       end

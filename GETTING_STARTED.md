@@ -200,12 +200,11 @@ plan = client.create_plan(body: plan_data)
 
 # Error Handling
 
-This library currently throws 2 types of exceptions. {Recurly::Errors::APIError} and {Recurly::Errors::NetworkError}. See these 2 files for the types of exceptions you can catch:
+All errors thrown by this library are based off of the `Recurly::Errors::APIError`. There 
 
-1. [API Errors](./lib/recurly/errors/api_errors.rb)
-2. [Network Errors](./lib/recurly/errors/network_errors.rb)
+This library throws one main type of exception, `Recurly::Errors::APIError`. There exists an additional hierarchy of errors to facilitate the process of rescuing various classes of errors. More detail can be found in the [Api Errors Module](./lib/recurly/errors/api_errors.rb).
 
-You will normally be working with {Recurly::Errors::APIError}. You can catch specific or generic versions of these exceptions. Example:
+You can catch specific or generic versions of these exceptions. Example:
 
 ```ruby
 begin
@@ -233,14 +232,16 @@ rescue Recurly::Errors::ValidationError => ex
   #=> #<Recurly::Error:0x007fbbdf8a32c8 @attributes={:type=>"validation", :message=>"Code 'iexistalready' already exists", :params=>[{"param"=>"code", "message"=>"'iexistalready' already exists"}]}>
   puts ex.status_code
   #=> 422
+rescue Recurly::Errors::TimeoutError => ex
+  # catch a specific server error
+rescue Recurly::Errors::ServerError => ex
+  # catch a generic server error
 rescue Recurly::Errors::APIError => ex
   # catch a generic api error
-rescue Recurly::Errors::TimeoutError => ex
-  # catch a specific network error
-rescue Recurly::Errors::NetworkError => ex
-  # catch a generic network error
 end
 ```
+
+`Recurly::Errors::APIError` instances provide access to the response via the `#get_response` method.
 
 # HTTP Metadata
 
@@ -266,7 +267,7 @@ response = @client.remove_line_item(
   line_item_id: "a959576b2b10b012"
 ).get_response
 ```
-And it can be captured on exceptions through the {Recurly::ApiError} object:
+And it can be captured on exceptions through the {Recurly::APIError} object:
 
 ```ruby
 begin

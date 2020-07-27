@@ -382,11 +382,11 @@ RSpec.describe Recurly::Client do
         resp
       end
 
-      it "should raise Recurly::Errors::InvalidResponseError" do
+      it "should raise Recurly::Errors::InvalidContentTypeError" do
         expect(net_http).to receive(:request).and_return(response)
         expect {
           subject.get_account(account_id: "code-benjamin-du-monde")
-        }.to raise_error(Recurly::Errors::InvalidResponseError)
+        }.to raise_error(Recurly::Errors::InvalidContentTypeError)
       end
     end
 
@@ -401,11 +401,11 @@ RSpec.describe Recurly::Client do
         resp
       end
 
-      it "should raise Recurly::Errors::UnavailableError" do
+      it "should raise Recurly::Errors::ServiceUnavailableError" do
         expect(net_http).to receive(:request).twice.and_return(response)
         expect {
           subject.get_account(account_id: "code-benjamin-du-monde")
-        }.to raise_error(Recurly::Errors::UnavailableError)
+        }.to raise_error(Recurly::Errors::ServiceUnavailableError)
       end
     end
   end

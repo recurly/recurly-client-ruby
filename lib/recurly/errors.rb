@@ -21,34 +21,17 @@ module Recurly
       # Error class based on the response code. This may occur when a load balancer
       # returns an error before it reaches Recurly's API.
       # @param response [Net::Response]
-      # @return [Errors::APIError,Errors::NetworkError]
-      # rubocop:disable Metrics/CyclomaticComplexity
+      # @return [Errors::APIError]
       def self.from_response(response)
-        case response
-        when Net::HTTPBadRequest # 400
-          Recurly::Errors::BadRequestError
-        when Net::HTTPUnauthorized, Net::HTTPForbidden # 401, 403
-          Recurly::Errors::UnauthorizedError
-        when Net::HTTPRequestTimeOut # 408
-          Recurly::Errors::TimeoutError
-        when Net::HTTPTooManyRequests # 429
-          Recurly::Errors::RateLimitedError
-        when Net::HTTPInternalServerError # 500
-          Recurly::Errors::InternalServerError
-        when Net::HTTPServiceUnavailable # 503
-          Recurly::Errors::UnavailableError
-        when Net::HTTPGatewayTimeOut # 504
-          Recurly::Errors::TimeoutError
-        when Net::HTTPServerError # 5xx
-          Recurly::Errors::UnavailableError
+        if Recurly::Errors::ERROR_MAP.has_key?(response.code)
+          Recurly::Errors.const_get(Recurly::Errors::ERROR_MAP[response.code])
         else
           Recurly::Errors::APIError
         end
       end
-      # rubocop:enable Metrics/CyclomaticComplexity
 
-      def initialize(response, error)
-        super(error.message)
+      def initialize(message, response = nil, error = nil)
+        super(message)
         @response = response
         @recurly_error = error
       end
@@ -64,5 +47,4 @@ module Recurly
   end
 
   require_relative "./errors/api_errors"
-  require_relative "./errors/network_errors"
 end

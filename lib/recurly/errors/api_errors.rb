@@ -4,38 +4,83 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Errors
-    class BadRequestError < Errors::APIError; end
+    ERROR_MAP = {
+      "500" => "InternalServerError",
+      "502" => "BadGatewayError",
+      "503" => "ServiceUnavailableError",
+      "504" => "TimeoutError",
+      "304" => "NotModifiedError",
+      "400" => "BadRequestError",
+      "401" => "UnauthorizedError",
+      "402" => "PaymentRequiredError",
+      "403" => "ForbiddenError",
+      "404" => "NotFoundError",
+      "406" => "NotAcceptableError",
+      "412" => "PreconditionFailedError",
+      "422" => "UnprocessableEntityError",
+      "429" => "TooManyRequestsError",
+    }
 
-    class ImmutableSubscriptionError < Errors::APIError; end
+    class ResponseError < Errors::APIError; end
 
-    class InternalServerError < Errors::APIError; end
+    class ServerError < ResponseError; end
 
-    class InvalidApiKeyError < Errors::APIError; end
+    class InternalServerError < ServerError; end
 
-    class InvalidApiVersionError < Errors::APIError; end
+    class BadGatewayError < ServerError; end
 
-    class InvalidContentTypeError < Errors::APIError; end
+    class ServiceUnavailableError < ServerError; end
 
-    class InvalidPermissionsError < Errors::APIError; end
+    class TimeoutError < ServerError; end
 
-    class InvalidTokenError < Errors::APIError; end
+    class RedirectionError < ResponseError; end
 
-    class MissingFeatureError < Errors::APIError; end
+    class NotModifiedError < ResponseError; end
 
-    class NotFoundError < Errors::APIError; end
+    class ClientError < Errors::APIError; end
 
-    class RateLimitedError < Errors::APIError; end
+    class BadRequestError < ClientError; end
 
-    class SimultaneousRequestError < Errors::APIError; end
+    class InvalidContentTypeError < BadRequestError; end
 
-    class TransactionError < Errors::APIError; end
+    class UnauthorizedError < ClientError; end
 
-    class UnauthorizedError < Errors::APIError; end
+    class PaymentRequiredError < ClientError; end
 
-    class UnavailableInApiVersionError < Errors::APIError; end
+    class ForbiddenError < ClientError; end
 
-    class UnknownApiVersionError < Errors::APIError; end
+    class InvalidApiKeyError < ForbiddenError; end
 
-    class ValidationError < Errors::APIError; end
+    class InvalidPermissionsError < ForbiddenError; end
+
+    class NotFoundError < ClientError; end
+
+    class NotAcceptableError < ClientError; end
+
+    class UnknownApiVersionError < NotAcceptableError; end
+
+    class UnavailableInApiVersionError < NotAcceptableError; end
+
+    class InvalidApiVersionError < NotAcceptableError; end
+
+    class PreconditionFailedError < ClientError; end
+
+    class UnprocessableEntityError < ClientError; end
+
+    class ValidationError < UnprocessableEntityError; end
+
+    class MissingFeatureError < UnprocessableEntityError; end
+
+    class TransactionError < UnprocessableEntityError; end
+
+    class SimultaneousRequestError < UnprocessableEntityError; end
+
+    class ImmutableSubscriptionError < UnprocessableEntityError; end
+
+    class InvalidTokenError < UnprocessableEntityError; end
+
+    class TooManyRequestsError < ClientError; end
+
+    class RateLimitedError < TooManyRequestsError; end
   end
 end
