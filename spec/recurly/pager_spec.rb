@@ -6,7 +6,7 @@ RSpec.describe Recurly::Pager do
   let(:api_key) { "recurly-good" }
   let(:client) { Recurly::Client.new(api_key: api_key, subdomain: subdomain) }
   let(:path) { "/next_url" }
-  let(:options) { { a: 1, b: "testing" } }
+  let(:options) { { params: { a: 1, b: "testing" } } }
   subject do
     Recurly::Pager.new(client: client, path: path, options: options)
   end
@@ -18,7 +18,7 @@ RSpec.describe Recurly::Pager do
   end
 
   describe "#first" do
-    let(:options) { { limit: 200, a: 1 } }
+    let(:options) { { params: { limit: 200, a: 1 } } }
     let(:first_response) do
       page = Recurly::Resources::Page.new
       page.data = [
@@ -30,7 +30,7 @@ RSpec.describe Recurly::Pager do
     end
     it "should update the 'limit' param to 1" do
       expect(client).to receive(:get)
-                          .with("/next_url", { limit: 1, a: 1 })
+                          .with("/next_url", { params: { limit: 1, a: 1 } })
                           .and_return(first_response)
       subject.first
     end
@@ -47,7 +47,7 @@ RSpec.describe Recurly::Pager do
 
     it "#count" do
       expect(client).to receive(:head)
-                          .with("/next_url", { a: 1, b: "testing" })
+                          .with("/next_url", { params: { a: 1, b: "testing" } })
                           .and_return(head_response)
       expect(subject.count).to eq(1337)
     end
