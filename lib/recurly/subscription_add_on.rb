@@ -6,6 +6,9 @@ module Recurly
     # @return [Pager<Usage>, []]
     has_many :usage
 
+    # @return [[Tier], []]
+    has_many :tiers, class_name: :Tier, readonly: false
+
     define_attribute_methods %w(
       add_on_code
       quantity
@@ -32,6 +35,7 @@ module Recurly
         if add_on.respond_to? :add_on_source
           self.add_on_source = add_on.add_on_source
         end
+        self.tiers = add_on.tiers if add_on.tiers.any?
       when Hash
         self.attributes = add_on
       when String, Symbol

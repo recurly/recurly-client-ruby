@@ -2,6 +2,7 @@ module Recurly
   class Tier < Resource
 
     belongs_to :add_on
+    belongs_to :subscription_add_on
 
     define_attribute_methods %w(
       ending_quantity
