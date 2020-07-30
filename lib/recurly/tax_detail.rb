@@ -8,7 +8,6 @@ module Recurly
       tax_rate
       tax_in_cents
       level
-      surcharge
       billable
     )
 

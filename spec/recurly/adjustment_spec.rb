@@ -39,7 +39,6 @@ describe Adjustment do
       state.tax_rate.must_equal 0.065
       state.tax_in_cents.to_i.must_equal 3000
       state.level.must_equal 'state'
-      state.surcharge.must_equal true
       state.billable.must_equal true
 
       county.name.must_equal 'san francisco'
