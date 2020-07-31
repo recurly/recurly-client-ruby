@@ -157,11 +157,13 @@ x-tagGroups:
   - subscription_change
   - shipping_address
   - purchase
+  - usage
 - name: Products and Promotions
   tags:
   - item
   - plan
   - add-on
+  - measured_unit
   - coupon
   - coupon_redemption
   - unique_coupon_code
@@ -198,6 +200,11 @@ tags:
   x-displayName: Add-on
   description: An add-on is a charge billed each billing period in addition to a subscription’s
     base charge. Each plan may have one or more add-ons associated with it.
+- name: measured_unit
+  x-displayName: Measured Unit
+  description: A measured unit describes a usage-based add-on's usage. If different
+    usage-based add-ons share the same measured unit, you can report on customer usage
+    for those add-ons at the aggregated measured unit level.
 - name: account
   x-displayName: Account
   description: Accounts are core to managing your customers inside of Recurly. The
@@ -250,6 +257,11 @@ tags:
   description: A purchase is a checkout containing at least one or more subscriptions
     or one-time charges (line items) and supports both coupon and gift card redemptions.
     All items purchased will be on one invoice and paid for with one transaction.
+- name: usage
+  x-displayName: Usage
+  description: Send Recurly your customer usage and we will automatically bill them
+    in arrears at the end of the billing cycle. For more info on usage-based billing,
+    [click here](https://docs.recurly.com/docs/usage-based-billing).
 - name: transaction
   x-displayName: Transaction
   description: Purchasing information is sent to your payment gateway in an action
@@ -275,10 +287,12 @@ paths:
     get:
       operationId: list_sites
       summary: List sites
+      description: |
+        This route is most useful for finding a site's ID for subsequent requests.
+
+        See the [Pagination Guide](/guides/pagination.html) to learn how to use pagination in the API and Client Libraries.
       tags:
       - site
-      description: This route is most useful for finding a site's ID for subsequent
-        requests.
       parameters:
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -475,6 +489,8 @@ paths:
       - account
       operationId: list_accounts
       summary: List a site's accounts
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -768,7 +784,7 @@ paths:
       - lang: PHP
         source: |
           try {
-              $account_create = array(
+              $account_create = [
                   "code" => $account_code,
                   "first_name" => "Douglas",
                   "last_name" => "DuMonde",
@@ -783,7 +799,7 @@ paths:
                           "country" => "US"
                       ]
                   ]
-              );
+              ];
 
               $account = $client->createAccount($account_create);
 
@@ -1062,10 +1078,10 @@ paths:
       - lang: PHP
         source: |
           try {
-              $account_update = array(
+              $account_update = [
                   "first_name" => "Douglas",
                   "last_name" => "Du Monde",
-              );
+              ];
 
               $account = $client->updateAccount($account_id, $account_update);
 
@@ -1458,11 +1474,11 @@ paths:
       - lang: PHP
         source: |
           try {
-              $acquisition_update = array(
+              $acquisition_update = [
                   "campaign" => "big-event-campaign",
                   "channel" => "social_media",
                   "subchannel" => "twitter"
-              );
+              ];
               $acquisition = $client->updateAccountAcquisition($account_id, $acquisition_update);
 
               echo 'Updated AccountAcquisition:' . PHP_EOL;
@@ -2097,10 +2113,10 @@ paths:
       - lang: PHP
         source: |
           try {
-              $binfo_update = array(
+              $binfo_update = [
                   "first_name" => "Douglas",
                   "last_name" => "Du Monde",
-              );
+              ];
               $binfo = $client->updateBillingInfo($account_id, $binfo_update);
 
               echo 'Updated BillingInfo:' . PHP_EOL;
@@ -2237,6 +2253,8 @@ paths:
       - coupon_redemption
       operationId: list_account_coupon_redemptions
       summary: Show the coupon redemptions for an account
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -2544,10 +2562,10 @@ paths:
       - lang: PHP
         source: |-
           try {
-              $redemption_create = array(
+              $redemption_create = [
                   "currency" => "USD",
                   "coupon_id" => "code-$coupon_code"
-              );
+              ];
               $redemption = $client->createCouponRedemption($account_id, $redemption_create);
               echo "Created Redemption:" . PHP_EOL;
               var_dump($redemption);
@@ -2689,6 +2707,8 @@ paths:
       - credit_payment
       operationId: list_account_credit_payments
       summary: List an account's credit payments
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -2783,6 +2803,8 @@ paths:
       - account
       operationId: list_account_invoices
       summary: List an account's invoices
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -3016,10 +3038,10 @@ paths:
       - lang: PHP
         source: |-
           try {
-              $invoice_create = array(
+              $invoice_create = [
                   "currency" => "USD",
                   "collection_method" => "automatic"
-              );
+              ];
               $invoice_collection = $client->createInvoice(
                   $account_id,
                   $invoice_create
@@ -3187,10 +3209,10 @@ paths:
       - lang: PHP
         source: |-
           try {
-              $invoice_preview = array(
+              $invoice_preview = [
                   "currency" => "USD",
                   "collection_method" => "automatic"
-              );
+              ];
               $invoice_collection = $client->previewInvoice(
                   $account_id,
                   $invoice_preview
@@ -3220,6 +3242,8 @@ paths:
       - line_item
       operationId: list_account_line_items
       summary: List an account's line items
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -3487,6 +3511,8 @@ paths:
       - note
       operationId: list_account_notes
       summary: Fetch a list of an account's notes
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -3695,6 +3721,8 @@ paths:
       - shipping_address
       operationId: list_shipping_addresses
       summary: Fetch a list of an account's shipping addresses
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -3934,7 +3962,7 @@ paths:
       - lang: PHP
         source: |
           try {
-              $address_create = array(
+              $address_create = [
                   "nickname" => "Work",
                   "street1" => "900 Camp St",
                   "city" => "New Orleans",
@@ -3943,7 +3971,7 @@ paths:
                   "postal_code" => "70115",
                   "first_name" => "Douglas",
                   "last_name" => "Du Monde"
-              );
+              ];
               $shipping_address = $client->createShippingAddress($account_id, $address_create);
 
               echo "Created Shpping Address:" . PHP_EOL;
@@ -4236,10 +4264,10 @@ paths:
       - lang: PHP
         source: |
           try {
-              $shad_update = array(
+              $shad_update = [
                   "first_name" => "Douglas",
                   "last_name" => "Du Monde",
-              );
+              ];
               $shad = $client->updateShippingAddress($account_id, $shipping_address_id, $shad_update);
 
               echo 'Updated Shipping Address:' . PHP_EOL;
@@ -4377,6 +4405,8 @@ paths:
       - account
       operationId: list_account_subscriptions
       summary: List an account's subscriptions
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -4472,6 +4502,8 @@ paths:
       - transaction
       operationId: list_account_transactions
       summary: List an account's transactions
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -4568,6 +4600,8 @@ paths:
       - account
       operationId: list_child_accounts
       summary: List an account's child accounts
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -4641,6 +4675,8 @@ paths:
       - account_acquisition
       operationId: list_account_acquisition
       summary: List a site's account acquisition data
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -4731,6 +4767,8 @@ paths:
       - coupon
       operationId: list_coupons
       summary: List a site's coupons
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -4978,7 +5016,7 @@ paths:
       - lang: PHP
         source: |
           try {
-              $coupon_create = array(
+              $coupon_create = [
                   "name" => "Promotional Coupon",
                   "code" => $coupon_code,
                   "discount_type" => "fixed",
@@ -4986,7 +5024,7 @@ paths:
                       "currency" => "USD",
                       "discount" => 10
                   ]
-              );
+              ];
 
               $coupon = $client->createCoupon($coupon_create);
 
@@ -5259,9 +5297,9 @@ paths:
       - lang: PHP
         source: |
           try {
-              $coupon_update = array(
+              $coupon_update = [
                   "name" => "New Coupon Name"
-              );
+              ];
               $coupon = $client->updateCoupon($coupon_id, $coupon_update);
 
               echo 'Updated Coupon:' . PHP_EOL;
@@ -5444,6 +5482,8 @@ paths:
       - unique_coupon_code
       operationId: list_unique_coupon_codes
       summary: List unique coupon codes associated with a bulk coupon
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/coupon_id"
@@ -5479,6 +5519,8 @@ paths:
       - credit_payment
       operationId: list_credit_payments
       summary: List a site's credit payments
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/limit"
@@ -5596,6 +5638,8 @@ paths:
       - custom_field_definition
       operationId: list_custom_field_definitions
       summary: List a site's custom field definitions
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -5812,6 +5856,8 @@ paths:
       - item
       operationId: list_items
       summary: List a site's items
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -6079,11 +6125,11 @@ paths:
       - lang: PHP
         source: |
           try {
-              $item_create = array(
+              $item_create = [
                   "code" => $item_code,
                   "name" => "Coffee Grinder",
                   "description" => "A professional-grade bean grinder."
-              );
+              ];
               $item = $client->createItem($item_create);
 
               echo 'Created Item:' . PHP_EOL;
@@ -6366,10 +6412,10 @@ paths:
       - lang: PHP
         source: |
           try {
-              $item_update = array(
+              $item_update = [
                   "name" => "Dark Roast Coffee Beans",
                   "description" => "A special dark roast version.",
-              );
+              ];
               $item = $client->updateItem($item_id, $item_update);
 
               echo 'Updated Item:' . PHP_EOL;
@@ -6632,12 +6678,200 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Reactivated
           Item: %s\", item.Id)"
+  "/sites/{site_id}/measured_units":
+    get:
+      tags:
+      - measured_unit
+      operationId: list_measured_unit
+      summary: List a site's measured units
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/order"
+      - "$ref": "#/components/parameters/sort_dates"
+      - "$ref": "#/components/parameters/filter_begin_time"
+      - "$ref": "#/components/parameters/filter_end_time"
+      - "$ref": "#/components/parameters/filter_state"
+      responses:
+        '200':
+          description: A list of the site's measured units.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/MeasuredUnitList"
+        '404':
+          description: Incorrect site ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    post:
+      tags:
+      - measured_unit
+      operationId: create_measured_unit
+      summary: Create a new measured unit
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/MeasuredUnitCreate"
+        required: true
+      responses:
+        '201':
+          description: A new measured unit.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/MeasuredUnit"
+        '400':
+          description: Bad request, perhaps invalid JSON?
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/sites/{site_id}/measured_units/{measured_unit_id}":
+    get:
+      tags:
+      - measured_unit
+      operationId: get_measured_unit
+      summary: Fetch a measured unit
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/measured_unit_id"
+      responses:
+        '200':
+          description: An item.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/MeasuredUnit"
+        '404':
+          description: Incorrect site or measured unit ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    put:
+      tags:
+      - measured_unit
+      operationId: update_measured_unit
+      summary: Update a measured unit
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/measured_unit_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/MeasuredUnitUpdate"
+        required: true
+      responses:
+        '200':
+          description: The updated measured_unit.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/MeasuredUnit"
+        '400':
+          description: Bad request, perhaps invalid JSON?
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or measured unit ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    delete:
+      tags:
+      - measured_unit
+      operationId: remove_measured_unit
+      summary: Remove a measured unit
+      description: A mesured unit cannot be deleted if it is used by an active plan.
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/measured_unit_id"
+      responses:
+        '200':
+          description: A measured unit.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/MeasuredUnit"
+        '422':
+          description: Measured unit may already be inactive.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/invoices":
     get:
       tags:
       - invoice
       operationId: list_invoices
       summary: List a site's invoices
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -6964,10 +7198,10 @@ paths:
       - lang: PHP
         source: |
           try {
-              $invoice_update =  array(
+              $invoice_update =  [
                 "customer_notes" => "New Notes",
                 "terms_and_conditions" => "New terms and conditions",
-              );
+              ];
               $invoice = $client->putInvoice($invoice_id, $invoice_update);
 
               echo 'Updated Invoice:' . PHP_EOL;
@@ -7817,6 +8051,8 @@ paths:
       - line_item
       operationId: list_invoice_line_items
       summary: List an invoice's line items
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
@@ -7918,6 +8154,8 @@ paths:
       - coupon_redemption
       operationId: list_invoice_coupon_redemptions
       summary: Show the coupon redemptions applied to an invoice
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
@@ -8012,6 +8250,8 @@ paths:
         Related invoices provide a link between credit invoices and the charge invoices that they are refunding.
         For a charge invoice the related invoices will be credit invoices.
         For a credit invoice the related invoices will be charge invoices.
+
+        See the [Pagination Guide](/guides/pagination.html) to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
@@ -8230,10 +8470,10 @@ paths:
       - lang: PHP
         source: |
           try {
-              $refund = array(
+              $refund = [
                   "type" => "amount",
                   "amount" => 1
-              );
+              ];
               $invoice_collection = $client->refundInvoice($invoice_id, $refund);
 
               echo 'Refunded Invoice:' . PHP_EOL;
@@ -8261,6 +8501,8 @@ paths:
       - line_item
       operationId: list_line_items
       summary: List a site's line items
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -8589,6 +8831,8 @@ paths:
       - plan
       operationId: list_plans
       summary: List a site's plans
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -8837,16 +9081,16 @@ paths:
       - lang: PHP
         source: |
           try {
-              $plan_create = array(
+              $plan_create = [
                   "name" => "Monthly Coffee Subscription",
                   "code" => $plan_code,
                   "currencies" => [
-                      array(
+                      [
                           "currency" => "USD",
                           "unit_amount" => 10000
-                      )
+                      ]
                   ]
-              );
+              ];
 
               $plan = $client->createPlan($plan_create);
 
@@ -9111,9 +9355,9 @@ paths:
       - lang: PHP
         source: |
           try {
-              $plan_update = array(
+              $plan_update = [
                   "name" => "Monthly Tea Subscription"
-              );
+              ];
               $plan = $client->updatePlan($plan_id, $plan_update);
 
               echo 'Updated Plan:' . PHP_EOL;
@@ -9249,6 +9493,8 @@ paths:
       - plan
       operationId: list_plan_add_ons
       summary: List a plan's add-ons
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/plan_id"
@@ -9506,10 +9752,10 @@ paths:
                   "code" => $add_on_code,
                   "name" => "Fresh beans shipped monthly",
                   "currencies" => [
-                      array(
+                      [
                           "currency" => "USD",
                           "unit_amount" => 10
-                      )
+                      ]
                   ]
               ];
 
@@ -9777,9 +10023,9 @@ paths:
       - lang: PHP
         source: |
           try {
-              $add_on_update = array(
+              $add_on_update = [
                   "name" => "New AddOn Name",
-              );
+              ];
               $add_on = $client->updatePlanAddOn($plan_id, $add_on_id, $add_on_update);
 
               echo ' Updated Plan AddOn:' . PHP_EOL;
@@ -9913,6 +10159,8 @@ paths:
       - add-on
       operationId: list_add_ons
       summary: List a site's add-ons
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -10121,6 +10369,8 @@ paths:
       - shipping_method
       operationId: list_shipping_methods
       summary: List a site's shipping methods
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -10370,6 +10620,8 @@ paths:
       - subscription
       operationId: list_subscriptions
       summary: List a site's subscriptions
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -10604,13 +10856,13 @@ paths:
       - lang: PHP
         source: |
           try {
-              $sub_create = array(
+              $sub_create = [
                   "plan_code" => $plan_code,
                   "currency" => "USD",
-                  "account" => array(
+                  "account" => [
                       "code" => $account_code
-                  ),
-              );
+                  ],
+              ];
 
               $subscription = $client->createSubscription($sub_create);
 
@@ -10874,10 +11126,10 @@ paths:
       - lang: PHP
         source: |
           try {
-              $changes = array(
+              $changes = [
                   "terms_and_conditions" => "Some new terms and conditions",
                   "customer_notes" => "Some new customer notes"
-              );
+              ];
 
               $subscription = $client->modifySubscription($subscription_id, $changes);
 
@@ -11917,10 +12169,10 @@ paths:
       - lang: PHP
         source: |
           try {
-              $change_create = array(
+              $change_create = [
                   "plan_code" => $new_plan_code,
                   "timeframe" => "now"
-              );
+              ];
               $change = $client->createSubscriptionChange($subscription_id, $change_create);
 
               echo 'Created Subscription Change:' . PHP_EOL;
@@ -12108,6 +12360,8 @@ paths:
       - subscription
       operationId: list_subscription_invoices
       summary: List a subscription's invoices
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
@@ -12203,6 +12457,8 @@ paths:
       - subscription
       operationId: list_subscription_line_items
       summary: List a subscription's line items
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
@@ -12301,6 +12557,8 @@ paths:
       - coupon_redemption
       operationId: list_subscription_coupon_redemptions
       summary: Show the coupon redemptions for a subscription
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
@@ -12380,12 +12638,230 @@ paths:
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
           next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, redemption := range subCouponRedemptions.Data
           {\n\t\tfmt.Printf(\"Subscription Coupon Redemption %3d: %s\\n\",\n\t\t\ti,\n\t\t\tredemption.Id,\n\t\t)\n\t}\n}"
+  "/sites/{site_id}/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage":
+    get:
+      tags:
+      - invoice
+      - subscription
+      - usage
+      operationId: list_usage
+      summary: List a subscription add-on's usage records
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/subscription_id"
+      - "$ref": "#/components/parameters/add_on_id"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/order"
+      - "$ref": "#/components/parameters/usage_sort_dates"
+      - "$ref": "#/components/parameters/filter_usage_begin_time"
+      - "$ref": "#/components/parameters/filter_usage_end_time"
+      - "$ref": "#/components/parameters/billing_status"
+      responses:
+        '200':
+          description: A list of the subscription add-on's usage records.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UsageList"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or subscription ID or add-on id.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    post:
+      tags:
+      - invoice
+      - subscription
+      - usage
+      operationId: create_usage
+      summary: Log a usage record on this subscription add-on
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/subscription_id"
+      - "$ref": "#/components/parameters/add_on_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UsageCreate"
+        required: true
+      responses:
+        '201':
+          description: The created usage record.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Usage"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or subscription ID or add-on id.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: A validation error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/sites/{site_id}/usage/{usage_id}":
+    get:
+      tags:
+      - invoice
+      - subscription
+      - usage
+      operationId: get_usage
+      summary: Get a usage record
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/usage_id"
+      responses:
+        '200':
+          description: The usage record.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Usage"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or subscription, add-on, or usage ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    put:
+      tags:
+      - invoice
+      - subscription
+      - usage
+      operationId: update_usage
+      summary: Update a usage record
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/usage_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/UsageCreate"
+        required: true
+      responses:
+        '200':
+          description: The updated usage record.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Usage"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or subscription, add-on, or usage ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: A validation error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    delete:
+      tags:
+      - invoice
+      - subscription
+      - usage
+      operationId: remove_usage
+      summary: Delete a usage record.
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/usage_id"
+      responses:
+        '204':
+          description: Usage was successfully deleted.
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or subscription, add-on, or usage ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: A validation error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/transactions":
     get:
       tags:
       - transaction
       operationId: list_transactions
       summary: List a site's transactions
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -12880,22 +13356,22 @@ paths:
       - lang: PHP
         source: |
           try {
-              $purchase_create = array(
+              $purchase_create = [
                   "currency" => "USD",
-                  "account" => array(
+                  "account" => [
                       "code" => $account_code,
                       "first_name" => "Douglas",
                       "last_name" => "Du Monde",
-                      "billing_info" => array(
+                      "billing_info" => [
                           "token_id" => $rjs_token_id
-                      ),
-                  ),
+                      ],
+                  ],
                   "subscriptions" => [
-                      array(
+                      [
                           "plan_code" => $plan_code
-                      )
+                      ]
                   ]
-              );
+              ];
               $invoice_collection = $client->createPurchase($purchase_create);
               echo 'Created Invoices:' . PHP_EOL;
               var_dump($invoice_collection);
@@ -13116,22 +13592,22 @@ paths:
       - lang: PHP
         source: |
           try {
-              $purchase_preview = array(
+              $purchase_preview = [
                   "currency" => "USD",
-                  "account" => array(
+                  "account" => [
                       "code" => $account_code,
                       "first_name" => "Douglas",
                       "last_name" => "Du Monde",
-                      "billing_info" => array(
+                      "billing_info" => [
                           "token_id" => $rjs_token_id
-                      ),
-                  ),
+                      ],
+                  ],
                   "subscriptions" => [
-                      array(
+                      [
                           "plan_code" => $plan_code
-                      )
+                      ]
                   ]
-              );
+              ];
               $invoice_collection = $client->previewPurchase($purchase_preview);
               echo 'Preview Invoices:' . PHP_EOL;
               var_dump($invoice_collection);
@@ -13178,6 +13654,13 @@ components:
       required: true
       schema:
         type: string
+    usage_id:
+      name: usage_id
+      in: path
+      description: Usage Record ID.
+      required: true
+      schema:
+        type: string
     coupon_id:
       name: coupon_id
       in: path
@@ -13214,6 +13697,14 @@ components:
       in: path
       description: Invoice ID or number. For ID no prefix is used e.g. `e28zov4fw0v2`.
         For number use prefix `number-`, e.g. `number-1000`.
+      required: true
+      schema:
+        type: string
+    measured_unit_id:
+      name: measured_unit_id
+      in: path
+      description: Measured unit ID or name. For ID no prefix is used e.g. `e28zov4fw0v2`.
+        For name use prefix `name-`, e.g. `name-Storage`.
       required: true
       schema:
         type: string
@@ -13324,6 +13815,30 @@ components:
         - created_at
         - updated_at
         default: created_at
+    usage_sort_dates:
+      name: sort
+      in: query
+      description: |
+        Sort field. You *really* only want to sort by `usage_timestamp` in ascending
+        order. In descending order updated records will move behind the cursor and could
+        prevent some records from being returned.
+      schema:
+        type: string
+        default: usage_timestamp
+        enum:
+        - recorded_timestamp
+        - usage_timestamp
+    billing_status:
+      name: billing_status
+      in: query
+      description: Filter by usage record's billing status
+      schema:
+        type: string
+        default: unbilled
+        enum:
+        - unbilled
+        - billed
+        - all
     filter_state:
       name: state
       in: query
@@ -13355,7 +13870,7 @@ components:
       name: begin_time
       in: query
       description: |
-        Filter by begin_time when `sort=created_at` or `sort=updated_at`.
+        Inclusively filter by begin_time when `sort=created_at` or `sort=updated_at`.
         **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
       schema:
         type: string
@@ -13364,7 +13879,25 @@ components:
       name: end_time
       in: query
       description: |
-        Filter by end_time when `sort=created_at` or `sort=updated_at`.
+        Inclusively filter by end_time when `sort=created_at` or `sort=updated_at`.
+        **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+      schema:
+        type: string
+        format: date-time
+    filter_usage_begin_time:
+      name: begin_time
+      in: query
+      description: |
+        Inclusively filter by begin_time when `sort=usage_timestamp` or `sort=recorded_timestamp`.
+        **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+      schema:
+        type: string
+        format: date-time
+    filter_usage_end_time:
+      name: end_time
+      in: query
+      description: |
+        Inclusively filter by end_time when `sort=usage_timestamp` or `sort=recorded_timestamp`.
         **Note:** this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
       schema:
         type: string
@@ -13642,6 +14175,23 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/Invoice"
+    MeasuredUnitList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/MeasuredUnit"
     LineItemList:
       type: object
       properties:
@@ -14286,6 +14836,32 @@ components:
           title: Name
           description: Describes your add-on and will appear in subscribers' invoices.
           maxLength: 255
+        add_on_type:
+          type: string
+          enum:
+          - fixed
+          - usage
+          title: Add-on Type
+          description: Whether the add-on type is fixed, or usage-based.
+        usage_type:
+          type: string
+          enum:
+          - price
+          - percentage
+          title: Usage Type
+          description: Type of usage, returns usage type if `add_on_type` is `usage`.
+        usage_percentage:
+          type: number
+          format: float
+          title: Usage Percentage
+          description: The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places. A value between 0.0 and 100.0.
+        measured_unit_id:
+          type: string
+          title: Measured Unit ID
+          description: System-generated unique identifier for an measured unit associated
+            with the add-on.
+          maxLength: 13
         item_id:
           type: string
           title: Item ID
@@ -14342,6 +14918,32 @@ components:
           title: Name
           description: Describes your add-on and will appear in subscribers' invoices.
           maxLength: 255
+        add_on_type:
+          type: string
+          enum:
+          - fixed
+          - usage
+          title: Add-on Type
+          description: Whether the add-on type is fixed, or usage-based.
+        usage_type:
+          type: string
+          enum:
+          - price
+          - percentage
+          title: Usage Type
+          description: Type of usage, returns usage type if `add_on_type` is `usage`.
+        usage_percentage:
+          type: number
+          format: float
+          title: Usage Percentage
+          description: The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places. A value between 0.0 and 100.0.
+        measured_unit_id:
+          type: string
+          title: Measured Unit ID
+          description: System-generated unique identifier for an measured unit associated
+            with the add-on.
+          maxLength: 13
         accounting_code:
           type: string
           title: Accounting code
@@ -14470,6 +15072,44 @@ components:
             If `item_code`/`item_id` is part of the request then `name` must be absent.
             If `item_code`/`item_id` is not present `name` is required.
           maxLength: 255
+        add_on_type:
+          type: string
+          enum:
+          - fixed
+          - usage
+          title: Add-on Type
+          description: Whether the add-on type is fixed, or usage-based.
+          default: fixed
+        usage_type:
+          type: string
+          enum:
+          - price
+          - percentage
+          title: Usage Type
+          description: Type of usage, required if `add_on_type` is `usage`.
+        usage_percentage:
+          type: number
+          format: float
+          title: Usage Percentage
+          description: The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
+            if `add_on_type` is usage and `usage_type` is percentage. Must be omitted
+            otherwise. `usage_percentage` does not support tiers.
+        measured_unit_id:
+          type: string
+          title: Measured Unit ID
+          description: System-generated unique identifier for a measured unit to be
+            associated with the add-on. Either `measured_unit_id` or `measured_unit_name`
+            are required when `add_on_type` is `usage`. If `measured_unit_id` and
+            `measured_unit_name` are both present, `measured_unit_id` will be used.
+          maxLength: 13
+        measured_unit_name:
+          type: string
+          title: Measured Unit Name
+          description: Name of a measured unit to be associated with the add-on. Either
+            `measured_unit_id` or `measured_unit_name` are required when `add_on_type`
+            is `usage`. If `measured_unit_id` and `measured_unit_name` are both present,
+            `measured_unit_id` will be used.
         plan_id:
           type: string
           title: Plan ID
@@ -14584,6 +15224,29 @@ components:
           description: Describes your add-on and will appear in subscribers' invoices.
             If an `Item` is associated to the `AddOn` then `name` must be absent.
           maxLength: 255
+        usage_percentage:
+          type: number
+          format: float
+          title: Usage Percentage
+          description: The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
+            if `add_on_type` is usage and `usage_type` is percentage. Must be omitted
+            otherwise. `usage_percentage` does not support tiers.
+        measured_unit_id:
+          type: string
+          title: Measured Unit ID
+          description: System-generated unique identifier for a measured unit to be
+            associated with the add-on. Either `measured_unit_id` or `measured_unit_name`
+            are required when `add_on_type` is `usage`. If `measured_unit_id` and
+            `measured_unit_name` are both present, `measured_unit_id` will be used.
+          maxLength: 13
+        measured_unit_name:
+          type: string
+          title: Measured Unit Name
+          description: Name of a measured unit to be associated with the add-on. Either
+            `measured_unit_id` or `measured_unit_name` are required when `add_on_type`
+            is `usage`. If `measured_unit_id` and `measured_unit_name` are both present,
+            `measured_unit_id` will be used.
         accounting_code:
           type: string
           title: Accounting code
@@ -16270,6 +16933,95 @@ components:
           - payment_method
       required:
       - type
+    MeasuredUnit:
+      type: object
+      title: Measured unit
+      properties:
+        id:
+          type: string
+          title: Item ID
+          maxLength: 13
+          readOnly: true
+        object:
+          type: string
+          title: Object type
+          readOnly: true
+        name:
+          type: string
+          title: Name
+          description: Unique internal name of the measured unit on your site.
+        display_name:
+          type: string
+          title: Display name
+          description: Display name for the measured unit. Can only contain spaces,
+            underscores and must be alphanumeric.
+          maxLength: 50
+        state:
+          title: State
+          description: The current state of the measured unit.
+          readOnly: true
+          type: string
+          enum:
+          - active
+          - inactive
+        description:
+          type: string
+          title: Description
+          description: Optional internal description.
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          title: Last updated at
+          readOnly: true
+        deleted_at:
+          type: string
+          format: date-time
+          title: Deleted at
+          readOnly: true
+    MeasuredUnitCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Unique internal name of the measured unit on your site.
+          maxLength: 255
+        display_name:
+          type: string
+          title: Display name
+          description: Display name for the measured unit.
+          pattern: "/^[\\w ]+$/"
+          maxLength: 50
+        description:
+          type: string
+          title: Description
+          description: Optional internal description.
+      required:
+      - name
+      - display_name
+    MeasuredUnitUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Name
+          description: Unique internal name of the measured unit on your site.
+          maxLength: 255
+        display_name:
+          type: string
+          title: Display name
+          description: Display name for the measured unit.
+          pattern: "/^[\\w ]+$/"
+          maxLength: 50
+        description:
+          type: string
+          title: Description
+          description: Optional internal description.
     LineItem:
       type: object
       title: Line item
@@ -17984,7 +18736,16 @@ components:
           items:
             "$ref": "#/components/schemas/SubscriptionAddOnTier"
           minItems: 1
-          description: Empty unless `tier_type` is `tiered`, `volume`, or `stairstep`.
+          description: |
+            If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
+            removed and replaced by the tiers in the request.
+        usage_percentage:
+          type: number
+          format: float
+          title: Usage Percentage
+          description: The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
+            if add_on_type is usage and usage_type is percentage.
         created_at:
           type: string
           format: date-time
@@ -18043,6 +18804,14 @@ components:
             must include one to many tiers with `ending_quantity` and `unit_amount`.
             There must be one tier with an `ending_quantity` of 999999999 which is the
             default if not provided.
+        usage_percentage:
+          type: number
+          format: float
+          title: Usage Percentage
+          description: The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
+            if `add_on_type` is usage and `usage_type` is percentage. Must be omitted
+            otherwise. `usage_percentage` does not support tiers.
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -18106,6 +18875,13 @@ components:
             must include one to many tiers with `ending_quantity` and `unit_amount`.
             There must be one tier with an `ending_quantity` of 999999999 which is the
             default if not provided.
+        usage_percentage:
+          type: number
+          format: float
+          title: Usage Percentage
+          description: The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
+            if add_on_type is usage and usage_type is percentage.
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -18201,6 +18977,9 @@ components:
           - evenly
           - at_range_end
           - at_range_start
+        invoice_collection:
+          title: Invoice Collection
+          "$ref": "#/components/schemas/InvoiceCollection"
         created_at:
           type: string
           format: date-time
@@ -18332,12 +19111,9 @@ components:
           enum:
           - moto
     SubscriptionChangePreview:
+      type: object
       allOf:
       - "$ref": "#/components/schemas/SubscriptionChange"
-      type: object
-      properties:
-        invoice_collection:
-          "$ref": "#/components/schemas/InvoiceCollection"
     SubscriptionChangeShippingCreate:
       type: object
       title: Shipping details that will be changed on a subscription
@@ -18564,6 +19340,13 @@ components:
           title: Trial ends at
           description: If set, overrides the default trial behavior for the subscription.
             The date must be in the future.
+        starts_at:
+          type: string
+          format: date-time
+          title: Start date
+          description: If set, the subscription will begin in the future on this date.
+            The subscription will apply the setup fee and trial period, unless the
+            plan has no trial.
         next_bill_date:
           type: string
           format: date-time
@@ -19128,6 +19911,118 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/UniqueCouponCode"
+    Usage:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          title: Object type
+        merchant_tag:
+          type: string
+          description: Custom field for recording the id in your own system associated
+            with the usage, so you can provide auditable usage displays to your customers
+            using a GET on this endpoint.
+        amount:
+          type: number
+          format: float
+          description: The amount of usage. Can be positive, negative, or 0. No decimals
+            allowed, we will strip them. If the usage-based add-on is billed with
+            a percentage, your usage will be a monetary amount you will want to format
+            in cents. (e.g., $5.00 is "500").
+        usage_type:
+          type: string
+          enum:
+          - price
+          - percentage
+          title: Usage Type
+          description: Type of usage, returns usage type if `add_on_type` is `usage`.
+        tier_type:
+          type: string
+          title: Tier type
+          description: |
+            The pricing model for the add-on.  For more information,
+            [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+          default: flat
+          enum:
+          - flat
+          - tiered
+          - stairstep
+          - volume
+        tiers:
+          type: array
+          title: Tiers
+          items:
+            "$ref": "#/components/schemas/SubscriptionAddOnTier"
+          description: The tiers and prices of the subscription based on the usage_timestamp.
+            If tier_type = flat, tiers = null
+        measured_unit_id:
+          type: string
+          description: The ID of the measured unit associated with the add-on the
+            usage record is for.
+        recording_timestamp:
+          type: string
+          format: date-time
+          description: When the usage was recorded in your system.
+        usage_timestamp:
+          type: string
+          format: date-time
+          description: When the usage actually happened. This will define the line
+            item dates this usage is billed under and is important for revenue recognition.
+        billed_at:
+          type: string
+          format: date-time
+          description: When the usage record was billed on an invoice.
+        created_at:
+          type: string
+          format: date-time
+          description: When the usage record was created in Recurly.
+        updated_at:
+          type: string
+          format: date-time
+          description: When the usage record was billed on an invoice.
+    UsageCreate:
+      type: object
+      properties:
+        merchant_tag:
+          type: string
+          description: Custom field for recording the id in your own system associated
+            with the usage, so you can provide auditable usage displays to your customers
+            using a GET on this endpoint.
+        amount:
+          type: number
+          format: float
+          description: The amount of usage. Can be positive, negative, or 0. No decimals
+            allowed, we will strip them. If the usage-based add-on is billed with
+            a percentage, your usage will be a monetary amount you will want to format
+            in cents. (e.g., $5.00 is "500").
+        recording_timestamp:
+          type: string
+          format: date-time
+          description: When the usage was recorded in your system.
+        usage_timestamp:
+          type: string
+          format: date-time
+          description: When the usage actually happened. This will define the line
+            item dates this usage is billed under and is important for revenue recognition.
+    UsageList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Usage"
     User:
       type: object
       properties:

@@ -31,6 +31,7 @@ module Recurly
     #   prevent some records from being returned.
     #
     # @param state [String] Filter by state.
+    #
     # @return [Pager<Resources::Site>] A list of sites.
     # @example
     #   sites = @client.list_sites(limit: 200)
@@ -48,6 +49,7 @@ module Recurly
     # {https://developers.recurly.com/api/v2019-10-10#operation/get_site get_site api documenation}
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Site] A site.
     # @example
     #   begin
@@ -86,10 +88,10 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param email [String] Filter for accounts with this exact email address. A blank value will return accounts with both +null+ and +""+ email addresses. Note that multiple accounts can share one email address.
@@ -98,6 +100,7 @@ module Recurly
     #
     # @param past_due [String] Filter for accounts with an invoice in the +past_due+ state.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Account>] A list of the site's accounts.
     # @example
     #   accounts = @client.list_accounts(limit: 200)
@@ -116,6 +119,7 @@ module Recurly
     #
     # @param body [Requests::AccountCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Account] An account.
     # @example
     #   begin
@@ -164,6 +168,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Account] An account.
     # @example
     #   begin
@@ -187,6 +192,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::AccountUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Account] An account.
     # @example
     #   begin
@@ -216,6 +222,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Account] An account.
     # @example
     #   begin
@@ -238,6 +245,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::AccountAcquisition] An account's acquisition data.
     # @example
     #   begin
@@ -261,6 +269,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::AccountAcquisitionUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountAcquisitionUpdatable}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::AccountAcquisition] An account's updated acquisition data.
     # @example
     #   begin
@@ -295,6 +304,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Empty] Acquisition data was succesfully deleted.
     # @example
     #   begin
@@ -317,6 +327,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Account] An account.
     # @example
     #   begin
@@ -339,6 +350,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::AccountBalance] An account's balance.
     # @example
     #   begin
@@ -361,6 +373,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::BillingInfo] An account's billing information.
     # @example
     #   begin
@@ -384,6 +397,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::BillingInfo] Updated billing information.
     # @example
     #   begin
@@ -413,6 +427,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Empty] Billing information deleted
     # @example
     #   begin
@@ -450,13 +465,14 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions on an account.
     # @example
     #   redemptions = @client.list_account_coupon_redemptions(
@@ -478,6 +494,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::CouponRedemption] An active coupon redemption on an account.
     # @example
     #   begin
@@ -501,6 +518,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::CouponRedemptionCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponRedemptionCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::CouponRedemption] Returns the new coupon redemption.
     # @example
     #   begin
@@ -530,6 +548,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::CouponRedemption] Coupon redemption deleted.
     # @example
     #   begin
@@ -557,13 +576,14 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::CreditPayment>] A list of the account's credit payments.
     # @example
     #   payments = @client.list_account_credit_payments(
@@ -602,10 +622,10 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param type [String] Filter by type when:
@@ -615,6 +635,7 @@ module Recurly
     #   - +type=legacy+, only legacy invoices will be returned.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Invoice>] A list of the account's invoices.
     # @example
     #   invoices = @client.list_account_invoices(
@@ -637,6 +658,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::InvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::InvoiceCollection] Returns the new invoices.
     # @example
     #   begin
@@ -667,6 +689,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::InvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::InvoiceCollection] Returns the invoice previews.
     # @example
     #   begin
@@ -713,16 +736,17 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param original [String] Filter by original field.
     # @param state [String] Filter by state field.
     # @param type [String] Filter by type field.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::LineItem>] A list of the account's line items.
     # @example
     #   line_items = @client.list_account_line_items(
@@ -745,6 +769,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::LineItemCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::LineItemCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::LineItem] Returns the new line item.
     # @example
     #   begin
@@ -787,6 +812,7 @@ module Recurly
     #     returned at once you can sort the records yourself.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::AccountNote>] A list of an account's notes.
     # @example
     #   account_notes = @client.list_account_notes(account_id: account_id, limit: 200)
@@ -806,6 +832,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param account_note_id [String] Account Note ID.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::AccountNote] An account note.
     # @example
     #   begin
@@ -848,13 +875,14 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::ShippingAddress>] A list of an account's shipping addresses.
     # @example
     #   shipping_addresses = @client.list_shipping_addresses(
@@ -877,6 +905,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::ShippingAddressCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingAddressCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::ShippingAddress] Returns the new shipping address.
     # @example
     #   begin
@@ -910,6 +939,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param shipping_address_id [String] Shipping Address ID.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::ShippingAddress] A shipping address.
     # @example
     #   begin
@@ -937,6 +967,7 @@ module Recurly
     # @param shipping_address_id [String] Shipping Address ID.
     # @param body [Requests::ShippingAddressUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingAddressUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::ShippingAddress] The updated shipping address.
     # @example
     #   begin
@@ -969,6 +1000,7 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param shipping_address_id [String] Shipping Address ID.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Empty] Shipping address deleted.
     # @example
     #   begin
@@ -1011,10 +1043,10 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param state [String] Filter by state.
@@ -1024,6 +1056,7 @@ module Recurly
     #   - When +state=live+, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Subscription>] A list of the account's subscriptions.
     # @example
     #   subscriptions = @client.list_account_subscriptions(
@@ -1062,15 +1095,16 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param type [String] Filter by type field. The value +payment+ will return both +purchase+ and +capture+ transactions.
     # @param success [String] Filter by success field.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Transaction>] A list of the account's transactions.
     # @example
     #   transactions = @client.list_account_transactions(
@@ -1109,10 +1143,10 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param email [String] Filter for accounts with this exact email address. A blank value will return accounts with both +null+ and +""+ email addresses. Note that multiple accounts can share one email address.
@@ -1121,6 +1155,7 @@ module Recurly
     #
     # @param past_due [String] Filter for accounts with an invoice in the +past_due+ state.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Account>] A list of an account's child accounts.
     # @example
     #   child_accounts = @client.list_child_accounts(
@@ -1158,13 +1193,14 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::AccountAcquisition>] A list of the site's account acquisition data.
     # @example
     #   acquisitions = @client.list_account_acquisition(limit: 200)
@@ -1199,13 +1235,14 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Coupon>] A list of the site's coupons.
     # @example
     #   coupons = @client.list_coupons(limit: 200)
@@ -1224,6 +1261,7 @@ module Recurly
     #
     # @param body [Requests::CouponCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Coupon] A new coupon.
     # @example
     #   begin
@@ -1259,6 +1297,7 @@ module Recurly
     #
     # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Coupon] A coupon.
     # @example
     #   begin
@@ -1282,6 +1321,7 @@ module Recurly
     # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
     # @param body [Requests::CouponUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Coupon] The updated coupon.
     # @example
     #   begin
@@ -1307,6 +1347,7 @@ module Recurly
     #
     # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Coupon] The expired Coupon
     # @example
     #   begin
@@ -1346,14 +1387,16 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::UniqueCouponCode>] A list of unique coupon codes that were generated
+    #
     def list_unique_coupon_codes(coupon_id:, **options)
       path = interpolate_path("/coupons/{coupon_id}/unique_coupon_codes", coupon_id: coupon_id)
       pager(path, **options)
@@ -1369,13 +1412,14 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::CreditPayment>] A list of the site's credit payments.
     # @example
     #   payments = @client.list_credit_payments(limit: 200)
@@ -1394,7 +1438,9 @@ module Recurly
     #
     # @param credit_payment_id [String] Credit Payment ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::CreditPayment] A credit payment.
+    #
     def get_credit_payment(credit_payment_id:, **options)
       path = interpolate_path("/credit_payments/{credit_payment_id}", credit_payment_id: credit_payment_id)
       get(path, **options)
@@ -1422,14 +1468,15 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param related_type [String] Filter by related type.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::CustomFieldDefinition>] A list of the site's custom field definitions.
     # @example
     #   custom_fields = @client.list_custom_field_definitions(limit: 200)
@@ -1448,6 +1495,7 @@ module Recurly
     #
     # @param custom_field_definition_id [String] Custom Field Definition ID
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::CustomFieldDefinition] An custom field definition.
     # @example
     #   begin
@@ -1488,14 +1536,15 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param state [String] Filter by state.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Item>] A list of the site's items.
     # @example
     #   items = @client.list_items(limit: 200)
@@ -1514,6 +1563,7 @@ module Recurly
     #
     # @param body [Requests::ItemCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ItemCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Item] A new item.
     # @example
     #   begin
@@ -1548,6 +1598,7 @@ module Recurly
     #
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Item] An item.
     # @example
     #   begin
@@ -1571,6 +1622,7 @@ module Recurly
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param body [Requests::ItemUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ItemUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Item] The updated item.
     # @example
     #   begin
@@ -1600,6 +1652,7 @@ module Recurly
     #
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Item] An item.
     # @example
     #   begin
@@ -1622,6 +1675,7 @@ module Recurly
     #
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Item] An item.
     # @example
     #   begin
@@ -1636,6 +1690,101 @@ module Recurly
     def reactivate_item(item_id:, **options)
       path = interpolate_path("/items/{item_id}/reactivate", item_id: item_id)
       put(path, **options)
+    end
+
+    # List a site's measured units
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/list_measured_unit list_measured_unit api documenation}
+    #
+    # @param ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    # @param limit [Integer] Limit number of records 1-200.
+    # @param order [String] Sort order.
+    # @param sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param state [String] Filter by state.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Pager<Resources::MeasuredUnit>] A list of the site's measured units.
+    #
+    def list_measured_unit(**options)
+      path = interpolate_path("/measured_units")
+      pager(path, **options)
+    end
+
+    # Create a new measured unit
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/create_measured_unit create_measured_unit api documenation}
+    #
+    # @param body [Requests::MeasuredUnitCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::MeasuredUnitCreate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::MeasuredUnit] A new measured unit.
+    #
+    def create_measured_unit(body:, **options)
+      path = interpolate_path("/measured_units")
+      post(path, body, Requests::MeasuredUnitCreate, **options)
+    end
+
+    # Fetch a measured unit
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/get_measured_unit get_measured_unit api documenation}
+    #
+    # @param measured_unit_id [String] Measured unit ID or name. For ID no prefix is used e.g. +e28zov4fw0v2+. For name use prefix +name-+, e.g. +name-Storage+.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::MeasuredUnit] An item.
+    #
+    def get_measured_unit(measured_unit_id:, **options)
+      path = interpolate_path("/measured_units/{measured_unit_id}", measured_unit_id: measured_unit_id)
+      get(path, **options)
+    end
+
+    # Update a measured unit
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/update_measured_unit update_measured_unit api documenation}
+    #
+    # @param measured_unit_id [String] Measured unit ID or name. For ID no prefix is used e.g. +e28zov4fw0v2+. For name use prefix +name-+, e.g. +name-Storage+.
+    # @param body [Requests::MeasuredUnitUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::MeasuredUnitUpdate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::MeasuredUnit] The updated measured_unit.
+    #
+    def update_measured_unit(measured_unit_id:, body:, **options)
+      path = interpolate_path("/measured_units/{measured_unit_id}", measured_unit_id: measured_unit_id)
+      put(path, body, Requests::MeasuredUnitUpdate, **options)
+    end
+
+    # Remove a measured unit
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/remove_measured_unit remove_measured_unit api documenation}
+    #
+    # @param measured_unit_id [String] Measured unit ID or name. For ID no prefix is used e.g. +e28zov4fw0v2+. For name use prefix +name-+, e.g. +name-Storage+.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::MeasuredUnit] A measured unit.
+    #
+    def remove_measured_unit(measured_unit_id:, **options)
+      path = interpolate_path("/measured_units/{measured_unit_id}", measured_unit_id: measured_unit_id)
+      delete(path, **options)
     end
 
     # List a site's invoices
@@ -1660,10 +1809,10 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param type [String] Filter by type when:
@@ -1673,6 +1822,7 @@ module Recurly
     #   - +type=legacy+, only legacy invoices will be returned.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Invoice>] A list of the site's invoices.
     # @example
     #   invoices = @client.list_invoices(limit: 200)
@@ -1691,6 +1841,7 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Invoice] An invoice.
     # @example
     #   begin
@@ -1714,6 +1865,7 @@ module Recurly
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param body [Requests::InvoiceUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceUpdatable}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Invoice] An invoice.
     # @example
     #   begin
@@ -1740,6 +1892,7 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::BinaryFile] An invoice as a PDF.
     # @example
     #   begin
@@ -1766,6 +1919,7 @@ module Recurly
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param body [Requests::InvoiceCollect] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCollect}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Invoice] The updated invoice.
     # @example
     #   begin
@@ -1788,6 +1942,7 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Invoice] The updated invoice.
     # @example
     #   begin
@@ -1810,6 +1965,7 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Invoice] The updated invoice.
     # @example
     #   begin
@@ -1832,6 +1988,7 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Invoice] The updated invoice.
     # @example
     #   begin
@@ -1854,6 +2011,7 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Invoice] The updated invoice.
     # @example
     #   begin
@@ -1877,7 +2035,9 @@ module Recurly
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param body [Requests::ExternalTransaction] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalTransaction}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Transaction] The recorded transaction.
+    #
     def record_external_transaction(invoice_id:, body:, **options)
       path = interpolate_path("/invoices/{invoice_id}/transactions", invoice_id: invoice_id)
       post(path, body, Requests::ExternalTransaction, **options)
@@ -1906,16 +2066,17 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param original [String] Filter by original field.
     # @param state [String] Filter by state field.
     # @param type [String] Filter by type field.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::LineItem>] A list of the invoice's line items.
     # @example
     #   line_items = @client.list_invoice_line_items(
@@ -1952,13 +2113,14 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions associated with the invoice.
     # @example
     #   coupon_redemptions = @client.list_invoice_coupon_redemptions(
@@ -1980,6 +2142,7 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Invoice>] A list of the credit or charge invoices associated with the invoice.
     # @example
     #   invoices = @client.list_related_invoices(
@@ -2002,6 +2165,7 @@ module Recurly
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param body [Requests::InvoiceRefund] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceRefund}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Invoice] Returns the new credit invoice.
     # @example
     #   begin
@@ -2047,16 +2211,17 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param original [String] Filter by original field.
     # @param state [String] Filter by state field.
     # @param type [String] Filter by type field.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::LineItem>] A list of the site's line items.
     # @example
     #   line_items = @client.list_line_items(
@@ -2077,6 +2242,7 @@ module Recurly
     #
     # @param line_item_id [String] Line Item ID.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::LineItem] A line item.
     # @example
     #   begin
@@ -2099,6 +2265,7 @@ module Recurly
     #
     # @param line_item_id [String] Line Item ID.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Empty] Line item deleted.
     # @example
     #   begin
@@ -2139,14 +2306,15 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param state [String] Filter by state.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Plan>] A list of plans.
     # @example
     #   plans = @client.list_plans(limit: 200)
@@ -2165,6 +2333,7 @@ module Recurly
     #
     # @param body [Requests::PlanCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PlanCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Plan] A plan.
     # @example
     #   begin
@@ -2204,6 +2373,7 @@ module Recurly
     #
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Plan] A plan.
     # @example
     #   begin
@@ -2227,6 +2397,7 @@ module Recurly
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param body [Requests::PlanUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PlanUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Plan] A plan.
     # @example
     #   begin
@@ -2252,6 +2423,7 @@ module Recurly
     #
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Plan] Plan deleted
     # @example
     #   begin
@@ -2291,14 +2463,15 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param state [String] Filter by state.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::AddOn>] A list of add-ons.
     # @example
     #   add_ons = @client.list_plan_add_ons(
@@ -2321,6 +2494,7 @@ module Recurly
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param body [Requests::AddOnCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AddOnCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::AddOn] An add-on.
     # @example
     #   begin
@@ -2355,6 +2529,7 @@ module Recurly
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::AddOn] An add-on.
     # @example
     #   begin
@@ -2381,6 +2556,7 @@ module Recurly
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param body [Requests::AddOnUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AddOnUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::AddOn] An add-on.
     # @example
     #   begin
@@ -2411,6 +2587,7 @@ module Recurly
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::AddOn] Add-on deleted
     # @example
     #   begin
@@ -2452,14 +2629,15 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param state [String] Filter by state.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::AddOn>] A list of add-ons.
     # @example
     #   add_ons = @client.list_add_ons(
@@ -2480,6 +2658,7 @@ module Recurly
     #
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::AddOn] An add-on.
     # @example
     #   begin
@@ -2518,13 +2697,14 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::ShippingMethod>] A list of the site's shipping methods.
     # @example
     #   shipping_methods = @client.list_shipping_methods(
@@ -2545,7 +2725,9 @@ module Recurly
     #
     # @param body [Requests::ShippingMethodCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingMethodCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::ShippingMethod] A new shipping method.
+    #
     def create_shipping_method(body:, **options)
       path = interpolate_path("/shipping_methods")
       post(path, body, Requests::ShippingMethodCreate, **options)
@@ -2557,7 +2739,9 @@ module Recurly
     #
     # @param id [String] Shipping Method ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-usps_2-day+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::ShippingMethod] A shipping method.
+    #
     def get_shipping_method(id:, **options)
       path = interpolate_path("/shipping_methods/{id}", id: id)
       get(path, **options)
@@ -2570,7 +2754,9 @@ module Recurly
     # @param shipping_method_id [String] Shipping Method ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-usps_2-day+.
     # @param body [Requests::ShippingMethodUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingMethodUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::ShippingMethod] The updated shipping method.
+    #
     def update_shipping_method(shipping_method_id:, body:, **options)
       path = interpolate_path("/shipping_methods/{shipping_method_id}", shipping_method_id: shipping_method_id)
       put(path, body, Requests::ShippingMethodUpdate, **options)
@@ -2582,7 +2768,9 @@ module Recurly
     #
     # @param shipping_method_id [String] Shipping Method ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-usps_2-day+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::ShippingMethod] A shipping method.
+    #
     def deactivate_shipping_method(shipping_method_id:, **options)
       path = interpolate_path("/shipping_methods/{shipping_method_id}", shipping_method_id: shipping_method_id)
       delete(path, **options)
@@ -2610,10 +2798,10 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param state [String] Filter by state.
@@ -2623,6 +2811,7 @@ module Recurly
     #   - When +state=live+, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Subscription>] A list of the site's subscriptions.
     # @example
     #   subscriptions = @client.list_subscriptions(limit: 200)
@@ -2641,6 +2830,7 @@ module Recurly
     #
     # @param body [Requests::SubscriptionCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Subscription] A subscription.
     # @example
     #   begin
@@ -2674,6 +2864,7 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Subscription] A subscription.
     # @example
     #   begin
@@ -2699,6 +2890,7 @@ module Recurly
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param body [Requests::SubscriptionUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionUpdate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Subscription] A subscription.
     # @example
     #   begin
@@ -2738,6 +2930,7 @@ module Recurly
     #   You may also terminate a subscription with no refund and then manually refund specific invoices.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Subscription] An expired subscription.
     # @example
     #   begin
@@ -2763,6 +2956,7 @@ module Recurly
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param body [Requests::SubscriptionCancel] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionCancel}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Subscription] A canceled or failed subscription.
     # @example
     #   begin
@@ -2787,6 +2981,7 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Subscription] An active subscription.
     # @example
     #   begin
@@ -2812,6 +3007,7 @@ module Recurly
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param body [Requests::SubscriptionPause] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionPause}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Subscription] A subscription.
     # @example
     #   begin
@@ -2840,6 +3036,7 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Subscription] A subscription.
     # @example
     #   begin
@@ -2864,7 +3061,9 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Subscription] A subscription.
+    #
     def convert_trial(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/convert_trial", subscription_id: subscription_id)
       put(path, **options)
@@ -2876,6 +3075,7 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::SubscriptionChange] A subscription's pending change.
     # @example
     #   begin
@@ -2901,6 +3101,7 @@ module Recurly
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param body [Requests::SubscriptionChangeCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionChangeCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::SubscriptionChange] A subscription change.
     # @example
     #   begin
@@ -2930,6 +3131,7 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Empty] Subscription change was deleted.
     # @example
     #   begin
@@ -2955,7 +3157,9 @@ module Recurly
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param body [Requests::SubscriptionChangeCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionChangeCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::SubscriptionChangePreview] A subscription change.
+    #
     def preview_subscription_change(subscription_id:, body:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/change/preview", subscription_id: subscription_id)
       post(path, body, Requests::SubscriptionChangeCreate, **options)
@@ -2984,10 +3188,10 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param type [String] Filter by type when:
@@ -2997,6 +3201,7 @@ module Recurly
     #   - +type=legacy+, only legacy invoices will be returned.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Invoice>] A list of the subscription's invoices.
     # @example
     #   invoices = @client.list_subscription_invoices(
@@ -3035,16 +3240,17 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param original [String] Filter by original field.
     # @param state [String] Filter by state field.
     # @param type [String] Filter by type field.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::LineItem>] A list of the subscription's line items.
     # @example
     #   line_items = @client.list_subscription_line_items(
@@ -3081,13 +3287,14 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions on a subscription.
     # @example
     #   coupon_redemptions = @client.list_subscription_coupon_redemptions(
@@ -3101,6 +3308,93 @@ module Recurly
     def list_subscription_coupon_redemptions(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/coupon_redemptions", subscription_id: subscription_id)
       pager(path, **options)
+    end
+
+    # List a subscription add-on's usage records
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/list_usage list_usage api documenation}
+    #
+    # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
+    # @param limit [Integer] Limit number of records 1-200.
+    # @param order [String] Sort order.
+    # @param sort [String] Sort field. You *really* only want to sort by +usage_timestamp+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=usage_timestamp+ or +sort=recorded_timestamp+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=usage_timestamp+ or +sort=recorded_timestamp+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param billing_status [String] Filter by usage record's billing status
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Pager<Resources::Usage>] A list of the subscription add-on's usage records.
+    #
+    def list_usage(subscription_id:, add_on_id:, **options)
+      path = interpolate_path("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscription_id: subscription_id, add_on_id: add_on_id)
+      pager(path, **options)
+    end
+
+    # Log a usage record on this subscription add-on
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/create_usage create_usage api documenation}
+    #
+    # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
+    # @param body [Requests::UsageCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::UsageCreate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Usage] The created usage record.
+    #
+    def create_usage(subscription_id:, add_on_id:, body:, **options)
+      path = interpolate_path("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscription_id: subscription_id, add_on_id: add_on_id)
+      post(path, body, Requests::UsageCreate, **options)
+    end
+
+    # Get a usage record
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/get_usage get_usage api documenation}
+    #
+    # @param usage_id [String] Usage Record ID.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Usage] The usage record.
+    #
+    def get_usage(usage_id:, **options)
+      path = interpolate_path("/usage/{usage_id}", usage_id: usage_id)
+      get(path, **options)
+    end
+
+    # Update a usage record
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/update_usage update_usage api documenation}
+    #
+    # @param usage_id [String] Usage Record ID.
+    # @param body [Requests::UsageCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::UsageCreate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Usage] The updated usage record.
+    #
+    def update_usage(usage_id:, body:, **options)
+      path = interpolate_path("/usage/{usage_id}", usage_id: usage_id)
+      put(path, body, Requests::UsageCreate, **options)
+    end
+
+    # Delete a usage record.
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/remove_usage remove_usage api documenation}
+    #
+    # @param usage_id [String] Usage Record ID.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Empty] Usage was successfully deleted.
+    #
+    def remove_usage(usage_id:, **options)
+      path = interpolate_path("/usage/{usage_id}", usage_id: usage_id)
+      delete(path, **options)
     end
 
     # List a site's transactions
@@ -3125,15 +3419,16 @@ module Recurly
     #   order. In descending order updated records will move behind the cursor and could
     #   prevent some records from being returned.
     #
-    # @param begin_time [DateTime] Filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    # @param end_time [DateTime] Filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     # @param type [String] Filter by type field. The value +payment+ will return both +purchase+ and +capture+ transactions.
     # @param success [String] Filter by success field.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Pager<Resources::Transaction>] A list of the site's transactions.
     # @example
     #   transactions = @client.list_transactions(limit: 200)
@@ -3152,6 +3447,7 @@ module Recurly
     #
     # @param transaction_id [String] Transaction ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::Transaction] A transaction.
     # @example
     #   begin
@@ -3174,7 +3470,9 @@ module Recurly
     #
     # @param unique_coupon_code_id [String] Unique Coupon Code ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-abc-8dh2-def+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::UniqueCouponCode] A unique coupon code.
+    #
     def get_unique_coupon_code(unique_coupon_code_id:, **options)
       path = interpolate_path("/unique_coupon_codes/{unique_coupon_code_id}", unique_coupon_code_id: unique_coupon_code_id)
       get(path, **options)
@@ -3186,7 +3484,9 @@ module Recurly
     #
     # @param unique_coupon_code_id [String] Unique Coupon Code ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-abc-8dh2-def+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::UniqueCouponCode] A unique coupon code.
+    #
     def deactivate_unique_coupon_code(unique_coupon_code_id:, **options)
       path = interpolate_path("/unique_coupon_codes/{unique_coupon_code_id}", unique_coupon_code_id: unique_coupon_code_id)
       delete(path, **options)
@@ -3198,7 +3498,9 @@ module Recurly
     #
     # @param unique_coupon_code_id [String] Unique Coupon Code ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-abc-8dh2-def+.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::UniqueCouponCode] A unique coupon code.
+    #
     def reactivate_unique_coupon_code(unique_coupon_code_id:, **options)
       path = interpolate_path("/unique_coupon_codes/{unique_coupon_code_id}/restore", unique_coupon_code_id: unique_coupon_code_id)
       put(path, **options)
@@ -3210,6 +3512,7 @@ module Recurly
     #
     # @param body [Requests::PurchaseCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PurchaseCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::InvoiceCollection] Returns the new invoices
     # @example
     #   begin
@@ -3249,6 +3552,7 @@ module Recurly
     #
     # @param body [Requests::PurchaseCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PurchaseCreate}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
     # @return [Resources::InvoiceCollection] Returns preview of the new invoices
     # @example
     #   begin

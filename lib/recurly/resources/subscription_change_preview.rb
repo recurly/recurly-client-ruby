@@ -31,7 +31,7 @@ module Recurly
       define_attribute :id, String
 
       # @!attribute invoice_collection
-      #   @return [InvoiceCollection] Invoice collection
+      #   @return [InvoiceCollection] Invoice Collection
       define_attribute :invoice_collection, :InvoiceCollection
 
       # @!attribute object

@@ -10,6 +10,10 @@ module Recurly
       #   @return [String] Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code. If `item_code`/`item_id` is part of the request then `accounting_code` must be absent.
       define_attribute :accounting_code, String
 
+      # @!attribute add_on_type
+      #   @return [String] Whether the add-on type is fixed, or usage-based.
+      define_attribute :add_on_type, String
+
       # @!attribute code
       #   @return [String] The unique identifier for the add-on within its plan. If `item_code`/`item_id` is part of the request then `code` must be absent. If `item_code`/`item_id` is not present `code` is required.
       define_attribute :code, String
@@ -33,6 +37,14 @@ module Recurly
       # @!attribute item_id
       #   @return [String] System-generated unique identifier for an item. Available when the `Credit Invoices` and `Subscription Billing Terms` features are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
       define_attribute :item_id, String
+
+      # @!attribute measured_unit_id
+      #   @return [String] System-generated unique identifier for a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.
+      define_attribute :measured_unit_id, String
+
+      # @!attribute measured_unit_name
+      #   @return [String] Name of a measured unit to be associated with the add-on. Either `measured_unit_id` or `measured_unit_name` are required when `add_on_type` is `usage`. If `measured_unit_id` and `measured_unit_name` are both present, `measured_unit_id` will be used.
+      define_attribute :measured_unit_name, String
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices. If `item_code`/`item_id` is part of the request then `name` must be absent. If `item_code`/`item_id` is not present `name` is required.
@@ -61,6 +73,14 @@ module Recurly
       # @!attribute tiers
       #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`. There must be one tier with an `ending_quantity` of 999999999 which is the default if not provided.
       define_attribute :tiers, Array, { :item_type => :Tier }
+
+      # @!attribute usage_percentage
+      #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage and `usage_type` is percentage. Must be omitted otherwise. `usage_percentage` does not support tiers.
+      define_attribute :usage_percentage, Float
+
+      # @!attribute usage_type
+      #   @return [String] Type of usage, required if `add_on_type` is `usage`.
+      define_attribute :usage_type, String
     end
   end
 end
