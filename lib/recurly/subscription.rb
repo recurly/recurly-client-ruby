@@ -289,8 +289,22 @@ module Recurly
     def update_notes(notes)
       return false unless link? :notes
       self.attributes = notes
-      reload follow_link(:notes, body: to_xml)
+      reload follow_link(:notes, body: to_xml_notes)
       true
+    end
+
+    # This addresses a case where `update_notes()` may include invalid xml
+    # by explicitly limiting xml elements to the body params listed at https://dev.recurly.com/docs/update-subscription-notes
+    def to_xml_notes(options = {})
+      builder = options[:builder] || XML.new("<subscription/>")
+      xml_keys.each { |key|
+        if key == 'terms_and_conditions' || key == 'customer_notes' || key == 'vat_reverse_charge_notes' || key == 'custom_fields' || key == 'gateway_code'
+          value = respond_to?(key) ? send(key) : self[key]
+          node = builder.add_element key
+          node.text = value
+        end
+      }
+      builder.to_s
     end
 
     # Pauses a subscription or cancels a scheduled pause.
