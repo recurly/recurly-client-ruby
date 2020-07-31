@@ -1,8 +1,21 @@
 # Changelog
 
-## [3.9.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
+## [3.10.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.8.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.9.0...HEAD)
+
+**Implemented enhancements:**
+
+- Latest Changes for 2019-10-10 \(usage, measured units, etc\) [\#621](https://github.com/recurly/recurly-client-ruby/pull/621) ([bhelx](https://github.com/bhelx))
+- Adding hierarchical errors [\#610](https://github.com/recurly/recurly-client-ruby/pull/610) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.10.0 [\#623](https://github.com/recurly/recurly-client-ruby/pull/623) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.9.0](https://github.com/recurly/recurly-client-ruby/tree/3.9.0) (2020-07-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.8.0...3.9.0)
 
 **Implemented enhancements:**
 
