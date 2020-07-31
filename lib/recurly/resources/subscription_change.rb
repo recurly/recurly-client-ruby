@@ -30,6 +30,10 @@ module Recurly
       #   @return [String] The ID of the Subscription Change.
       define_attribute :id, String
 
+      # @!attribute invoice_collection
+      #   @return [InvoiceCollection] Invoice Collection
+      define_attribute :invoice_collection, :InvoiceCollection
+
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String

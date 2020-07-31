@@ -33,6 +33,10 @@ module Recurly
       # @!attribute unit_amount
       #   @return [Float] Optionally, override the add-on's default unit amount.
       define_attribute :unit_amount, Float
+
+      # @!attribute usage_percentage
+      #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.
+      define_attribute :usage_percentage, Float
     end
   end
 end
