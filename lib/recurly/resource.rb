@@ -824,9 +824,9 @@ module Recurly
 
         # Duck-typing here is problematic because of ActiveSupport's #to_xml.
         case value
-        when Resource, Subscription::AddOns
+        when Resource
           value.to_xml options.merge(:builder => node)
-        when Array
+        when Array, Subscription::AddOns
           value.each do |e|
             if e.is_a? Recurly::Resource
               # create a node to hold this resource

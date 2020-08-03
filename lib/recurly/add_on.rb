@@ -2,6 +2,7 @@ module Recurly
   class AddOn < Resource
     # @return [Plan]
     belongs_to :plan
+    # @return [[Tier], []]
     has_many :tiers, class_name: :Tier, readonly: false
 
     define_attribute_methods %w(
