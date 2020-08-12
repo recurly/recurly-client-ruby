@@ -185,23 +185,6 @@ RSpec.describe Recurly::Client do
       end
     end
 
-    context "when initialized with a site_id" do
-      subject(:client) do
-        Recurly::Client.new(
-          api_key: api_key,
-          subdomain: "my-subdomain",
-        )
-      end
-
-      describe "get" do
-        it "should scope the url by site" do
-          req = Recurly::HTTP::Request.new(:get, "/sites/subdomain-my-subdomain/accounts/code-benjamin-du-monde", nil)
-          expect(net_http).to receive(:request).and_return(response)
-          _account = subject.get_account(account_id: "code-benjamin-du-monde")
-        end
-      end
-    end
-
     context "logging" do
       describe "initialize" do
         context "with a valid logger" do

@@ -54,8 +54,7 @@ module Recurly
     #
     # @param api_key [String] The private API key
     # @param logger [Logger] A logger to use. Defaults to creating a new STDOUT logger with level WARN.
-    def initialize(api_key:, site_id: nil, subdomain: nil, logger: nil)
-      set_site_id(site_id, subdomain)
+    def initialize(api_key:, logger: nil)
       set_api_key(api_key)
 
       if logger.nil?

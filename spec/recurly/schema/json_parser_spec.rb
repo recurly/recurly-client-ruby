@@ -3,7 +3,7 @@ require "spec_helper"
 RSpec.describe Recurly::JSONParser do
   let(:json_data) { '{"object": "my_resource", "a_string": "A String"}' }
   let(:client) {
-    Recurly::Client.new(subdomain: "test", api_key: "test123")
+    Recurly::Client.new(api_key: "test123")
   }
 
   describe ".parse" do
