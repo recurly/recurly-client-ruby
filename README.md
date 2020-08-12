@@ -7,7 +7,7 @@ This repository houses the official ruby client for Recurly's V3 API.
 
 ## Reference Documentation
 
-Getting Started Guide and reference tdocumentation can be found on [rubydoc.info](https://www.rubydoc.info/github/recurly/recurly-client-ruby/).
+Getting Started Guide and reference documentation can be found on [Github Pages](https://recurly.github.io/recurly-client-ruby/).
 
 ## Contributing
 

@@ -17,8 +17,21 @@ module Recurly
         Errors.const_get(class_name)
       end
 
-      def initialize(response, error)
-        super(error.message)
+      # When the response does not have a JSON body, this determines the appropriate
+      # Error class based on the response code. This may occur when a load balancer
+      # returns an error before it reaches Recurly's API.
+      # @param response [Net::Response]
+      # @return [Errors::APIError]
+      def self.from_response(response)
+        if Recurly::Errors::ERROR_MAP.has_key?(response.code)
+          Recurly::Errors.const_get(Recurly::Errors::ERROR_MAP[response.code])
+        else
+          Recurly::Errors::APIError
+        end
+      end
+
+      def initialize(message, response = nil, error = nil)
+        super(message)
         @response = response
         @recurly_error = error
       end
@@ -34,5 +47,4 @@ module Recurly
   end
 
   require_relative "./errors/api_errors"
-  require_relative "./errors/network_errors"
 end

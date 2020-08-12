@@ -19,21 +19,19 @@ module Recurly
       def cast(attributes = {})
         resource = new()
         attributes.each do |attr_name, val|
-          next if attr_name == "object"
-
           schema_attr = self.schema.get_attribute(attr_name)
 
           if schema_attr
             val = if val.nil?
-                    val
-                  elsif schema_attr.is_valid?(val)
-                    schema_attr.cast(val)
-                  else
-                    if Recurly::STRICT_MODE
-                      msg = "#{self.class}##{attr_name} does not have the right type. Value: #{val.inspect} was expected to be a #{schema_attr}"
-                      raise ArgumentError, msg
-                    end
-                  end
+                val
+              elsif schema_attr.is_valid?(val)
+                schema_attr.cast(val)
+              else
+                if Recurly::STRICT_MODE
+                  msg = "#{self.class}##{attr_name} does not have the right type. Value: #{val.inspect} was expected to be a #{schema_attr}"
+                  raise ArgumentError, msg
+                end
+              end
 
             writer = "#{attr_name}="
             resource.send(writer, val)

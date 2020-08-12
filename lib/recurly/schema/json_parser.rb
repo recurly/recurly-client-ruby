@@ -27,17 +27,17 @@ module Recurly
     # @return [Error,Resource]
     def self.from_json(data)
       type = if data.has_key?("error")
-               "error"
-             else
-               data["object"]
-             end
+          "error_may_have_transaction"
+        else
+          data["object"]
+        end
       klazz = self.recurly_class(type)
 
       unless klazz
         raise ArgumentError, "Unknown resource for json type #{type}"
       end
 
-      data = data["error"] if klazz == Resources::Error
+      data = data["error"] if klazz == Resources::ErrorMayHaveTransaction
 
       klazz.cast(data)
     end
@@ -61,17 +61,10 @@ module Recurly
         Resources::Page
       else
         type_camelized = type.split("_").map(&:capitalize).join
-        if Resources.const_defined?(type_camelized)
-          klazz = Resources.const_get(type_camelized)
-          if klazz.ancestors.include?(Resource)
-            klazz
-          else
-            if Recurly::STRICT_MODE
-              raise ArgumentError, "Could not find Recurly Resource responsible for key #{type}"
-            else
-              nil
-            end
-          end
+        if Resources.const_defined?(type_camelized, false)
+          Resources.const_get(type_camelized, false)
+        elsif Recurly::STRICT_MODE
+          raise ArgumentError, "Could not find Recurly Resource responsible for key #{type}"
         end
       end
     end

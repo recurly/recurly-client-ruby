@@ -27,7 +27,7 @@ module Recurly
       define_attribute :created_at, DateTime
 
       # @!attribute discount
-      #   @return [CouponDiscount]
+      #   @return [CouponDiscount] Details of the discount a coupon applies. Will contain a `type` property and one of the following properties: `percent`, `fixed`, `trial`.
       define_attribute :discount, :CouponDiscount
 
       # @!attribute duration
@@ -85,6 +85,10 @@ module Recurly
       # @!attribute redeem_by
       #   @return [DateTime] The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
       define_attribute :redeem_by, DateTime
+
+      # @!attribute redeemed_at
+      #   @return [DateTime] The date and time the unique coupon code was redeemed. This is only present for bulk coupons.
+      define_attribute :redeemed_at, DateTime
 
       # @!attribute redemption_resource
       #   @return [String] Whether the discount is for all eligible charges on the account, or only a specific subscription.

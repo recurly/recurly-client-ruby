@@ -5,7 +5,7 @@ This repository houses the official ruby client for Recurly's V3 API.
 In your Gemfile, add `recurly` as a dependency.
 
 ```ruby
-gem 'recurly', '~> 3.0'
+gem 'recurly', '~> 3.9'
 ```
 
 > *Note*: We try to follow [semantic versioning](https://semver.org/) and will only apply breaking changes to major versions.
@@ -40,6 +40,27 @@ sub = client.get_subscription(subscription_id: 'abcd123456')
 client = Recurly::Client.new(api_key: API_KEY2) 
 sub = client.get_subscription(subscription_id: 'abcd7890')
 ```
+
+## Logging
+
+The client constructor optionally accepts a logger provided by the programmer. The logger you pass should be an instance of ruby stdlib's [Logger](https://ruby-doc.org/stdlib/libdoc/logger/rdoc/Logger.html)
+or follow the same interface. By default, the client creates a logger to `STDOUT` with level `WARN`.
+
+```ruby
+require 'logger'
+
+# Create a logger to STDOUT
+logger = Logger.new(STDOUT)
+logger.level = Logger::INFO
+
+# You could also use an existing logger
+# If you are using Rails you may want to use your application's logger
+logger = Rails.logger
+
+client = Recurly::Client.new(api_key: API_KEY, logger: logger)
+```
+
+> *SECURITY WARNING*: The log level should never be set to DEBUG in production. This could potentially result in sensitive data in your logging system.
 
 # Operations
 
@@ -85,17 +106,19 @@ plans.each_page.each_with_index do |data, page_num|
 end
 ```
 
-Pagination endpoints take a number of options to sort and filter the results. They can be passed in as keyword arguments.
+Pagination endpoints take a number of options to sort and filter the results. They can be passed in as a hash provided by the `:params` keyword argument.
 The names, types, and descriptions of these arguments are listed in the rubydocs for each method:
 
 ```ruby
 options = {
-  limit: 200, # number of items per page
-  state: :active, # only active plans
-  sort: :updated_at,
-  order: :asc,
-  begin_time: DateTime.new(2017,1,1), # January 1st 2017,
-  end_time: DateTime.now
+  params: {
+    limit: 200, # number of items per page
+    state: :active, # only active plans
+    sort: :updated_at,
+    order: :asc,
+    begin_time: DateTime.new(2017,1,1), # January 1st 2017,
+    end_time: DateTime.now
+  }
 }
 
 plans = client.list_plans(**options)
@@ -109,6 +132,45 @@ end
 `limit` defaults to 20 items per page and can be set from 1 to 200. Choosing a lower limit means more network requests but smaller payloads.
 We recommend keeping the default for most cases but increasing the limit if you are planning on iterating through many pages of items (e.g. all transactions in your site).
 
+## Efficiently Fetch the First or Last Resource
+
+The Pager class implements a first method which allows you to fetch just the first or last resource from the server. On top of being a convenient abstraction, this is implemented efficiently by only asking the server for the 1 item you want.
+
+```ruby
+accounts = client.list_accounts(
+  subscriber: true,
+  order: :desc
+)
+
+last_subscriber = accounts.first
+```
+
+If you want to fetch the last account in this scenario, invert the order from descending `desc` to ascending `asc`:
+
+```ruby
+accounts = client.list_accounts(
+  subscriber: true,
+  order: :asc
+)
+
+first_subscriber = accounts.first
+```
+
+## Counting Resources
+
+The Pager class implements a `count` method which allows you to count the resources the pager would return. It does so by calling the endpoint with `HEAD` and parsing and returning the `Recurly-Total-Records` header. This method respects any filtering parameters you apply to the pager, but the sorting parameters will have no effect.
+
+```ruby
+accounts = client.list_accounts(
+  subscriber: true,
+  begin_time: DateTime.new(2017,1,1)
+)
+
+# Calling count here will return an integer indicating
+# the number of subscribers since 2017
+count = accounts.count
+# => 573
+```
 
 # Creating Resources
 
@@ -140,12 +202,11 @@ plan = client.create_plan(body: plan_data)
 
 # Error Handling
 
-This library currently throws 2 types of exceptions. {Recurly::Errors::APIError} and {Recurly::Errors::NetworkError}. See these 2 files for the types of exceptions you can catch:
+All errors thrown by this library are based off of the `Recurly::Errors::APIError`. There 
 
-1. [API Errors](./lib/recurly/errors/api_errors.rb)
-2. [Network Errors](./lib/recurly/errors/network_errors.rb)
+This library throws one main type of exception, `Recurly::Errors::APIError`. There exists an additional hierarchy of errors to facilitate the process of rescuing various classes of errors. More detail can be found in the [Api Errors Module](./lib/recurly/errors/api_errors.rb).
 
-You will normally be working with {Recurly::Errors::APIError}. You can catch specific or generic versions of these exceptions. Example:
+You can catch specific or generic versions of these exceptions. Example:
 
 ```ruby
 begin
@@ -173,14 +234,16 @@ rescue Recurly::Errors::ValidationError => ex
   #=> #<Recurly::Error:0x007fbbdf8a32c8 @attributes={:type=>"validation", :message=>"Code 'iexistalready' already exists", :params=>[{"param"=>"code", "message"=>"'iexistalready' already exists"}]}>
   puts ex.status_code
   #=> 422
+rescue Recurly::Errors::TimeoutError => ex
+  # catch a specific server error
+rescue Recurly::Errors::ServerError => ex
+  # catch a generic server error
 rescue Recurly::Errors::APIError => ex
   # catch a generic api error
-rescue Recurly::Errors::TimeoutError => ex
-  # catch a specific network error
-rescue Recurly::Errors::NetworkError => ex
-  # catch a generic network error
 end
 ```
+
+`Recurly::Errors::APIError` instances provide access to the response via the `#get_response` method.
 
 # HTTP Metadata
 
@@ -206,7 +269,7 @@ response = @client.remove_line_item(
   line_item_id: "a959576b2b10b012"
 ).get_response
 ```
-And it can be captured on exceptions through the {Recurly::ApiError} object:
+And it can be captured on exceptions through the {Recurly::APIError} object:
 
 ```ruby
 begin
@@ -226,7 +289,7 @@ You can specify up to 10 endpoints through the application. All notifications wi
 be sent to all configured endpoints for your site. 
 
 See our [product docs](https://docs.recurly.com/docs/webhooks) to learn more about webhooks
-and see our [dev docs](https://dev.recurly.com/page/webhooks) to learn about what payloads
+and see our [dev docs](https://developers.recurly.com/pages/webhooks.html) to learn about what payloads
 are available.
 
 Although our API is now JSON, our webhook payloads are still formatted as XML for the time being.

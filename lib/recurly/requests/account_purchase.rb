@@ -35,7 +35,7 @@ module Recurly
       define_attribute :company, String
 
       # @!attribute custom_fields
-      #   @return [Array[CustomField]]
+      #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
       define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute email

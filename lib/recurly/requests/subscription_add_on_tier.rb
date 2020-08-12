@@ -3,15 +3,15 @@
 # change to this file, please create a Github issue explaining the changes you
 # need and we will usher them to the appropriate places.
 module Recurly
-  module Resources
-    class AddOnPricing < Resource
+  module Requests
+    class SubscriptionAddOnTier < Request
 
-      # @!attribute currency
-      #   @return [String] 3-letter ISO 4217 currency code.
-      define_attribute :currency, String
+      # @!attribute ending_quantity
+      #   @return [Integer] Ending quantity
+      define_attribute :ending_quantity, Integer
 
       # @!attribute unit_amount
-      #   @return [Float] Unit price
+      #   @return [Float] Unit amount
       define_attribute :unit_amount, Float
     end
   end

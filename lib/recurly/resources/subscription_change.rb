@@ -35,15 +35,19 @@ module Recurly
       define_attribute :object, String
 
       # @!attribute plan
-      #   @return [PlanMini]
+      #   @return [PlanMini] Just the important parts.
       define_attribute :plan, :PlanMini
 
       # @!attribute quantity
       #   @return [Integer] Subscription quantity
       define_attribute :quantity, Integer
 
+      # @!attribute revenue_schedule_type
+      #   @return [String] Revenue schedule type
+      define_attribute :revenue_schedule_type, String
+
       # @!attribute shipping
-      #   @return [SubscriptionShipping]
+      #   @return [SubscriptionShipping] Subscription shipping details
       define_attribute :shipping, :SubscriptionShipping
 
       # @!attribute subscription_id

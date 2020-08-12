@@ -7,7 +7,25 @@ module Recurly
       @client = client
       @path = path
       @options = options
-      @next = build_path(@path, @options)
+      rewind!
+    end
+
+    # Performs a request with the pager `limit` set to 1 and only returns the first
+    # result in the response.
+    def first
+      # Modify the @next url to set the :limit to 1
+      original_next = @next
+      @next = @path
+      fetch_next!(@options.merge(params: @options.fetch(:params, {}).merge({ limit: 1 })))
+      # Restore the @next url to the original
+      @next = original_next
+      @data.first
+    end
+
+    # Makes a HEAD request to the API to determine how many total records exist.
+    def count
+      resource = @client.send(:head, self.next, @options)
+      resource.get_response.total_records
     end
 
     # Enumerates each "page" from the server.
@@ -84,7 +102,9 @@ module Recurly
     def page_enumerator
       Enumerator.new do |yielder|
         loop do
-          fetch_next!
+          # Pass in @options when requesting the first page (@data.empty?)
+          next_options = @data.empty? ? @options : @options.merge(params: {})
+          fetch_next!(next_options)
           yielder << data
           unless has_more?
             rewind!
@@ -94,8 +114,9 @@ module Recurly
       end
     end
 
-    def fetch_next!
-      page = @client.next_page(self)
+    def fetch_next!(options)
+      path = extract_path(self.next)
+      page = @client.send(:get, path, options)
       @data = page.data.map { |d| JSONParser.from_json(d) }
       @has_more = page.has_more
       @next = page.next
@@ -103,15 +124,13 @@ module Recurly
 
     def rewind!
       @data = []
-      @next = build_path(@path, @options)
+      @next = @path
     end
 
-    def build_path(path, options)
-      if options.empty?
-        path
-      else
-        "#{path}?#{URI.encode_www_form(options)}"
-      end
+    # Returns just the path and parameters so we can safely reuse the connection
+    def extract_path(uri_or_path)
+      uri = URI(uri_or_path)
+      uri.kind_of?(URI::HTTP) ? uri.request_uri : uri_or_path
     end
   end
 end

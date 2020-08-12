@@ -10,6 +10,10 @@ module Recurly
       #   @return [String] Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
       define_attribute :accounting_code, String
 
+      # @!attribute allow_any_item_on_subscriptions
+      #   @return [Boolean] Used to determine whether items can be assigned as add-ons to individual subscriptions. If `true`, items can be assigned as add-ons to individual subscription add-ons. If `false`, only plan add-ons can be used.
+      define_attribute :allow_any_item_on_subscriptions, :Boolean
+
       # @!attribute auto_renew
       #   @return [Boolean] Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.
       define_attribute :auto_renew, :Boolean
@@ -58,9 +62,17 @@ module Recurly
       #   @return [String] Object type
       define_attribute :object, String
 
+      # @!attribute revenue_schedule_type
+      #   @return [String] Revenue schedule type
+      define_attribute :revenue_schedule_type, String
+
       # @!attribute setup_fee_accounting_code
       #   @return [String] Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
       define_attribute :setup_fee_accounting_code, String
+
+      # @!attribute setup_fee_revenue_schedule_type
+      #   @return [String] Setup fee revenue schedule type
+      define_attribute :setup_fee_revenue_schedule_type, String
 
       # @!attribute state
       #   @return [String] The current state of the plan.
@@ -81,6 +93,10 @@ module Recurly
       # @!attribute trial_length
       #   @return [Integer] Length of plan's trial period in `trial_units`. `0` means `no trial`.
       define_attribute :trial_length, Integer
+
+      # @!attribute trial_requires_billing_info
+      #   @return [Boolean] Allow free trial subscriptions to be created without billing info. Should not be used if billing info is needed for initial invoice due to existing uninvoiced charges or setup fee.
+      define_attribute :trial_requires_billing_info, :Boolean
 
       # @!attribute trial_unit
       #   @return [String] Units for the plan's trial period.

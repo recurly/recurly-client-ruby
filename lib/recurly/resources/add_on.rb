@@ -19,8 +19,8 @@ module Recurly
       define_attribute :created_at, DateTime
 
       # @!attribute currencies
-      #   @return [Array[AddOnPricing]] Add-on pricing
-      define_attribute :currencies, Array, { :item_type => :AddOnPricing }
+      #   @return [Array[Pricing]] Add-on pricing
+      define_attribute :currencies, Array, { :item_type => :Pricing }
 
       # @!attribute default_quantity
       #   @return [Integer] Default quantity for the hosted pages.
@@ -34,9 +34,17 @@ module Recurly
       #   @return [Boolean] Determines if the quantity field is displayed on the hosted pages for the add-on.
       define_attribute :display_quantity, :Boolean
 
+      # @!attribute external_sku
+      #   @return [String] Optional, stock keeping unit to link the item to other inventory systems.
+      define_attribute :external_sku, String
+
       # @!attribute id
       #   @return [String] Add-on ID
       define_attribute :id, String
+
+      # @!attribute item
+      #   @return [ItemMini] Just the important parts.
+      define_attribute :item, :ItemMini
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.
@@ -46,9 +54,17 @@ module Recurly
       #   @return [String] Object type
       define_attribute :object, String
 
+      # @!attribute optional
+      #   @return [Boolean] Whether the add-on is optional for the customer to include in their purchase on the hosted payment page. If false, the add-on will be included when a subscription is created through the Recurly UI. However, the add-on will not be included when a subscription is created through the API.
+      define_attribute :optional, :Boolean
+
       # @!attribute plan_id
       #   @return [String] Plan ID
       define_attribute :plan_id, String
+
+      # @!attribute revenue_schedule_type
+      #   @return [String] When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.
+      define_attribute :revenue_schedule_type, String
 
       # @!attribute state
       #   @return [String] Add-ons can be either active or inactive.
@@ -57,6 +73,14 @@ module Recurly
       # @!attribute tax_code
       #   @return [String] Used by Avalara, Vertex, and Recurly’s EU VAT tax feature. The tax code values are specific to each tax system. If you are using Recurly’s EU VAT feature you can use `unknown`, `physical`, or `digital`.
       define_attribute :tax_code, String
+
+      # @!attribute tier_type
+      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+      define_attribute :tier_type, String
+
+      # @!attribute tiers
+      #   @return [Array[Tier]] Tiers
+      define_attribute :tiers, Array, { :item_type => :Tier }
 
       # @!attribute updated_at
       #   @return [DateTime] Last updated at

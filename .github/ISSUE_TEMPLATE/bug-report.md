@@ -11,7 +11,7 @@ _Warning_: Github issues are not an official support channel for Recurly. If you
 
 **Describe the bug**
 
-A clear and concise description of what the bug is.
+A clear and concise description of what the bug is. Please include a full stack trace if available.
 
 **To Reproduce**
 

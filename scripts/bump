@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 set -e
 
-bump2version "$@"
+if [ "$1" == "--next-version" ]; then
+  shift
+  bump2version --dry-run --list "$@" | grep new_version | cut -d "=" -f 2
+elif [ "$1" == "--this-version" ]; then
+  grep current_version .bumpversion.cfg | awk -F" = " '{print $2}'
+else
+  bump2version "$@"
+fi

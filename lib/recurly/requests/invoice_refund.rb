@@ -7,8 +7,8 @@ module Recurly
     class InvoiceRefund < Request
 
       # @!attribute amount
-      #   @return [Integer] The amount to be refunded. The amount will be split between the line items. If no amount is specified, it will default to refunding the total refundable amount on the invoice.
-      define_attribute :amount, Integer
+      #   @return [Float] The amount to be refunded. The amount will be split between the line items. If no amount is specified, it will default to refunding the total refundable amount on the invoice.
+      define_attribute :amount, Float
 
       # @!attribute credit_customer_notes
       #   @return [String] Used as the Customer Notes on the credit invoice.  This field can only be include when the Credit Invoices feature is enabled.

@@ -30,9 +30,25 @@ module Recurly
       #   @return [String] Credit card number's first six digits.
       define_attribute :first_six, String
 
+      # @!attribute gateway_code
+      #   @return [String] An identifier for a specific payment gateway.
+      define_attribute :gateway_code, String
+
+      # @!attribute gateway_token
+      #   @return [String] A token used in place of a credit card in order to perform transactions.
+      define_attribute :gateway_token, String
+
       # @!attribute last_four
       #   @return [String] Credit card number's last four digits. Will refer to bank account if payment method is ACH.
       define_attribute :last_four, String
+
+      # @!attribute last_two
+      #   @return [String] The IBAN bank account's last two digits.
+      define_attribute :last_two, String
+
+      # @!attribute name_on_account
+      #   @return [String] The name associated with the bank account.
+      define_attribute :name_on_account, String
 
       # @!attribute object
       #   @return [String]

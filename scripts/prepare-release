@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -e
+
+# major,minor,patch
+PART=${1}
+NEXT_VERSION=$(./scripts/bump --next-version "$PART")
+UNRELEASED_LOG="/tmp/ruby-pending-changes.md"
+
+if [ -z "$NEXT_VERSION" ]; then
+  echo "Failed to get next version"
+else
+  # Generate pending changes in tmpfile
+  ./scripts/changelog --pending $UNRELEASED_LOG
+  # Add a git message header of Release X.Y.Z
+  printf "Release %s\n\n$(cat $UNRELEASED_LOG)" "$NEXT_VERSION" > $UNRELEASED_LOG
+  # Delete credit line
+  sed -i '' -e '$ d' $UNRELEASED_LOG
+
+  git checkout -b "release-$NEXT_VERSION"
+
+  # Actually bump the version
+  ./scripts/bump "$PART"
+
+  # Rebuild docs
+  ./scripts/build
+
+  # Make the commit
+  git add . --all
+  git commit -F "$UNRELEASED_LOG"
+
+  # Push up this branch for PR
+  git push origin "release-$NEXT_VERSION"
+
+  # Create PR
+  hub pull-request -c -F "$UNRELEASED_LOG"
+fi
