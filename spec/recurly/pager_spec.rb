@@ -4,7 +4,7 @@ require "date"
 RSpec.describe Recurly::Pager do
   let(:subdomain) { "test" }
   let(:api_key) { "recurly-good" }
-  let(:client) { Recurly::Client.new(api_key: api_key, subdomain: subdomain) }
+  let(:client) { Recurly::Client.new(api_key: api_key) }
   let(:path) { "/next_url" }
   let(:options) { { params: { a: 1, b: "testing" } } }
   subject do
