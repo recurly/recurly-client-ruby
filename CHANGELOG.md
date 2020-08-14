@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.13"></a>
+## v.2.18.13 (2020-08-14)
+
+* Remove surcharge as Avalara recommends [PR](https://github.com/recurly/recurly-client-ruby/pull/618)
+* Establish association between Tier and SubscriptionAddOn [PR](https://github.com/recurly/recurly-client-ruby/pull/620)
+
 <a name="v2.18.12"></a>
 ## v.2.18.12 (2020-07-22)
 
