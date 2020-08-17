@@ -325,14 +325,6 @@ module Recurly
       path % options
     end
 
-    def set_site_id(site_id, subdomain)
-      if site_id
-        @site_id = site_id
-      elsif subdomain
-        @site_id = "subdomain-#{subdomain}"
-      end
-    end
-
     def set_api_key(api_key)
       @api_key = api_key
     end
