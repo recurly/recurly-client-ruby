@@ -1,6 +1,13 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.14"></a>
+## v.2.18.14 (2020-08-20)
+
+This bumps us up to API version 2.29. There are no breaking changes.
+
+* Add tax identifier fields to billing info [PR](https://github.com/recurly/recurly-client-ruby/pull/625)
+
 <a name="v2.18.13"></a>
 ## v.2.18.13 (2020-08-14)
 
