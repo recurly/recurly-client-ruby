@@ -40,6 +40,8 @@ module Recurly
       three_d_secure_action_result_token_id
       transaction_type
       mandate_reference
+      tax_identifier
+      tax_identifier_type
     ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES | ROKU_ATTRIBUTES | SEPA_ATTRIBUTES | BACS_ATTRIBUTES | BECS_ATTRIBUTES
 
     # @return [String]
