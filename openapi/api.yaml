@@ -12650,6 +12650,7 @@ paths:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       - "$ref": "#/components/parameters/add_on_id"
+      - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
       - "$ref": "#/components/parameters/usage_sort_dates"
@@ -14962,6 +14963,22 @@ components:
           - evenly
           - at_range_end
           - at_range_start
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -15153,6 +15170,24 @@ components:
             be included when a subscription is created through the Recurly UI. However,
             the add-on will not be included when a subscription is created through
             the API.
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `AddOn`,
+            then the `avalara_transaction_type` must be absent.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `AddOn`,
+            then the `avalara_service_type` must be absent.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -15266,6 +15301,24 @@ components:
           - evenly
           - at_range_end
           - at_range_start
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `AddOn`,
+            then the `avalara_transaction_type` must be absent.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the add-on is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `AddOn`,
+            then the `avalara_service_type` must be absent.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -16320,6 +16373,22 @@ components:
           - evenly
           - at_range_end
           - at_range_start
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -16393,6 +16462,22 @@ components:
           - evenly
           - at_range_end
           - at_range_start
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -16454,6 +16539,22 @@ components:
           - evenly
           - at_range_end
           - at_range_start
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the item is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -17254,6 +17355,22 @@ components:
             If not defined, then defaults to the Plan and Site settings. This attribute
             does not work for credits (negative line items). Credits are always applied
             post-tax. Pre-tax discounts should use the Coupons feature."
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the line item is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the line item is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -17419,6 +17536,24 @@ components:
             If not defined, then defaults to the Plan and Site settings. This attribute
             does not work for credits (negative line items). Credits are always applied
             post-tax. Pre-tax discounts should use the Coupons feature."
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the line item is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `LineItem`,
+            then the `avalara_transaction_type` must be absent.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the line item is taxed.
+            Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types. If an `Item` is associated to the `LineItem`,
+            then the `avalara_service_type` must be absent.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -17607,6 +17742,22 @@ components:
             fee. If no value is provided, it defaults to plan's accounting code.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 20
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -17755,6 +17906,22 @@ components:
             fee. If no value is provided, it defaults to plan's accounting code.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 20
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -17934,6 +18101,22 @@ components:
             fee. If no value is provided, it defaults to plan's accounting code.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 20
+        avalara_transaction_type:
+          type: integer
+          title: Avalara Transaction Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
+        avalara_service_type:
+          type: integer
+          title: Avalara Service Type
+          description: Used by Avalara for Communications taxes. The transaction type
+            in combination with the service type describe how the plan is taxed. Refer
+            to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
+            for more available t/s types.
+          minimum: 0
         tax_code:
           type: string
           title: Tax code
@@ -19055,10 +19238,11 @@ components:
           type: array
           title: Add-ons
           description: |
-            If you provide a value for this field it will replace any
-            existing add-ons. So, when adding or modifying an add-on, you need to
-            include the existing subscription add-ons. Unchanged add-ons can be included
-            just using the subscription add-on's ID: `{"id": "abc123"}`.
+            If this value is omitted your existing add-ons will be removed. If you provide
+            a value for this field it will replace any existing add-ons. So, when adding or
+            modifying an add-on, you need to include the existing subscription add-ons.
+            Unchanged add-ons can be included just using the subscription add-on's ID:
+            `{"id": "abc123"}`.
 
             If a subscription add-on's `code` is supplied without the `id`,
             `{"code": "def456"}`, the subscription add-on attributes will be set to the
@@ -20119,8 +20303,8 @@ components:
               type: string
               title: Shipping address ID
               description: Assign a shipping address from the account's existing shipping
-                addresses. If this and `shipping_address` are both present, `shipping_address`
-                will take precedence.
+                addresses. If this and `address` are both present, `address` will
+                take precedence.
               maxLength: 13
             address:
               "$ref": "#/components/schemas/ShippingAddressCreate"
@@ -20312,6 +20496,7 @@ components:
                 title: Category
                 enum:
                 - 3d_secure_required
+                - 3d_secure_action_required
                 - amazon
                 - api_error
                 - approved
