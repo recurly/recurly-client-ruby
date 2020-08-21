@@ -1,8 +1,20 @@
 # Changelog
 
-## [3.10.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
+## [3.11.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.9.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.10.0...HEAD)
+
+**Implemented enhancements:**
+
+- Fri Aug 21 16:17:28 UTC 2020 Upgrade API version v2019-10-10 [\#629](https://github.com/recurly/recurly-client-ruby/pull/629) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.11.0 [\#630](https://github.com/recurly/recurly-client-ruby/pull/630) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.10.0](https://github.com/recurly/recurly-client-ruby/tree/3.10.0) (2020-07-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.9.0...3.10.0)
 
 **Implemented enhancements:**
 
