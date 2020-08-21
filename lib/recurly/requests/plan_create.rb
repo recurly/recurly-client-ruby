@@ -22,6 +22,14 @@ module Recurly
       #   @return [Boolean] Subscriptions will automatically inherit this value once they are active. If `auto_renew` is `true`, then a subscription will automatically renew its term at renewal. If `auto_renew` is `false`, then a subscription will expire at the end of its term. `auto_renew` can be overridden on the subscription record itself.
       define_attribute :auto_renew, :Boolean
 
+      # @!attribute avalara_service_type
+      #   @return [Integer] Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the plan is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+      define_attribute :avalara_service_type, Integer
+
+      # @!attribute avalara_transaction_type
+      #   @return [Integer] Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the plan is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+      define_attribute :avalara_transaction_type, Integer
+
       # @!attribute code
       #   @return [String] Unique code to identify the plan. This is used in Hosted Payment Page URLs and in the invoice exports.
       define_attribute :code, String

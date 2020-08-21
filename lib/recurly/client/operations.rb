@@ -3316,6 +3316,18 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
+    # @param ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
     # @param limit [Integer] Limit number of records 1-200.
     # @param order [String] Sort order.
     # @param sort [String] Sort field. You *really* only want to sort by +usage_timestamp+ in ascending
