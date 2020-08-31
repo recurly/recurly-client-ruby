@@ -67,7 +67,7 @@ module Recurly
       define_attribute :name, String
 
       # @!attribute plan_codes
-      #   @return [Array[String]] List of plan codes to which this coupon applies. See `applies_to_all_plans`
+      #   @return [Array[String]] List of plan codes to which this coupon applies. Required if `applies_to_all_plans` is false. Overrides `applies_to_all_plans` when `applies_to_all_plans` is true.
       define_attribute :plan_codes, Array, { :item_type => String }
 
       # @!attribute redeem_by_date

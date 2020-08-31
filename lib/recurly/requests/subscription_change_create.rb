@@ -18,6 +18,10 @@ module Recurly
       #   @return [Array[String]] A list of coupon_codes to be redeemed on the subscription during the change. Only allowed if timeframe is now and you change something about the subscription that creates an invoice.
       define_attribute :coupon_codes, Array, { :item_type => String }
 
+      # @!attribute custom_fields
+      #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
+
       # @!attribute net_terms
       #   @return [Integer] Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.
       define_attribute :net_terms, Integer

@@ -15797,13 +15797,17 @@ components:
           applies_to_all_plans:
             type: boolean
             title: Applies to all plans?
-            description: The coupon is valid for all plans if true. If false then
+            description: |
+              The coupon is valid for all plans if true. If false then
               `plans` and `plans_names` will list the applicable plans.
             default: true
           plan_codes:
             type: array
             title: Plan codes
-            description: List of plan codes to which this coupon applies. See `applies_to_all_plans`
+            description: |
+              List of plan codes to which this coupon applies. Required
+              if `applies_to_all_plans` is false. Overrides `applies_to_all_plans`
+              when `applies_to_all_plans` is true.
             items:
               type: string
           duration:
@@ -19163,6 +19167,8 @@ components:
         invoice_collection:
           title: Invoice Collection
           "$ref": "#/components/schemas/InvoiceCollection"
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
         created_at:
           type: string
           format: date-time
@@ -19271,6 +19277,8 @@ components:
           - evenly
           - at_range_end
           - at_range_start
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
         po_number:
           type: string
           title: Purchase order number
