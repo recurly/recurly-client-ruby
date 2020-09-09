@@ -40,6 +40,7 @@ module Recurly
   require 'recurly/gift_card'
   require 'recurly/purchase'
   require 'recurly/webhook'
+  require 'recurly/verify'
   require 'recurly/tier'
 
   @subdomain = nil
