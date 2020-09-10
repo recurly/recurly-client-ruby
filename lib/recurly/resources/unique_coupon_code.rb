@@ -6,6 +6,14 @@ module Recurly
   module Resources
     class UniqueCouponCode < Resource
 
+      # @!attribute bulk_coupon_code
+      #   @return [String] The Coupon code of the parent Bulk Coupon
+      define_attribute :bulk_coupon_code, String
+
+      # @!attribute bulk_coupon_id
+      #   @return [String] The Coupon ID of the parent Bulk Coupon
+      define_attribute :bulk_coupon_id, String
+
       # @!attribute code
       #   @return [String] The code the customer enters to redeem the coupon.
       define_attribute :code, String

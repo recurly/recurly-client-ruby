@@ -14,6 +14,14 @@ module Recurly
       #   @return [Boolean] The coupon is valid for one-time, non-plan charges if true.
       define_attribute :applies_to_non_plan_charges, :Boolean
 
+      # @!attribute bulk_coupon_code
+      #   @return [String] The Coupon code of the parent Bulk Coupon
+      define_attribute :bulk_coupon_code, String
+
+      # @!attribute bulk_coupon_id
+      #   @return [String] The Coupon ID of the parent Bulk Coupon
+      define_attribute :bulk_coupon_id, String
+
       # @!attribute code
       #   @return [String] The code the customer enters to redeem the coupon.
       define_attribute :code, String
