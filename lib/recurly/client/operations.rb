@@ -3615,13 +3615,13 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/get_export_files get_export_files api documenation}
     #
-    # @param date [String] Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.
+    # @param export_date [String] Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ExportFiles] Returns a list of export files to download.
     #
-    def get_export_files(**options)
-      path = interpolate_path("/export_dates/{export_date}/export_files")
+    def get_export_files(export_date:, **options)
+      path = interpolate_path("/export_dates/{export_date}/export_files", export_date: export_date)
       get(path, **options)
     end
   end
