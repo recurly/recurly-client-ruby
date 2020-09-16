@@ -91,6 +91,48 @@ XML
     end
   end
 
+  describe 'verify' do
+    it 'verifies billing info' do
+      stub_api_request(
+        :get, 'accounts/abcdef1234567890/billing_info', 'billing_info/show-200'
+      )
+      stub_api_request(
+        :post, 'accounts/abcdef1234567890/billing_info/verify', 'billing_info/verify-200'
+      )
+      billing_info = BillingInfo.find 'abcdef1234567890'
+      verified = billing_info.verify
+      verified.must_be_instance_of Recurly::Transaction
+      verified.origin.must_equal "api_verify_card"
+    end
+
+    it 'sends specified gateway code' do
+      stub_api_request(
+        :get, 'accounts/abcdef1234567890/billing_info', 'billing_info/show-200'
+      )
+      stub_api_request(
+        :post, 'accounts/abcdef1234567890/billing_info/verify', 'billing_info/verify-200'
+      )
+      billing_info = BillingInfo.find 'abcdef1234567890'
+      gateway = {gateway_code: "gateway_code"}
+      verified = billing_info.verify(gateway)
+      Recurly::Verify.to_xml(gateway).must_equal "<verify><gateway_code>gateway_code</gateway_code></verify>"
+      verified.must_be_instance_of Recurly::Transaction
+      verified.origin.must_equal "api_verify_card"
+    end
+
+    it 'only verifies credit cards' do
+      stub_api_request(
+        :get, 'accounts/abcdef1234567890/billing_info', 'billing_info/show-200-bank-account'
+      )
+      stub_api_request(
+        :post, 'accounts/abcdef1234567890/billing_info/verify', 'billing_info/verify-422'
+      )
+      billing_info = BillingInfo.find 'abcdef1234567890'
+      error = proc { billing_info.verify }.must_raise API::UnprocessableEntity
+      error.message.must_equal 'Only stored credit card billing information can be verified at this time'
+    end
+  end
+
   describe 'marshal methods' do
     it 'must return the same instance variables' do
       stub_api_request(

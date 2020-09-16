@@ -1,0 +1,61 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<transaction href="https://api.recurly.com/v2/transactions/abcdef1234567890" type="credit_card">
+  <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
+  <uuid>55e508df05ca7ea5bb9da34d98be5d61</uuid>
+  <action>verify</action>
+  <amount_in_cents type="integer">0</amount_in_cents>
+  <tax_in_cents type="integer">0</tax_in_cents>
+  <currency>USD</currency>
+  <status>success</status>
+  <payment_method>credit_card</payment_method>
+  <reference>1903896</reference>
+  <source>billing_info</source>
+  <recurring type="boolean">false</recurring>
+  <test type="boolean">true</test>
+  <voidable type="boolean">false</voidable>
+  <refundable type="boolean">false</refundable>
+  <ip_address nil="nil"></ip_address>
+  <gateway_type>test</gateway_type>
+  <origin>api_verify_card</origin>
+  <description nil="nil"></description>
+  <message>Successful test transaction</message>
+  <approval_code nil="nil"></approval_code>
+  <failure_type nil="nil"></failure_type>
+  <gateway_error_codes nil="nil"></gateway_error_codes>
+  <cvv_result code="" nil="nil"></cvv_result>
+  <avs_result code="D">Street address and postal code match.</avs_result>
+  <avs_result_street nil="nil"></avs_result_street>
+  <avs_result_postal nil="nil"></avs_result_postal>
+  <created_at type="datetime">2020-09-10T04:19:44Z</created_at>
+  <collected_at type="datetime">2020-09-10T04:19:44Z</collected_at>
+  <updated_at type="datetime">2020-09-10T04:19:44Z</updated_at>
+  <details>
+    <account>
+      <account_code>abcdef1234567890</account_code>
+      <first_name>Vera</first_name>
+      <last_name>Verification</last_name>
+      <company nil="nil"></company>
+      <email nil="nil"></email>
+      <billing_info type="credit_card">
+        <first_name>Vera</first_name>
+        <last_name>Verification</last_name>
+        <address1>11060 US-31</address1>
+        <address2 nil="nil"></address2>
+        <city>Elk Rapids</city>
+        <state>MI</state>
+        <zip>49629</zip>
+        <country>US</country>
+        <phone nil="nil"></phone>
+        <vat_number nil="nil"></vat_number>
+        <card_type>Visa</card_type>
+        <year type="integer">2045</year>
+        <month type="integer">12</month>
+        <first_six>411111</first_six>
+        <last_four>1111</last_four>
+      </billing_info>
+    </account>
+  </details>
+</transaction>
