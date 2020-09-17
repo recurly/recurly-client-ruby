@@ -44,6 +44,15 @@ module Recurly
       tax_identifier_type
     ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES | ROKU_ATTRIBUTES | SEPA_ATTRIBUTES | BACS_ATTRIBUTES | BECS_ATTRIBUTES
 
+    # Verify an account's stored billing info
+    #
+    # @param [Hash] gateway_code (optional) is the code for the gateway to use for verification. If unspecified, a gateway will be selected using the normal rules.
+    # @return [Transaction]
+    # @raise [Invalid] Raise if the account's billing info cannot be verified
+    def verify(attrs = {})
+      Transaction.from_response API.post("#{path}/verify", attrs.empty? ? nil : Verify.to_xml(attrs))
+    end
+
     # @return [String]
     def inspect
       attributes = self.class.attribute_names
