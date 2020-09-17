@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.15"></a>
+## v.2.18.15 (2020-09-17)
+
+* New endpoint to verify an account's billing information [PR](https://github.com/recurly/recurly-client-ruby/pull/636)
+
 <a name="v2.18.14"></a>
 ## v.2.18.14 (2020-08-20)
 
