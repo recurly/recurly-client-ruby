@@ -87,7 +87,7 @@ module Recurly
       define_attribute :plans, Array, { :item_type => :PlanMini }
 
       # @!attribute plans_names
-      #   @return [Array[String]] TODO
+      #   @return [Array[String]] A list of plan names for which this coupon applies.
       define_attribute :plans_names, Array, { :item_type => String }
 
       # @!attribute redeem_by

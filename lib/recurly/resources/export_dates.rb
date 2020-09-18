@@ -9,6 +9,10 @@ module Recurly
       # @!attribute dates
       #   @return [Array[String]] An array of dates that have available exports.
       define_attribute :dates, Array, { :item_type => String }
+
+      # @!attribute object
+      #   @return [String] Object type
+      define_attribute :object, String
     end
   end
 end

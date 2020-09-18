@@ -75,7 +75,7 @@ module Recurly
       define_attribute :tax_code, String
 
       # @!attribute tier_type
-      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how to configure quantity-based pricing models.
       define_attribute :tier_type, String
 
       # @!attribute tiers
@@ -87,7 +87,7 @@ module Recurly
       define_attribute :usage_percentage, Float
 
       # @!attribute usage_type
-      #   @return [String] Type of usage, required if `add_on_type` is `usage`.
+      #   @return [String] Type of usage, required if `add_on_type` is `usage`. See our [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an overview of how to configure usage add-ons.
       define_attribute :usage_type, String
     end
   end
