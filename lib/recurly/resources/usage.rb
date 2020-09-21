@@ -46,9 +46,17 @@ module Recurly
       #   @return [Array[SubscriptionAddOnTier]] The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = null
       define_attribute :tiers, Array, { :item_type => :SubscriptionAddOnTier }
 
+      # @!attribute unit_amount
+      #   @return [Float] Unit price
+      define_attribute :unit_amount, Float
+
       # @!attribute updated_at
       #   @return [DateTime] When the usage record was billed on an invoice.
       define_attribute :updated_at, DateTime
+
+      # @!attribute usage_percentage
+      #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
+      define_attribute :usage_percentage, Float
 
       # @!attribute usage_timestamp
       #   @return [DateTime] When the usage actually happened. This will define the line item dates this usage is billed under and is important for revenue recognition.

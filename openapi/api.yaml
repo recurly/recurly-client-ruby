@@ -158,6 +158,7 @@ x-tagGroups:
   - shipping_address
   - purchase
   - usage
+  - automated_exports
 - name: Products and Promotions
   tags:
   - item
@@ -282,6 +283,9 @@ tags:
 - name: shipping_method
   x-displayName: Shipping Method
   description: Shipping methods offered to send products to customers.
+- name: automated_exports
+  x-displayName: Automated Exports
+  description: Automated exports of customer data.
 paths:
   "/sites":
     get:
@@ -13627,6 +13631,79 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Preview Charge
           Invoice %v\", collection.ChargeInvoice)"
+  "/sites/{site_id}/export_dates":
+    parameters:
+    - "$ref": "#/components/parameters/site_id"
+    get:
+      tags:
+      - automated_exports
+      operationId: get_export_dates
+      summary: List the dates that have an available export to download.
+      description: Returns a list of dates for which export files are available for
+        download.
+      responses:
+        '200':
+          description: Returns a list of dates.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExportDates"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/sites/{site_id}/export_dates/{export_date}/export_files":
+    parameters:
+    - "$ref": "#/components/parameters/site_id"
+    - "$ref": "#/components/parameters/export_date"
+    get:
+      tags:
+      - automated_exports
+      operationId: get_export_files
+      summary: List of the export files that are available to download.
+      description: Returns a list of presigned URLs to download export files for the
+        given date, with their MD5 sums.
+      responses:
+        '200':
+          description: Returns a list of export files to download.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExportFiles"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site ID or date.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
 servers:
 - url: https://v3.recurly.com
 components:
@@ -13991,6 +14068,14 @@ components:
         - credit
         - non-legacy
         - legacy
+    export_date:
+      name: export_date
+      in: path
+      description: Date for which to get a list of available automated export files.
+        Date must be in YYYY-MM-DD format.
+      required: true
+      schema:
+        type: string
   securitySchemes:
     api_key:
       type: http
@@ -15103,7 +15188,10 @@ components:
           - price
           - percentage
           title: Usage Type
-          description: Type of usage, required if `add_on_type` is `usage`.
+          description: |
+            Type of usage, required if `add_on_type` is `usage`. See our
+            [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html)
+            for an overview of how to configure usage add-ons.
         usage_percentage:
           type: number
           format: float
@@ -15216,7 +15304,9 @@ components:
           title: Tier type
           description: |
             The pricing model for the add-on.  For more information,
-            [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+            [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See
+            our [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview
+            of how to configure quantity-based pricing models.
           default: flat
           enum:
           - flat
@@ -15671,8 +15761,8 @@ components:
           default: false
         plans_names:
           type: array
-          title: 'Plan names (TODO: decide if this duplicates `plans`)'
-          description: TODO
+          title: Plan names
+          description: A list of plan names for which this coupon applies.
           items:
             type: string
         plans:
@@ -15695,7 +15785,7 @@ components:
           "$ref": "#/components/schemas/CouponDiscount"
         coupon_type:
           type: string
-          title: 'Coupon type (TODO: implement coupon generation)'
+          title: Coupon type
           description: Whether the coupon is "single_code" or "bulk". Bulk coupons
             will require a `unique_code_template` and will generate unique codes through
             the `/generate` endpoint.
@@ -15719,6 +15809,15 @@ components:
           description: The date and time the coupon will expire and can no longer
             be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
           format: date-time
+        bulk_coupon_id:
+          type: string
+          title: Bulk Coupon ID
+          description: The Coupon ID of the parent Bulk Coupon
+          readOnly: true
+        bulk_coupon_code:
+          type: string
+          title: Bulk Coupon code
+          description: The Coupon code of the parent Bulk Coupon
         redeemed_at:
           type: string
           title: Redeemed at
@@ -15974,7 +16073,7 @@ components:
           "$ref": "#/components/schemas/CouponDiscount"
         coupon_type:
           type: string
-          title: 'Coupon type (TODO: implement coupon generation)'
+          title: Coupon type
           description: Whether the coupon is "single_code" or "bulk". Bulk coupons
             will require a `unique_code_template` and will generate unique codes through
             the `/generate` endpoint.
@@ -16611,6 +16710,7 @@ components:
           - credit
           - gift_card
           - write_off
+          - prepayment
         state:
           type: string
           title: Invoice state
@@ -17579,12 +17679,16 @@ components:
         origin:
           type: string
           title: Origin
-          description: Only allowed if the Gift Cards feature is enabled on your site
-            and `type` is `credit`. Can only have a value of `external_gift_card`.
-            Set this value in order to track gift card credits from external gift
-            cards (like InComm). It also skips billing information requirements.
+          description: Origin `external_gift_card` is allowed if the Gift Cards feature
+            is enabled on your site and `type` is `credit`. Set this value in order
+            to track gift card credits from external gift cards (like InComm). It
+            also skips billing information requirements.  Origin `prepayment` is only
+            allowed if `type` is `charge` and `tax_exempt` is left blank or set to
+            true.  This origin creates a charge and opposite credit on the account
+            to be used for future invoices.
           enum:
           - external_gift_card
+          - prepayment
         start_date:
           type: string
           format: date-time
@@ -18990,7 +19094,8 @@ components:
             If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount`.
             There must be one tier with an `ending_quantity` of 999999999 which is the
-            default if not provided.
+            default if not provided. See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
+            for an overview of how to configure quantity-based pricing models.
         usage_percentage:
           type: number
           format: float
@@ -18998,7 +19103,8 @@ components:
           description: The percentage taken of the monetary amount of usage tracked.
             This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
             if `add_on_type` is usage and `usage_type` is percentage. Must be omitted
-            otherwise. `usage_percentage` does not support tiers.
+            otherwise. `usage_percentage` does not support tiers. See our [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html)
+            for an overview of how to configure usage add-ons.
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -20042,6 +20148,7 @@ components:
             to current datetime.
     UniqueCouponCode:
       type: object
+      description: A unique coupon code for a bulk coupon.
       properties:
         id:
           type: string
@@ -20064,6 +20171,15 @@ components:
           - maxed_out
           - expired
           - inactive
+        bulk_coupon_id:
+          type: string
+          title: Bulk Coupon ID
+          description: The Coupon ID of the parent Bulk Coupon
+          readOnly: true
+        bulk_coupon_code:
+          type: string
+          title: Bulk Coupon code
+          description: The Coupon code of the parent Bulk Coupon
         created_at:
           type: string
           title: Created at
@@ -20162,6 +20278,16 @@ components:
           format: date-time
           description: When the usage actually happened. This will define the line
             item dates this usage is billed under and is important for revenue recognition.
+        usage_percentage:
+          type: number
+          format: float
+          title: Usage Percentage
+          description: The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places. A value between 0.0 and 100.0.
+        unit_amount:
+          type: number
+          format: float
+          title: Unit price
         billed_at:
           type: string
           format: date-time
@@ -20657,3 +20783,41 @@ components:
                   a transaction. Pass this value to Recurly.js so it can continue
                   the challenge flow.
                 maxLength: 22
+    ExportDates:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          readOnly: true
+        dates:
+          type: array
+          items:
+            type: string
+          title: An array of dates that have available exports.
+    ExportFiles:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          readOnly: true
+        files:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExportFile"
+    ExportFile:
+      type: object
+      properties:
+        name:
+          type: string
+          title: Filename
+          description: Name of the export file.
+        md5sum:
+          type: string
+          title: MD5 hash of the export file
+          description: MD5 hash of the export file.
+        href:
+          type: string
+          title: A link to the export file
+          description: A presigned link to download the export file.
