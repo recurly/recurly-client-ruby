@@ -272,7 +272,7 @@ RSpec.describe Recurly::Client do
     end
   end
 
-  context "with unsucessful responses" do
+  context "with unsuccessful responses" do
     let(:response) do
       resp = Net::HTTPInternalServerError.new(1.0, "500", "Internal server error")
       allow(resp).to receive(:body) do
