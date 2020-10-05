@@ -273,49 +273,84 @@ RSpec.describe Recurly::Client do
   end
 
   context "with unsuccessful responses" do
-    let(:response) do
-      resp = Net::HTTPInternalServerError.new(1.0, "500", "Internal server error")
-      allow(resp).to receive(:body) do
-        <<-JSON
-        {
-          "error": {
-            "object": "error",
-            "type": "internal_server_error",
-            "message": "Something happened"
-          }
-        }
-        JSON
-      end
-      allow(resp).to receive(:content_type).and_return "application/json; charset=utf-8"
-      resp_headers.each { |key, v| resp[key] = v }
-      resp
-    end
-
-    describe "#get" do
-      it "should raise an APIError" do
-        expect(net_http).to receive(:request).twice.and_return(response)
-        expect {
-          subject.get_account(account_id: "code-benjamin-du-monde")
-        }.to raise_error(Recurly::Errors::InternalServerError)
-      end
-    end
-
-    context "retries" do
-      let(:successful_response) do
-        resp = Net::HTTPOK.new(1.0, "200", "OK")
+    context "known errors" do
+      let(:response) do
+        resp = Net::HTTPInternalServerError.new(1.0, "500", "Internal server error")
         allow(resp).to receive(:body) do
-          "{ \"object\": \"account\" }"
+          <<-JSON
+          {
+            "error": {
+              "object": "error",
+              "type": "internal_server_error",
+              "message": "Something happened"
+            }
+          }
+          JSON
         end
         allow(resp).to receive(:content_type).and_return "application/json; charset=utf-8"
         resp_headers.each { |key, v| resp[key] = v }
         resp
       end
 
-      it "should retry and return success" do
-        expect(net_http).to receive(:request).and_return(response)
-        expect(net_http).to receive(:request).and_return(successful_response)
-        account = subject.get_account(account_id: "code-benjamin du monde")
-        expect(account).to be_instance_of Recurly::Resources::Account
+      describe "#get" do
+        it "should raise an APIError" do
+          expect(net_http).to receive(:request).twice.and_return(response)
+          expect {
+            subject.get_account(account_id: "code-benjamin-du-monde")
+          }.to raise_error(Recurly::Errors::InternalServerError)
+        end
+      end
+
+      context "retries" do
+        let(:successful_response) do
+          resp = Net::HTTPOK.new(1.0, "200", "OK")
+          allow(resp).to receive(:body) do
+            "{ \"object\": \"account\" }"
+          end
+          allow(resp).to receive(:content_type).and_return "application/json; charset=utf-8"
+          resp_headers.each { |key, v| resp[key] = v }
+          resp
+        end
+
+        it "should retry and return success" do
+          expect(net_http).to receive(:request).and_return(response)
+          expect(net_http).to receive(:request).and_return(successful_response)
+          account = subject.get_account(account_id: "code-benjamin du monde")
+          expect(account).to be_instance_of Recurly::Resources::Account
+        end
+      end
+    end
+
+    context "unknown errors" do
+      let(:account_id) { "1234" }
+      let(:invoice_preview_path) { "/accounts/#{account_id}/invoices/preview" }
+      describe "#post" do
+        let(:response) do
+          resp = Net::HTTPConflict.new(1.0, "409", "Conflict")
+          allow(resp).to receive(:body) do
+            <<-JSON
+            {
+              "error": {
+                "type": "service_not_available",
+                "message": "Tax service currently not available, please try again later."
+              }
+            }
+            JSON
+          end
+          allow(resp).to receive(:content_type).and_return "application/json; charset=utf-8"
+          resp_headers.each { |key, v| resp[key] = v }
+          resp
+        end
+
+        it "raises an APIError" do
+          invoice_preview = { currency: "USD", collection_method: "automatic" }
+          Recurly::HTTP::Request.new(:post, invoice_preview_path, JSON.dump(invoice_preview))
+          expect(net_http).to receive(:request).and_return(response)
+
+          expect {
+            subject.preview_invoice(account_id: account_id, body: invoice_preview)
+          }.to raise_error(Recurly::Errors::APIError)
+        end
       end
     end
   end
