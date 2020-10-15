@@ -331,8 +331,8 @@ RSpec.describe Recurly::Client do
             <<-JSON
             {
               "error": {
-                "type": "service_not_available",
-                "message": "Tax service currently not available, please try again later."
+                "type": "unknown_error_type_code",
+                "message": "An Unknown Error type code has been returned."
               }
             }
             JSON
