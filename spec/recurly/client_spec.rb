@@ -326,7 +326,7 @@ RSpec.describe Recurly::Client do
       let(:invoice_preview_path) { "/accounts/#{account_id}/invoices/preview" }
       describe "#post" do
         let(:response) do
-          resp = Net::HTTPConflict.new(1.0, "409", "Conflict")
+          resp = Net::HTTPConflict.new(1.0, "0", "Conflict")
           allow(resp).to receive(:body) do
             <<-JSON
             {
