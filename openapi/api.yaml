@@ -5479,6 +5479,55 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/sites/{site_id}/coupons/{coupon_id}/restore":
+    put:
+      tags:
+      - coupon
+      operationId: restore_coupon
+      summary: Restore an inactive coupon
+      description: Make an expired coupon redeemable again. You can change editable
+        fields in this call.
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/coupon_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CouponUpdate"
+        required: true
+      responses:
+        '200':
+          description: The restored coupon.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Coupon"
+        '400':
+          description: Bad request, perhaps invalid JSON?
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or coupon ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/coupons/{coupon_id}/unique_coupon_codes":
     get:
       tags:
@@ -13666,7 +13715,83 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-      x-code-samples: []
+      x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const export_dates = await client.getExportDates()
+            export_dates.dates.forEach(date => {
+              console.log(`Exports are available for: ${date}`)
+            })
+          } catch (err) {
+            if (err instanceof recurly.ApiError) {
+              console.log('Unexpected error', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              export_dates = client.get_export_dates()
+              for date in export_dates.dates:
+                  print( "Exports are available for: %s" % date)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: ".NET"
+        source: |
+          try
+          {
+              ExportDates exportDates = client.GetExportDates();
+              foreach (var date in exportDates.Dates)
+              {
+                  System.Console.WriteLine($"Exports are available for: {date}");
+              }
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            export_dates = @client.get_export_dates()
+            export_dates.dates.each do |date|
+              puts "Exports are available for: #{date}"
+            end
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Java
+        source: |
+          try {
+              ExportDates exportDates = client.getExportDates();
+              for (String date : exportDates.getDates()) {
+                  System.out.println("Exports are available for: " + date);
+              }
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: PHP
+        source: |
+          try {
+              $export_dates = $client->getExportDates();
+              foreach($export_dates->getDates() as $date)
+              {
+                  echo "Exports are available for: {$date}" . PHP_EOL;
+              }
+          } catch (\Recurly\RecurlyError $e) {
+              echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Go
+        source: "exportDates, err := client.GetExportDates()\nif e, ok := err.(*recurly.Error);
+          ok {\n\tfmt.Printf(\"Unexpected Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfor
+          _, date := range exportDates.Dates {\n\tfmt.Println(\"Exports are available
+          for: \", date)\n}"
   "/sites/{site_id}/export_dates/{export_date}/export_files":
     parameters:
     - "$ref": "#/components/parameters/site_id"
@@ -13703,7 +13828,83 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-      x-code-samples: []
+      x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const export_files = await client.getExportFiles(export_date)
+            export_files.files.forEach(file => {
+              console.log(`Export file download URL: ${file.href}`)
+            })
+          } catch (err) {
+            if (err instanceof recurly.ApiError) {
+              console.log('Unexpected error', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              export_files = client.get_export_files(export_date)
+              for file in export_files.files:
+                  print( "Export file download URL: %s" % file.href)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: ".NET"
+        source: |
+          try
+          {
+              ExportFiles exportFiles = client.GetExportFiles(exportDate: exportDate);
+              foreach (var file in exportFiles.Files)
+              {
+                  System.Console.WriteLine($"Export file download URL: {file.Href}");
+              }
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            export_files = @client.get_export_files(export_date: export_date)
+            export_files.files.each do |file|
+              puts "Export file download URL: #{file.href}"
+            end
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Java
+        source: |
+          try {
+              ExportFiles exportFiles = client.getExportFiles(exportDate);
+              for (ExportFile file : exportFiles.getFiles()) {
+                  System.out.println("Export file download URL: " + file.getHref());
+              }
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError());
+          }
+      - lang: PHP
+        source: |
+          try {
+              $export_files = $client->getExportFiles($export_date);
+              foreach($export_files->getFiles() as $file)
+              {
+                  echo "Export file download URL: {$file->getHref()}" . PHP_EOL;
+              }
+          } catch (\Recurly\RecurlyError $e) {
+              echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Go
+        source: "exportFiles, err := client.GetExportFiles(exportDate)\nif e, ok :=
+          err.(*recurly.Error); ok {\n\tfmt.Printf(\"Unexpected Recurly error: %v\",
+          e)\n\treturn nil, err\n}\n\nfor _, file := range exportFiles.Files {\n\tfmt.Println(\"Export
+          file download URL: \", file.Href)\n}"
 servers:
 - url: https://v3.recurly.com
 components:
