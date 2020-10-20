@@ -1364,6 +1364,21 @@ module Recurly
       delete(path, **options)
     end
 
+    # Restore an inactive coupon
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/restore_coupon restore_coupon api documenation}
+    #
+    # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
+    # @param body [Requests::CouponUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponUpdate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Coupon] The restored coupon.
+    #
+    def restore_coupon(coupon_id:, body:, **options)
+      path = interpolate_path("/coupons/{coupon_id}/restore", coupon_id: coupon_id)
+      put(path, body, Requests::CouponUpdate, **options)
+    end
+
     # List unique coupon codes associated with a bulk coupon
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_unique_coupon_codes list_unique_coupon_codes api documenation}
@@ -3605,6 +3620,17 @@ module Recurly
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ExportDates] Returns a list of dates.
+    # @example
+    #   begin
+    #     export_dates = @client.get_export_dates()
+    #     export_dates.dates.each do |date|
+    #       puts "Exports are available for: #{date}"
+    #     end
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
     #
     def get_export_dates(**options)
       path = interpolate_path("/export_dates")
@@ -3619,6 +3645,17 @@ module Recurly
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ExportFiles] Returns a list of export files to download.
+    # @example
+    #   begin
+    #     export_files = @client.get_export_files(export_date: export_date)
+    #     export_files.files.each do |file|
+    #       puts "Export file download URL: #{file.href}"
+    #     end
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
     #
     def get_export_files(export_date:, **options)
       path = interpolate_path("/export_dates/{export_date}/export_files", export_date: export_date)
