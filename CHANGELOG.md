@@ -1,8 +1,21 @@
 # Changelog
 
-## [3.13.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
+## [3.14.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.12.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.13.0...HEAD)
+
+**Implemented enhancements:**
+
+- Mon Oct 19 20:38:03 UTC 2020 Upgrade API version v2019-10-10 [\#642](https://github.com/recurly/recurly-client-ruby/pull/642) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.14.0 [\#643](https://github.com/recurly/recurly-client-ruby/pull/643) ([douglasmiller](https://github.com/douglasmiller))
+- Fixes uninitialized constant `Recurly::Errors::ServiceNotAvailableError` [\#641](https://github.com/recurly/recurly-client-ruby/pull/641) ([ruyrocha](https://github.com/ruyrocha))
+
+## [3.13.0](https://github.com/recurly/recurly-client-ruby/tree/3.13.0) (2020-09-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.12.0...3.13.0)
 
 **Implemented enhancements:**
 
