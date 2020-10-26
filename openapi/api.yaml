@@ -20789,6 +20789,7 @@ components:
           - invalid_permissions
           - invalid_token
           - not_found
+          - service_not_available
           - simultaneous_request
           - transaction
           - unauthorized
