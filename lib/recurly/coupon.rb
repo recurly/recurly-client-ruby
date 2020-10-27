@@ -46,6 +46,8 @@ module Recurly
       unique_template_code
       free_trial_amount
       free_trial_unit
+      applies_to_all_items
+      item_codes
     )
     alias to_param coupon_code
 

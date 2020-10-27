@@ -11,6 +11,7 @@ describe Coupon do
     it "must return a coupon when available" do
       coupon.must_be_instance_of Coupon
       coupon.plan_codes.must_equal ['saul_good']
+      coupon.item_codes.must_equal ['huell_babineaux', 'patrick_kuby']
     end
   end
 
