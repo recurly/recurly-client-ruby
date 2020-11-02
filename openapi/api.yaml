@@ -2255,7 +2255,7 @@ paths:
       tags:
       - account
       - billing_info
-      operationId: get_billing_infos
+      operationId: list_billing_infos
       summary: Get the list of billing information associated with an account
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
@@ -2438,7 +2438,7 @@ paths:
       tags:
       - account
       - billing_info
-      operationId: remove_one_billing_info
+      operationId: remove_a_billing_info
       summary: Remove an account's billing information
       parameters:
       - "$ref": "#/components/parameters/site_id"

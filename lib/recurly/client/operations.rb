@@ -446,7 +446,7 @@ module Recurly
 
     # Get the list of billing information associated with an account
     #
-    # {https://developers.recurly.com/api/v2019-10-10#operation/get_billing_infos get_billing_infos api documenation}
+    # {https://developers.recurly.com/api/v2019-10-10#operation/list_billing_infos list_billing_infos api documenation}
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
@@ -475,7 +475,7 @@ module Recurly
     #
     # @return [Pager<Resources::BillingInfo>] A list of the the billing information for an account's
     #
-    def get_billing_infos(account_id:, **options)
+    def list_billing_infos(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/billing_infos", account_id: account_id)
       pager(path, **options)
     end
@@ -528,7 +528,7 @@ module Recurly
 
     # Remove an account's billing information
     #
-    # {https://developers.recurly.com/api/v2019-10-10#operation/remove_one_billing_info remove_one_billing_info api documenation}
+    # {https://developers.recurly.com/api/v2019-10-10#operation/remove_a_billing_info remove_a_billing_info api documenation}
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param billing_info_id [String] Billing Info ID.
@@ -536,7 +536,7 @@ module Recurly
     #
     # @return [Resources::Empty] Billing information deleted
     #
-    def remove_one_billing_info(account_id:, billing_info_id:, **options)
+    def remove_a_billing_info(account_id:, billing_info_id:, **options)
       path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}", account_id: account_id, billing_info_id: billing_info_id)
       delete(path, **options)
     end
