@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.16"></a>
+## v.2.18.16 (2020-11-05)
+
+* Support item-specific coupons [PR](https://github.com/recurly/recurly-client-ruby/pull/644)
+
 <a name="v2.18.15"></a>
 ## v.2.18.15 (2020-09-17)
 
