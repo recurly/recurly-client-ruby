@@ -444,6 +444,103 @@ module Recurly
       delete(path, **options)
     end
 
+    # Get the list of billing information associated with an account
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/list_billing_infos list_billing_infos api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    # @param sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    # @param begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Pager<Resources::BillingInfo>] A list of the the billing information for an account's
+    #
+    def list_billing_infos(account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos", account_id: account_id)
+      pager(path, **options)
+    end
+
+    # Set an account's billing information when the wallet feature is enabled
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/create_billing_info create_billing_info api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::BillingInfo] Updated billing information.
+    #
+    def create_billing_info(account_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos", account_id: account_id)
+      post(path, body, Requests::BillingInfoCreate, **options)
+    end
+
+    # Fetch a billing info
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/get_a_billing_info get_a_billing_info api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param billing_info_id [String] Billing Info ID.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::BillingInfo] A billing info.
+    #
+    def get_a_billing_info(account_id:, billing_info_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}", account_id: account_id, billing_info_id: billing_info_id)
+      get(path, **options)
+    end
+
+    # Update an account's billing information
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/update_a_billing_info update_a_billing_info api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param billing_info_id [String] Billing Info ID.
+    # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::BillingInfo] Updated billing information.
+    #
+    def update_a_billing_info(account_id:, billing_info_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}", account_id: account_id, billing_info_id: billing_info_id)
+      put(path, body, Requests::BillingInfoCreate, **options)
+    end
+
+    # Remove an account's billing information
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/remove_a_billing_info remove_a_billing_info api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param billing_info_id [String] Billing Info ID.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Empty] Billing information deleted
+    #
+    def remove_a_billing_info(account_id:, billing_info_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}", account_id: account_id, billing_info_id: billing_info_id)
+      delete(path, **options)
+    end
+
     # Show the coupon redemptions for an account
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_account_coupon_redemptions list_account_coupon_redemptions api documenation}

@@ -18,6 +18,10 @@ module Recurly
       #   @return [Float] The outstanding balance remaining on this invoice.
       define_attribute :balance, Float
 
+      # @!attribute billing_info_id
+      #   @return [String] The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+      define_attribute :billing_info_id, String
+
       # @!attribute closed_at
       #   @return [DateTime] Date invoice was marked paid or failed.
       define_attribute :closed_at, DateTime

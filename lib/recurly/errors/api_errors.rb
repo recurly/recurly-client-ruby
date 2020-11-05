@@ -26,6 +26,8 @@ module Recurly
 
     class InternalServerError < ServerError; end
 
+    class ServiceNotAvailableError < InternalServerError; end
+
     class BadGatewayError < ServerError; end
 
     class ServiceUnavailableError < ServerError; end

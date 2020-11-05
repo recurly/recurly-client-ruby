@@ -1974,8 +1974,8 @@ paths:
       summary: Set an account's billing information
       description: |
         If you're using Recurly.js to securely submit data from webforms without sending it through your server,
-        you can associate the billing information with an account by passing in the `token_id`. Be sure to only
-        set this field.
+        you can associate the billing information with an account by passing in the `token_id`. The only other
+        field permitted with `token_id` is `primary_payment_method`.
 
         For credit card payments you'll need the following required fields:
 
@@ -2250,6 +2250,221 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Removed Billing
           Info: %v\", billingInfo)"
+  "/sites/{site_id}/accounts/{account_id}/billing_infos":
+    get:
+      tags:
+      - account
+      - billing_info
+      operationId: list_billing_infos
+      summary: Get the list of billing information associated with an account
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/sort_dates"
+      - "$ref": "#/components/parameters/filter_begin_time"
+      - "$ref": "#/components/parameters/filter_end_time"
+      responses:
+        '200':
+          description: A list of the the billing information for an account's
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BillingInfoList"
+        '400':
+          description: Invalid or unpermitted parameter
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or account
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    post:
+      tags:
+      - account
+      - billing_info
+      operationId: create_billing_info
+      summary: Set an account's billing information when the wallet feature is enabled
+      description: |
+        If you're using Recurly.js to securely submit data from webforms without sending it through your server,
+        you can associate the billing information with an account by passing in the `token_id`. The only other
+        field permitted with `token_id` is `primary_payment_method`.
+
+        For credit card payments you'll need the following required fields:
+
+        - first_name
+        - last_name
+        - number
+        - month
+        - year
+
+        For external (not Recurly.js) tokenized payments you'll need the following required fields:
+
+        - first_name
+        - last_name
+        - gateway_token
+        - gateway_code
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/account_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BillingInfoCreate"
+        required: true
+      responses:
+        '200':
+          description: Updated billing information.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BillingInfo"
+        '400':
+          description: Bad request, perhaps invalid JSON?
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or account ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid billing information, or error running the verification
+            transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+      x-code-samples: []
+  "/sites/{site_id}/accounts/{account_id}/billing_infos/{billing_info_id}":
+    get:
+      tags:
+      - account
+      - billing_info
+      operationId: get_a_billing_info
+      summary: Fetch a billing info
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/billing_info_id"
+      responses:
+        '200':
+          description: A billing info.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BillingInfo"
+        '404':
+          description: Incorrect site, account, or billing info ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    put:
+      tags:
+      - account
+      - billing_info
+      operationId: update_a_billing_info
+      summary: Update an account's billing information
+      description: |
+        If you're using Recurly.js to securely submit data from webforms without sending it through your server,
+        you can associate the billing information with an account by passing in the `token_id`. The only other
+        field permitted with `token_id` is `primary_payment_method`.
+
+        For credit card payments you'll need the following required fields:
+
+        - first_name
+        - last_name
+        - number
+        - month
+        - year
+
+        For external (not Recurly.js) tokenized payments you'll need the following required fields:
+
+        - first_name
+        - last_name
+        - gateway_token
+        - gateway_code
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/billing_info_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BillingInfoCreate"
+        required: true
+      responses:
+        '200':
+          description: Updated billing information.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BillingInfo"
+        '400':
+          description: Bad request, perhaps invalid JSON?
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or account ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid billing information, or error running the verification
+            transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+      x-code-samples: []
+    delete:
+      tags:
+      - account
+      - billing_info
+      operationId: remove_a_billing_info
+      summary: Remove an account's billing information
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/billing_info_id"
+      description: You may remove any stored billing information for an account. If
+        the account has a subscription, the renewal will go into dunning unless the
+        billing information is updated before the renewal occurs.
+      responses:
+        '204':
+          description: Billing information deleted
+        '404':
+          description: Account has no billing information, or incorrect site or account
+            ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Billing info cannot be deleted. Please set a new primary billing
+            info before deleting this billing info
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/accounts/{account_id}/coupon_redemptions":
     get:
       tags:
@@ -13933,6 +14148,13 @@ components:
       required: true
       schema:
         type: string
+    billing_info_id:
+      name: billing_info_id
+      in: path
+      description: Billing Info ID.
+      required: true
+      schema:
+        type: string
     usage_id:
       name: usage_id
       in: path
@@ -14360,6 +14582,23 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/AddOn"
+    BillingInfoList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/BillingInfo"
     CreditPaymentList:
       type: object
       properties:
@@ -15717,6 +15956,16 @@ components:
             risk_rules_triggered:
               type: object
               title: Kount rules
+        primary_payment_method:
+          type: boolean
+          description: The `primary_payment_method` indicator is used to designate
+            the primary billing info on the account. The first billing info created
+            on an account will always become primary. Adding additional billing infos
+            provides the flexibility to mark another billing info as primary, or adding
+            additional non-primary billing infos. This can be accomplished by passing
+            the `primary_payment_method` indicator. When adding billing infos via
+            the billing_info and /accounts endpoints, this value is not permitted,
+            and will return an error if provided.
         created_at:
           type: string
           format: date-time
@@ -15857,6 +16106,17 @@ components:
           - checking
           - savings
           description: The bank account type. (ACH only)
+        primary_payment_method:
+          type: boolean
+          title: Primary Payment Method
+          description: The `primary_payment_method` indicator is used to designate
+            the primary billing info on the account. The first billing info created
+            on an account will always become primary. Adding additional billing infos
+            provides the flexibility to mark another billing info as primary, or adding
+            additional non-primary billing infos. This can be accomplished by passing
+            the `primary_payment_method` indicator. When adding billing infos via
+            the billing_info and /accounts endpoints, this value is not permitted,
+            and will return an error if provided.
     Coupon:
       type: object
       properties:
@@ -15955,6 +16215,13 @@ components:
           description: The coupon is valid for all plans if true. If false then `plans`
             and `plans_names` will list the applicable plans.
           default: true
+        applies_to_all_items:
+          type: boolean
+          title: Applies to all items?
+          description: |
+            The coupon is valid for all items if true. If false then `items`
+            will list the applicable items.
+          default: false
         applies_to_non_plan_charges:
           type: boolean
           title: Applied to all non-plan charges?
@@ -15973,6 +16240,14 @@ components:
             `null` if `applies_to_all_plans=true`.
           items:
             "$ref": "#/components/schemas/PlanMini"
+        items:
+          type: array
+          title: Items
+          description: |
+            A list of items for which this coupon applies. This will be
+            `null` if `applies_to_all_items=true`.
+          items:
+            "$ref": "#/components/schemas/ItemMini"
         redemption_resource:
           type: string
           title: Redemption resource
@@ -16101,6 +16376,16 @@ components:
               The coupon is valid for all plans if true. If false then
               `plans` and `plans_names` will list the applicable plans.
             default: true
+          applies_to_all_items:
+            type: boolean
+            title: Applies to all items?
+            description: |
+              To apply coupon to Items in your Catalog, include a list
+              of `item_codes` in the request that the coupon will apply to. Or set value
+              to true to apply to all Items in your Catalog. The following values
+              are not permitted when `applies_to_all_items` is included: `free_trial_amount`
+              and `free_trial_unit`.
+            default: false
           plan_codes:
             type: array
             title: Plan codes
@@ -16108,6 +16393,16 @@ components:
               List of plan codes to which this coupon applies. Required
               if `applies_to_all_plans` is false. Overrides `applies_to_all_plans`
               when `applies_to_all_plans` is true.
+            items:
+              type: string
+          item_codes:
+            type: array
+            title: Item codes
+            description: |
+              List of item codes to which this coupon applies. Sending
+              `item_codes` is only permitted when `applies_to_all_items` is set to false.
+              The following values are not permitted when `item_codes` is included:
+              `free_trial_amount` and `free_trial_unit`.
             items:
               type: string
           duration:
@@ -16926,6 +17221,13 @@ components:
           - voided
         account:
           "$ref": "#/components/schemas/AccountMini"
+        billing_info_id:
+          type: string
+          title: Billing info ID
+          description: The `billing_info_id` is the value that represents a specific
+            billing info for an end customer. When `billing_info_id` is used to assign
+            billing info to the subscription, all future billing events for the subscription
+            will bill to the specified billing info.
         subscription_ids:
           type: array
           title: Subscription IDs
@@ -17167,6 +17469,13 @@ components:
             mail order and telephone transactions.
           enum:
           - moto
+        billing_info_id:
+          type: string
+          title: Billing Info ID
+          description: The `billing_info_id` is the value that represents a specific
+            billing info for an end customer. When `billing_info_id` is used to assign
+            billing info to the subscription, all future billing events for the subscription
+            will bill to the specified billing info.
     InvoiceCollection:
       type: object
       title: Invoice collection
@@ -19165,6 +19474,10 @@ components:
             set. This timestamp is used for alerting customers to reauthorize in 3
             years in accordance with NACHA rules. If a subscription becomes inactive
             or the billing info is no longer a bank account, this timestamp is cleared.
+        billing_info_id:
+          type: string
+          title: Billing Info ID
+          description: Billing Info ID.
     SubscriptionAddOn:
       type: object
       title: Subscription Add-on
@@ -19957,6 +20270,13 @@ components:
           default: 0
         shipping:
           "$ref": "#/components/schemas/SubscriptionShippingUpdate"
+        billing_info_id:
+          type: string
+          title: Billing Info ID
+          description: The `billing_info_id` is the value that represents a specific
+            billing info for an end customer. When `billing_info_id` is used to assign
+            billing info to the subscription, all future billing events for the subscription
+            will bill to the specified billing info.
     SubscriptionPause:
       type: object
       properties:
@@ -20789,6 +21109,7 @@ components:
           - invalid_permissions
           - invalid_token
           - not_found
+          - service_not_available
           - simultaneous_request
           - transaction
           - unauthorized

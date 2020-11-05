@@ -6,6 +6,10 @@ module Recurly
   module Resources
     class Coupon < Resource
 
+      # @!attribute applies_to_all_items
+      #   @return [Boolean] The coupon is valid for all items if true. If false then `items` will list the applicable items.
+      define_attribute :applies_to_all_items, :Boolean
+
       # @!attribute applies_to_all_plans
       #   @return [Boolean] The coupon is valid for all plans if true. If false then `plans` and `plans_names` will list the applicable plans.
       define_attribute :applies_to_all_plans, :Boolean
@@ -65,6 +69,10 @@ module Recurly
       # @!attribute invoice_description
       #   @return [String] Description of the coupon on the invoice.
       define_attribute :invoice_description, String
+
+      # @!attribute items
+      #   @return [Array[ItemMini]] A list of items for which this coupon applies. This will be `null` if `applies_to_all_items=true`.
+      define_attribute :items, Array, { :item_type => :ItemMini }
 
       # @!attribute max_redemptions
       #   @return [Integer] A maximum number of redemptions for the coupon. The coupon will expire when it hits its maximum redemptions.
