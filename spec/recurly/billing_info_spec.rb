@@ -62,7 +62,7 @@ XML
       )
       billing_info = BillingInfo.find 'sepa1234567890'
       billing_info.name_on_account.must_equal 'Account Name'
-      billing_info.iban.must_equal 'US1234567890'
+      billing_info.last_two.must_equal '06'
     end
 
     it "must return an account's billing info as bacs when available" do

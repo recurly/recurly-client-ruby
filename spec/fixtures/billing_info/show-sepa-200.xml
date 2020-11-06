@@ -5,14 +5,15 @@ Content-Type: application/xml; charset=utf-8
 <billing_info href="https://api.recurly.com/v2/accounts/sepa1234567890/billing_info">
   <account href="https://api.recurly.com/v2/accounts/sepa1234567890"/>
   <company nil="nil"></company>
-  <address1>123 Pretty Pretty Good St.</address1>
+  <address1 nil="nil"></address1>
   <address2 nil="nil"></address2>
-  <city>Los Angeles</city>
-  <state>CA</state>
-  <zip>90210</zip>
-  <country>US</country>
+  <city nil="nil"></city>
+  <state nil="nil"></state>
+  <zip nil="nil"></zip>
+  <country>FR</country>
   <phone nil="nil"></phone>
   <vat_number nil="nil"></vat_number>
-  <iban>US1234567890</iban>
   <name_on_account>Account Name</name_on_account>
+  <last_two>06</last_two>
+  <updated_at type="datetime">2020-11-06T21:57:23Z</updated_at>
 </billing_info>
