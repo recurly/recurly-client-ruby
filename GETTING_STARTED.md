@@ -5,7 +5,7 @@ This repository houses the official ruby client for Recurly's V3 API.
 In your Gemfile, add `recurly` as a dependency.
 
 ```ruby
-gem 'recurly', '~> 3.14'
+gem 'recurly', '~> 3.15'
 ```
 
 > *Note*: We try to follow [semantic versioning](https://semver.org/) and will only apply breaking changes to major versions.
