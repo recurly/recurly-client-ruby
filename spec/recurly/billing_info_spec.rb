@@ -45,7 +45,7 @@ XML
       billing_info.state.must_equal 'CA'
     end
 
-    it "must return an accounts billing info as a bank account when available" do
+    it "must return an accounts billing info as a bank account (last_four) when available" do
       stub_api_request(
         :get, 'accounts/abcdef1234567890/billing_info', 'billing_info/show-200-bank-account'
       )
@@ -56,7 +56,7 @@ XML
       billing_info.routing_number.must_equal '12309812'
     end
 
-    it "must return an account's billing info as iban when available" do
+    it "must return an account's billing info as IBAN (last_two) when available" do
       stub_api_request(
         :get, 'accounts/sepa1234567890/billing_info', 'billing_info/show-sepa-200'
       )
@@ -65,7 +65,7 @@ XML
       billing_info.last_two.must_equal '06'
     end
 
-    it "must return an account's billing info as bacs when available" do
+    it "must return an account's billing info as BACS (sort_code) when available" do
       stub_api_request(
         :get, 'accounts/bacs1234567890/billing_info', 'billing_info/show-bacs-200'
       )
@@ -74,7 +74,7 @@ XML
       billing_info.sort_code.must_equal '200000'
     end
 
-    it "must return an account's billing info as becs when available" do
+    it "must return an account's billing info as BECS (bsb_code) when available" do
       stub_api_request(
         :get, 'accounts/becs1234567890/billing_info', 'billing_info/show-becs-200'
       )
