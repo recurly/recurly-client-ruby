@@ -8,7 +8,7 @@ module Recurly
     AMAZON_ATTRIBUTES = %w(amazon_billing_agreement_id amazon_region).freeze
     PAYPAL_ATTRIBUTES = %w(paypal_billing_agreement_id).freeze
     ROKU_ATTRIBUTES = %w(roku_billing_agreement_id last_four).freeze
-    SEPA_ATTRIBUTES = %w(iban).freeze
+    SEPA_ATTRIBUTES = %w(iban last_two).freeze
     BACS_ATTRIBUTES = %w(account_number sort_code type).freeze
     BECS_ATTRIBUTES = %w(account_number bsb_code type).freeze
 
