@@ -1,6 +1,11 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.17"></a>
+## v2.18.17 (2020-11-12)
+
+* Expose last_two on BillingInfo class for IBAN accounts and repair tests [PR](https://github.com/recurly/recurly-client-ruby/pull/648)
+
 <a name="v2.18.16"></a>
 ## v.2.18.16 (2020-11-05)
 
