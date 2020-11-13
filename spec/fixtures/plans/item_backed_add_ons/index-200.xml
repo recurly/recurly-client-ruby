@@ -6,6 +6,7 @@ Content-Type: application/xml; charset=utf-8
   <add_on href="https://api.recurly.com/v2/plans/orchidreset/add_ons/marfa_brunch">
     <plan href="https://api.recurly.com/v2/plans/orchidreset"/>
     <item href="https://api.recurly.com/v2/items/marfa_brunch"/>
+    <external_sku>sample-sku</external_sku>
     <item_state>active</item_state>
     <add_on_code>marfa_brunch</add_on_code>
     <name>Marfa Brunch</name>

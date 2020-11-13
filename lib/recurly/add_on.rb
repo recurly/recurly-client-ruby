@@ -9,6 +9,7 @@ module Recurly
       add_on_code
       item_code
       name
+      item_state
       accounting_code
       default_quantity
       unit_amount_in_cents
@@ -23,6 +24,7 @@ module Recurly
       created_at
       updated_at
       tier_type
+      external_sku
       avalara_service_type
       avalara_transaction_type
     )
