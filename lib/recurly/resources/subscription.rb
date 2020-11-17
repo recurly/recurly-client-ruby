@@ -43,7 +43,7 @@ module Recurly
       define_attribute :collection_method, String
 
       # @!attribute coupon_redemptions
-      #   @return [Array[CouponRedemptionMini]] Coupon redemptions
+      #   @return [Array[CouponRedemptionMini]] Returns subscription level coupon redemptions that are tied to this subscription.
       define_attribute :coupon_redemptions, Array, { :item_type => :CouponRedemptionMini }
 
       # @!attribute created_at
