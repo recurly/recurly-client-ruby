@@ -568,6 +568,7 @@ module Recurly
     # @param end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
+    # @param state [String] Filter by state.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions on an account.
@@ -3041,6 +3042,7 @@ module Recurly
     #
     #   You may also terminate a subscription with no refund and then manually refund specific invoices.
     #
+    # @param charge [Boolean] Applicable only if the subscription has usage based add-ons and unbilled usage logged for the current billing cycle. If true, current billing cycle unbilled usage is billed on the final invoice. If false, Recurly will create a negative usage record for current billing cycle usage that will zero out the final invoice line items.
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] An expired subscription.

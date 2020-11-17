@@ -2481,6 +2481,7 @@ paths:
       - "$ref": "#/components/parameters/sort_dates"
       - "$ref": "#/components/parameters/filter_begin_time"
       - "$ref": "#/components/parameters/filter_end_time"
+      - "$ref": "#/components/parameters/filter_state"
       responses:
         '200':
           description: A list of the the coupon redemptions on an account.
@@ -10042,7 +10043,7 @@ paths:
           }
       - lang: Go
         source: "addOnReq := &recurly.AddOnCreate{\n\tCode: &addOnCode,\n\tName: recurly.String(\"Fresh
-          beans shipped monthly\"),\n\tCurrencies: []recurly.AddOnPricingCreate{\n\t\t{\n\t\t\tCurrency:
+          beans shipped monthly\"),\n\tCurrencies: []recurly.PricingCreate{\n\t\t{\n\t\t\tCurrency:
           \  recurly.String(\"USD\"),\n\t\t\tUnitAmount: recurly.Float(10),\n\t\t},\n\t},\n}\n\nplanAddOn,
           err := client.CreatePlanAddOn(planID, addOnReq)\nif e, ok := err.(*recurly.Error);
           ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
@@ -11451,6 +11452,16 @@ paths:
           - partial
           - none
           default: none
+      - name: charge
+        in: query
+        description: Applicable only if the subscription has usage based add-ons and
+          unbilled usage logged for the current billing cycle. If true, current billing
+          cycle unbilled usage is billed on the final invoice. If false, Recurly will
+          create a negative usage record for current billing cycle usage that will
+          zero out the final invoice line items.
+        schema:
+          default: true
+          type: boolean
       responses:
         '200':
           description: An expired subscription.
@@ -19310,6 +19321,8 @@ components:
         coupon_redemptions:
           type: array
           title: Coupon redemptions
+          description: Returns subscription level coupon redemptions that are tied
+            to this subscription.
           items:
             "$ref": "#/components/schemas/CouponRedemptionMini"
         pending_change:
