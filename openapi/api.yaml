@@ -1142,14 +1142,11 @@ paths:
             const account = await client.deactivateAccount(accountId)
             console.log('Deleted account: ', account.code)
           } catch (err) {
-            if (err && err.type === 'not-found') {
+            if (err instanceof recurly.errors.NotFoundError) {
               // If the request was not found, you may want to alert the user or
               // just return null
               console.log('Resource Not Found')
             }
-            // If we don't know what to do with the err, we should
-            // probably re-raise and let our web framework and logger handle it
-            throw err
           }
       - lang: Python
         source: |
@@ -1649,14 +1646,11 @@ paths:
             const account = await client.reactivateAccount(accountId)
             console.log('Reactivated account: ', account.code)
           } catch (err) {
-            if (err && err.type === 'not_found') {
+            if (err instanceof recurly.errors.NotFoundError) {
               // If the request was not found, you may want to alert the user or
               // just return null
               console.log('Resource Not Found')
             }
-            // If we don't know what to do with the err, we should
-            // probably re-raise and let our web framework and logger handle it
-            throw err
           }
       - lang: Python
         source: |
@@ -5743,7 +5737,108 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-      x-code-samples: []
+      x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const coupon = await client.restoreCoupon(couponId, {
+              name: "New Coupon Name"
+            })
+            console.log('Restored coupon: ', coupon.code)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            }
+
+          }
+      - lang: Python
+        source: |
+          try:
+              coupon = client.restore_coupon(coupon_id, {
+                  "name": "New Coupon Name"
+              })
+              print("Restored Coupon %s" % coupon)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: ".NET"
+        source: |
+          try
+          {
+              var couponReq = new CouponUpdate() {
+                  Name = "New Coupon Name"
+              };
+              Coupon coupon = client.RestoreCoupon(couponId, couponReq);
+              Console.WriteLine($"Restored coupon {coupon.Code}");
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            coupon = @client.restore_coupon(coupon_id: coupon_id, body: {
+              name: "New Coupon Name"
+            })
+            puts "Restored coupon #{coupon}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Java
+        source: |
+          try {
+              final CouponUpdate couponUpdate = new CouponUpdate();
+              couponUpdate.setName("New Coupon Name");
+
+              final Coupon coupon = client.restoreCoupon(couponId, couponUpdate);
+              System.out.println("Restored coupon: " + coupon.getCode());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: PHP
+        source: |
+          try {
+              $coupon_update = [
+                  "name" => "New Coupon Name"
+              ];
+              $coupon = $client->restoreCoupon($coupon_id, $coupon_update);
+
+              echo 'Restored Coupon:' . PHP_EOL;
+              var_dump($coupon);
+          } catch (\Recurly\Errors\NotFound $e) {
+              // Could not find the resource, you may want to inform the user
+              // or just return a NULL
+              echo 'Could not find resource.' . PHP_EOL;
+              var_dump($e);
+          } catch (\Recurly\RecurlyError $e) {
+              // Something bad happened... tell the user so that they can fix it?
+              echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Go
+        source: "updateReq := &recurly.CouponUpdate{\n\tName: recurly.String(\"New
+          Coupon Name\"),\n}\ncoupon, err := client.RestoreCoupon(couponId, updateReq)\nif
+          e, ok := err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeValidation
+          {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
+          Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Restored Coupon:
+          %s\", coupon.Id)"
   "/sites/{site_id}/coupons/{coupon_id}/unique_coupon_codes":
     get:
       tags:
@@ -6742,14 +6837,11 @@ paths:
             const item = await client.deactivateItem(itemId)
             console.log('Deleted item: ', item.code)
           } catch (err) {
-            if (err && err.type === 'not-found') {
+            if (err instanceof recurly.errors.NotFoundError) {
               // If the request was not found, you may want to alert the user or
               // just return null
               console.log('Resource Not Found')
             }
-            // If we don't know what to do with the err, we should
-            // probably re-raise and let our web framework and logger handle it
-            throw err
           }
       - lang: Python
         source: |
@@ -6866,14 +6958,11 @@ paths:
             const item = await client.reactivateItem(itemId)
             console.log('Reactivated item: ', item.code)
           } catch (err) {
-            if (err && err.type === 'not_found') {
+            if (err instanceof recurly.errors.NotFoundError) {
               // If the request was not found, you may want to alert the user or
               // just return null
               console.log('Resource Not Found')
             }
-            // If we don't know what to do with the err, we should
-            // probably re-raise and let our web framework and logger handle it
-            throw err
           }
       - lang: Python
         source: |
@@ -16117,6 +16206,17 @@ components:
           - checking
           - savings
           description: The bank account type. (ACH only)
+        tax_identifier:
+          type: string
+          description: Tax identifier is required if adding a billing info that is
+            a consumer card in Brazil. This would be the customer's CPF, CPF is a
+            Brazilian tax identifier for all tax paying residents.
+        tax_identifier_type:
+          type: string
+          enum:
+          - cpf
+          description: this field and a value of 'cpf' are required if adding a billing
+            info that is an elo or hipercard type in Brazil.
         primary_payment_method:
           type: boolean
           title: Primary Payment Method
@@ -18631,13 +18731,13 @@ components:
             the setup fee will be charged at the time of signup. Setup fees do not
             increase with the quantity of a subscription plan.
           minimum: 0
-          maximum: 100000
+          maximum: 1000000
         unit_amount:
           type: number
           format: float
           title: Unit price
           minimum: 0
-          maximum: 100000
+          maximum: 1000000
     PlanUpdate:
       type: object
       properties:
@@ -18770,11 +18870,6 @@ components:
           type: object
           title: Hosted pages settings
           "$ref": "#/components/schemas/PlanHostedPages"
-        add_ons:
-          type: array
-          title: Add Ons
-          items:
-            "$ref": "#/components/schemas/AddOnCreate"
         allow_any_item_on_subscriptions:
           type: boolean
           title: Allow any item on subscriptions
@@ -18795,7 +18890,7 @@ components:
           format: float
           title: Unit price
           minimum: 0
-          maximum: 100000
+          maximum: 1000000
       required:
       - currency
       - unit_amount
@@ -18812,7 +18907,7 @@ components:
           format: float
           title: Unit price
           minimum: 0
-          maximum: 100000
+          maximum: 1000000
       required:
       - currency
       - unit_amount
@@ -19611,6 +19706,7 @@ components:
             * Optionally, override the add-on's default unit amount.
             * If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount` must be absent.
           minimum: 0
+          maximum: 1000000
         tiers:
           type: array
           title: Tiers
@@ -19684,6 +19780,7 @@ components:
           title: Unit amount
           description: Optionally, override the add-on's default unit amount.
           minimum: 0
+          maximum: 1000000
         tiers:
           type: array
           title: Tiers
@@ -19724,6 +19821,7 @@ components:
           format: float
           title: Unit amount
           minimum: 0
+          maximum: 1000000
     SubscriptionCancel:
       type: object
       properties:
@@ -19856,7 +19954,7 @@ components:
             the plan's default unit amount. The subscription's current currency will
             be used.
           minimum: 0
-          maximum: 100000
+          maximum: 1000000
         quantity:
           type: integer
           title: Quantity
@@ -19980,7 +20078,18 @@ components:
           description: You must provide either a `plan_code` or `plan_id`. If both
             are provided the `plan_id` will be used.
         account:
-          "$ref": "#/components/schemas/AccountCreate"
+          type: object
+          allOf:
+          - "$ref": "#/components/schemas/AccountCreate"
+          - type: object
+            properties:
+              billing_info_id:
+                type: string
+                title: Billing Info ID
+                description: The `billing_info_id` is the value that represents a
+                  specific billing info for an end customer. When `billing_info_id`
+                  is used to assign billing info to the subscription, all future billing
+                  events for the subscription will bill to the specified billing info.
         shipping:
           title: Shipping address
           description: Create a shipping address on the account and assign it to the
@@ -20006,7 +20115,7 @@ components:
             this value. If not provided, the subscription will inherit the price from
             the subscription plan for the provided currency.
           minimum: 0
-          maximum: 100000
+          maximum: 1000000
         quantity:
           type: integer
           title: Quantity
@@ -20140,7 +20249,7 @@ components:
             this value in cents. If not provided, the subscription will inherit the
             price from the subscription plan for the provided currency.
           minimum: 0
-          maximum: 100000
+          maximum: 1000000
         quantity:
           type: integer
           title: Quantity

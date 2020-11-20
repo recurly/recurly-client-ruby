@@ -10,10 +10,6 @@ module Recurly
       #   @return [String] Accounting code for invoice line items for the plan. If no value is provided, it defaults to plan's code.
       define_attribute :accounting_code, String
 
-      # @!attribute add_ons
-      #   @return [Array[AddOnCreate]] Add Ons
-      define_attribute :add_ons, Array, { :item_type => :AddOnCreate }
-
       # @!attribute allow_any_item_on_subscriptions
       #   @return [Boolean] Used to determine whether items can be assigned as add-ons to individual subscriptions. If `true`, items can be assigned as add-ons to individual subscription add-ons. If `false`, only plan add-ons can be used.
       define_attribute :allow_any_item_on_subscriptions, :Boolean
