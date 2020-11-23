@@ -202,6 +202,9 @@ module Recurly
       self.class.from_response(
         follow_link :refund, :body => refund_line_items_to_xml(line_items, refund_method, options)
       )
+    rescue Recurly::API::UnprocessableEntity => e
+      Transaction::Error.validate! e, (self if is_a?(Transaction))
+      raise
     end
 
     # Refunds the invoice for a specific amount.
