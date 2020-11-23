@@ -1471,6 +1471,17 @@ module Recurly
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Coupon] The restored coupon.
+    # @example
+    #   begin
+    #     coupon = @client.restore_coupon(coupon_id: coupon_id, body: {
+    #       name: "New Coupon Name"
+    #     })
+    #     puts "Restored coupon #{coupon}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
     #
     def restore_coupon(coupon_id:, body:, **options)
       path = interpolate_path("/coupons/{coupon_id}/restore", coupon_id: coupon_id)
