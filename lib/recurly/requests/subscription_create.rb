@@ -7,8 +7,8 @@ module Recurly
     class SubscriptionCreate < Request
 
       # @!attribute account
-      #   @return [Hash]
-      define_attribute :account, Hash
+      #   @return [AccountCreate]
+      define_attribute :account, :AccountCreate
 
       # @!attribute add_ons
       #   @return [Array[SubscriptionAddOnCreate]] Add-ons

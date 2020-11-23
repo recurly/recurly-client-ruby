@@ -20078,18 +20078,7 @@ components:
           description: You must provide either a `plan_code` or `plan_id`. If both
             are provided the `plan_id` will be used.
         account:
-          type: object
-          allOf:
-          - "$ref": "#/components/schemas/AccountCreate"
-          - type: object
-            properties:
-              billing_info_id:
-                type: string
-                title: Billing Info ID
-                description: The `billing_info_id` is the value that represents a
-                  specific billing info for an end customer. When `billing_info_id`
-                  is used to assign billing info to the subscription, all future billing
-                  events for the subscription will bill to the specified billing info.
+          "$ref": "#/components/schemas/AccountCreate"
         shipping:
           title: Shipping address
           description: Create a shipping address on the account and assign it to the
