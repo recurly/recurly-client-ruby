@@ -1,0 +1,79 @@
+HTTP/1.1 422 Unprocessable Entity
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<errors>
+  <transaction_error>
+    <error_code>deposit_referenced_chargeback</error_code>
+    <error_category>hard</error_category>
+    <merchant_message>The deposit is already referenced by a chargeback; therefore, a refund cannot be processed against this transaction.</merchant_message>
+    <customer_message>The refund cannot be processed because of a chargeback.</customer_message>
+    <gateway_error_code>311</gateway_error_code>
+  </transaction_error>
+  <error field="invoice.base" symbol="deposit_referenced_chargeback">The refund cannot be processed because of a chargeback.</error>
+  <transaction href="https://api.recurly.com/v2/transactions/refund-transaction" type="credit_card">
+    <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
+    <original_transaction href="https://api.recurly.com/v2/transactions/transaction"/>
+    <uuid>refund-major-fail</uuid>
+    <action>refund</action>
+    <amount_in_cents type="integer">6440</amount_in_cents>
+    <tax_in_cents type="integer">0</tax_in_cents>
+    <currency>USD</currency>
+    <status>declined</status>
+    <payment_method>credit_card</payment_method>
+    <reference>1234567890</reference>
+    <source>transaction</source>
+    <recurring type="boolean">false</recurring>
+    <test type="boolean">false</test>
+    <voidable type="boolean">false</voidable>
+    <refundable type="boolean">false</refundable>
+    <ip_address nil="nil"></ip_address>
+    <gateway_type>litle_online</gateway_type>
+    <origin>api</origin>
+    <description nil="nil"></description>
+    <message>Deposit is already referenced by a chargeback</message>
+    <approval_code nil="nil"></approval_code>
+    <failure_type>deposit_referenced_chargeback</failure_type>
+    <gateway_error_codes>311</gateway_error_codes>
+    <transaction_error>
+      <error_code>deposit_referenced_chargeback</error_code>
+      <error_category>hard</error_category>
+      <merchant_message>The deposit is already referenced by a chargeback; therefore, a refund cannot be processed against this transaction.</merchant_message>
+      <customer_message>The refund cannot be processed because of a chargeback.</customer_message>
+      <gateway_error_code>311</gateway_error_code>
+    </transaction_error>
+    <cvv_result code="" nil="nil"></cvv_result>
+    <avs_result code="" nil="nil"></avs_result>
+    <avs_result_street nil="nil"></avs_result_street>
+    <avs_result_postal nil="nil"></avs_result_postal>
+    <created_at type="datetime">2020-11-18T21:22:17Z</created_at>
+    <collected_at type="datetime">2020-11-18T21:22:17Z</collected_at>
+    <updated_at type="datetime">2020-11-18T21:22:17Z</updated_at>
+    <details>
+      <account>
+        <account_code>abcdef1234567890</account_code>
+        <first_name>Lucille</first_name>
+        <last_name>Bluth</last_name>
+        <company nil="nil"></company>
+        <email>lucille@bluth-company.com</email>
+        <billing_info type="credit_card">
+          <first_name>George</first_name>
+          <last_name>Bluth</last_name>
+          <address1 nil="nil"></address1>
+          <address2 nil="nil"></address2>
+          <city nil="nil"></city>
+          <state nil="nil"></state>
+          <zip nil="nil"></zip>
+          <country nil="nil"></country>
+          <phone nil="nil"></phone>
+          <vat_number nil="nil"></vat_number>
+          <card_type>Visa</card_type>
+          <year type="integer">2014</year>
+          <month type="integer">1</month>
+          <first_six>411111</first_six>
+          <last_four>1111</last_four>
+        </billing_info>
+      </account>
+    </details>
+  </transaction>
+</errors>

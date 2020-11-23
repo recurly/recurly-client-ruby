@@ -182,6 +182,26 @@ describe Invoice do
     end
   end
 
+  describe "failed_refund" do
+    before do
+      stub_api_request :get, 'invoices/refundable-invoice', 'invoices/show-200-refundable'
+      stub_api_request :post, 'invoices/refundable-invoice/refund', 'invoices/refund-422'
+
+      @invoice = Invoice.find 'refundable-invoice'
+
+      @line_items = @invoice.line_items.values.map do |adjustment|
+        { adjustment: adjustment, quantity: 1, prorate: false }
+      end
+    end
+
+    describe "#refund" do
+      it "handles a transaction error response" do
+        error = proc {@invoice.refund(@line_items)}.must_raise Transaction::DeclinedError
+        error.transaction_error_code.must_equal("deposit_referenced_chargeback")
+      end
+    end
+  end
+
   describe "#all_transactions" do
     it "must provide a link to all transactions if present" do
       stub_api_request :get, 'invoices/1000', 'invoices/show-200'
