@@ -1,6 +1,12 @@
 <a name="unreleased"></a>
 ## Unreleased
 
+<a name="v2.18.18"></a>
+## v.2.18.18 (2020-11-23)
+
+* Expose `item_state` and `external_sku` in AddOn class [PR](https://github.com/recurly/recurly-client-ruby/pull/650)
+* Handle UnprocessableEntity error for Invoice#refund [PR](https://github.com/recurly/recurly-client-ruby/pull/653)
+
 <a name="v2.18.17"></a>
 ## v2.18.17 (2020-11-12)
 
