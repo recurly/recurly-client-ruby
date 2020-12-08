@@ -15154,7 +15154,7 @@ components:
           maxLength: 255
         company:
           type: string
-          maxLength: 50
+          maxLength: 100
         vat_number:
           type: string
           description: The VAT number of the account (to avoid having the VAT applied).
@@ -20079,6 +20079,13 @@ components:
             are provided the `plan_id` will be used.
         account:
           "$ref": "#/components/schemas/AccountCreate"
+        billing_info_id:
+          type: string
+          title: Billing Info ID
+          description: The `billing_info_id` is the value that represents a specific
+            billing info for an end customer. When `billing_info_id` is used to assign
+            billing info to the subscription, all future billing events for the subscription
+            will bill to the specified billing info.
         shipping:
           title: Shipping address
           description: Create a shipping address on the account and assign it to the
@@ -21012,6 +21019,13 @@ components:
           maxLength: 3
         account:
           "$ref": "#/components/schemas/AccountPurchase"
+        billing_info_id:
+          type: string
+          title: Billing info ID
+          description: The `billing_info_id` is the value that represents a specific
+            billing info for an end customer. When `billing_info_id` is used to assign
+            billing info to the subscription, all future billing events for the subscription
+            will bill to the specified billing info.
         collection_method:
           type: string
           title: Collection method
