@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -e
+
+# switch to v2 branch
+git checkout v2
+
+# ensure local branch is up to date
+git pull
+
+# build gem
+gem build recurly.gemspec
+echo "Run './scripts/publish' to publish gem" 
