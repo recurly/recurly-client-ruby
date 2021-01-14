@@ -42,6 +42,10 @@ module Recurly
       #   @return [String] Coupon Redemption state
       define_attribute :state, String
 
+      # @!attribute subscription_id
+      #   @return [String] Subscription ID
+      define_attribute :subscription_id, String
+
       # @!attribute updated_at
       #   @return [DateTime] Last updated at
       define_attribute :updated_at, DateTime
