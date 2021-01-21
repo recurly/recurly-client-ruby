@@ -609,7 +609,7 @@ module Recurly
       get(path, **options)
     end
 
-    # Generate an active coupon redemption on an account
+    # Generate an active coupon redemption on an account or subscription
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/create_coupon_redemption create_coupon_redemption api documenation}
     #

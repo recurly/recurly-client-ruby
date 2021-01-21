@@ -275,8 +275,8 @@ tags:
     allow for individual delivery and tracking.
 - name: coupon_redemption
   x-displayName: Coupon Redemption
-  description: Coupon redemptions are created when a coupon is applied to an account.
-    This allows you to track your promotions.
+  description: Coupon redemptions are created when a coupon is applied to an account
+    or subscription. This allows you to track your promotions.
 - name: unique_coupon_code
   x-displayName: Unique Coupon Code
   description: Unique coupon codes are generated from bulk coupons.
@@ -2672,7 +2672,7 @@ paths:
       - account
       - coupon_redemption
       operationId: create_coupon_redemption
-      summary: Generate an active coupon redemption on an account
+      summary: Generate an active coupon redemption on an account or subscription
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -16711,6 +16711,9 @@ components:
           description: The Account on which the coupon was applied.
           readOnly: true
           "$ref": "#/components/schemas/AccountMini"
+        subscription_id:
+          type: string
+          title: Subscription ID
         coupon:
           "$ref": "#/components/schemas/Coupon"
         state:
@@ -16758,6 +16761,9 @@ components:
           title: Currency
           description: 3-letter ISO 4217 currency code.
           maxLength: 3
+        subscription_id:
+          type: string
+          title: Subscription ID
       required:
       - coupon_id
     CouponRedemptionMini:
