@@ -30,6 +30,10 @@ module Recurly
       #   @return [DateTime] Recurring subscriptions paid with ACH will have this attribute set. This timestamp is used for alerting customers to reauthorize in 3 years in accordance with NACHA rules. If a subscription becomes inactive or the billing info is no longer a bank account, this timestamp is cleared.
       define_attribute :bank_account_authorized_at, DateTime
 
+      # @!attribute billing_info_id
+      #   @return [String] Billing Info ID.
+      define_attribute :billing_info_id, String
+
       # @!attribute canceled_at
       #   @return [DateTime] Canceled at
       define_attribute :canceled_at, DateTime
@@ -39,7 +43,7 @@ module Recurly
       define_attribute :collection_method, String
 
       # @!attribute coupon_redemptions
-      #   @return [Array[CouponRedemptionMini]] Coupon redemptions
+      #   @return [Array[CouponRedemptionMini]] Returns subscription level coupon redemptions that are tied to this subscription.
       define_attribute :coupon_redemptions, Array, { :item_type => :CouponRedemptionMini }
 
       # @!attribute created_at

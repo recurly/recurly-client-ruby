@@ -10,6 +10,18 @@ module Recurly
       #   @return [String] Accounting code for invoice line items for this add-on. If no value is provided, it defaults to add-on's code.
       define_attribute :accounting_code, String
 
+      # @!attribute add_on_type
+      #   @return [String] Whether the add-on type is fixed, or usage-based.
+      define_attribute :add_on_type, String
+
+      # @!attribute avalara_service_type
+      #   @return [Integer] Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+      define_attribute :avalara_service_type, Integer
+
+      # @!attribute avalara_transaction_type
+      #   @return [Integer] Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the add-on is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+      define_attribute :avalara_transaction_type, Integer
+
       # @!attribute code
       #   @return [String] The unique identifier for the add-on within its plan.
       define_attribute :code, String
@@ -19,8 +31,8 @@ module Recurly
       define_attribute :created_at, DateTime
 
       # @!attribute currencies
-      #   @return [Array[Pricing]] Add-on pricing
-      define_attribute :currencies, Array, { :item_type => :Pricing }
+      #   @return [Array[AddOnPricing]] Add-on pricing
+      define_attribute :currencies, Array, { :item_type => :AddOnPricing }
 
       # @!attribute default_quantity
       #   @return [Integer] Default quantity for the hosted pages.
@@ -45,6 +57,10 @@ module Recurly
       # @!attribute item
       #   @return [ItemMini] Just the important parts.
       define_attribute :item, :ItemMini
+
+      # @!attribute measured_unit_id
+      #   @return [String] System-generated unique identifier for an measured unit associated with the add-on.
+      define_attribute :measured_unit_id, String
 
       # @!attribute name
       #   @return [String] Describes your add-on and will appear in subscribers' invoices.
@@ -75,7 +91,7 @@ module Recurly
       define_attribute :tax_code, String
 
       # @!attribute tier_type
-      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how to configure quantity-based pricing models.
       define_attribute :tier_type, String
 
       # @!attribute tiers
@@ -85,6 +101,14 @@ module Recurly
       # @!attribute updated_at
       #   @return [DateTime] Last updated at
       define_attribute :updated_at, DateTime
+
+      # @!attribute usage_percentage
+      #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
+      define_attribute :usage_percentage, Float
+
+      # @!attribute usage_type
+      #   @return [String] Type of usage, returns usage type if `add_on_type` is `usage`.
+      define_attribute :usage_type, String
     end
   end
 end

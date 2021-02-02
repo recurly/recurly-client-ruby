@@ -43,11 +43,11 @@ module Recurly
       define_attribute :subscription_id, String
 
       # @!attribute tier_type
-      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based).
+      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how to configure quantity-based pricing models.
       define_attribute :tier_type, String
 
       # @!attribute tiers
-      #   @return [Array[SubscriptionAddOnTier]] Empty unless `tier_type` is `tiered`, `volume`, or `stairstep`.
+      #   @return [Array[SubscriptionAddOnTier]] If tiers are provided in the request, all existing tiers on the Subscription Add-on will be removed and replaced by the tiers in the request.
       define_attribute :tiers, Array, { :item_type => :SubscriptionAddOnTier }
 
       # @!attribute unit_amount
@@ -57,6 +57,10 @@ module Recurly
       # @!attribute updated_at
       #   @return [DateTime] Updated at
       define_attribute :updated_at, DateTime
+
+      # @!attribute usage_percentage
+      #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.
+      define_attribute :usage_percentage, Float
     end
   end
 end

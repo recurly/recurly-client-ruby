@@ -35,7 +35,10 @@ module Recurly
     #
     # @return [Pager<Resources::Site>] A list of sites.
     # @example
-    #   sites = @client.list_sites(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   sites = @client.list_sites(params: params)
     #   sites.each do |site|
     #     puts "Site: #{site.subdomain}"
     #   end
@@ -106,7 +109,10 @@ module Recurly
     #
     # @return [Pager<Resources::Account>] A list of the site's accounts.
     # @example
-    #   accounts = @client.list_accounts(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   accounts = @client.list_accounts(params: params)
     #   accounts.each do |account|
     #     puts "Account: #{account.code}"
     #   end
@@ -459,6 +465,108 @@ module Recurly
       delete(path, **options)
     end
 
+    # Get the list of billing information associated with an account
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/list_billing_infos list_billing_infos api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param params [Hash] Optional query string parameters:
+    #        :ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #        :begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Pager<Resources::BillingInfo>] A list of the the billing information for an account's
+    #
+    def list_billing_infos(account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos", account_id: account_id)
+      pager(path, **options)
+    end
+
+    # Set an account's billing information when the wallet feature is enabled
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/create_billing_info create_billing_info api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::BillingInfo] Updated billing information.
+    #
+    def create_billing_info(account_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos", account_id: account_id)
+      post(path, body, Requests::BillingInfoCreate, **options)
+    end
+
+    # Fetch a billing info
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/get_a_billing_info get_a_billing_info api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param billing_info_id [String] Billing Info ID.
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::BillingInfo] A billing info.
+    #
+    def get_a_billing_info(account_id:, billing_info_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}", account_id: account_id, billing_info_id: billing_info_id)
+      get(path, **options)
+    end
+
+    # Update an account's billing information
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/update_a_billing_info update_a_billing_info api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param billing_info_id [String] Billing Info ID.
+    # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::BillingInfo] Updated billing information.
+    #
+    def update_a_billing_info(account_id:, billing_info_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}", account_id: account_id, billing_info_id: billing_info_id)
+      put(path, body, Requests::BillingInfoCreate, **options)
+    end
+
+    # Remove an account's billing information
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/remove_a_billing_info remove_a_billing_info api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param billing_info_id [String] Billing Info ID.
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Empty] Billing information deleted
+    #
+    def remove_a_billing_info(account_id:, billing_info_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}", account_id: account_id, billing_info_id: billing_info_id)
+      delete(path, **options)
+    end
+
     # Show the coupon redemptions for an account
     #
     # {https://developers.recurly.com/api/v2020-01-01#operation/list_account_coupon_redemptions list_account_coupon_redemptions api documenation}
@@ -487,13 +595,17 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
+    #        :state [String] Filter by state.
     #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions on an account.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   redemptions = @client.list_account_coupon_redemptions(
     #     account_id: account_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   redemptions.each do |redemption|
     #     puts "CouponRedemption: #{redemption.id}"
@@ -504,31 +616,22 @@ module Recurly
       pager(path, **options)
     end
 
-    # Show the coupon redemption that is active on an account
+    # Show the coupon redemptions that are active on an account
     #
-    # {https://developers.recurly.com/api/v2020-01-01#operation/get_active_coupon_redemption get_active_coupon_redemption api documenation}
+    # {https://developers.recurly.com/api/v2020-01-01#operation/list_active_coupon_redemptions list_active_coupon_redemptions api documenation}
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
     #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
-    # @return [Resources::CouponRedemption] An active coupon redemption on an account.
-    # @example
-    #   begin
-    #     redemption = @client.get_active_coupon_redemption(account_id: account_id)
-    #     puts "Got CouponRedemption #{redemption}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
+    # @return [Pager<Resources::CouponRedemption>] Active coupon redemptions on an account.
     #
-    def get_active_coupon_redemption(account_id:, **options)
+    def list_active_coupon_redemptions(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/coupon_redemptions/active", account_id: account_id)
-      get(path, **options)
+      pager(path, **options)
     end
 
-    # Generate an active coupon redemption on an account
+    # Generate an active coupon redemption on an account or subscription
     #
     # {https://developers.recurly.com/api/v2020-01-01#operation/create_coupon_redemption create_coupon_redemption api documenation}
     #
@@ -606,9 +709,12 @@ module Recurly
     #
     # @return [Pager<Resources::CreditPayment>] A list of the account's credit payments.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   payments = @client.list_account_credit_payments(
     #     account_id: account_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   payments.each do |payment|
     #     puts "CreditPayment: #{payment.id}"
@@ -659,9 +765,12 @@ module Recurly
     #
     # @return [Pager<Resources::Invoice>] A list of the account's invoices.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   invoices = @client.list_account_invoices(
     #     account_id: account_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   invoices.each do |invoice|
     #     puts "Invoice: #{invoice.number}"
@@ -773,9 +882,12 @@ module Recurly
     #
     # @return [Pager<Resources::LineItem>] A list of the account's line items.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   line_items = @client.list_account_line_items(
     #     account_id: account_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   line_items.each do |line_item|
     #     puts "LineItem: #{line_item.id}"
@@ -841,7 +953,10 @@ module Recurly
     #
     # @return [Pager<Resources::AccountNote>] A list of an account's notes.
     # @example
-    #   account_notes = @client.list_account_notes(account_id: account_id, limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   account_notes = @client.list_account_notes(account_id: account_id, params: params)
     #   account_notes.each do |note|
     #     puts "AccountNote: #{note.message}"
     #   end
@@ -913,9 +1028,12 @@ module Recurly
     #
     # @return [Pager<Resources::ShippingAddress>] A list of an account's shipping addresses.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   shipping_addresses = @client.list_shipping_addresses(
     #     account_id: account_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   shipping_addresses.each do |addr|
     #     puts "ShippingAddress: #{addr.nickname} - #{addr.street1}"
@@ -1092,9 +1210,12 @@ module Recurly
     #
     # @return [Pager<Resources::Subscription>] A list of the account's subscriptions.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   subscriptions = @client.list_account_subscriptions(
     #     account_id: account_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   subscriptions.each do |subscription|
     #     puts "Subscription: #{subscription.uuid}"
@@ -1141,9 +1262,12 @@ module Recurly
     #
     # @return [Pager<Resources::Transaction>] A list of the account's transactions.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   transactions = @client.list_account_transactions(
     #     account_id: account_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   transactions.each do |transaction|
     #     puts "Transaction: #{transaction.uuid}"
@@ -1193,9 +1317,12 @@ module Recurly
     #
     # @return [Pager<Resources::Account>] A list of an account's child accounts.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   child_accounts = @client.list_child_accounts(
     #     account_id: account_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   child_accounts.each do |child|
     #     puts "Account: #{child.code}"
@@ -1239,7 +1366,10 @@ module Recurly
     #
     # @return [Pager<Resources::AccountAcquisition>] A list of the site's account acquisition data.
     # @example
-    #   acquisitions = @client.list_account_acquisition(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   acquisitions = @client.list_account_acquisition(params: params)
     #   acquisitions.each do |acquisition|
     #     puts "AccountAcquisition: #{acquisition.cost}"
     #   end
@@ -1282,7 +1412,10 @@ module Recurly
     #
     # @return [Pager<Resources::Coupon>] A list of the site's coupons.
     # @example
-    #   coupons = @client.list_coupons(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   coupons = @client.list_coupons(params: params)
     #   coupons.each do |coupon|
     #     puts "coupon: #{coupon.code}"
     #   end
@@ -1405,6 +1538,22 @@ module Recurly
       delete(path, **options)
     end
 
+    # Restore an inactive coupon
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/restore_coupon restore_coupon api documenation}
+    #
+    # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
+    # @param body [Requests::CouponUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponUpdate}
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Coupon] The restored coupon.
+    #
+    def restore_coupon(coupon_id:, body:, **options)
+      path = interpolate_path("/coupons/{coupon_id}/restore", coupon_id: coupon_id)
+      put(path, body, Requests::CouponUpdate, **options)
+    end
+
     # List unique coupon codes associated with a bulk coupon
     #
     # {https://developers.recurly.com/api/v2020-01-01#operation/list_unique_coupon_codes list_unique_coupon_codes api documenation}
@@ -1465,7 +1614,10 @@ module Recurly
     #
     # @return [Pager<Resources::CreditPayment>] A list of the site's credit payments.
     # @example
-    #   payments = @client.list_credit_payments(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   payments = @client.list_credit_payments(params: params)
     #   payments.each do |payment|
     #     puts "CreditPayment: #{payment.id}"
     #   end
@@ -1524,7 +1676,10 @@ module Recurly
     #
     # @return [Pager<Resources::CustomFieldDefinition>] A list of the site's custom field definitions.
     # @example
-    #   custom_fields = @client.list_custom_field_definitions(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   custom_fields = @client.list_custom_field_definitions(params: params)
     #   custom_fields.each do |field|
     #     puts "CustomFieldDefinition: #{field.name}"
     #   end
@@ -1594,7 +1749,10 @@ module Recurly
     #
     # @return [Pager<Resources::Item>] A list of the site's items.
     # @example
-    #   items = @client.list_items(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   items = @client.list_items(params: params)
     #   items.each do |item|
     #     puts "Item: #{item.code}"
     #   end
@@ -1744,6 +1902,106 @@ module Recurly
       put(path, **options)
     end
 
+    # List a site's measured units
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/list_measured_unit list_measured_unit api documenation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #        :ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    #        :limit [Integer] Limit number of records 1-200.
+    #        :order [String] Sort order.
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #        :begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    #        :state [String] Filter by state.
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Pager<Resources::MeasuredUnit>] A list of the site's measured units.
+    #
+    def list_measured_unit(**options)
+      path = interpolate_path("/measured_units")
+      pager(path, **options)
+    end
+
+    # Create a new measured unit
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/create_measured_unit create_measured_unit api documenation}
+    #
+    # @param body [Requests::MeasuredUnitCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::MeasuredUnitCreate}
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::MeasuredUnit] A new measured unit.
+    #
+    def create_measured_unit(body:, **options)
+      path = interpolate_path("/measured_units")
+      post(path, body, Requests::MeasuredUnitCreate, **options)
+    end
+
+    # Fetch a measured unit
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/get_measured_unit get_measured_unit api documenation}
+    #
+    # @param measured_unit_id [String] Measured unit ID or name. For ID no prefix is used e.g. +e28zov4fw0v2+. For name use prefix +name-+, e.g. +name-Storage+.
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::MeasuredUnit] An item.
+    #
+    def get_measured_unit(measured_unit_id:, **options)
+      path = interpolate_path("/measured_units/{measured_unit_id}", measured_unit_id: measured_unit_id)
+      get(path, **options)
+    end
+
+    # Update a measured unit
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/update_measured_unit update_measured_unit api documenation}
+    #
+    # @param measured_unit_id [String] Measured unit ID or name. For ID no prefix is used e.g. +e28zov4fw0v2+. For name use prefix +name-+, e.g. +name-Storage+.
+    # @param body [Requests::MeasuredUnitUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::MeasuredUnitUpdate}
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::MeasuredUnit] The updated measured_unit.
+    #
+    def update_measured_unit(measured_unit_id:, body:, **options)
+      path = interpolate_path("/measured_units/{measured_unit_id}", measured_unit_id: measured_unit_id)
+      put(path, body, Requests::MeasuredUnitUpdate, **options)
+    end
+
+    # Remove a measured unit
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/remove_measured_unit remove_measured_unit api documenation}
+    #
+    # @param measured_unit_id [String] Measured unit ID or name. For ID no prefix is used e.g. +e28zov4fw0v2+. For name use prefix +name-+, e.g. +name-Storage+.
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::MeasuredUnit] A measured unit.
+    #
+    def remove_measured_unit(measured_unit_id:, **options)
+      path = interpolate_path("/measured_units/{measured_unit_id}", measured_unit_id: measured_unit_id)
+      delete(path, **options)
+    end
+
     # List a site's invoices
     #
     # {https://developers.recurly.com/api/v2020-01-01#operation/list_invoices list_invoices api documenation}
@@ -1783,7 +2041,10 @@ module Recurly
     #
     # @return [Pager<Resources::Invoice>] A list of the site's invoices.
     # @example
-    #   invoices = @client.list_invoices(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   invoices = @client.list_invoices(params: params)
     #   invoices.each do |invoice|
     #     puts "Invoice: #{invoice.number}"
     #   end
@@ -2047,9 +2308,12 @@ module Recurly
     #
     # @return [Pager<Resources::LineItem>] A list of the invoice's line items.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   line_items = @client.list_invoice_line_items(
     #     invoice_id: invoice_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   line_items.each do |line_item|
     #     puts "Line Item: #{line_item.id}"
@@ -2092,9 +2356,12 @@ module Recurly
     #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions associated with the invoice.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   coupon_redemptions = @client.list_invoice_coupon_redemptions(
     #     invoice_id: invoice_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   coupon_redemptions.each do |redemption|
     #     puts "CouponRedemption: #{redemption.id}"
@@ -2115,9 +2382,12 @@ module Recurly
     #
     # @return [Pager<Resources::Invoice>] A list of the credit or charge invoices associated with the invoice.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   invoices = @client.list_related_invoices(
     #     invoice_id: invoice_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   invoices.each do |invoice|
     #     puts "Invoice: #{invoice.number}"
@@ -2196,8 +2466,11 @@ module Recurly
     #
     # @return [Pager<Resources::LineItem>] A list of the site's line items.
     # @example
-    #   line_items = @client.list_line_items(
+    #   params = {
     #     limit: 200
+    #   }
+    #   line_items = @client.list_line_items(
+    #     params: params
     #   )
     #   line_items.each do |line_item|
     #     puts "LineItem: #{line_item.id}"
@@ -2292,7 +2565,10 @@ module Recurly
     #
     # @return [Pager<Resources::Plan>] A list of plans.
     # @example
-    #   plans = @client.list_plans(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   plans = @client.list_plans(params: params)
     #   plans.each do |plan|
     #     puts "Plan: #{plan.code}"
     #   end
@@ -2454,9 +2730,12 @@ module Recurly
     #
     # @return [Pager<Resources::AddOn>] A list of add-ons.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   add_ons = @client.list_plan_add_ons(
     #     plan_id: plan_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   add_ons.each do |add_on|
     #     puts "AddOn: #{add_on.code}"
@@ -2625,8 +2904,11 @@ module Recurly
     #
     # @return [Pager<Resources::AddOn>] A list of add-ons.
     # @example
-    #   add_ons = @client.list_add_ons(
+    #   params = {
     #     limit: 200
+    #   }
+    #   add_ons = @client.list_add_ons(
+    #     params: params
     #   )
     #   add_ons.each do |add_on|
     #     puts "AddOn: #{add_on.code}"
@@ -2694,8 +2976,11 @@ module Recurly
     #
     # @return [Pager<Resources::ShippingMethod>] A list of the site's shipping methods.
     # @example
-    #   shipping_methods = @client.list_shipping_methods(
+    #   params = {
     #     limit: 200
+    #   }
+    #   shipping_methods = @client.list_shipping_methods(
+    #     params: params
     #   )
     #   shipping_methods.each do |shipping_method|
     #     puts "Shipping Method: #{shipping_method.code}"
@@ -2806,7 +3091,10 @@ module Recurly
     #
     # @return [Pager<Resources::Subscription>] A list of the site's subscriptions.
     # @example
-    #   subscriptions = @client.list_subscriptions(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   subscriptions = @client.list_subscriptions(params: params)
     #   subscriptions.each do |subscription|
     #     puts "Subscription: #{subscription.uuid}"
     #   end
@@ -2925,6 +3213,7 @@ module Recurly
     #
     #   You may also terminate a subscription with no refund and then manually refund specific invoices.
     #
+    #        :charge [Boolean] Applicable only if the subscription has usage based add-ons and unbilled usage logged for the current billing cycle. If true, current billing cycle unbilled usage is billed on the final invoice. If false, Recurly will create a negative usage record for current billing cycle usage that will zero out the final invoice line items.
     #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] An expired subscription.
@@ -3163,7 +3452,7 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
-    # @return [Resources::SubscriptionChangePreview] A subscription change.
+    # @return [Resources::SubscriptionChange] A subscription change.
     #
     def preview_subscription_change(subscription_id:, body:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/change/preview", subscription_id: subscription_id)
@@ -3210,9 +3499,12 @@ module Recurly
     #
     # @return [Pager<Resources::Invoice>] A list of the subscription's invoices.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   invoices = @client.list_subscription_invoices(
     #     subscription_id: subscription_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   invoices.each do |invoice|
     #     puts "Invoice: #{invoice.number}"
@@ -3260,9 +3552,12 @@ module Recurly
     #
     # @return [Pager<Resources::LineItem>] A list of the subscription's line items.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   line_items = @client.list_subscription_line_items(
     #     subscription_id: subscription_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   line_items.each do |line_item|
     #     puts "LineItem: #{line_item.id}"
@@ -3305,9 +3600,12 @@ module Recurly
     #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions on a subscription.
     # @example
+    #   params = {
+    #     limit: 200
+    #   }
     #   coupon_redemptions = @client.list_subscription_coupon_redemptions(
     #     subscription_id: subscription_id,
-    #     limit: 200
+    #     params: params
     #   )
     #   coupon_redemptions.each do |redemption|
     #     puts "CouponRedemption: #{redemption.id}"
@@ -3316,6 +3614,110 @@ module Recurly
     def list_subscription_coupon_redemptions(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/coupon_redemptions", subscription_id: subscription_id)
       pager(path, **options)
+    end
+
+    # List a subscription add-on's usage records
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/list_usage list_usage api documenation}
+    #
+    # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
+    # @param params [Hash] Optional query string parameters:
+    #        :ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    #        :limit [Integer] Limit number of records 1-200.
+    #        :order [String] Sort order.
+    #        :sort [String] Sort field. You *really* only want to sort by +usage_timestamp+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #        :begin_time [DateTime] Inclusively filter by begin_time when +sort=usage_timestamp+ or +sort=recorded_timestamp+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    #        :end_time [DateTime] Inclusively filter by end_time when +sort=usage_timestamp+ or +sort=recorded_timestamp+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    #        :billing_status [String] Filter by usage record's billing status
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Pager<Resources::Usage>] A list of the subscription add-on's usage records.
+    #
+    def list_usage(subscription_id:, add_on_id:, **options)
+      path = interpolate_path("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscription_id: subscription_id, add_on_id: add_on_id)
+      pager(path, **options)
+    end
+
+    # Log a usage record on this subscription add-on
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/create_usage create_usage api documenation}
+    #
+    # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
+    # @param body [Requests::UsageCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::UsageCreate}
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Usage] The created usage record.
+    #
+    def create_usage(subscription_id:, add_on_id:, body:, **options)
+      path = interpolate_path("/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage", subscription_id: subscription_id, add_on_id: add_on_id)
+      post(path, body, Requests::UsageCreate, **options)
+    end
+
+    # Get a usage record
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/get_usage get_usage api documenation}
+    #
+    # @param usage_id [String] Usage Record ID.
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Usage] The usage record.
+    #
+    def get_usage(usage_id:, **options)
+      path = interpolate_path("/usage/{usage_id}", usage_id: usage_id)
+      get(path, **options)
+    end
+
+    # Update a usage record
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/update_usage update_usage api documenation}
+    #
+    # @param usage_id [String] Usage Record ID.
+    # @param body [Requests::UsageCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::UsageCreate}
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Usage] The updated usage record.
+    #
+    def update_usage(usage_id:, body:, **options)
+      path = interpolate_path("/usage/{usage_id}", usage_id: usage_id)
+      put(path, body, Requests::UsageCreate, **options)
+    end
+
+    # Delete a usage record.
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/remove_usage remove_usage api documenation}
+    #
+    # @param usage_id [String] Usage Record ID.
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Empty] Usage was successfully deleted.
+    #
+    def remove_usage(usage_id:, **options)
+      path = interpolate_path("/usage/{usage_id}", usage_id: usage_id)
+      delete(path, **options)
     end
 
     # List a site's transactions
@@ -3353,7 +3755,10 @@ module Recurly
     #
     # @return [Pager<Resources::Transaction>] A list of the site's transactions.
     # @example
-    #   transactions = @client.list_transactions(limit: 200)
+    #   params = {
+    #     limit: 200
+    #   }
+    #   transactions = @client.list_transactions(params: params)
     #   transactions.each do |transaction|
     #     puts "Transaction: #{transaction.uuid}"
     #   end
@@ -3512,6 +3917,57 @@ module Recurly
     def preview_purchase(body:, **options)
       path = interpolate_path("/purchases/preview")
       post(path, body, Requests::PurchaseCreate, **options)
+    end
+
+    # List the dates that have an available export to download.
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/get_export_dates get_export_dates api documenation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::ExportDates] Returns a list of dates.
+    # @example
+    #   begin
+    #     export_dates = @client.get_export_dates()
+    #     export_dates.dates.each do |date|
+    #       puts "Exports are available for: #{date}"
+    #     end
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
+    def get_export_dates(**options)
+      path = interpolate_path("/export_dates")
+      get(path, **options)
+    end
+
+    # List of the export files that are available to download.
+    #
+    # {https://developers.recurly.com/api/v2020-01-01#operation/get_export_files get_export_files api documenation}
+    #
+    # @param export_date [String] Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.
+    # @param params [Hash] Optional query string parameters:
+    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::ExportFiles] Returns a list of export files to download.
+    # @example
+    #   begin
+    #     export_files = @client.get_export_files(export_date: export_date)
+    #     export_files.files.each do |file|
+    #       puts "Export file download URL: #{file.href}"
+    #     end
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
+    def get_export_files(export_date:, **options)
+      path = interpolate_path("/export_dates/{export_date}/export_files", export_date: export_date)
+      get(path, **options)
     end
   end
 end

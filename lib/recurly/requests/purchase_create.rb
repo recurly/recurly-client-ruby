@@ -10,6 +10,10 @@ module Recurly
       #   @return [AccountPurchase]
       define_attribute :account, :AccountPurchase
 
+      # @!attribute billing_info_id
+      #   @return [String] The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+      define_attribute :billing_info_id, String
+
       # @!attribute collection_method
       #   @return [String] Must be set to manual in order to preview a purchase for an Account that does not have payment information associated with the Billing Info.
       define_attribute :collection_method, String

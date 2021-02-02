@@ -22,6 +22,10 @@ module Recurly
       #   @return [DateTime] Created at
       define_attribute :created_at, DateTime
 
+      # @!attribute custom_fields
+      #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
+
       # @!attribute deleted_at
       #   @return [DateTime] Deleted at
       define_attribute :deleted_at, DateTime
@@ -29,6 +33,10 @@ module Recurly
       # @!attribute id
       #   @return [String] The ID of the Subscription Change.
       define_attribute :id, String
+
+      # @!attribute invoice_collection
+      #   @return [InvoiceCollection] Invoice Collection
+      define_attribute :invoice_collection, :InvoiceCollection
 
       # @!attribute object
       #   @return [String] Object type

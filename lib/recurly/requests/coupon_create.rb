@@ -6,8 +6,12 @@ module Recurly
   module Requests
     class CouponCreate < Request
 
+      # @!attribute applies_to_all_items
+      #   @return [Boolean] To apply coupon to Items in your Catalog, include a list of `item_codes` in the request that the coupon will apply to. Or set value to true to apply to all Items in your Catalog. The following values are not permitted when `applies_to_all_items` is included: `free_trial_amount` and `free_trial_unit`.
+      define_attribute :applies_to_all_items, :Boolean
+
       # @!attribute applies_to_all_plans
-      #   @return [Boolean] The coupon is valid for all plans if true. If false then `plans` and `plans_names` will list the applicable plans.
+      #   @return [Boolean] The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.
       define_attribute :applies_to_all_plans, :Boolean
 
       # @!attribute applies_to_non_plan_charges
@@ -54,6 +58,10 @@ module Recurly
       #   @return [String] Description of the coupon on the invoice.
       define_attribute :invoice_description, String
 
+      # @!attribute item_codes
+      #   @return [Array[String]] List of item codes to which this coupon applies. Sending `item_codes` is only permitted when `applies_to_all_items` is set to false. The following values are not permitted when `item_codes` is included: `free_trial_amount` and `free_trial_unit`.
+      define_attribute :item_codes, Array, { :item_type => String }
+
       # @!attribute max_redemptions
       #   @return [Integer] A maximum number of redemptions for the coupon. The coupon will expire when it hits its maximum redemptions.
       define_attribute :max_redemptions, Integer
@@ -67,7 +75,7 @@ module Recurly
       define_attribute :name, String
 
       # @!attribute plan_codes
-      #   @return [Array[String]] List of plan codes to which this coupon applies. See `applies_to_all_plans`
+      #   @return [Array[String]] List of plan codes to which this coupon applies. Required if `applies_to_all_plans` is false. Overrides `applies_to_all_plans` when `applies_to_all_plans` is true.
       define_attribute :plan_codes, Array, { :item_type => String }
 
       # @!attribute redeem_by_date

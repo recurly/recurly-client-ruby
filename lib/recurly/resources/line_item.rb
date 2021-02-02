@@ -26,6 +26,14 @@ module Recurly
       #   @return [Float] `(quantity * unit_amount) - (discount + tax)`
       define_attribute :amount, Float
 
+      # @!attribute avalara_service_type
+      #   @return [Integer] Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the line item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+      define_attribute :avalara_service_type, Integer
+
+      # @!attribute avalara_transaction_type
+      #   @return [Integer] Used by Avalara for Communications taxes. The transaction type in combination with the service type describe how the line item is taxed. Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types) for more available t/s types.
+      define_attribute :avalara_transaction_type, Integer
+
       # @!attribute created_at
       #   @return [DateTime] When the line item was created.
       define_attribute :created_at, DateTime

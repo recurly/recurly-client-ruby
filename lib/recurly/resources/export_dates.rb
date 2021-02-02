@@ -4,15 +4,15 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Resources
-    class Tier < Resource
+    class ExportDates < Resource
 
-      # @!attribute currencies
-      #   @return [Array[TierPricing]] Tier pricing
-      define_attribute :currencies, Array, { :item_type => :TierPricing }
+      # @!attribute dates
+      #   @return [Array[String]] An array of dates that have available exports.
+      define_attribute :dates, Array, { :item_type => String }
 
-      # @!attribute ending_quantity
-      #   @return [Integer] Ending quantity
-      define_attribute :ending_quantity, Integer
+      # @!attribute object
+      #   @return [String] Object type
+      define_attribute :object, String
     end
   end
 end

@@ -18,6 +18,10 @@ module Recurly
       #   @return [Float] The outstanding balance remaining on this invoice.
       define_attribute :balance, Float
 
+      # @!attribute billing_info_id
+      #   @return [String] The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+      define_attribute :billing_info_id, String
+
       # @!attribute closed_at
       #   @return [DateTime] Date invoice was marked paid or failed.
       define_attribute :closed_at, DateTime
@@ -50,13 +54,17 @@ module Recurly
       #   @return [DateTime] Date invoice is due. This is the date the net terms are reached.
       define_attribute :due_at, DateTime
 
+      # @!attribute has_more_line_items
+      #   @return [Boolean] Identifies if the invoice has more line items than are returned in `line_items`. If `has_more_line_items` is `true`, then a request needs to be made to the `list_invoice_line_items` endpoint.
+      define_attribute :has_more_line_items, :Boolean
+
       # @!attribute id
       #   @return [String] Invoice ID
       define_attribute :id, String
 
       # @!attribute line_items
-      #   @return [LineItemList]
-      define_attribute :line_items, :LineItemList
+      #   @return [Array[LineItem]] Line Items
+      define_attribute :line_items, Array, { :item_type => :LineItem }
 
       # @!attribute net_terms
       #   @return [Integer] Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.

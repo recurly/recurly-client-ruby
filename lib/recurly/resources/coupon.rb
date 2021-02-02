@@ -6,8 +6,12 @@ module Recurly
   module Resources
     class Coupon < Resource
 
+      # @!attribute applies_to_all_items
+      #   @return [Boolean] The coupon is valid for all items if true. If false then `items` will list the applicable items.
+      define_attribute :applies_to_all_items, :Boolean
+
       # @!attribute applies_to_all_plans
-      #   @return [Boolean] The coupon is valid for all plans if true. If false then `plans` and `plans_names` will list the applicable plans.
+      #   @return [Boolean] The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.
       define_attribute :applies_to_all_plans, :Boolean
 
       # @!attribute applies_to_non_plan_charges
@@ -58,6 +62,10 @@ module Recurly
       #   @return [String] Description of the coupon on the invoice.
       define_attribute :invoice_description, String
 
+      # @!attribute items
+      #   @return [Array[ItemMini]] A list of items for which this coupon applies. This will be `null` if `applies_to_all_items=true`.
+      define_attribute :items, Array, { :item_type => :ItemMini }
+
       # @!attribute max_redemptions
       #   @return [Integer] A maximum number of redemptions for the coupon. The coupon will expire when it hits its maximum redemptions.
       define_attribute :max_redemptions, Integer
@@ -78,17 +86,9 @@ module Recurly
       #   @return [Array[PlanMini]] A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.
       define_attribute :plans, Array, { :item_type => :PlanMini }
 
-      # @!attribute plans_names
-      #   @return [Array[String]] TODO
-      define_attribute :plans_names, Array, { :item_type => String }
-
       # @!attribute redeem_by
       #   @return [DateTime] The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
       define_attribute :redeem_by, DateTime
-
-      # @!attribute redeemed_at
-      #   @return [DateTime] The date and time the unique coupon code was redeemed. This is only present for bulk coupons.
-      define_attribute :redeemed_at, DateTime
 
       # @!attribute redemption_resource
       #   @return [String] Whether the discount is for all eligible charges on the account, or only a specific subscription.
@@ -109,6 +109,10 @@ module Recurly
       # @!attribute unique_code_template
       #   @return [String] On a bulk coupon, the template from which unique coupon codes are generated.
       define_attribute :unique_code_template, String
+
+      # @!attribute unique_coupon_code
+      #   @return [Hash] Will be populated when the Coupon being returned is a `UniqueCouponCode`.
+      define_attribute :unique_coupon_code, Hash
 
       # @!attribute unique_coupon_codes_count
       #   @return [Integer] When this number reaches `max_redemptions` the coupon will no longer be redeemable.

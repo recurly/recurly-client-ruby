@@ -11,7 +11,7 @@ module Recurly
       define_attribute :address, :ShippingAddressCreate
 
       # @!attribute address_id
-      #   @return [String] Assign a shipping address from the account's existing shipping addresses. If this and `shipping_address` are both present, `shipping_address` will take precedence.
+      #   @return [String] Assign a shipping address from the account's existing shipping addresses. If this and `address` are both present, `address` will take precedence.
       define_attribute :address_id, String
 
       # @!attribute fees

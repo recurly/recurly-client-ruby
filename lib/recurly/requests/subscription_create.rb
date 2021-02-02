@@ -18,13 +18,17 @@ module Recurly
       #   @return [Boolean] Whether the subscription renews at the end of its term.
       define_attribute :auto_renew, :Boolean
 
+      # @!attribute billing_info_id
+      #   @return [String] The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+      define_attribute :billing_info_id, String
+
       # @!attribute collection_method
       #   @return [String] Collection method
       define_attribute :collection_method, String
 
-      # @!attribute coupon_code
-      #   @return [String] Optional coupon code to redeem on the account and discount the subscription. Please note, the subscription request will fail if the coupon is invalid.
-      define_attribute :coupon_code, String
+      # @!attribute coupon_codes
+      #   @return [Array[String]] A list of coupon_codes to be redeemed on the subscription or account during the purchase.
+      define_attribute :coupon_codes, Array, { :item_type => String }
 
       # @!attribute credit_customer_notes
       #   @return [String] If there are pending credits on the account that will be invoiced during the subscription creation, these will be used as the Customer Notes on the credit invoice.

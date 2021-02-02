@@ -7,8 +7,8 @@ module Recurly
     class Tier < Request
 
       # @!attribute currencies
-      #   @return [Array[Pricing]] Tier pricing
-      define_attribute :currencies, Array, { :item_type => :Pricing }
+      #   @return [Array[TierPricing]] Tier pricing
+      define_attribute :currencies, Array, { :item_type => :TierPricing }
 
       # @!attribute ending_quantity
       #   @return [Integer] Ending quantity
