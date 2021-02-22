@@ -299,7 +299,7 @@ module Recurly
     end
 
     def interpolate_path(path, **options)
-      validate_path_parameters!(options)
+      validate_path_parameters!(**options)
       options.each do |k, v|
         # We need to encode the values for the url
         options[k] = ERB::Util.url_encode(v.to_s)
@@ -330,7 +330,7 @@ module Recurly
       end
     end
 
-    def scope_by_site(path, **options)
+    def scope_by_site(path, options)
       if site = site_id || options[:site_id]
         # Ensure that we are only including the site_id once because the Pager operations
         # will use the cursor returned from the API which may already have these components

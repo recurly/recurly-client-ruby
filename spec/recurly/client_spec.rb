@@ -1,7 +1,7 @@
 require "spec_helper"
 
 RSpec.describe Recurly::Client do
-  subject(:client) { Recurly::Client.new(client_options) }
+  subject(:client) { Recurly::Client.new(**client_options) }
   let(:client_options) { { api_key: api_key } }
   let(:subdomain) { "test" }
   let(:api_key) { "recurly-good" }
