@@ -1,8 +1,20 @@
 # Changelog
 
-## [3.18.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
+## [3.18.1](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.17.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.18.0...HEAD)
+
+**Fixed bugs:**
+
+- Fixing issues with ruby 3.0 [\#665](https://github.com/recurly/recurly-client-ruby/pull/665) ([douglasmiller](https://github.com/douglasmiller))
+
+**Merged pull requests:**
+
+- Release 3.18.1 [\#666](https://github.com/recurly/recurly-client-ruby/pull/666) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.18.0](https://github.com/recurly/recurly-client-ruby/tree/3.18.0) (2021-01-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.17.0...3.18.0)
 
 **Implemented enhancements:**
 
@@ -32,10 +44,6 @@
 
 - Latest Changes for 2019-10-10 \(tax\_identifier / tax\_identifier\_type\) [\#654](https://github.com/recurly/recurly-client-ruby/pull/654) ([douglasmiller](https://github.com/douglasmiller))
 - Latest Changes for 2019-10-10 [\#651](https://github.com/recurly/recurly-client-ruby/pull/651) ([douglasmiller](https://github.com/douglasmiller))
-
-**Fixed bugs:**
-
-- Refund API V2 Error Details [\#652](https://github.com/recurly/recurly-client-ruby/issues/652)
 
 **Merged pull requests:**
 
@@ -348,7 +356,7 @@
 
 ## [3.0.0.beta.4](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.4) (2019-04-04)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.1...3.0.0.beta.4)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.3...3.0.0.beta.4)
 
 **Merged pull requests:**
 
@@ -360,6 +368,14 @@
 - V3 Pager can error [\#401](https://github.com/recurly/recurly-client-ruby/pull/401) ([drewish](https://github.com/drewish))
 - \[V3\] Test more versions of ruby [\#397](https://github.com/recurly/recurly-client-ruby/pull/397) ([drewish](https://github.com/drewish))
 - Allow faraday 0.12 for compatibility with oauth2 gem [\#396](https://github.com/recurly/recurly-client-ruby/pull/396) ([drewish](https://github.com/drewish))
+
+## [3.0.0.beta.3](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.3) (2018-08-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.2...3.0.0.beta.3)
+
+## [3.0.0.beta.2](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.2) (2018-07-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.1...3.0.0.beta.2)
 
 
 
