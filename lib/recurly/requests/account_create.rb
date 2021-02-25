@@ -7,8 +7,8 @@ module Recurly
     class AccountCreate < Request
 
       # @!attribute acquisition
-      #   @return [AccountAcquisitionUpdatable]
-      define_attribute :acquisition, :AccountAcquisitionUpdatable
+      #   @return [AccountAcquisitionUpdate]
+      define_attribute :acquisition, :AccountAcquisitionUpdate
 
       # @!attribute address
       #   @return [Address]

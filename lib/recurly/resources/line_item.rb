@@ -186,6 +186,10 @@ module Recurly
       #   @return [Float] Positive amount for a charge, negative amount for a credit.
       define_attribute :unit_amount, Float
 
+      # @!attribute unit_amount_decimal
+      #   @return [String] Positive amount for a charge, negative amount for a credit.
+      define_attribute :unit_amount_decimal, String
+
       # @!attribute updated_at
       #   @return [DateTime] When the line item was last changed.
       define_attribute :updated_at, DateTime

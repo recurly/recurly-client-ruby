@@ -10,18 +10,18 @@ info:
     flexibility for Recurly to continue making improvements.
 
     The versions follow a format that incorporates the approximate date the
-    changes were released in a YYYY-MM-DD format, e.g. `v2020-01-01`.
+    changes were released in a YYYY-MM-DD format, e.g. `v2021-02-25`.
 
     > *WARNING*: Specifying a version is required to get a successful response.
 
     Each request should specify a version using the `Accept` header:
-    * `Accept: application/vnd.recurly.v2020-01-01`
-    * `Accept: application/vnd.recurly.v2020-01-01+json`
+    * `Accept: application/vnd.recurly.v2021-02-25`
+    * `Accept: application/vnd.recurly.v2021-02-25+json`
 
     All responses will include a `Recurly-Version` header with the API version
     used to process the request:
     ```
-    Recurly-Version: recurly.v2020-01-01
+    Recurly-Version: recurly.v2021-02-25
     ```
 
     ### Default Versions
@@ -64,7 +64,7 @@ info:
           "application/vnd.recurly.v2018-06-06",
           "application/vnd.recurly.v2018-08-09",
           "application/vnd.recurly.v2019-10-10",
-          "application/vnd.recurly.v2020-01-01"
+          "application/vnd.recurly.v2021-02-25"
         ]
       }
     }
@@ -143,8 +143,8 @@ info:
 
     ## Change Log
 
-    A list of changes for this version can be found [in the changelog](https://developers.recurly.com/api/changelog.html#v2020-01-01).
-  version: v2020-01-01
+    A list of changes for this version can be found [in the changelog](https://developers.recurly.com/api/changelog.html#v2021-02-25---current-ga-version).
+  version: v2021-02-25
 security:
 - api_key: []
 x-tagGroups:
@@ -382,10 +382,10 @@ paths:
         source: "listParams := &recurly.ListSitesParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"asc\"),\n\tLimit: recurly.Int(200),\n}\n\nsites, err :=
           client.ListSites(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor sites.HasMore {\n\terr := sites.Fetch()\n\tif
+          error: %v\", err)\n\treturn\n}\n\nfor sites.HasMore() {\n\terr := sites.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, site := range sites.Data {\n\t\tfmt.Printf(\"Site
-          %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tsite.Id,\n\t\t\tsite.Subdomain,\n\t\t)\n\t}\n}"
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, site := range sites.Data()
+          {\n\t\tfmt.Printf(\"Site %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tsite.Id,\n\t\t\tsite.Subdomain,\n\t\t)\n\t}\n}"
   "/sites/{site_id}":
     get:
       operationId: get_site
@@ -502,7 +502,7 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Fetched Site:
           %s\", site.Id)"
-  "/sites/{site_id}/accounts":
+  "/accounts":
     get:
       tags:
       - account
@@ -605,9 +605,9 @@ paths:
         source: "listParams := &recurly.ListAccountsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naccounts, err
           := client.ListAccounts(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor accounts.HasMore {\n\terr := accounts.Fetch()\n\tif
+          error: %v\", err)\n\treturn\n}\n\nfor accounts.HasMore() {\n\terr := accounts.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, account := range accounts.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, account := range accounts.Data()
           {\n\t\tfmt.Printf(\"Account %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\taccount.Id,\n\t\t\taccount.Code,\n\t\t)\n\t}\n}"
     post:
       tags:
@@ -861,7 +861,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Account:
           %s\", account.Id)"
-  "/sites/{site_id}/accounts/{account_id}":
+  "/accounts/{account_id}":
     parameters:
     - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/account_id"
@@ -976,7 +976,7 @@ paths:
       tags:
       - account
       operationId: update_account
-      summary: Modify an account
+      summary: Update an account
       requestBody:
         content:
           application/json:
@@ -1250,7 +1250,7 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Deactivated
           Account: %s\", account.Id)"
-  "/sites/{site_id}/accounts/{account_id}/acquisition":
+  "/accounts/{account_id}/acquisition":
     parameters:
     - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/account_id"
@@ -1373,7 +1373,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/AccountAcquisitionUpdatable"
+              "$ref": "#/components/schemas/AccountAcquisitionUpdate"
         required: true
       responses:
         '200':
@@ -1442,7 +1442,7 @@ paths:
         source: |
           try
           {
-              var acquisitionReq = new AccountAcquisitionUpdatable()
+              var acquisitionReq = new AccountAcquisitionUpdate()
               {
                   Campaign = "big-event-campaign",
                   Channel = Channel.SocialMedia,
@@ -1487,7 +1487,7 @@ paths:
       - lang: Java
         source: |
           try {
-              final AccountAcquisitionUpdatable acqUpdate = new AccountAcquisitionUpdatable();
+              final AccountAcquisitionUpdate acqUpdate = new AccountAcquisitionUpdate();
               acqUpdate.setCampaign("big-event-campaign");
               acqUpdate.setChannel(Constants.Channel.SOCIAL_MEDIA);
               acqUpdate.setSubchannel("twitter");
@@ -1524,7 +1524,7 @@ paths:
               var_dump($e);
           }
       - lang: Go
-        source: "updateReq := &recurly.AccountAcquisitionUpdatable{\n\tCampaign:   recurly.String(\"big-event-campaign\"),\n\tChannel:
+        source: "updateReq := &recurly.AccountAcquisitionUpdate{\n\tCampaign:   recurly.String(\"big-event-campaign\"),\n\tChannel:
           \   recurly.String(\"social_media\"),\n\tSubchannel: recurly.String(\"twitter\"),\n}\naccount,
           err := client.UpdateAccountAcquisition(accountID, updateReq)\nif e, ok :=
           err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
@@ -1633,7 +1633,7 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Removed Account
           Acquisition: %s\", accountAcquisition.Id)"
-  "/sites/{site_id}/accounts/{account_id}/reactivate":
+  "/accounts/{account_id}/reactivate":
     parameters:
     - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/account_id"
@@ -1757,7 +1757,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Reactivated
           Account: %s\", account.Id)"
-  "/sites/{site_id}/accounts/{account_id}/balance":
+  "/accounts/{account_id}/balance":
     parameters:
     - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/account_id"
@@ -1874,7 +1874,7 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Fetched Account
           Balance: %v\", accountBalance)"
-  "/sites/{site_id}/accounts/{account_id}/billing_info":
+  "/accounts/{account_id}/billing_info":
     get:
       tags:
       - account
@@ -2277,7 +2277,7 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Removed Billing
           Info: %v\", billingInfo)"
-  "/sites/{site_id}/accounts/{account_id}/billing_infos":
+  "/accounts/{account_id}/billing_infos":
     get:
       tags:
       - account
@@ -2374,7 +2374,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/ErrorMayHaveTransaction"
       x-code-samples: []
-  "/sites/{site_id}/accounts/{account_id}/billing_infos/{billing_info_id}":
+  "/accounts/{account_id}/billing_infos/{billing_info_id}":
     get:
       tags:
       - account
@@ -2492,7 +2492,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/accounts/{account_id}/coupon_redemptions":
+  "/accounts/{account_id}/coupon_redemptions":
     get:
       tags:
       - account
@@ -2586,12 +2586,12 @@ paths:
         source: "listParams := &recurly.ListAccountCouponRedemptionsParams{\n\tSort:
           recurly.String(\"created_at\"),\n}\naccountCouponRedemptions, err := client.ListAccountCouponRedemptions(accountID,
           listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor
-          accountCouponRedemptions.HasMore {\n\terr := accountCouponRedemptions.Fetch()\n\tif
+          accountCouponRedemptions.HasMore() {\n\terr := accountCouponRedemptions.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
           next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, couponRedemption := range
-          accountCouponRedemptions.Data {\n\t\tfmt.Printf(\"Account Coupon Redemption
+          accountCouponRedemptions.Data() {\n\t\tfmt.Printf(\"Account Coupon Redemption
           %3d: %s\\n\",\n\t\t\ti,\n\t\t\tcouponRedemption.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/accounts/{account_id}/coupon_redemptions/active":
+  "/accounts/{account_id}/coupon_redemptions/active":
     get:
       tags:
       - account
@@ -2623,6 +2623,19 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples:
+      - lang: Node.js
+        source: |
+          const redemptions = await client.listActiveCouponRedemptions(accountId, { params: { limit: 200 } })
+
+          for await (const redemption of redemptions.each()) {
+            console.log('Fetched coupon redemption: ', redemption.id)
+          }
+      - lang: Python
+        source: |
+          params = {"limit": 200}
+          redemptions = client.list_active_coupon_redemptions(account_id, params=params).items()
+          for redemption in redemptions:
+              print(redemption.id)
       - lang: ".NET"
         source: |
           try
@@ -2644,12 +2657,26 @@ paths:
               // Use ApiError to catch a generic error from the API
               Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
           }
-      - lang: Java
+      - lang: Ruby
         source: |
-          final Pager<CouponRedemption> couponRedemptions = client.listActiveCouponRedemptions(accountId);
+          params = {
+            limit: 200
+          }
+          redemptions = @client.list_active_coupon_redemptions(account_id: account_id, params: params)
+          redemptions.each do |redemption|
+            puts "Redemption: #{redemption.id}"
+          end
+      - lang: PHP
+        source: |
+          $options = [
+            'params' => [
+              'limit' => 200
+            ]
+          ];
+          $redemptions = $client->listActiveCouponRedemptions($account_id, $options);
 
-          for (CouponRedemption couponRedemption : couponRedemptions) {
-              System.out.println(couponRedemption.getId());
+          foreach($redemptions as $redemption) {
+              echo 'Got Redemption: ' . $redemption->getId() . PHP_EOL;
           }
     post:
       tags:
@@ -2898,7 +2925,7 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Removed Coupon
           Redemption: %v\", couponRedemption.Id)"
-  "/sites/{site_id}/accounts/{account_id}/credit_payments":
+  "/accounts/{account_id}/credit_payments":
     get:
       tags:
       - account
@@ -3003,11 +3030,11 @@ paths:
           \ recurly.String(\"created_at\"),\n\tOrder: recurly.String(\"desc\"),\n\tLimit:
           recurly.Int(200),\n}\ncreditPayments, err := client.ListAccountCreditPayments(accountID,
           listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor
-          creditPayments.HasMore {\n\terr := creditPayments.Fetch()\n\tif e, ok :=
-          err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve next page:
-          %v\", e)\n\t\tbreak\n\t}\n\tfor i, creditPayment := range creditPayments.Data
+          creditPayments.HasMore() {\n\terr := creditPayments.Fetch()\n\tif e, ok
+          := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve next
+          page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, creditPayment := range creditPayments.Data()
           {\n\t\tfmt.Printf(\"Account Credit Payment %3d: %s\\n\",\n\t\t\ti,\n\t\t\tcreditPayment.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/accounts/{account_id}/invoices":
+  "/accounts/{account_id}/invoices":
     get:
       tags:
       - invoice
@@ -3108,10 +3135,10 @@ paths:
         source: "listParams := &recurly.ListAccountInvoicesParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naccountInvoices,
           err := client.ListAccountInvoices(accountID, listParams)\nif err != nil
-          {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor accountInvoices.HasMore
+          {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor accountInvoices.HasMore()
           {\n\terr := accountInvoices.Fetch()\n\tif e, ok := err.(*recurly.Error);
           ok {\n\t\tfmt.Printf(\"Failed to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor
-          i, invoice := range accountInvoices.Data {\n\t\tfmt.Printf(\"Account Invoice
+          i, invoice := range accountInvoices.Data() {\n\t\tfmt.Printf(\"Account Invoice
           %3d: %s\\n\",\n\t\t\ti,\n\t\t\tinvoice.Id,\n\t\t)\n\t}\n}"
     post:
       tags:
@@ -3284,7 +3311,7 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Invoice
           Collection: %v\", collection)"
-  "/sites/{site_id}/accounts/{account_id}/invoices/preview":
+  "/accounts/{account_id}/invoices/preview":
     post:
       tags:
       - invoice
@@ -3455,7 +3482,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Preview Invoice
           %v\", collection.ChargeInvoice)"
-  "/sites/{site_id}/accounts/{account_id}/line_items":
+  "/accounts/{account_id}/line_items":
     get:
       tags:
       - account
@@ -3559,11 +3586,11 @@ paths:
         source: "listParams := &recurly.ListAccountLineItemsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naccountLineItems,
           err := client.ListAccountLineItems(accountID, listParams)\nif err != nil
-          {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor accountLineItems.HasMore
+          {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor accountLineItems.HasMore()
           {\n\terr := accountLineItems.Fetch()\n\tif e, ok := err.(*recurly.Error);
           ok {\n\t\tfmt.Printf(\"Failed to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor
-          i, lineItem := range accountLineItems.Data {\n\t\tfmt.Printf(\"Account Line
-          Item %3d: %s\\n\",\n\t\t\ti,\n\t\t\tlineItem.Id,\n\t\t)\n\t}\n}"
+          i, lineItem := range accountLineItems.Data() {\n\t\tfmt.Printf(\"Account
+          Line Item %3d: %s\\n\",\n\t\t\ti,\n\t\t\tlineItem.Id,\n\t\t)\n\t}\n}"
     post:
       tags:
       - account
@@ -3650,7 +3677,7 @@ paths:
               {
                   Currency = "USD",
                   UnitAmount = 1000,
-                  Type = LintItemType.Charge // choose "credit" for a credit
+                  Type = LineItemType.Charge // choose "credit" for a credit
               };
               LineItem lineItem = client.CreateLineItem(accountId, lineItemReq);
               Console.WriteLine($"Created line item {lineItem.Uuid}");
@@ -3733,7 +3760,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Line
           Item: %v\", lineItem)"
-  "/sites/{site_id}/accounts/{account_id}/notes":
+  "/accounts/{account_id}/notes":
     get:
       tags:
       - account
@@ -3819,11 +3846,11 @@ paths:
       - lang: Go
         source: "listParams := &recurly.ListAccountNotesParams{}\naccountNotes, err
           := client.ListAccountNotes(accountID, listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor accountNotes.HasMore {\n\terr := accountNotes.Fetch()\n\tif
-          e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, note := range accountNotes.Data
-          {\n\t\tfmt.Printf(\"Account Note %3d: %s\\n\",\n\t\t\ti,\n\t\t\tnote.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/accounts/{account_id}/notes/{account_note_id}":
+          error: %v\", err)\n\treturn\n}\n\nfor accountNotes.HasMore() {\n\terr :=
+          accountNotes.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
+          to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, note := range
+          accountNotes.Data() {\n\t\tfmt.Printf(\"Account Note %3d: %s\\n\",\n\t\t\ti,\n\t\t\tnote.Id,\n\t\t)\n\t}\n}"
+  "/accounts/{account_id}/notes/{account_note_id}":
     get:
       tags:
       - account
@@ -3951,7 +3978,7 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Fetched Account
           Note: %v\", accountNote)"
-  "/sites/{site_id}/accounts/{account_id}/shipping_addresses":
+  "/accounts/{account_id}/shipping_addresses":
     get:
       tags:
       - account
@@ -4045,10 +4072,10 @@ paths:
         source: "listParams := &recurly.ListShippingAddressesParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\nshippingAddresses,
           err := client.ListShippingAddresses(accountID, listParams)\nif err != nil
-          {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor shippingAddresses.HasMore
+          {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor shippingAddresses.HasMore()
           {\n\terr := shippingAddresses.Fetch()\n\tif e, ok := err.(*recurly.Error);
           ok {\n\t\tfmt.Printf(\"Failed to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor
-          i, shippingAddress := range shippingAddresses.Data {\n\t\tfmt.Printf(\"Shipping
+          i, shippingAddress := range shippingAddresses.Data() {\n\t\tfmt.Printf(\"Shipping
           Address %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tshippingAddress.Id,\n\t\t\tshippingAddress.Street1,\n\t\t)\n\t}\n}"
     post:
       tags:
@@ -4240,7 +4267,7 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Shipping
           Address: %v\", shippingAddress.Id)"
-  "/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}":
+  "/accounts/{account_id}/shipping_addresses/{shipping_address_id}":
     get:
       tags:
       - account
@@ -4643,7 +4670,7 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Removed Shipping
           Address: %v\", shippingAddress)"
-  "/sites/{site_id}/accounts/{account_id}/subscriptions":
+  "/accounts/{account_id}/subscriptions":
     get:
       tags:
       - subscription
@@ -4745,11 +4772,11 @@ paths:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naccountSubscriptions,
           err := client.ListAccountSubscriptions(accountID, listParams)\nif err !=
           nil {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor
-          accountSubscriptions.HasMore {\n\terr := accountSubscriptions.Fetch()\n\tif
+          accountSubscriptions.HasMore() {\n\terr := accountSubscriptions.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, sub := range accountSubscriptions.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, sub := range accountSubscriptions.Data()
           {\n\t\tfmt.Printf(\"Account Subscription %3d: %s\\n\",\n\t\t\ti,\n\t\t\tsub.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/accounts/{account_id}/transactions":
+  "/accounts/{account_id}/transactions":
     get:
       tags:
       - account
@@ -4853,11 +4880,11 @@ paths:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naccountTransactions,
           err := client.ListAccountTransactions(accountID, listParams)\nif err !=
           nil {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor
-          accountTransactions.HasMore {\n\terr := accountTransactions.Fetch()\n\tif
+          accountTransactions.HasMore() {\n\terr := accountTransactions.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, transaction := range accountTransactions.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, transaction := range accountTransactions.Data()
           {\n\t\tfmt.Printf(\"Account Transaction %3d: %s\\n\",\n\t\t\ti,\n\t\t\ttransaction.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/accounts/{account_id}/accounts":
+  "/accounts/{account_id}/accounts":
     get:
       tags:
       - account
@@ -4937,11 +4964,11 @@ paths:
         source: "listParams := &recurly.ListChildAccountsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naccounts, err
           := client.ListChildAccounts(accountID, listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor accounts.HasMore {\n\terr := accounts.Fetch()\n\tif
+          error: %v\", err)\n\treturn\n}\n\nfor accounts.HasMore() {\n\terr := accounts.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, account := range accounts.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, account := range accounts.Data()
           {\n\t\tfmt.Printf(\"Child Account %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\taccount.Id,\n\t\t\taccount.Code,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/acquisitions":
+  "/acquisitions":
     get:
       tags:
       - account_acquisition
@@ -5037,11 +5064,11 @@ paths:
         source: "listParams := &recurly.ListAccountAcquisitionParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"asc\"),\n\tLimit: recurly.Int(200),\n}\naccountAcquisition,
           err := client.ListAccountAcquisition(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor accountAcquisition.HasMore {\n\terr
+          error: %v\", err)\n\treturn\n}\n\nfor accountAcquisition.HasMore() {\n\terr
           := accountAcquisition.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
-          to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, a := range accountAcquisition.Data
+          to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, a := range accountAcquisition.Data()
           {\n\t\tfmt.Printf(\"Account Acquisition %3d: %s\\n\",\n\t\t\ti,\n\t\t\ta.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/coupons":
+  "/coupons":
     get:
       tags:
       - coupon
@@ -5141,9 +5168,9 @@ paths:
         source: "listParams := &recurly.ListCouponsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\ncoupons, err :=
           client.ListCoupons(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor coupons.HasMore {\n\terr := coupons.Fetch()\n\tif
+          error: %v\", err)\n\treturn\n}\n\nfor coupons.HasMore() {\n\terr := coupons.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, coupon := range coupons.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, coupon := range coupons.Data()
           {\n\t\tfmt.Printf(\"Coupon %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tcoupon.Id,\n\t\t\tcoupon.Code,\n\t\t)\n\t}\n}"
     post:
       tags:
@@ -5344,7 +5371,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Coupon:
           %v\", coupon.Id)"
-  "/sites/{site_id}/coupons/{coupon_id}":
+  "/coupons/{coupon_id}":
     get:
       tags:
       - coupon
@@ -5720,7 +5747,7 @@ paths:
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
           }
-  "/sites/{site_id}/coupons/{coupon_id}/generate":
+  "/coupons/{coupon_id}/generate":
     post:
       tags:
       - coupon
@@ -5738,12 +5765,13 @@ paths:
         required: true
       responses:
         '201':
-          description: The `Location` header will specify the location created coupon
-            codes
+          description: |
+            A set of parameters that can be passed to the `list_unique_coupon_codes`
+            endpoint to obtain only the newly generated `UniqueCouponCodes`.
           content:
             application/json:
               schema:
-                "$ref": "#/components/schemas/Empty"
+                "$ref": "#/components/schemas/UniqueCouponCodeParams"
         '400':
           description: Invalid or unpermitted parameter; perhaps you tried to generate
             more than 200 codes at a time?
@@ -5764,7 +5792,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/coupons/{coupon_id}/restore":
+  "/coupons/{coupon_id}/restore":
     put:
       tags:
       - coupon
@@ -5813,7 +5841,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/coupons/{coupon_id}/unique_coupon_codes":
+  "/coupons/{coupon_id}/unique_coupon_codes":
     get:
       tags:
       - coupon
@@ -5851,7 +5879,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/credit_payments":
+  "/credit_payments":
     get:
       tags:
       - credit_payment
@@ -5950,11 +5978,11 @@ paths:
         source: "listParams := &recurly.ListCreditPaymentsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\ncreditPayments,
           err := client.ListCreditPayments(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor creditPayments.HasMore {\n\terr :=
-          creditPayments.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
+          error: %v\", err)\n\treturn\n}\n\nfor creditPayments.HasMore() {\n\terr
+          := creditPayments.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
           to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, creditPayment
-          := range creditPayments.Data {\n\t\tfmt.Printf(\"Credit Payment %3d: %s\\n\",\n\t\t\ti,\n\t\t\tcreditPayment.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/credit_payments/{credit_payment_id}":
+          := range creditPayments.Data() {\n\t\tfmt.Printf(\"Credit Payment %3d: %s\\n\",\n\t\t\ti,\n\t\t\tcreditPayment.Id,\n\t\t)\n\t}\n}"
+  "/credit_payments/{credit_payment_id}":
     get:
       tags:
       - credit_payment
@@ -5983,7 +6011,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/custom_field_definitions":
+  "/custom_field_definitions":
     get:
       tags:
       - custom_field_definition
@@ -6089,11 +6117,11 @@ paths:
           \ recurly.String(\"created_at\"),\n\tOrder: recurly.String(\"desc\"),\n\tLimit:
           recurly.Int(200),\n}\ncustomFieldDefinitions, err := client.ListCustomFieldDefinitions(listParams)\nif
           err != nil {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor
-          customFieldDefinitions.HasMore {\n\terr := customFieldDefinitions.Fetch()\n\tif
+          customFieldDefinitions.HasMore() {\n\terr := customFieldDefinitions.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, definition := range customFieldDefinitions.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, definition := range customFieldDefinitions.Data()
           {\n\t\tfmt.Printf(\"Custom Field Definition %3d: %s\\n\",\n\t\t\ti,\n\t\t\tdefinition.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/custom_field_definitions/{custom_field_definition_id}":
+  "/custom_field_definitions/{custom_field_definition_id}":
     get:
       tags:
       - custom_field_definition
@@ -6210,7 +6238,7 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Fetched Custom
           Field Definition: %s\", definition.Id)"
-  "/sites/{site_id}/items":
+  "/items":
     get:
       tags:
       - item
@@ -6311,10 +6339,10 @@ paths:
         source: "listParams := &recurly.ListItemsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\nitems, err :=
           client.ListItems(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor items.HasMore {\n\terr := items.Fetch()\n\tif
+          error: %v\", err)\n\treturn\n}\n\nfor items.HasMore() {\n\terr := items.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, item := range items.Data {\n\t\tfmt.Printf(\"Item
-          %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\titem.Id,\n\t\t\titem.Code,\n\t\t)\n\t}\n}"
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, item := range items.Data()
+          {\n\t\tfmt.Printf(\"Item %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\titem.Id,\n\t\t\titem.Code,\n\t\t)\n\t}\n}"
     post:
       tags:
       - item
@@ -6527,7 +6555,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Item:
           %v\", item.Id)"
-  "/sites/{site_id}/items/{item_id}":
+  "/items/{item_id}":
     get:
       tags:
       - item
@@ -6928,7 +6956,7 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Item deactivated:
           %s\", deactivatedItem.Code)"
-  "/sites/{site_id}/items/{item_id}/reactivate":
+  "/items/{item_id}/reactivate":
     parameters:
     - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/item_id"
@@ -7052,7 +7080,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Reactivated
           Item: %s\", item.Id)"
-  "/sites/{site_id}/measured_units":
+  "/measured_units":
     get:
       tags:
       - measured_unit
@@ -7134,7 +7162,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/measured_units/{measured_unit_id}":
+  "/measured_units/{measured_unit_id}":
     get:
       tags:
       - measured_unit
@@ -7238,7 +7266,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/invoices":
+  "/invoices":
     get:
       tags:
       - invoice
@@ -7339,11 +7367,11 @@ paths:
         source: "listParams := &recurly.ListInvoicesParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\ninvoices, err
           := client.ListInvoices(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor invoices.HasMore {\n\terr := invoices.Fetch()\n\tif
+          error: %v\", err)\n\treturn\n}\n\nfor invoices.HasMore() {\n\terr := invoices.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, invoice := range invoices.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, invoice := range invoices.Data()
           {\n\t\tfmt.Printf(\"Invoice %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tinvoice.Id,\n\t\t\tinvoice.Number,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/invoices/{invoice_id}":
+  "/invoices/{invoice_id}":
     get:
       tags:
       - invoice
@@ -7463,7 +7491,7 @@ paths:
     put:
       tags:
       - invoice
-      operationId: put_invoice
+      operationId: update_invoice
       summary: Update an invoice
       parameters:
       - "$ref": "#/components/parameters/site_id"
@@ -7472,7 +7500,7 @@ paths:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/InvoiceUpdatable"
+              "$ref": "#/components/schemas/InvoiceUpdate"
         required: true
       responses:
         '200':
@@ -7502,7 +7530,7 @@ paths:
               termsAndConditions: "New terms and conditions"
             }
 
-            const invoice = await client.putInvoice(invoiceId, invoiceUpdate)
+            const invoice = await client.updateInvoice(invoiceId, invoiceUpdate)
             console.log('Edited invoice: ', invoice.number)
           } catch(err) {
 
@@ -7523,7 +7551,7 @@ paths:
                 "customer_notes": "New Notes",
                 "terms_and_conditions": "New Terms and Conditions",
               }
-              invoice = client.put_invoice(invoice_id, invoice_update)
+              invoice = client.update_invoice(invoice_id, invoice_update)
               print("Updated Invoice %s" % invoice.id)
           except recurly.errors.NotFoundError:
               # If the resource was not found, you may want to alert the user or
@@ -7533,12 +7561,12 @@ paths:
         source: |
           try
           {
-              var invoiceReq = new InvoiceUpdatable()
+              var invoiceReq = new InvoiceUpdate()
               {
                   CustomerNotes = "New Notes",
                   TermsAndConditions = "New Terms and Conditions"
               };
-              Invoice invoice = client.PutInvoice(invoiceId, invoiceReq);
+              Invoice invoice = client.UpdateInvoice(invoiceId, invoiceReq);
               Console.WriteLine($"Edited invoice #{invoice.Number}");
           }
           catch (Recurly.Errors.Validation ex)
@@ -7559,7 +7587,7 @@ paths:
               customer_notes: "New Notes",
               terms_and_conditions: "New Terms and Conditions"
             }
-            invoice = @client.put_invoice(invoice_id: invoice_id, body: invoice_update)
+            invoice = @client.update_invoice(invoice_id: invoice_id, body: invoice_update)
             puts "Updated invoice #{invoice}"
           rescue Recurly::Errors::NotFoundError
             # If the resource was not found, you may want to alert the user or
@@ -7569,11 +7597,11 @@ paths:
       - lang: Java
         source: |
           try {
-              final InvoiceUpdatable invoiceUpdate = new InvoiceUpdatable();
+              final InvoiceUpdate invoiceUpdate = new InvoiceUpdate();
               invoiceUpdate.setCustomerNotes("New notes");
               invoiceUpdate.setTermsAndConditions("New terms and conditions");
 
-              final Invoice invoice = client.putInvoice(invoiceId, invoiceUpdate);
+              final Invoice invoice = client.updateInvoice(invoiceId, invoiceUpdate);
               System.out.println("Edited invoice " + invoice.getNumber());
           } catch (ValidationException e) {
               // If the request was not valid, you may want to tell your user
@@ -7590,7 +7618,7 @@ paths:
                 "customer_notes" => "New Notes",
                 "terms_and_conditions" => "New terms and conditions",
               ];
-              $invoice = $client->putInvoice($invoice_id, $invoice_update);
+              $invoice = $client->updateInvoice($invoice_id, $invoice_update);
 
               echo 'Updated Invoice:' . PHP_EOL;
               var_dump($invoice);
@@ -7604,14 +7632,14 @@ paths:
               var_dump($e);
           }
       - lang: Go
-        source: "updateReq := &recurly.InvoiceUpdatable{\n\tCustomerNotes:      recurly.String(\"New
+        source: "updateReq := &recurly.InvoiceUpdate{\n\tCustomerNotes:      recurly.String(\"New
           Notes\"),\n\tTermsAndConditions: recurly.String(\"New Terms and Conditions\"),\n}\ninvoice,
-          err := client.PutInvoice(invoiceID, updateReq)\nif e, ok := err.(*recurly.Error);
+          err := client.UpdateInvoice(invoiceID, updateReq)\nif e, ok := err.(*recurly.Error);
           ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Updated Invoice:
           %s\", invoice.Id)"
-  "/sites/{site_id}/invoices/{invoice_id}.pdf":
+  "/invoices/{invoice_id}.pdf":
     get:
       tags:
       - invoice
@@ -7749,7 +7777,7 @@ paths:
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
           }
-  "/sites/{site_id}/invoices/{invoice_id}/collect":
+  "/invoices/{invoice_id}/collect":
     put:
       tags:
       - invoice
@@ -7880,11 +7908,11 @@ paths:
           == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed validation: %v\",
           e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected Recurly error: %v\",
           e)\n\treturn nil, err\n}\nfmt.Printf(\"Collected Invoice: %v\", collectedInvoice)"
-  "/sites/{site_id}/invoices/{invoice_id}/mark_failed":
+  "/invoices/{invoice_id}/mark_failed":
     put:
       tags:
       - invoice
-      operationId: fail_invoice
+      operationId: mark_invoice_failed
       summary: Mark an open invoice as failed
       description: |
         Indicates that the invoice was not successfully paid for and that collection attempts should stop. This functionality is mostly used to halt the dunning procedures for an invoice.
@@ -7922,7 +7950,7 @@ paths:
       - lang: Node.js
         source: |
           try {
-            const invoice = await client.failInvoice(invoiceId)
+            const invoice = await client.markInvoiceFailed(invoiceId)
             console.log('Failed invoice: ', invoice.number)
           } catch (err) {
             if (err instanceof recurly.errors.ValidationError) {
@@ -7938,7 +7966,7 @@ paths:
       - lang: Python
         source: |
           try:
-              invoice = client.fail_invoice(invoice_id)
+              invoice = client.mark_invoice_failed(invoice_id)
               print("Failed Invoice %s" % invoice.id)
           except recurly.errors.NotFoundError:
               # If the resource was not found, you may want to alert the user or
@@ -7948,7 +7976,7 @@ paths:
         source: |
           try
           {
-              Invoice invoice = client.FailInvoice(invoiceId);
+              Invoice invoice = client.MarkInvoiceFailed(invoiceId);
               Console.WriteLine($"Failed invoice #{invoice.Number}");
           }
           catch (Recurly.Errors.Validation ex)
@@ -7965,7 +7993,7 @@ paths:
       - lang: Ruby
         source: |
           begin
-            invoice = @client.fail_invoice(invoice_id: invoice_id)
+            invoice = @client.mark_invoice_failed(invoice_id: invoice_id)
             puts "Failed invoice #{invoice}"
           rescue Recurly::Errors::NotFoundError
             # If the resource was not found, you may want to alert the user or
@@ -7975,7 +8003,7 @@ paths:
       - lang: Java
         source: |
           try {
-              final Invoice invoice = client.failInvoice(invoiceId);
+              final Invoice invoice = client.markInvoiceFailed(invoiceId);
               System.out.println("Failed invoice: " + invoice.getNumber());
           } catch (ValidationException e) {
               // If the request was not valid, you may want to tell your user
@@ -7988,7 +8016,7 @@ paths:
       - lang: PHP
         source: |
           try {
-              $invoice = $client->failInvoice($invoice_id);
+              $invoice = $client->markInvoiceFailed($invoice_id);
 
               echo 'Failed Invoice:' . PHP_EOL;
               var_dump($invoice);
@@ -8002,12 +8030,12 @@ paths:
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
           }
       - lang: Go
-        source: "invoice, err := client.FailInvoice(invoiceID)\nif e, ok := err.(*recurly.Error);
-          ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
+        source: "invoice, err := client.MarkInvoiceFailed(invoiceID)\nif e, ok :=
+          err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Invoice failed:
           %v\", invoice)"
-  "/sites/{site_id}/invoices/{invoice_id}/mark_successful":
+  "/invoices/{invoice_id}/mark_successful":
     put:
       tags:
       - invoice
@@ -8137,7 +8165,7 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Marked Invoice
           Successful: %v\", invoice)"
-  "/sites/{site_id}/invoices/{invoice_id}/reopen":
+  "/invoices/{invoice_id}/reopen":
     put:
       tags:
       - invoice
@@ -8261,7 +8289,7 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Reopened Invoice:
           %v\", invoice)"
-  "/sites/{site_id}/invoices/{invoice_id}/void":
+  "/invoices/{invoice_id}/void":
     put:
       tags:
       - invoice
@@ -8368,7 +8396,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Voided Invoice:
           %v\", invoice)"
-  "/sites/{site_id}/invoices/{invoice_id}/transactions":
+  "/invoices/{invoice_id}/transactions":
     post:
       tags:
       - invoice
@@ -8433,7 +8461,7 @@ paths:
               console.log('Unknown Error: ', err)
             }
           }
-  "/sites/{site_id}/invoices/{invoice_id}/line_items":
+  "/invoices/{invoice_id}/line_items":
     get:
       tags:
       - invoice
@@ -8535,17 +8563,17 @@ paths:
           ];
           $invoice_line_items = $client->listInvoiceLineItems($invoice_id, $options);
 
-          foreach($invoice_line_item as $line_item) {
+          foreach($invoice_line_items as $line_item) {
             echo 'Invoice Line Item: ' . $line_item->getId() . PHP_EOL;
           }
       - lang: Go
         source: "listParams := &recurly.ListInvoiceLineItemsParams{\n\tSort: recurly.String(\"created_at\"),\n}\nlineItems,
           err := client.ListInvoiceLineItems(invoiceID, listParams)\nif err != nil
-          {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor lineItems.HasMore
+          {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor lineItems.HasMore()
           {\n\terr := lineItems.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
           to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, lineItem := range
-          lineItems.Data {\n\t\tfmt.Printf(\"Invoice Line Item %3d: %s\\n\",\n\t\t\ti,\n\t\t\tlineItem.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/invoices/{invoice_id}/coupon_redemptions":
+          lineItems.Data() {\n\t\tfmt.Printf(\"Invoice Line Item %3d: %s\\n\",\n\t\t\ti,\n\t\t\tlineItem.Id,\n\t\t)\n\t}\n}"
+  "/invoices/{invoice_id}/coupon_redemptions":
     get:
       tags:
       - invoice
@@ -8638,11 +8666,11 @@ paths:
         source: "listParams := &recurly.ListInvoiceCouponRedemptionsParams{\n\tSort:
           recurly.String(\"created_at\"),\n}\nredemptions, err := client.ListInvoiceCouponRedemptions(invoiceID,
           listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor
-          redemptions.HasMore {\n\terr := redemptions.Fetch()\n\tif e, ok := err.(*recurly.Error);
+          redemptions.HasMore() {\n\terr := redemptions.Fetch()\n\tif e, ok := err.(*recurly.Error);
           ok {\n\t\tfmt.Printf(\"Failed to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor
-          i, redemption := range redemptions.Data {\n\t\tfmt.Printf(\"Invoice Coupon
+          i, redemption := range redemptions.Data() {\n\t\tfmt.Printf(\"Invoice Coupon
           Redemption %3d: %s\\n\",\n\t\t\ti,\n\t\t\tredemption.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/invoices/{invoice_id}/related_invoices":
+  "/invoices/{invoice_id}/related_invoices":
     get:
       tags:
       - invoice
@@ -8732,11 +8760,11 @@ paths:
       - lang: Go
         source: "invoices, err := client.ListRelatedInvoices(invoiceID)\nif err !=
           nil {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor
-          invoices.HasMore {\n\terr := invoices.Fetch()\n\tif e, ok := err.(*recurly.Error);
+          invoices.HasMore() {\n\terr := invoices.Fetch()\n\tif e, ok := err.(*recurly.Error);
           ok {\n\t\tfmt.Printf(\"Failed to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor
-          i, invoice := range invoices.Data {\n\t\tfmt.Printf(\"Related Invoice %3d:
-          %s, %s\\n\",\n\t\t\ti,\n\t\t\tinvoice.Id,\n\t\t\tinvoice.Number,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/invoices/{invoice_id}/refund":
+          i, invoice := range invoices.Data() {\n\t\tfmt.Printf(\"Related Invoice
+          %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tinvoice.Id,\n\t\t\tinvoice.Number,\n\t\t)\n\t}\n}"
+  "/invoices/{invoice_id}/refund":
     post:
       tags:
       - invoice
@@ -8903,7 +8931,7 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Refunded Invoice:
           %v\", invoice)"
-  "/sites/{site_id}/line_items":
+  "/line_items":
     get:
       tags:
       - line_item
@@ -9008,11 +9036,11 @@ paths:
         source: "listParams := &recurly.ListLineItemsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\nlineItems, err
           := client.ListLineItems(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor lineItems.HasMore {\n\terr := lineItems.Fetch()\n\tif
+          error: %v\", err)\n\treturn\n}\n\nfor lineItems.HasMore() {\n\terr := lineItems.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, lineItem := range lineItems.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, lineItem := range lineItems.Data()
           {\n\t\tfmt.Printf(\"Line Item %3d: %s\\n\",\n\t\t\ti,\n\t\t\tlineItem.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/line_items/{line_item_id}":
+  "/line_items/{line_item_id}":
     get:
       tags:
       - line_item
@@ -9247,7 +9275,7 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Removed Line
           Item: %v\", lineItem)"
-  "/sites/{site_id}/plans":
+  "/plans":
     get:
       tags:
       - plan
@@ -9348,10 +9376,10 @@ paths:
         source: "listParams := &recurly.ListPlansParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\nplans, err :=
           client.ListPlans(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor plans.HasMore {\n\terr := plans.Fetch()\n\tif
+          error: %v\", err)\n\treturn\n}\n\nfor plans.HasMore() {\n\terr := plans.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, plan := range plans.Data {\n\t\tfmt.Printf(\"Plan
-          %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tplan.Id,\n\t\t\tplan.Code,\n\t\t)\n\t}\n}"
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, plan := range plans.Data()
+          {\n\t\tfmt.Printf(\"Plan %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tplan.Id,\n\t\t\tplan.Code,\n\t\t)\n\t}\n}"
     post:
       tags:
       - plan
@@ -9550,7 +9578,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Plan:
           %v\", plan.Id)"
-  "/sites/{site_id}/plans/{plan_id}":
+  "/plans/{plan_id}":
     get:
       tags:
       - plan
@@ -9922,7 +9950,7 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Removed Plan:
           %s\", plan.Id)"
-  "/sites/{site_id}/plans/{plan_id}/add_ons":
+  "/plans/{plan_id}/add_ons":
     get:
       tags:
       - add-on
@@ -10024,9 +10052,9 @@ paths:
         source: "listParams := &recurly.ListPlanAddOnsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naddOns, err :=
           client.ListPlanAddOns(planID, listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor addOns.HasMore {\n\terr := addOns.Fetch()\n\tif
+          error: %v\", err)\n\treturn\n}\n\nfor addOns.HasMore() {\n\terr := addOns.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, addOn := range addOns.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, addOn := range addOns.Data()
           {\n\t\tfmt.Printf(\"Add-On %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\taddOn.Id,\n\t\t\taddOn.Code,\n\t\t)\n\t}\n}"
     post:
       tags:
@@ -10121,8 +10149,8 @@ paths:
                   Code = "coffee_grinder",
                   Name = "A quality grinder for your beans",
                   DefaultQuantity = 1,
-                  Currencies = new List<Pricing>() {
-                      new Pricing() {
+                  Currencies = new List<AddOnPricing>() {
+                      new AddOnPricing() {
                           Currency = "USD",
                           UnitAmount = 10000
                       }
@@ -10219,14 +10247,14 @@ paths:
           }
       - lang: Go
         source: "addOnReq := &recurly.AddOnCreate{\n\tCode: &addOnCode,\n\tName: recurly.String(\"Fresh
-          beans shipped monthly\"),\n\tCurrencies: []recurly.PricingCreate{\n\t\t{\n\t\t\tCurrency:
+          beans shipped monthly\"),\n\tCurrencies: []recurly.AddOnPricingCreate{\n\t\t{\n\t\t\tCurrency:
           \  recurly.String(\"USD\"),\n\t\t\tUnitAmount: recurly.Float(10),\n\t\t},\n\t},\n}\n\nplanAddOn,
           err := client.CreatePlanAddOn(planID, addOnReq)\nif e, ok := err.(*recurly.Error);
           ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Plan
           Add-On: %v\", planAddOn.Id)"
-  "/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}":
+  "/plans/{plan_id}/add_ons/{add_on_id}":
     get:
       tags:
       - plan
@@ -10598,7 +10626,7 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Removed Plan
           Add-On: %v\", planAddOn)"
-  "/sites/{site_id}/add_ons":
+  "/add_ons":
     get:
       tags:
       - add-on
@@ -10697,11 +10725,11 @@ paths:
         source: "listParams := &recurly.ListAddOnsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\naddOns, err :=
           client.ListAddOns(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor addOns.HasMore {\n\terr := addOns.Fetch()\n\tif
+          error: %v\", err)\n\treturn\n}\n\nfor addOns.HasMore() {\n\terr := addOns.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, addOn := range addOns.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, addOn := range addOns.Data()
           {\n\t\tfmt.Printf(\"Add On %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\taddOn.Id,\n\t\t\taddOn.Code,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/add_ons/{add_on_id}":
+  "/add_ons/{add_on_id}":
     get:
       tags:
       - add-on
@@ -10818,7 +10846,7 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Fetched Add-On:
           %s\", addOn.Id)"
-  "/sites/{site_id}/shipping_methods":
+  "/shipping_methods":
     get:
       tags:
       - shipping_method
@@ -10916,10 +10944,10 @@ paths:
         source: "listParams := &recurly.ListShippingMethodsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\nshippingMethods,
           err := client.ListShippingMethods(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor shippingMethods.HasMore {\n\terr :=
-          shippingMethods.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
+          error: %v\", err)\n\treturn\n}\n\nfor shippingMethods.HasMore() {\n\terr
+          := shippingMethods.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
           to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, method := range
-          shippingMethods.Data {\n\t\tfmt.Printf(\"Shipping Method %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tmethod.Id,\n\t\t\tmethod.Code,\n\t\t)\n\t}\n}"
+          shippingMethods.Data() {\n\t\tfmt.Printf(\"Shipping Method %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tmethod.Id,\n\t\t\tmethod.Code,\n\t\t)\n\t}\n}"
     post:
       tags:
       - shipping_method
@@ -10965,7 +10993,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/shipping_methods/{shipping_method_id}":
+  "/shipping_methods/{shipping_method_id}":
     get:
       tags:
       - shipping_method
@@ -11070,7 +11098,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/subscriptions":
+  "/subscriptions":
     get:
       tags:
       - subscription
@@ -11171,10 +11199,10 @@ paths:
         source: "listParams := &recurly.ListSubscriptionsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\nsubscriptions,
           err := client.ListSubscriptions(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor subscriptions.HasMore {\n\terr :=
+          error: %v\", err)\n\treturn\n}\n\nfor subscriptions.HasMore() {\n\terr :=
           subscriptions.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
           to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, subscription :=
-          range subscriptions.Data {\n\t\tfmt.Printf(\"Subscription %3d: %s\\n\",\n\t\t\ti,\n\t\t\tsubscription.Id,\n\t\t)\n\t}\n}"
+          range subscriptions.Data() {\n\t\tfmt.Printf(\"Subscription %3d: %s\\n\",\n\t\t\ti,\n\t\t\tsubscription.Id,\n\t\t)\n\t}\n}"
     post:
       tags:
       - subscription
@@ -11354,7 +11382,7 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Subscription:
           %s\", subscription.Id)"
-  "/sites/{site_id}/subscriptions/{subscription_id}":
+  "/subscriptions/{subscription_id}":
     get:
       tags:
       - subscription
@@ -11476,8 +11504,8 @@ paths:
     put:
       tags:
       - subscription
-      operationId: modify_subscription
-      summary: Modify a subscription
+      operationId: update_subscription
+      summary: Update a subscription
       description: This only lets you change the subscription settings that have no
         impact on the billed amount. Use the [Create Subscription Change](#operation/create_subscription_change)
         endpoint to make those changes.
@@ -11511,7 +11539,7 @@ paths:
               termsAndConditions: "Some new terms and conditions",
               customerNotes: "Some new customer notes"
             }
-            const subscription = await client.modifySubscription(subscriptionId, update)
+            const subscription = await client.updateSubscription(subscriptionId, update)
             console.log('Modified subscription: ', subscription.uuid)
           } catch(err) {
 
@@ -11529,7 +11557,7 @@ paths:
         source: |
           try:
               sub_update = {"customer_notes": "New Notes", "terms_and_conditions": "New TaC"}
-              subscription = client.modify_subscription(subscription_id, sub_update)
+              subscription = client.update_subscription(subscription_id, sub_update)
               print("Modified Subscription %s" % subscription)
           except recurly.errors.ValidationError as e:
               # If the request was invalid, you may want to tell your user
@@ -11545,7 +11573,7 @@ paths:
                   TermsAndConditions = "Some New Terms and Conditions",
                   CustomerNotes = "Some New Customer Notes"
               };
-              Subscription subscription = client.ModifySubscription(subscriptionId, updateReq);
+              Subscription subscription = client.UpdateSubscription(subscriptionId, updateReq);
               Console.WriteLine($"Modified Subscription {subscription.Uuid}");
           }
           catch (Recurly.Errors.Validation ex)
@@ -11566,7 +11594,7 @@ paths:
               customer_notes: "New Notes",
               terms_and_conditions: "New ToC"
             }
-            subscription = @client.modify_subscription(
+            subscription = @client.update_subscription(
               subscription_id: subscription_id,
               body: subscription_update
             )
@@ -11582,7 +11610,7 @@ paths:
               final SubscriptionUpdate subUpdate = new SubscriptionUpdate();
               subUpdate.setTermsAndConditions("Some new terms and conditions");
               subUpdate.setCustomerNotes("Some new customer notes");
-              final Subscription subscription = client.modifySubscription(subscriptionId, subUpdate);
+              final Subscription subscription = client.updateSubscription(subscriptionId, subUpdate);
               System.out.println("Modified Subscription: " + subscription.getUuid());
           } catch (ValidationException e) {
               // If the request was not valid, you may want to tell your user
@@ -11600,7 +11628,7 @@ paths:
                   "customer_notes" => "Some new customer notes"
               ];
 
-              $subscription = $client->modifySubscription($subscription_id, $changes);
+              $subscription = $client->updateSubscription($subscription_id, $changes);
 
               echo 'Modified Subscription:' . PHP_EOL;
               var_dump($subscription);
@@ -11616,7 +11644,7 @@ paths:
       - lang: Go
         source: "updateReq := &recurly.SubscriptionUpdate{\n\tTermsAndConditions:
           recurly.String(\"Some new terms and conditions\"),\n\tCustomerNotes:      recurly.String(\"Some
-          new customer notes\"),\n}\nsub, err := client.ModifySubscription(subID,
+          new customer notes\"),\n}\nsub, err := client.UpdateSubscription(subID,
           updateReq)\nif e, ok := err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeValidation
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Modified Subscription:
@@ -11714,7 +11742,11 @@ paths:
         source: |
           try
           {
-              Subscription subscription = client.TerminateSubscription(subscriptionId);
+              var optionalParams = new TerminateSubscriptionParams()
+              {
+                  Refund = RefundType.None
+              };
+              Subscription subscription = client.TerminateSubscription(subscriptionId, optionalParams);
               Console.WriteLine($"Terminated Subscription {subscription.Uuid}");
           }
           catch (Recurly.Errors.Validation ex)
@@ -11778,7 +11810,7 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Terminated
           Subscription: %v\", subscription)"
-  "/sites/{site_id}/subscriptions/{subscription_id}/cancel":
+  "/subscriptions/{subscription_id}/cancel":
     put:
       tags:
       - subscription
@@ -11916,7 +11948,7 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Canceled Subscription:
           %s\", subscription.Id)"
-  "/sites/{site_id}/subscriptions/{subscription_id}/reactivate":
+  "/subscriptions/{subscription_id}/reactivate":
     put:
       tags:
       - subscription
@@ -12047,7 +12079,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Reactivated
           Subscription: %s\", sub.Id)"
-  "/sites/{site_id}/subscriptions/{subscription_id}/pause":
+  "/subscriptions/{subscription_id}/pause":
     put:
       tags:
       - subscription
@@ -12202,7 +12234,7 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Paused Subscription:
           %s\", sub.Id)"
-  "/sites/{site_id}/subscriptions/{subscription_id}/resume":
+  "/subscriptions/{subscription_id}/resume":
     put:
       tags:
       - subscription
@@ -12334,7 +12366,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Resumed Subscription:
           %s\", sub.Id)"
-  "/sites/{site_id}/subscriptions/{subscription_id}/convert_trial":
+  "/subscriptions/{subscription_id}/convert_trial":
     put:
       tags:
       - subscription
@@ -12375,7 +12407,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/subscriptions/{subscription_id}/change":
+  "/subscriptions/{subscription_id}/change":
     get:
       tags:
       - subscription
@@ -12783,7 +12815,7 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Removed Subscription
           Change: %v\", subscriptionChange)"
-  "/sites/{site_id}/subscriptions/{subscription_id}/change/preview":
+  "/subscriptions/{subscription_id}/change/preview":
     post:
       tags:
       - subscription
@@ -12828,7 +12860,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/subscriptions/{subscription_id}/invoices":
+  "/subscriptions/{subscription_id}/invoices":
     get:
       tags:
       - invoice
@@ -12930,11 +12962,11 @@ paths:
         source: "listParams := &recurly.ListSubscriptionInvoicesParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\nsubInvoices, err
           := client.ListSubscriptionInvoices(subID, listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor subInvoices.HasMore {\n\terr := subInvoices.Fetch()\n\tif
-          e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, invoice := range subInvoices.Data
-          {\n\t\tfmt.Printf(\"Subscription Invoice %3d: %s\\n\",\n\t\t\ti,\n\t\t\tinvoice.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/subscriptions/{subscription_id}/line_items":
+          error: %v\", err)\n\treturn\n}\n\nfor subInvoices.HasMore() {\n\terr :=
+          subInvoices.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
+          to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, invoice := range
+          subInvoices.Data() {\n\t\tfmt.Printf(\"Subscription Invoice %3d: %s\\n\",\n\t\t\ti,\n\t\t\tinvoice.Id,\n\t\t)\n\t}\n}"
+  "/subscriptions/{subscription_id}/line_items":
     get:
       tags:
       - subscription
@@ -13038,11 +13070,11 @@ paths:
           \ recurly.String(\"created_at\"),\n\tOrder: recurly.String(\"desc\"),\n\tLimit:
           recurly.Int(200),\n}\nsubLineItems, err := client.ListSubscriptionLineItems(subID,
           listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor
-          subLineItems.HasMore {\n\terr := subLineItems.Fetch()\n\tif e, ok := err.(*recurly.Error);
+          subLineItems.HasMore() {\n\terr := subLineItems.Fetch()\n\tif e, ok := err.(*recurly.Error);
           ok {\n\t\tfmt.Printf(\"Failed to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor
-          i, lineItem := range subLineItems.Data {\n\t\tfmt.Printf(\"Subscription
+          i, lineItem := range subLineItems.Data() {\n\t\tfmt.Printf(\"Subscription
           Line Item %3d: %s\\n\",\n\t\t\ti,\n\t\t\tlineItem.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/subscriptions/{subscription_id}/coupon_redemptions":
+  "/subscriptions/{subscription_id}/coupon_redemptions":
     get:
       tags:
       - subscription
@@ -13137,11 +13169,11 @@ paths:
         source: "listParams := &recurly.ListSubscriptionCouponRedemptionsParams{\n\tSort:
           recurly.String(\"created_at\"),\n}\nsubCouponRedemptions, err := client.ListSubscriptionCouponRedemptions(subID,
           listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected error: %v\", err)\n\treturn\n}\n\nfor
-          subCouponRedemptions.HasMore {\n\terr := subCouponRedemptions.Fetch()\n\tif
+          subCouponRedemptions.HasMore() {\n\terr := subCouponRedemptions.Fetch()\n\tif
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, redemption := range subCouponRedemptions.Data
+          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, redemption := range subCouponRedemptions.Data()
           {\n\t\tfmt.Printf(\"Subscription Coupon Redemption %3d: %s\\n\",\n\t\t\ti,\n\t\t\tredemption.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage":
+  "/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage":
     get:
       tags:
       - invoice
@@ -13235,7 +13267,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/usage/{usage_id}":
+  "/usage/{usage_id}":
     get:
       tags:
       - invoice
@@ -13358,7 +13390,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/transactions":
+  "/transactions":
     get:
       tags:
       - transaction
@@ -13460,11 +13492,11 @@ paths:
         source: "listParams := &recurly.ListTransactionsParams{\n\tSort:  recurly.String(\"created_at\"),\n\tOrder:
           recurly.String(\"desc\"),\n\tLimit: recurly.Int(200),\n}\ntransactions,
           err := client.ListTransactions(listParams)\nif err != nil {\n\tfmt.Println(\"Unexpected
-          error: %v\", err)\n\treturn\n}\n\nfor transactions.HasMore {\n\terr := transactions.Fetch()\n\tif
-          e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
-          next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, transaction := range transactions.Data
-          {\n\t\tfmt.Printf(\"Transaction %3d: %s\\n\",\n\t\t\ti,\n\t\t\ttransaction.Id,\n\t\t)\n\t}\n}"
-  "/sites/{site_id}/transactions/{transaction_id}":
+          error: %v\", err)\n\treturn\n}\n\nfor transactions.HasMore() {\n\terr :=
+          transactions.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
+          to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, transaction :=
+          range transactions.Data() {\n\t\tfmt.Printf(\"Transaction %3d: %s\\n\",\n\t\t\ti,\n\t\t\ttransaction.Id,\n\t\t)\n\t}\n}"
+  "/transactions/{transaction_id}":
     get:
       tags:
       - transaction
@@ -13581,7 +13613,7 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Fetched Transaction:
           %v\", transaction.Id)"
-  "/sites/{site_id}/unique_coupon_codes/{unique_coupon_code_id}":
+  "/unique_coupon_codes/{unique_coupon_code_id}":
     parameters:
     - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/unique_coupon_code_id"
@@ -13643,7 +13675,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/unique_coupon_codes/{unique_coupon_code_id}/restore":
+  "/unique_coupon_codes/{unique_coupon_code_id}/restore":
     parameters:
     - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/unique_coupon_code_id"
@@ -13678,7 +13710,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
-  "/sites/{site_id}/purchases":
+  "/purchases":
     post:
       tags:
       - purchase
@@ -13912,7 +13944,7 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Purchase:
           %s\", collection.ChargeInvoice.Number)"
-  "/sites/{site_id}/purchases/preview":
+  "/purchases/preview":
     post:
       tags:
       - purchase
@@ -14143,7 +14175,7 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Preview Charge
           Invoice %v\", collection.ChargeInvoice)"
-  "/sites/{site_id}/export_dates":
+  "/export_dates":
     parameters:
     - "$ref": "#/components/parameters/site_id"
     get:
@@ -14255,7 +14287,7 @@ paths:
           ok {\n\tfmt.Printf(\"Unexpected Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfor
           _, date := range exportDates.Dates {\n\tfmt.Println(\"Exports are available
           for: \", date)\n}"
-  "/sites/{site_id}/export_dates/{export_date}/export_files":
+  "/export_dates/{export_date}/export_files":
     parameters:
     - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/export_date"
@@ -15027,9 +15059,9 @@ components:
       - "$ref": "#/components/schemas/AccountResponse"
     AccountAcquisition:
       allOf:
-      - "$ref": "#/components/schemas/AccountAcquisitionUpdatable"
+      - "$ref": "#/components/schemas/AccountAcquisitionUpdate"
       - "$ref": "#/components/schemas/AccountAcquisitionReadOnly"
-    AccountAcquisitionUpdatable:
+    AccountAcquisitionUpdate:
       type: object
       properties:
         cost:
@@ -15155,7 +15187,7 @@ components:
               once the account is created.
             maxLength: 50
           acquisition:
-            "$ref": "#/components/schemas/AccountAcquisitionUpdatable"
+            "$ref": "#/components/schemas/AccountAcquisitionUpdate"
           shipping_addresses:
             type: array
             items:
@@ -15178,7 +15210,7 @@ components:
               once the account is created.
             maxLength: 50
           acquisition:
-            "$ref": "#/components/schemas/AccountAcquisitionUpdatable"
+            "$ref": "#/components/schemas/AccountAcquisitionUpdate"
         required:
         - code
       - "$ref": "#/components/schemas/AccountUpdate"
@@ -15427,6 +15459,7 @@ components:
     InvoiceAddress:
       allOf:
       - "$ref": "#/components/schemas/Address"
+      - "$ref": "#/components/schemas/AddressWithName"
       type: object
       properties:
         name_on_account:
@@ -15438,12 +15471,6 @@ components:
     Address:
       type: object
       properties:
-        first_name:
-          type: string
-          title: First name
-        last_name:
-          type: string
-          title: Last name
         phone:
           type: string
           title: Phone number
@@ -15468,6 +15495,17 @@ components:
           type: string
           title: Country
           description: Country, 2-letter ISO code.
+    AddressWithName:
+      allOf:
+      - "$ref": "#/components/schemas/Address"
+      type: object
+      properties:
+        first_name:
+          type: string
+          title: First name
+        last_name:
+          type: string
+          title: Last name
     AddOnMini:
       type: object
       title: Add-on mini details
@@ -15673,7 +15711,6 @@ components:
       required:
       - code
       - name
-      - currencies
     AddOnCreate:
       type: object
       title: Add-on
@@ -15814,6 +15851,7 @@ components:
             is not present `currencies` is required.
             * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
             then `currencies` must be absent.
+            * Must be absent if `add_on_type` is `usage` and `usage_type` is `percentage`.
         tier_type:
           "$ref": "#/components/schemas/TierTypeEnum"
         tiers:
@@ -15829,7 +15867,6 @@ components:
       required:
       - code
       - name
-      - currencies
     AddOnUpdate:
       type: object
       title: Add-on
@@ -15944,7 +15981,8 @@ components:
           minItems: 1
           description: |
             If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
-            then currencies must be absent
+            then currencies must be absent. Must also be absent if `add_on_type` is
+            `usage` and `usage_type` is `percentage`.
         tiers:
           type: array
           title: Tiers
@@ -17387,7 +17425,7 @@ components:
           title: Credit invoices
           items:
             "$ref": "#/components/schemas/Invoice"
-    InvoiceUpdatable:
+    InvoiceUpdate:
       type: object
       properties:
         po_number:
@@ -17767,6 +17805,10 @@ components:
           type: number
           format: float
           title: Unit amount
+          description: Positive amount for a charge, negative amount for a credit.
+        unit_amount_decimal:
+          type: string
+          title: Unit amount decimal
           description: Positive amount for a charge, negative amount for a credit.
         subtotal:
           type: number
@@ -18543,11 +18585,16 @@ components:
           title: Unit price
           minimum: 0
           maximum: 1000000
+          description: Allows up to 2 decimal places. Required unless `unit_amount_decimal`
+            is provided.
+        unit_amount_decimal:
+          type: string
+          title: Unit Amount Decimal
+          minimum: 0
+          maximum: 1000000
           description: |
-            The unit amount to use as the price per unit. Allows up to 2 decimal places.
-            It is required unless `add_on_type` = `usage` and `usage_type` = `price` and
-            `unit_amount_decimal` is provided. If `unit_amount_decimal` is provided, `unit_amount`
-            cannot be provided.
+            Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
+            If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
       required:
       - currency
     TierPricing:
@@ -18564,6 +18611,16 @@ components:
           title: Unit price
           minimum: 0
           maximum: 1000000
+          description: Allows up to 2 decimal places. Required unless `unit_amount_decimal`
+            is provided.
+        unit_amount_decimal:
+          type: string
+          title: Unit Amount Decimal
+          minimum: 0
+          maximum: 1000000
+          description: |
+            Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
+            If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
       required:
       - currency
     Pricing:
@@ -19257,7 +19314,12 @@ components:
           type: number
           format: float
           title: Add-on unit price
-          description: This is priced in the subscription's currency.
+          description: Supports up to 2 decimal places.
+        unit_amount_decimal:
+          type: string
+          format: decimal
+          title: Add-on unit in decimal price
+          description: Supports up to 9 decimal places.
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -19313,8 +19375,19 @@ components:
           format: float
           title: Unit amount
           description: |
-            * Optionally, override the add-on's default unit amount.
-            * If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount` must be absent.
+            Allows up to 2 decimal places. Optionally, override the add-on's default unit amount.
+            If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount` cannot be provided.
+          minimum: 0
+          maximum: 1000000
+        unit_amount_decimal:
+          type: string
+          format: decimal
+          title: Unit Amount Decimal
+          description: |
+            Allows up to 9 decimal places.  Optionally, override the add-on's default unit amount.
+            If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount_decimal` cannot be provided.
+            Only supported when the plan add-on's `add_on_type` = `usage`.
+            If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
           minimum: 0
           maximum: 1000000
         tiers:
@@ -19373,9 +19446,19 @@ components:
           type: number
           format: float
           title: Unit amount
-          description: Optionally, override the add-on's default unit amount.
+          description: |
+            Allows up to 2 decimal places. Optionally, override the add-on's default unit amount.
+            If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount` cannot be provided.
           minimum: 0
           maximum: 1000000
+        unit_amount_decimal:
+          type: string
+          title: Unit amount decimal
+          description: |
+            Allows up to 9 decimal places. Optionally, override the add-on's default unit amount.
+            If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount_decimal` cannot be provided.
+            Only supported when the plan add-on's `add_on_type` = `usage`.
+            If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
         tiers:
           type: array
           title: Tiers
@@ -19412,6 +19495,14 @@ components:
           title: Unit amount
           minimum: 0
           maximum: 1000000
+          description: Allows up to 2 decimal places. Optionally, override the tiers'
+            default unit amount.
+        unit_amount_decimal:
+          type: string
+          title: Unit amount decimal
+          description: |
+            Allows up to 9 decimal places.  Optionally, override tiers' default unit amount.
+            If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
     SubscriptionCancel:
       type: object
       properties:
@@ -20119,7 +20210,7 @@ components:
           title: Refunded?
           description: Indicates if part or all of this transaction was refunded.
         billing_address:
-          "$ref": "#/components/schemas/Address"
+          "$ref": "#/components/schemas/AddressWithName"
         collection_method:
           description: The method by which the payment was collected.
           "$ref": "#/components/schemas/CollectionMethodEnum"
@@ -20310,6 +20401,27 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/UniqueCouponCode"
+    UniqueCouponCodeParams:
+      type: object
+      description: Parameters to be passed to the `list_unique_coupon_codes` endpoint
+        to obtain the newly generated codes.
+      properties:
+        limit:
+          type: integer
+          title: The number of UniqueCouponCodes that will be generated
+        order:
+          type: string
+          title: Sort order to list newly generated UniqueCouponCodes (should always
+            be `asc`)
+        sort:
+          type: string
+          title: Sort field to list newly generated UniqueCouponCodes (should always
+            be `created_at`)
+        begin_time:
+          type: string
+          title: Begin time query parameter
+          description: The date-time to be included when listing UniqueCouponCodes
+          format: date-time
     Usage:
       type: object
       properties:
@@ -20364,6 +20476,12 @@ components:
           type: number
           format: float
           title: Unit price
+        unit_amount_decimal:
+          type: string
+          title: Unit Amount Decimal
+          minimum: 0
+          maximum: 1000000
+          description: Unit price that can optionally support a sub-cent value.
         billed_at:
           type: string
           format: date-time

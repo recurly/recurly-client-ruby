@@ -4,7 +4,7 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Requests
-    class InvoiceUpdatable < Request
+    class InvoiceUpdate < Request
 
       # @!attribute address
       #   @return [InvoiceAddress]

@@ -11,8 +11,12 @@ module Recurly
       define_attribute :ending_quantity, Integer
 
       # @!attribute unit_amount
-      #   @return [Float] Unit amount
+      #   @return [Float] Allows up to 2 decimal places. Optionally, override the tiers' default unit amount.
       define_attribute :unit_amount, Float
+
+      # @!attribute unit_amount_decimal
+      #   @return [String] Allows up to 9 decimal places.  Optionally, override tiers' default unit amount. If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
+      define_attribute :unit_amount_decimal, String
     end
   end
 end

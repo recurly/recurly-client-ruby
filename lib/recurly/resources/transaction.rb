@@ -19,8 +19,8 @@ module Recurly
       define_attribute :avs_check, String
 
       # @!attribute billing_address
-      #   @return [Address]
-      define_attribute :billing_address, :Address
+      #   @return [AddressWithName]
+      define_attribute :billing_address, :AddressWithName
 
       # @!attribute collected_at
       #   @return [DateTime] Collected at, or if not collected yet, the time the transaction was created.

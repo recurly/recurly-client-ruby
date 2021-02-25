@@ -4,7 +4,7 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Requests
-    class AccountAcquisitionUpdatable < Request
+    class AccountAcquisitionUpdate < Request
 
       # @!attribute campaign
       #   @return [String] An arbitrary identifier for the marketing campaign that led to the acquisition of this account.

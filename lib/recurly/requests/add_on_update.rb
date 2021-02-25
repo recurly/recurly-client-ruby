@@ -23,7 +23,7 @@ module Recurly
       define_attribute :code, String
 
       # @!attribute currencies
-      #   @return [Array[AddOnPricing]] If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then currencies must be absent
+      #   @return [Array[AddOnPricing]] If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then currencies must be absent. Must also be absent if `add_on_type` is `usage` and `usage_type` is `percentage`.
       define_attribute :currencies, Array, { :item_type => :AddOnPricing }
 
       # @!attribute default_quantity

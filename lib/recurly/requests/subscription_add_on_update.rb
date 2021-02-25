@@ -31,8 +31,12 @@ module Recurly
       define_attribute :tiers, Array, { :item_type => :SubscriptionAddOnTier }
 
       # @!attribute unit_amount
-      #   @return [Float] Optionally, override the add-on's default unit amount.
+      #   @return [Float] Allows up to 2 decimal places. Optionally, override the add-on's default unit amount. If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount` cannot be provided.
       define_attribute :unit_amount, Float
+
+      # @!attribute unit_amount_decimal
+      #   @return [String] Allows up to 9 decimal places. Optionally, override the add-on's default unit amount. If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount_decimal` cannot be provided. Only supported when the plan add-on's `add_on_type` = `usage`. If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
+      define_attribute :unit_amount_decimal, String
 
       # @!attribute usage_percentage
       #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.

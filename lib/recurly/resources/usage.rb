@@ -50,6 +50,10 @@ module Recurly
       #   @return [Float] Unit price
       define_attribute :unit_amount, Float
 
+      # @!attribute unit_amount_decimal
+      #   @return [String] Unit price that can optionally support a sub-cent value.
+      define_attribute :unit_amount_decimal, String
+
       # @!attribute updated_at
       #   @return [DateTime] When the usage record was billed on an invoice.
       define_attribute :updated_at, DateTime

@@ -51,8 +51,12 @@ module Recurly
       define_attribute :tiers, Array, { :item_type => :SubscriptionAddOnTier }
 
       # @!attribute unit_amount
-      #   @return [Float] This is priced in the subscription's currency.
+      #   @return [Float] Supports up to 2 decimal places.
       define_attribute :unit_amount, Float
+
+      # @!attribute unit_amount_decimal
+      #   @return [String] Supports up to 9 decimal places.
+      define_attribute :unit_amount_decimal, String
 
       # @!attribute updated_at
       #   @return [DateTime] Updated at

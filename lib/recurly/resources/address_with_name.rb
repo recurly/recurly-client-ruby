@@ -4,7 +4,7 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Resources
-    class Address < Resource
+    class AddressWithName < Resource
 
       # @!attribute city
       #   @return [String] City
@@ -13,6 +13,14 @@ module Recurly
       # @!attribute country
       #   @return [String] Country, 2-letter ISO code.
       define_attribute :country, String
+
+      # @!attribute first_name
+      #   @return [String] First name
+      define_attribute :first_name, String
+
+      # @!attribute last_name
+      #   @return [String] Last name
+      define_attribute :last_name, String
 
       # @!attribute phone
       #   @return [String] Phone number
