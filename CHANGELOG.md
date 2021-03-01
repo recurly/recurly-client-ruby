@@ -1,8 +1,134 @@
 # Changelog
 
-## [3.9.0](https://github.com/recurly/recurly-client-ruby/tree/HEAD)
+## [4.0.0](https://github.com/recurly/recurly-client-ruby/tree/4.0.0) (2021-03-01)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.8.0...HEAD)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.18.1...4.0.0)
+
+# Major Version Release
+
+The 4.x major version of the client pairs with the `v2021-02-25` API version. This version of the client and the API contain breaking changes that should be considered before upgrading your integration.
+
+## Breaking Changes in the API
+All changes to the core API are documented in the [Developer Portal changelog](https://developers.recurly.com/api/changelog.html#v2021-02-25---current-ga-version)
+
+## Breaking Changes in Client
+
+- Remove `site_id` and `subdomain` from client initializer.  [#624]
+- Remove `set_site_id` method from client.  [#627]
+- Classify unexpected error responses from Recurly API via an HTTP status code mapping provided in `Recurly::Errors::ERROR_MAP`.  [#616]
+- Remove `NetworkError` class. All error classes now extend the `APIError`. This means that the order of multiple rescue blocks will need to be re-considered.  [#616]
+
+    ### 3.x
+    
+    ```ruby
+    rescue Recurly::Errors::ValidationError => ex
+      # catch a validation error
+    rescue Recurly::Errors::APIError => ex
+      # catch a generic api error
+    rescue Recurly::Errors::TimeoutError => ex
+      # catch a specific network error
+    ```
+    
+    ### 4.x
+    
+    ```ruby
+    rescue Recurly::Errors::ValidationError => ex
+      # catch a validation error
+    rescue Recurly::Errors::TimeoutError => ex
+      # catch a specific network error
+    rescue Recurly::Errors::APIError => ex
+      # catch a generic api error
+    ```
+
+- Rename `InvalidResponseError` to `InvalidContentTypeError`.  [#616]
+- Rename `UnavailableError` to `ServiceUnavailableError`.  [#616]
+- Reorganize top-level keys of the optional parameters hash to improve clarity and create space for additional options.  [#619]
+
+    ### 3.x
+    
+    ```ruby
+    options = {
+      limit: 200,
+      headers: {
+        'Accept-Language' => 'fr'
+      }
+    }
+    accounts = @client.list_accounts(options)
+    ```
+    
+    ### 4.x
+    
+    ```ruby
+    options = {
+      params: {
+          limit: 200
+      }
+      headers: {
+        'Accept-Language' => 'fr'
+      }
+    }
+    accounts = @client.list_accounts(options)
+    ```
+
+**Implemented enhancements:**
+
+- Remove site\_id and subdomain from client initializer [\#624](https://github.com/recurly/recurly-client-ruby/pull/624) ([joannasese](https://github.com/joannasese))
+
+**Fixed bugs:**
+
+- Every method is returning wrong number of arguments [\#664](https://github.com/recurly/recurly-client-ruby/issues/664)
+
+**Merged pull requests:**
+
+- Release 4.0.0 [\#669](https://github.com/recurly/recurly-client-ruby/pull/669) ([douglasmiller](https://github.com/douglasmiller))
+- Updating changelog script and changelog generator config for 4.x release [\#663](https://github.com/recurly/recurly-client-ruby/pull/663) ([douglasmiller](https://github.com/douglasmiller))
+- Removing unused method 'set\_site\_id' [\#627](https://github.com/recurly/recurly-client-ruby/pull/627) ([douglasmiller](https://github.com/douglasmiller))
+- Updating 4.x client to expect query string params as \['params'\] [\#619](https://github.com/recurly/recurly-client-ruby/pull/619) ([douglasmiller](https://github.com/douglasmiller))
+- Updating error mapping based on status code [\#616](https://github.com/recurly/recurly-client-ruby/pull/616) ([douglasmiller](https://github.com/douglasmiller))
+
+## [3.18.1](https://github.com/recurly/recurly-client-ruby/tree/3.18.1) (2021-02-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.18.0...3.18.1)
+
+## [3.18.0](https://github.com/recurly/recurly-client-ruby/tree/3.18.0) (2021-01-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.17.0...3.18.0)
+
+## [3.17.0](https://github.com/recurly/recurly-client-ruby/tree/3.17.0) (2020-12-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.16.0...3.17.0)
+
+## [3.16.0](https://github.com/recurly/recurly-client-ruby/tree/3.16.0) (2020-11-24)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.15.0...3.16.0)
+
+## [3.15.0](https://github.com/recurly/recurly-client-ruby/tree/3.15.0) (2020-11-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.14.0...3.15.0)
+
+## [3.14.0](https://github.com/recurly/recurly-client-ruby/tree/3.14.0) (2020-10-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.13.0...3.14.0)
+
+## [3.13.0](https://github.com/recurly/recurly-client-ruby/tree/3.13.0) (2020-09-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.12.0...3.13.0)
+
+## [3.12.0](https://github.com/recurly/recurly-client-ruby/tree/3.12.0) (2020-08-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.11.0...3.12.0)
+
+## [3.11.0](https://github.com/recurly/recurly-client-ruby/tree/3.11.0) (2020-08-21)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.10.0...3.11.0)
+
+## [3.10.0](https://github.com/recurly/recurly-client-ruby/tree/3.10.0) (2020-07-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.9.0...3.10.0)
+
+## [3.9.0](https://github.com/recurly/recurly-client-ruby/tree/3.9.0) (2020-07-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.8.0...3.9.0)
 
 **Implemented enhancements:**
 
@@ -232,7 +358,7 @@
 
 ## [3.0.0.beta.4](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.4) (2019-04-04)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.1...3.0.0.beta.4)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.3...3.0.0.beta.4)
 
 **Merged pull requests:**
 
@@ -244,6 +370,14 @@
 - V3 Pager can error [\#401](https://github.com/recurly/recurly-client-ruby/pull/401) ([drewish](https://github.com/drewish))
 - \[V3\] Test more versions of ruby [\#397](https://github.com/recurly/recurly-client-ruby/pull/397) ([drewish](https://github.com/drewish))
 - Allow faraday 0.12 for compatibility with oauth2 gem [\#396](https://github.com/recurly/recurly-client-ruby/pull/396) ([drewish](https://github.com/drewish))
+
+## [3.0.0.beta.3](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.3) (2018-08-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.2...3.0.0.beta.3)
+
+## [3.0.0.beta.2](https://github.com/recurly/recurly-client-ruby/tree/3.0.0.beta.2) (2018-07-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.0.0.beta.1...3.0.0.beta.2)
 
 
 
