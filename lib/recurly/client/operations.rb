@@ -3142,8 +3142,7 @@ module Recurly
     #     subscription_create = {
     #       plan_code: plan_code,
     #       currency: "USD",
-    #       # This can be an existing account or
-    #       # a new acocunt
+    #       # This can be an existing account or a new account
     #       account: {
     #         code: account_code,
     #       }
