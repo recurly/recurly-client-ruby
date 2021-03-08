@@ -116,7 +116,7 @@ module Recurly
 
     def fetch_next!(options)
       path = extract_path(self.next)
-      page = @client.send(:get, path, options)
+      page = @client.send(:get, path, **options)
       @data = page.data.map { |d| JSONParser.from_json(d) }
       @has_more = page.has_more
       @next = page.next

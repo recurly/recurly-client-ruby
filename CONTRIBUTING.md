@@ -7,6 +7,10 @@ however, we may not get to these right away. Although we try to be quick, our pr
 writing code. If you want a timely response (especially if you have an emergency), we recommend
 you contact our [official support team](https://support.recurly.com/).
 
+## Code of Conduct
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By participating in this project you agree to abide by its terms.
+
 #### Table Of Contents
 
 * [I don't want to read this whole thing, I just have a question!!!](#i-dont-want-to-read-this-whole-thing-i-just-have-a-question)

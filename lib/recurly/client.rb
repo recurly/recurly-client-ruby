@@ -96,7 +96,7 @@ module Recurly
     end
 
     def head(path, **options)
-      validate_options!(options)
+      validate_options!(**options)
       request = Net::HTTP::Head.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
@@ -104,7 +104,7 @@ module Recurly
     end
 
     def get(path, **options)
-      validate_options!(options)
+      validate_options!(**options)
       request = Net::HTTP::Get.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
@@ -112,7 +112,7 @@ module Recurly
     end
 
     def post(path, request_data, request_class, **options)
-      validate_options!(options)
+      validate_options!(**options)
       request_class.new(request_data).validate!
       request = Net::HTTP::Post.new build_url(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
@@ -123,7 +123,7 @@ module Recurly
     end
 
     def put(path, request_data = nil, request_class = nil, **options)
-      validate_options!(options)
+      validate_options!(**options)
       request = Net::HTTP::Put.new build_url(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
       set_headers(request, options[:headers])
@@ -137,7 +137,7 @@ module Recurly
     end
 
     def delete(path, **options)
-      validate_options!(options)
+      validate_options!(**options)
       request = Net::HTTP::Delete.new build_url(path, options)
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
@@ -264,8 +264,13 @@ module Recurly
     def raise_api_error!(http_response, response)
       if response.content_type.include?(JSON_CONTENT_TYPE)
         error = JSONParser.parse(self, response.body)
-        error_class = Errors::APIError.error_class(error.type)
-        raise error_class.new(error.message, response, error)
+        begin
+          error_class = Errors::APIError.error_class(error.type)
+          raise error_class.new(error.message, response, error)
+        rescue NameError
+          error_class = Errors::APIError.from_response(http_response)
+          raise error_class.new("Unknown Error", response, error)
+        end
       end
 
       error_class = Errors::APIError.from_response(http_response)
@@ -316,7 +321,7 @@ module Recurly
     end
 
     def interpolate_path(path, **options)
-      validate_path_parameters!(options)
+      validate_path_parameters!(**options)
       options.each do |k, v|
         # We need to encode the values for the url
         options[k] = ERB::Util.url_encode(v.to_s)
@@ -348,7 +353,7 @@ module Recurly
       end.to_h
     end
 
-    def scope_by_site(path, **options)
+    def scope_by_site(path, options)
       if site = site_id || options[:site_id]
         # Ensure that we are only including the site_id once because the Pager operations
         # will use the cursor returned from the API which may already have these components
