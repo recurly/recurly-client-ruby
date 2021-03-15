@@ -1,7 +1,7 @@
 user=recurly
 project=recurly-client-ruby
 unreleased=false
-exclude-labels=question,bug?,duplicate,V2
+exclude-labels=internal,question,bug?,duplicate,V2
 exclude-tags-regex=^[^3]+\..*
 issues-wo-labels=false
 verbose=false
