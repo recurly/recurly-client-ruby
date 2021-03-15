@@ -331,7 +331,7 @@ module Recurly
     end
 
     def set_api_key(api_key)
-      @api_key = api_key
+      @api_key = api_key.to_s
     end
 
     def build_url(path, options)
