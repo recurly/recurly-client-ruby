@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 set -e
 
-bundle install --binstubs --quiet
-./bin/yard --quiet
+bundle install --quiet
+bundle exec yard --quiet

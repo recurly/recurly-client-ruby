@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 if [ "$1" == "--check" ]; then
-  ./bin/rufo . --check
+  bundle exec rufo . --check
   RESULT=$?
   if [ $RESULT != 0 ]; then
     echo "Code is not properly formatted. Please execute ./scripts/format to autoformat the code."
     exit $RESULT
   fi
 else
-  ./bin/rufo . -x
+  bundle exec rufo . -x
 fi
