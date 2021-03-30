@@ -55,6 +55,8 @@ module Recurly
     # @param api_key [String] The private API key
     # @param logger [Logger] A logger to use. Defaults to creating a new STDOUT logger with level WARN.
     def initialize(api_key:, logger: nil)
+      raise ArgumentError, "'api_key' must be set to a non-nil value" if api_key.nil?
+
       set_api_key(api_key)
 
       if logger.nil?
@@ -331,7 +333,7 @@ module Recurly
     end
 
     def set_api_key(api_key)
-      @api_key = api_key
+      @api_key = api_key.to_s
     end
 
     def build_url(path, options)

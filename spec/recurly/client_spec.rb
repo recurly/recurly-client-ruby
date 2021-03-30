@@ -388,6 +388,18 @@ RSpec.describe Recurly::Client do
     end
   end
 
+  context "with a missing api key" do
+    describe "initialize" do
+      let(:options) { { api_key: nil } }
+
+      it "should raise an ArgumentError when api_key is nil" do
+        expect {
+          Recurly::Client.new(**options)
+        }.to raise_error(ArgumentError)
+      end
+    end
+  end
+
   describe "unexpected HTML responses" do
     context "with 200 OK" do
       let(:response) do
