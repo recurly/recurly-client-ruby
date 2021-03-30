@@ -47,4 +47,5 @@ module Recurly
   end
 
   require_relative "./errors/api_errors"
+  require_relative "./errors/network_errors"
 end

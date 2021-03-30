@@ -205,7 +205,7 @@ module Recurly
           end
 
           raise Recurly::Errors::ConnectionFailedError, "Failed to connect to Recurly: #{ex.message}"
-        rescue Net::ReadTimeout, Timeout::Error
+        rescue Timeout::Error
           raise Recurly::Errors::TimeoutError, "Request timed out"
         rescue OpenSSL::SSL::SSLError => ex
           raise Recurly::Errors::SSLError, ex.message

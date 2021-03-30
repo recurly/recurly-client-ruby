@@ -339,14 +339,45 @@ RSpec.describe Recurly::Client do
   end
 
   context "with network errors" do
-    describe "#get" do
-      it "should return an account object for get_account" do
-        req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
-        allow(net_http).to receive(:request).and_raise(Net::OpenTimeout, "Request timed out")
-        expect {
-          subject.get_account(account_id: "code-benjamin-du-monde")
-        }.to raise_error(Recurly::Errors::TimeoutError)
-      end
+    it "Connection Refused" do
+      req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
+      allow(net_http).to receive(:request).and_raise(Errno::ECONNREFUSED, "Connection Refused")
+      expect {
+        subject.get_account(account_id: "code-benjamin-du-monde")
+      }.to raise_error(Recurly::Errors::ConnectionFailedError)
+    end
+
+    it "Open Timeout" do
+      req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
+      allow(net_http).to receive(:request).and_raise(Net::OpenTimeout, "Request timed out")
+      expect {
+        subject.get_account(account_id: "code-benjamin-du-monde")
+        # A retry should occur
+      }.to raise_error(Recurly::Errors::TimeoutError)
+    end
+
+    it "Read Timeout" do
+      req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
+      allow(net_http).to receive(:request).and_raise(Net::ReadTimeout, "Request timed out")
+      expect {
+        subject.get_account(account_id: "code-benjamin-du-monde")
+      }.to raise_error(Recurly::Errors::TimeoutError)
+    end
+
+    it "SSL Issues" do
+      req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
+      allow(net_http).to receive(:request).and_raise(OpenSSL::SSL::SSLError, "SSL Error")
+      expect {
+        subject.get_account(account_id: "code-benjamin-du-monde")
+      }.to raise_error(Recurly::Errors::SSLError)
+    end
+
+    it "Unknown Error" do
+      req = Recurly::HTTP::Request.new(:get, "/accounts/code-benjamin-du-monde", nil)
+      allow(net_http).to receive(:request).and_raise(StandardError, "Generic Error")
+      expect {
+        subject.get_account(account_id: "code-benjamin-du-monde")
+      }.to raise_error(Recurly::Errors::NetworkError)
     end
   end
 
