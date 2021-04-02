@@ -16151,9 +16151,7 @@ components:
             a consumer card in Brazil. This would be the customer's CPF, CPF is a
             Brazilian tax identifier for all tax paying residents.
         tax_identifier_type:
-          type: string
-          enum:
-            "$ref": "#/components/schemas/TaxIdentifierTypeEnum"
+          "$ref": "#/components/schemas/TaxIdentifierTypeEnum"
           description: this field and a value of 'cpf' are required if adding a billing
             info that is an elo or hipercard type in Brazil.
         primary_payment_method:
