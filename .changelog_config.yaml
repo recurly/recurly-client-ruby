@@ -1,0 +1,11 @@
+---
+owner: recurly
+repo: recurly-client-ruby
+tag_matcher: ^4\..*
+required_issue_labels:
+  - V4
+exclude_labels:
+  - bug?
+  - internal
+  - duplicate
+  - question
