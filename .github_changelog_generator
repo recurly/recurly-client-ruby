@@ -1,8 +1,0 @@
-user=recurly
-project=recurly-client-ruby
-unreleased=false
-exclude-labels=internal,question,bug?,duplicate,V2
-exclude-tags-regex=^[^3]+\..*
-issues-wo-labels=false
-verbose=false
-since-tag=3.0.0.beta.1
