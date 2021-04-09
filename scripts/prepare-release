@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Usage
+#
+# ./prepare-release major|minor|patch [--notes-out <path>] [--tag-out <path>]
+#
+
+set -e
+
+if [ -n "$(git status --porcelain)" ]; then
+  echo "Working directory is not clean. Aborting."
+  exit 1
+fi
+
+if [ -z "$GITHUB_TOKEN" ]; then
+  echo "GITHUB_TOKEN must be set. Aborting."
+  exit 1
+fi
+
+# Bump version
+# major|minor|patch
+part=${1}
+if [ "$part" != "patch" ] && [ "$part" != "minor" ] && [ "$part" != "major" ]; then
+  echo "'$part' is not a valid option: major|minor|patch"
+  exit 1
+fi
+new_version=$(bump2version --list "$part" | grep new_version | cut -d "=" -f 2)
+
+# Generate Changelog
+changelogly --future-release "$new_version"
+
+while [[ "$#" -gt 0 ]]; do
+  case $1 in
+    # Create release notes artifact
+    -n|--notes-out)
+      echo "$new_version
+
+      $(
+        cat CHANGELOG.md | sed -n "/^## \[$new_version\]/,/^##/p" | sed '$d;1d'
+      )" | awk '{$1=$1};1' > $2
+      shift
+      ;;
+
+    # Create release notes artifact
+    -t|--tag-out)
+      echo "v$new_version" > $2
+      ;;
+  esac
+  shift
+done
