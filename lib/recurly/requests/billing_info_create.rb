@@ -14,6 +14,10 @@ module Recurly
       #   @return [String] Amazon billing agreement ID
       define_attribute :amazon_billing_agreement_id, String
 
+      # @!attribute backup_payment_method
+      #   @return [Boolean] The `backup_payment_method` indicator is used to designate a billing info as a backup on the account that will be tried if the billing info marked `primary_payment_method` fails. All payment methods, including the billing info marked `primary_payment_method` can be set as a backup. An account can have a maximum of 1 backup, if a user sets a different payment method as a backup, the existing backup will no longer be marked as such.
+      define_attribute :backup_payment_method, :Boolean
+
       # @!attribute company
       #   @return [String] Company name
       define_attribute :company, String

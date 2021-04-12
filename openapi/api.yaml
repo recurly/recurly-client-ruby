@@ -2033,7 +2033,7 @@ paths:
       description: |
         If you're using Recurly.js to securely submit data from webforms without sending it through your server,
         you can associate the billing information with an account by passing in the `token_id`. The only other
-        field permitted with `token_id` is `primary_payment_method`.
+        fields permitted with `token_id` are `primary_payment_method` and/or `backup_payment_method`.
 
         For credit card payments you'll need the following required fields:
 
@@ -2350,7 +2350,7 @@ paths:
       description: |
         If you're using Recurly.js to securely submit data from webforms without sending it through your server,
         you can associate the billing information with an account by passing in the `token_id`. The only other
-        field permitted with `token_id` is `primary_payment_method`.
+        fields permitted with `token_id` are `primary_payment_method` and/or `backup_payment_method`.
 
         For credit card payments you'll need the following required fields:
 
@@ -2434,7 +2434,7 @@ paths:
       description: |
         If you're using Recurly.js to securely submit data from webforms without sending it through your server,
         you can associate the billing information with an account by passing in the `token_id`. The only other
-        field permitted with `token_id` is `primary_payment_method`.
+        fields permitted with `token_id` are `primary_payment_method` and/or `backup_payment_method`.
 
         For credit card payments you'll need the following required fields:
 
@@ -16037,6 +16037,11 @@ components:
             the `primary_payment_method` indicator. When adding billing infos via
             the billing_info and /accounts endpoints, this value is not permitted,
             and will return an error if provided.
+        backup_payment_method:
+          type: boolean
+          description: The `backup_payment_method` indicator is used to designate
+            a billing info as a backup on the account that will be tried if the billing
+            info marked `primary_payment_method` fails.
         created_at:
           type: string
           format: date-time
@@ -16151,9 +16156,9 @@ components:
             a consumer card in Brazil. This would be the customer's CPF, CPF is a
             Brazilian tax identifier for all tax paying residents.
         tax_identifier_type:
-          "$ref": "#/components/schemas/TaxIdentifierTypeEnum"
           description: this field and a value of 'cpf' are required if adding a billing
             info that is an elo or hipercard type in Brazil.
+          "$ref": "#/components/schemas/TaxIdentifierTypeEnum"
         primary_payment_method:
           type: boolean
           title: Primary Payment Method
@@ -16165,6 +16170,15 @@ components:
             the `primary_payment_method` indicator. When adding billing infos via
             the billing_info and /accounts endpoints, this value is not permitted,
             and will return an error if provided.
+        backup_payment_method:
+          type: boolean
+          description: The `backup_payment_method` indicator is used to designate
+            a billing info as a backup on the account that will be tried if the billing
+            info marked `primary_payment_method` fails. All payment methods, including
+            the billing info marked `primary_payment_method` can be set as a backup.
+            An account can have a maximum of 1 backup, if a user sets a different
+            payment method as a backup, the existing backup will no longer be marked
+            as such.
     Coupon:
       type: object
       properties:
@@ -19863,8 +19877,8 @@ components:
           format: float
           title: Custom subscription pricing
           description: Override the unit amount of the subscription plan by setting
-            this value in cents. If not provided, the subscription will inherit the
-            price from the subscription plan for the provided currency.
+            this value. If not provided, the subscription will inherit the price from
+            the subscription plan for the provided currency.
           minimum: 0
           maximum: 1000000
         quantity:
@@ -20188,6 +20202,10 @@ components:
           type: boolean
           title: Success?
           description: Did this transaction complete successfully?
+        backup_payment_method_used:
+          type: boolean
+          title: Backup Payment Method Used?
+          description: Indicates if the transaction was completed using a backup payment
         refunded:
           type: boolean
           title: Refunded?
