@@ -43,7 +43,7 @@ while [[ "$#" -gt 0 ]]; do
 
     # Create release notes artifact
     -t|--tag-out)
-      echo "v$new_version" > $2
+      echo "$new_version" > $2
       ;;
   esac
   shift
