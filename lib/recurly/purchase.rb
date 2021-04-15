@@ -128,6 +128,9 @@ module Recurly
     # @return [[ShippingFee], nil]
     has_many :shipping_fees, class_name: :ShippingFee, readonly: false
 
+    # @return [BillingInfo, nil]
+    has_one :billing_info, class_name: :BillingInfo, readonly: true
+
     define_attribute_methods %w(
       currency
       collection_method
@@ -189,7 +192,6 @@ module Recurly
 
       # Allows the merchant to cancel an authorization.
       #
-      # @param transaction_uuid [String] The uuid for the transaction representing the authorization. Can typically be found at invoice_collection.charge_invoice.transactions.first.uuid.
       # @return [InvoiceCollection] The canceled invoice collection.
       # @raise [Invalid] Raised if the authorization cannot be canceled.
       def cancel!(transaction_uuid)

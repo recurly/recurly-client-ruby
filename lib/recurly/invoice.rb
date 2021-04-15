@@ -51,6 +51,9 @@ module Recurly
     # @return [Invoice, nil]
     has_one :original_invoice, class_name: :Invoice, readonly: true
 
+    # @return [BillingInfo, nil]
+    has_one :billing_info, class_name: :BillingInfo, readonly: true
+
     # Returns the first redemption in the Invoice's redemptions.
     # This was placed here for backwards compatibility when we went from
     # having a single redemption per invoice to multiple redemptions per invoice.

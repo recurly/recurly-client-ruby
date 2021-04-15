@@ -176,7 +176,7 @@ module Recurly
 
     # Convert free trial to paid subscription when transaction_type is "moto"
     # which stands for "Mail Order Telephone Order".
-    # 
+    #
     # @return true
     def convert_trial_moto()
       builder = XML.new("<subscription/>")
@@ -186,8 +186,8 @@ module Recurly
     end
 
     # Convert free trial to paid subscription. Optionally uses a 3ds token.
-    # 
-    # @param three_d_secure_action_result_token_id [String] three_d_secure_action_result_token_id 
+    #
+    # @param three_d_secure_action_result_token_id [String] three_d_secure_action_result_token_id
     #   returned by Recurly.js referencing the result of the 3DS authentication for PSD2
     # @return true when payment is accepted
     def convert_trial(three_d_secure_action_result_token_id = nil)
@@ -198,8 +198,8 @@ module Recurly
         billing_info.add_element('three_d_secure_action_result_token_id', three_d_secure_action_result_token_id)
         builder.to_s
       end
-      
-      reload API.put("#{uri}/convert_trial", body) 
+
+      reload API.put("#{uri}/convert_trial", body)
       true
     end
 
