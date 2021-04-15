@@ -39,6 +39,9 @@ module Recurly
     # @return [BillingInfo, nil]
     has_one :billing_info, readonly: false
 
+    # @return [Pager<BillingInfo>, []]
+    has_many :billing_info, readonly: true
+
     # @return [AccountBalance, nil]
     has_one :account_balance, readonly: true
 
@@ -100,6 +103,16 @@ module Recurly
 
     def company_name
       super || company
+    end
+
+    def billing_info= billing_info
+      billing_infos.map{ |bi| bi.primary_payment_method = false }
+
+      unless billing_infos.include? billing_info
+        billing_infos << billing_info
+      end
+
+      billing_info.primary_payment_method = true
     end
 
     # Creates an invoice from the pending charges on the account.
