@@ -106,7 +106,7 @@ module Recurly
     end
 
     def billing_info= billing_info
-      billing_infos.map{ |bi| bi.primary_payment_method = false }
+      billing_infos.each{ |bi| bi.primary_payment_method = false }
 
       unless billing_infos.include? billing_info
         billing_infos << billing_info
