@@ -39,9 +39,6 @@ module Recurly
     # @return [BillingInfo, nil]
     has_one :billing_info, readonly: false
 
-    # @return [Pager<BillingInfo>, []]
-    has_many :billing_infos, readonly: true
-
     # @return [AccountBalance, nil]
     has_one :account_balance, readonly: true
 
@@ -105,16 +102,6 @@ module Recurly
       super || company
     end
 
-    def billing_info= billing_info
-      billing_infos.each{ |bi| bi.primary_payment_method = false }
-
-      unless billing_infos.include? billing_info
-        billing_infos << billing_info
-      end
-
-      billing_info[:primary_payment_method] = true
-    end
-
     # Creates an invoice from the pending charges on the account.
     # Raises an error if it fails.
     #
@@ -133,6 +120,25 @@ module Recurly
     # @raise [Invalid] Raised if the account cannot be invoiced.
     def build_invoice
       InvoiceCollection.from_response API.post("#{invoices.uri}/preview")
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
+    end
+
+    def create_billing_info(billing_info)
+      billing_info = billing_info
+      billing_info.uri = "#{path}/billing_infos"
+      billing_info.save!
+      billing_info
+    end
+
+    def get_billing_infos
+      Pager.new(Recurly::BillingInfo, uri: "#{path}/billing_infos", parent: self)
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
+    end
+
+    def get_billing_info(billing_info_uuid)
+      BillingInfo.from_response API.get("#{path}/billing_infos/#{billing_info_uuid}")
     rescue Recurly::API::UnprocessableEntity => e
       raise Invalid, e.message
     end
