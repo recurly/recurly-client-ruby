@@ -85,6 +85,7 @@ module Recurly
       timeframe
       started_with_gift
       converted_at
+      billing_info_uuid
       no_billing_info_reason
       imported_trial
       credit_customer_notes

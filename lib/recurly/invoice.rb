@@ -114,6 +114,7 @@ module Recurly
       gateway_code
       surcharge_in_cents
       tax_details
+      billing_info_uuid
     )
     alias to_param invoice_number_with_prefix
 
