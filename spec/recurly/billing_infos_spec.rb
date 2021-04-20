@@ -2,10 +2,23 @@ require 'spec_helper'
 
 describe BillingInfo do
   before do
+    stub_api_request :post, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/create-201'
     stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/index-200'
     stub_api_request :get, 'accounts/abcdef1234567890/billing_infos/billinginfo1', 'billing_infos/show-200'
 
     stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+  end
+
+  it 'should allow creating a billing info' do
+    account = Account.find('abcdef1234567890')
+
+    new_billing_info = BillingInfo.new
+    billing_info = account.create_billing_info(new_billing_info)
+
+    billing_info.primary_payment_method.must_equal false
+    billing_info.backup_payment_method.must_equal true
+    billing_info.first_name.must_equal 'Asuka'
+    billing_info.last_name.must_equal 'Soryu'
   end
 
   it 'should allow fetching billing info by uuid' do
