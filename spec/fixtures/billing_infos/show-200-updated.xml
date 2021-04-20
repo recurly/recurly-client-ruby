@@ -23,6 +23,6 @@ Content-Type: application/xml; charset=utf-8
   <first_six>411111</first_six>
   <last_four>1111</last_four>
   <updated_at type="datetime">2017-02-17T15:38:53Z</updated_at>
-  <primary_payment_method>true</primary_payment_method>
-  <backup_payment_method>false</backup_payment_method>
+  <primary_payment_method type="boolean">true</primary_payment_method>
+  <backup_payment_method type="boolean">false</backup_payment_method>
 </billing_info>
