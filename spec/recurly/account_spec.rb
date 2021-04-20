@@ -403,4 +403,47 @@ XML
       account.child_accounts.first.account_code.must_equal 'abcdef1234567890'
     end
   end
+
+  describe 'wallet' do
+    it 'should allow multiple payment methods created on an account' do
+      stub_api_request :post, 'billing_infos', 'billing_infos/create-201'
+
+      stub_api_request :post, 'accounts', 'accounts/create-201'
+      stub_api_request :get, 'accounts/walletaccount123', 'accounts/show-200'
+
+      account = Account.find('walletaccount123')
+      billing_info = Recurly::BillingInfo.new(
+        first_name: 'Asuka',
+        last_name: 'Soryu',
+        address1: '99 NERV Dr.',
+        city: 'New Orleans',
+        state: 'LA',
+        zip: '70119',
+        country: 'US',
+        number: '4111-1111-1111-1111',
+        month: 12,
+        year: 2017,
+        primary_payment_method: false,
+        backup_payment_method: true
+      )
+
+      account.create_billing_info(billing_info)
+
+      account.billing_infos.count.must_equal 2
+    end
+
+    it 'should show multiple payment methods on an account' do
+
+    end
+
+    it 'should allow updating an existing payment method' do
+
+    end
+
+    it 'should show a single billing info specified' do
+
+    end
+
+
+  end
 end
