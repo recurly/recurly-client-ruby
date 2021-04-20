@@ -6,6 +6,7 @@ Link: <https://api.recurly.com/v2/accounts/abcdef1234567890/billing_infos?cursor
 <billing_infos>
   <billing_info href="https://api.recurly.com/v2/accounts/walletaccount123/billing_infos/billinginfo1">
     <account href="https://api.recurly.com/v2/accounts/walletaccount123"/>
+    <uuid>billinginfo1</uuid>
     <first_name>Shinji</first_name>
     <last_name>Ikari</last_name>
     <company nil="nil"></company>
@@ -28,8 +29,9 @@ Link: <https://api.recurly.com/v2/accounts/abcdef1234567890/billing_infos?cursor
     <primary_payment_method type="boolean">true</primary_payment_method>
     <backup_payment_method type="boolean">false</backup_payment_method>
   </billing_info>
-  <billing_info href="https://api.recurly.com/v2/accounts/walletaccount123/billing_infos/billinginfo1">
+  <billing_info href="https://api.recurly.com/v2/accounts/walletaccount123/billing_infos/billinginfo2">
     <account href="https://api.recurly.com/v2/accounts/walletaccount123"/>
+    <uuid>billinginfo2</uuid>
     <first_name>Asuka</first_name>
     <last_name>Soryu</last_name>
     <company nil="nil"></company>

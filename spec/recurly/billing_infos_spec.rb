@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe BillingInfos do
+describe BillingInfo do
   before do
     stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/create-201'
 
@@ -23,7 +23,7 @@ describe BillingInfos do
 
   it 'should show multiple payment methods on an account' do
     stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/index-200'
-    stub_api_request(:head, 'accounts/abcdef1234567890/billing_infos') { XML[200][:head] }
+
     account = Account.find('abcdef1234567890')
 
     billing_infos = account.get_billing_infos
@@ -32,10 +32,19 @@ describe BillingInfos do
   end
 
   it 'should allow updating an existing payment method' do
+    stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/index-200'
 
-  end
+    account = Account.find('abcdef1234567890')
 
-  it 'should show a single billing info specified' do
+    billing_info_uuid = account.get_billing_infos.first.uuid
 
+    stub_api_request :put, "accounts/abcdef1234567890/billing_infos/#{billing_info_uuid}", 'billing_infos/show-200-updated'
+
+    billing_info = account.get_billing_info(billing_info_uuid)
+    billing_info.update_attributes(
+      first_name: 'Gendo'
+    )
+
+    billing_info.first_name.must_equal 'Gendo'
   end
 end
