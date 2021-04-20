@@ -405,35 +405,34 @@ XML
   end
 
   describe 'wallet' do
-    it 'should allow multiple payment methods created on an account' do
-      stub_api_request :post, 'billing_infos', 'billing_infos/create-201'
+    before do
+      stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/create-201'
 
-      stub_api_request :post, 'accounts', 'accounts/create-201'
-      stub_api_request :get, 'accounts/walletaccount123', 'accounts/show-200'
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/create-201'
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
 
-      account = Account.find('walletaccount123')
-      billing_info = Recurly::BillingInfo.new(
-        first_name: 'Asuka',
-        last_name: 'Soryu',
-        address1: '99 NERV Dr.',
-        city: 'New Orleans',
-        state: 'LA',
-        zip: '70119',
-        country: 'US',
-        number: '4111-1111-1111-1111',
-        month: 12,
-        year: 2017,
-        primary_payment_method: false,
-        backup_payment_method: true
-      )
+      stub_api_request :get, 'accounts/abcdef1234567890/billing_infos/billinginfo1', 'billing_infos/show-200'
+    end
 
-      account.create_billing_info(billing_info)
+    it 'should allow fetching billing info by uuid' do
+      account = Account.find('abcdef1234567890')
 
-      account.billing_infos.count.must_equal 2
+      billing_info = account.get_billing_info('billinginfo1')
+
+      billing_info.primary_payment_method.must_equal 'true'
+      billing_info.backup_payment_method.must_equal 'false'
+      billing_info.first_name.must_equal 'Shinji'
+      billing_info.last_name.must_equal 'Ikari'
     end
 
     it 'should show multiple payment methods on an account' do
+      stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/index-200'
+      stub_api_request(:head, 'accounts/abcdef1234567890/billing_infos') { XML[200][:head] }
+      account = Account.find('abcdef1234567890')
 
+      billing_infos = account.get_billing_infos
+
+      billing_infos.length.must_equal 2
     end
 
     it 'should allow updating an existing payment method' do

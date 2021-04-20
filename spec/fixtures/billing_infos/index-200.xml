@@ -1,5 +1,6 @@
 HTTP/1.1 200 OK
 Content-Type: application/xml; charset=utf-8
+Link: <https://api.recurly.com/v2/accounts/abcdef1234567890/billing_infos?cursor=1234567890&per_page=20>; rel="start", <https://api.recurly.com/v2/accounts/abcdef1234567890/billing_infos?cursor=1234566890&per_page=20>; rel="next"
 
 <?xml version="1.0" encoding="UTF-8"?>
 <billing_infos>
@@ -24,8 +25,8 @@ Content-Type: application/xml; charset=utf-8
     <first_six>411111</first_six>
     <last_four>1111</last_four>
     <updated_at type="datetime">2017-02-17T15:38:53Z</updated_at>
-    <primary_payment_method>true</primary_payment_method>
-    <backup_payment_method>false</backup_payment_method>
+    <primary_payment_method type="boolean">true</primary_payment_method>
+    <backup_payment_method type="boolean">false</backup_payment_method>
   </billing_info>
   <billing_info href="https://api.recurly.com/v2/accounts/walletaccount123/billing_infos/billinginfo1">
     <account href="https://api.recurly.com/v2/accounts/walletaccount123"/>
@@ -48,7 +49,7 @@ Content-Type: application/xml; charset=utf-8
     <first_six>411111</first_six>
     <last_four>1111</last_four>
     <updated_at type="datetime">2017-02-17T15:38:53Z</updated_at>
-    <primary_payment_method>false</primary_payment_method>
-    <backup_payment_method>true</backup_payment_method>
+    <primary_payment_method type="boolean">false</primary_payment_method>
+    <backup_payment_method type="boolean">true</backup_payment_method>
   </billing_info>
 </billing_infos>
