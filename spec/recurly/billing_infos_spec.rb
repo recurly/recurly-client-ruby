@@ -3,10 +3,8 @@ require 'spec_helper'
 describe BillingInfo do
   before do
     stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/index-200'
-    stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/create-201'
     stub_api_request :get, 'accounts/abcdef1234567890/billing_infos/billinginfo1', 'billing_infos/show-200'
 
-    stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/create-201'
     stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
   end
 
