@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe BillingInfo do
   before do
+    stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/index-200'
     stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/create-201'
+    stub_api_request :get, 'accounts/abcdef1234567890/billing_infos/billinginfo1', 'billing_infos/show-200'
 
     stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/create-201'
     stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
-
-    stub_api_request :get, 'accounts/abcdef1234567890/billing_infos/billinginfo1', 'billing_infos/show-200'
   end
 
   it 'should allow fetching billing info by uuid' do
@@ -22,18 +22,19 @@ describe BillingInfo do
   end
 
   it 'should show multiple payment methods on an account' do
-    stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/index-200'
-
     account = Account.find('abcdef1234567890')
 
     billing_infos = account.get_billing_infos
 
     billing_infos.length.must_equal 2
+
+    billing_infos[0].first_name.must_equal 'Shinji'
+    billing_infos[0].last_name.must_equal 'Ikari'
+    billing_infos[1].first_name.must_equal 'Asuka'
+    billing_infos[1].last_name.must_equal 'Soryu'
   end
 
   it 'should allow updating an existing payment method' do
-    stub_api_request :get, 'accounts/abcdef1234567890/billing_infos', 'billing_infos/index-200'
-
     account = Account.find('abcdef1234567890')
 
     billing_info_uuid = account.get_billing_infos.first.uuid
@@ -46,5 +47,6 @@ describe BillingInfo do
     )
 
     billing_info.first_name.must_equal 'Gendo'
+    billing_info.last_name.must_equal 'Ikari'
   end
 end
