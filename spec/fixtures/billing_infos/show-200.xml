@@ -1,0 +1,28 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<billing_info href="https://api.recurly.com/v2/accounts/walletaccount123/billing_infos/billinginfo1">
+  <account href="https://api.recurly.com/v2/accounts/walletaccount123"/>
+  <first_name>Shinji</first_name>
+  <last_name>Ikari</last_name>
+  <company nil="nil"></company>
+  <address1>99 NERV Dr.</address1>
+  <address2 nil="nil"></address2>
+  <city>New Orleans</city>
+  <state>LA</state>
+  <zip>70119</zip>
+  <country>US</country>
+  <phone nil="nil"></phone>
+  <vat_number>2123</vat_number>
+  <ip_address>127.0.0.1</ip_address>
+  <ip_address_country nil="nil"></ip_address_country>
+  <card_type>Visa</card_type>
+  <year type="integer">2016</year>
+  <month type="integer">3</month>
+  <first_six>411111</first_six>
+  <last_four>1111</last_four>
+  <updated_at type="datetime">2017-02-17T15:38:53Z</updated_at>
+  <primary_payment_method>true</primary_payment_method>
+  <backup_payment_method>false</backup_payment_method>
+</billing_info>
