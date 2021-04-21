@@ -547,7 +547,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -650,8 +649,6 @@ paths:
       - account
       operationId: create_account
       summary: Create an account
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
       requestBody:
         content:
           application/json:
@@ -899,7 +896,6 @@ paths:
           %s\", account.Id)"
   "/accounts/{account_id}":
     parameters:
-    - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/account_id"
     get:
       tags:
@@ -1288,7 +1284,6 @@ paths:
           Account: %s\", account.Id)"
   "/accounts/{account_id}/acquisition":
     parameters:
-    - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/account_id"
     get:
       tags:
@@ -1668,7 +1663,6 @@ paths:
           Acquisition: %s\", accountAcquisition.Id)"
   "/accounts/{account_id}/reactivate":
     parameters:
-    - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/account_id"
     put:
       tags:
@@ -1792,7 +1786,6 @@ paths:
           Account: %s\", account.Id)"
   "/accounts/{account_id}/balance":
     parameters:
-    - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/account_id"
     get:
       tags:
@@ -1914,7 +1907,6 @@ paths:
       operationId: get_billing_info
       summary: Fetch an account's billing information
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       responses:
         '200':
@@ -2050,7 +2042,6 @@ paths:
         - gateway_token
         - gateway_code
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       requestBody:
         content:
@@ -2205,7 +2196,6 @@ paths:
       operationId: remove_billing_info
       summary: Remove an account's billing information
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       description: You may remove any stored billing information for an account. If
         the account has a subscription, the renewal will go into dunning unless the
@@ -2316,7 +2306,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/sort_dates"
@@ -2367,7 +2356,6 @@ paths:
         - gateway_token
         - gateway_code
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       requestBody:
         content:
@@ -2409,7 +2397,6 @@ paths:
       operationId: get_a_billing_info
       summary: Fetch a billing info
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/billing_info_id"
       responses:
@@ -2451,7 +2438,6 @@ paths:
         - gateway_token
         - gateway_code
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/billing_info_id"
       requestBody:
@@ -2493,7 +2479,6 @@ paths:
       operationId: remove_a_billing_info
       summary: Remove an account's billing information
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/billing_info_id"
       description: You may remove any stored billing information for an account. If
@@ -2526,7 +2511,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/sort_dates"
@@ -2624,7 +2608,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       responses:
         '200':
@@ -2707,7 +2690,6 @@ paths:
       operationId: create_coupon_redemption
       summary: Generate an active coupon redemption on an account or subscription
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       requestBody:
         content:
@@ -2838,7 +2820,6 @@ paths:
       operationId: remove_coupon_redemption
       summary: Delete the active coupon redemption from an account
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       responses:
         '200':
@@ -2955,7 +2936,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -3063,7 +3043,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -3165,7 +3144,6 @@ paths:
       operationId: create_invoice
       summary: Create an invoice for pending line items
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       requestBody:
         content:
@@ -3336,7 +3314,6 @@ paths:
       operationId: preview_invoice
       summary: Preview new invoice for pending line items
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       requestBody:
         content:
@@ -3508,7 +3485,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -3613,7 +3589,6 @@ paths:
       operationId: create_line_item
       summary: Create a new line item for the account
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       requestBody:
         content:
@@ -3784,7 +3759,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
       responses:
@@ -3871,7 +3845,6 @@ paths:
       operationId: get_account_note
       summary: Fetch an account note
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - name: account_note_id
         in: path
@@ -4000,7 +3973,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -4095,7 +4067,6 @@ paths:
       operationId: create_shipping_address
       summary: Create a new shipping address for the account
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       requestBody:
         content:
@@ -4285,7 +4256,6 @@ paths:
       operationId: get_shipping_address
       summary: Fetch an account's shipping address
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/shipping_address_id"
       responses:
@@ -4405,7 +4375,6 @@ paths:
       operationId: update_shipping_address
       summary: Update an account's shipping address
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/shipping_address_id"
       requestBody:
@@ -4576,7 +4545,6 @@ paths:
       operationId: remove_shipping_address
       summary: Remove an account's shipping address
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/shipping_address_id"
       responses:
@@ -4687,7 +4655,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -4792,7 +4759,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -4899,7 +4865,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -4983,7 +4948,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -5083,7 +5047,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -5183,8 +5146,6 @@ paths:
       - coupon
       operationId: create_coupon
       summary: Create a new coupon
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
       requestBody:
         content:
           application/json:
@@ -5384,7 +5345,6 @@ paths:
       operationId: get_coupon
       summary: Fetch a coupon
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/coupon_id"
       responses:
         '200':
@@ -5500,7 +5460,6 @@ paths:
       operationId: update_coupon
       summary: Update an active coupon
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/coupon_id"
       requestBody:
         content:
@@ -5654,7 +5613,6 @@ paths:
       operationId: deactivate_coupon
       summary: Expire a coupon
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/coupon_id"
       description: Mark an existing Coupon as expired
       responses:
@@ -5760,7 +5718,6 @@ paths:
       operationId: generate_unique_coupon_codes
       summary: Generate unique coupon codes
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/coupon_id"
       requestBody:
         content:
@@ -5806,7 +5763,6 @@ paths:
       description: Make an expired coupon redeemable again. You can change editable
         fields in this call.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/coupon_id"
       requestBody:
         content:
@@ -5855,7 +5811,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/coupon_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -5892,7 +5847,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
       - "$ref": "#/components/parameters/sort_dates"
@@ -5993,7 +5947,6 @@ paths:
       operationId: get_credit_payment
       summary: Fetch a credit payment
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/credit_payment_id"
       responses:
         '200':
@@ -6024,7 +5977,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -6132,7 +6084,6 @@ paths:
       operationId: get_custom_field_definition
       summary: Fetch an custom field definition
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/custom_field_definition_id"
       responses:
         '200':
@@ -6251,7 +6202,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -6352,8 +6302,6 @@ paths:
       - item
       operationId: create_item
       summary: Create a new item
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
       requestBody:
         content:
           application/json:
@@ -6566,7 +6514,6 @@ paths:
       operationId: get_item
       summary: Fetch an item
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/item_id"
       responses:
         '200':
@@ -6682,7 +6629,6 @@ paths:
       operationId: update_item
       summary: Update an active item
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/item_id"
       requestBody:
         content:
@@ -6849,7 +6795,6 @@ paths:
       operationId: deactivate_item
       summary: Deactivate an item
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/item_id"
       description: Deactivating an item makes it unavailable for new purchases. It
         will not affect existing line items.
@@ -6962,7 +6907,6 @@ paths:
           %s\", deactivatedItem.Code)"
   "/items/{item_id}/reactivate":
     parameters:
-    - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/item_id"
     put:
       tags:
@@ -7093,7 +7037,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -7126,8 +7069,6 @@ paths:
       - measured_unit
       operationId: create_measured_unit
       summary: Create a new measured unit
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
       requestBody:
         content:
           application/json:
@@ -7173,7 +7114,6 @@ paths:
       operationId: get_measured_unit
       summary: Fetch a measured unit
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/measured_unit_id"
       responses:
         '200':
@@ -7201,7 +7141,6 @@ paths:
       operationId: update_measured_unit
       summary: Update a measured unit
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/measured_unit_id"
       requestBody:
         content:
@@ -7248,7 +7187,6 @@ paths:
       summary: Remove a measured unit
       description: A mesured unit cannot be deleted if it is used by an active plan.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/measured_unit_id"
       responses:
         '200':
@@ -7279,7 +7217,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -7382,7 +7319,6 @@ paths:
       operationId: get_invoice
       summary: Fetch an invoice
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       responses:
         '200':
@@ -7498,7 +7434,6 @@ paths:
       operationId: update_invoice
       summary: Update an invoice
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       requestBody:
         content:
@@ -7650,7 +7585,6 @@ paths:
       operationId: get_invoice_pdf
       summary: Fetch an invoice as a PDF
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       responses:
         '200':
@@ -7790,7 +7724,6 @@ paths:
       description: Force a collection attempt using the stored billing information.
         This will trigger a transaction outside of Recurly's normal retry logic.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       requestBody:
         content:
@@ -7923,7 +7856,6 @@ paths:
 
         Only invoices with the `pending`, `processing` or `past_due` states can be marked as failed.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       responses:
         '200':
@@ -8050,7 +7982,6 @@ paths:
 
         Only invoices with the `pending`, `processing`, `past_due` or `failed` states can be marked as paid.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       responses:
         '200':
@@ -8176,7 +8107,6 @@ paths:
       operationId: reopen_invoice
       summary: Reopen a closed, manual invoice
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       responses:
         '200':
@@ -8302,7 +8232,6 @@ paths:
       description: Invoice must be a credit invoice (`type=credit`) and cannot be
         closed (`state=closed`), processing (`state=processing`), or already voided.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       responses:
         '200':
@@ -8410,7 +8339,6 @@ paths:
         not captured through your gateway. It will throw an error for an auto-collecting
         invoice.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       requestBody:
         content:
@@ -8474,7 +8402,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -8585,7 +8512,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/sort_dates"
@@ -8685,7 +8611,6 @@ paths:
 
         See the [Pagination Guide](/guides/pagination.html) to learn how to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       responses:
         '200':
@@ -8779,7 +8704,6 @@ paths:
         If you want to refund the entire refundable amount on the invoice, the
         simplest way is to do `type=amount` without specifiying an `amount`.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       requestBody:
         content:
@@ -8942,7 +8866,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -9049,7 +8972,6 @@ paths:
       operationId: get_line_item
       summary: Fetch a line item
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/line_item_id"
       responses:
         '200':
@@ -9165,7 +9087,6 @@ paths:
       operationId: remove_line_item
       summary: Delete an uninvoiced line item
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/line_item_id"
       responses:
         '204':
@@ -9286,7 +9207,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -9387,8 +9307,6 @@ paths:
       - plan
       operationId: create_plan
       summary: Create a plan
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
       requestBody:
         content:
           application/json:
@@ -9587,7 +9505,6 @@ paths:
       operationId: get_plan
       summary: Fetch a plan
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/plan_id"
       responses:
         '200':
@@ -9703,7 +9620,6 @@ paths:
       operationId: update_plan
       summary: Update a plan
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/plan_id"
       requestBody:
         content:
@@ -9850,7 +9766,6 @@ paths:
       operationId: remove_plan
       summary: Remove a plan
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/plan_id"
       responses:
         '200':
@@ -9961,7 +9876,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/plan_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -10063,7 +9977,6 @@ paths:
       operationId: create_plan_add_on
       summary: Create an add-on
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/plan_id"
       requestBody:
         content:
@@ -10261,7 +10174,6 @@ paths:
       operationId: get_plan_add_on
       summary: Fetch a plan's add-on
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/plan_id"
       - "$ref": "#/components/parameters/add_on_id"
       responses:
@@ -10380,7 +10292,6 @@ paths:
       operationId: update_plan_add_on
       summary: Update an add-on
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/plan_id"
       - "$ref": "#/components/parameters/add_on_id"
       requestBody:
@@ -10523,7 +10434,6 @@ paths:
       operationId: remove_plan_add_on
       summary: Remove an add-on
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/plan_id"
       - "$ref": "#/components/parameters/add_on_id"
       responses:
@@ -10632,7 +10542,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -10733,7 +10642,6 @@ paths:
       operationId: get_add_on
       summary: Fetch an add-on
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/add_on_id"
       responses:
         '200':
@@ -10852,7 +10760,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -10950,8 +10857,6 @@ paths:
       - shipping_method
       operationId: create_shipping_method
       summary: Create a new shipping method
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
       requestBody:
         content:
           application/json:
@@ -10997,7 +10902,6 @@ paths:
       operationId: get_shipping_method
       summary: Fetch a shipping method
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/shipping_method_id"
       responses:
         '200':
@@ -11025,7 +10929,6 @@ paths:
       operationId: update_shipping_method
       summary: Update an active Shipping Method
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/shipping_method_id"
       requestBody:
         content:
@@ -11071,7 +10974,6 @@ paths:
       operationId: deactivate_shipping_method
       summary: Deactivate a shipping method
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/shipping_method_id"
       description: Deactivating a shipping method makes it unavailable for new subscriptions
         or purchases. It will not affect existing subscriptions.
@@ -11104,7 +11006,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -11205,8 +11106,6 @@ paths:
       - subscription
       operationId: create_subscription
       summary: Create a new subscription
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
       requestBody:
         content:
           application/json:
@@ -11385,7 +11284,6 @@ paths:
       operationId: get_subscription
       summary: Fetch a subscription
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       responses:
         '200':
@@ -11506,7 +11404,6 @@ paths:
         impact on the billed amount. Use the [Create Subscription Change](#operation/create_subscription_change)
         endpoint to make those changes.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       requestBody:
         content:
@@ -11655,7 +11552,6 @@ paths:
 
         If the subscription has a paid invoice you may choose to refund all, part or none of last invoice's amount.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       - name: refund
         in: query
@@ -11818,7 +11714,6 @@ paths:
         until the end of the billing cycle. When a future subscription (`state=future`)
         is canceled it becomes failed `state=failed` and cannot be reactivated.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       requestBody:
         content:
@@ -11955,7 +11850,6 @@ paths:
 
         Expired or failed subscriptions cannot be reactivated; instead a new subscription plan will need to be applied to the account.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       responses:
         '200':
@@ -12089,7 +11983,6 @@ paths:
 
         Expired, cancelled, or failed subscriptions cannot be paused.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       requestBody:
         content:
@@ -12243,7 +12136,6 @@ paths:
         The subscription must be in the paused state. Active, expired, cancelled,
         or failed subscriptions cannot be resumed.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       responses:
         '200':
@@ -12374,7 +12266,6 @@ paths:
         in trial. The subscription must be in a trial. Active, paused, expired, cancelled,
         or failed subscriptions cannot be converted.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       responses:
         '200':
@@ -12410,7 +12301,6 @@ paths:
       operationId: get_subscription_change
       summary: Fetch a subscription's pending change
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       responses:
         '200':
@@ -12542,7 +12432,6 @@ paths:
       summary: Create a new subscription change
       description: Calling this will overwrite an existing, pending subscription change.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       requestBody:
         content:
@@ -12700,7 +12589,6 @@ paths:
       operationId: remove_subscription_change
       summary: Delete the pending subscription change
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       description: Deleting the pending subscription change will cause the current
         subscription settings to be used on the next renewal.
@@ -12817,7 +12705,6 @@ paths:
       description: Calling this will not save the subscription change or overwrite
         an existing change.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       requestBody:
         content:
@@ -12861,7 +12748,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -12966,7 +12852,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
@@ -13074,7 +12959,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/sort_dates"
@@ -13170,7 +13054,6 @@ paths:
       operationId: list_usage
       summary: List a subscription add-on's usage records
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       - "$ref": "#/components/parameters/add_on_id"
       - "$ref": "#/components/parameters/ids"
@@ -13212,7 +13095,6 @@ paths:
       operationId: create_usage
       summary: Log a usage record on this subscription add-on
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       - "$ref": "#/components/parameters/add_on_id"
       requestBody:
@@ -13260,7 +13142,6 @@ paths:
       operationId: get_usage
       summary: Get a usage record
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/usage_id"
       responses:
         '200':
@@ -13294,7 +13175,6 @@ paths:
       operationId: update_usage
       summary: Update a usage record
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/usage_id"
       requestBody:
         content:
@@ -13340,7 +13220,6 @@ paths:
       operationId: remove_usage
       summary: Delete a usage record.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/usage_id"
       responses:
         '204':
@@ -13379,7 +13258,6 @@ paths:
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
@@ -13483,7 +13361,6 @@ paths:
       operationId: get_transaction
       summary: Fetch a transaction
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/transaction_id"
       responses:
         '200':
@@ -13595,7 +13472,6 @@ paths:
           %v\", transaction.Id)"
   "/unique_coupon_codes/{unique_coupon_code_id}":
     parameters:
-    - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/unique_coupon_code_id"
     get:
       tags:
@@ -13657,7 +13533,6 @@ paths:
       x-code-samples: []
   "/unique_coupon_codes/{unique_coupon_code_id}/restore":
     parameters:
-    - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/unique_coupon_code_id"
     put:
       tags:
@@ -13699,8 +13574,6 @@ paths:
       description: A purchase is a checkout containing at least one or more subscriptions
         or one-time charges (line items) and supports both coupon and gift card redemptions.
         All items purchased will be on one invoice and paid for with one transaction.
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
       requestBody:
         content:
           application/json:
@@ -13933,8 +13806,6 @@ paths:
       description: A purchase is a checkout containing at least one or more subscriptions
         or one-time charges (line items) and supports both coupon and gift card redemptions.
         All items purchased will be on one invoice and paid for with one transaction.
-      parameters:
-      - "$ref": "#/components/parameters/site_id"
       requestBody:
         content:
           application/json:
@@ -14156,8 +14027,6 @@ paths:
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Preview Charge
           Invoice %v\", collection.ChargeInvoice)"
   "/export_dates":
-    parameters:
-    - "$ref": "#/components/parameters/site_id"
     get:
       tags:
       - automated_exports
@@ -14269,7 +14138,6 @@ paths:
           for: \", date)\n}"
   "/export_dates/{export_date}/export_files":
     parameters:
-    - "$ref": "#/components/parameters/site_id"
     - "$ref": "#/components/parameters/export_date"
     get:
       tags:
@@ -19493,13 +19361,23 @@ components:
           minimum: 0
           maximum: 1000000
           description: Allows up to 2 decimal places. Optionally, override the tiers'
-            default unit amount.
+            default unit amount. If add-on's `add_on_type` is `usage` and `usage_type`
+            is `percentage`, cannot be provided.
         unit_amount_decimal:
           type: string
           title: Unit amount decimal
           description: |
             Allows up to 9 decimal places.  Optionally, override tiers' default unit amount.
             If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
+            If add-on's `add_on_type` is `usage` and `usage_type` is `percentage`, cannot be provided.
+        usage_percentage:
+          type: string
+          title: Usage Percentage
+          description: The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places represented as a string. A value between
+            0.0 and 100.0. Optionally, override tiers' default usage percentage. Required
+            if add-on's `add_on_type` is `usage` and `usage_type` is `percentage`.
+            Must be omitted otherwise.
     SubscriptionCancel:
       type: object
       properties:
