@@ -105,7 +105,6 @@ module Recurly
     #   +canceled+, or +future+ state.
     #
     #        :past_due [String] Filter for accounts with an invoice in the +past_due+ state.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Account>] A list of the site's accounts.
     # @example
@@ -118,7 +117,7 @@ module Recurly
     #   end
     #
     def list_accounts(**options)
-      path = interpolate_path("/accounts")
+      path = "/accounts"
       pager(path, **options)
     end
 
@@ -128,7 +127,6 @@ module Recurly
     #
     # @param body [Requests::AccountCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Account] An account.
     # @example
@@ -168,7 +166,7 @@ module Recurly
     #   end
     #
     def create_account(body:, **options)
-      path = interpolate_path("/accounts")
+      path = "/accounts"
       post(path, body, Requests::AccountCreate, **options)
     end
 
@@ -178,7 +176,6 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Account] An account.
     # @example
@@ -203,7 +200,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::AccountUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Account] An account.
     # @example
@@ -234,7 +230,6 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Account] An account.
     # @example
@@ -258,7 +253,6 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::AccountAcquisition] An account's acquisition data.
     # @example
@@ -283,7 +277,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::AccountAcquisitionUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountAcquisitionUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::AccountAcquisition] An account's updated acquisition data.
     # @example
@@ -319,7 +312,6 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Empty] Acquisition data was succesfully deleted.
     # @example
@@ -343,7 +335,6 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Account] An account.
     # @example
@@ -367,7 +358,6 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::AccountBalance] An account's balance.
     # @example
@@ -391,7 +381,6 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::BillingInfo] An account's billing information.
     # @example
@@ -416,7 +405,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::BillingInfo] Updated billing information.
     # @example
@@ -447,7 +435,6 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Empty] Billing information deleted
     # @example
@@ -493,7 +480,6 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::BillingInfo>] A list of the the billing information for an account's
     #
@@ -509,7 +495,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::BillingInfo] Updated billing information.
     #
@@ -525,7 +510,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param billing_info_id [String] Billing Info ID.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::BillingInfo] A billing info.
     #
@@ -542,7 +526,6 @@ module Recurly
     # @param billing_info_id [String] Billing Info ID.
     # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::BillingInfo] Updated billing information.
     #
@@ -558,7 +541,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param billing_info_id [String] Billing Info ID.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Empty] Billing information deleted
     #
@@ -596,7 +578,6 @@ module Recurly
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     #        :state [String] Filter by state.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions on an account.
     # @example
@@ -622,7 +603,6 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::CouponRedemption>] Active coupon redemptions on an account.
     # @example
@@ -646,7 +626,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::CouponRedemptionCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponRedemptionCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::CouponRedemption] Returns the new coupon redemption.
     # @example
@@ -677,7 +656,6 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::CouponRedemption] Coupon redemption deleted.
     # @example
@@ -713,7 +691,6 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::CreditPayment>] A list of the account's credit payments.
     # @example
@@ -769,7 +746,6 @@ module Recurly
     #   - +type=non-legacy+, only charge and credit invoices will be returned.
     #   - +type=legacy+, only legacy invoices will be returned.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Invoice>] A list of the account's invoices.
     # @example
@@ -796,7 +772,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::InvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::InvoiceCollection] Returns the new invoices.
     # @example
@@ -828,7 +803,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::InvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::InvoiceCollection] Returns the invoice previews.
     # @example
@@ -886,7 +860,6 @@ module Recurly
     #        :original [String] Filter by original field.
     #        :state [String] Filter by state field.
     #        :type [String] Filter by type field.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::LineItem>] A list of the account's line items.
     # @example
@@ -913,7 +886,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::LineItemCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::LineItemCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::LineItem] Returns the new line item.
     # @example
@@ -957,7 +929,6 @@ module Recurly
     #   * Records are returned in an arbitrary order. Since results are all
     #     returned at once you can sort the records yourself.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::AccountNote>] A list of an account's notes.
     # @example
@@ -981,7 +952,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param account_note_id [String] Account Note ID.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::AccountNote] An account note.
     # @example
@@ -1032,7 +1002,6 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::ShippingAddress>] A list of an account's shipping addresses.
     # @example
@@ -1059,7 +1028,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param body [Requests::ShippingAddressCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingAddressCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ShippingAddress] Returns the new shipping address.
     # @example
@@ -1094,7 +1062,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param shipping_address_id [String] Shipping Address ID.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ShippingAddress] A shipping address.
     # @example
@@ -1123,7 +1090,6 @@ module Recurly
     # @param shipping_address_id [String] Shipping Address ID.
     # @param body [Requests::ShippingAddressUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingAddressUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ShippingAddress] The updated shipping address.
     # @example
@@ -1157,7 +1123,6 @@ module Recurly
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param shipping_address_id [String] Shipping Address ID.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Empty] Shipping address deleted.
     # @example
@@ -1214,7 +1179,6 @@ module Recurly
     #   - When +state=in_trial+, only subscriptions that have a trial_started_at date earlier than now and a trial_ends_at date later than now will be returned.
     #   - When +state=live+, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Subscription>] A list of the account's subscriptions.
     # @example
@@ -1266,7 +1230,6 @@ module Recurly
     #
     #        :type [String] Filter by type field. The value +payment+ will return both +purchase+ and +capture+ transactions.
     #        :success [String] Filter by success field.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Transaction>] A list of the account's transactions.
     # @example
@@ -1321,7 +1284,6 @@ module Recurly
     #   +canceled+, or +future+ state.
     #
     #        :past_due [String] Filter for accounts with an invoice in the +past_due+ state.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Account>] A list of an account's child accounts.
     # @example
@@ -1370,7 +1332,6 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::AccountAcquisition>] A list of the site's account acquisition data.
     # @example
@@ -1383,7 +1344,7 @@ module Recurly
     #   end
     #
     def list_account_acquisition(**options)
-      path = interpolate_path("/acquisitions")
+      path = "/acquisitions"
       pager(path, **options)
     end
 
@@ -1416,7 +1377,6 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Coupon>] A list of the site's coupons.
     # @example
@@ -1429,7 +1389,7 @@ module Recurly
     #   end
     #
     def list_coupons(**options)
-      path = interpolate_path("/coupons")
+      path = "/coupons"
       pager(path, **options)
     end
 
@@ -1439,7 +1399,6 @@ module Recurly
     #
     # @param body [Requests::CouponCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Coupon] A new coupon.
     # @example
@@ -1466,7 +1425,7 @@ module Recurly
     #   end
     #
     def create_coupon(body:, **options)
-      path = interpolate_path("/coupons")
+      path = "/coupons"
       post(path, body, Requests::CouponCreate, **options)
     end
 
@@ -1476,7 +1435,6 @@ module Recurly
     #
     # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Coupon] A coupon.
     # @example
@@ -1501,7 +1459,6 @@ module Recurly
     # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
     # @param body [Requests::CouponUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Coupon] The updated coupon.
     # @example
@@ -1528,7 +1485,6 @@ module Recurly
     #
     # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Coupon] The expired Coupon
     # @example
@@ -1553,7 +1509,6 @@ module Recurly
     # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
     # @param body [Requests::CouponBulkCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponBulkCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::UniqueCouponCodeParams] A set of parameters that can be passed to the `list_unique_coupon_codes` endpoint to obtain only the newly generated `UniqueCouponCodes`.
     #
@@ -1569,7 +1524,6 @@ module Recurly
     # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
     # @param body [Requests::CouponUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Coupon] The restored coupon.
     #
@@ -1608,7 +1562,6 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::UniqueCouponCode>] A list of unique coupon codes that were generated
     #
@@ -1634,7 +1587,6 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::CreditPayment>] A list of the site's credit payments.
     # @example
@@ -1647,7 +1599,7 @@ module Recurly
     #   end
     #
     def list_credit_payments(**options)
-      path = interpolate_path("/credit_payments")
+      path = "/credit_payments"
       pager(path, **options)
     end
 
@@ -1657,7 +1609,6 @@ module Recurly
     #
     # @param credit_payment_id [String] Credit Payment ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::CreditPayment] A credit payment.
     #
@@ -1696,7 +1647,6 @@ module Recurly
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     #        :related_type [String] Filter by related type.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::CustomFieldDefinition>] A list of the site's custom field definitions.
     # @example
@@ -1709,7 +1659,7 @@ module Recurly
     #   end
     #
     def list_custom_field_definitions(**options)
-      path = interpolate_path("/custom_field_definitions")
+      path = "/custom_field_definitions"
       pager(path, **options)
     end
 
@@ -1719,7 +1669,6 @@ module Recurly
     #
     # @param custom_field_definition_id [String] Custom Field Definition ID
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::CustomFieldDefinition] An custom field definition.
     # @example
@@ -1769,7 +1718,6 @@ module Recurly
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     #        :state [String] Filter by state.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Item>] A list of the site's items.
     # @example
@@ -1782,7 +1730,7 @@ module Recurly
     #   end
     #
     def list_items(**options)
-      path = interpolate_path("/items")
+      path = "/items"
       pager(path, **options)
     end
 
@@ -1792,7 +1740,6 @@ module Recurly
     #
     # @param body [Requests::ItemCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ItemCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Item] A new item.
     # @example
@@ -1818,7 +1765,7 @@ module Recurly
     #   end
     #
     def create_item(body:, **options)
-      path = interpolate_path("/items")
+      path = "/items"
       post(path, body, Requests::ItemCreate, **options)
     end
 
@@ -1828,7 +1775,6 @@ module Recurly
     #
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Item] An item.
     # @example
@@ -1853,7 +1799,6 @@ module Recurly
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param body [Requests::ItemUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ItemUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Item] The updated item.
     # @example
@@ -1884,7 +1829,6 @@ module Recurly
     #
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Item] An item.
     # @example
@@ -1908,7 +1852,6 @@ module Recurly
     #
     # @param item_id [String] Item ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-red+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Item] An item.
     # @example
@@ -1956,12 +1899,11 @@ module Recurly
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     #        :state [String] Filter by state.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::MeasuredUnit>] A list of the site's measured units.
     #
     def list_measured_unit(**options)
-      path = interpolate_path("/measured_units")
+      path = "/measured_units"
       pager(path, **options)
     end
 
@@ -1971,12 +1913,11 @@ module Recurly
     #
     # @param body [Requests::MeasuredUnitCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::MeasuredUnitCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::MeasuredUnit] A new measured unit.
     #
     def create_measured_unit(body:, **options)
-      path = interpolate_path("/measured_units")
+      path = "/measured_units"
       post(path, body, Requests::MeasuredUnitCreate, **options)
     end
 
@@ -1986,7 +1927,6 @@ module Recurly
     #
     # @param measured_unit_id [String] Measured unit ID or name. For ID no prefix is used e.g. +e28zov4fw0v2+. For name use prefix +name-+, e.g. +name-Storage+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::MeasuredUnit] An item.
     #
@@ -2002,7 +1942,6 @@ module Recurly
     # @param measured_unit_id [String] Measured unit ID or name. For ID no prefix is used e.g. +e28zov4fw0v2+. For name use prefix +name-+, e.g. +name-Storage+.
     # @param body [Requests::MeasuredUnitUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::MeasuredUnitUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::MeasuredUnit] The updated measured_unit.
     #
@@ -2017,7 +1956,6 @@ module Recurly
     #
     # @param measured_unit_id [String] Measured unit ID or name. For ID no prefix is used e.g. +e28zov4fw0v2+. For name use prefix +name-+, e.g. +name-Storage+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::MeasuredUnit] A measured unit.
     #
@@ -2061,7 +1999,6 @@ module Recurly
     #   - +type=non-legacy+, only charge and credit invoices will be returned.
     #   - +type=legacy+, only legacy invoices will be returned.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Invoice>] A list of the site's invoices.
     # @example
@@ -2074,7 +2011,7 @@ module Recurly
     #   end
     #
     def list_invoices(**options)
-      path = interpolate_path("/invoices")
+      path = "/invoices"
       pager(path, **options)
     end
 
@@ -2084,7 +2021,6 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] An invoice.
     # @example
@@ -2109,7 +2045,6 @@ module Recurly
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param body [Requests::InvoiceUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] An invoice.
     # @example
@@ -2137,7 +2072,6 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::BinaryFile] An invoice as a PDF.
     # @example
@@ -2165,7 +2099,6 @@ module Recurly
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param params [Hash] Optional query string parameters:
     #        :body [Requests::InvoiceCollect] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCollect}
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
     # @example
@@ -2189,7 +2122,6 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
     # @example
@@ -2213,7 +2145,6 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
     # @example
@@ -2237,7 +2168,6 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
     # @example
@@ -2261,7 +2191,6 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
     # @example
@@ -2286,7 +2215,6 @@ module Recurly
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param body [Requests::ExternalTransaction] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalTransaction}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Transaction] The recorded transaction.
     #
@@ -2328,7 +2256,6 @@ module Recurly
     #        :original [String] Filter by original field.
     #        :state [String] Filter by state field.
     #        :type [String] Filter by type field.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::LineItem>] A list of the invoice's line items.
     # @example
@@ -2376,7 +2303,6 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions associated with the invoice.
     # @example
@@ -2402,7 +2328,6 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Invoice>] A list of the credit or charge invoices associated with the invoice.
     # @example
@@ -2429,7 +2354,6 @@ module Recurly
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
     # @param body [Requests::InvoiceRefund] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceRefund}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] Returns the new credit invoice.
     # @example
@@ -2486,7 +2410,6 @@ module Recurly
     #        :original [String] Filter by original field.
     #        :state [String] Filter by state field.
     #        :type [String] Filter by type field.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::LineItem>] A list of the site's line items.
     # @example
@@ -2501,7 +2424,7 @@ module Recurly
     #   end
     #
     def list_line_items(**options)
-      path = interpolate_path("/line_items")
+      path = "/line_items"
       pager(path, **options)
     end
 
@@ -2511,7 +2434,6 @@ module Recurly
     #
     # @param line_item_id [String] Line Item ID.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::LineItem] A line item.
     # @example
@@ -2535,7 +2457,6 @@ module Recurly
     #
     # @param line_item_id [String] Line Item ID.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Empty] Line item deleted.
     # @example
@@ -2585,7 +2506,6 @@ module Recurly
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     #        :state [String] Filter by state.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Plan>] A list of plans.
     # @example
@@ -2598,7 +2518,7 @@ module Recurly
     #   end
     #
     def list_plans(**options)
-      path = interpolate_path("/plans")
+      path = "/plans"
       pager(path, **options)
     end
 
@@ -2608,7 +2528,6 @@ module Recurly
     #
     # @param body [Requests::PlanCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PlanCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Plan] A plan.
     # @example
@@ -2639,7 +2558,7 @@ module Recurly
     #   end
     #
     def create_plan(body:, **options)
-      path = interpolate_path("/plans")
+      path = "/plans"
       post(path, body, Requests::PlanCreate, **options)
     end
 
@@ -2649,7 +2568,6 @@ module Recurly
     #
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Plan] A plan.
     # @example
@@ -2674,7 +2592,6 @@ module Recurly
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param body [Requests::PlanUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PlanUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Plan] A plan.
     # @example
@@ -2701,7 +2618,6 @@ module Recurly
     #
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Plan] Plan deleted
     # @example
@@ -2750,7 +2666,6 @@ module Recurly
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     #        :state [String] Filter by state.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::AddOn>] A list of add-ons.
     # @example
@@ -2777,7 +2692,6 @@ module Recurly
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param body [Requests::AddOnCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AddOnCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::AddOn] An add-on.
     # @example
@@ -2813,7 +2727,6 @@ module Recurly
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::AddOn] An add-on.
     # @example
@@ -2841,7 +2754,6 @@ module Recurly
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param body [Requests::AddOnUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AddOnUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::AddOn] An add-on.
     # @example
@@ -2873,7 +2785,6 @@ module Recurly
     # @param plan_id [String] Plan ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::AddOn] Add-on deleted
     # @example
@@ -2924,7 +2835,6 @@ module Recurly
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     #        :state [String] Filter by state.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::AddOn>] A list of add-ons.
     # @example
@@ -2939,7 +2849,7 @@ module Recurly
     #   end
     #
     def list_add_ons(**options)
-      path = interpolate_path("/add_ons")
+      path = "/add_ons"
       pager(path, **options)
     end
 
@@ -2949,7 +2859,6 @@ module Recurly
     #
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::AddOn] An add-on.
     # @example
@@ -2996,7 +2905,6 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::ShippingMethod>] A list of the site's shipping methods.
     # @example
@@ -3011,7 +2919,7 @@ module Recurly
     #   end
     #
     def list_shipping_methods(**options)
-      path = interpolate_path("/shipping_methods")
+      path = "/shipping_methods"
       pager(path, **options)
     end
 
@@ -3021,12 +2929,11 @@ module Recurly
     #
     # @param body [Requests::ShippingMethodCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingMethodCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ShippingMethod] A new shipping method.
     #
     def create_shipping_method(body:, **options)
-      path = interpolate_path("/shipping_methods")
+      path = "/shipping_methods"
       post(path, body, Requests::ShippingMethodCreate, **options)
     end
 
@@ -3036,7 +2943,6 @@ module Recurly
     #
     # @param shipping_method_id [String] Shipping Method ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-usps_2-day+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ShippingMethod] A shipping method.
     #
@@ -3052,7 +2958,6 @@ module Recurly
     # @param shipping_method_id [String] Shipping Method ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-usps_2-day+.
     # @param body [Requests::ShippingMethodUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ShippingMethodUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ShippingMethod] The updated shipping method.
     #
@@ -3067,7 +2972,6 @@ module Recurly
     #
     # @param shipping_method_id [String] Shipping Method ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-usps_2-day+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ShippingMethod] A shipping method.
     #
@@ -3111,7 +3015,6 @@ module Recurly
     #   - When +state=in_trial+, only subscriptions that have a trial_started_at date earlier than now and a trial_ends_at date later than now will be returned.
     #   - When +state=live+, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Subscription>] A list of the site's subscriptions.
     # @example
@@ -3124,7 +3027,7 @@ module Recurly
     #   end
     #
     def list_subscriptions(**options)
-      path = interpolate_path("/subscriptions")
+      path = "/subscriptions"
       pager(path, **options)
     end
 
@@ -3134,7 +3037,6 @@ module Recurly
     #
     # @param body [Requests::SubscriptionCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] A subscription.
     # @example
@@ -3158,7 +3060,7 @@ module Recurly
     #   end
     #
     def create_subscription(body:, **options)
-      path = interpolate_path("/subscriptions")
+      path = "/subscriptions"
       post(path, body, Requests::SubscriptionCreate, **options)
     end
 
@@ -3168,7 +3070,6 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] A subscription.
     # @example
@@ -3195,7 +3096,6 @@ module Recurly
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param body [Requests::SubscriptionUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionUpdate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] A subscription.
     # @example
@@ -3237,7 +3137,6 @@ module Recurly
     #   You may also terminate a subscription with no refund and then manually refund specific invoices.
     #
     #        :charge [Boolean] Applicable only if the subscription has usage based add-ons and unbilled usage logged for the current billing cycle. If true, current billing cycle unbilled usage is billed on the final invoice. If false, Recurly will create a negative usage record for current billing cycle usage that will zero out the final invoice line items.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] An expired subscription.
     # @example
@@ -3264,7 +3163,6 @@ module Recurly
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param params [Hash] Optional query string parameters:
     #        :body [Requests::SubscriptionCancel] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionCancel}
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] A canceled or failed subscription.
     # @example
@@ -3290,7 +3188,6 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] An active subscription.
     # @example
@@ -3317,7 +3214,6 @@ module Recurly
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param body [Requests::SubscriptionPause] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionPause}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] A subscription.
     # @example
@@ -3347,7 +3243,6 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] A subscription.
     # @example
@@ -3373,7 +3268,6 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Subscription] A subscription.
     #
@@ -3388,7 +3282,6 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::SubscriptionChange] A subscription's pending change.
     # @example
@@ -3415,7 +3308,6 @@ module Recurly
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param body [Requests::SubscriptionChangeCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionChangeCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::SubscriptionChange] A subscription change.
     # @example
@@ -3446,7 +3338,6 @@ module Recurly
     #
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Empty] Subscription change was deleted.
     # @example
@@ -3473,7 +3364,6 @@ module Recurly
     # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param body [Requests::SubscriptionChangeCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionChangeCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::SubscriptionChange] A subscription change.
     #
@@ -3518,7 +3408,6 @@ module Recurly
     #   - +type=non-legacy+, only charge and credit invoices will be returned.
     #   - +type=legacy+, only legacy invoices will be returned.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Invoice>] A list of the subscription's invoices.
     # @example
@@ -3571,7 +3460,6 @@ module Recurly
     #        :original [String] Filter by original field.
     #        :state [String] Filter by state field.
     #        :type [String] Filter by type field.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::LineItem>] A list of the subscription's line items.
     # @example
@@ -3619,7 +3507,6 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions on a subscription.
     # @example
@@ -3671,7 +3558,6 @@ module Recurly
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
     #        :billing_status [String] Filter by usage record's billing status
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Usage>] A list of the subscription add-on's usage records.
     #
@@ -3688,7 +3574,6 @@ module Recurly
     # @param add_on_id [String] Add-on ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
     # @param body [Requests::UsageCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::UsageCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Usage] The created usage record.
     #
@@ -3703,7 +3588,6 @@ module Recurly
     #
     # @param usage_id [String] Usage Record ID.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Usage] The usage record.
     #
@@ -3719,7 +3603,6 @@ module Recurly
     # @param usage_id [String] Usage Record ID.
     # @param body [Requests::UsageCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::UsageCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Usage] The updated usage record.
     #
@@ -3734,7 +3617,6 @@ module Recurly
     #
     # @param usage_id [String] Usage Record ID.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Empty] Usage was successfully deleted.
     #
@@ -3774,7 +3656,6 @@ module Recurly
     #
     #        :type [String] Filter by type field. The value +payment+ will return both +purchase+ and +capture+ transactions.
     #        :success [String] Filter by success field.
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Transaction>] A list of the site's transactions.
     # @example
@@ -3787,7 +3668,7 @@ module Recurly
     #   end
     #
     def list_transactions(**options)
-      path = interpolate_path("/transactions")
+      path = "/transactions"
       pager(path, **options)
     end
 
@@ -3797,7 +3678,6 @@ module Recurly
     #
     # @param transaction_id [String] Transaction ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Transaction] A transaction.
     # @example
@@ -3821,7 +3701,6 @@ module Recurly
     #
     # @param unique_coupon_code_id [String] Unique Coupon Code ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-abc-8dh2-def+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::UniqueCouponCode] A unique coupon code.
     #
@@ -3836,7 +3715,6 @@ module Recurly
     #
     # @param unique_coupon_code_id [String] Unique Coupon Code ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-abc-8dh2-def+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::UniqueCouponCode] A unique coupon code.
     #
@@ -3851,7 +3729,6 @@ module Recurly
     #
     # @param unique_coupon_code_id [String] Unique Coupon Code ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-abc-8dh2-def+.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::UniqueCouponCode] A unique coupon code.
     #
@@ -3866,7 +3743,6 @@ module Recurly
     #
     # @param body [Requests::PurchaseCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PurchaseCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::InvoiceCollection] Returns the new invoices
     # @example
@@ -3897,7 +3773,7 @@ module Recurly
     #   end
     #
     def create_purchase(body:, **options)
-      path = interpolate_path("/purchases")
+      path = "/purchases"
       post(path, body, Requests::PurchaseCreate, **options)
     end
 
@@ -3907,7 +3783,6 @@ module Recurly
     #
     # @param body [Requests::PurchaseCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PurchaseCreate}
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::InvoiceCollection] Returns preview of the new invoices
     # @example
@@ -3938,7 +3813,7 @@ module Recurly
     #   end
     #
     def preview_purchase(body:, **options)
-      path = interpolate_path("/purchases/preview")
+      path = "/purchases/preview"
       post(path, body, Requests::PurchaseCreate, **options)
     end
 
@@ -3947,7 +3822,6 @@ module Recurly
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_export_dates get_export_dates api documenation}
     #
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ExportDates] Returns a list of dates.
     # @example
@@ -3963,7 +3837,7 @@ module Recurly
     #   end
     #
     def get_export_dates(**options)
-      path = interpolate_path("/export_dates")
+      path = "/export_dates"
       get(path, **options)
     end
 
@@ -3973,7 +3847,6 @@ module Recurly
     #
     # @param export_date [String] Date for which to get a list of available automated export files. Date must be in YYYY-MM-DD format.
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::ExportFiles] Returns a list of export files to download.
     # @example
