@@ -193,6 +193,7 @@ module Recurly
 
       # Allows the merchant to cancel an authorization.
       #
+      # @param transaction_uuid [String] The uuid for the transaction representing the authorization. Can typically be found at invoice_collection.charge_invoice.transactions.first.uuid.
       # @return [InvoiceCollection] The canceled invoice collection.
       # @raise [Invalid] Raised if the authorization cannot be canceled.
       def cancel!(transaction_uuid)
