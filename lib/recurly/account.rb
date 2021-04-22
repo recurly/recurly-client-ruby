@@ -124,6 +124,25 @@ module Recurly
       raise Invalid, e.message
     end
 
+    def create_billing_info(billing_info)
+      billing_info = billing_info
+      billing_info.uri = "#{path}/billing_infos"
+      billing_info.save!
+      billing_info
+    end
+
+    def get_billing_infos
+      Pager.new(Recurly::BillingInfo, uri: "#{path}/billing_infos", parent: self)
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
+    end
+
+    def get_billing_info(billing_info_uuid)
+      BillingInfo.from_response API.get("#{path}/billing_infos/#{billing_info_uuid}")
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
+    end
+
     # Reopen an account.
     #
     # @return [true, false] +true+ when successful, +false+ when unable to

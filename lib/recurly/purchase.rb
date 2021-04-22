@@ -128,6 +128,9 @@ module Recurly
     # @return [[ShippingFee], nil]
     has_many :shipping_fees, class_name: :ShippingFee, readonly: false
 
+    # @return [BillingInfo, nil]
+    has_one :billing_info, class_name: :BillingInfo, readonly: true
+
     define_attribute_methods %w(
       currency
       collection_method
@@ -140,6 +143,7 @@ module Recurly
       shipping_address_id
       gateway_code
       transaction_type
+      billing_info_uuid
     )
 
     class << self

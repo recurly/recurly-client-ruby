@@ -16,6 +16,7 @@ module Recurly
     belongs_to :account
 
     define_attribute_methods %w(
+      uuid
       first_name
       last_name
       company
@@ -42,6 +43,8 @@ module Recurly
       mandate_reference
       tax_identifier
       tax_identifier_type
+      primary_payment_method
+      backup_payment_method
     ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES | ROKU_ATTRIBUTES | SEPA_ATTRIBUTES | BACS_ATTRIBUTES | BECS_ATTRIBUTES
 
     # Verify an account's stored billing info
