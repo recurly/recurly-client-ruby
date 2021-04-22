@@ -1,908 +1,2236 @@
-<a name="unreleased"></a>
-## Unreleased
+# Changelog
 
-<a name="v2.18.18"></a>
-## v.2.18.18 (2020-11-23)
+## [2.18.19](https://github.com/recurly/recurly-client-ruby/tree/2.18.19) (2021-04-22)
 
-* Expose `item_state` and `external_sku` in AddOn class [PR](https://github.com/recurly/recurly-client-ruby/pull/650)
-* Handle UnprocessableEntity error for Invoice#refund [PR](https://github.com/recurly/recurly-client-ruby/pull/653)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.18...2.18.19)
 
-<a name="v2.18.17"></a>
-## v2.18.17 (2020-11-12)
 
-* Expose last_two on BillingInfo class for IBAN accounts and repair tests [PR](https://github.com/recurly/recurly-client-ruby/pull/648)
+**Merged Pull Requests**
 
-<a name="v2.18.16"></a>
-## v.2.18.16 (2020-11-05)
+- Wallet and backup payment implementation [#694](https://github.com/recurly/recurly-client-ruby/pull/694) ([jorge](https://github.com/jorge))
 
-* Support item-specific coupons [PR](https://github.com/recurly/recurly-client-ruby/pull/644)
 
-<a name="v2.18.15"></a>
-## v.2.18.15 (2020-09-17)
 
-* New endpoint to verify an account's billing information [PR](https://github.com/recurly/recurly-client-ruby/pull/636)
+## [2.18.18](https://github.com/recurly/recurly-client-ruby/tree/2.18.18) (2020-11-24)
 
-<a name="v2.18.14"></a>
-## v.2.18.14 (2020-08-20)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.17...2.18.18)
 
-This bumps us up to API version 2.29. There are no breaking changes.
 
-* Add tax identifier fields to billing info [PR](https://github.com/recurly/recurly-client-ruby/pull/625)
+**Merged Pull Requests**
 
-<a name="v2.18.13"></a>
-## v.2.18.13 (2020-08-14)
+- Release 2.18.18 [#655](https://github.com/recurly/recurly-client-ruby/pull/655) ([joannasese](https://github.com/joannasese))
+- Handle UnprocessableEntity error for Invoice#refund [#653](https://github.com/recurly/recurly-client-ruby/pull/653) ([joannasese](https://github.com/joannasese))
+- Expose item_state and external_sku in AddOn class [#650](https://github.com/recurly/recurly-client-ruby/pull/650) ([joannasese](https://github.com/joannasese))
 
-* Remove surcharge as Avalara recommends [PR](https://github.com/recurly/recurly-client-ruby/pull/618)
-* Establish association between Tier and SubscriptionAddOn [PR](https://github.com/recurly/recurly-client-ruby/pull/620)
 
-<a name="v2.18.12"></a>
-## v.2.18.12 (2020-07-22)
 
-This bumps us to API version 2.28. There are no breaking changes.
+## [2.18.17](https://github.com/recurly/recurly-client-ruby/tree/2.18.17) (2020-11-12)
 
-* Fix sub-add-on init bug [PR](https://github.com/recurly/recurly-client-ruby/pull/615)
-* BECS support [PR](https://github.com/recurly/recurly-client-ruby/pull/612)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.16...2.18.17)
 
-<a name="v2.18.11"></a>
-## v.2.18.11 (2020-07-17)
 
-* Add support for Avalara for Communications [PR](https://github.com/recurly/recurly-client-ruby/pull/613)
+**Merged Pull Requests**
 
-<a name="v2.18.10"></a>
-## v.2.18.10 (2020-06-30)
+- Release 2.18.17 [#649](https://github.com/recurly/recurly-client-ruby/pull/649) ([joannasese](https://github.com/joannasese))
+- Expose last_two on BillingInfo class for IBAN accounts and repair tests [#648](https://github.com/recurly/recurly-client-ruby/pull/648) ([joannasese](https://github.com/joannasese))
 
-This bumps us to API version 2.27. There are no breaking changes.
 
-* BACS support [PR](https://github.com/recurly/recurly-client-ruby/pull/595)
-* Support items on subscriptions [PR](https://github.com/recurly/recurly-client-ruby/pull/598)
 
-<a name="v2.18.9"></a>
-## v.2.18.9 (2020-04-14)
+## [2.18.16](https://github.com/recurly/recurly-client-ruby/tree/2.18.16) (2020-11-05)
 
-* Add missing association to support Tiered Pricing [PR](https://github.com/recurly/recurly-client-ruby/pull/576)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.15...2.18.16)
 
-<a name="v2.18.8"></a>
-## v.2.18.8 (2020-3-26)
 
-This bumps us to API version 2.26.
+**Merged Pull Requests**
 
-* Add item_code to AddOn (included in API version 2.25) [PR](https://github.com/recurly/recurly-client-ruby/pull/559)
-* Add SEPA IBAN attributes to billing_info [PR](https://github.com/recurly/recurly-client-ruby/pull/562)
-* Tiered pricing [PR](https://github.com/recurly/recurly-client-ruby/pull/565)
-* Add mandate_reference attribute to BillingInfo [PR](https://github.com/recurly/recurly-client-ruby/pull/572)
+- Release 2.18.16 [#646](https://github.com/recurly/recurly-client-ruby/pull/646) ([joannasese](https://github.com/joannasese))
+- Support item-specific coupons [#644](https://github.com/recurly/recurly-client-ruby/pull/644) ([joannasese](https://github.com/joannasese))
 
-<a name="v2.18.7"></a>
-## v2.18.7 (2020-2-20)
 
-This bumps us to API version 2.25.
 
-* Add external_sku to Adjustment (included in API version 2.24) [PR](https://github.com/recurly/recurly-client-ruby/pull/551)
-* Add convert_trial() to Subscription [PR](https://github.com/recurly/recurly-client-ruby/pull/553)
+## [2.18.15](https://github.com/recurly/recurly-client-ruby/tree/2.18.15) (2020-09-17)
 
-<a name="v2.18.6"></a>
-## v2.18.6 (2019-12-18)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.14...2.18.15)
 
-* Reference reactivate href in xml [PR](https://github.com/recurly/recurly-client-ruby/pull/535)
 
-<a name="v2.18.5"></a>
-## v2.18.5 (2019-11-22)
+**Merged Pull Requests**
 
-* Add Item notification webhooks [PR](https://github.com/recurly/recurly-client-ruby/pull/533)
+- Release 2.18.15 [#637](https://github.com/recurly/recurly-client-ruby/pull/637) ([joannasese](https://github.com/joannasese))
+- New endpoint to verify an account's billing information [#636](https://github.com/recurly/recurly-client-ruby/pull/636) ([joannasese](https://github.com/joannasese))
 
-<a name="v2.18.4"></a>
-## v2.18.4 (2019-11-21)
 
-This bumps us to API version 2.24.
 
-* Add Item class [PR](https://github.com/recurly/recurly-client-ruby/pull/527)
-* Hardcode reactivate function for Item class [PR](https://github.com/recurly/recurly-client-ruby/pull/531)
+## [2.18.14](https://github.com/recurly/recurly-client-ruby/tree/2.18.14) (2020-08-20)
 
-<a name="v2.18.3"></a>
-## v2.18.3 (2019-10-22)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.13...2.18.14)
 
-* Subscription timeframe changes [PR](https://github.com/recurly/recurly-client-ruby/pull/492)
-* Add shipping address to purchase object [PR](https://github.com/recurly/recurly-client-ruby/pull/522)
 
-<a name="v2.18.2"></a>
-## v2.18.2 (2019-09-27)
+**Merged Pull Requests**
 
-* Fix account acquisition href problems [PR](https://github.com/recurly/recurly-client-ruby/pull/508)
-* V2 bump script [PR](https://github.com/recurly/recurly-client-ruby/pull/509)
-* Update travis options [PR](https://github.com/recurly/recurly-client-ruby/pull/512)
-* Reference Ruby support page [PR](https://github.com/recurly/recurly-client-ruby/pull/513)
-* Include OpenSSL::OPENSSL_LIBRARY_VERSION [PR](https://github.com/recurly/recurly-client-ruby/pull/514)
+- Release 2.18.14 [#628](https://github.com/recurly/recurly-client-ruby/pull/628) ([joannasese](https://github.com/joannasese))
+- Add tax identifier fields to billing info [#625](https://github.com/recurly/recurly-client-ruby/pull/625) ([joannasese](https://github.com/joannasese))
 
-<a name="v2.18.1"></a>
-## v2.18.1 (2019-09-13)
 
-* Adds NewShippingAddressNotification webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/502)
-* PSD2 billing info changes [PR](https://github.com/recurly/recurly-client-ruby/pull/505)
 
-<a name="v2.18.0"></a>
-## v2.18.0 (2019-08-21)
+## [2.18.13](https://github.com/recurly/recurly-client-ruby/tree/2.18.13) (2020-08-14)
 
-This bumps us to API version 2.22.
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.12...2.18.13)
 
-* MOTO transactions [PR](https://github.com/recurly/recurly-client-ruby/pull/493)
-* Changes for Vertex customers [PR](https://github.com/recurly/recurly-client-ruby/pull/491)
 
-There is one breaking change. It only applies to Vertex users so will not likely affect you.
-`Invoice#tax_types[].type` on invoice and preview invoice endpoints is no longer returned.
+**Merged Pull Requests**
 
+- Release 2.18.13 [#626](https://github.com/recurly/recurly-client-ruby/pull/626) ([joannasese](https://github.com/joannasese))
+- Establish association between Tier and SubscriptionAddOn [#620](https://github.com/recurly/recurly-client-ruby/pull/620) ([joannasese](https://github.com/joannasese))
+- Remove surcharge as Avalara recommends [#618](https://github.com/recurly/recurly-client-ruby/pull/618) ([bhelx](https://github.com/bhelx))
 
-<a name="v2.17.11"></a>
-## v2.17.11 (2019-06-27)
 
-This brings us up to API version 2.21. There are no breaking changes.
 
-- Add support for 3DS authenticated transactions [PR](https://github.com/recurly/recurly-client-ruby/pull/479)
+## [2.18.12](https://github.com/recurly/recurly-client-ruby/tree/2.18.12) (2020-07-22)
 
-<a name="v2.17.10"></a>
-## v2.17.10 (2019-05-21)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.11...2.18.12)
 
-This brings us up to API version 2.20. There are no breaking changes.
 
-- Add support for shipping fees [PR](https://github.com/recurly/recurly-client-ruby/pull/470)
+**Merged Pull Requests**
 
-<a name="v2.17.9"></a>
-## v2.17.9 (2019-05-14)
+- Release 2.18.12 [#617](https://github.com/recurly/recurly-client-ruby/pull/617) ([joannasese](https://github.com/joannasese))
+- Fix sub-add-on init bug [#615](https://github.com/recurly/recurly-client-ruby/pull/615) ([bhelx](https://github.com/bhelx))
+- BECS support [#612](https://github.com/recurly/recurly-client-ruby/pull/612) ([joannasese](https://github.com/joannasese))
 
-- Add support for fraud session ID [PR](https://github.com/recurly/recurly-client-ruby/pull/471)
 
-<a name="v2.17.8"></a>
-## v2.17.8 (2019-03-12)
 
-This brings us up to API version 2.19. There are no breaking changes.
+## [2.18.11](https://github.com/recurly/recurly-client-ruby/tree/2.18.11) (2020-07-17)
 
-- Add support for Account Hierarchy [PR](https://github.com/recurly/recurly-client-ruby/pull/444)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.10...2.18.11)
 
-<a name="v2.17.7"></a>
-## v2.17.7 (2019-03-07)
 
-- Add support for Account Acquisition [PR](https://github.com/recurly/recurly-client-ruby/pull/450)
-- Fix link to supported versions section of README [PR](https://github.com/recurly/recurly-client-ruby/pull/454)
-- Fix NoMethodError thrown by Resource.invalid! [PR](https://github.com/recurly/recurly-client-ruby/pull/455)
+**Merged Pull Requests**
 
-<a name="v2.17.6"></a>
-## v2.17.6 (2019-02-19)
+- Release 2.18.11 [#614](https://github.com/recurly/recurly-client-ruby/pull/614) ([joannasese](https://github.com/joannasese))
+- Add support for Avalara for Communications [#613](https://github.com/recurly/recurly-client-ruby/pull/613) ([bhelx](https://github.com/bhelx))
 
-This brings us up to API version 2.18. There are no breaking changes.
 
-- Add support for Amazon Regions [PR](https://github.com/recurly/recurly-client-ruby/pull/445)
 
-<a name="v2.17.5"></a>
-## v2.17.5 (2019-01-17)
+## [2.18.10](https://github.com/recurly/recurly-client-ruby/tree/2.18.10) (2020-06-30)
 
-- Fix typo in Changelog [PR](https://github.com/recurly/recurly-client-ruby/pull/440)
-- Ensure error message for a single returned error [PR](https://github.com/recurly/recurly-client-ruby/pull/441)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.9...2.18.10)
 
-<a name="v2.17.4"></a>
-## v2.17.4 (2018-12-11)
 
-This brings us up to API version 2.17. There are no breaking changes.
+**Merged Pull Requests**
 
-- Add exemption_certificate to Account [PR](https://github.com/recurly/recurly-client-ruby/pull/434)
-- Add gateway_code to Invoice and Subscription [PR](https://github.com/recurly/recurly-client-ruby/pull/432)
-- Add transaction_status_updated_notification and updated_invoice_notification webhooks [PR](https://github.com/recurly/recurly-client-ruby/pull/433)
-- Fix missing type instance variable [PR](https://github.com/recurly/recurly-client-ruby/pull/436)
-- Fix README [PR](https://github.com/recurly/recurly-client-ruby/pull/437)
-- Add OpenSSL version to user agent [PR](https://github.com/recurly/recurly-client-ruby/pull/438)
+- Release 2.18.10 [#604](https://github.com/recurly/recurly-client-ruby/pull/604) ([joannasese](https://github.com/joannasese))
+- Merge v2.27 features into v2 branch for release [#603](https://github.com/recurly/recurly-client-ruby/pull/603) ([joannasese](https://github.com/joannasese))
+- Support items on subscriptions [#598](https://github.com/recurly/recurly-client-ruby/pull/598) ([joannasese](https://github.com/joannasese))
+- BACS support [#595](https://github.com/recurly/recurly-client-ruby/pull/595) ([joannasese](https://github.com/joannasese))
 
-<a name="v2.17.3"></a>
-## v2.17.3 (2018-11-06)
 
-- Fix bug related to aliasing company and company_name [PR](https://github.com/recurly/recurly-client-ruby/pull/428)
 
-<a name="v2.17.2"></a>
-## v2.17.2 (2018-10-30)
+## [2.18.9](https://github.com/recurly/recurly-client-ruby/tree/2.18.9) (2020-04-14)
 
-This brings us up to API version 2.16. There are no breaking changes.
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.8...2.18.9)
 
-- Remove Rails Generator mention in README.md [PR](https://github.com/recurly/recurly-client-ruby/pull/426)
-- Gracefully handle XML parsing errors [PR](https://github.com/recurly/recurly-client-ruby/pull/424)
-- Add missing webhook properties to models [PR](https://github.com/recurly/recurly-client-ruby/pull/422)
-- Do not assume cursor is an integer [PR](https://github.com/recurly/recurly-client-ruby/pull/421)
-- Fix bundler warnings [PR](https://github.com/recurly/recurly-client-ruby/pull/420)
-- Alias company and company_name [PR](https://github.com/recurly/recurly-client-ruby/pull/413)
 
-<a name="v2.17.1"></a>
-## v2.17.1 (2018-09-25)
+**Merged Pull Requests**
 
-This brings us up to API version 2.15. There are no breaking changes.
+- Release 2.18.9 [#583](https://github.com/recurly/recurly-client-ruby/pull/583) ([joannasese](https://github.com/joannasese))
+- Add missing association to support Tiered Pricing [#576](https://github.com/recurly/recurly-client-ruby/pull/576) ([joannasese](https://github.com/joannasese))
 
-- Add support for Low Balance Gift Card Notification [PR](https://github.com/recurly/recurly-client-ruby/pull/414)
-- Support Account Notes [PR](https://github.com/recurly/recurly-client-ruby/pull/405)
 
-<a name="v2.17.0"></a>
-## v2.17.0 (2018-09-20)
 
-- Remove Recurly.js v2 code and some other small improvements [PR](https://github.com/recurly/recurly-client-ruby/pull/411)
-- Adds missing credit memo opts to invoice refunds [PR](https://github.com/recurly/recurly-client-ruby/pull/415)
+## [2.18.8](https://github.com/recurly/recurly-client-ruby/tree/2.18.8) (2020-03-27)
 
-### Upgrade Notes
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.7...2.18.8)
 
-This release contains one breaking change. Older Recurly.js token signing is no longer supported. You should upgrade to version 4 of Recurly.js: https://dev.recurly.com/docs/recurlyjs
-The `js` module is still around to support storing the `public_key`.
 
-<a name="v2.16.2"></a>
-## v2.16.2 (2018-08-21)
+**Merged Pull Requests**
 
-This brings us up to API version 2.14. There are no breaking changes.
+- Release 2.18.8 [#575](https://github.com/recurly/recurly-client-ruby/pull/575) ([joannasese](https://github.com/joannasese))
+- Merge v2.26 features into v2 branch for release [#574](https://github.com/recurly/recurly-client-ruby/pull/574) ([joannasese](https://github.com/joannasese))
+- Add mandate_reference attribute to BillingInfo [#572](https://github.com/recurly/recurly-client-ruby/pull/572) ([joannasese](https://github.com/joannasese))
+- Add SEPA IBAN attributes to billing_info [#562](https://github.com/recurly/recurly-client-ruby/pull/562) ([joannasese](https://github.com/joannasese))
+- Add item_code to AddOn [#559](https://github.com/recurly/recurly-client-ruby/pull/559) ([joannasese](https://github.com/joannasese))
 
-- Support TransactionAuthorizedNotification webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/404)
-- Support updating an invoice from client [PR](https://github.com/recurly/recurly-client-ruby/pull/399)
-- Support custom fields on Subscription#update_notes [PR](https://github.com/recurly/recurly-client-ruby/pull/409)
 
-<a name="v2.16.1"></a>
-## v2.16.1 (2018-08-06)
 
-- Adjust inline documentation for clarity, grammar, and syntax [PR](https://github.com/recurly/recurly-client-ruby/pull/393)
-- Correctly document the response type in Purchases [PR](https://github.com/recurly/recurly-client-ruby/pull/394)
-- Add gateway_token and gateway_code attributes to BillingInfo class [PR](https://github.com/recurly/recurly-client-ruby/pull/395)
-- Remove the old recurly binary [PR](https://github.com/recurly/recurly-client-ruby/pull/398)
+## [2.18.7](https://github.com/recurly/recurly-client-ruby/tree/2.18.7) (2020-02-20)
 
-<a name="v2.16.0"></a>
-## v2.16.0 (2018-06-26)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.6...2.18.7)
 
-- Don't set the logger in railtie [PR](https://github.com/recurly/recurly-client-ruby/pull/382)
-- Make currencies method public [PR](https://github.com/recurly/recurly-client-ruby/pull/386)
-- Allow programmer to set gateway code in purchases [PR](https://github.com/recurly/recurly-client-ruby/pull/387)
-- Add all_transactions link to Invoice [PR](https://github.com/recurly/recurly-client-ruby/pull/384)
-- Auth and Capture for Purchases [PR](https://github.com/recurly/recurly-client-ruby/pull/389)
-- Custom Fields [PR](https://github.com/recurly/recurly-client-ruby/pull/391)
-- Remove rails code and railtie [PR](https://github.com/recurly/recurly-client-ruby/pull/388)
-- Subscription Terms [PR](https://github.com/recurly/recurly-client-ruby/pull/390)
 
-### Upgrade Notes
+**Merged Pull Requests**
 
-This brings us up to API version 2.13. The only breaking change is the [removal of the railtie](https://github.com/recurly/recurly-client-ruby/pull/388/commits/c0d038512204c9baa83512620b9585d61ce07845).
-The railtie was being included automatically on detecting rails and was automatically setting the `accept_language` for each request.
-If this is something you wish to continue doing, you'll need to set this yourself.
+- Release 2.18.7 [#557](https://github.com/recurly/recurly-client-ruby/pull/557) ([joannasese](https://github.com/joannasese))
+- Add convert_trial() to Subscription [#553](https://github.com/recurly/recurly-client-ruby/pull/553) ([joannasese](https://github.com/joannasese))
+- Add external_sku to Adjustment [#551](https://github.com/recurly/recurly-client-ruby/pull/551) ([joannasese](https://github.com/joannasese))
+- Update CHANGELOG.md [#547](https://github.com/recurly/recurly-client-ruby/pull/547) ([joannasese](https://github.com/joannasese))
 
-<a name="v2.15.4"></a>
-## v2.15.4 (2018-05-15)
 
-- API version 2.12 [PR](https://github.com/recurly/recurly-client-ruby/pull/378)
-- New Credit Invoice Webhooks [PR](https://github.com/recurly/recurly-client-ruby/pull/380)
 
-<a name="v2.15.2"></a>
-## v2.15.2 (2018-04-18)
+## [2.18.6](https://github.com/recurly/recurly-client-ruby/tree/2.18.6) (2019-12-18)
 
-- Keep original_invoice link on Invoice [PR](https://github.com/recurly/recurly-client-ruby/pull/372)
-- Coupon#redeem! should raise Invalid on failure [PR](https://github.com/recurly/recurly-client-ruby/pull/371)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.5...2.18.6)
 
-<a name="v2.15.1"></a>
-## v2.15.1 (2018-04-02)
 
-- Fix nokogiri security warnings [PR](https://github.com/recurly/recurly-client-ruby/pull/367)
-- API v2.11 changes [PR](https://github.com/recurly/recurly-client-ruby/pull/366)
+**Merged Pull Requests**
 
-<a name="v2.15.0"></a>
-## v2.15.0 (2018-02-27)
+- Release 2.18.6 [#546](https://github.com/recurly/recurly-client-ruby/pull/546) ([joannasese](https://github.com/joannasese))
+- Reference reactivate href in xml [#535](https://github.com/recurly/recurly-client-ruby/pull/535) ([joannasese](https://github.com/joannasese))
 
-- Invoice refunds do not return InvoiceCollection [PR](https://github.com/recurly/recurly-client-ruby/pull/363)
-- Support gift card webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/344)
-- Fixes to Resource#find_each [PR](https://github.com/recurly/recurly-client-ruby/pull/355)
 
-### Upgrade Notes
 
-#### 1. `Invoice#refund` and `Invoice#refund_amount` return type
+## [2.18.5](https://github.com/recurly/recurly-client-ruby/tree/2.18.5) (2019-11-22)
 
-If you are upgrading from 2.13.X or 2.14.X, a design bug was fixed. `Invoice#refund` and `Invoice#refund_amount` once again return an `Invoice` and not
-an `InvoiceCollection`.
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.4...2.18.5)
 
-#### 2. `Resource#find_each` arguments
 
-`Resource#find_each` previously only accepted `per_page` but now accepts an `options` Hash for pagination params. If you want to preserve functionality:
+**Merged Pull Requests**
 
-```ruby
-# Change This
-Recurly::Invoice.find_each(50) do |invoice|
-  puts invoice
-end
+- Release 2.18.5 [#534](https://github.com/recurly/recurly-client-ruby/pull/534) ([joannasese](https://github.com/joannasese))
+- Add item notification webhooks [#533](https://github.com/recurly/recurly-client-ruby/pull/533) ([joannasese](https://github.com/joannasese))
 
-# To This
-Recurly::Invoice.find_each(per_page: 50) do |invoice|
-  puts invoice
-end
-```
 
-<a name="v2.14.0"></a>
-## v2.14.0 (2018-02-20)
 
-*Note*: We recommend upgrading to 2.15.X for a bug fix around Invoice refunds.
+## [2.18.4](https://github.com/recurly/recurly-client-ruby/tree/2.18.4) (2019-11-21)
 
-- Updates to credit memos feature [PR](https://github.com/recurly/recurly-client-ruby/pull/360)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.3...2.18.4)
 
-### Upgrade Notes
 
-#### 1. `Invoice#mark_failed` now returns `InvoiceCollection`
+**Merged Pull Requests**
 
-`mark_failed` no longer reloads the invoice with the response returning true or false, it returns either an `InvoiceCollection` if failable and request is successful, it returns `false` if invoice cannot be marked failed. To keep functionality, take the `charge_invoice` of the returned collection:
+- Release 2.18.4 [#532](https://github.com/recurly/recurly-client-ruby/pull/532) ([joannasese](https://github.com/joannasese))
+- Hardcode reactivate function for Item class [#531](https://github.com/recurly/recurly-client-ruby/pull/531) ([joannasese](https://github.com/joannasese))
+- Add Item class [#527](https://github.com/recurly/recurly-client-ruby/pull/527) ([joannasese](https://github.com/joannasese))
 
-```ruby
-invoice = Recurly::Invoice.find('1001')
 
-failed_collection = invoice.mark_failed
-if failed_collection
-  invoice = failed_collection.charge_invoice
-end
-```
 
-#### 2. Subscription previews and `InvoiceCollection`
+## [2.18.3](https://github.com/recurly/recurly-client-ruby/tree/2.18.3) (2019-10-22)
 
-Subscription previews and preview changes now return `InvoiceCollection`s rather than `Invoice`. Utilize the `charge_invoice` to keep functionality the same:
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.2...2.18.3)
 
-```ruby
-subscription.preview
 
-# Change
-invoice = subscription.invoice
-# To
-invoice = subscription.invoice_collection.charge_invoice
-```
+**Merged Pull Requests**
 
-<a name="v2.13.0"></a>
-## v2.13.0 (2018-02-09)
+- Release 2.18.3 [#525](https://github.com/recurly/recurly-client-ruby/pull/525) ([joannasese](https://github.com/joannasese))
+- Allow failures on 2.7 until it works again [#524](https://github.com/recurly/recurly-client-ruby/pull/524) ([bhelx](https://github.com/bhelx))
+- Answer yes to the gem update command [#523](https://github.com/recurly/recurly-client-ruby/pull/523) ([bhelx](https://github.com/bhelx))
+- Add shipping address to purchase object [#522](https://github.com/recurly/recurly-client-ruby/pull/522) ([joannasese](https://github.com/joannasese))
+- Subscription timeframe changes [#492](https://github.com/recurly/recurly-client-ruby/pull/492) ([bhelx](https://github.com/bhelx))
 
-*Note*: We recommend upgrading to 2.15.X for a bug fix around Invoice refunds.
 
-- Add NewUsageNotification class for Recurly webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/354)
-- Verify CVV Endpoint [PR](https://github.com/recurly/recurly-client-ruby/pull/353)
-- Credit Memos [PR](https://github.com/recurly/recurly-client-ruby/pull/358)
 
-### Upgrade Notes
+## [2.18.2](https://github.com/recurly/recurly-client-ruby/tree/2.18.2) (2019-09-27)
 
-This version bumps us to API version 2.10. There are many breaking changes due to the Credit Memos [PR](https://github.com/recurly/recurly-client-ruby/pull/353)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.1...2.18.2)
 
-#### 1. InvoiceCollection
 
-When creating or refunding invoices, we now return an `InvoiceCollection` object rather than an `Invoice`. If you wish to upgrade your application without changing functionality, we recommend that you use the `charge_invoice` on the `InvoiceCollection`. Example:
+**Merged Pull Requests**
 
-```ruby
-# Change this
-invoice = my_account.invoice!       # Returns an Invoice
+- Release 2.18.2 [#515](https://github.com/recurly/recurly-client-ruby/pull/515) ([joannasese](https://github.com/joannasese))
+- Include OpenSSL::OPENSSL_LIBRARY_VERSION [#514](https://github.com/recurly/recurly-client-ruby/pull/514) ([joannasese](https://github.com/joannasese))
+- Reference Ruby support page [#513](https://github.com/recurly/recurly-client-ruby/pull/513) ([bhelx](https://github.com/bhelx))
+- Update travis options [#512](https://github.com/recurly/recurly-client-ruby/pull/512) ([bhelx](https://github.com/bhelx))
+- V2 bump script [#509](https://github.com/recurly/recurly-client-ruby/pull/509) ([joannasese](https://github.com/joannasese))
+- Fix account acquisition href problems [#508](https://github.com/recurly/recurly-client-ruby/pull/508) ([bhelx](https://github.com/bhelx))
+- Missing webhooks [#503](https://github.com/recurly/recurly-client-ruby/pull/503) ([joannasese](https://github.com/joannasese))
 
-# To this
-collection = my_account.invoice!    # Returns an InvoiceCollection
-invoice = collection.charge_invoice # Returns an Invoice
-```
+**Closed Issues**
 
-These methods, which before returned `Invoice` now return `InvoiceCollection`:
+- Cannot create account acquisition using `build_account_acquisition` [#487](https://github.com/recurly/recurly-client-ruby/issues/487)
 
-* `Purchase.preview!`
-* `Purchase.invoice!`
-* `Purchase.authorize!`
-* `Account#invoice!`
-* `Account#build_invoice`
 
-#### 2. Invoice subtotal_* changes
+## [2.18.1](https://github.com/recurly/recurly-client-ruby/tree/2.18.1) (2019-09-13)
 
-If you want to preserve functionality, change any use of `Invoice#subtotal_after_discount_in_cents` to  `Invoice#subtotal_in_cents`. If you were previously using `Invoice#subtotal_in_cents`, this has been changed to `Invoice#subtotal_before_discount_in_cents`.
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.0...2.18.1)
 
-#### 3. Invoice Refund -- `refund_apply_order` changed to `refund_method`
 
-If you were using `refund_apply_order` on any refunds, then you need to change this to use `refund_method` instead. The keys from this have changed from (`credit`, `transaction`) to (`credit_first`, `transaction_first`)
+**Merged Pull Requests**
 
-```ruby
-# If you use `credit` with refund_amount or refund
-invoice.refund_amount(1000, 'credit')
-invoice.refund(line_items, 'credit')
-# Change to use `credit_first`
-invoice.refund(line_items, 'credit_first')
+- Release 2.18.1 [#506](https://github.com/recurly/recurly-client-ruby/pull/506) ([bhelx](https://github.com/bhelx))
+- PSD2 billing info changes [#505](https://github.com/recurly/recurly-client-ruby/pull/505) ([bhelx](https://github.com/bhelx))
+- Adds NewShippingAddressNotification webhook [#502](https://github.com/recurly/recurly-client-ruby/pull/502) ([joannasese](https://github.com/joannasese))
 
-# If you use `transaction` with refund_amount or refund
-invoice.refund_amount(1000, 'transaction')
-invoice.refund(line_items, 'transaction')
-# Change to use `transaction_first`
-invoice.refund(line_items, 'transaction_first')
-```
+**Closed Issues**
 
-#### 4. Invoice States
+- Recurly::Webhook::NotificationError: 'NewShippingAddressNotification' is not a recognized notification [#499](https://github.com/recurly/recurly-client-ruby/issues/499)
 
-If you are checking `Invoice#state` anywhere, you will want to check that you have the new correct values. `collected` has changed to `paid` and `open` has changed to `pending`. Example:
 
-```ruby
-# Change this
-if invoice.state == 'collected'
-# To this
-if invoice.state == 'paid'
+## [2.18.0](https://github.com/recurly/recurly-client-ruby/tree/2.18.0) (2019-08-21)
 
-# Change this
-if invoice.state == 'open'
-# To this
-if invoice.state == 'pending'
-```
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.11...2.18.0)
 
-<a name="v2.12.1"></a>
-## v2.12.1 (2018-01-19)
 
-- Update Rubies on Travis (and add 2.5.0) [PR](https://github.com/recurly/recurly-client-ruby/pull/356)
-- Added `proration_rate` float to Adjustment [PR](https://github.com/recurly/recurly-client-ruby/pull/357)
+**Merged Pull Requests**
 
-<a name="v2.12.0"></a>
-## v2.12.0 (2017-11-20)
+- Release version 2.18.0 / API version 2.22 [#494](https://github.com/recurly/recurly-client-ruby/pull/494) ([bhelx](https://github.com/bhelx))
+- MOTO transactions [#493](https://github.com/recurly/recurly-client-ruby/pull/493) ([bhelx](https://github.com/bhelx))
+- Changes for Vertex customers [#491](https://github.com/recurly/recurly-client-ruby/pull/491) ([bhelx](https://github.com/bhelx))
 
-- Added purchase authorize endpoint and other API version 2.9 changes. [PR](https://github.com/recurly/recurly-client-ruby/pull/347)
 
-### Upgrade Notes
 
-This version bumps us to API version 2.9. There are a few breaking changes.
+## [2.17.11](https://github.com/recurly/recurly-client-ruby/tree/2.17.11) (2019-06-27)
 
-1. The 'subscription' link on an instance of `Adjustment` is now only created if adjustment is
-originating from a subscription plan charge, setup fee, add on, trial or proration credit.
-It is no longer created for other adjustments.
-2. Instances of `Transaction` and `Invoice` no longer have a `subscription` link and you must now
-use the `subscriptions` link.
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.10...2.17.11)
 
-<a name="v2.11.3"></a>
-## v2.11.3 (2017-11-10)
 
-- Fix `Resource#reload` method.
+**Merged Pull Requests**
 
-<a name="v2.11.2"></a>
-## v2.11.2 (2017-11-09)
+- Release version 2.17.11 [#481](https://github.com/recurly/recurly-client-ruby/pull/481) ([aaron-suarez](https://github.com/aaron-suarez))
+- Update notification.rb [#480](https://github.com/recurly/recurly-client-ruby/pull/480) ([natebeck](https://github.com/natebeck))
+- Add 3DS tokens to transaction error and billing info [#479](https://github.com/recurly/recurly-client-ruby/pull/479) ([aaron-suarez](https://github.com/aaron-suarez))
 
-- Fix SSRF vulnerability in `Resource#find`. CVE is pending.
 
-<a name="v2.11.1"></a>
-## v2.11.1 (2017-10-20)
 
-- Added `subscriptions` link to `Invoice` and `Transaction` [PR](https://github.com/recurly/recurly-client-ruby/pull/342)
+## [2.17.10](https://github.com/recurly/recurly-client-ruby/tree/2.17.10) (2019-05-21)
 
-<a name="v2.11.0"></a>
-## v2.11.0 (2017-10-04)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.9...2.17.10)
 
-This release will upgrade us to API version 2.8.
 
-- Added custom invoice notes to `Purchase` [PR](https://github.com/recurly/recurly-client-ruby/pull/340)
-- Added `imported_trial` boolean field to `Subscription` [Commit](https://github.com/recurly/recurly-client-ruby/commit/cdfbe9de6203f8f2a3bb533411dd4c16dea138b6)
+**Merged Pull Requests**
 
-### Upgrade Notes
+- Release version 2.17.10 [#475](https://github.com/recurly/recurly-client-ruby/pull/475) ([aaron-suarez](https://github.com/aaron-suarez))
 
-There are two breaking changes in this API version you must consider.
 
-#### Country Codes
 
-All `country` fields must now contain valid [2 letter ISO 3166 country codes](https://www.iso.org/iso-3166-country-codes.html). If your country code fails validation, you will receive a validation error. This affects any endpoint where an address is collected.
+## [2.17.9](https://github.com/recurly/recurly-client-ruby/tree/2.17.9) (2019-05-14)
 
-#### Purchase Currency
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.8...2.17.9)
 
-The purchases endpoint can create and invoice multiple adjustments at once but our invoices can only contain items in one currency. To make this explicit the currency can no longer be provided on an adjustment, it must be set once for the entire purchase:
 
-```ruby
-purchase = Recurly::Purchase.new(
-  # The purchase object is the only place you can set the currency:
-  currency: 'USD',
-  account: {
-    account_code: 'someone'
-  }
-  adjustments: [
-    {
-       # Remove this currency
-       # You can no longer set the currency on adjustment level
-       currency: 'USD',
-       unit_amount_in_cents: 1000
-    }
-  ]
-)
-```
+**Merged Pull Requests**
 
-<a name="v2.10.4"></a>
-## v2.10.4 (2017-11-10)
+- Bump to version 2.17.9 [#473](https://github.com/recurly/recurly-client-ruby/pull/473) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add fraud_session_id to billing_info [#471](https://github.com/recurly/recurly-client-ruby/pull/471) ([aaron-suarez](https://github.com/aaron-suarez))
+- Update issue templates [#459](https://github.com/recurly/recurly-client-ruby/pull/459) ([bhelx](https://github.com/bhelx))
 
-- Fix `Resource#reload` method.
 
-<a name="v2.10.3"></a>
-## v2.10.3 (2017-11-09)
 
-- Fix SSRF vulnerability in `Resource#find`. CVE is pending.
+## [2.17.8](https://github.com/recurly/recurly-client-ruby/tree/2.17.8) (2019-03-12)
 
-<a name="v2.10.2"></a>
-## v2.10.2 (2017-09-27)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.7...2.17.8)
 
-- Fix Subscription constructor API breakage [PR](https://github.com/recurly/recurly-client-ruby/pull/339)
 
-<a name="v2.10.1"></a>
-## v2.10.1 (2017-07-03)
+**Merged Pull Requests**
 
-**NOTE**: This release contains an accidental breaking change on `Subscription.new`.
-See [#338](https://github.com/recurly/recurly-client-ruby/issues/338) for more details.
-Upgrade to 2.10.2 for the fix.
+- Release version 2.17.8 / API version 2.19 [#457](https://github.com/recurly/recurly-client-ruby/pull/457) ([aaron-suarez](https://github.com/aaron-suarez))
 
-This release will upgrade us to API version 2.7.
 
-- Added `updated_account_notification` notification event [PR](https://github.com/recurly/recurly-client-ruby/pull/326)
-- Removed Plan#trial_requires_billing_info coercion [PR](https://github.com/recurly/recurly-client-ruby/pull/329)
-- Fixed "address" being serialized as "addres" bug [PR](https://github.com/recurly/recurly-client-ruby/pull/330)
-- Bump to API v2.7 (Purchase endpoint updates) [PR](https://github.com/recurly/recurly-client-ruby/pull/332)
 
-<a name="v2.10.0"></a>
-## v2.10.0 (2017-05-19)
+## [2.17.7](https://github.com/recurly/recurly-client-ruby/tree/2.17.7) (2019-03-07)
 
-- resource_class option should be class_name and other mislabeled options [PR](https://github.com/recurly/recurly-client-ruby/pull/321)
-- Upgrade rake to fix warnings [PR](https://github.com/recurly/recurly-client-ruby/pull/323)
-- Purchases endpoint [PR](https://github.com/recurly/recurly-client-ruby/pull/322)
-- Removal of X-Records header [PR](https://github.com/recurly/recurly-client-ruby/pull/324)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.6...2.17.7)
 
-### Upgrade Notes:
 
-This release will upgrade us to API version 2.6. There are two breaking changes:
+**Merged Pull Requests**
 
-1. Since the X-Records header was removed in the pagination endpoint, you can no longer call `count` on a `Pager` and expect it to return a cached response.
-From now on, when you call `Pager#count`, it will send a `HEAD` request to the server. So make sure you aren't calling that method in places where you expect the value
-to be cached for you. For more info see [PR #324](https://github.com/recurly/recurly-client-ruby/pull/324).
-2. For `POST /v2/subscriptions` Sending `nil` for `total_billing_cycles` attribute will now override plan `total_billing_cycles` setting and will make subscription renew forever.
-Omitting the attribute will cause the setting to default to the value of plan `total_billing_cycles`.
+- Bump to version 2.17.7 [#456](https://github.com/recurly/recurly-client-ruby/pull/456) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix NoMethodError thrown by Resource.invalid! [#455](https://github.com/recurly/recurly-client-ruby/pull/455) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix link to supported versions section of README [#454](https://github.com/recurly/recurly-client-ruby/pull/454) ([0xtobit](https://github.com/0xtobit))
+- Add support for Account Acquisition [#450](https://github.com/recurly/recurly-client-ruby/pull/450) ([aaron-suarez](https://github.com/aaron-suarez))
 
-<a name="v2.9.2"></a>
-## v2.9.2 (2017-11-10)
+**Closed Issues**
 
-- Fix `Resource#reload` method.
+- Recurly::Resource::Invalid: account is invalid error when creating Subscription with valid account [#451](https://github.com/recurly/recurly-client-ruby/issues/451)
+- Invalid subscription add_on leads to unhandled exceptions [#400](https://github.com/recurly/recurly-client-ruby/issues/400)
+- Invalid address, incorrect gem unprocessable entity error handling [#348](https://github.com/recurly/recurly-client-ruby/issues/348)
 
-<a name="v2.9.1"></a>
-## v2.9.1 (2017-11-09)
 
-- Fix SSRF vulnerability in `Resource#find`. CVE is pending.
+## [2.17.6](https://github.com/recurly/recurly-client-ruby/tree/2.17.6) (2019-02-19)
 
-<a name="v2.9.0"></a>
-## v2.9.0 (2017-04-05)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.5...2.17.6)
 
-- Remove Nokogiri as a dependency of the recurly gem. If you'd like to continue using it (for that nice speed boost), make sure to add `gem "nokogiri"` to your Gemfile. [PR](https://github.com/recurly/recurly-client-ruby/pull/302)
-- Add sort and filter params to Pager rubydocs [PR](https://github.com/recurly/recurly-client-ruby/pull/318)
-- Ban nokogiri on dead rubies [PR](https://github.com/recurly/recurly-client-ruby/pull/317)
-- Fix Address serialization bug (serialize every attribute on update) [PR](https://github.com/recurly/recurly-client-ruby/pull/315)
-- Upgrade webmock so specs can run on ruby 2.4 [PR](https://github.com/recurly/recurly-client-ruby/pull/314)
 
-### Upgrade Notes:
-Ruby 1.9 and 2.0 are now deprecated. You may no longer use
-nokogiri on these rubies. Please see [PR #317](https://github.com/recurly/recurly-client-ruby/pull/317) for more information.
-If you wish to use nokogiri and it's not already required (by rails for instance), you will need to explicitly add it as a dependency and require it.
+**Merged Pull Requests**
 
-<a name="v2.8.2"></a>
-## v2.8.2 (2017-11-10)
+- Release version 2.17.6 / API version 2.18 [#452](https://github.com/recurly/recurly-client-ruby/pull/452) ([aaron-suarez](https://github.com/aaron-suarez))
 
-- Fix `Resource#reload` method.
 
-<a name="v2.8.1"></a>
-## v2.8.1 (2017-11-09)
 
-- Fix SSRF vulnerability in `Resource#find`. CVE is pending.
+## [2.17.5](https://github.com/recurly/recurly-client-ruby/tree/2.17.5) (2019-01-17)
 
-<a name="v2.8.0"></a>
-## v2.8.0 (2017-03-21)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.4...2.17.5)
 
-- Finishes API v2.5 updates [PR](https://github.com/recurly/recurly-client-ruby/pull/301)
-- Adding product_code to Transactions and Adjustments [PR](https://github.com/recurly/recurly-client-ruby/pull/298)
-- Adding all_line_items [PR](https://github.com/recurly/recurly-client-ruby/pull/293)
-- Implement fields for Vertex integration [PR](https://github.com/recurly/recurly-client-ruby/pull/289)
-- Adds geo_code to billing_info, account address, and shipping address [PR](https://github.com/recurly/recurly-client-ruby/pull/273)
-- Guard against passing `Resource.find` empty strings #307 [PR](https://github.com/recurly/recurly-client-ruby/pull/307)
-- Add yard docs link #305 [PR](https://github.com/recurly/recurly-client-ruby/pull/305)
 
-### Upgrade Notes:
-If you are using `as_json` on a Resource (previously unsupported) we are now returning the attributes as json rather than the resource as json. This means your returned Hash will not have an `attributes` key but will rather BE the `attributes` value. See #295
+**Merged Pull Requests**
 
-<a name="v2.7.8"></a>
-## v2.7.8 (2017-11-10)
+- Bump to version 2.17.5 [#447](https://github.com/recurly/recurly-client-ruby/pull/447) ([aaron-suarez](https://github.com/aaron-suarez))
+- Ensure error message for a single returned error [#441](https://github.com/recurly/recurly-client-ruby/pull/441) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fixes typo in the changelog [#440](https://github.com/recurly/recurly-client-ruby/pull/440) ([chrissrogers](https://github.com/chrissrogers))
 
-- Fix `Resource#reload` method.
+**Closed Issues**
 
-<a name="v2.7.7"></a>
-## v2.7.7 (2017-11-09)
+- sor [#446](https://github.com/recurly/recurly-client-ruby/issues/446)
 
-- Fix SSRF vulnerability in `Resource#find`. CVE is pending.
 
-<a name="v2.7.6"></a>
-## v2.7.6 (2017-01-30)
+## [2.17.4](https://github.com/recurly/recurly-client-ruby/tree/2.17.4) (2018-12-11)
 
-- Fix cloudflare 502 error #296 [PR](https://github.com/recurly/recurly-client-ruby/pull/296)
-- Fix stack-level-too-deep for as_json #295 [PR](https://github.com/recurly/recurly-client-ruby/pull/295)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.3...2.17.4)
 
-<a name="v2.7.5"></a>
-## v2.7.5 (2016-11-30)
 
-- Fix coupon redemption bug on bulk coupons #284 [PR](https://github.com/recurly/recurly-client-ruby/pull/286)
+**Merged Pull Requests**
 
-<a name="v2.7.4"></a>
-## v2.7.4 (2016-11-17)
+- Release version 2.17.4 / API version 2.17 [#439](https://github.com/recurly/recurly-client-ruby/pull/439) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add OpenSSL version to user_agent [#438](https://github.com/recurly/recurly-client-ruby/pull/438) ([aaron-suarez](https://github.com/aaron-suarez))
+- Mis-typed the minor version here [#437](https://github.com/recurly/recurly-client-ruby/pull/437) ([bhelx](https://github.com/bhelx))
+- Fix missing type instance variable and add specs [#436](https://github.com/recurly/recurly-client-ruby/pull/436) ([spyrbri](https://github.com/spyrbri))
+- Add exemption certificate [#434](https://github.com/recurly/recurly-client-ruby/pull/434) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add webhooks [#433](https://github.com/recurly/recurly-client-ruby/pull/433) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add gateway_code to invoice and subscription [#432](https://github.com/recurly/recurly-client-ruby/pull/432) ([aaron-suarez](https://github.com/aaron-suarez))
 
-- Fix coupon redemption errors [PR](https://github.com/recurly/recurly-client-ruby/pull/271)
-- Remove "base" from pretty printed error messages [PR](https://github.com/recurly/recurly-client-ruby/pull/267)
-- Fix rails deprecation warning [PR](https://github.com/recurly/recurly-client-ruby/pull/275)
-- Add `updated_at` to `MeasuredUnit` [PR](https://github.com/recurly/recurly-client-ruby/pull/263)
-- Support gift card `canceled_at` timestamp [PR](https://github.com/recurly/recurly-client-ruby/pull/264)
-- Fix AddOns quantity accumulator bug from #226 [PR](https://github.com/recurly/recurly-client-ruby/pull/278)
-- Fix Ruby 1.9.3 and jruby testing dependencies [PR](https://github.com/recurly/recurly-client-ruby/pull/279)
-- Add new dunning event webhook [PR](https://github.com/recurly/recurly-client-ruby/pull/277)
-- Add `timeframe` attribute to `Subscription` [PR](https://github.com/recurly/recurly-client-ruby/pull/283)
+**Closed Issues**
 
-<a name="v2.7.3"></a>
-## v2.7.3 (2016-08-19)
+- How to stop annoying: "[WARNING] Recurly logger has been disabled" on 2.10.5 version? [#435](https://github.com/recurly/recurly-client-ruby/issues/435)
+- When an adjustment type is nil? [#431](https://github.com/recurly/recurly-client-ruby/issues/431)
+- `Recurly::Webhook::NotificationError` raising `not a recognized notification` for multiple notifications [#430](https://github.com/recurly/recurly-client-ruby/issues/430)
 
-- Gift cards support was not merged properly in [#257](https://github.com/recurly/recurly-client-ruby/pull/257). This adds it correctly.
 
-<a name="v2.7.2"></a>
-## v2.7.2 (2016-08-15)
+## [2.17.3](https://github.com/recurly/recurly-client-ruby/tree/2.17.3) (2018-11-06)
 
-- Support Shipping Addresses [PR](https://github.com/recurly/recurly-client-ruby/pull/259)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.2...2.17.3)
 
-<a name="v2.7.1"></a>
-## v2.7.1 (2016-08-04)
 
-Bumps to API version 2.4
+**Merged Pull Requests**
 
-- Add `updated_at` fields [PR](https://github.com/recurly/recurly-client-ruby/pull/256)
-- Add support for gift cards [PR](https://github.com/recurly/recurly-client-ruby/pull/257)
+- Release version 2.17.3 [#429](https://github.com/recurly/recurly-client-ruby/pull/429) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix bug when company is not included in xml response [#428](https://github.com/recurly/recurly-client-ruby/pull/428) ([hasghari](https://github.com/hasghari))
 
-<a name="v2.7.0"></a>
-## v2.7.0 (2016-07-07)
 
-- API Version 2.3 [PR](https://github.com/recurly/recurly-client-ruby/pull/253)
 
-<a name="v2.6.3"></a>
-## v2.6.3 (2017-11-10)
+## [2.17.2](https://github.com/recurly/recurly-client-ruby/tree/2.17.2) (2018-10-30)
 
-- Fix `Resource#reload` method.
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.1...2.17.2)
 
-<a name="v2.6.2"></a>
-## v2.6.2 (2017-11-09)
 
-- Fix SSRF vulnerability in `Resource#find`. CVE is pending.
+**Merged Pull Requests**
 
-<a name="v2.6.1"></a>
-## v2.6.1 (2016-06-01)
+- Release version 2.17.2 / API version 2.16 [#427](https://github.com/recurly/recurly-client-ruby/pull/427) ([aaron-suarez](https://github.com/aaron-suarez))
+- Remove Rails generator mention from README [#426](https://github.com/recurly/recurly-client-ruby/pull/426) ([lauramosher](https://github.com/lauramosher))
+- Handle malformed XML errors gracefully. [#424](https://github.com/recurly/recurly-client-ruby/pull/424) ([scottyp-env](https://github.com/scottyp-env))
+- Add missing webhook properties to models [#422](https://github.com/recurly/recurly-client-ruby/pull/422) ([aaron-suarez](https://github.com/aaron-suarez))
+- Remove line that assumes cursor is an integer [#421](https://github.com/recurly/recurly-client-ruby/pull/421) ([aaron-suarez](https://github.com/aaron-suarez))
+- Fix bundler warnings related to dev dependencies [#420](https://github.com/recurly/recurly-client-ruby/pull/420) ([aaron-suarez](https://github.com/aaron-suarez))
+- Alias company and company_name [#413](https://github.com/recurly/recurly-client-ruby/pull/413) ([bhelx](https://github.com/bhelx))
 
-* Fix method missing `changed?` in `Account` [PR](https://github.com/recurly/recurly-client-ruby/pull/251)
+**Closed Issues**
 
-<a name="v2.6.0"></a>
-## v2.6.0 (2016-06-01)
+- Pager cursor broken for accounts [#375](https://github.com/recurly/recurly-client-ruby/issues/375)
+- Webhook properties are missing [#336](https://github.com/recurly/recurly-client-ruby/issues/336)
+- The Account class does not seem to support notes [#327](https://github.com/recurly/recurly-client-ruby/issues/327)
+- Previewing a subscription change around subscription_add_ons is quirky [#224](https://github.com/recurly/recurly-client-ruby/issues/224)
+- Use of << on add_ons does not work as expected [#220](https://github.com/recurly/recurly-client-ruby/issues/220)
 
-* Add support for free trial coupons [PR](https://github.com/recurly/recurly-client-ruby/pull/245)
-* Add support for `roku_billing_agreement_id` [PR](https://github.com/recurly/recurly-client-ruby/pull/246)
-* Fix `Account#address_changed?` dirty check [PR](https://github.com/recurly/recurly-client-ruby/pull/248)
-* Add support for `<fraud>` if it exists on `Transaction` [PR](https://github.com/recurly/recurly-client-ruby/pull/244)
-* Fix updating `unit_amount_in_cents` on `Subscription` [PR](https://github.com/recurly/recurly-client-ruby/pull/241)
-* Fix stray `puts` in specs [PR](https://github.com/recurly/recurly-client-ruby/pull/239)
 
-### Upgrade Notes
-This version has a bug around creating accounts. We recommend using 2.6.1 or later https://github.com/recurly/recurly-client-ruby/releases/tag/v2.6.1
+## [2.17.1](https://github.com/recurly/recurly-client-ruby/tree/2.17.1) (2018-09-25)
 
-<a name="v2.5.4"></a>
-## v2.5.4 (2017-11-10)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.17.0...2.17.1)
 
-- Fix `Resource#reload` method.
 
-<a name="v2.5.3"></a>
-## v2.5.3 (2017-11-09)
+**Merged Pull Requests**
 
-- Fix SSRF vulnerability in `Resource#find`. CVE is pending.
+- Release version 2.17.1 / API version 2.15 [#419](https://github.com/recurly/recurly-client-ruby/pull/419) ([aaron-suarez](https://github.com/aaron-suarez))
 
-<a name="v2.5.2"></a>
-## v2.5.2 (2016-05-02)
 
-* Remove Gemfile.lock, add more rubies to testing matrix [PR](https://github.com/recurly/recurly-client-ruby/pull/234)
-* Remove autoload and reorder requires [PR](https://github.com/recurly/recurly-client-ruby/pull/236)
-* Usage Based Billing [PR](https://github.com/recurly/recurly-client-ruby/pull/237)
 
-<a name="v2.5.1"></a>
-## v2.5.1 (2016-02-18)
+## [2.17.0](https://github.com/recurly/recurly-client-ruby/tree/2.17.0) (2018-09-20)
 
-* Add `currency` attribute to `BillingInfo` object so client can pass currency on create/update [PR](https://github.com/recurly/recurly-client-ruby/pull/231)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.16.2...2.17.0)
 
-<a name="v2.5.0"></a>
-## v2.5.0 (2016-01-13)
 
-* Fix redemption destroy path for accounts with multiple redemptions [PR](https://github.com/recurly/recurly-client-ruby/pull/227)
+**Merged Pull Requests**
 
-### Upgrade Notes
-This release has API breaking changes around coupon redemptions. See [PR](https://github.com/recurly/recurly-client-ruby/pull/227) to see if you are affected.
+- Bump 2.17.0 [#417](https://github.com/recurly/recurly-client-ruby/pull/417) ([bhelx](https://github.com/bhelx))
+- Remove comment being interpreted as atoms [#416](https://github.com/recurly/recurly-client-ruby/pull/416) ([bhelx](https://github.com/bhelx))
+- Adds missing credit invoices opts to invoice refunds [#415](https://github.com/recurly/recurly-client-ruby/pull/415) ([bhelx](https://github.com/bhelx))
+- Some small improvements [#411](https://github.com/recurly/recurly-client-ruby/pull/411) ([bhelx](https://github.com/bhelx))
 
-<a name="v2.4.11"></a>
-## v2.4.11 (2017-11-10)
+**Closed Issues**
 
-- Fix `Resource#reload` method.
+- Tax type and region are coming in backwards [#412](https://github.com/recurly/recurly-client-ruby/issues/412)
 
-<a name="v2.4.10"></a>
-## v2.4.10 (2017-11-09)
 
-- Fix SSRF vulnerability in `Resource#find`. CVE is pending.
+## [2.16.2](https://github.com/recurly/recurly-client-ruby/tree/2.16.2) (2018-08-21)
 
-<a name="v2.4.9"></a>
-## v2.4.9 (2015-11-18)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.16.1...2.16.2)
 
-* Fixed array change tracking issue around redemptions [PR](https://github.com/recurly/recurly-client-ruby/pull/223)
 
-<a name="v2.4.8"></a>
-## v2.4.8 (2015-10-21)
+**Merged Pull Requests**
 
-* Add `cc_emails` attribute to `Account` [PR](https://github.com/recurly/recurly-client-ruby/pull/216)
-* Add webhooks parsers [PR](https://github.com/recurly/recurly-client-ruby/pull/217)
-* Fixed `setup_fee_accounting_code` spec [PR](https://github.com/recurly/recurly-client-ruby/pull/218)
+- Release 2.16.2 / API version 2.14 [#410](https://github.com/recurly/recurly-client-ruby/pull/410) ([aaron-suarez](https://github.com/aaron-suarez))
+- Support TransactionAuthorizedNotification webhook [#404](https://github.com/recurly/recurly-client-ruby/pull/404) ([aaron-suarez](https://github.com/aaron-suarez))
 
-<a name="v2.4.7"></a>
-## v2.4.7 (2015-10-02)
 
-* Ignore associations defined in xml but not in the Resource subclasses [PR](https://github.com/recurly/recurly-client-ruby/pull/212)
-* Added support for editing and restoring coupons [PR](https://github.com/recurly/recurly-client-ruby/pull/214)
-* Added support for bulk coupons and coupon code generation [PR](https://github.com/recurly/recurly-client-ruby/pull/213)
 
-<a name="v2.4.6"></a>
-## v2.4.6 (2015-8-31)
+## [2.16.1](https://github.com/recurly/recurly-client-ruby/tree/2.16.1) (2018-08-06)
 
-* Added `applies_to_non_plan_charges` attribute to `Coupon`
-* Adding `gateway_error_code` to `Transaction`
-* Adding `redemption_resource` to `Coupon`
-* Added `max_redemptions_per_account` attribute to `Coupon`
-* Added `redemptions` attribute to `Subscription`
-* Added `setup_fee_accounting_code` attribute to `Plan`
-* Add support for `Resource.find_each` to be chained with other iterator methods without passing a block
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.16.0...2.16.1)
 
-<a name="v2.4.5"></a>
-## v2.4.5 (2015-7-31)
 
-* Added ability to enter offline payment [PR](https://github.com/recurly/recurly-client-ruby/pull/189/)
-* Add `tax_exempt`, `tax_code`, and `accounting_code` support for one time transactions [PR](https://github.com/recurly/recurly-client-ruby/pull/198)
-* Added `duration`, `temporal_unit`, and `temporal_amount` to 'Coupon' [PR](https://github.com/recurly/recurly-client-ruby/pull/202)
+**Merged Pull Requests**
 
-<a name="v2.4.4"></a>
-## v2.4.4 (2015-6-25)
+- Bump 2.16.1 [#402](https://github.com/recurly/recurly-client-ruby/pull/402) ([bhelx](https://github.com/bhelx))
+- Remove the old recurly binary [#398](https://github.com/recurly/recurly-client-ruby/pull/398) ([drewish](https://github.com/drewish))
+- Add gateway_token and gateway_code attributes to BillingInfo class [#395](https://github.com/recurly/recurly-client-ruby/pull/395) ([aaron-suarez](https://github.com/aaron-suarez))
+- Correctly document the response type in Purchases [#394](https://github.com/recurly/recurly-client-ruby/pull/394) ([bhelx](https://github.com/bhelx))
+- Adjust inline documentation for clarity, grammar, and syntax [#393](https://github.com/recurly/recurly-client-ruby/pull/393) ([aaron-suarez](https://github.com/aaron-suarez))
 
-* Added config to Recurly to allow for per thread configuration of Recurly client. [PR](https://github.com/recurly/recurly-client-ruby/pull/190)
-* Add `refund_apply_order` to `Invoice` when creating a refund [PR](https://github.com/recurly/recurly-client-ruby/pull/193)
-* Fix association loading when fetching a resource via RJSv2 [PR](https://github.com/recurly/recurly-client-ruby/pull/195)
 
-<a name="v2.4.3"></a>
-## v2.4.3 (2015-5-26)
 
-* Add `bank_account_authorized_at` to `Subscription` [PR](https://github.com/recurly/recurly-client-ruby/pull/191)
-* Add `ip_address` to `Transaction` [PR](https://github.com/recurly/recurly-client-ruby/pull/192)
+## [2.16.0](https://github.com/recurly/recurly-client-ruby/tree/2.16.0) (2018-06-26)
 
-<a name="v2.4.2"></a>
-## v2.4.2 (2015-4-28)
-* Fix paged resource loading when the uuid needs to be escaped, fixes [174](https://github.com/recurly/recurly-client-ruby/issues/174), [PR](https://github.com/recurly/recurly-client-ruby/pull/177)
-* Add `tax_type`, `tax_rate`, `tax_region` to `Adjustment` [PR](https://github.com/recurly/recurly-client-ruby/pull/180)
-* Add `net_terms` and `collection_method` to `Invoice` [PR](https://github.com/recurly/recurly-client-ruby/pull/186)
-* Added `bank_account` attributes to `BillingInfo`:
-  * `name_on_account`
-  * `account_type` (`checking` or `savings`)
-  * `last_four`
-  * `routing_number`
-  * [PR](https://github.com/recurly/recurly-client-ruby/pull/188)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.15.4...2.16.0)
 
-<a name="v2.4.1"></a>
-## v2.4.1 (2015-1-23)
-* Add `vat_location_valid` to `Account` [PR](https://github.com/recurly/recurly-client-ruby/pull/171)
-* Add `Invoice#invoice_number_prefix` and `Invoice#invoice_number_with_prefix` to make use of the new
-  Country Invoice Sequencing feature [PR](https://github.com/recurly/recurly-client-ruby/pull/173)
-* Fixes issue with `Subscription#pending_subscription` currency value [PR](https://github.com/recurly/recurly-client-ruby/pull/175)
 
-<a name="v2.4.0"></a>
-## v2.4.0 (2015-1-7)
-* Add `Invoice#original_invoice` for refund invoices [PR](https://github.com/recurly/recurly-client-ruby/pull/169)
+**Merged Pull Requests**
 
-<a name="v2.3.10"></a>
-## v2.3.10 (2017-11-10)
+- Bump 2.16.0 [#392](https://github.com/recurly/recurly-client-ruby/pull/392) ([bhelx](https://github.com/bhelx))
+- Remove rails code and railtie [#388](https://github.com/recurly/recurly-client-ruby/pull/388) ([bhelx](https://github.com/bhelx))
+- Make currencies method public [#386](https://github.com/recurly/recurly-client-ruby/pull/386) ([gevann](https://github.com/gevann))
+- Dont set the logger in railtie [#382](https://github.com/recurly/recurly-client-ruby/pull/382) ([bhelx](https://github.com/bhelx))
 
-- Fix `Resource#reload` method.
+**Closed Issues**
 
-<a name="v2.3.9"></a>
-## v2.3.9 (2017-11-09)
+- Noisy Output when Using gem with Rails [#385](https://github.com/recurly/recurly-client-ruby/issues/385)
+- "[WARNING] Recurly logger" messages should be disableable [#381](https://github.com/recurly/recurly-client-ruby/issues/381)
 
-- Fix SSRF vulnerability in `Resource#find`. CVE is pending.
 
-<a name="v2.3.8"></a>
-## v2.3.8 (2014-12-22)
+## [2.15.4](https://github.com/recurly/recurly-client-ruby/tree/2.15.4) (2018-05-15)
 
-* Add `Invoice#tax_region` and `Subscription#tax_region` [PR](https://github.com/recurly/recurly-client-ruby/pull/163)
-* Add `Invoice#address` and `Subscription#address` when previewing [PR](https://github.com/recurly/recurly-client-ruby/pull/165)
-* Add `Subscription#update_notes` to update a subscription's notes [PR](https://github.com/recurly/recurly-client-ruby/pull/165)
-* Add `AddOn#accounting_code` [PR](https://github.com/recurly/recurly-client-ruby/pull/164)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.15.2...2.15.4)
 
-<a name="v2.3.7"></a>
-## v2.3.7 (2014-12-8)
 
-* Add 'public_key' property to Recurly.js [1ad6aa0](https://github.com/recurly/recurly-client-ruby/pull/155)
-* Adds support for reading and writing custom invoice notes [PR](https://github.com/recurly/recurly-client-ruby/pull/158)
-* Add `Plan#tax_code`, `AddOn#tax_code` and `Adjustment#tax_code` [PR](https://github.com/recurly/recurly-client-ruby/pull/160)
+**Merged Pull Requests**
 
-<a name="v2.3.6"></a>
-## v2.3.6 (2014-11-4)
+- Add support for credit invoice webhooks [#380](https://github.com/recurly/recurly-client-ruby/pull/380) ([bhelx](https://github.com/bhelx))
+- Bump 2.15.4 [#379](https://github.com/recurly/recurly-client-ruby/pull/379) ([bhelx](https://github.com/bhelx))
+- API Version 2.12 [#378](https://github.com/recurly/recurly-client-ruby/pull/378) ([bhelx](https://github.com/bhelx))
+- Drop Ruby 2.1 Support [#374](https://github.com/recurly/recurly-client-ruby/pull/374) ([bhelx](https://github.com/bhelx))
 
-* Fixes issue with broken association lookups [ca0b015](https://github.com/recurly/recurly-client-ruby/commit/ca0b015fead172bdd01dce0a0878a8949c5ccac4)
+**Closed Issues**
 
-<a name="v2.3.5"></a>
-## v2.3.5 (2014-10-30)
+- Missing support for new webhook types with credit invoices enabled [#376](https://github.com/recurly/recurly-client-ruby/issues/376)
 
-* Adding invoice refunds by line item: `invoice.refund(line_items)` [9acc7a5](https://github.com/recurly/recurly-client-ruby/commit/9acc7a54a5f9cfd8393800abea9f8b8455203fbc)
 
-<a name="v2.3.4"></a>
-## v2.3.4 (2014-10-3)
+## [2.15.2](https://github.com/recurly/recurly-client-ruby/tree/2.15.2) (2018-04-18)
 
-* Adding invoice preview: `account.build_invoice` [0bc0d01](https://github.com/recurly/recurly-client-ruby/pull/153)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.15.1...2.15.2)
 
-<a name="v2.3.3"></a>
-## v2.3.3 (2014-9-29)
 
-* Adding the bulk parameter to the `Subscription#postpone` method [8bf72bc](https://github.com/recurly/recurly-client-ruby/pull/150)
+**Merged Pull Requests**
 
-<a name="v2.3.2"></a>
-## v2.3.2 (2014-9-9)
+- Bump 2.15.2 [#373](https://github.com/recurly/recurly-client-ruby/pull/373) ([bhelx](https://github.com/bhelx))
+- Keep original_invoice link on Invoice [#372](https://github.com/recurly/recurly-client-ruby/pull/372) ([bhelx](https://github.com/bhelx))
+- Coupon#redeem! should raise Invalid on failure [#371](https://github.com/recurly/recurly-client-ruby/pull/371) ([bhelx](https://github.com/bhelx))
 
-### Features
+**Closed Issues**
 
-* Added Amazon Billing Agreement support [024269](https://github.com/recurly/recurly-client-ruby/commit/02426910ea986317374083fc0b94928cf3b2d569)
-* Added account `entity_use_code` when the site is integrated with Avalara [633df6](https://github.com/recurly/recurly-client-ruby/commit/633df6f6d91b02b9bb01ac587030e4011f5ab533)
-* Added bulk parameter [8cb157](https://github.com/recurly/recurly-client-ruby/commit/8cb1579378442c23930aee53a3a1a397e72ca86e)
+- Invoice shipping_address has name instead of first and last [#370](https://github.com/recurly/recurly-client-ruby/issues/370)
+- Coupon Redeem! get NoMethodError when coupon code was redeemed [#351](https://github.com/recurly/recurly-client-ruby/issues/351)
 
-<a name="v2.3.1"></a>
-## v2.3.1 (2014-5-23)
 
-### Features
+## [2.15.1](https://github.com/recurly/recurly-client-ruby/tree/2.15.1) (2018-04-02)
 
-* Added subscription change preview: `subscription.preview` [57a69d3](https://github.com/recurly/recurly-client-ruby/commit/57a69d3301497774e7d34dfe9095908ed2210de7)
-* Added subscription estimated cost for new and change previews: `subscription.cost_in_cents` [57a69d3](https://github.com/recurly/recurly-client-ruby/commit/57a69d3301497774e7d34dfe9095908ed2210de7)
-* Added subscription remaining billing cycles: `subscription.remaining_billing_cycles` [PR](https://github.com/recurly/recurly-client-ruby/pull/142)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.15.0...2.15.1)
 
-<a name="v2.3.0"></a>
-## v2.3.0 (2014-5-14)
 
-#### Features
+**Merged Pull Requests**
 
-* Added subscription preview: `Recurly::Subscription.preview` [0d55115](https://github.com/recurly/recurly-client-ruby/commit/0d55115b6155b6a2fb36bfbfcf0cd797f861841e)
-* Added tax details to adjustments: `adjustment.tax_details` [c672258](https://github.com/recurly/recurly-client-ruby/commit/c6722589a6174fd2c791d4393522508ec4223694)
-* Removed `taxable` support on adjustments [b542b8a](https://github.com/recurly/recurly-client-ruby/commit/b542b8a16616ba7d4cc1da22200ea3eb7ba426b0)
-* Added `tax_exempt` to accounts, adjustments and plans [b542b8a](https://github.com/recurly/recurly-client-ruby/commit/b542b8a16616ba7d4cc1da22200ea3eb7ba426b0)
-* Added `tax_rate`, `tax_type` to invoices and subscriptions [6a43f37](https://github.com/recurly/recurly-client-ruby/commit/6a43f37b86eb659aa99be4cf48bed0f07927b197)
-* Added `tax_in_cents` to subscriptions [6a43f37](https://github.com/recurly/recurly-client-ruby/commit/6a43f37b86eb659aa99be4cf48bed0f07927b197)
+- Bump 2.15.1 [#369](https://github.com/recurly/recurly-client-ruby/pull/369) ([bhelx](https://github.com/bhelx))
+- Fix nokogiri security warnings [#367](https://github.com/recurly/recurly-client-ruby/pull/367) ([bhelx](https://github.com/bhelx))
+- API v2.11 changes [#366](https://github.com/recurly/recurly-client-ruby/pull/366) ([bhelx](https://github.com/bhelx))
 
-<a name="v2.2.5"></a>
-## v2.2.5 (2017-11-10)
 
-- Fix `Resource#reload` method.
 
-<a name="v2.2.4"></a>
-## v2.2.4 (2017-11-09)
+## [2.15.0](https://github.com/recurly/recurly-client-ruby/tree/2.15.0) (2018-02-27)
 
-- Fix SSRF vulnerability in `Resource#find`. CVE is pending.
-- Backported fix for URL encoding [#157](https://github.com/recurly/recurly-client-ruby/pull/157)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.14.0...2.15.0)
 
-<a name="v2.2.3"></a>
-## v2.2.3 (2014-5-9)
 
-* Added `token_id` support to `BillingInfo` [#137](https://github.com/recurly/recurly-client-ruby/pull/137)
+**Merged Pull Requests**
 
-<a name="v2.2.2"></a>
-## v2.2.2 (2014-2-21)
+- Bump 2.15.0 [#365](https://github.com/recurly/recurly-client-ruby/pull/365) ([bhelx](https://github.com/bhelx))
+- Invoice refunds do not return InvoiceCollection [#363](https://github.com/recurly/recurly-client-ruby/pull/363) ([bhelx](https://github.com/bhelx))
+- Fixes to pagination [#355](https://github.com/recurly/recurly-client-ruby/pull/355) ([bhelx](https://github.com/bhelx))
+- Support gift card webhook [#344](https://github.com/recurly/recurly-client-ruby/pull/344) ([yakjuly](https://github.com/yakjuly))
 
-#### Features
+**Closed Issues**
 
-* Added ability to determine a transaction's payment method: `Transaction#payment_method` ([PR](https://github.com/recurly/recurly-client-ruby/pull/125))
-* Added ability to determine the date an invoice was closed: `Invoice#closed_at` ([PR](https://github.com/recurly/recurly-client-ruby/pull/125))
+- Recurly::Invoice#refund_amount mutates instance [#364](https://github.com/recurly/recurly-client-ruby/issues/364)
+- Invoice refunds do not return invoice collections [#362](https://github.com/recurly/recurly-client-ruby/issues/362)
 
-#### Bug Fixes
 
-* The gem now explicitly requires Ruby 1.9.3 or newer ([PR](https://github.com/recurly/recurly-client-ruby/pull/129))
+## [2.14.0](https://github.com/recurly/recurly-client-ruby/tree/2.14.0) (2018-02-20)
 
-<a name="v2.2.1"></a>
-## v2.2.1 (2014-1-2)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.13.0...2.14.0)
 
-#### Features
 
-* Added ability to get the active invoice for a subscription: `Subscription#invoice` ([PR](https://github.com/recurly/recurly-client-ruby/pull/125))
-* Added ability to get the subscription for an adjustment: `Adjustment#subscription` ([PR](https://github.com/recurly/recurly-client-ruby/pull/125))
-* Added ability to get the subscription for a invoice: `Invoice#subscription` ([PR](https://github.com/recurly/recurly-client-ruby/pull/125))
+**Merged Pull Requests**
 
+- Bump 2.14.0 [#361](https://github.com/recurly/recurly-client-ruby/pull/361) ([bhelx](https://github.com/bhelx))
+- Updates to credit memos feature [#360](https://github.com/recurly/recurly-client-ruby/pull/360) ([bhelx](https://github.com/bhelx))
 
-<a name="v2.2.0"></a>
-## v2.2.0 (2013-11-12)
 
-#### Bug Fixes
 
-* Raise `Recurly::Error` for all internal HTTP errors ([f3c473a](https://github.com/recurly/recurly-client-ruby/commit/f3c473aa290867ae5eb35eec5b2741b19d1548e5))
-* Correctly serialize all API links for a resource so that they are not lost on cache marshalling ([c8ae2d5](https://github.com/recurly/recurly-client-ruby/commit/c8ae2d5e5a283cd1cb86536345b22b536f5ff619))
+## [2.13.0](https://github.com/recurly/recurly-client-ruby/tree/2.13.0) (2018-02-09)
 
-#### Features
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.12.1...2.13.0)
 
-* Added easier way to get an add-on from the subscription: `SubscriptionAddOn#addon` ([8ad87c6](https://github.com/recurly/recurly-client-ruby/commit/8ad87c675425b69174687657ffcbea1272d696aa))
-* Drop support for Ruby < 1.9.3 ([b0f1daa](https://github.com/recurly/recurly-client-ruby/commit/b0f1daae53e7ca3e51de14572f65fb5af23c667a))
+
+**Merged Pull Requests**
+
+- API v2.10 && Bump 2.13.0 [#359](https://github.com/recurly/recurly-client-ruby/pull/359) ([bhelx](https://github.com/bhelx))
+- Credit Memos [#358](https://github.com/recurly/recurly-client-ruby/pull/358) ([bhelx](https://github.com/bhelx))
+- Add NewUsageNotification class for Recurly webhook [#354](https://github.com/recurly/recurly-client-ruby/pull/354) ([gregthebusker](https://github.com/gregthebusker))
+
+
+
+## [2.12.1](https://github.com/recurly/recurly-client-ruby/tree/2.12.1) (2018-01-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.12.1.rc1...2.12.1)
+
+
+**Merged Pull Requests**
+
+- Adds proration_rate float to Adjustment [#357](https://github.com/recurly/recurly-client-ruby/pull/357) ([bhelx](https://github.com/bhelx))
+- Update Rubies on Travis [#356](https://github.com/recurly/recurly-client-ruby/pull/356) ([bhelx](https://github.com/bhelx))
+
+
+
+## [2.12.1.rc1](https://github.com/recurly/recurly-client-ruby/tree/2.12.1.rc1) (2017-12-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.12.0...2.12.1.rc1)
+
+
+**Merged Pull Requests**
+
+- Verify CVV Endpoint [#353](https://github.com/recurly/recurly-client-ruby/pull/353) ([bhelx](https://github.com/bhelx))
+
+
+
+## [2.12.0](https://github.com/recurly/recurly-client-ruby/tree/2.12.0) (2017-11-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.11.3...2.12.0)
+
+
+**Merged Pull Requests**
+
+- Bump 2.12.0 [#349](https://github.com/recurly/recurly-client-ruby/pull/349) ([bhelx](https://github.com/bhelx))
+- API Version 2.9 [#347](https://github.com/recurly/recurly-client-ruby/pull/347) ([bhelx](https://github.com/bhelx))
+
+
+
+## [2.11.3](https://github.com/recurly/recurly-client-ruby/tree/2.11.3) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.10.4...2.11.3)
+
+
+**Merged Pull Requests**
+
+- Try to fix the jruby specs [#345](https://github.com/recurly/recurly-client-ruby/pull/345) ([drewish](https://github.com/drewish))
+- Bump 2.11.1 [#343](https://github.com/recurly/recurly-client-ruby/pull/343) ([bhelx](https://github.com/bhelx))
+- Add subscriptions link to Invoice and Transaction [#342](https://github.com/recurly/recurly-client-ruby/pull/342) ([bhelx](https://github.com/bhelx))
+- Bump 2.11.0, API Version 2.8 [#341](https://github.com/recurly/recurly-client-ruby/pull/341) ([bhelx](https://github.com/bhelx))
+- Add custom invoice notes [#340](https://github.com/recurly/recurly-client-ruby/pull/340) ([bhelx](https://github.com/bhelx))
+- Fix Subscription constructor API breakage [#339](https://github.com/recurly/recurly-client-ruby/pull/339) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+
+
+## [2.10.4](https://github.com/recurly/recurly-client-ruby/tree/2.10.4) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.9.2...2.10.4)
+
+
+**Merged Pull Requests**
+
+- Show timeout configurations in README [#337](https://github.com/recurly/recurly-client-ruby/pull/337) ([bhelx](https://github.com/bhelx))
+- Bump 2.10.1 [#333](https://github.com/recurly/recurly-client-ruby/pull/333) ([bhelx](https://github.com/bhelx))
+- Bumps to API version 2.7 [#332](https://github.com/recurly/recurly-client-ruby/pull/332) ([bhelx](https://github.com/bhelx))
+- Remove unused code [#331](https://github.com/recurly/recurly-client-ruby/pull/331) ([bhelx](https://github.com/bhelx))
+- "address" was being singularized as "addres" [#330](https://github.com/recurly/recurly-client-ruby/pull/330) ([bhelx](https://github.com/bhelx))
+- Removes Plan#trial_requires_billing_info coercion [#329](https://github.com/recurly/recurly-client-ruby/pull/329) ([bhelx](https://github.com/bhelx))
+- Updating the yardocs [#328](https://github.com/recurly/recurly-client-ruby/pull/328) ([bhelx](https://github.com/bhelx))
+- Added updated_account_notification handling [#326](https://github.com/recurly/recurly-client-ruby/pull/326) ([levlozhkin](https://github.com/levlozhkin))
+- Bump v 2.10.0 [#325](https://github.com/recurly/recurly-client-ruby/pull/325) ([bhelx](https://github.com/bhelx))
+- Remove X-Records header parsing [#324](https://github.com/recurly/recurly-client-ruby/pull/324) ([bhelx](https://github.com/bhelx))
+- Upgrade rake removing Fixnum warnings [#323](https://github.com/recurly/recurly-client-ruby/pull/323) ([bhelx](https://github.com/bhelx))
+- resource_class option should be class_name and other mislabeled options [#321](https://github.com/recurly/recurly-client-ruby/pull/321) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+
+
+## [2.9.2](https://github.com/recurly/recurly-client-ruby/tree/2.9.2) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.8.2...2.9.2)
+
+
+**Merged Pull Requests**
+
+- Bump 2.9.0 [#320](https://github.com/recurly/recurly-client-ruby/pull/320) ([bhelx](https://github.com/bhelx))
+- Add sort and filter params to Pager rubydocs [#318](https://github.com/recurly/recurly-client-ruby/pull/318) ([bhelx](https://github.com/bhelx))
+- Ban nokogiri on dead rubies [#317](https://github.com/recurly/recurly-client-ruby/pull/317) ([bhelx](https://github.com/bhelx))
+- Fix partial address update bug [#315](https://github.com/recurly/recurly-client-ruby/pull/315) ([bhelx](https://github.com/bhelx))
+- Upgrade webmock so specs can run in 2.4.x [#314](https://github.com/recurly/recurly-client-ruby/pull/314) ([bhelx](https://github.com/bhelx))
+- Move nokogiri to a development dependency [#302](https://github.com/recurly/recurly-client-ruby/pull/302) ([carlosantoniodasilva](https://github.com/carlosantoniodasilva))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+
+
+## [2.8.2](https://github.com/recurly/recurly-client-ruby/tree/2.8.2) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.7.8...2.8.2)
+
+
+**Merged Pull Requests**
+
+- Fix jruby+nokogiri failure on comments [#312](https://github.com/recurly/recurly-client-ruby/pull/312) ([bhelx](https://github.com/bhelx))
+- Bump 2.8.0 [#311](https://github.com/recurly/recurly-client-ruby/pull/311) ([bhelx](https://github.com/bhelx))
+- API 2.5 Changes [#310](https://github.com/recurly/recurly-client-ruby/pull/310) ([bhelx](https://github.com/bhelx))
+- Guard against passing `Resource.find` empty strings [#307](https://github.com/recurly/recurly-client-ruby/pull/307) ([mctaylorpants](https://github.com/mctaylorpants))
+- Add yard docs link [#305](https://github.com/recurly/recurly-client-ruby/pull/305) ([bhelx](https://github.com/bhelx))
+- Bump 2.7.6 [#297](https://github.com/recurly/recurly-client-ruby/pull/297) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+
+
+## [2.7.8](https://github.com/recurly/recurly-client-ruby/tree/2.7.8) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.6.3...2.7.8)
+
+
+**Merged Pull Requests**
+
+- Fix cloudflare 502 error [#296](https://github.com/recurly/recurly-client-ruby/pull/296) ([bhelx](https://github.com/bhelx))
+- Fix stack-level-too-deep for as_json [#295](https://github.com/recurly/recurly-client-ruby/pull/295) ([bhelx](https://github.com/bhelx))
+- Make the travis badge reflect master only [#290](https://github.com/recurly/recurly-client-ruby/pull/290) ([bhelx](https://github.com/bhelx))
+- adds id attribute to usage [#288](https://github.com/recurly/recurly-client-ruby/pull/288) ([lmnleaf](https://github.com/lmnleaf))
+- Bump 2.7.5 [#287](https://github.com/recurly/recurly-client-ruby/pull/287) ([bhelx](https://github.com/bhelx))
+- Fix redemptions on bulk coupons [#286](https://github.com/recurly/recurly-client-ruby/pull/286) ([bhelx](https://github.com/bhelx))
+- Add timeframe to subscription [#283](https://github.com/recurly/recurly-client-ruby/pull/283) ([bhelx](https://github.com/bhelx))
+- Bump to 2.7.4 [#282](https://github.com/recurly/recurly-client-ruby/pull/282) ([bhelx](https://github.com/bhelx))
+- Add back ruby 1.9.3 and jruby [#279](https://github.com/recurly/recurly-client-ruby/pull/279) ([bhelx](https://github.com/bhelx))
+- Fix AddOn quantity accumulator [#278](https://github.com/recurly/recurly-client-ruby/pull/278) ([bhelx](https://github.com/bhelx))
+- Add new dunning event notification [#277](https://github.com/recurly/recurly-client-ruby/pull/277) ([bhelx](https://github.com/bhelx))
+- Fix failing dependency for ruby 1.9.3 [#276](https://github.com/recurly/recurly-client-ruby/pull/276) ([bhelx](https://github.com/bhelx))
+- Correct rails deprecation warning [#275](https://github.com/recurly/recurly-client-ruby/pull/275) ([jdeseno](https://github.com/jdeseno))
+- Fix redeem bang [#271](https://github.com/recurly/recurly-client-ruby/pull/271) ([sdhull](https://github.com/sdhull))
+- Cleanup code around message interpolation [#268](https://github.com/recurly/recurly-client-ruby/pull/268) ([bhelx](https://github.com/bhelx))
+- removes base from error messages [#267](https://github.com/recurly/recurly-client-ruby/pull/267) ([lmnleaf](https://github.com/lmnleaf))
+- Remove trailing whitespace [#266](https://github.com/recurly/recurly-client-ruby/pull/266) ([bhelx](https://github.com/bhelx))
+- Add support for canceled-at field on the GiftCard resource [#264](https://github.com/recurly/recurly-client-ruby/pull/264) ([cookrn](https://github.com/cookrn))
+- add updated_at to MeasuredUnit [#263](https://github.com/recurly/recurly-client-ruby/pull/263) ([cbarton](https://github.com/cbarton))
+- Add Gift Cards Work & Bump to 2.7.3 [#261](https://github.com/recurly/recurly-client-ruby/pull/261) ([cookrn](https://github.com/cookrn))
+- Bump 2.7.2 [#260](https://github.com/recurly/recurly-client-ruby/pull/260) ([bhelx](https://github.com/bhelx))
+- Support shipping addresses [#259](https://github.com/recurly/recurly-client-ruby/pull/259) ([bhelx](https://github.com/bhelx))
+- Bump 2.7.1 [#258](https://github.com/recurly/recurly-client-ruby/pull/258) ([bhelx](https://github.com/bhelx))
+- Add updated_at fields [#256](https://github.com/recurly/recurly-client-ruby/pull/256) ([bhelx](https://github.com/bhelx))
+- Bump 2.7.0 [#255](https://github.com/recurly/recurly-client-ruby/pull/255) ([bhelx](https://github.com/bhelx))
+- API V2.3 [#253](https://github.com/recurly/recurly-client-ruby/pull/253) ([bhelx](https://github.com/bhelx))
+- Use gemspec instead of gemfile [#240](https://github.com/recurly/recurly-client-ruby/pull/240) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+
+
+## [2.6.3](https://github.com/recurly/recurly-client-ruby/tree/2.6.3) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.5.4...2.6.3)
+
+
+**Merged Pull Requests**
+
+- Bump 2.6.1 [#252](https://github.com/recurly/recurly-client-ruby/pull/252) ([bhelx](https://github.com/bhelx))
+- Fix changed? method missing on hash [#251](https://github.com/recurly/recurly-client-ruby/pull/251) ([bhelx](https://github.com/bhelx))
+- Bump 2.6.0 [#250](https://github.com/recurly/recurly-client-ruby/pull/250) ([bhelx](https://github.com/bhelx))
+- Fix account.address_changed? dirty check [#248](https://github.com/recurly/recurly-client-ruby/pull/248) ([bhelx](https://github.com/bhelx))
+- Add roku attributes to billing_info [#246](https://github.com/recurly/recurly-client-ruby/pull/246) ([adeitrick](https://github.com/adeitrick))
+- Add free_trial_* attrs to coupon resource [#245](https://github.com/recurly/recurly-client-ruby/pull/245) ([eignerchris](https://github.com/eignerchris))
+- Parse Fraud object if it exists [#244](https://github.com/recurly/recurly-client-ruby/pull/244) ([bhelx](https://github.com/bhelx))
+- modify update_attributes method in subscription class [#242](https://github.com/recurly/recurly-client-ruby/pull/242) ([rloomba](https://github.com/rloomba))
+- Remove stray puts in spec [#239](https://github.com/recurly/recurly-client-ruby/pull/239) ([bhelx](https://github.com/bhelx))
+- Bump 2.5.2 [#238](https://github.com/recurly/recurly-client-ruby/pull/238) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+
+
+## [2.5.4](https://github.com/recurly/recurly-client-ruby/tree/2.5.4) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.11...2.5.4)
+
+
+**Merged Pull Requests**
+
+- Usage Based Billing [#237](https://github.com/recurly/recurly-client-ruby/pull/237) ([bhelx](https://github.com/bhelx))
+- Remove autoload and reorder require [#236](https://github.com/recurly/recurly-client-ruby/pull/236) ([pmorton](https://github.com/pmorton))
+- Add more rubies to the testing matrix [#234](https://github.com/recurly/recurly-client-ruby/pull/234) ([pmorton](https://github.com/pmorton))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+
+
+## [2.4.11](https://github.com/recurly/recurly-client-ruby/tree/2.4.11) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.3.10...2.4.11)
+
+
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot update subscription add-ons [#203](https://github.com/recurly/recurly-client-ruby/issues/203)
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+
+
+## [2.3.10](https://github.com/recurly/recurly-client-ruby/tree/2.3.10) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.2.5...2.3.10)
+
+
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot update subscription add-ons [#203](https://github.com/recurly/recurly-client-ruby/issues/203)
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+- Creating a subscription with invalid infos does not seem to raise an error [#162](https://github.com/recurly/recurly-client-ruby/issues/162)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- Missing remaining_billing_cycles in Subscription object [#141](https://github.com/recurly/recurly-client-ruby/issues/141)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- add CONTRIBUTING.md [#123](https://github.com/recurly/recurly-client-ruby/issues/123)
+- missing subscription getters [#115](https://github.com/recurly/recurly-client-ruby/issues/115)
+- Missing add_on "accounting_code" getter method [#114](https://github.com/recurly/recurly-client-ruby/issues/114)
+- Can't access account subscriptions if account code contains a space character (' ') [#110](https://github.com/recurly/recurly-client-ruby/issues/110)
+- line_item_product_code [#100](https://github.com/recurly/recurly-client-ruby/issues/100)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+
+
+## [2.2.5](https://github.com/recurly/recurly-client-ruby/tree/2.2.5) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.1.11...2.2.5)
+
+
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot update subscription add-ons [#203](https://github.com/recurly/recurly-client-ruby/issues/203)
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+- Creating a subscription with invalid infos does not seem to raise an error [#162](https://github.com/recurly/recurly-client-ruby/issues/162)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- Missing remaining_billing_cycles in Subscription object [#141](https://github.com/recurly/recurly-client-ruby/issues/141)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- add CONTRIBUTING.md [#123](https://github.com/recurly/recurly-client-ruby/issues/123)
+- Resource#valid? Throws NoMethodError [#119](https://github.com/recurly/recurly-client-ruby/issues/119)
+- Account reload #=> Resource not Found [#118](https://github.com/recurly/recurly-client-ruby/issues/118)
+- .find_each throws Timeout::Error on the last page [#117](https://github.com/recurly/recurly-client-ruby/issues/117)
+- missing subscription getters [#115](https://github.com/recurly/recurly-client-ruby/issues/115)
+- Missing add_on "accounting_code" getter method [#114](https://github.com/recurly/recurly-client-ruby/issues/114)
+- Can't access account subscriptions if account code contains a space character (' ') [#110](https://github.com/recurly/recurly-client-ruby/issues/110)
+- Docs say to set Recurly.subdomain but it does not exist on the module [#105](https://github.com/recurly/recurly-client-ruby/issues/105)
+- line_item_product_code [#100](https://github.com/recurly/recurly-client-ruby/issues/100)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Canceling a subscription returns false without any attached errors [#98](https://github.com/recurly/recurly-client-ruby/issues/98)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+
+
+## [2.1.11](https://github.com/recurly/recurly-client-ruby/tree/2.1.11) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.0.13...2.1.11)
+
+
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot update subscription add-ons [#203](https://github.com/recurly/recurly-client-ruby/issues/203)
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+- Creating a subscription with invalid infos does not seem to raise an error [#162](https://github.com/recurly/recurly-client-ruby/issues/162)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- Missing remaining_billing_cycles in Subscription object [#141](https://github.com/recurly/recurly-client-ruby/issues/141)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- add CONTRIBUTING.md [#123](https://github.com/recurly/recurly-client-ruby/issues/123)
+- Resource#valid? Throws NoMethodError [#119](https://github.com/recurly/recurly-client-ruby/issues/119)
+- Account reload #=> Resource not Found [#118](https://github.com/recurly/recurly-client-ruby/issues/118)
+- .find_each throws Timeout::Error on the last page [#117](https://github.com/recurly/recurly-client-ruby/issues/117)
+- missing subscription getters [#115](https://github.com/recurly/recurly-client-ruby/issues/115)
+- Missing add_on "accounting_code" getter method [#114](https://github.com/recurly/recurly-client-ruby/issues/114)
+- Can't access account subscriptions if account code contains a space character (' ') [#110](https://github.com/recurly/recurly-client-ruby/issues/110)
+- Docs say to set Recurly.subdomain but it does not exist on the module [#105](https://github.com/recurly/recurly-client-ruby/issues/105)
+- line_item_product_code [#100](https://github.com/recurly/recurly-client-ruby/issues/100)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Canceling a subscription returns false without any attached errors [#98](https://github.com/recurly/recurly-client-ruby/issues/98)
+- undefined method `empty?` for nil:NilClass [#94](https://github.com/recurly/recurly-client-ruby/issues/94)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+- Recurly::Account.find -- error on account codes containing spaces [#92](https://github.com/recurly/recurly-client-ruby/issues/92)
+- Can't set description on Coupon [#90](https://github.com/recurly/recurly-client-ruby/issues/90)
+- Doc updates for http://docs.recurly.com/api/plans [#89](https://github.com/recurly/recurly-client-ruby/issues/89)
+- Problem creating subscription with SubscriptionAddOn objects  [#85](https://github.com/recurly/recurly-client-ruby/issues/85)
+- Subscription add-ons caching prevents updating add-ons [#84](https://github.com/recurly/recurly-client-ruby/issues/84)
+- Pending subscription no longer a Subscription object. [#83](https://github.com/recurly/recurly-client-ruby/issues/83)
+- Marshalling objects [#81](https://github.com/recurly/recurly-client-ruby/issues/81)
+- Error getting an account's transactions [#80](https://github.com/recurly/recurly-client-ruby/issues/80)
+- Better expose transaction errors [#79](https://github.com/recurly/recurly-client-ruby/issues/79)
+- Changelog [#77](https://github.com/recurly/recurly-client-ruby/issues/77)
+- 1.9.3 scoping issue [#76](https://github.com/recurly/recurly-client-ruby/issues/76)
+- Subscription creation fails with a valid coupon_code parameter [#75](https://github.com/recurly/recurly-client-ruby/issues/75)
+- Subscription#all does not return all records as expected, only the first page [#71](https://github.com/recurly/recurly-client-ruby/issues/71)
+- Problem with Addons [#70](https://github.com/recurly/recurly-client-ruby/issues/70)
+- undefined method `from_xml' when retrieving existing Account [#66](https://github.com/recurly/recurly-client-ruby/issues/66)
+- NoMethodError: undefined method `strip' for nil:NilClass [#64](https://github.com/recurly/recurly-client-ruby/issues/64)
+- Updating a Subscription's Add Ons [#63](https://github.com/recurly/recurly-client-ruby/issues/63)
+- Support For Transparent Post [#61](https://github.com/recurly/recurly-client-ruby/issues/61)
+- Invalid signature generated when including add_ons [#60](https://github.com/recurly/recurly-client-ruby/issues/60)
+- BillingInfo::New [#58](https://github.com/recurly/recurly-client-ruby/issues/58)
+- undefined method `sign_subscription' for Recurly.js:Module [#56](https://github.com/recurly/recurly-client-ruby/issues/56)
+
+
+## [2.0.13](https://github.com/recurly/recurly-client-ruby/tree/2.0.13) (2017-11-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.11.2...2.0.13)
+
+
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot update subscription add-ons [#203](https://github.com/recurly/recurly-client-ruby/issues/203)
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+- Creating a subscription with invalid infos does not seem to raise an error [#162](https://github.com/recurly/recurly-client-ruby/issues/162)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- Missing remaining_billing_cycles in Subscription object [#141](https://github.com/recurly/recurly-client-ruby/issues/141)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- add CONTRIBUTING.md [#123](https://github.com/recurly/recurly-client-ruby/issues/123)
+- Resource#valid? Throws NoMethodError [#119](https://github.com/recurly/recurly-client-ruby/issues/119)
+- Account reload #=> Resource not Found [#118](https://github.com/recurly/recurly-client-ruby/issues/118)
+- .find_each throws Timeout::Error on the last page [#117](https://github.com/recurly/recurly-client-ruby/issues/117)
+- missing subscription getters [#115](https://github.com/recurly/recurly-client-ruby/issues/115)
+- Missing add_on "accounting_code" getter method [#114](https://github.com/recurly/recurly-client-ruby/issues/114)
+- Can't access account subscriptions if account code contains a space character (' ') [#110](https://github.com/recurly/recurly-client-ruby/issues/110)
+- Docs say to set Recurly.subdomain but it does not exist on the module [#105](https://github.com/recurly/recurly-client-ruby/issues/105)
+- line_item_product_code [#100](https://github.com/recurly/recurly-client-ruby/issues/100)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Canceling a subscription returns false without any attached errors [#98](https://github.com/recurly/recurly-client-ruby/issues/98)
+- undefined method `empty?` for nil:NilClass [#94](https://github.com/recurly/recurly-client-ruby/issues/94)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+- Recurly::Account.find -- error on account codes containing spaces [#92](https://github.com/recurly/recurly-client-ruby/issues/92)
+- Can't set description on Coupon [#90](https://github.com/recurly/recurly-client-ruby/issues/90)
+- Doc updates for http://docs.recurly.com/api/plans [#89](https://github.com/recurly/recurly-client-ruby/issues/89)
+- Problem creating subscription with SubscriptionAddOn objects  [#85](https://github.com/recurly/recurly-client-ruby/issues/85)
+- Subscription add-ons caching prevents updating add-ons [#84](https://github.com/recurly/recurly-client-ruby/issues/84)
+- Pending subscription no longer a Subscription object. [#83](https://github.com/recurly/recurly-client-ruby/issues/83)
+- Marshalling objects [#81](https://github.com/recurly/recurly-client-ruby/issues/81)
+- Error getting an account's transactions [#80](https://github.com/recurly/recurly-client-ruby/issues/80)
+- Better expose transaction errors [#79](https://github.com/recurly/recurly-client-ruby/issues/79)
+- Changelog [#77](https://github.com/recurly/recurly-client-ruby/issues/77)
+- 1.9.3 scoping issue [#76](https://github.com/recurly/recurly-client-ruby/issues/76)
+- Subscription creation fails with a valid coupon_code parameter [#75](https://github.com/recurly/recurly-client-ruby/issues/75)
+- Subscription#all does not return all records as expected, only the first page [#71](https://github.com/recurly/recurly-client-ruby/issues/71)
+- Problem with Addons [#70](https://github.com/recurly/recurly-client-ruby/issues/70)
+- undefined method `from_xml' when retrieving existing Account [#66](https://github.com/recurly/recurly-client-ruby/issues/66)
+- NoMethodError: undefined method `strip' for nil:NilClass [#64](https://github.com/recurly/recurly-client-ruby/issues/64)
+- Updating a Subscription's Add Ons [#63](https://github.com/recurly/recurly-client-ruby/issues/63)
+- Support For Transparent Post [#61](https://github.com/recurly/recurly-client-ruby/issues/61)
+- Invalid signature generated when including add_ons [#60](https://github.com/recurly/recurly-client-ruby/issues/60)
+- BillingInfo::New [#58](https://github.com/recurly/recurly-client-ruby/issues/58)
+- undefined method `sign_subscription' for Recurly.js:Module [#56](https://github.com/recurly/recurly-client-ruby/issues/56)
+- Subscription cannot be created on account if no subscriptions exist [#54](https://github.com/recurly/recurly-client-ruby/issues/54)
+
+
+## [2.11.2](https://github.com/recurly/recurly-client-ruby/tree/2.11.2) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.10.3...2.11.2)
+
+
+**Merged Pull Requests**
+
+- Try to fix the jruby specs [#345](https://github.com/recurly/recurly-client-ruby/pull/345) ([drewish](https://github.com/drewish))
+- Bump 2.11.1 [#343](https://github.com/recurly/recurly-client-ruby/pull/343) ([bhelx](https://github.com/bhelx))
+- Add subscriptions link to Invoice and Transaction [#342](https://github.com/recurly/recurly-client-ruby/pull/342) ([bhelx](https://github.com/bhelx))
+- Bump 2.11.0, API Version 2.8 [#341](https://github.com/recurly/recurly-client-ruby/pull/341) ([bhelx](https://github.com/bhelx))
+- Add custom invoice notes [#340](https://github.com/recurly/recurly-client-ruby/pull/340) ([bhelx](https://github.com/bhelx))
+- Fix Subscription constructor API breakage [#339](https://github.com/recurly/recurly-client-ruby/pull/339) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+
+
+## [2.10.3](https://github.com/recurly/recurly-client-ruby/tree/2.10.3) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.9.1...2.10.3)
+
+
+**Merged Pull Requests**
+
+- Show timeout configurations in README [#337](https://github.com/recurly/recurly-client-ruby/pull/337) ([bhelx](https://github.com/bhelx))
+- Bump 2.10.1 [#333](https://github.com/recurly/recurly-client-ruby/pull/333) ([bhelx](https://github.com/bhelx))
+- Bumps to API version 2.7 [#332](https://github.com/recurly/recurly-client-ruby/pull/332) ([bhelx](https://github.com/bhelx))
+- Remove unused code [#331](https://github.com/recurly/recurly-client-ruby/pull/331) ([bhelx](https://github.com/bhelx))
+- "address" was being singularized as "addres" [#330](https://github.com/recurly/recurly-client-ruby/pull/330) ([bhelx](https://github.com/bhelx))
+- Removes Plan#trial_requires_billing_info coercion [#329](https://github.com/recurly/recurly-client-ruby/pull/329) ([bhelx](https://github.com/bhelx))
+- Updating the yardocs [#328](https://github.com/recurly/recurly-client-ruby/pull/328) ([bhelx](https://github.com/bhelx))
+- Added updated_account_notification handling [#326](https://github.com/recurly/recurly-client-ruby/pull/326) ([levlozhkin](https://github.com/levlozhkin))
+- Bump v 2.10.0 [#325](https://github.com/recurly/recurly-client-ruby/pull/325) ([bhelx](https://github.com/bhelx))
+- Remove X-Records header parsing [#324](https://github.com/recurly/recurly-client-ruby/pull/324) ([bhelx](https://github.com/bhelx))
+- Upgrade rake removing Fixnum warnings [#323](https://github.com/recurly/recurly-client-ruby/pull/323) ([bhelx](https://github.com/bhelx))
+- resource_class option should be class_name and other mislabeled options [#321](https://github.com/recurly/recurly-client-ruby/pull/321) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+
+
+## [2.9.1](https://github.com/recurly/recurly-client-ruby/tree/2.9.1) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.8.1...2.9.1)
+
+
+**Merged Pull Requests**
+
+- Bump 2.9.0 [#320](https://github.com/recurly/recurly-client-ruby/pull/320) ([bhelx](https://github.com/bhelx))
+- Add sort and filter params to Pager rubydocs [#318](https://github.com/recurly/recurly-client-ruby/pull/318) ([bhelx](https://github.com/bhelx))
+- Ban nokogiri on dead rubies [#317](https://github.com/recurly/recurly-client-ruby/pull/317) ([bhelx](https://github.com/bhelx))
+- Fix partial address update bug [#315](https://github.com/recurly/recurly-client-ruby/pull/315) ([bhelx](https://github.com/bhelx))
+- Upgrade webmock so specs can run in 2.4.x [#314](https://github.com/recurly/recurly-client-ruby/pull/314) ([bhelx](https://github.com/bhelx))
+- Move nokogiri to a development dependency [#302](https://github.com/recurly/recurly-client-ruby/pull/302) ([carlosantoniodasilva](https://github.com/carlosantoniodasilva))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+
+
+## [2.8.1](https://github.com/recurly/recurly-client-ruby/tree/2.8.1) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.7.7...2.8.1)
+
+
+**Merged Pull Requests**
+
+- Fix jruby+nokogiri failure on comments [#312](https://github.com/recurly/recurly-client-ruby/pull/312) ([bhelx](https://github.com/bhelx))
+- Bump 2.8.0 [#311](https://github.com/recurly/recurly-client-ruby/pull/311) ([bhelx](https://github.com/bhelx))
+- API 2.5 Changes [#310](https://github.com/recurly/recurly-client-ruby/pull/310) ([bhelx](https://github.com/bhelx))
+- Guard against passing `Resource.find` empty strings [#307](https://github.com/recurly/recurly-client-ruby/pull/307) ([mctaylorpants](https://github.com/mctaylorpants))
+- Add yard docs link [#305](https://github.com/recurly/recurly-client-ruby/pull/305) ([bhelx](https://github.com/bhelx))
+- Bump 2.7.6 [#297](https://github.com/recurly/recurly-client-ruby/pull/297) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+
+
+## [2.7.7](https://github.com/recurly/recurly-client-ruby/tree/2.7.7) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.6.2...2.7.7)
+
+
+**Merged Pull Requests**
+
+- Fix cloudflare 502 error [#296](https://github.com/recurly/recurly-client-ruby/pull/296) ([bhelx](https://github.com/bhelx))
+- Fix stack-level-too-deep for as_json [#295](https://github.com/recurly/recurly-client-ruby/pull/295) ([bhelx](https://github.com/bhelx))
+- Make the travis badge reflect master only [#290](https://github.com/recurly/recurly-client-ruby/pull/290) ([bhelx](https://github.com/bhelx))
+- adds id attribute to usage [#288](https://github.com/recurly/recurly-client-ruby/pull/288) ([lmnleaf](https://github.com/lmnleaf))
+- Bump 2.7.5 [#287](https://github.com/recurly/recurly-client-ruby/pull/287) ([bhelx](https://github.com/bhelx))
+- Fix redemptions on bulk coupons [#286](https://github.com/recurly/recurly-client-ruby/pull/286) ([bhelx](https://github.com/bhelx))
+- Add timeframe to subscription [#283](https://github.com/recurly/recurly-client-ruby/pull/283) ([bhelx](https://github.com/bhelx))
+- Bump to 2.7.4 [#282](https://github.com/recurly/recurly-client-ruby/pull/282) ([bhelx](https://github.com/bhelx))
+- Add back ruby 1.9.3 and jruby [#279](https://github.com/recurly/recurly-client-ruby/pull/279) ([bhelx](https://github.com/bhelx))
+- Fix AddOn quantity accumulator [#278](https://github.com/recurly/recurly-client-ruby/pull/278) ([bhelx](https://github.com/bhelx))
+- Add new dunning event notification [#277](https://github.com/recurly/recurly-client-ruby/pull/277) ([bhelx](https://github.com/bhelx))
+- Fix failing dependency for ruby 1.9.3 [#276](https://github.com/recurly/recurly-client-ruby/pull/276) ([bhelx](https://github.com/bhelx))
+- Correct rails deprecation warning [#275](https://github.com/recurly/recurly-client-ruby/pull/275) ([jdeseno](https://github.com/jdeseno))
+- Fix redeem bang [#271](https://github.com/recurly/recurly-client-ruby/pull/271) ([sdhull](https://github.com/sdhull))
+- Cleanup code around message interpolation [#268](https://github.com/recurly/recurly-client-ruby/pull/268) ([bhelx](https://github.com/bhelx))
+- removes base from error messages [#267](https://github.com/recurly/recurly-client-ruby/pull/267) ([lmnleaf](https://github.com/lmnleaf))
+- Remove trailing whitespace [#266](https://github.com/recurly/recurly-client-ruby/pull/266) ([bhelx](https://github.com/bhelx))
+- Add support for canceled-at field on the GiftCard resource [#264](https://github.com/recurly/recurly-client-ruby/pull/264) ([cookrn](https://github.com/cookrn))
+- add updated_at to MeasuredUnit [#263](https://github.com/recurly/recurly-client-ruby/pull/263) ([cbarton](https://github.com/cbarton))
+- Add Gift Cards Work & Bump to 2.7.3 [#261](https://github.com/recurly/recurly-client-ruby/pull/261) ([cookrn](https://github.com/cookrn))
+- Bump 2.7.2 [#260](https://github.com/recurly/recurly-client-ruby/pull/260) ([bhelx](https://github.com/bhelx))
+- Support shipping addresses [#259](https://github.com/recurly/recurly-client-ruby/pull/259) ([bhelx](https://github.com/bhelx))
+- Bump 2.7.1 [#258](https://github.com/recurly/recurly-client-ruby/pull/258) ([bhelx](https://github.com/bhelx))
+- Add updated_at fields [#256](https://github.com/recurly/recurly-client-ruby/pull/256) ([bhelx](https://github.com/bhelx))
+- Bump 2.7.0 [#255](https://github.com/recurly/recurly-client-ruby/pull/255) ([bhelx](https://github.com/bhelx))
+- API V2.3 [#253](https://github.com/recurly/recurly-client-ruby/pull/253) ([bhelx](https://github.com/bhelx))
+- Use gemspec instead of gemfile [#240](https://github.com/recurly/recurly-client-ruby/pull/240) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+
+
+## [2.6.2](https://github.com/recurly/recurly-client-ruby/tree/2.6.2) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.5.3...2.6.2)
+
+
+**Merged Pull Requests**
+
+- Bump 2.6.1 [#252](https://github.com/recurly/recurly-client-ruby/pull/252) ([bhelx](https://github.com/bhelx))
+- Fix changed? method missing on hash [#251](https://github.com/recurly/recurly-client-ruby/pull/251) ([bhelx](https://github.com/bhelx))
+- Bump 2.6.0 [#250](https://github.com/recurly/recurly-client-ruby/pull/250) ([bhelx](https://github.com/bhelx))
+- Fix account.address_changed? dirty check [#248](https://github.com/recurly/recurly-client-ruby/pull/248) ([bhelx](https://github.com/bhelx))
+- Add roku attributes to billing_info [#246](https://github.com/recurly/recurly-client-ruby/pull/246) ([adeitrick](https://github.com/adeitrick))
+- Add free_trial_* attrs to coupon resource [#245](https://github.com/recurly/recurly-client-ruby/pull/245) ([eignerchris](https://github.com/eignerchris))
+- Parse Fraud object if it exists [#244](https://github.com/recurly/recurly-client-ruby/pull/244) ([bhelx](https://github.com/bhelx))
+- modify update_attributes method in subscription class [#242](https://github.com/recurly/recurly-client-ruby/pull/242) ([rloomba](https://github.com/rloomba))
+- Remove stray puts in spec [#239](https://github.com/recurly/recurly-client-ruby/pull/239) ([bhelx](https://github.com/bhelx))
+- Bump 2.5.2 [#238](https://github.com/recurly/recurly-client-ruby/pull/238) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+
+
+## [2.5.3](https://github.com/recurly/recurly-client-ruby/tree/2.5.3) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.10...2.5.3)
+
+
+**Merged Pull Requests**
+
+- Usage Based Billing [#237](https://github.com/recurly/recurly-client-ruby/pull/237) ([bhelx](https://github.com/bhelx))
+- Remove autoload and reorder require [#236](https://github.com/recurly/recurly-client-ruby/pull/236) ([pmorton](https://github.com/pmorton))
+- Add more rubies to the testing matrix [#234](https://github.com/recurly/recurly-client-ruby/pull/234) ([pmorton](https://github.com/pmorton))
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+
+
+## [2.4.10](https://github.com/recurly/recurly-client-ruby/tree/2.4.10) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.3.9...2.4.10)
+
+
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot update subscription add-ons [#203](https://github.com/recurly/recurly-client-ruby/issues/203)
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+
+
+## [2.3.9](https://github.com/recurly/recurly-client-ruby/tree/2.3.9) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.2.4...2.3.9)
+
+
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot update subscription add-ons [#203](https://github.com/recurly/recurly-client-ruby/issues/203)
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+- Creating a subscription with invalid infos does not seem to raise an error [#162](https://github.com/recurly/recurly-client-ruby/issues/162)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- Missing remaining_billing_cycles in Subscription object [#141](https://github.com/recurly/recurly-client-ruby/issues/141)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- add CONTRIBUTING.md [#123](https://github.com/recurly/recurly-client-ruby/issues/123)
+- missing subscription getters [#115](https://github.com/recurly/recurly-client-ruby/issues/115)
+- Missing add_on "accounting_code" getter method [#114](https://github.com/recurly/recurly-client-ruby/issues/114)
+- Can't access account subscriptions if account code contains a space character (' ') [#110](https://github.com/recurly/recurly-client-ruby/issues/110)
+- line_item_product_code [#100](https://github.com/recurly/recurly-client-ruby/issues/100)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+
+
+## [2.2.4](https://github.com/recurly/recurly-client-ruby/tree/2.2.4) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.1.10...2.2.4)
+
+
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot update subscription add-ons [#203](https://github.com/recurly/recurly-client-ruby/issues/203)
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+- Creating a subscription with invalid infos does not seem to raise an error [#162](https://github.com/recurly/recurly-client-ruby/issues/162)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- Missing remaining_billing_cycles in Subscription object [#141](https://github.com/recurly/recurly-client-ruby/issues/141)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- add CONTRIBUTING.md [#123](https://github.com/recurly/recurly-client-ruby/issues/123)
+- Resource#valid? Throws NoMethodError [#119](https://github.com/recurly/recurly-client-ruby/issues/119)
+- Account reload #=> Resource not Found [#118](https://github.com/recurly/recurly-client-ruby/issues/118)
+- .find_each throws Timeout::Error on the last page [#117](https://github.com/recurly/recurly-client-ruby/issues/117)
+- missing subscription getters [#115](https://github.com/recurly/recurly-client-ruby/issues/115)
+- Missing add_on "accounting_code" getter method [#114](https://github.com/recurly/recurly-client-ruby/issues/114)
+- Can't access account subscriptions if account code contains a space character (' ') [#110](https://github.com/recurly/recurly-client-ruby/issues/110)
+- Docs say to set Recurly.subdomain but it does not exist on the module [#105](https://github.com/recurly/recurly-client-ruby/issues/105)
+- line_item_product_code [#100](https://github.com/recurly/recurly-client-ruby/issues/100)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Canceling a subscription returns false without any attached errors [#98](https://github.com/recurly/recurly-client-ruby/issues/98)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+
+
+## [2.1.10](https://github.com/recurly/recurly-client-ruby/tree/2.1.10) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.0.12...2.1.10)
+
+
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot update subscription add-ons [#203](https://github.com/recurly/recurly-client-ruby/issues/203)
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+- Creating a subscription with invalid infos does not seem to raise an error [#162](https://github.com/recurly/recurly-client-ruby/issues/162)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- Missing remaining_billing_cycles in Subscription object [#141](https://github.com/recurly/recurly-client-ruby/issues/141)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- add CONTRIBUTING.md [#123](https://github.com/recurly/recurly-client-ruby/issues/123)
+- Resource#valid? Throws NoMethodError [#119](https://github.com/recurly/recurly-client-ruby/issues/119)
+- Account reload #=> Resource not Found [#118](https://github.com/recurly/recurly-client-ruby/issues/118)
+- .find_each throws Timeout::Error on the last page [#117](https://github.com/recurly/recurly-client-ruby/issues/117)
+- missing subscription getters [#115](https://github.com/recurly/recurly-client-ruby/issues/115)
+- Missing add_on "accounting_code" getter method [#114](https://github.com/recurly/recurly-client-ruby/issues/114)
+- Can't access account subscriptions if account code contains a space character (' ') [#110](https://github.com/recurly/recurly-client-ruby/issues/110)
+- Docs say to set Recurly.subdomain but it does not exist on the module [#105](https://github.com/recurly/recurly-client-ruby/issues/105)
+- line_item_product_code [#100](https://github.com/recurly/recurly-client-ruby/issues/100)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Canceling a subscription returns false without any attached errors [#98](https://github.com/recurly/recurly-client-ruby/issues/98)
+- undefined method `empty?` for nil:NilClass [#94](https://github.com/recurly/recurly-client-ruby/issues/94)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+- Recurly::Account.find -- error on account codes containing spaces [#92](https://github.com/recurly/recurly-client-ruby/issues/92)
+- Can't set description on Coupon [#90](https://github.com/recurly/recurly-client-ruby/issues/90)
+- Doc updates for http://docs.recurly.com/api/plans [#89](https://github.com/recurly/recurly-client-ruby/issues/89)
+- Problem creating subscription with SubscriptionAddOn objects  [#85](https://github.com/recurly/recurly-client-ruby/issues/85)
+- Subscription add-ons caching prevents updating add-ons [#84](https://github.com/recurly/recurly-client-ruby/issues/84)
+- Pending subscription no longer a Subscription object. [#83](https://github.com/recurly/recurly-client-ruby/issues/83)
+- Marshalling objects [#81](https://github.com/recurly/recurly-client-ruby/issues/81)
+- Error getting an account's transactions [#80](https://github.com/recurly/recurly-client-ruby/issues/80)
+- Better expose transaction errors [#79](https://github.com/recurly/recurly-client-ruby/issues/79)
+- Changelog [#77](https://github.com/recurly/recurly-client-ruby/issues/77)
+- 1.9.3 scoping issue [#76](https://github.com/recurly/recurly-client-ruby/issues/76)
+- Subscription creation fails with a valid coupon_code parameter [#75](https://github.com/recurly/recurly-client-ruby/issues/75)
+- Subscription#all does not return all records as expected, only the first page [#71](https://github.com/recurly/recurly-client-ruby/issues/71)
+- Problem with Addons [#70](https://github.com/recurly/recurly-client-ruby/issues/70)
+- undefined method `from_xml' when retrieving existing Account [#66](https://github.com/recurly/recurly-client-ruby/issues/66)
+- NoMethodError: undefined method `strip' for nil:NilClass [#64](https://github.com/recurly/recurly-client-ruby/issues/64)
+- Updating a Subscription's Add Ons [#63](https://github.com/recurly/recurly-client-ruby/issues/63)
+- Support For Transparent Post [#61](https://github.com/recurly/recurly-client-ruby/issues/61)
+- Invalid signature generated when including add_ons [#60](https://github.com/recurly/recurly-client-ruby/issues/60)
+- BillingInfo::New [#58](https://github.com/recurly/recurly-client-ruby/issues/58)
+- undefined method `sign_subscription' for Recurly.js:Module [#56](https://github.com/recurly/recurly-client-ruby/issues/56)
+
+
+## [2.0.12](https://github.com/recurly/recurly-client-ruby/tree/2.0.12) (2017-11-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.11.1...2.0.12)
+
+
+
+**Closed Issues**
+
+- Currency now required on Subscriptions [#338](https://github.com/recurly/recurly-client-ruby/issues/338)
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+- On new plan unit_amount_in_cents and set_up_fee_in_cents doesn't work [#304](https://github.com/recurly/recurly-client-ruby/issues/304)
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+- Recurly::Subscription  `starts_at` support [#262](https://github.com/recurly/recurly-client-ruby/issues/262)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+- Cannot update subscription add-ons [#203](https://github.com/recurly/recurly-client-ruby/issues/203)
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Cannot create first plan addon [#200](https://github.com/recurly/recurly-client-ruby/issues/200)
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+- Creating a subscription with invalid infos does not seem to raise an error [#162](https://github.com/recurly/recurly-client-ruby/issues/162)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- Missing remaining_billing_cycles in Subscription object [#141](https://github.com/recurly/recurly-client-ruby/issues/141)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- add CONTRIBUTING.md [#123](https://github.com/recurly/recurly-client-ruby/issues/123)
+- Resource#valid? Throws NoMethodError [#119](https://github.com/recurly/recurly-client-ruby/issues/119)
+- Account reload #=> Resource not Found [#118](https://github.com/recurly/recurly-client-ruby/issues/118)
+- .find_each throws Timeout::Error on the last page [#117](https://github.com/recurly/recurly-client-ruby/issues/117)
+- missing subscription getters [#115](https://github.com/recurly/recurly-client-ruby/issues/115)
+- Missing add_on "accounting_code" getter method [#114](https://github.com/recurly/recurly-client-ruby/issues/114)
+- Can't access account subscriptions if account code contains a space character (' ') [#110](https://github.com/recurly/recurly-client-ruby/issues/110)
+- Docs say to set Recurly.subdomain but it does not exist on the module [#105](https://github.com/recurly/recurly-client-ruby/issues/105)
+- line_item_product_code [#100](https://github.com/recurly/recurly-client-ruby/issues/100)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Canceling a subscription returns false without any attached errors [#98](https://github.com/recurly/recurly-client-ruby/issues/98)
+- undefined method `empty?` for nil:NilClass [#94](https://github.com/recurly/recurly-client-ruby/issues/94)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+- Recurly::Account.find -- error on account codes containing spaces [#92](https://github.com/recurly/recurly-client-ruby/issues/92)
+- Can't set description on Coupon [#90](https://github.com/recurly/recurly-client-ruby/issues/90)
+- Doc updates for http://docs.recurly.com/api/plans [#89](https://github.com/recurly/recurly-client-ruby/issues/89)
+- Problem creating subscription with SubscriptionAddOn objects  [#85](https://github.com/recurly/recurly-client-ruby/issues/85)
+- Subscription add-ons caching prevents updating add-ons [#84](https://github.com/recurly/recurly-client-ruby/issues/84)
+- Pending subscription no longer a Subscription object. [#83](https://github.com/recurly/recurly-client-ruby/issues/83)
+- Marshalling objects [#81](https://github.com/recurly/recurly-client-ruby/issues/81)
+- Error getting an account's transactions [#80](https://github.com/recurly/recurly-client-ruby/issues/80)
+- Better expose transaction errors [#79](https://github.com/recurly/recurly-client-ruby/issues/79)
+- Changelog [#77](https://github.com/recurly/recurly-client-ruby/issues/77)
+- 1.9.3 scoping issue [#76](https://github.com/recurly/recurly-client-ruby/issues/76)
+- Subscription creation fails with a valid coupon_code parameter [#75](https://github.com/recurly/recurly-client-ruby/issues/75)
+- Subscription#all does not return all records as expected, only the first page [#71](https://github.com/recurly/recurly-client-ruby/issues/71)
+- Problem with Addons [#70](https://github.com/recurly/recurly-client-ruby/issues/70)
+- undefined method `from_xml' when retrieving existing Account [#66](https://github.com/recurly/recurly-client-ruby/issues/66)
+- NoMethodError: undefined method `strip' for nil:NilClass [#64](https://github.com/recurly/recurly-client-ruby/issues/64)
+- Updating a Subscription's Add Ons [#63](https://github.com/recurly/recurly-client-ruby/issues/63)
+- Support For Transparent Post [#61](https://github.com/recurly/recurly-client-ruby/issues/61)
+- Invalid signature generated when including add_ons [#60](https://github.com/recurly/recurly-client-ruby/issues/60)
+- BillingInfo::New [#58](https://github.com/recurly/recurly-client-ruby/issues/58)
+- undefined method `sign_subscription' for Recurly.js:Module [#56](https://github.com/recurly/recurly-client-ruby/issues/56)
+- Subscription cannot be created on account if no subscriptions exist [#54](https://github.com/recurly/recurly-client-ruby/issues/54)
+
+
+## [2.11.1](https://github.com/recurly/recurly-client-ruby/tree/2.11.1) (2017-10-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.11.0...2.11.1)
+
+
+**Merged Pull Requests**
+
+- Bump 2.11.1 [#343](https://github.com/recurly/recurly-client-ruby/pull/343) ([bhelx](https://github.com/bhelx))
+- Add subscriptions link to Invoice and Transaction [#342](https://github.com/recurly/recurly-client-ruby/pull/342) ([bhelx](https://github.com/bhelx))
+
+
+
+## [2.11.0](https://github.com/recurly/recurly-client-ruby/tree/2.11.0) (2017-10-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.10.2...2.11.0)
+
+
+**Merged Pull Requests**
+
+- Bump 2.11.0, API Version 2.8 [#341](https://github.com/recurly/recurly-client-ruby/pull/341) ([bhelx](https://github.com/bhelx))
+- Add custom invoice notes [#340](https://github.com/recurly/recurly-client-ruby/pull/340) ([bhelx](https://github.com/bhelx))
+
+
+
+## [2.10.2](https://github.com/recurly/recurly-client-ruby/tree/2.10.2) (2017-09-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.10.1...2.10.2)
+
+
+**Merged Pull Requests**
+
+- Fix Subscription constructor API breakage [#339](https://github.com/recurly/recurly-client-ruby/pull/339) ([bhelx](https://github.com/bhelx))
+- Show timeout configurations in README [#337](https://github.com/recurly/recurly-client-ruby/pull/337) ([bhelx](https://github.com/bhelx))
+- Remove unused code [#331](https://github.com/recurly/recurly-client-ruby/pull/331) ([bhelx](https://github.com/bhelx))
+- Updating the yardocs [#328](https://github.com/recurly/recurly-client-ruby/pull/328) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Getting Exception back when creating subscription from token (Ruby) [#335](https://github.com/recurly/recurly-client-ruby/issues/335)
+
+
+## [2.10.1](https://github.com/recurly/recurly-client-ruby/tree/2.10.1) (2017-07-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.10.0...2.10.1)
+
+
+**Merged Pull Requests**
+
+- Bump 2.10.1 [#333](https://github.com/recurly/recurly-client-ruby/pull/333) ([bhelx](https://github.com/bhelx))
+- Bumps to API version 2.7 [#332](https://github.com/recurly/recurly-client-ruby/pull/332) ([bhelx](https://github.com/bhelx))
+- "address" was being singularized as "addres" [#330](https://github.com/recurly/recurly-client-ruby/pull/330) ([bhelx](https://github.com/bhelx))
+- Removes Plan#trial_requires_billing_info coercion [#329](https://github.com/recurly/recurly-client-ruby/pull/329) ([bhelx](https://github.com/bhelx))
+- Added updated_account_notification handling [#326](https://github.com/recurly/recurly-client-ruby/pull/326) ([levlozhkin](https://github.com/levlozhkin))
+
+
+
+## [2.10.0](https://github.com/recurly/recurly-client-ruby/tree/2.10.0) (2017-05-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.9.0...2.10.0)
+
+
+**Merged Pull Requests**
+
+- Bump v 2.10.0 [#325](https://github.com/recurly/recurly-client-ruby/pull/325) ([bhelx](https://github.com/bhelx))
+- Remove X-Records header parsing [#324](https://github.com/recurly/recurly-client-ruby/pull/324) ([bhelx](https://github.com/bhelx))
+- Upgrade rake removing Fixnum warnings [#323](https://github.com/recurly/recurly-client-ruby/pull/323) ([bhelx](https://github.com/bhelx))
+- resource_class option should be class_name and other mislabeled options [#321](https://github.com/recurly/recurly-client-ruby/pull/321) ([bhelx](https://github.com/bhelx))
+
+
+
+## [2.9.0](https://github.com/recurly/recurly-client-ruby/tree/2.9.0) (2017-04-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.8.0...2.9.0)
+
+
+**Merged Pull Requests**
+
+- Bump 2.9.0 [#320](https://github.com/recurly/recurly-client-ruby/pull/320) ([bhelx](https://github.com/bhelx))
+- Add sort and filter params to Pager rubydocs [#318](https://github.com/recurly/recurly-client-ruby/pull/318) ([bhelx](https://github.com/bhelx))
+- Ban nokogiri on dead rubies [#317](https://github.com/recurly/recurly-client-ruby/pull/317) ([bhelx](https://github.com/bhelx))
+- Fix partial address update bug [#315](https://github.com/recurly/recurly-client-ruby/pull/315) ([bhelx](https://github.com/bhelx))
+- Upgrade webmock so specs can run in 2.4.x [#314](https://github.com/recurly/recurly-client-ruby/pull/314) ([bhelx](https://github.com/bhelx))
+- Move nokogiri to a development dependency [#302](https://github.com/recurly/recurly-client-ruby/pull/302) ([carlosantoniodasilva](https://github.com/carlosantoniodasilva))
+
+**Closed Issues**
+
+- Upgrade Nokogiri To 1.7.1 [#316](https://github.com/recurly/recurly-client-ruby/issues/316)
+- fields changed to nil [#309](https://github.com/recurly/recurly-client-ruby/issues/309)
+- Dependency Nokogiri version 1.6 causing warnings. [#308](https://github.com/recurly/recurly-client-ruby/issues/308)
+
+
+## [2.8.0](https://github.com/recurly/recurly-client-ruby/tree/2.8.0) (2017-03-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.8.0.rc3...2.8.0)
+
+
+**Merged Pull Requests**
+
+- Fix jruby+nokogiri failure on comments [#312](https://github.com/recurly/recurly-client-ruby/pull/312) ([bhelx](https://github.com/bhelx))
+- Bump 2.8.0 [#311](https://github.com/recurly/recurly-client-ruby/pull/311) ([bhelx](https://github.com/bhelx))
+- API 2.5 Changes [#310](https://github.com/recurly/recurly-client-ruby/pull/310) ([bhelx](https://github.com/bhelx))
+- Guard against passing `Resource.find` empty strings [#307](https://github.com/recurly/recurly-client-ruby/pull/307) ([mctaylorpants](https://github.com/mctaylorpants))
+- Add yard docs link [#305](https://github.com/recurly/recurly-client-ruby/pull/305) ([bhelx](https://github.com/bhelx))
+
+
+
+## [2.8.0.rc3](https://github.com/recurly/recurly-client-ruby/tree/2.8.0.rc3) (2017-01-30)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.7.6...2.8.0.rc3)
+
+
+
+
+
+## [2.7.6](https://github.com/recurly/recurly-client-ruby/tree/2.7.6) (2017-01-30)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.8.0.rc1...2.7.6)
+
+
+**Merged Pull Requests**
+
+- Bump 2.7.6 [#297](https://github.com/recurly/recurly-client-ruby/pull/297) ([bhelx](https://github.com/bhelx))
+- Fix cloudflare 502 error [#296](https://github.com/recurly/recurly-client-ruby/pull/296) ([bhelx](https://github.com/bhelx))
+- Fix stack-level-too-deep for as_json [#295](https://github.com/recurly/recurly-client-ruby/pull/295) ([bhelx](https://github.com/bhelx))
+- Make the travis badge reflect master only [#290](https://github.com/recurly/recurly-client-ruby/pull/290) ([bhelx](https://github.com/bhelx))
+- adds id attribute to usage [#288](https://github.com/recurly/recurly-client-ruby/pull/288) ([lmnleaf](https://github.com/lmnleaf))
+
+**Closed Issues**
+
+- "SystemStackError: stack level too deep" when calling "as_json" on Recurly::Account object [#274](https://github.com/recurly/recurly-client-ruby/issues/274)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Need a better way to handle changes in nested resources [#249](https://github.com/recurly/recurly-client-ruby/issues/249)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+
+
+## [2.8.0.rc1](https://github.com/recurly/recurly-client-ruby/tree/2.8.0.rc1) (2016-12-15)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.7.5...2.8.0.rc1)
+
+
+**Merged Pull Requests**
+
+- Bump 2.8.0.rc1 [#291](https://github.com/recurly/recurly-client-ruby/pull/291) ([bhelx](https://github.com/bhelx))
+- Implement fields for Vertex integration [#289](https://github.com/recurly/recurly-client-ruby/pull/289) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- Subscription Add Ons Usage [#272](https://github.com/recurly/recurly-client-ruby/issues/272)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Error message has "base" prepended [#211](https://github.com/recurly/recurly-client-ruby/issues/211)
+
+
+## [2.7.5](https://github.com/recurly/recurly-client-ruby/tree/2.7.5) (2016-11-30)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.7.4...2.7.5)
+
+
+**Merged Pull Requests**
+
+- Bump 2.7.5 [#287](https://github.com/recurly/recurly-client-ruby/pull/287) ([bhelx](https://github.com/bhelx))
+- Fix redemptions on bulk coupons [#286](https://github.com/recurly/recurly-client-ruby/pull/286) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- redeem bulk coupon [#284](https://github.com/recurly/recurly-client-ruby/issues/284)
+
+
+## [2.7.4](https://github.com/recurly/recurly-client-ruby/tree/2.7.4) (2016-11-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.7.3...2.7.4)
+
+
+**Merged Pull Requests**
+
+- Add timeframe to subscription [#283](https://github.com/recurly/recurly-client-ruby/pull/283) ([bhelx](https://github.com/bhelx))
+- Bump to 2.7.4 [#282](https://github.com/recurly/recurly-client-ruby/pull/282) ([bhelx](https://github.com/bhelx))
+- Add back ruby 1.9.3 and jruby [#279](https://github.com/recurly/recurly-client-ruby/pull/279) ([bhelx](https://github.com/bhelx))
+- Fix AddOn quantity accumulator [#278](https://github.com/recurly/recurly-client-ruby/pull/278) ([bhelx](https://github.com/bhelx))
+- Add new dunning event notification [#277](https://github.com/recurly/recurly-client-ruby/pull/277) ([bhelx](https://github.com/bhelx))
+- Fix failing dependency for ruby 1.9.3 [#276](https://github.com/recurly/recurly-client-ruby/pull/276) ([bhelx](https://github.com/bhelx))
+- Correct rails deprecation warning [#275](https://github.com/recurly/recurly-client-ruby/pull/275) ([jdeseno](https://github.com/jdeseno))
+- Fix redeem bang [#271](https://github.com/recurly/recurly-client-ruby/pull/271) ([sdhull](https://github.com/sdhull))
+- Cleanup code around message interpolation [#268](https://github.com/recurly/recurly-client-ruby/pull/268) ([bhelx](https://github.com/bhelx))
+- removes base from error messages [#267](https://github.com/recurly/recurly-client-ruby/pull/267) ([lmnleaf](https://github.com/lmnleaf))
+- Remove trailing whitespace [#266](https://github.com/recurly/recurly-client-ruby/pull/266) ([bhelx](https://github.com/bhelx))
+- Add support for canceled-at field on the GiftCard resource [#264](https://github.com/recurly/recurly-client-ruby/pull/264) ([cookrn](https://github.com/cookrn))
+- add updated_at to MeasuredUnit [#263](https://github.com/recurly/recurly-client-ruby/pull/263) ([cbarton](https://github.com/cbarton))
+- Use gemspec instead of gemfile [#240](https://github.com/recurly/recurly-client-ruby/pull/240) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- No timeframe attribute on subscription change [#281](https://github.com/recurly/recurly-client-ruby/issues/281)
+- Recurly::Webhook::NotificationError: 'NewDunningEventNotification' is not a recognized notification [#280](https://github.com/recurly/recurly-client-ruby/issues/280)
+- Coupon redemptions produce unusable errors [#270](https://github.com/recurly/recurly-client-ruby/issues/270)
+- Handle WebHook Events [#265](https://github.com/recurly/recurly-client-ruby/issues/265)
+
+
+## [2.7.3](https://github.com/recurly/recurly-client-ruby/tree/2.7.3) (2016-08-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.7.2...2.7.3)
+
+
+**Merged Pull Requests**
+
+- Add Gift Cards Work & Bump to 2.7.3 [#261](https://github.com/recurly/recurly-client-ruby/pull/261) ([cookrn](https://github.com/cookrn))
+
+
+
+## [2.7.2](https://github.com/recurly/recurly-client-ruby/tree/2.7.2) (2016-08-15)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.7.1...2.7.2)
+
+
+**Merged Pull Requests**
+
+- Bump 2.7.2 [#260](https://github.com/recurly/recurly-client-ruby/pull/260) ([bhelx](https://github.com/bhelx))
+- Support shipping addresses [#259](https://github.com/recurly/recurly-client-ruby/pull/259) ([bhelx](https://github.com/bhelx))
+
+
+
+## [2.7.1](https://github.com/recurly/recurly-client-ruby/tree/2.7.1) (2016-08-04)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.6.1...2.7.1)
+
+
+**Merged Pull Requests**
+
+- Bump 2.7.1 [#258](https://github.com/recurly/recurly-client-ruby/pull/258) ([bhelx](https://github.com/bhelx))
+- Add updated_at fields [#256](https://github.com/recurly/recurly-client-ruby/pull/256) ([bhelx](https://github.com/bhelx))
+- Bump 2.7.0 [#255](https://github.com/recurly/recurly-client-ruby/pull/255) ([bhelx](https://github.com/bhelx))
+- API V2.3 [#253](https://github.com/recurly/recurly-client-ruby/pull/253) ([bhelx](https://github.com/bhelx))
+
+
+
+## [2.6.1](https://github.com/recurly/recurly-client-ruby/tree/2.6.1) (2016-06-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.6.0...2.6.1)
+
+
+**Merged Pull Requests**
+
+- Bump 2.6.1 [#252](https://github.com/recurly/recurly-client-ruby/pull/252) ([bhelx](https://github.com/bhelx))
+- Fix changed? method missing on hash [#251](https://github.com/recurly/recurly-client-ruby/pull/251) ([bhelx](https://github.com/bhelx))
+
+
+
+## [2.6.0](https://github.com/recurly/recurly-client-ruby/tree/2.6.0) (2016-06-01)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.5.2...2.6.0)
+
+
+**Merged Pull Requests**
+
+- Bump 2.6.0 [#250](https://github.com/recurly/recurly-client-ruby/pull/250) ([bhelx](https://github.com/bhelx))
+- Fix account.address_changed? dirty check [#248](https://github.com/recurly/recurly-client-ruby/pull/248) ([bhelx](https://github.com/bhelx))
+- Add roku attributes to billing_info [#246](https://github.com/recurly/recurly-client-ruby/pull/246) ([adeitrick](https://github.com/adeitrick))
+- Add free_trial_* attrs to coupon resource [#245](https://github.com/recurly/recurly-client-ruby/pull/245) ([eignerchris](https://github.com/eignerchris))
+- Parse Fraud object if it exists [#244](https://github.com/recurly/recurly-client-ruby/pull/244) ([bhelx](https://github.com/bhelx))
+- modify update_attributes method in subscription class [#242](https://github.com/recurly/recurly-client-ruby/pull/242) ([rloomba](https://github.com/rloomba))
+- Remove stray puts in spec [#239](https://github.com/recurly/recurly-client-ruby/pull/239) ([bhelx](https://github.com/bhelx))
+
+**Closed Issues**
+
+- Update the address for an account? [#247](https://github.com/recurly/recurly-client-ruby/issues/247)
+- issue with trying to update the unit_price_in_cents for a subscription [#241](https://github.com/recurly/recurly-client-ruby/issues/241)
+
+
+## [2.5.2](https://github.com/recurly/recurly-client-ruby/tree/2.5.2) (2016-05-02)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.5.1...2.5.2)
+
+
+**Merged Pull Requests**
+
+- Bump 2.5.2 [#238](https://github.com/recurly/recurly-client-ruby/pull/238) ([bhelx](https://github.com/bhelx))
+- Usage Based Billing [#237](https://github.com/recurly/recurly-client-ruby/pull/237) ([bhelx](https://github.com/bhelx))
+- Remove autoload and reorder require [#236](https://github.com/recurly/recurly-client-ruby/pull/236) ([pmorton](https://github.com/pmorton))
+- Add more rubies to the testing matrix [#234](https://github.com/recurly/recurly-client-ruby/pull/234) ([pmorton](https://github.com/pmorton))
+
+**Closed Issues**
+
+- Autoloading and Rails [#235](https://github.com/recurly/recurly-client-ruby/issues/235)
+
+
+## [2.5.1](https://github.com/recurly/recurly-client-ruby/tree/2.5.1) (2016-02-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.5.0...2.5.1)
+
+
+
+
+
+## [2.5.0](https://github.com/recurly/recurly-client-ruby/tree/2.5.0) (2016-01-14)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.9...2.5.0)
+
+
+
+
+
+## [2.4.9](https://github.com/recurly/recurly-client-ruby/tree/2.4.9) (2015-11-18)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.8...2.4.9)
+
+
+
+
+
+## [2.4.8](https://github.com/recurly/recurly-client-ruby/tree/2.4.8) (2015-10-21)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.7...2.4.8)
+
+
+
+
+
+## [2.4.7](https://github.com/recurly/recurly-client-ruby/tree/2.4.7) (2015-10-02)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.6...2.4.7)
+
+
+
+
+
+## [2.4.6](https://github.com/recurly/recurly-client-ruby/tree/2.4.6) (2015-08-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.5...2.4.6)
+
+
+
+**Closed Issues**
+
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+
+
+## [2.4.5](https://github.com/recurly/recurly-client-ruby/tree/2.4.5) (2015-07-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.4...2.4.5)
+
+
+
+**Closed Issues**
+
+- Account id starting with dot causes client to fail [#201](https://github.com/recurly/recurly-client-ruby/issues/201)
+- Count filtered collection [#181](https://github.com/recurly/recurly-client-ruby/issues/181)
+- Retrieve account balance [#178](https://github.com/recurly/recurly-client-ruby/issues/178)
+- Threadsafe Recurly.api_key? [#159](https://github.com/recurly/recurly-client-ruby/issues/159)
+- Net::ReadTimeout setting shorter timeout? [#146](https://github.com/recurly/recurly-client-ruby/issues/146)
+- Get coupon information for a specific plan [#124](https://github.com/recurly/recurly-client-ruby/issues/124)
+- Transaction object is filled with nil values when there were some credits in the Sub after a Transaction.create call [#99](https://github.com/recurly/recurly-client-ruby/issues/99)
+- Document the various exceptions that can be thrown [#93](https://github.com/recurly/recurly-client-ruby/issues/93)
+
+
+## [2.4.4](https://github.com/recurly/recurly-client-ruby/tree/2.4.4) (2015-06-26)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.3...2.4.4)
+
+
+
+
+
+## [2.4.3](https://github.com/recurly/recurly-client-ruby/tree/2.4.3) (2015-05-26)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.2...2.4.3)
+
+
+
+
+
+## [2.4.2](https://github.com/recurly/recurly-client-ruby/tree/2.4.2) (2015-04-28)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.1...2.4.2)
+
+
+
+**Closed Issues**
+
+- Support for preview invoice [#187](https://github.com/recurly/recurly-client-ruby/issues/187)
+- More specific errors [#184](https://github.com/recurly/recurly-client-ruby/issues/184)
+- Nil billing info [#183](https://github.com/recurly/recurly-client-ruby/issues/183)
+- Incorrect request type or error in documentation [#182](https://github.com/recurly/recurly-client-ruby/issues/182)
+- CC data for a transaction [#179](https://github.com/recurly/recurly-client-ruby/issues/179)
+- Recurly should escape urls for paged resources [#174](https://github.com/recurly/recurly-client-ruby/issues/174)
+- errors not working [#136](https://github.com/recurly/recurly-client-ruby/issues/136)
+
+
+## [2.4.1](https://github.com/recurly/recurly-client-ruby/tree/2.4.1) (2015-01-24)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.4.0...2.4.1)
+
+
+
+
+
+## [2.4.0](https://github.com/recurly/recurly-client-ruby/tree/2.4.0) (2015-01-07)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.3.8...2.4.0)
+
+
+
+**Closed Issues**
+
+- Add a way to clear test data via API? [#172](https://github.com/recurly/recurly-client-ruby/issues/172)
+
+
+## [2.3.8](https://github.com/recurly/recurly-client-ruby/tree/2.3.8) (2014-12-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.3.7...2.3.8)
+
+
+
+**Closed Issues**
+
+- add CONTRIBUTING.md [#123](https://github.com/recurly/recurly-client-ruby/issues/123)
+- missing subscription getters [#115](https://github.com/recurly/recurly-client-ruby/issues/115)
+- Missing add_on "accounting_code" getter method [#114](https://github.com/recurly/recurly-client-ruby/issues/114)
+- line_item_product_code [#100](https://github.com/recurly/recurly-client-ruby/issues/100)
+
+
+## [2.3.7](https://github.com/recurly/recurly-client-ruby/tree/2.3.7) (2014-12-09)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.3.6...2.3.7)
+
+
+
+**Closed Issues**
+
+- Can't access account subscriptions if account code contains a space character (' ') [#110](https://github.com/recurly/recurly-client-ruby/issues/110)
+
+
+## [2.3.6](https://github.com/recurly/recurly-client-ruby/tree/2.3.6) (2014-11-04)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.3.5...2.3.6)
+
+
+
+**Closed Issues**
+
+- Can't access account subscriptions if account code contains a space character (' ') [#110](https://github.com/recurly/recurly-client-ruby/issues/110)
+
+
+## [2.3.5](https://github.com/recurly/recurly-client-ruby/tree/2.3.5) (2014-10-30)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.3.4...2.3.5)
+
+
+
+
+
+## [2.3.4](https://github.com/recurly/recurly-client-ruby/tree/2.3.4) (2014-10-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.3.2...2.3.4)
+
+
+
+
+
+## [2.3.2](https://github.com/recurly/recurly-client-ruby/tree/2.3.2) (2014-09-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.3.1...2.3.2)
+
+
+
+
+
+## [2.3.1](https://github.com/recurly/recurly-client-ruby/tree/2.3.1) (2014-05-23)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.3.0...2.3.1)
+
+
+
+**Closed Issues**
+
+- Missing remaining_billing_cycles in Subscription object [#141](https://github.com/recurly/recurly-client-ruby/issues/141)
+
+
+## [2.3.0](https://github.com/recurly/recurly-client-ruby/tree/2.3.0) (2014-05-14)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.2.3...2.3.0)
+
+
+
+
+
+## [2.2.3](https://github.com/recurly/recurly-client-ruby/tree/2.2.3) (2014-05-09)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.2.2...2.2.3)
+
+
+
+
+
+## [2.2.2](https://github.com/recurly/recurly-client-ruby/tree/2.2.2) (2014-02-21)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.2.0...2.2.2)
+
+
+
+**Closed Issues**
+
+- Resource#valid? Throws NoMethodError [#119](https://github.com/recurly/recurly-client-ruby/issues/119)
+- Account reload #=> Resource not Found [#118](https://github.com/recurly/recurly-client-ruby/issues/118)
+- Docs say to set Recurly.subdomain but it does not exist on the module [#105](https://github.com/recurly/recurly-client-ruby/issues/105)
+- Canceling a subscription returns false without any attached errors [#98](https://github.com/recurly/recurly-client-ruby/issues/98)
+
+
+## [2.2.0](https://github.com/recurly/recurly-client-ruby/tree/2.2.0) (2013-11-12)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.2.1...2.2.0)
+
+
+
+
+
+## [2.2.1](https://github.com/recurly/recurly-client-ruby/tree/2.2.1) (2014-01-03)
+
+
+
+
