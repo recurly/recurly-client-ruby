@@ -24,6 +24,42 @@ info:
     Recurly-Version: recurly.v2019-10-10
     ```
 
+    Recurly's client libraries correspond with API versions as listed below.
+
+    <table>
+      <tr>
+        <th>API Version</th>
+        <th>Client Library Version</th>
+      </tr>
+      <tr>
+        <td>v2021-02-25</td>
+        <td>4.x</td>
+      </tr>
+      <tr>
+        <td>v2019-10-10</td>
+        <td>3.x</td>
+      </tr>
+    </table>
+
+    Client library releases:
+
+    * [Node.js](https://github.com/recurly/recurly-client-node/releases)
+    * [Python](https://github.com/recurly/recurly-client-python/releases)
+    * [.NET](https://github.com/recurly/recurly-client-dotnet/releases)
+    * [Ruby](https://github.com/recurly/recurly-client-ruby/releases)
+    * [Java](https://github.com/recurly/recurly-client-java/releases)
+    * [PHP](https://github.com/recurly/recurly-client-php/releases)
+    * [Go](https://github.com/recurly/recurly-client-go/releases)
+
+    Client libraries follow semantic versioning. For example, [Ruby client library
+    version 3.18.1](https://github.com/recurly/recurly-client-ruby/releases/tag/3.18.1)
+    represents major version `3`, minor version `18` with patch `1`.
+
+    We encourage you to update to the latest version of the API and corresponding client library,
+    as most recent versions are more performant than their predecessors. See the
+    [changelog](https://developers.recurly.com/api/changelog.html) for a comprehensive list of changes
+    introduced in the latest API version.
+
     ### Default Versions
     Specifying a version is required to get a successful response. If you wish to
     receive the latest version and are willing to accept the risk of breaking changes,
@@ -1226,7 +1262,6 @@ paths:
     - "$ref": "#/components/parameters/account_id"
     get:
       tags:
-      - account
       - account_acquisition
       operationId: get_account_acquisition
       summary: Fetch an account's acquisition data
@@ -1335,7 +1370,6 @@ paths:
           Acquisition: %v\", accountAcq.Id)"
     put:
       tags:
-      - account
       - account_acquisition
       operationId: update_account_acquisition
       summary: Update an account's acquisition data
@@ -1503,7 +1537,6 @@ paths:
           Acquisition: %s\", account.Id)"
     delete:
       tags:
-      - account
       - account_acquisition
       operationId: remove_account_acquisition
       summary: Remove an account's acquisition data
@@ -1844,7 +1877,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/billing_info":
     get:
       tags:
-      - account
       - billing_info
       operationId: get_billing_info
       summary: Fetch an account's billing information
@@ -1962,14 +1994,13 @@ paths:
           Info: %v\", billingInfo)"
     put:
       tags:
-      - account
       - billing_info
       operationId: update_billing_info
       summary: Set an account's billing information
       description: |
         If you're using Recurly.js to securely submit data from webforms without sending it through your server,
         you can associate the billing information with an account by passing in the `token_id`. The only other
-        field permitted with `token_id` is `primary_payment_method`.
+        fields permitted with `token_id` are `primary_payment_method` and/or `backup_payment_method`.
 
         For credit card payments you'll need the following required fields:
 
@@ -2137,7 +2168,6 @@ paths:
           Info: %s\", billingInfo)"
     delete:
       tags:
-      - account
       - billing_info
       operationId: remove_billing_info
       summary: Remove an account's billing information
@@ -2247,7 +2277,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/billing_infos":
     get:
       tags:
-      - account
       - billing_info
       operationId: list_billing_infos
       summary: Get the list of billing information associated with an account
@@ -2282,14 +2311,13 @@ paths:
       x-code-samples: []
     post:
       tags:
-      - account
       - billing_info
       operationId: create_billing_info
       summary: Set an account's billing information when the wallet feature is enabled
       description: |
         If you're using Recurly.js to securely submit data from webforms without sending it through your server,
         you can associate the billing information with an account by passing in the `token_id`. The only other
-        field permitted with `token_id` is `primary_payment_method`.
+        fields permitted with `token_id` are `primary_payment_method` and/or `backup_payment_method`.
 
         For credit card payments you'll need the following required fields:
 
@@ -2344,7 +2372,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/billing_infos/{billing_info_id}":
     get:
       tags:
-      - account
       - billing_info
       operationId: get_a_billing_info
       summary: Fetch a billing info
@@ -2368,14 +2395,13 @@ paths:
       x-code-samples: []
     put:
       tags:
-      - account
       - billing_info
       operationId: update_a_billing_info
       summary: Update an account's billing information
       description: |
         If you're using Recurly.js to securely submit data from webforms without sending it through your server,
         you can associate the billing information with an account by passing in the `token_id`. The only other
-        field permitted with `token_id` is `primary_payment_method`.
+        fields permitted with `token_id` are `primary_payment_method` and/or `backup_payment_method`.
 
         For credit card payments you'll need the following required fields:
 
@@ -2430,7 +2456,6 @@ paths:
       x-code-samples: []
     delete:
       tags:
-      - account
       - billing_info
       operationId: remove_a_billing_info
       summary: Remove an account's billing information
@@ -2462,7 +2487,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/coupon_redemptions":
     get:
       tags:
-      - account
       - coupon_redemption
       operationId: list_account_coupon_redemptions
       summary: Show the coupon redemptions for an account
@@ -2552,7 +2576,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/coupon_redemptions/active":
     get:
       tags:
-      - account
       - coupon_redemption
       operationId: get_active_coupon_redemption
       summary: Show the coupon redemption that is active on an account
@@ -2669,7 +2692,6 @@ paths:
           Coupon Redemption: %v\", couponRedemption.Id)"
     post:
       tags:
-      - account
       - coupon_redemption
       operationId: create_coupon_redemption
       summary: Generate an active coupon redemption on an account or subscription
@@ -2801,7 +2823,6 @@ paths:
           Redemption: %v\", couponRedemption)"
     delete:
       tags:
-      - account
       - coupon_redemption
       operationId: remove_coupon_redemption
       summary: Delete the active coupon redemption from an account
@@ -2917,7 +2938,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/credit_payments":
     get:
       tags:
-      - account
       - credit_payment
       operationId: list_account_credit_payments
       summary: List an account's credit payments
@@ -3014,7 +3034,6 @@ paths:
     get:
       tags:
       - invoice
-      - account
       operationId: list_account_invoices
       summary: List an account's invoices
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
@@ -3110,7 +3129,6 @@ paths:
     post:
       tags:
       - invoice
-      - account
       operationId: create_invoice
       summary: Create an invoice for pending line items
       parameters:
@@ -3282,7 +3300,6 @@ paths:
     post:
       tags:
       - invoice
-      - account
       operationId: preview_invoice
       summary: Preview new invoice for pending line items
       parameters:
@@ -3452,7 +3469,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/line_items":
     get:
       tags:
-      - account
       - line_item
       operationId: list_account_line_items
       summary: List an account's line items
@@ -3551,7 +3567,6 @@ paths:
           Item %3d: %s\\n\",\n\t\t\ti,\n\t\t\tlineItem.Id,\n\t\t)\n\t}\n}"
     post:
       tags:
-      - account
       - line_item
       operationId: create_line_item
       summary: Create a new line item for the account
@@ -3721,7 +3736,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/notes":
     get:
       tags:
-      - account
       - note
       operationId: list_account_notes
       summary: Fetch a list of an account's notes
@@ -3803,7 +3817,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/notes/{account_note_id}":
     get:
       tags:
-      - account
       - note
       operationId: get_account_note
       summary: Fetch an account note
@@ -3931,7 +3944,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/shipping_addresses":
     get:
       tags:
-      - account
       - shipping_address
       operationId: list_shipping_addresses
       summary: Fetch a list of an account's shipping addresses
@@ -4021,7 +4033,6 @@ paths:
           Address %3d: %s, %s\\n\",\n\t\t\ti,\n\t\t\tshippingAddress.Id,\n\t\t\tshippingAddress.Street1,\n\t\t)\n\t}\n}"
     post:
       tags:
-      - account
       - shipping_address
       operationId: create_shipping_address
       summary: Create a new shipping address for the account
@@ -4212,7 +4223,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/shipping_addresses/{shipping_address_id}":
     get:
       tags:
-      - account
       - shipping_address
       operationId: get_shipping_address
       summary: Fetch an account's shipping address
@@ -4333,7 +4343,6 @@ paths:
           Address: %v\", shippingAddress)"
     put:
       tags:
-      - account
       - shipping_address
       operationId: update_shipping_address
       summary: Update an account's shipping address
@@ -4505,7 +4514,6 @@ paths:
           shippingAddress)"
     delete:
       tags:
-      - account
       - shipping_address
       operationId: remove_shipping_address
       summary: Remove an account's shipping address
@@ -4616,7 +4624,6 @@ paths:
     get:
       tags:
       - subscription
-      - account
       operationId: list_account_subscriptions
       summary: List an account's subscriptions
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
@@ -4712,7 +4719,6 @@ paths:
   "/sites/{site_id}/accounts/{account_id}/transactions":
     get:
       tags:
-      - account
       - transaction
       operationId: list_account_transactions
       summary: List an account's transactions
@@ -5648,7 +5654,6 @@ paths:
   "/sites/{site_id}/coupons/{coupon_id}/generate":
     post:
       tags:
-      - coupon
       - unique_coupon_code
       operationId: generate_unique_coupon_codes
       summary: Generate unique coupon codes
@@ -5842,7 +5847,6 @@ paths:
   "/sites/{site_id}/coupons/{coupon_id}/unique_coupon_codes":
     get:
       tags:
-      - coupon
       - unique_coupon_code
       operationId: list_unique_coupon_codes
       summary: List unique coupon codes associated with a bulk coupon
@@ -8405,7 +8409,6 @@ paths:
   "/sites/{site_id}/invoices/{invoice_id}/line_items":
     get:
       tags:
-      - invoice
       - line_item
       operationId: list_invoice_line_items
       summary: List an invoice's line items
@@ -8496,7 +8499,7 @@ paths:
           $params = ['limit' => 200];
           $invoice_line_items = $client->listInvoiceLineItems($invoice_id, $params);
 
-          foreach($invoice_line_item as $line_item) {
+          foreach($invoice_line_items as $line_item) {
             echo 'Invoice Line Item: ' . $line_item->getId() . PHP_EOL;
           }
       - lang: Go
@@ -8508,7 +8511,6 @@ paths:
   "/sites/{site_id}/invoices/{invoice_id}/coupon_redemptions":
     get:
       tags:
-      - invoice
       - coupon_redemption
       operationId: list_invoice_coupon_redemptions
       summary: Show the coupon redemptions applied to an invoice
@@ -9848,7 +9850,6 @@ paths:
     get:
       tags:
       - add-on
-      - plan
       operationId: list_plan_add_ons
       summary: List a plan's add-ons
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
@@ -9944,7 +9945,6 @@ paths:
     post:
       tags:
       - add-on
-      - plan
       operationId: create_plan_add_on
       summary: Create an add-on
       parameters:
@@ -10142,7 +10142,6 @@ paths:
   "/sites/{site_id}/plans/{plan_id}/add_ons/{add_on_id}":
     get:
       tags:
-      - plan
       - add-on
       operationId: get_plan_add_on
       summary: Fetch a plan's add-on
@@ -10262,7 +10261,6 @@ paths:
           Add-On: %v\", planAddOn)"
     put:
       tags:
-      - plan
       - add-on
       operationId: update_plan_add_on
       summary: Update an add-on
@@ -10406,7 +10404,6 @@ paths:
           Add-On: %v\", planAddOn)"
     delete:
       tags:
-      - plan
       - add-on
       operationId: remove_plan_add_on
       summary: Remove an add-on
@@ -11175,8 +11172,7 @@ paths:
             subscription_create = {
               plan_code: plan_code,
               currency: "USD",
-              # This can be an existing account or
-              # a new acocunt
+              # This can be an existing account or a new account
               account: {
                 code: account_code,
               }
@@ -12271,7 +12267,6 @@ paths:
   "/sites/{site_id}/subscriptions/{subscription_id}/change":
     get:
       tags:
-      - subscription
       - subscription_change
       operationId: get_subscription_change
       summary: Fetch a subscription's pending change
@@ -12403,7 +12398,6 @@ paths:
           change: %s\", subscriptionChange.Id)"
     post:
       tags:
-      - subscription
       - subscription_change
       operationId: create_subscription_change
       summary: Create a new subscription change
@@ -12563,7 +12557,6 @@ paths:
           changed: %s\", subscriptionChange.Id)"
     delete:
       tags:
-      - subscription
       - subscription_change
       operationId: remove_subscription_change
       summary: Delete the pending subscription change
@@ -12679,7 +12672,6 @@ paths:
   "/sites/{site_id}/subscriptions/{subscription_id}/change/preview":
     post:
       tags:
-      - subscription
       - subscription_change
       operationId: preview_subscription_change
       summary: Preview a new subscription change
@@ -12725,7 +12717,6 @@ paths:
     get:
       tags:
       - invoice
-      - subscription
       operationId: list_subscription_invoices
       summary: List a subscription's invoices
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
@@ -12822,7 +12813,7 @@ paths:
   "/sites/{site_id}/subscriptions/{subscription_id}/line_items":
     get:
       tags:
-      - subscription
+      - line_item
       operationId: list_subscription_line_items
       summary: List a subscription's line items
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
@@ -12921,7 +12912,6 @@ paths:
   "/sites/{site_id}/subscriptions/{subscription_id}/coupon_redemptions":
     get:
       tags:
-      - subscription
       - coupon_redemption
       operationId: list_subscription_coupon_redemptions
       summary: Show the coupon redemptions for a subscription
@@ -13009,8 +12999,6 @@ paths:
   "/sites/{site_id}/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage":
     get:
       tags:
-      - invoice
-      - subscription
       - usage
       operationId: list_usage
       summary: List a subscription add-on's usage records
@@ -13053,8 +13041,6 @@ paths:
       x-code-samples: []
     post:
       tags:
-      - invoice
-      - subscription
       - usage
       operationId: create_usage
       summary: Log a usage record on this subscription add-on
@@ -13103,8 +13089,6 @@ paths:
   "/sites/{site_id}/usage/{usage_id}":
     get:
       tags:
-      - invoice
-      - subscription
       - usage
       operationId: get_usage
       summary: Get a usage record
@@ -13139,8 +13123,6 @@ paths:
       x-code-samples: []
     put:
       tags:
-      - invoice
-      - subscription
       - usage
       operationId: update_usage
       summary: Update a usage record
@@ -13187,8 +13169,6 @@ paths:
       x-code-samples: []
     delete:
       tags:
-      - invoice
-      - subscription
       - usage
       operationId: remove_usage
       summary: Delete a usage record.
@@ -15679,7 +15659,6 @@ components:
       required:
       - code
       - name
-      - currencies
     AddOnCreate:
       type: object
       title: Add-on
@@ -15839,6 +15818,7 @@ components:
             is not present `currencies` is required.
             * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
             then `currencies` must be absent.
+            * Must be absent if `add_on_type` is `usage` and `usage_type` is `percentage`.
         tier_type:
           type: string
           title: Tier type
@@ -15866,7 +15846,6 @@ components:
       required:
       - code
       - name
-      - currencies
     AddOnUpdate:
       type: object
       title: Add-on
@@ -15986,7 +15965,8 @@ components:
           minItems: 1
           description: |
             If the add-on's `tier_type` is `tiered`, `volume` or `stairstep`,
-            then `currencies` must be absent.
+            then `currencies` must be absent. Must also be absent if `add_on_type` is
+            `usage` and `usage_type` is `percentage`.
         tiers:
           type: array
           title: Tiers
@@ -16066,6 +16046,11 @@ components:
             the `primary_payment_method` indicator. When adding billing infos via
             the billing_info and /accounts endpoints, this value is not permitted,
             and will return an error if provided.
+        backup_payment_method:
+          type: boolean
+          description: The `backup_payment_method` indicator is used to designate
+            a billing info as a backup on the account that will be tried if the billing
+            info marked `primary_payment_method` fails.
         created_at:
           type: string
           format: date-time
@@ -16228,6 +16213,15 @@ components:
             the `primary_payment_method` indicator. When adding billing infos via
             the billing_info and /accounts endpoints, this value is not permitted,
             and will return an error if provided.
+        backup_payment_method:
+          type: boolean
+          description: The `backup_payment_method` indicator is used to designate
+            a billing info as a backup on the account that will be tried if the billing
+            info marked `primary_payment_method` fails. All payment methods, including
+            the billing info marked `primary_payment_method` can be set as a backup.
+            An account can have a maximum of 1 backup, if a user sets a different
+            payment method as a backup, the existing backup will no longer be marked
+            as such.
     Coupon:
       type: object
       properties:
@@ -20248,8 +20242,8 @@ components:
           format: float
           title: Custom subscription pricing
           description: Override the unit amount of the subscription plan by setting
-            this value in cents. If not provided, the subscription will inherit the
-            price from the subscription plan for the provided currency.
+            this value. If not provided, the subscription will inherit the price from
+            the subscription plan for the provided currency.
           minimum: 0
           maximum: 1000000
         quantity:
@@ -20612,6 +20606,10 @@ components:
           type: boolean
           title: Success?
           description: Did this transaction complete successfully?
+        backup_payment_method_used:
+          type: boolean
+          title: Backup Payment Method Used?
+          description: Indicates if the transaction was completed using a backup payment
         refunded:
           type: boolean
           title: Refunded?

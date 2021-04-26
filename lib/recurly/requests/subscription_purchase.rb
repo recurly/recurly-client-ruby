@@ -59,7 +59,7 @@ module Recurly
       define_attribute :trial_ends_at, DateTime
 
       # @!attribute unit_amount
-      #   @return [Float] Override the unit amount of the subscription plan by setting this value in cents. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
+      #   @return [Float] Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
       define_attribute :unit_amount, Float
     end
   end

@@ -18,6 +18,10 @@ module Recurly
       #   @return [String] When processed, result from checking the overall AVS on the transaction.
       define_attribute :avs_check, String
 
+      # @!attribute backup_payment_method_used
+      #   @return [Boolean] Indicates if the transaction was completed using a backup payment
+      define_attribute :backup_payment_method_used, :Boolean
+
       # @!attribute billing_address
       #   @return [Address]
       define_attribute :billing_address, :Address

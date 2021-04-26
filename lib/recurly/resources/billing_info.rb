@@ -14,6 +14,10 @@ module Recurly
       #   @return [Address]
       define_attribute :address, :Address
 
+      # @!attribute backup_payment_method
+      #   @return [Boolean] The `backup_payment_method` indicator is used to designate a billing info as a backup on the account that will be tried if the billing info marked `primary_payment_method` fails.
+      define_attribute :backup_payment_method, :Boolean
+
       # @!attribute company
       #   @return [String]
       define_attribute :company, String
