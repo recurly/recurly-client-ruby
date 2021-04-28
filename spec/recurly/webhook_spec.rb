@@ -38,6 +38,10 @@ describe Webhook do
       Webhook.parse(request 'subscription-resumed-notification').must_be_instance_of Webhook::SubscriptionResumedNotification
     end
 
+    it "must return PrerenewalNotification instance" do
+      Webhook.parse(request 'prerenewal-notification').must_be_instance_of Webhook::PrerenewalNotification
+    end
+
     it "must return CanceledSubscriptionNotification instance" do
       Webhook.parse(request 'canceled-subscription-notification').must_be_instance_of Webhook::CanceledSubscriptionNotification
     end
