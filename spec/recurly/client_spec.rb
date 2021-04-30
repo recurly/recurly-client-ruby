@@ -147,6 +147,14 @@ RSpec.describe Recurly::Client do
         account = subject.create_account(body: body)
         expect(account).to be_instance_of Recurly::Resources::Account
       end
+
+      it "should allow a nil request_data/class" do
+        req = Recurly::HTTP::Request.new(:post, "/verify")
+        expect(net_http).to receive(:request).and_return(response)
+        # Hacky way of ensuring that #post can be called without a body
+        account = subject.send(:post, "/verify")
+        expect(account).to be_instance_of Recurly::Resources::Account
+      end
     end
 
     describe "index calls" do
