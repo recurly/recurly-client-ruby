@@ -89,6 +89,7 @@ module Recurly
     autoload :UpdatedItemNotification,              'recurly/webhook/updated_item_notification'
     autoload :DeactivatedItemNotification,          'recurly/webhook/deactivated_item_notification'
     autoload :ReactivatedItemNotification,          'recurly/webhook/reactivated_item_notification'
+    autoload :PrerenewalNotification,               'recurly/webhook/prerenewal_notification'
 
     # This exception is raised if the Webhook Notification initialization fails
     class NotificationError < Error
