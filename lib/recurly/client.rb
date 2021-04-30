@@ -113,13 +113,15 @@ module Recurly
       handle_response! request, http_response
     end
 
-    def post(path, request_data, request_class, **options)
+    def post(path, request_data = nil, request_class = nil, **options)
       validate_options!(**options)
-      request_class.new(request_data).validate!
       request = Net::HTTP::Post.new build_url(path, options)
       request.set_content_type(JSON_CONTENT_TYPE)
       set_headers(request, options[:headers])
-      request.body = JSON.dump(request_data)
+      if request_data
+        request_class.new(request_data).validate!
+        request.body = JSON.dump(request_data)
+      end
       http_response = run_request(request, options)
       handle_response! request, http_response
     end
