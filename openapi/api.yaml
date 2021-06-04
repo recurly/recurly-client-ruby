@@ -111,8 +111,10 @@ info:
     developers and those who are familiar with API technology. When using the
     API and passing error messages to target systems, be mindful that
     these messages may not make sense in the context of the target system.
-    Please consider changing these messages in target system to be better
+    Please consider changing these messages in the target system to be better
     suited to the audience of the system.
+
+    Please see [transaction error codes](https://developers.recurly.com/pages/api-transaction-errors.html) for more details.
 
     ## Pagination
     ### Response Schema
@@ -190,6 +192,7 @@ x-tagGroups:
   - note
   - account_acquisition
   - billing_info
+  - billing_infos
   - subscription
   - subscription_change
   - shipping_address
@@ -260,9 +263,15 @@ tags:
     to match this data with revenue and billing data events in Recurly.
 - name: billing_info
   x-displayName: Billing Info
-  description: An account can have one stored payment method at a time. This can be
-    a credit card, PayPal, or bank account. Billing info is usually filled out by
-    the customer upon purchase or when they update their information.
+  description: Without the premium Wallet feature, an account can only have one stored
+    payment method at a time. Examples include credit cards, PayPal, or bank accounts.
+    Billing info is filled out by the customer upon purchase or when they update their
+    information.
+- name: billing_infos
+  x-displayName: Billing Infos
+  description: If the premium Wallet feature is enabled, an account can have multiple
+    payment methods stored. Examples include credit cards, PayPal, or bank accounts.
+    Primary or backup billing infos can be designated from these endpoints.
 - name: subscription
   x-displayName: Subscription
   description: Subscriptions are created when your customers subscribe to one of your
@@ -2297,10 +2306,141 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Removed Billing
           Info: %v\", billingInfo)"
+  "/accounts/{account_id}/billing_info/verify":
+    post:
+      tags:
+      - billing_info
+      operationId: verify_billing_info
+      summary: Verify an account's credit card billing information
+      parameters:
+      - "$ref": "#/components/parameters/account_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BillingInfoVerify"
+        required: false
+      responses:
+        '200':
+          description: Transaction information from verify.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Transaction"
+        '404':
+          description: Account has no billing information, or incorrect site or account
+            ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid billing information, or error running the verification
+            transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+      x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const transaction = await client.verifyBillingInfo(accountId)
+            console.log('Fetched Transaction: ', transaction.id)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              transaction = client.verify_billing_info(account_id)
+              print("Got Transaction %s" % transaction)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: ".NET"
+        source: |
+          try
+          {
+              Transaction transaction = client.VerifyBillingInfo(accountId);
+              Console.WriteLine($"Fetched transaction {transaction.Id}");
+          }
+          catch (Recurly.Errors.NotFound ex)
+          {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              Console.WriteLine($"Resource Not Found: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            transaction = @client.verify_billing_info(account_id: account_id)
+            puts "Got Transaction #{transaction}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Java
+        source: |
+          try {
+              final Transaction transaction = client.verifyBillingInfo(accountId);
+              System.out.println("Fetched transaction " + transaction.getId());
+          } catch (NotFoundException e) {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              System.out.println("Resource Not Found: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: PHP
+        source: |
+          try {
+              $transaction = $client->verifyBillingInfo($account_id);
+
+              echo 'Got Transaction:' . PHP_EOL;
+              var_dump($transaction);
+          } catch (\Recurly\Errors\NotFound $e) {
+              // Could not find the resource, you may want to inform the user
+              // or just return a NULL
+              echo 'Could not find resource.' . PHP_EOL;
+              var_dump($e);
+          } catch (\Recurly\RecurlyError $e) {
+              // Something bad happened... tell the user so that they can fix it?
+              echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Go
+        source: "verifyBillingInfoParams := &recurly.VerifyBillingInfoParams{}\ntransaction,
+          err := client.VerifyBillingInfo(accountID, verifyBillingInfoParams)\nif
+          e, ok := err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeNotFound
+          {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
+          Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Fetched Transaction:
+          %v\", transaction)"
   "/accounts/{account_id}/billing_infos":
     get:
       tags:
-      - billing_info
+      - billing_infos
       operationId: list_billing_infos
       summary: Get the list of billing information associated with an account
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
@@ -2333,9 +2473,9 @@ paths:
       x-code-samples: []
     post:
       tags:
-      - billing_info
+      - billing_infos
       operationId: create_billing_info
-      summary: Set an account's billing information when the wallet feature is enabled
+      summary: Add new billing information on an account
       description: |
         If you're using Recurly.js to securely submit data from webforms without sending it through your server,
         you can associate the billing information with an account by passing in the `token_id`. The only other
@@ -2393,7 +2533,7 @@ paths:
   "/accounts/{account_id}/billing_infos/{billing_info_id}":
     get:
       tags:
-      - billing_info
+      - billing_infos
       operationId: get_a_billing_info
       summary: Fetch a billing info
       parameters:
@@ -2415,7 +2555,7 @@ paths:
       x-code-samples: []
     put:
       tags:
-      - billing_info
+      - billing_infos
       operationId: update_a_billing_info
       summary: Update an account's billing information
       description: |
@@ -2475,7 +2615,7 @@ paths:
       x-code-samples: []
     delete:
       tags:
-      - billing_info
+      - billing_infos
       operationId: remove_a_billing_info
       summary: Remove an account's billing information
       parameters:
@@ -15897,19 +16037,14 @@ components:
               title: Kount rules
         primary_payment_method:
           type: boolean
-          description: The `primary_payment_method` indicator is used to designate
-            the primary billing info on the account. The first billing info created
-            on an account will always become primary. Adding additional billing infos
-            provides the flexibility to mark another billing info as primary, or adding
-            additional non-primary billing infos. This can be accomplished by passing
-            the `primary_payment_method` indicator. When adding billing infos via
-            the billing_info and /accounts endpoints, this value is not permitted,
-            and will return an error if provided.
+          description: The `primary_payment_method` field is used to indicate the
+            primary billing info on the account. The first billing info created on
+            an account will always become primary. This payment method will be used
         backup_payment_method:
           type: boolean
-          description: The `backup_payment_method` indicator is used to designate
-            a billing info as a backup on the account that will be tried if the billing
-            info marked `primary_payment_method` fails.
+          description: The `backup_payment_method` field is used to indicate a billing
+            info as a backup on the account that will be tried if the initial billing
+            info used for an invoice is declined.
         created_at:
           type: string
           format: date-time
@@ -16030,23 +16165,29 @@ components:
         primary_payment_method:
           type: boolean
           title: Primary Payment Method
-          description: The `primary_payment_method` indicator is used to designate
-            the primary billing info on the account. The first billing info created
-            on an account will always become primary. Adding additional billing infos
+          description: The `primary_payment_method` field is used to designate the
+            primary billing info on the account. The first billing info created on
+            an account will always become primary. Adding additional billing infos
             provides the flexibility to mark another billing info as primary, or adding
             additional non-primary billing infos. This can be accomplished by passing
-            the `primary_payment_method` indicator. When adding billing infos via
-            the billing_info and /accounts endpoints, this value is not permitted,
-            and will return an error if provided.
+            the `primary_payment_method` with a value of `true`. When adding billing
+            infos via the billing_info and /accounts endpoints, this value is not
+            permitted, and will return an error if provided.
         backup_payment_method:
           type: boolean
-          description: The `backup_payment_method` indicator is used to designate
-            a billing info as a backup on the account that will be tried if the billing
-            info marked `primary_payment_method` fails. All payment methods, including
-            the billing info marked `primary_payment_method` can be set as a backup.
-            An account can have a maximum of 1 backup, if a user sets a different
-            payment method as a backup, the existing backup will no longer be marked
-            as such.
+          description: The `backup_payment_method` field is used to designate a billing
+            info as a backup on the account that will be tried if the initial billing
+            info used for an invoice is declined. All payment methods, including the
+            billing info marked `primary_payment_method` can be set as a backup. An
+            account can have a maximum of 1 backup, if a user sets a different payment
+            method as a backup, the existing backup will no longer be marked as such.
+    BillingInfoVerify:
+      type: object
+      properties:
+        gateway_code:
+          type: string
+          description: An identifier for a specific payment gateway.
+          maxLength: 13
     Coupon:
       type: object
       properties:
@@ -20010,6 +20151,38 @@ components:
           type: number
           format: float
           title: Rate
+        tax_details:
+          type: array
+          items:
+            "$ref": "#/components/schemas/TaxDetail"
+    TaxDetail:
+      type: object
+      title: Tax info
+      description: Provides additional tax details for Canadian Sales Tax when there
+        is tax applied at both the country and province levels. This will only be
+        populated for the Invoice response when fetching a single invoice and not
+        for the InvoiceList or LineItem.
+      properties:
+        type:
+          type: string
+          title: Type
+          description: Provides the tax type for the region. For Canadian Sales Tax,
+            this will be GST, HST, QST or PST.
+        region:
+          type: string
+          title: Region
+          description: Provides the tax region applied on an invoice. For Canadian
+            Sales Tax, this will be either the 2 letter province code or country code.
+        rate:
+          type: number
+          format: float
+          title: Rate
+          description: Provides the tax rate for the region.
+        tax:
+          type: number
+          format: float
+          title: Tax
+          description: The total tax applied for this tax type.
     Transaction:
       type: object
       properties:

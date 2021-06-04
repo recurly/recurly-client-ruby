@@ -452,6 +452,30 @@ module Recurly
       delete(path, **options)
     end
 
+    # Verify an account's credit card billing information
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_info verify_billing_info api documenation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param params [Hash] Optional query string parameters:
+    #        :body [Requests::BillingInfoVerify] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoVerify}
+    #
+    # @return [Resources::Transaction] Transaction information from verify.
+    # @example
+    #   begin
+    #     transaction = @client.verify_billing_info(account_id: account_id)
+    #     puts "Got Transaction #{transaction}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
+    #
+    def verify_billing_info(account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_info/verify", account_id: account_id)
+      post(path, options[:body], Requests::BillingInfoVerify, **options)
+    end
+
     # Get the list of billing information associated with an account
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_billing_infos list_billing_infos api documenation}
@@ -488,7 +512,7 @@ module Recurly
       pager(path, **options)
     end
 
-    # Set an account's billing information when the wallet feature is enabled
+    # Add new billing information on an account
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/create_billing_info create_billing_info api documenation}
     #
