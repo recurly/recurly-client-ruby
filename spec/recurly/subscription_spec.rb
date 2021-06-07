@@ -464,4 +464,17 @@ describe Subscription do
       shad.must_be_instance_of Recurly::ShippingAddress
     end
   end
+
+  describe '#postpone' do
+    it 'postpones subscriptions' do
+      stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200'
+      stub_api_request :put, 'subscriptions/abcdef1234567890/postpone?bulk=false&next_bill_date=2021-05-20', 'subscriptions/postpone-200'
+
+      next_bill_date = Date.parse('2021-05-20')
+      subscription = Subscription.find 'abcdef1234567890'
+      
+      subscription.postpone(next_bill_date).must_equal true
+      subscription.current_period_ends_at.must_equal next_bill_date
+    end
+  end
 end

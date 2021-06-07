@@ -51,4 +51,5 @@ Content-Type: application/xml; charset=utf-8
   <a name="cancel" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/cancel" method="put"/>
   <a name="terminate" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/terminate" method="put"/>
   <a name="notes" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/notes" method="put"/>
+  <a name="postpone" href="https://api.recurly.com/v2/subscriptions/abcdef1234567890/postpone" method="put"/>
 </subscription>
