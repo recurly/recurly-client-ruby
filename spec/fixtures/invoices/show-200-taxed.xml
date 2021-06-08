@@ -58,7 +58,7 @@ Content-Type: application/xml; charset=utf-8
       <tax_region>CA</tax_region>
       <tax_rate type="float">0.05</tax_rate>
       <tax_in_cents type="integer">20</tax_in_cents>
-        </tax_detail>
+    </tax_detail>
   </tax_details>
   <!-- /Vertex -->
   <line_items>
