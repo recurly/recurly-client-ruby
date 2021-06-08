@@ -9,6 +9,8 @@ module Recurly
       tax_in_cents
       level
       billable
+      tax_type
+      tax_region
     )
 
     embedded! true
