@@ -111,7 +111,7 @@ module Recurly
       define_attribute :subscription_ids, Array, { :item_type => String }
 
       # @!attribute subtotal
-      #   @return [Float] The summation of charges, discounts, and credits, before tax.
+      #   @return [Float] The summation of charges and credits, before discounts and taxes.
       define_attribute :subtotal, Float
 
       # @!attribute tax
