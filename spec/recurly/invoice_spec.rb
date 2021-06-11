@@ -89,9 +89,9 @@ describe Invoice do
         invoice = Invoice.find 'show-invoice'
 
         tax_details = invoice.tax_details
-        tax_details.length.must_equal 2
+        tax_details.length.must_equal 3
         tax_details.all? { |d| d.must_be_instance_of Recurly::TaxDetail }
-        state, county = tax_details
+        state, county, canada = tax_details
 
         state.name.must_equal 'california'
         state.type.must_equal 'state'
@@ -104,6 +104,11 @@ describe Invoice do
         county.type.must_equal 'county'
         county.tax_rate.must_equal 0.02
         county.tax_in_cents.to_i.must_equal 2000
+
+        canada.tax_type.must_equal 'GST'
+        canada.tax_region.must_equal 'CA'
+        canada.tax_rate.must_equal 0.05
+        canada.tax_in_cents.to_i.must_equal 20
       end
     end
   end
@@ -248,15 +253,15 @@ describe Invoice do
       invoice.save()
 
       invoice.address.must_be_instance_of Address
-      invoice.address.first_name.must_equal "P." 
-      invoice.address.last_name.must_equal "Sherman" 
-      invoice.address.company.must_equal "Dentist Office" 
-      invoice.address.address1.must_equal "42 Wallaby Way" 
-      invoice.address.address2.must_equal "Suite 200" 
-      invoice.address.city.must_equal "Sydney" 
-      invoice.address.state.must_equal "New South Wales" 
-      invoice.address.country.must_equal "Australia" 
-      invoice.address.zip.must_equal "2060" 
+      invoice.address.first_name.must_equal "P."
+      invoice.address.last_name.must_equal "Sherman"
+      invoice.address.company.must_equal "Dentist Office"
+      invoice.address.address1.must_equal "42 Wallaby Way"
+      invoice.address.address2.must_equal "Suite 200"
+      invoice.address.city.must_equal "Sydney"
+      invoice.address.state.must_equal "New South Wales"
+      invoice.address.country.must_equal "Australia"
+      invoice.address.zip.must_equal "2060"
       invoice.po_number.must_equal "9876"
       invoice.terms_and_conditions.must_equal "Dentist not responsible for broken teeth."
       invoice.customer_notes.must_equal "Oh, well, that's one way to pull a tooth out!"
