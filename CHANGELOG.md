@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.18.20](https://github.com/recurly/recurly-client-ruby/tree/2.18.20) (2021-06-16)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.19...2.18.20)
+
+
+**Merged Pull Requests**
+
+- Add tax_type and tax_region to TaxDetails [#704](https://github.com/recurly/recurly-client-ruby/pull/704) ([naspthorp](https://github.com/naspthorp))
+- Add prerenewal_notification webhook [#697](https://github.com/recurly/recurly-client-ruby/pull/697) ([joannasese](https://github.com/joannasese))
+
+
+
 ## [2.18.19](https://github.com/recurly/recurly-client-ruby/tree/2.18.19) (2021-04-22)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.18...2.18.19)
