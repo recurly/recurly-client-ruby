@@ -89,6 +89,25 @@ XML
       )
       proc { BillingInfo.find 'abcdef1234567890' }.must_raise Resource::NotFound
     end
+
+    describe "#cc_bin_country" do
+      before do
+        stub_api_request(
+          :get, 'accounts/without-cc-bin/billing_info', 'billing_info/show-200'
+        )
+        stub_api_request(
+          :get, 'accounts/with-cc-bin/billing_info', 'billing_info/show-200-cc-bin-country'
+        )
+      end
+
+      it "is accessible as an attribute" do
+        billing_info_without_cc_bin_country = BillingInfo.find 'without-cc-bin'
+        billing_info_without_cc_bin_country.cc_bin_country.must_equal nil
+
+        billing_info_with_cc_bin_country = BillingInfo.find 'with-cc-bin'
+        billing_info_with_cc_bin_country.cc_bin_country.must_equal 'US'
+      end
+    end
   end
 
   describe 'verify' do
