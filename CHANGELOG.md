@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.18.21](https://github.com/recurly/recurly-client-ruby/tree/2.18.21) (2021-06-25)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.20...2.18.21)
+
+
+**Merged Pull Requests**
+
+- Adds Recurly::BillingInfo#cc_bin_country specs [#707](https://github.com/recurly/recurly-client-ruby/pull/707) ([chrissrogers](https://github.com/chrissrogers))
+- Adds cc_bin_country to Recurly::BillingInfo resource [#706](https://github.com/recurly/recurly-client-ruby/pull/706) ([chrissrogers](https://github.com/chrissrogers))
+
+
+
 ## [2.18.20](https://github.com/recurly/recurly-client-ruby/tree/2.18.20) (2021-06-16)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.19...2.18.20)
