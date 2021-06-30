@@ -18,6 +18,10 @@ module Recurly
       #   @return [String] Visa, MasterCard, American Express, Discover, JCB, etc.
       define_attribute :card_type, String
 
+      # @!attribute cc_bin_country
+      #   @return [String] The 2-letter ISO 3166-1 alpha-2 country code associated with the credit card BIN, if known by Recurly. Available on the BillingInfo object only. Available when the BIN country lookup feature is enabled.
+      define_attribute :cc_bin_country, String
+
       # @!attribute exp_month
       #   @return [Integer] Expiration month.
       define_attribute :exp_month, Integer
