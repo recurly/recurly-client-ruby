@@ -18,6 +18,10 @@ module Recurly
       #   @return [Array[SubscriptionAddOn]] These add-ons will be used when the subscription renews.
       define_attribute :add_ons, Array, { :item_type => :SubscriptionAddOn }
 
+      # @!attribute billing_info
+      #   @return [SubscriptionChangeBillingInfo] Accept nested attributes for three_d_secure_action_result_token_id
+      define_attribute :billing_info, :SubscriptionChangeBillingInfo
+
       # @!attribute created_at
       #   @return [DateTime] Created at
       define_attribute :created_at, DateTime

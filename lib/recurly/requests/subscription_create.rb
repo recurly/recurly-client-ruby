@@ -99,7 +99,7 @@ module Recurly
       define_attribute :transaction_type, String
 
       # @!attribute trial_ends_at
-      #   @return [DateTime] If set, overrides the default trial behavior for the subscription. The date must be in the future.
+      #   @return [DateTime] IIf set, overrides the default trial behavior for the subscription. When the current date time or a past date time is provided the subscription will begin with no trial phase (overriding any plan default trial). When a future date time is provided the subscription will begin with a trial phase ending at the specified date time.
       define_attribute :trial_ends_at, DateTime
 
       # @!attribute unit_amount
