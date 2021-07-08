@@ -1,0 +1,80 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<subscription href="https://api.recurly.com/v2/subscriptions/5895ce632d88b801b7831b41baba4c8b">
+  <account href="https://api.recurly.com/v2/accounts/turquoiseturquoise9"/>
+  <invoice href="https://api.recurly.com/v2/invoices/1187"/>
+  <plan href="https://api.recurly.com/v2/plans/yardstick">
+    <plan_code>yardstick</plan_code>
+    <name>Yard Stick</name>
+  </plan>
+  <auto_renew type="boolean">true</auto_renew>
+  <renewal_billing_cycles type="integer">1</renewal_billing_cycles>
+  <current_term_started_at type="datetime">2021-01-21T22:14:13Z</current_term_started_at>
+  <current_term_ends_at type="datetime">2021-02-21T22:14:13Z</current_term_ends_at>
+  <revenue_schedule_type>evenly</revenue_schedule_type>
+  <uuid>5895ce632d88b801b7831b41baba4c8b</uuid>
+  <state>active</state>
+  <unit_amount_in_cents type="integer">1200</unit_amount_in_cents>
+  <currency>USD</currency>
+  <quantity type="integer">1</quantity>
+  <activated_at type="datetime">2021-01-21T22:14:13Z</activated_at>
+  <canceled_at nil="nil"></canceled_at>
+  <expires_at nil="nil"></expires_at>
+  <updated_at type="datetime">2021-01-21T22:14:15Z</updated_at>
+  <total_billing_cycles type="integer">1</total_billing_cycles>
+  <remaining_billing_cycles type="integer">0</remaining_billing_cycles>
+  <current_period_started_at type="datetime">2021-01-21T22:14:13Z</current_period_started_at>
+  <current_period_ends_at type="datetime">2021-02-21T22:14:13Z</current_period_ends_at>
+  <trial_started_at nil="nil"></trial_started_at>
+  <trial_ends_at nil="nil"></trial_ends_at>
+  <terms_and_conditions nil="nil"></terms_and_conditions>
+  <customer_notes nil="nil"></customer_notes>
+  <started_with_gift type="boolean">false</started_with_gift>
+  <converted_at nil="nil"></converted_at>
+  <imported_trial type="boolean">false</imported_trial>
+  <paused_at nil="nil"></paused_at>
+  <remaining_pause_cycles nil="nil"></remaining_pause_cycles>
+  <no_billing_info_reason></no_billing_info_reason>
+  <gateway_code nil="nil"></gateway_code>
+  <po_number nil="nil"></po_number>
+  <net_terms type="integer">0</net_terms>
+  <collection_method>manual</collection_method>
+  <shipping_amount_in_cents>0</shipping_amount_in_cents>
+  <shipping_method_code nil="nil"></shipping_method_code>
+  <subscription_add_ons type="array">
+    <subscription_add_on>
+      <add_on_type>fixed</add_on_type>
+      <add_on_code>standard_add_on</add_on_code>
+      <unit_amount_in_cents type="integer">999</unit_amount_in_cents>
+      <quantity type="integer">1</quantity>
+      <revenue_schedule_type>evenly</revenue_schedule_type>
+      <tier_type>flat</tier_type>
+      <add_on_source>plan_add_on</add_on_source>
+    </subscription_add_on>
+    <subscription_add_on>
+      <add_on_type>fixed</add_on_type>
+      <add_on_code>tiered_add_on</add_on_code>
+      <quantity type="integer">5</quantity>
+      <revenue_schedule_type>evenly</revenue_schedule_type>
+      <tier_type>tiered</tier_type>
+      <tiers type="array">
+        <tier>
+          <ending_quantity type="integer">2000</ending_quantity>
+          <unit_amount_in_cents type="integer">5000</unit_amount_in_cents>
+        </tier>
+        <tier>
+          <ending_quantity type="integer">999999999</ending_quantity>
+          <unit_amount_in_cents type="integer">3500</unit_amount_in_cents>
+        </tier>
+      </tiers>
+      <add_on_source>plan_add_on</add_on_source>
+    </subscription_add_on>
+  </subscription_add_ons>
+  <custom_fields type="array">
+  </custom_fields>
+  <a name="cancel" href="https://api.recurly.com/v2/subscriptions/5895ce632d88b801b7831b41baba4c8b/cancel" method="put"/>
+  <a name="terminate" href="https://api.recurly.com/v2/subscriptions/5895ce632d88b801b7831b41baba4c8b/terminate" method="put"/>
+  <a name="postpone" href="https://api.recurly.com/v2/subscriptions/5895ce632d88b801b7831b41baba4c8b/postpone" method="put"/>
+  <a name="notes" href="https://api.recurly.com/v2/subscriptions/5895ce632d88b801b7831b41baba4c8b/notes" method="put"/>
+</subscription>
