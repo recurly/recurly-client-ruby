@@ -87,7 +87,7 @@ module Recurly
       define_attribute :invoice, :InvoiceMini
 
       # @!attribute ip_address_country
-      #   @return [String] IP address's country
+      #   @return [String] Origin IP address country, 2-letter ISO 3166-1 alpha-2 code, if known by Recurly.
       define_attribute :ip_address_country, String
 
       # @!attribute ip_address_v4
