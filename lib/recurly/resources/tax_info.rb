@@ -15,7 +15,7 @@ module Recurly
       define_attribute :region, String
 
       # @!attribute tax_details
-      #   @return [Array[TaxDetail]]
+      #   @return [Array[TaxDetail]] Provides additional tax details for Canadian Sales Tax when there is tax applied at both the country and province levels. This will only be populated for the Invoice response when fetching a single invoice and not for the InvoiceList or LineItem.
       define_attribute :tax_details, Array, { :item_type => :TaxDetail }
 
       # @!attribute type

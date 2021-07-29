@@ -71,11 +71,11 @@ module Recurly
       define_attribute :primary_payment_method, :Boolean
 
       # @!attribute tax_identifier
-      #   @return [String] Tax identifier is required if adding a billing info that is a consumer card in Brazil. This would be the customer's CPF, CPF is a Brazilian tax identifier for all tax paying residents.
+      #   @return [String] Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.
       define_attribute :tax_identifier, String
 
       # @!attribute tax_identifier_type
-      #   @return [String] this field and a value of 'cpf' are required if adding a billing info that is an elo or hipercard type in Brazil.
+      #   @return [String] This field and a value of `cpf` or `cuit` are required if adding a billing info that is an elo or hipercard type in Brazil or in Argentina.
       define_attribute :tax_identifier_type, String
 
       # @!attribute three_d_secure_action_result_token_id

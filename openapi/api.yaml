@@ -3846,7 +3846,7 @@ paths:
           try {
               LineItemCreate lineItemCreate = new LineItemCreate();
               lineItemCreate.setCurrency("USD");
-              lineItemCreate.setUnitAmount(1000.0f);
+              lineItemCreate.setUnitAmount(new BigDecimal("1000.0"));
               lineItemCreate.setType(Constants.LineItemType.CHARGE); // choose "credit" for a credit
 
               LineItem lineItem = client.createLineItem(accountId, lineItemCreate);
@@ -5426,7 +5426,7 @@ paths:
               List<CouponPricing> currencies = new ArrayList<CouponPricing>();
               CouponPricing couponPrice = new CouponPricing();
               couponPrice.setCurrency("USD");
-              couponPrice.setDiscount(10.0f);
+              couponPrice.setDiscount(new BigDecimal("10.0"));
               currencies.add(couponPrice);
 
               couponCreate.setCurrencies(currencies);
@@ -8957,7 +8957,7 @@ paths:
               final InvoiceRefund invoiceRefund = new InvoiceRefund();
               invoiceRefund.setCreditCustomerNotes("Notes on credits");
               invoiceRefund.setType(Constants.InvoiceRefundType.AMOUNT); // could also be "line_items"
-              invoiceRefund.setAmount(100f);
+              invoiceRefund.setAmount(new BigDecimal("100"));
 
               final Invoice invoice = client.refundInvoice(invoiceId, invoiceRefund);
               System.out.println("Refunded invoice " + invoice.getNumber());
@@ -9587,7 +9587,7 @@ paths:
               List<PlanPricing> currencies = new ArrayList<PlanPricing>();
               PlanPricing planPrice = new PlanPricing();
               planPrice.setCurrency("USD");
-              planPrice.setUnitAmount(10000.0f);
+              planPrice.setUnitAmount(new BigDecimal("10000"));
               currencies.add(planPrice);
 
               planCreate.setCurrencies(currencies);
@@ -10256,7 +10256,7 @@ paths:
               List<AddOnPricing> currencies = new ArrayList<AddOnPricing>();
               AddOnPricing addOnPrice = new AddOnPricing();
               addOnPrice.setCurrency("USD");
-              addOnPrice.setUnitAmount(10000.0f);
+              addOnPrice.setUnitAmount(new BigDecimal("10000.0"));
               currencies.add(addOnPrice);
 
               addOnCreate.setCurrencies(currencies);
@@ -13891,7 +13891,14 @@ paths:
               // why. You can find the invalid params and reasons in e.getError().getParams()
               System.out.println("Failed validation: " + e.getError().getMessage());
               System.out.println("Params: " + e.getError().getParams());
-          } catch (ApiException e) {
+          } catch (TransactionException e) {
+              TransactionError tError = e.getError().getTransactionError();
+              if (tError.getCategory() == Constants.ErrorCategory.THREE_D_SECURE_ACTION_REQUIRED) {
+                  String actionTokenId = tError.getThreeDSecureActionTokenId();
+                  System.out.println("Got 3DSecure TransactionError token: " + actionTokenId);
+              }
+          }
+          catch (ApiException e) {
               // Use ApiException to catch a generic error from the API
               System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
           }
@@ -15482,7 +15489,7 @@ components:
         country:
           type: string
           title: Country
-          description: Country, 2-letter ISO code.
+          description: Country, 2-letter ISO 3166-1 alpha-2 code.
     AddressWithName:
       allOf:
       - "$ref": "#/components/schemas/Address"
@@ -16066,7 +16073,8 @@ components:
               maxLength: 20
             country:
               type: string
-              description: Country of IP address, if known by Recurly.
+              description: Country, 2-letter ISO 3166-1 alpha-2 code matching the
+                origin IP address, if known by Recurly.
               maxLength: 2
     BillingInfoCreate:
       type: object
@@ -16156,11 +16164,12 @@ components:
         tax_identifier:
           type: string
           description: Tax identifier is required if adding a billing info that is
-            a consumer card in Brazil. This would be the customer's CPF, CPF is a
-            Brazilian tax identifier for all tax paying residents.
+            a consumer card in Brazil or in Argentina. This would be the customer's
+            CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for
+            all residents who pay taxes in Brazil and Argentina respectively.
         tax_identifier_type:
-          description: this field and a value of 'cpf' are required if adding a billing
-            info that is an elo or hipercard type in Brazil.
+          description: This field and a value of `cpf` or `cuit` are required if adding
+            a billing info that is an elo or hipercard type in Brazil or in Argentina.
           "$ref": "#/components/schemas/TaxIdentifierTypeEnum"
         primary_payment_method:
           type: boolean
@@ -18743,7 +18752,7 @@ components:
         country:
           type: string
           maxLength: 50
-          description: Country, 2-letter ISO code.
+          description: Country, 2-letter ISO 3166-1 alpha-2 code.
         created_at:
           type: string
           title: Created at
@@ -18798,7 +18807,7 @@ components:
         country:
           type: string
           maxLength: 50
-          description: Country, 2-letter ISO code.
+          description: Country, 2-letter ISO 3166-1 alpha-2 code.
       required:
       - first_name
       - last_name
@@ -19048,7 +19057,7 @@ components:
         country:
           type: string
           maxLength: 50
-          description: Country, 2-letter ISO code.
+          description: Country, 2-letter ISO 3166-1 alpha-2 code.
     Site:
       type: object
       properties:
@@ -19810,7 +19819,10 @@ components:
           format: date-time
           title: Trial ends at
           description: If set, overrides the default trial behavior for the subscription.
-            The date must be in the future.
+            When the current date time or a past date time is provided the subscription
+            will begin with no trial phase (overriding any plan default trial). When
+            a future date time is provided the subscription will begin with a trial
+            phase ending at the specified date time.
         starts_at:
           type: string
           format: date-time
@@ -19936,7 +19948,10 @@ components:
           format: date-time
           title: Trial ends at
           description: If set, overrides the default trial behavior for the subscription.
-            The date must be in the future.
+            When the current date time or a past date time is provided the subscription
+            will begin with no trial phase (overriding any plan default trial). When
+            a future date time is provided the subscription will begin with a trial
+            phase ending at the specified date time.
         starts_at:
           type: string
           format: date-time
@@ -20166,15 +20181,15 @@ components:
           title: Rate
         tax_details:
           type: array
+          description: Provides additional tax details for Canadian Sales Tax when
+            there is tax applied at both the country and province levels. This will
+            only be populated for the Invoice response when fetching a single invoice
+            and not for the InvoiceList or LineItem.
           items:
             "$ref": "#/components/schemas/TaxDetail"
     TaxDetail:
       type: object
-      title: Tax info
-      description: Provides additional tax details for Canadian Sales Tax when there
-        is tax applied at both the country and province levels. This will only be
-        populated for the Invoice response when fetching a single invoice and not
-        for the InvoiceList or LineItem.
+      title: Tax detail
       properties:
         type:
           type: string
@@ -20292,7 +20307,8 @@ components:
             - When the merchant enters billing information using the UI, no IP address is recorded.
         ip_address_country:
           type: string
-          title: IP address's country
+          title: Origin IP address country, 2-letter ISO 3166-1 alpha-2 code, if known
+            by Recurly.
         status_code:
           type: string
           title: Status code
@@ -20777,6 +20793,11 @@ components:
           description: A token used in place of a credit card in order to perform
             transactions.
           maxLength: 50
+        cc_bin_country:
+          type: string
+          description: The 2-letter ISO 3166-1 alpha-2 country code associated with
+            the credit card BIN, if known by Recurly. Available on the BillingInfo
+            object only. Available when the BIN country lookup feature is enabled.
         gateway_code:
           type: string
           description: An identifier for a specific payment gateway.
@@ -21497,6 +21518,7 @@ components:
       - invalid_data
       - invalid_email
       - invalid_gateway_configuration
+      - invalid_gateway_access_token
       - invalid_issuer
       - invalid_login
       - invalid_merchant_type
@@ -21589,3 +21611,4 @@ components:
       type: string
       enum:
       - cpf
+      - cuit

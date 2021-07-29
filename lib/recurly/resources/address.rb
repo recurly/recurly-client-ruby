@@ -11,7 +11,7 @@ module Recurly
       define_attribute :city, String
 
       # @!attribute country
-      #   @return [String] Country, 2-letter ISO code.
+      #   @return [String] Country, 2-letter ISO 3166-1 alpha-2 code.
       define_attribute :country, String
 
       # @!attribute phone
