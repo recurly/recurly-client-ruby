@@ -21571,6 +21571,7 @@ components:
                 - invalid_data
                 - invalid_email
                 - invalid_gateway_configuration
+                - invalid_gateway_access_token
                 - invalid_issuer
                 - invalid_login
                 - invalid_merchant_type
