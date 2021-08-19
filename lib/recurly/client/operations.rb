@@ -3217,6 +3217,19 @@ module Recurly
       put(path, **options)
     end
 
+    # Fetch a preview of a subscription's renewal invoice(s)
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/get_preview_renewal get_preview_renewal api documenation}
+    #
+    # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    #
+    # @return [Resources::InvoiceCollection] A preview of the subscription's renewal invoice(s).
+    #
+    def get_preview_renewal(subscription_id:)
+      path = interpolate_path("/subscriptions/{subscription_id}/preview_renewal", subscription_id: subscription_id)
+      get(path)
+    end
+
     # Fetch a subscription's pending change
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/get_subscription_change get_subscription_change api documenation}
