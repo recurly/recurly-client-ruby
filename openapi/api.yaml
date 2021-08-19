@@ -12434,6 +12434,43 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/subscriptions/{subscription_id}/preview_renewal":
+    get:
+      tags:
+      - subscription
+      operationId: get_preview_renewal
+      summary: Fetch a preview of a subscription's renewal invoice(s)
+      description: The subscriptions's renewal invoice(s) will be returned if they
+        exist; if they don't (for example, if the subscription is not set to renew),
+        it will return an result with no invoices.
+      parameters:
+      - "$ref": "#/components/parameters/subscription_id"
+      responses:
+        '200':
+          description: A preview of the subscription's renewal invoice(s).
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InvoiceCollection"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site ID or subscription ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/subscriptions/{subscription_id}/change":
     get:
       tags:
@@ -20075,7 +20112,8 @@ components:
         remaining_pause_cycles:
           type: integer
           title: Remaining pause cycles
-          description: Number of billing cycles to pause the subscriptions.
+          description: Number of billing cycles to pause the subscriptions. A value
+            of 0 will cancel any pending pauses on the subscription.
       required:
       - remaining_pause_cycles
     SubscriptionShipping:
