@@ -42,6 +42,10 @@ module Recurly
       #   @return [DateTime] If present, when the account was last marked inactive.
       define_attribute :deleted_at, DateTime
 
+      # @!attribute dunning_campaign_id
+      #   @return [String] Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
+      define_attribute :dunning_campaign_id, String
+
       # @!attribute email
       #   @return [String] The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.
       define_attribute :email, String

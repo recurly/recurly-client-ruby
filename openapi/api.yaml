@@ -218,6 +218,7 @@ x-tagGroups:
   - site
   - custom_field_definition
   - shipping_method
+  - dunning_campaigns
 tags:
 - name: site
   x-displayName: Site
@@ -331,6 +332,9 @@ tags:
 - name: automated_exports
   x-displayName: Automated Exports
   description: Automated exports of customer data.
+- name: dunning_campaigns
+  x-displayName: Dunning Campaigns
+  description: Settings used when attempting to dun customers whose payments are declined.
 paths:
   "/sites":
     get:
@@ -14378,6 +14382,107 @@ paths:
           err.(*recurly.Error); ok {\n\tfmt.Printf(\"Unexpected Recurly error: %v\",
           e)\n\treturn nil, err\n}\n\nfor _, file := range exportFiles.Files {\n\tfmt.Println(\"Export
           file download URL: \", file.Href)\n}"
+  "/sites/{site_id}/dunning_campaigns":
+    get:
+      tags:
+      - dunning_campaigns
+      operationId: list_dunning_campaigns
+      summary: Show the dunning campaigns for a site
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/sort_dates"
+      responses:
+        '200':
+          description: A list of the the dunning_campaigns on an account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DunningCampaignList"
+        '404':
+          description: Incorrect site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/dunning_campaigns/{dunning_campaign_id}":
+    parameters:
+    - "$ref": "#/components/parameters/dunning_campaign_id"
+    get:
+      tags:
+      - dunning_campaigns
+      operationId: get_dunning_campaign
+      summary: Show the settings for a dunning campaign
+      responses:
+        '200':
+          description: Settings for a dunning campaign.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DunningCampaign"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or campaign ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/dunning_campaigns/{dunning_campaign_id}/bulk_update":
+    put:
+      tags:
+      - dunning_campaigns
+      operationId: put_dunning_campaign_bulk_update
+      summary: Assign a dunning campaign to multiple plans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/DunningCampaignsBulkUpdate"
+      responses:
+        '200':
+          description: A list of updated plans.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/DunningCampaignsBulkUpdateResponse"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or campaign ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
 servers:
 - url: https://v3.recurly.com
 components:
@@ -14518,6 +14623,13 @@ components:
       in: path
       description: Unique Coupon Code ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`.
         For code use prefix `code-`, e.g. `code-abc-8dh2-def`.
+      required: true
+      schema:
+        type: string
+    dunning_campaign_id:
+      name: dunning_campaign_id
+      in: path
+      description: Dunning Campaign ID, e.g. `e28zov4fw0v2`.
       required: true
       schema:
         type: string
@@ -15362,6 +15474,14 @@ components:
             mail order and telephone transactions.
           enum:
           - moto
+        dunning_campaign_id:
+          type: string
+          title: Dunning Campaign ID
+          description: Unique ID to identify a dunning campaign. Available when the
+            Dunning Campaigns feature is enabled. Used to specify if a non-default
+            dunning campaign should be assigned to this account. For sites without
+            multiple dunning campaigns enabled, the default dunning campaign will
+            always be used.
         address:
           "$ref": "#/components/schemas/Address"
         billing_info:
@@ -15458,6 +15578,14 @@ components:
           enum:
           - self
           - parent
+        dunning_campaign_id:
+          type: string
+          title: Dunning Campaign ID
+          description: Unique ID to identify a dunning campaign. Available when the
+            Dunning Campaigns feature is enabled. Used to specify if a non-default
+            dunning campaign should be assigned to this account. For sites without
+            multiple dunning campaigns enabled, the default dunning campaign will
+            always be used.
         address:
           "$ref": "#/components/schemas/Address"
         billing_info:
@@ -15523,6 +15651,14 @@ components:
         bill_to:
           type: string
           maxLength: 6
+        dunning_campaign_id:
+          type: string
+          title: Dunning Campaign ID
+          description: Unique ID to identify a dunning campaign. Available when the
+            Dunning Campaigns feature is enabled. Used to specify if a non-default
+            dunning campaign should be assigned to this account. For sites without
+            multiple dunning campaigns enabled, the default dunning campaign will
+            always be used.
     AccountBalance:
       type: object
       properties:
@@ -17679,6 +17815,13 @@ components:
           format: date-time
           title: Closed at
           description: Date invoice was marked paid or failed.
+        dunning_campaign_id:
+          type: string
+          title: Dunning Campaign ID
+          description: Unique ID to identify the dunning campaign used when dunning
+            the invoice. Available when the Dunning Campaigns feature is enabled.
+            For sites without multiple dunning campaigns enabled, this will always
+            be the default dunning campaign.
     InvoiceCreate:
       type: object
       properties:
@@ -18697,6 +18840,14 @@ components:
             Used to determine whether items can be assigned as add-ons to individual subscriptions.
             If `true`, items can be assigned as add-ons to individual subscription add-ons.
             If `false`, only plan add-ons can be used.
+        dunning_campaign_id:
+          type: string
+          title: Dunning Campaign ID
+          description: Unique ID to identify a dunning campaign. Available when the
+            Dunning Campaigns feature is enabled. Used to specify if a non-default
+            dunning campaign should be assigned to this plan. For sites without multiple
+            dunning campaigns enabled, the default dunning campaign will always be
+            used.
         created_at:
           type: string
           format: date-time
@@ -18869,6 +19020,14 @@ components:
             Used to determine whether items can be assigned as add-ons to individual subscriptions.
             If `true`, items can be assigned as add-ons to individual subscription add-ons.
             If `false`, only plan add-ons can be used.
+        dunning_campaign_id:
+          type: string
+          title: Dunning Campaign ID
+          description: Unique ID to identify a dunning campaign. Available when the
+            Dunning Campaigns feature is enabled. Used to specify if a non-default
+            dunning campaign should be assigned to this plan. For sites without multiple
+            dunning campaigns enabled, the default dunning campaign will always be
+            used.
       required:
       - code
       - name
@@ -19058,6 +19217,14 @@ components:
             Used to determine whether items can be assigned as add-ons to individual subscriptions.
             If `true`, items can be assigned as add-ons to individual subscription add-ons.
             If `false`, only plan add-ons can be used.
+        dunning_campaign_id:
+          type: string
+          title: Dunning Campaign ID
+          description: Unique ID to identify a dunning campaign. Available when the
+            Dunning Campaigns feature is enabled. Used to specify if a non-default
+            dunning campaign should be assigned to this plan. For sites without multiple
+            dunning campaigns enabled, the default dunning campaign will always be
+            used.
     AddOnPricing:
       type: object
       properties:
@@ -21372,6 +21539,155 @@ components:
       required:
       - currency
       - account
+    DunningCampaign:
+      type: object
+      description: Settings for a dunning campaign.
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+          title: Object type
+        code:
+          type: string
+          description: Campaign code.
+        name:
+          type: string
+          description: Campaign name.
+        description:
+          type: string
+          description: Campaign description.
+        default_campaign:
+          type: boolean
+          description: Whether or not this is the default campaign for accounts or
+            plans without an assigned dunning campaign.
+        dunning_cycles:
+          type: array
+          description: Dunning Cycle settings.
+          items:
+            "$ref": "#/components/schemas/DunningCycle"
+        created_at:
+          type: string
+          format: date-time
+          description: When the current campaign was created in Recurly.
+        updated_at:
+          type: string
+          format: date-time
+          description: When the current campaign was updated in Recurly.
+        deleted_at:
+          type: string
+          format: date-time
+          description: When the current campaign was deleted in Recurly.
+    DunningCampaignList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/DunningCampaign"
+    DunningCycle:
+      type: object
+      properties:
+        type:
+          type: string
+          description: The type of invoice this cycle applies to.
+          enum:
+          - automatic
+          - manual
+          - trial
+        applies_to_manual_trial:
+          type: boolean
+          description: Whether the dunning settings will be applied to manual trials.
+            Only applies to trial cycles.
+        first_communication_interval:
+          type: integer
+          description: The number of days after a transaction failure before the first
+            dunning email is sent.
+        send_immediately_on_hard_decline:
+          type: boolean
+          description: Whether or not to send an extra email immediately to customers
+            whose initial payment attempt fails with either a hard decline or invalid
+            billing info.
+        intervals:
+          type: array
+          description: Dunning intervals.
+          items:
+            "$ref": "#/components/schemas/DunningInterval"
+        expire_subscription:
+          type: boolean
+          description: Whether the subscription(s) should be cancelled at the end
+            of the dunning cycle.
+        fail_invoice:
+          type: boolean
+          description: Whether the invoice should be failed at the end of the dunning
+            cycle.
+        total_dunning_days:
+          type: integer
+          description: The number of days between the first dunning email being sent
+            and the end of the dunning cycle.
+        total_recycling_days:
+          type: integer
+          description: The number of days between a transaction failure and the end
+            of the dunning cycle.
+        version:
+          type: integer
+          description: Current campaign version.
+        created_at:
+          type: string
+          format: date-time
+          description: When the current settings were created in Recurly.
+        updated_at:
+          type: string
+          format: date-time
+          description: When the current settings were updated in Recurly.
+    DunningInterval:
+      properties:
+        days:
+          type: integer
+          description: Number of days before sending the next email.
+        email_template:
+          type: string
+          description: Email template being used.
+    DunningCampaignsBulkUpdate:
+      properties:
+        plan_codes:
+          type: array
+          maxItems: 200
+          description: List of `plan_codes` associated with the Plans for which the
+            dunning campaign should be updated. Required unless `plan_ids` is present.
+          items:
+            type: string
+        plan_ids:
+          type: array
+          maxItems: 200
+          description: List of `plan_ids` associated with the Plans for which the
+            dunning campaign should be updated. Required unless `plan_codes` is present.
+          items:
+            type: string
+    DunningCampaignsBulkUpdateResponse:
+      properties:
+        object:
+          type: string
+          title: Object type
+          readOnly: true
+        plans:
+          type: array
+          title: Plans
+          description: An array containing all of the `Plan` resources that have been
+            updated.
+          maxItems: 200
+          items:
+            "$ref": "#/components/schemas/Plan"
     PaymentMethod:
       properties:
         object:
@@ -21410,6 +21726,7 @@ components:
           - Union Pay
           - Unknown
           - Visa
+          - Tarjeta Naranja
         first_six:
           type: string
           description: Credit card number's first six digits.
