@@ -3807,5 +3807,47 @@ module Recurly
       path = interpolate_path("/export_dates/{export_date}/export_files", export_date: export_date)
       get(path, **options)
     end
+
+    # Show the dunning campaigns for a site
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/list_dunning_campaigns list_dunning_campaigns api documenation}
+    #
+    # @param sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #
+    # @return [Pager<Resources::DunningCampaign>] A list of the the dunning_campaigns on an account.
+    #
+    def list_dunning_campaigns(**options)
+      path = "/dunning_campaigns"
+      pager(path, **options)
+    end
+
+    # Show the settings for a dunning campaign
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/get_dunning_campaign get_dunning_campaign api documenation}
+    #
+    # @param dunning_campaign_id [String] Dunning Campaign ID, e.g. +e28zov4fw0v2+.
+    #
+    # @return [Resources::DunningCampaign] Settings for a dunning campaign.
+    #
+    def get_dunning_campaign(dunning_campaign_id:)
+      path = interpolate_path("/dunning_campaigns/{dunning_campaign_id}", dunning_campaign_id: dunning_campaign_id)
+      get(path)
+    end
+
+    # Assign a dunning campaign to multiple plans
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/put_dunning_campaign_bulk_update put_dunning_campaign_bulk_update api documenation}
+    #
+    # @param body [Requests::DunningCampaignsBulkUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::DunningCampaignsBulkUpdate}
+    #
+    # @return [Resources::DunningCampaignsBulkUpdateResponse] A list of updated plans.
+    #
+    def put_dunning_campaign_bulk_update(body:)
+      path = "/dunning_campaigns/{dunning_campaign_id}/bulk_update"
+      put(path, body, Requests::DunningCampaignsBulkUpdate)
+    end
   end
 end

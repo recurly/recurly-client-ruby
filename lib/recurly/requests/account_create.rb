@@ -38,6 +38,10 @@ module Recurly
       #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
       define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
+      # @!attribute dunning_campaign_id
+      #   @return [String] Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
+      define_attribute :dunning_campaign_id, String
+
       # @!attribute email
       #   @return [String] The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.
       define_attribute :email, String
