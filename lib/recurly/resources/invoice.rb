@@ -54,6 +54,10 @@ module Recurly
       #   @return [DateTime] Date invoice is due. This is the date the net terms are reached.
       define_attribute :due_at, DateTime
 
+      # @!attribute dunning_campaign_id
+      #   @return [String] Unique ID to identify the dunning campaign used when dunning the invoice. Available when the Dunning Campaigns feature is enabled. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.
+      define_attribute :dunning_campaign_id, String
+
       # @!attribute has_more_line_items
       #   @return [Boolean] Identifies if the invoice has more line items than are returned in `line_items`. If `has_more_line_items` is `true`, then a request needs to be made to the `list_invoice_line_items` endpoint.
       define_attribute :has_more_line_items, :Boolean
