@@ -12583,7 +12583,16 @@ paths:
       - subscription_change
       operationId: create_subscription_change
       summary: Create a new subscription change
-      description: Calling this will overwrite an existing, pending subscription change.
+      description: |
+        Calling this will overwrite an existing, pending subscription change.
+
+        If a subscription has a pending change, and a change is submitted which matches
+        the subscription as it currently exists, the pending change will be deleted,
+        and you will receive a 204 No Content response.
+
+        If a subscription has no pending
+        change, and a change is submitted which matches the subscription as it currently
+        exists, a 422 Unprocessable Entity validation error will be returned.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
@@ -12600,6 +12609,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/SubscriptionChange"
+        '204':
+          description: The previous pending change was reverted.
         '404':
           description: Incorrect site ID.
           content:
