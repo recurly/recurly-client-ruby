@@ -26,6 +26,10 @@ module Recurly
       #   @return [String] Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.
       define_attribute :customer_notes, String
 
+      # @!attribute gateway_code
+      #   @return [String] If present, this subscription's transactions will use the payment gateway with this code.
+      define_attribute :gateway_code, String
+
       # @!attribute net_terms
       #   @return [Integer] Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.
       define_attribute :net_terms, Integer

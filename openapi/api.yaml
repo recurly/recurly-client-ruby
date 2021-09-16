@@ -12611,7 +12611,16 @@ paths:
       - subscription_change
       operationId: create_subscription_change
       summary: Create a new subscription change
-      description: Calling this will overwrite an existing, pending subscription change.
+      description: |
+        Calling this will overwrite an existing, pending subscription change.
+
+        If a subscription has a pending change, and a change is submitted which matches
+        the subscription as it currently exists, the pending change will be deleted,
+        and you will receive a 204 No Content response.
+
+        If a subscription has no pending
+        change, and a change is submitted which matches the subscription as it currently
+        exists, a 422 Unprocessable Entity validation error will be returned.
       parameters:
       - "$ref": "#/components/parameters/subscription_id"
       requestBody:
@@ -12627,6 +12636,8 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/SubscriptionChange"
+        '204':
+          description: The previous pending change was reverted.
         '404':
           description: Incorrect site ID.
           content:
@@ -19443,6 +19454,16 @@ components:
           format: float
           title: Estimated total, before tax.
           minimum: 0
+        tax:
+          type: number
+          format: float
+          title: Estimated tax
+        tax_info:
+          "$ref": "#/components/schemas/TaxInfo"
+        total:
+          type: number
+          format: float
+          title: Estimated total
         collection_method:
           title: Collection method
           default: automatic
@@ -19502,6 +19523,12 @@ components:
             set. This timestamp is used for alerting customers to reauthorize in 3
             years in accordance with NACHA rules. If a subscription becomes inactive
             or the billing info is no longer a bank account, this timestamp is cleared.
+        gateway_code:
+          type: string
+          title: Gateway Code
+          description: If present, this subscription's transactions will use the payment
+            gateway with this code.
+          maxLength: 13
         billing_info_id:
           type: string
           title: Billing Info ID
@@ -19956,6 +19983,13 @@ components:
           format: float
           title: Assigns the subscription's shipping cost. If this is greater than
             zero then a `method_id` or `method_code` is required.
+        address_id:
+          type: string
+          titpe: Shipping address ID
+          description: Assign a shipping address from the account's existing shipping
+            addresses. If this and address are both present, address will take precedence.
+        address:
+          "$ref": "#/components/schemas/ShippingAddressCreate"
     SubscriptionCreate:
       type: object
       properties:
@@ -20264,6 +20298,12 @@ components:
             at 31 days exactly.
           minimum: 0
           default: 0
+        gateway_code:
+          type: string
+          title: Gateway Code
+          description: If present, this subscription's transactions will use the payment
+            gateway with this code.
+          maxLength: 13
         shipping:
           "$ref": "#/components/schemas/SubscriptionShippingUpdate"
         billing_info_id:

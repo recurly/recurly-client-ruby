@@ -6,6 +6,14 @@ module Recurly
   module Requests
     class SubscriptionChangeShippingCreate < Request
 
+      # @!attribute address
+      #   @return [ShippingAddressCreate]
+      define_attribute :address, :ShippingAddressCreate
+
+      # @!attribute address_id
+      #   @return [String] Assign a shipping address from the account's existing shipping addresses. If this and address are both present, address will take precedence.
+      define_attribute :address_id, String
+
       # @!attribute amount
       #   @return [Float] Assigns the subscription's shipping cost. If this is greater than zero then a `method_id` or `method_code` is required.
       define_attribute :amount, Float

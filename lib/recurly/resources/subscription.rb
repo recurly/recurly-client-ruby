@@ -86,6 +86,10 @@ module Recurly
       #   @return [DateTime] Expires at
       define_attribute :expires_at, DateTime
 
+      # @!attribute gateway_code
+      #   @return [String] If present, this subscription's transactions will use the payment gateway with this code.
+      define_attribute :gateway_code, String
+
       # @!attribute id
       #   @return [String] Subscription ID
       define_attribute :id, String
@@ -146,9 +150,21 @@ module Recurly
       #   @return [Float] Estimated total, before tax.
       define_attribute :subtotal, Float
 
+      # @!attribute tax
+      #   @return [Float] Estimated tax
+      define_attribute :tax, Float
+
+      # @!attribute tax_info
+      #   @return [TaxInfo] Tax info
+      define_attribute :tax_info, :TaxInfo
+
       # @!attribute terms_and_conditions
       #   @return [String] Terms and conditions
       define_attribute :terms_and_conditions, String
+
+      # @!attribute total
+      #   @return [Float] Estimated total
+      define_attribute :total, Float
 
       # @!attribute total_billing_cycles
       #   @return [Integer] The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.
