@@ -162,6 +162,36 @@ describe Subscription do
         SubscriptionAddOn.new("add_on_code"=>"trial2")
       ])
     end
+
+    describe ".update_attributes" do
+      before do
+        stub_api_request(
+          :get, 'subscriptions/5895ce632d88b801b7831b41baba4c8b', 'subscriptions/add_ons/show-200'
+        )
+        stub_api_request(
+          :put, 'subscriptions/5895ce632d88b801b7831b41baba4c8b', 'subscriptions/add_ons/show-200-updated'
+        )
+      end
+
+      it "will update subscription add-ons" do
+        subscription = Subscription.find '5895ce632d88b801b7831b41baba4c8b'
+        subscription.subscription_add_ons[0].unit_amount_in_cents.must_equal 999
+
+        subscription.update_attributes!(timeframe: "now")
+        subscription.subscription_add_ons[0].unit_amount_in_cents.must_equal 888
+      end
+
+      it "will update subscription add-on tiers" do
+        subscription = Subscription.find '5895ce632d88b801b7831b41baba4c8b'
+        subscription.subscription_add_ons.length.must_equal 2
+        subscription.subscription_add_ons[1].tiers.length.must_equal 2
+
+        subscription.update_attributes!(timeframe: "now")
+        subscription.subscription_add_ons[1].tiers.length.must_equal 3
+        subscription.subscription_add_ons[1].tiers[0].unit_amount_in_cents["USD"].must_equal 5500
+        subscription.subscription_add_ons[1].tiers[1].unit_amount_in_cents["USD"].must_equal 4999
+      end
+    end
   end
 
   describe "custom fields" do
