@@ -49,4 +49,5 @@ Content-Type: application/xml; charset=utf-8
       <value>acct value</value>
     </custom_field>
   </custom_fields>
+  <dunning_campaign_id>1234abcd</dunning_campaign_id>
 </account>

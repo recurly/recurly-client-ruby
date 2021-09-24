@@ -118,4 +118,5 @@ Content-Type: application/xml; charset=utf-8
       <voided_at type="datetime">2017-07-22T15:51:38Z</voided_at>
     </credit_payment>
   </credit_payments>
+  <dunning_campaign_id>1234abcd</dunning_campaign_id>
 </invoice>

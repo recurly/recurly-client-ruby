@@ -95,6 +95,7 @@ module Recurly
       has_paused_subscription
       preferred_locale
       transaction_type
+      dunning_campaign_id
     )
     alias to_param account_code
 

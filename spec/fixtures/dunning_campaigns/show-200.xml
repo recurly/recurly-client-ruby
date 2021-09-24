@@ -1,0 +1,36 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<dunning_campaign>
+  <id>1234abcd</id>
+  <code>code</code>
+  <name>name</name>
+  <description nil="nil"></description>
+  <default_campaign type="boolean">true</default_campaign>
+  <created_at type="datetime">2017-02-17T15:38:53Z</created_at>
+  <updated_at type="datetime">2020-02-17T15:38:53Z</updated_at>
+  <deleted_at nil="nil"></deleted_at>
+  <dunning_cycles type="array">
+    <dunning_cycle>
+      <type>automatic</type>
+      <applies_to_manual_trial type="boolean">false</applies_to_manual_trial>
+      <first_communication_interval type="integer">3</first_communication_interval>
+      <send_immediately_on_hard_decline type="boolean">true</send_immediately_on_hard_decline>
+      <intervals type="array">
+        <interval>
+          <days>3</days>
+          <email_template>subscription_canceled_nonpayment</email_template>
+        </interval>
+      </intervals>
+      <expire_subscription type="boolean">true</expire_subscription>
+      <fail_invoice type="boolean">true</fail_invoice>
+      <total_dunning_days type="integer">0</total_dunning_days>
+      <total_recycling_days type="integer">3</total_recycling_days>
+      <version>9</version>
+      <created_at type="datetime">2021-08-05T23:06:18Z</created_at>
+      <updated_at type="datetime">2021-08-05T23:06:18Z</updated_at>
+    </dunning_cycle>
+  </dunning_cycles>
+  <a name="bulk_update" href="https://api.recurly.com/v2/dunning_campaigns/1234abcd/bulk_update" method="put"/>
+</dunning_campaign>

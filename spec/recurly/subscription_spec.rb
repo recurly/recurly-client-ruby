@@ -18,7 +18,8 @@ describe Subscription do
             number: '4111-1111-1111-1111',
             month: 1,
             year: 2014,
-          }
+          },
+          dunning_campaign_id: '1234abcd'
         },
         shipping_address_id: 1234,
         shipping_method_code: 'ups_ground',
@@ -135,8 +136,8 @@ describe Subscription do
       )
       subscription = Subscription.new add_ons: [
         add_on_code: item.item_code,
-        add_on_source: "item", 
-        unit_amount_in_cents: 199, 
+        add_on_source: "item",
+        unit_amount_in_cents: 199,
         quantity: 2
       ]
 
@@ -387,7 +388,7 @@ describe Subscription do
       stub_api_request :get, 'subscriptions/abcdef1234567890', 'subscriptions/show-200-trial'
       stub_api_request :put, 'https://api.recurly.com/v2/subscriptions/abcdef1234567890/convert_trial', 'subscriptions/convert-trial-200'
     end
-    
+
     it "should convert trial to paid subscription is valid 3ds token is provided" do
       sub = Recurly::Subscription.find('abcdef1234567890')
       sub.convert_trial("token").must_equal true
@@ -502,7 +503,7 @@ describe Subscription do
 
       next_bill_date = Date.parse('2021-05-20')
       subscription = Subscription.find 'abcdef1234567890'
-      
+
       subscription.postpone(next_bill_date).must_equal true
       subscription.current_period_ends_at.must_equal next_bill_date
     end

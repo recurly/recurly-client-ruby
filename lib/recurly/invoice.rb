@@ -115,6 +115,7 @@ module Recurly
       surcharge_in_cents
       tax_details
       billing_info_uuid
+      dunning_campaign_id
     )
     alias to_param invoice_number_with_prefix
 

@@ -35,6 +35,7 @@ module Recurly
       allow_any_item_on_subscriptions
       avalara_transaction_type
       avalara_service_type
+      dunning_campaign_id
       created_at
       updated_at
     )

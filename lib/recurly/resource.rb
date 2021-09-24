@@ -608,7 +608,7 @@ module Recurly
 
       def find_resource_class(name)
         resource_name = Helper.classify(name)
-        if Recurly.const_defined?(resource_name, false)
+        if Recurly.const_defined?(resource_name, false) && Recurly.const_get(resource_name, false).instance_of?(Class)
           Recurly.const_get(resource_name, false)
         end
       end
