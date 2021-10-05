@@ -21720,6 +21720,7 @@ components:
           - gateway_token
           - iban_bank_account
           - other
+          - braintree_v_zero
         card_type:
           type: string
           description: Visa, MasterCard, American Express, Discover, JCB, etc.
