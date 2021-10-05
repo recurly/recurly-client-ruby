@@ -19961,8 +19961,10 @@ components:
     SubscriptionChangeShippingCreate:
       type: object
       title: Shipping details that will be changed on a subscription
-      description: The shipping address can currently only be changed immediately,
-        using SubscriptionUpdate.
+      description: Shipping addresses are tied to a customer's account. Each account
+        can have up to 20 different shipping addresses, and if you have enabled multiple
+        subscriptions per account, you can associate different shipping addresses
+        to each subscription.
       properties:
         method_id:
           type: string
@@ -21777,6 +21779,7 @@ components:
       - roku
       - sepadirectdebit
       - wire_transfer
+      - braintree_v_zero
     CardTypeEnum:
       type: string
       enum:
