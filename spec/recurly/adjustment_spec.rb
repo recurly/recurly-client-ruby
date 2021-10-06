@@ -128,11 +128,11 @@ describe Adjustment do
 
     describe '#bill_for_account' do
       it 'calls the account endpoint to fetch bill_for_account' do
-        stub_api_request :get, 'adjustments/abcdef1234567890', 'adjustments/show-200-nosub'
-        stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200-nosub'
+        stub_api_request :get, 'adjustments/abcdef1234567890', 'adjustments/show-200'
+        stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
 
         adjustment = Adjustment.find 'abcdef1234567890'
-        binding.pry
+        adjustment.bill_for_account.account_code.must_equal 'abcdef1234567890'
       end
     end
   end
