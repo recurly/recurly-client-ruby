@@ -13,6 +13,8 @@ module Recurly
 
     # @return [Account, nil]
     belongs_to :account
+    # @return [Account, nil]
+    belongs_to :bill_for_account, class_name: :Account, readonly: true
     # @return [Invoice, nil]
     belongs_to :invoice
     # @return [Subscription, nil]

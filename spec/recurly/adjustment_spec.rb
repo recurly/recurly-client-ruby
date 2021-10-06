@@ -125,5 +125,15 @@ describe Adjustment do
         adjustment.type.must_equal adjustment_from_dump.type
       end
     end
+
+    describe '#bill_for_account' do
+      it 'calls the account endpoint to fetch bill_for_account' do
+        stub_api_request :get, 'adjustments/abcdef1234567890', 'adjustments/show-200-nosub'
+        stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200-nosub'
+
+        adjustment = Adjustment.find 'abcdef1234567890'
+        binding.pry
+      end
+    end
   end
 end
