@@ -132,7 +132,7 @@ describe Adjustment do
         stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
 
         adjustment = Adjustment.find 'abcdef1234567890'
-        adjustment.bill_for_account.account_code.must_equal 'abcdef1234567890'
+        adjustment.bill_for_account.must_be_instance_of Account
       end
     end
   end
