@@ -126,4 +126,14 @@ describe Adjustment do
       end
     end
   end
+
+  describe '#bill_for_account' do
+    it 'calls the account endpoint to fetch bill_for_account' do
+      stub_api_request :get, 'adjustments/abcdef1234567890', 'adjustments/show-200'
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+
+      adjustment = Adjustment.find 'abcdef1234567890'
+      adjustment.bill_for_account.must_be_instance_of Account
+    end
+  end
 end
