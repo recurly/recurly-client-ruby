@@ -15405,20 +15405,26 @@ components:
           - en-AU
           - en-CA
           - en-GB
+          - en-IE
           - en-NZ
           - en-US
           - es-ES
           - es-MX
           - es-US
+          - fi-FI
           - fr-CA
           - fr-FR
           - hi-IN
+          - it-IT
           - ja-JP
+          - ko-KR
           - nl-BE
           - nl-NL
           - pt-BR
           - pt-PT
+          - ro-RO
           - ru-RU
+          - sk-SK
           - tr-TR
           - zh-CN
         cc_emails:
@@ -15530,20 +15536,26 @@ components:
           - en-AU
           - en-CA
           - en-GB
+          - en-IE
           - en-NZ
           - en-US
           - es-ES
           - es-MX
           - es-US
+          - fi-FI
           - fr-CA
           - fr-FR
           - hi-IN
+          - it-IT
           - ja-JP
+          - ko-KR
           - nl-BE
           - nl-NL
           - pt-BR
           - pt-PT
+          - ro-RO
           - ru-RU
+          - sk-SK
           - tr-TR
           - zh-CN
         cc_emails:
@@ -17645,6 +17657,12 @@ components:
           - gift_card
           - write_off
           - prepayment
+          - refund
+          - external_refund
+          - carryforward_credit
+          - carryforward_gift_credit
+          - usage_correction
+          - import
         state:
           type: string
           title: Invoice state
