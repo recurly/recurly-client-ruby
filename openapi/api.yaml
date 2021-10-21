@@ -21380,20 +21380,26 @@ components:
       - en-AU
       - en-CA
       - en-GB
+      - en-IE
       - en-NZ
       - en-US
       - es-ES
       - es-MX
       - es-US
+      - fi-FI
       - fr-CA
       - fr-FR
       - hi-IN
+      - it-IT
       - ja-JP
+      - ko-KR
       - nl-BE
       - nl-NL
       - pt-BR
       - pt-PT
+      - ro-RO
       - ru-RU
+      - sk-SK
       - tr-TR
       - zh-CN
     BillToEnum:
@@ -21533,16 +21539,22 @@ components:
     OriginEnum:
       type: string
       enum:
+      - carryforward_credit
+      - carryforward_gift_credit
       - credit
+      - external_refund
       - gift_card
       - immediate_change
+      - import
       - line_item_refund
       - open_amount_refund
+      - prepayment
       - purchase
+      - refund
       - renewal
       - termination
+      - usage_correction
       - write_off
-      - prepayment
     InvoiceStateEnum:
       type: string
       enum:
