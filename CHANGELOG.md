@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.18.22](https://github.com/recurly/recurly-client-ruby/tree/2.18.22) (2021-10-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.21...2.18.22)
+
+
+**Merged Pull Requests**
+
+- Add bill_for_account to Adjustment [#732](https://github.com/recurly/recurly-client-ruby/pull/732) ([naspthorp](https://github.com/naspthorp))
+- Client library updates for Dunning Campaign API enhancements [#727](https://github.com/recurly/recurly-client-ruby/pull/727) ([amandamfielding](https://github.com/amandamfielding))
+- Add tests for subscription add-ons [#667](https://github.com/recurly/recurly-client-ruby/pull/667) ([joannasese](https://github.com/joannasese))
+
+
+
 ## [2.18.21](https://github.com/recurly/recurly-client-ruby/tree/2.18.21) (2021-06-25)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.20...2.18.21)
