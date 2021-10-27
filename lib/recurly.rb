@@ -42,6 +42,8 @@ module Recurly
   require 'recurly/webhook'
   require 'recurly/verify'
   require 'recurly/tier'
+  require 'recurly/dunning_campaign'
+  require 'recurly/dunning_cycle'
 
   @subdomain = nil
 

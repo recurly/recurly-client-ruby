@@ -32,4 +32,5 @@ Content-Type: application/xml; charset=utf-8
   <setup_fee_in_cents>
     <USD type="integer">0</USD>
   </setup_fee_in_cents>
+  <dunning_campaign_id nil="nil"/>
 </plan>

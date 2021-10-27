@@ -329,6 +329,17 @@ XML
     end
   end
 
+  describe "dunning_campaign_id" do
+    let(:account) {
+      stub_api_request :get, "accounts/abcdef1234567890", "accounts/show-200"
+      Account.find("abcdef1234567890")
+    }
+
+    it "should have a dunning_campaign_id" do
+      account.dunning_campaign_id.must_equal("1234abcd")
+    end
+  end
+
   describe "#company" do
     it "should respond to company_name even if the xml gives you company" do
       account = Account.from_xml "<account><company>My Company Inc.</company></account>"

@@ -42,7 +42,7 @@ end
 
 class Minitest::Spec
   include SpecHelper
-  
+
   before do |tests|
     WebMock.reset!
     reset_recurly_environment!
@@ -115,6 +115,11 @@ Content-Type: application/xml; charset=utf-8
 <resource>
   <name>Persistent Little Bug</name>
 </resource>
+EOR
+  204 => <<EOR,
+HTTP/1.1 204 No Content
+Content-Type: application/xml; charset=utf-8
+Content-Length: 0
 EOR
   422 => <<EOR,
 HTTP/1.1 422 Unprocessable Entity

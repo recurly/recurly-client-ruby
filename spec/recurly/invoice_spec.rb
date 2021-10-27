@@ -38,6 +38,12 @@ describe Invoice do
       invoice.surcharge_in_cents.must_equal 100
     end
 
+    it "should have dunning_campaign_id" do
+      stub_api_request :get, "invoices/1000", "invoices/show-200"
+      invoice = Invoice.find("1000")
+      invoice.dunning_campaign_id.must_equal("1234abcd")
+    end
+
     it 'includes the invoice number prefix' do
       stub_api_request :get, 'invoices/invoice-with-prefix', 'invoices/show-200-prefix'
 
