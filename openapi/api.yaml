@@ -21867,6 +21867,7 @@ components:
       - ach_transactions_not_supported
       - ach_validation_exception
       - amazon_amount_exceeded
+      - amazon_declined_review
       - amazon_invalid_authorization_status
       - amazon_invalid_close_attempt
       - amazon_invalid_create_order_reference
@@ -21883,13 +21884,16 @@ components:
       - batch_processing_error
       - billing_agreement_already_accepted
       - billing_agreement_not_accepted
+      - billing_agreement_not_found
       - call_issuer
       - call_issuer_update_cardholder_data
+      - cancelled
       - cannot_refund_unsettled_transactions
       - card_not_activated
       - card_type_not_accepted
       - cardholder_requested_stop
       - contact_gateway
+      - contract_not_found
       - currency_not_supported
       - customer_canceled_transaction
       - cvv_required
@@ -21901,9 +21905,12 @@ components:
       - declined_saveable
       - declined_security_code
       - deposit_referenced_chargeback
+      - direct_debit_type_not_accepted
       - duplicate_transaction
       - exceeds_daily_limit
+      - exceeds_max_amount
       - expired_card
+      - finbot_disconnect
       - finbot_unavailable
       - fraud_address
       - fraud_address_recurly
@@ -21911,36 +21918,45 @@ components:
       - fraud_gateway
       - fraud_generic
       - fraud_ip_address
+      - fraud_manual_decision
       - fraud_risk_check
       - fraud_security_code
       - fraud_stolen_card
       - fraud_too_many_attempts
       - fraud_velocity
+      - gateway_account_setup_incomplete
       - gateway_error
       - gateway_rate_limited
       - gateway_timeout
       - gateway_token_not_found
       - gateway_unavailable
+      - gateway_validation_exception
       - insufficient_funds
       - invalid_account_number
       - invalid_amount
+      - invalid_billing_agreement_status
       - invalid_card_number
       - invalid_data
       - invalid_email
-      - invalid_gateway_configuration
       - invalid_gateway_access_token
+      - invalid_gateway_configuration
       - invalid_issuer
       - invalid_login
       - invalid_merchant_type
+      - invalid_name
+      - invalid_payment_method
+      - invalid_payment_method_hard
       - invalid_transaction
       - issuer_unavailable
       - merch_max_transaction_limit_exceeded
+      - moneybot_disconnect
       - moneybot_unavailable
       - no_billing_information
       - no_gateway
       - no_gateway_found_for_transaction_amount
       - partial_approval
       - partial_credits_not_supported
+      - payer_authentication_rejected
       - payment_cannot_void_authorization
       - payment_not_accepted
       - paypal_account_issue
@@ -21950,7 +21966,9 @@ components:
       - paypal_hard_decline
       - paypal_invalid_billing_agreement
       - paypal_primary_declined
+      - processor_not_available
       - processor_unavailable
+      - recurly_credentials_not_found
       - recurly_error
       - recurly_failed_to_get_token
       - recurly_token_mismatch
@@ -21958,10 +21976,18 @@ components:
       - reference_transactions_not_enabled
       - restricted_card
       - restricted_card_chargeback
+      - rjs_token_expired
+      - roku_invalid_card_number
+      - roku_invalid_cib
+      - roku_invalid_payment_method
+      - roku_zip_code_mismatch
       - simultaneous
       - ssl_error
       - temporary_hold
+      - three_d_secure_action_required
+      - three_d_secure_action_result_token_mismatch
       - three_d_secure_authentication
+      - three_d_secure_connection_error
       - three_d_secure_not_supported
       - too_many_attempts
       - total_credit_exceeds_capture
@@ -21973,10 +21999,13 @@ components:
       - transaction_cannot_be_voided
       - transaction_failed_to_settle
       - transaction_not_found
+      - transaction_service_v2_disconnect
+      - transaction_service_v2_unavailable
       - transaction_settled
       - transaction_stale_at_gateway
       - try_again
       - unknown
+      - unmapped_partner_error
       - vaultly_service_unavailable
       - zero_dollar_auth_not_supported
     ExportDates:
