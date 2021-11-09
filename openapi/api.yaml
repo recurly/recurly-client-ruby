@@ -18279,6 +18279,12 @@ components:
           - carryforward
         account:
           "$ref": "#/components/schemas/AccountMini"
+        bill_for_account_id:
+          type: string
+          title: Bill For Account ID
+          maxLength: 13
+          description: The UUID of the account responsible for originating the line
+            item.
         subscription_id:
           type: string
           title: Subscription ID
@@ -21916,6 +21922,8 @@ components:
                 - batch_processing_error
                 - billing_agreement_already_accepted
                 - billing_agreement_not_accepted
+                - billing_agreement_not_found
+                - billing_agreement_replaced
                 - call_issuer
                 - call_issuer_update_cardholder_data
                 - cannot_refund_unsettled_transactions
