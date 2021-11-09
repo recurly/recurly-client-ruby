@@ -17,7 +17,9 @@ RSpec.describe Recurly::Client do
       "recurly-total-records" => "3804",
     }
   end
-  let(:net_http) { Recurly::ConnectionPool.new.init_http_connection }
+  let(:net_http) {
+    Recurly::ConnectionPool.new.init_http_connection(URI.parse(Recurly::Client::BASE_URL), Recurly::Client::CA_FILE)
+  }
   let(:connection_pool) {
     pool = double("ConnectionPool")
     allow(pool).to receive(:with_connection).and_yield net_http

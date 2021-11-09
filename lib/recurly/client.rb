@@ -3,6 +3,7 @@ require "erb"
 require "net/https"
 require "base64"
 require "securerandom"
+require "uri"
 require_relative "./schema/json_parser"
 require_relative "./schema/file_parser"
 
@@ -10,8 +11,7 @@ module Recurly
   class Client
     require_relative "./client/operations"
 
-    BASE_HOST = "v3.recurly.com"
-    BASE_PORT = 443
+    BASE_URL = "https://v3.recurly.com"
     CA_FILE = File.join(File.dirname(__FILE__), "../data/ca-certificates.crt")
     BINARY_TYPES = [
       "application/pdf",
@@ -52,12 +52,15 @@ module Recurly
     #   client = Recurly::Client.new(api_key: API_KEY2)
     #   sub = client.get_subscription(subscription_id: 'uuid-abcd7890')
     #
+    # @param base_url [String] The base URL for the API. Defaults to "https://v3.recurly.com"
+    # @param ca_file [String] The CA bundle to use when connecting to the API. Defaults to "data/ca-certificates.crt"
     # @param api_key [String] The private API key
     # @param logger [Logger] A logger to use. Defaults to creating a new STDOUT logger with level WARN.
-    def initialize(api_key:, logger: nil)
+    def initialize(base_url: BASE_URL, ca_file: CA_FILE, api_key:, logger: nil)
       raise ArgumentError, "'api_key' must be set to a non-nil value" if api_key.nil?
 
       set_api_key(api_key)
+      set_connection_options(base_url, ca_file)
 
       if logger.nil?
         @logger = Logger.new(STDOUT).tap do |l|
@@ -158,7 +161,7 @@ module Recurly
     end
 
     def run_request(request, options = {})
-      self.class.connection_pool.with_connection do |http|
+      self.class.connection_pool.with_connection(uri: @base_uri, ca_file: @ca_file) do |http|
         set_http_options(http, options)
 
         retries = 0
@@ -336,6 +339,11 @@ module Recurly
 
     def set_api_key(api_key)
       @api_key = api_key.to_s
+    end
+
+    def set_connection_options(base_url, ca_file)
+      @base_uri = URI.parse(base_url)
+      @ca_file = ca_file
     end
 
     def build_url(path, options)
