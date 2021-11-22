@@ -1,5 +1,20 @@
 # Changelog
 
+## [4.10.0](https://github.com/recurly/recurly-client-ruby/tree/4.10.0) (2021-11-22)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.9.0...4.10.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#739](https://github.com/recurly/recurly-client-ruby/pull/739) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2021-02-25 [#736](https://github.com/recurly/recurly-client-ruby/pull/736) ([recurly-integrations](https://github.com/recurly-integrations))
+- Allow API base url configuration [#735](https://github.com/recurly/recurly-client-ruby/pull/735) ([cbarton](https://github.com/cbarton))
+- Generated Latest Changes for v2021-02-25 [#734](https://github.com/recurly/recurly-client-ruby/pull/734) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2021-02-25 [#728](https://github.com/recurly/recurly-client-ruby/pull/728) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.9.0](https://github.com/recurly/recurly-client-ruby/tree/4.9.0) (2021-09-16)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.8.0...4.9.0)
