@@ -6,6 +6,14 @@ module Recurly
   module Requests
     class BillingInfoCreate < Request
 
+      # @!attribute account_number
+      #   @return [String] The bank account number. (ACH, Bacs only)
+      define_attribute :account_number, String
+
+      # @!attribute account_type
+      #   @return [String] The bank account type. (ACH only)
+      define_attribute :account_type, String
+
       # @!attribute address
       #   @return [Address]
       define_attribute :address, :Address
@@ -58,6 +66,10 @@ module Recurly
       #   @return [String] Expiration month
       define_attribute :month, String
 
+      # @!attribute name_on_account
+      #   @return [String] The name associated with the bank account (ACH, SEPA, Bacs only)
+      define_attribute :name_on_account, String
+
       # @!attribute number
       #   @return [String] Credit card number, spaces and dashes are accepted.
       define_attribute :number, String
@@ -69,6 +81,14 @@ module Recurly
       # @!attribute primary_payment_method
       #   @return [Boolean] The `primary_payment_method` field is used to designate the primary billing info on the account. The first billing info created on an account will always become primary. Adding additional billing infos provides the flexibility to mark another billing info as primary, or adding additional non-primary billing infos. This can be accomplished by passing the `primary_payment_method` with a value of `true`. When adding billing infos via the billing_info and /accounts endpoints, this value is not permitted, and will return an error if provided.
       define_attribute :primary_payment_method, :Boolean
+
+      # @!attribute routing_number
+      #   @return [String] The bank's rounting number. (ACH only)
+      define_attribute :routing_number, String
+
+      # @!attribute sort_code
+      #   @return [String] Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)
+      define_attribute :sort_code, String
 
       # @!attribute tax_identifier
       #   @return [String] Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.
@@ -89,6 +109,10 @@ module Recurly
       # @!attribute transaction_type
       #   @return [String] An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
       define_attribute :transaction_type, String
+
+      # @!attribute type
+      #   @return [String] The payment method type for a non-credit card based billing info. The value of `bacs` is the only accepted value (Bacs only)
+      define_attribute :type, String
 
       # @!attribute vat_number
       #   @return [String] VAT number

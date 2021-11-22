@@ -16345,6 +16345,28 @@ components:
             characters comprising a country code; two check digits; and a number that
             includes the domestic bank account number, branch identifier, and potential
             routing information
+        name_on_account:
+          type: string
+          maxLength: 255
+          description: The name associated with the bank account (ACH, SEPA, Bacs
+            only)
+        account_number:
+          type: string
+          maxLength: 255
+          description: The bank account number. (ACH, Bacs only)
+        routing_number:
+          type: string
+          maxLength: 15
+          description: The bank's rounting number. (ACH only)
+        sort_code:
+          type: string
+          maxLength: 15
+          description: Bank identifier code for UK based banks. Required for Bacs
+            based billing infos. (Bacs only)
+        type:
+          "$ref": "#/components/schemas/AchTypeEnum"
+        account_type:
+          "$ref": "#/components/schemas/AchAccountTypeEnum"
         tax_identifier:
           type: string
           description: Tax identifier is required if adding a billing info that is
@@ -17898,6 +17920,12 @@ components:
           "$ref": "#/components/schemas/LegacyCategoryEnum"
         account:
           "$ref": "#/components/schemas/AccountMini"
+        bill_for_account_id:
+          type: string
+          title: Bill For Account ID
+          maxLength: 13
+          description: The UUID of the account responsible for originating the line
+            item.
         subscription_id:
           type: string
           title: Subscription ID
@@ -21885,6 +21913,7 @@ components:
       - billing_agreement_already_accepted
       - billing_agreement_not_accepted
       - billing_agreement_not_found
+      - billing_agreement_replaced
       - call_issuer
       - call_issuer_update_cardholder_data
       - cancelled
@@ -22058,3 +22087,15 @@ components:
       - automatic
       - manual
       - trial
+    AchTypeEnum:
+      type: string
+      description: The payment method type for a non-credit card based billing info.
+        The value of `bacs` is the only accepted value (Bacs only)
+      enum:
+      - bacs
+    AchAccountTypeEnum:
+      type: string
+      description: The bank account type. (ACH only)
+      enum:
+      - checking
+      - savings
