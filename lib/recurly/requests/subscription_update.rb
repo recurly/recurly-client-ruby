@@ -11,7 +11,7 @@ module Recurly
       define_attribute :auto_renew, :Boolean
 
       # @!attribute billing_info_id
-      #   @return [String] The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info.
+      #   @return [String] The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
       define_attribute :billing_info_id, String
 
       # @!attribute collection_method
@@ -53,6 +53,10 @@ module Recurly
       # @!attribute shipping
       #   @return [SubscriptionShippingUpdate] Subscription shipping details
       define_attribute :shipping, :SubscriptionShippingUpdate
+
+      # @!attribute tax_inclusive
+      #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+      define_attribute :tax_inclusive, :Boolean
 
       # @!attribute terms_and_conditions
       #   @return [String] Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.
