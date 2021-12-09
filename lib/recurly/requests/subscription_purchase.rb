@@ -50,6 +50,10 @@ module Recurly
       #   @return [DateTime] If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
       define_attribute :starts_at, DateTime
 
+      # @!attribute tax_inclusive
+      #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+      define_attribute :tax_inclusive, :Boolean
+
       # @!attribute total_billing_cycles
       #   @return [Integer] The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.
       define_attribute :total_billing_cycles, Integer
