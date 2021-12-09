@@ -14579,7 +14579,8 @@ components:
     billing_info_id:
       name: billing_info_id
       in: path
-      description: Billing Info ID.
+      description: Billing Info ID. Can ONLY be used for sites utilizing the Wallet
+        feature.
       required: true
       schema:
         type: string
@@ -17377,7 +17378,8 @@ components:
           description: The `billing_info_id` is the value that represents a specific
             billing info for an end customer. When `billing_info_id` is used to assign
             billing info to the subscription, all future billing events for the subscription
-            will bill to the specified billing info.
+            will bill to the specified billing info. `billing_info_id` can ONLY be
+            used for sites utilizing the Wallet feature.
         subscription_ids:
           type: array
           title: Subscription IDs
@@ -17634,7 +17636,8 @@ components:
           description: The `billing_info_id` is the value that represents a specific
             billing info for an end customer. When `billing_info_id` is used to assign
             billing info to the subscription, all future billing events for the subscription
-            will bill to the specified billing info.
+            will bill to the specified billing info. `billing_info_id` can ONLY be
+            used for sites utilizing the Wallet feature.
     InvoiceCollection:
       type: object
       title: Invoice collection
@@ -18178,6 +18181,13 @@ components:
             A positive or negative amount with `type=credit` will result in a negative `unit_amount`.
             If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the
             `Item`'s `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          default: false
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to use this flag.
         quantity:
           type: integer
           title: Quantity
@@ -18691,6 +18701,13 @@ components:
           title: Unit price
           minimum: 0
           maximum: 1000000
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          default: false
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to use this flag.
     PlanUpdate:
       type: object
       properties:
@@ -18849,6 +18866,13 @@ components:
           description: |
             Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
             If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          default: false
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to use this flag.
       required:
       - currency
     TierPricing:
@@ -18891,6 +18915,13 @@ components:
           title: Unit price
           minimum: 0
           maximum: 1000000
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          default: false
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to use this flag.
       required:
       - currency
       - unit_amount
@@ -19828,6 +19859,13 @@ components:
           type: number
           format: float
           title: Unit amount
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          default: false
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to use this flag.
         quantity:
           type: integer
           title: Subscription quantity
@@ -19915,6 +19953,13 @@ components:
             be used.
           minimum: 0
           maximum: 1000000
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          default: false
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to use this flag.
         quantity:
           type: integer
           title: Quantity
@@ -20043,7 +20088,8 @@ components:
           description: The `billing_info_id` is the value that represents a specific
             billing info for an end customer. When `billing_info_id` is used to assign
             billing info to the subscription, all future billing events for the subscription
-            will bill to the specified billing info.
+            will bill to the specified billing info. `billing_info_id` can ONLY be
+            used for sites utilizing the Wallet feature.
         shipping:
           title: Shipping address
           description: Create a shipping address on the account and assign it to the
@@ -20067,6 +20113,13 @@ components:
             the subscription plan for the provided currency.
           minimum: 0
           maximum: 1000000
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          default: false
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to use this flag.
         quantity:
           type: integer
           title: Quantity
@@ -20198,6 +20251,13 @@ components:
             the subscription plan for the provided currency.
           minimum: 0
           maximum: 1000000
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          default: false
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to use this flag.
         quantity:
           type: integer
           title: Quantity
@@ -20334,6 +20394,13 @@ components:
           description: If present, this subscription's transactions will use the payment
             gateway with this code.
           maxLength: 13
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          default: false
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to use this flag.
         shipping:
           "$ref": "#/components/schemas/SubscriptionShippingUpdate"
         billing_info_id:
@@ -20342,7 +20409,8 @@ components:
           description: The `billing_info_id` is the value that represents a specific
             billing info for an end customer. When `billing_info_id` is used to assign
             billing info to the subscription, all future billing events for the subscription
-            will bill to the specified billing info.
+            will bill to the specified billing info. `billing_info_id` can ONLY be
+            used for sites utilizing the Wallet feature.
     SubscriptionPause:
       type: object
       properties:
@@ -20940,7 +21008,8 @@ components:
           description: The `billing_info_id` is the value that represents a specific
             billing info for an end customer. When `billing_info_id` is used to assign
             billing info to the subscription, all future billing events for the subscription
-            will bill to the specified billing info.
+            will bill to the specified billing info. `billing_info_id` can ONLY be
+            used for sites utilizing the Wallet feature.
         collection_method:
           title: Collection method
           description: Must be set to manual in order to preview a purchase for an
@@ -22017,6 +22086,7 @@ components:
       - three_d_secure_action_result_token_mismatch
       - three_d_secure_authentication
       - three_d_secure_connection_error
+      - three_d_secure_credential_error
       - three_d_secure_not_supported
       - too_many_attempts
       - total_credit_exceeds_capture

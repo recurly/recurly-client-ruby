@@ -532,7 +532,7 @@ module Recurly
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_a_billing_info get_a_billing_info api documenation}
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
-    # @param billing_info_id [String] Billing Info ID.
+    # @param billing_info_id [String] Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::BillingInfo] A billing info.
@@ -547,7 +547,7 @@ module Recurly
     # {https://developers.recurly.com/api/v2021-02-25#operation/update_a_billing_info update_a_billing_info api documenation}
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
-    # @param billing_info_id [String] Billing Info ID.
+    # @param billing_info_id [String] Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.
     # @param body [Requests::BillingInfoCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoCreate}
     # @param params [Hash] Optional query string parameters:
     #
@@ -563,7 +563,7 @@ module Recurly
     # {https://developers.recurly.com/api/v2021-02-25#operation/remove_a_billing_info remove_a_billing_info api documenation}
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
-    # @param billing_info_id [String] Billing Info ID.
+    # @param billing_info_id [String] Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Empty] Billing information deleted
