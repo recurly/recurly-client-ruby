@@ -35,11 +35,11 @@ module Recurly
       define_attribute :end_date, DateTime
 
       # @!attribute item_code
-      #   @return [String] Unique code to identify an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.
+      #   @return [String] Unique code to identify an item. Available when the Credit Invoices feature is enabled.
       define_attribute :item_code, String
 
       # @!attribute item_id
-      #   @return [String] System-generated unique identifier for an item. Available when the Credit Invoices and Subscription Billing Terms features are enabled.
+      #   @return [String] System-generated unique identifier for an item. Available when the Credit Invoices feature is enabled.
       define_attribute :item_id, String
 
       # @!attribute origin
