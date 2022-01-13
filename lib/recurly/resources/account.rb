@@ -90,6 +90,10 @@ module Recurly
       #   @return [String]
       define_attribute :id, String
 
+      # @!attribute invoice_template
+      #   @return [AccountInvoiceTemplate] Invoice template associated to the account. Available when invoice customization flag is enabled.
+      define_attribute :invoice_template, :AccountInvoiceTemplate
+
       # @!attribute last_name
       #   @return [String]
       define_attribute :last_name, String
