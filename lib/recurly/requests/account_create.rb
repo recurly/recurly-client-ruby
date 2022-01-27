@@ -54,6 +54,10 @@ module Recurly
       #   @return [String]
       define_attribute :first_name, String
 
+      # @!attribute invoice_template_id
+      #   @return [String] Unique ID to identify an invoice template.  Available when the Invoice Customization feature is enabled.  Used to specify which invoice template, if any, should be used to generate invoices for the account.
+      define_attribute :invoice_template_id, String
+
       # @!attribute last_name
       #   @return [String]
       define_attribute :last_name, String
