@@ -316,6 +316,23 @@ XML
         note.message.must_equal 'This is a very important note'
       end
     end
+
+    describe "when account has an invoice template" do
+      let(:account) {
+        stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+        stub_api_request :get, 'invoice_templates/q0tzf7o7fpbl', 'invoice_templates/show-200'
+        Account.find 'abcdef1234567890'
+      }
+
+      it "is able to retrieve and parse invoice template" do
+        invoice_template = account.invoice_template
+        invoice_template.must_be_instance_of InvoiceTemplate
+        invoice_template.uuid.must_equal 'q0tzf7o7fpbl'
+        invoice_template.name.must_equal 'Alternate Invoice Template'
+        invoice_template.code.must_equal 'code1'
+        invoice_template.description.must_equal 'Some Description'
+      end
+    end
   end
 
   describe 'custom fields' do
