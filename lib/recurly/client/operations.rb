@@ -1712,6 +1712,49 @@ module Recurly
       get(path, **options)
     end
 
+    # List an invoice template's associated accounts
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_template_accounts list_invoice_template_accounts api documenation}
+    #
+    # @param invoice_template_id [String] Invoice template ID.
+    # @param params [Hash] Optional query string parameters:
+    #        :ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    #        :limit [Integer] Limit number of records 1-200.
+    #        :order [String] Sort order.
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #        :begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    #        :email [String] Filter for accounts with this exact email address. A blank value will return accounts with both +null+ and +""+ email addresses. Note that multiple accounts can share one email address.
+    #        :subscriber [Boolean] Filter for accounts with or without a subscription in the +active+,
+    #   +canceled+, or +future+ state.
+    #
+    #        :past_due [String] Filter for accounts with an invoice in the +past_due+ state.
+    #
+    # @return [Pager<Resources::Account>] A list of an invoice template's associated accounts.
+    #
+    def list_invoice_template_accounts(invoice_template_id:, **options)
+      path = interpolate_path("/invoice_templates/{invoice_template_id}/accounts", invoice_template_id: invoice_template_id)
+      pager(path, **options)
+    end
+
     # List a site's items
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_items list_items api documenation}

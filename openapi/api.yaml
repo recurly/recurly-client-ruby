@@ -6337,6 +6337,51 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Fetched Custom
           Field Definition: %s\", definition.Id)"
+  "/invoice_templates/{invoice_template_id}/accounts":
+    get:
+      tags:
+      - account
+      operationId: list_invoice_template_accounts
+      summary: List an invoice template's associated accounts
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/invoice_template_id"
+      - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/order"
+      - "$ref": "#/components/parameters/sort_dates"
+      - "$ref": "#/components/parameters/filter_begin_time"
+      - "$ref": "#/components/parameters/filter_end_time"
+      - "$ref": "#/components/parameters/filter_account_email"
+      - "$ref": "#/components/parameters/filter_account_subscriber"
+      - "$ref": "#/components/parameters/filter_account_past_due"
+      responses:
+        '200':
+          description: A list of an invoice template's associated accounts.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/AccountList"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or invoice template ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/items":
     get:
       tags:
@@ -14614,6 +14659,13 @@ components:
       required: true
       schema:
         type: string
+    invoice_template_id:
+      name: invoice_template_id
+      in: path
+      description: Invoice template ID.
+      required: true
+      schema:
+        type: string
     item_id:
       name: item_id
       in: path
@@ -15456,6 +15508,12 @@ components:
             dunning campaign should be assigned to this account. For sites without
             multiple dunning campaigns enabled, the default dunning campaign will
             always be used.
+        invoice_template_id:
+          type: string
+          title: Invoice Template ID
+          description: Unique ID to identify an invoice template.  Available when
+            the Invoice Customization feature is enabled.  Used to specify which invoice
+            template, if any, should be used to generate invoices for the account.
         address:
           "$ref": "#/components/schemas/Address"
         billing_info:
