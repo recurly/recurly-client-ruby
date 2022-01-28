@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.12.0](https://github.com/recurly/recurly-client-ruby/tree/4.12.0) (2022-01-28)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.11.0...4.12.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (Invoice Customization) [#746](https://github.com/recurly/recurly-client-ruby/pull/746) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2021-02-25 [#743](https://github.com/recurly/recurly-client-ruby/pull/743) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.11.0](https://github.com/recurly/recurly-client-ruby/tree/4.11.0) (2021-12-29)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.10.0...4.11.0)
