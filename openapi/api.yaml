@@ -22001,6 +22001,7 @@ components:
       - rate_limited
       - service_not_available
       - simultaneous_request
+      - tax_service_error
       - transaction
       - unauthorized
       - unavailable_in_api_version
