@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.13.0](https://github.com/recurly/recurly-client-ruby/tree/4.13.0) (2022-01-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.12.0...4.13.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#747](https://github.com/recurly/recurly-client-ruby/pull/747) ([recurly-integrations](https://github.com/recurly-integrations))
+- Add region argument to client to connect in EU data center [#744](https://github.com/recurly/recurly-client-ruby/pull/744) ([FabricioCoutinho](https://github.com/FabricioCoutinho))
+
+
+
 ## [4.12.0](https://github.com/recurly/recurly-client-ruby/tree/4.12.0) (2022-01-28)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.11.0...4.12.0)
