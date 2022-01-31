@@ -11,7 +11,11 @@ module Recurly
   class Client
     require_relative "./client/operations"
 
-    BASE_URL = "https://v3.recurly.com"
+    API_HOSTS = {
+      us: "https://v3.recurly.com",
+      eu: "https://v3.eu.recurly.com",
+    }
+    REGION = :us
     CA_FILE = File.join(File.dirname(__FILE__), "../data/ca-certificates.crt")
     BINARY_TYPES = [
       "application/pdf",
@@ -52,12 +56,17 @@ module Recurly
     #   client = Recurly::Client.new(api_key: API_KEY2)
     #   sub = client.get_subscription(subscription_id: 'uuid-abcd7890')
     #
+    # @param region [String] The DataCenter that is called by the API. Default to "us"
     # @param base_url [String] The base URL for the API. Defaults to "https://v3.recurly.com"
     # @param ca_file [String] The CA bundle to use when connecting to the API. Defaults to "data/ca-certificates.crt"
     # @param api_key [String] The private API key
     # @param logger [Logger] A logger to use. Defaults to creating a new STDOUT logger with level WARN.
-    def initialize(base_url: BASE_URL, ca_file: CA_FILE, api_key:, logger: nil)
+    def initialize(region: REGION, base_url: API_HOSTS[:us], ca_file: CA_FILE, api_key:, logger: nil)
       raise ArgumentError, "'api_key' must be set to a non-nil value" if api_key.nil?
+
+      raise ArgumentError, "Invalid region type. Expected one of: #{API_HOSTS.keys.join(", ")}" if !API_HOSTS.key?(region)
+
+      base_url = API_HOSTS[region] if base_url == API_HOSTS[:us] && API_HOSTS.key?(region)
 
       set_api_key(api_key)
       set_connection_options(base_url, ca_file)
@@ -110,7 +119,9 @@ module Recurly
 
     def get(path, **options)
       validate_options!(**options)
+
       request = Net::HTTP::Get.new build_url(path, options)
+
       set_headers(request, options[:headers])
       http_response = run_request(request, options)
       handle_response! request, http_response
@@ -168,6 +179,7 @@ module Recurly
 
         begin
           http.start unless http.started?
+
           log_attrs = {
             method: request.method,
             path: request.path,

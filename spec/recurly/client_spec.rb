@@ -18,7 +18,7 @@ RSpec.describe Recurly::Client do
     }
   end
   let(:net_http) {
-    Recurly::ConnectionPool.new.init_http_connection(URI.parse(Recurly::Client::BASE_URL), Recurly::Client::CA_FILE)
+    Recurly::ConnectionPool.new.init_http_connection(URI.parse(Recurly::Client::API_HOSTS[:us]), Recurly::Client::CA_FILE)
   }
   let(:connection_pool) {
     pool = double("ConnectionPool")
@@ -37,9 +37,41 @@ RSpec.describe Recurly::Client do
     end
   end
 
+  context "#base_url" do
+    it "should use US base url" do
+      expect(client.instance_variable_get(:@base_uri).to_s).to eq(Recurly::Client::API_HOSTS[:us])
+    end
+
+    it "should use EU base url" do
+      client = Recurly::Client.new(**client_options.merge(region: :eu))
+      expect(client.instance_variable_get(:@base_uri).to_s).to eq(Recurly::Client::API_HOSTS[:eu])
+    end
+
+    describe "using a custom base url" do
+      let(:custom_url) { "partner-api.recurly.com" }
+
+      it "should use a custom base url in EU" do
+        client = Recurly::Client.new(**client_options.merge(region: :eu, base_url: custom_url))
+        expect(client.instance_variable_get(:@base_uri).to_s).to eq(custom_url)
+      end
+
+      it "should use a custom base url in US" do
+        client = Recurly::Client.new(**client_options.merge(base_url: custom_url))
+        expect(client.instance_variable_get(:@base_uri).to_s).to eq(custom_url)
+      end
+
+      it "should raise an ArgumentError when region is invalid" do
+        expect {
+          Recurly::Client.new(**client_options.merge(region: :none))
+        }.to raise_error(ArgumentError, "Invalid region type. Expected one of: #{Recurly::Client::API_HOSTS.keys.join(", ")}")
+      end
+    end
+  end
+
   context "with sucessful responses" do
     let(:response) do
       resp = Net::HTTPOK.new(1.0, "200", "OK")
+
       allow(resp).to receive(:body) do
         "{ \"object\": \"account\" }"
       end
@@ -51,6 +83,7 @@ RSpec.describe Recurly::Client do
     describe "headers" do
       let(:request) do
         req_dbl = instance_double(Net::HTTP::Get)
+
         expect(req_dbl).to receive(:[]=).with("Accept", /application\/vnd\.recurly/)
         expect(req_dbl).to receive(:[]=).with("Authorization", /Basic .*/)
         expect(req_dbl).to receive(:[]=).with("User-Agent", /^Recurly\/\d+(\.\d+){0,2}; ruby \d+(\.\d+){0,2}.*$/)
@@ -145,6 +178,7 @@ RSpec.describe Recurly::Client do
       it "should return a the created account for create_account" do
         body = { code: "benjamin-du-monde" }
         req = Recurly::HTTP::Request.new(:post, "/accounts", JSON.dump(body))
+
         expect(net_http).to receive(:request).and_return(response)
         account = subject.create_account(body: body)
         expect(account).to be_instance_of Recurly::Resources::Account

@@ -22,6 +22,14 @@ client = Recurly::Client.new(api_key: API_KEY)
 sub = client.get_subscription(subscription_id: 'abcd123456')
 ```
 
+To access Recurly API in Europe, you will need to specify the EU Region in the argument region.
+
+```ruby
+API_KEY = '83749879bbde395b5fe0cc1a5abf8e5'
+client = Recurly::Client.new(api_key: API_KEY, region: :eu)
+sub = client.get_subscription(subscription_id: 'abcd123456')
+```
+
 You can also pass the initializer a block. This will give you a client scoped for just that block:
 
 ```ruby
