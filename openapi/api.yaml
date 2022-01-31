@@ -231,7 +231,7 @@ tags:
   description: |-
     For merchants who sell the same things to many customers, documenting those offerings in a catalog allows for faster charge creation, easier management of offerings, and analytics about your offerings across all sales channels. Because your offerings can be physical, digital, or service-oriented, Recurly collectively calls these offerings "Items".
 
-    Recurly's item catalog requires the Credit Invoices and Subscription Billing Terms features to be enabled.
+    Recurly's item catalog requires the Credit Invoices feature to be enabled.
 - name: plan
   x-displayName: Plan
   description: A plan tells Recurly how often and how much to charge your customers.
@@ -16006,16 +16006,16 @@ components:
           type: string
           title: Item Code
           description: Unique code to identify an item. Avaliable when the `Credit
-            Invoices` and `Subscription Billing Terms` features are enabled. If `item_id`
-            and `item_code` are both present, `item_id` will be used.
+            Invoices` feature is enabled. If `item_id` and `item_code` are both present,
+            `item_id` will be used.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 50
         item_id:
           type: string
           title: Item ID
           description: System-generated unique identifier for an item. Available when
-            the `Credit Invoices` and `Subscription Billing Terms` features are enabled.
-            If `item_id` and `item_code` are both present, `item_id` will be used.
+            the `Credit Invoices` feature is enabled. If `item_id` and `item_code`
+            are both present, `item_id` will be used.
           maxLength: 13
         code:
           type: string
@@ -16517,8 +16517,9 @@ components:
           type: string
           enum:
           - bacs
+          - becs
           description: The payment method type for a non-credit card based billing
-            info. The value of `bacs` is the only accepted value (Bacs only)
+            info. `bacs` and `becs` are the only accepted values.
         account_type:
           type: string
           enum:
@@ -18233,20 +18234,20 @@ components:
           type: string
           title: Item Code
           description: Unique code to identify an item. Available when the Credit
-            Invoices and Subscription Billing Terms features are enabled.
+            Invoices feature is enabled.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 50
         item_id:
           type: string
           title: Item ID
           description: System-generated unique identifier for an item. Available when
-            the Credit Invoices and Subscription Billing Terms features are enabled.
+            the Credit Invoices feature is enabled.
           maxLength: 13
         external_sku:
           type: string
           title: External SKU
           description: Optional Stock Keeping Unit assigned to an item. Available
-            when the Credit Invoices and Subscription Billing Terms features are enabled.
+            when the Credit Invoices feature is enabled.
           maxLength: 50
         revenue_schedule_type:
           type: string
@@ -18577,14 +18578,14 @@ components:
           type: string
           title: Item Code
           description: Unique code to identify an item. Avaliable when the Credit
-            Invoices and Subscription Billing Terms features are enabled.
+            Invoices feature is enabled.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 50
         item_id:
           type: string
           title: Item ID
           description: System-generated unique identifier for an item. Available when
-            the Credit Invoices and Subscription Billing Terms features are enabled.
+            the Credit Invoices feature is enabled.
           maxLength: 13
         revenue_schedule_type:
           type: string
@@ -21912,6 +21913,7 @@ components:
           - validation
           - missing_feature
           - rate_limited
+          - tax_service_error
         message:
           type: string
           title: Message
