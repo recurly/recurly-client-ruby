@@ -28,6 +28,8 @@ module Recurly
 
     class ServiceNotAvailableError < InternalServerError; end
 
+    class TaxServiceError < InternalServerError; end
+
     class BadGatewayError < ServerError; end
 
     class ServiceUnavailableError < ServerError; end

@@ -111,7 +111,7 @@ module Recurly
       define_attribute :transaction_type, String
 
       # @!attribute type
-      #   @return [String] The payment method type for a non-credit card based billing info. The value of `bacs` is the only accepted value (Bacs only)
+      #   @return [String] The payment method type for a non-credit card based billing info. `bacs` and `becs` are the only accepted values.
       define_attribute :type, String
 
       # @!attribute vat_number
