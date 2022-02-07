@@ -46,6 +46,7 @@ module Recurly
       primary_payment_method
       backup_payment_method
       cc_bin_country
+      online_banking_payment_type
     ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES | ROKU_ATTRIBUTES | SEPA_ATTRIBUTES | BACS_ATTRIBUTES | BECS_ATTRIBUTES
 
     # Verify an account's stored billing info
