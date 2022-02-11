@@ -8,6 +8,7 @@ rvm:
   - 3.0
 bundler_args: --binstubs
 before_install:
+  - sudo whoami && ls -alh ~/.ssh
   - sudo apt-get update && sudo apt-get install apt-transport-https ca-certificates -y && sudo update-ca-certificates
   - gem update --system
   - gem install bundler
