@@ -1,22 +1,23 @@
 require 'spec_helper'
 
 describe BillingInfo do
-
-  let(:binfo) {
-    BillingInfo.new(
-      :first_name     => "Larry",
-      :last_name      => "David",
-      :card_type      => "Visa",
-      :last_four      => "1111",
-      :city           => "Los Angeles",
-      :state          => "CA",
-    )
-  }
-
-  it "must serialize" do
-    binfo.gateway_token = "gatewaytoken123"
-    binfo.gateway_code = "gatewaycode123"
-    binfo.to_xml.must_equal <<XML.chomp
+  describe "payment methods types" do
+    describe "credit card" do
+      let(:binfo) {
+        BillingInfo.new(
+          :first_name => "Larry",
+          :last_name  => "David",
+          :card_type  => "Visa",
+          :last_four  => "1111",
+          :city       => "Los Angeles",
+          :state      => "CA",
+        )
+      }
+    
+      it "must serialize" do
+        binfo.gateway_token = "gatewaytoken123"
+        binfo.gateway_code = "gatewaycode123"
+        binfo.to_xml.must_equal <<XML.chomp
 <billing_info>\
 <card_type>Visa</card_type>\
 <city>Los Angeles</city>\
@@ -28,6 +29,28 @@ describe BillingInfo do
 <state>CA</state>\
 </billing_info>
 XML
+      end
+    end
+
+    describe "ideal" do
+      let(:ideal_billing_info) {
+        BillingInfo.new(
+          :first_name => "Larry",
+          :last_name  => "David",
+          :online_banking_payment_type => "ideal"
+        )
+      }
+    
+      it "must serialize" do
+        ideal_billing_info.to_xml.must_equal <<XML.chomp
+<billing_info>\
+<first_name>Larry</first_name>\
+<last_name>David</last_name>\
+<online_banking_payment_type>ideal</online_banking_payment_type>\
+</billing_info>
+XML
+      end
+    end
   end
 
   describe ".find" do
