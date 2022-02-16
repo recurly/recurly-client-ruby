@@ -44,6 +44,7 @@ module Recurly
   require 'recurly/tier'
   require 'recurly/dunning_campaign'
   require 'recurly/dunning_cycle'
+  require 'recurly/invoice_template'
 
   @subdomain = nil
 

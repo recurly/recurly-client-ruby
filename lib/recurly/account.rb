@@ -57,6 +57,9 @@ module Recurly
     # @return [AccountAcquisition, nil]
     has_one :account_acquisition, class_name: :AccountAcquisition, readonly: false
 
+    # @return [InvoiceTemplate, nil]
+    belongs_to :invoice_template, class_name: :InvoiceTemplate, readonly: true
+
     # Get's the first redemption given a coupon code
     # @deprecated Use #{redemptions} instead
     # @param coupon_code [String] The coupon code for the redemption
@@ -96,6 +99,7 @@ module Recurly
       preferred_locale
       transaction_type
       dunning_campaign_id
+      invoice_template_uuid
     )
     alias to_param account_code
 

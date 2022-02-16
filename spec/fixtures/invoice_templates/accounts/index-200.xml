@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+Link: <https://api.recurly.com/v2/invoice_templates/q0tzf7o7fpbl/accounts>; rel="start", <https://api.recurly.com/v2/invoice_templates/q0tzf7o7fpbl/accounts>; rel="next"
+
+<?xml version="1.0" encoding="UTF-8"?>
+<accounts>
+  <account href="https://api.recurly.com/v2/accounts/api100">
+    <adjustments href="https://api.recurly.com/v2/accounts/api100/adjustments"/>
+    <billing_info href="https://api.recurly.com/v2/accounts/api100/billing_info"/>
+    <invoices href="https://api.recurly.com/v2/accounts/api100/invoices"/>
+    <redemption href="https://api.recurly.com/v2/accounts/api100/redemption"/>
+    <subscriptions href="https://api.recurly.com/v2/accounts/api100/subscriptions"/>
+    <shipping_addresses href="https://api.recurly.com/v2/accounts/abcdef1234567890/shipping_addresses"/>
+    <transactions href="https://api.recurly.com/v2/accounts/api100/transactions"/>
+    <account_code>api100</account_code>
+    <username>api100_u</username>
+    <email>api100@example.com</email>
+    <first_name>api100_fn</first_name>
+    <last_name>api100_ln</last_name>
+    <company_name>api100_cn</company_name>
+    <accept_language>api100_al</accept_language>
+    <hosted_login_token>18d935f06b0547ddad8cdf2490ac802e</hosted_login_token>
+    <created_at type="datetime">2011-04-30T12:00:00Z</created_at>
+  </account>
+</accounts>
