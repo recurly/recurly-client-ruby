@@ -14163,9 +14163,14 @@ paths:
               var_dump($e);
           }
       - lang: Go
-        source: "collection, err := client.PreviewPurchase(purchaseReq)\nif e, ok
-          := err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeValidation
-          {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
+        source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"USD\"),\n\tAccount:
+          &recurly.AccountPurchase{\n\t\tCode: recurly.String(account.Code),\n\t},\n\tSubscriptions:
+          []recurly.SubscriptionPurchase{\n\t\t{\n\t\t\tPlanCode:     recurly.String(plan.Code),\n\t\t\tNextBillDate:
+          recurly.Time(time.Date(2078, time.November, 10, 23, 0, 0, 0, time.UTC)),\n\t\t},\n\t},\n\tShipping:
+          &recurly.ShippingPurchase{\n\t\tAddressId: recurly.String(shippingAddressID),\n\t},\n}\ncollection,
+          err := client.PreviewPurchase(purchaseReq)\nif e, ok := err.(*recurly.Error);
+          ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
+          validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Preview Charge
           Invoice %v\", collection.ChargeInvoice)"
   "/sites/{site_id}/export_dates":
@@ -15495,11 +15500,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this account. For sites without
-            multiple dunning campaigns enabled, the default dunning campaign will
-            always be used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this account. For
+            sites without multiple dunning campaigns enabled, the default dunning
+            campaign will always be used.
         address:
           "$ref": "#/components/schemas/Address"
         billing_info:
@@ -15605,11 +15609,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this account. For sites without
-            multiple dunning campaigns enabled, the default dunning campaign will
-            always be used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this account. For
+            sites without multiple dunning campaigns enabled, the default dunning
+            campaign will always be used.
         address:
           "$ref": "#/components/schemas/Address"
         billing_info:
@@ -15678,11 +15681,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this account. For sites without
-            multiple dunning campaigns enabled, the default dunning campaign will
-            always be used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this account. For
+            sites without multiple dunning campaigns enabled, the default dunning
+            campaign will always be used.
     AccountBalance:
       type: object
       properties:
@@ -17851,9 +17853,8 @@ components:
           type: string
           title: Dunning Campaign ID
           description: Unique ID to identify the dunning campaign used when dunning
-            the invoice. Available when the Dunning Campaigns feature is enabled.
-            For sites without multiple dunning campaigns enabled, this will always
-            be the default dunning campaign.
+            the invoice. For sites without multiple dunning campaigns enabled, this
+            will always be the default dunning campaign.
     InvoiceCreate:
       type: object
       properties:
@@ -18889,11 +18890,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this plan. For sites without multiple
-            dunning campaigns enabled, the default dunning campaign will always be
-            used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this plan. For sites
+            without multiple dunning campaigns enabled, the default dunning campaign
+            will always be used.
         created_at:
           type: string
           format: date-time
@@ -19069,11 +19069,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this plan. For sites without multiple
-            dunning campaigns enabled, the default dunning campaign will always be
-            used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this plan. For sites
+            without multiple dunning campaigns enabled, the default dunning campaign
+            will always be used.
       required:
       - code
       - name
@@ -19273,11 +19272,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this plan. For sites without multiple
-            dunning campaigns enabled, the default dunning campaign will always be
-            used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this plan. For sites
+            without multiple dunning campaigns enabled, the default dunning campaign
+            will always be used.
     AddOnPricing:
       type: object
       properties:

@@ -55,7 +55,7 @@ module Recurly
       define_attribute :due_at, DateTime
 
       # @!attribute dunning_campaign_id
-      #   @return [String] Unique ID to identify the dunning campaign used when dunning the invoice. Available when the Dunning Campaigns feature is enabled. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.
+      #   @return [String] Unique ID to identify the dunning campaign used when dunning the invoice. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.
       define_attribute :dunning_campaign_id, String
 
       # @!attribute id
