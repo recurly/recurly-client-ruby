@@ -14265,11 +14265,286 @@ paths:
               var_dump($e);
           }
       - lang: Go
-        source: "collection, err := client.PreviewPurchase(purchaseReq)\nif e, ok
-          := err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeValidation
-          {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
+        source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"USD\"),\n\tAccount:
+          &recurly.AccountPurchase{\n\t\tCode: recurly.String(account.Code),\n\t},\n\tSubscriptions:
+          []recurly.SubscriptionPurchase{\n\t\t{\n\t\t\tPlanCode:     recurly.String(plan.Code),\n\t\t\tNextBillDate:
+          recurly.Time(time.Date(2078, time.November, 10, 23, 0, 0, 0, time.UTC)),\n\t\t},\n\t},\n\tShipping:
+          &recurly.ShippingPurchase{\n\t\tAddressId: recurly.String(shippingAddressID),\n\t},\n}\ncollection,
+          err := client.PreviewPurchase(purchaseReq)\nif e, ok := err.(*recurly.Error);
+          ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
+          validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Preview Charge
           Invoice %v\", collection.ChargeInvoice)"
+  "/purchases/pending":
+    post:
+      tags:
+      - purchase
+      operationId: create_pending_purchase
+      summary: Create a pending purchase
+      description: |-
+        A purchase is a hybrid checkout containing at least one or more subscriptions or one-time charges (adjustments) and supports both coupon and gift card redemptions. All items purchased will be on one invoice and paid for with one transaction. A purchase is only a request data type and is not persistent in Recurly and an invoice collection will be the returned type.
+
+        Use for **Adyen HPP** and **Online Banking** transaction requests.
+        This runs the validations but not the transactions.
+        The API request allows the inclusion of one of the following fields: **external_hpp_type** with `'adyen'` and **online_banking_payment_type** with `'ideal'` or `'sofort'` in the **billing_info** object.
+
+        For additional information regarding shipping fees, please see https://docs.recurly.com/docs/shipping
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PurchaseCreate"
+        required: true
+      responses:
+        '200':
+          description: Returns the pending invoice
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InvoiceCollection"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Pending purchase cannot be completed for the specified reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const purchaseReq = {
+              currency: 'EUR',
+              account: {
+                code: accountCode,
+                email: 'example@recurly.com',
+                billingInfo: {
+                  firstName: 'Benjamin',
+                  lastName: 'Du Monde',
+                  onlineBankingPaymentType: 'ideal'
+                },
+              },
+              lineItems: [
+                {
+                  currency: 'EUR',
+                  unitAmount: 1000,
+                  type: 'charge'
+                }
+              ]
+            };
+            const invoiceCollection = await client.createPendingPurchase(purchaseReq)
+            console.log('Created ChargeInvoice with UUID: ', invoiceCollection.chargeInvoice.uuid)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              purchase = {
+                  "currency": "EUR",
+                  "account": {
+                      "code": account_code,
+                      "email": "benjamin@example.com",
+                      "billing_info": {
+                          "first_name": "Benjamin",
+                          "last_name": "Du Monde",
+                          "online_banking_payment_type": "ideal"
+                      }
+                  },
+                  "line_items": [
+                      {
+                          "currency": "EUR",
+                          "unit_amount": 1000,
+                          "type": "charge"
+                      }
+                  ],
+              }
+              invoice_collection = client.create_pending_purchase(purchase)
+              print("Created ChargeInvoice with UUID %s" % invoice_collection.charge_invoice.uuid)
+          except recurly.errors.ValidationError as e:
+              # If the request was invalid, you may want to tell your user
+              # why. You can find the invalid params and reasons in e.error.params
+              print("ValidationError: %s" % e.error.message)
+              print(e.error.params)
+      - lang: ".NET"
+        source: |
+          try
+          {
+              var purchaseReq = new PurchaseCreate()
+              {
+                  Currency = "EUR",
+                  Account = new AccountPurchase()
+                  {
+                      Code = accountCode,
+                      Email = "benjamin@example.com",
+                      BillingInfo = new BillingInfoCreate()
+                      {
+                          FirstName = "Benjamin",
+                          LastName = "Du Monde",
+                          OnlineBankingPaymentType = OnlineBankingPaymentType.Ideal
+                      }
+                  },
+                  LineItems = new List<LineItemCreate>()
+                  {
+                      new LineItemCreate()
+                      {
+                          Currency = "EUR",
+                          UnitAmount = 1000,
+                          Type = LineItemType.Charge
+                      }
+                  }
+              };
+              InvoiceCollection collection = client.CreatePendingPurchase(purchaseReq);
+              Console.WriteLine($"Created ChargeInvoice with UUID: {collection.ChargeInvoice.Uuid}");
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            purchase = {
+              currency: 'EUR',
+              account: {
+                code: account_code,
+                email: 'benjamin@example.com',
+                billing_info: {
+                  first_name: 'Benjamin',
+                  last_name: 'Du Monde',
+                  online_banking_payment_type: 'ideal'
+                },
+              },
+              line_items: [
+                {
+                  currency: 'EUR',
+                  unit_amount: 1000,
+                  type: 'charge'
+                }
+              ]
+            }
+            invoice_collection = @client.create_pending_purchase(body: purchase)
+            puts "Created ChargeInvoice with UUID: #{invoice_collection.charge_invoice.uuid}"
+          rescue Recurly::Errors::ValidationError => e
+            # If the request was invalid, you may want to tell your user
+            # why. You can find the invalid params and reasons in e.recurly_error.params
+            puts "ValidationError: #{e.recurly_error.params}"
+          end
+      - lang: Java
+        source: |
+          try {
+              AccountPurchase account = new AccountPurchase();
+              account.setCode(accountCode);
+              account.setEmail("benjamin@example.com");
+
+              BillingInfoCreate billingInfo = new BillingInfoCreate();
+              billingInfo.setFirstName("Benjamin");
+              billingInfo.setLastName("Du Monde");
+              billingInfo.setOnlineBankingPaymentType(Constants.OnlineBankingPaymentType.IDEAL);
+              account.setBillingInfo(billingInfo);
+
+              List<LineItemCreate> lineItems = new ArrayList<LineItemCreate>();
+              LineItemCreate lineItem = new LineItemCreate();
+              lineItem.setCurrency("EUR");
+              lineItem.setUnitAmount(new BigDecimal("1000.0"));
+              lineItem.setType(Constants.LineItemType.CHARGE);
+              lineItems.add(lineItem);
+
+              PurchaseCreate purchase = new PurchaseCreate();
+              purchase.setCurrency("EUR");
+              purchase.setAccount(account);
+              purchase.setLineItems(lineItems);
+
+              InvoiceCollection collection = client.createPendingPurchase(purchase);
+              System.out.println("Created ChargeInvoice with UUID: " + collection.getChargeInvoice().getUuid());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+              System.out.println("Params: " + e.getError().getParams());
+          } catch (TransactionException e) {
+              TransactionError tError = e.getError().getTransactionError();
+              if (tError.getCategory() == Constants.ErrorCategory.THREE_D_SECURE_ACTION_REQUIRED) {
+                  String actionTokenId = tError.getThreeDSecureActionTokenId();
+                  System.out.println("Got 3DSecure TransactionError token: " + actionTokenId);
+              }
+          }
+          catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: PHP
+        source: |
+          try {
+              $purchase_create = [
+                  "currency" => "EUR",
+                  "account" => [
+                      "code" => $account_code,
+                      "email" => "benjamin@example.com",
+                      "billing_info" => [
+                          "first_name" => "Benjamin",
+                          "last_name" => "Du Monde",
+                          "online_banking_payment_type" => "ideal"
+                      ],
+                  ],
+                  "line_items" => [
+                      [
+                          "currency" => "EUR",
+                          "unit_amount" => 1000,
+                          "type" => "charge",
+                      ]
+                  ]
+              ];
+              $invoice_collection = $client->createPendingPurchase($purchase_create);
+              echo 'Created ChargeInvoice with UUID' . $invoice_collection->getChargeInvoice()->getUuid() . PHP_EOL;
+          } catch (\Recurly\Errors\Validation $e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              var_dump($e);
+          } catch (\Recurly\RecurlyError $e) {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              var_dump($e);
+          }
+      - lang: Go
+        source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"EUR\"),\n\tAccount:
+          &recurly.AccountPurchase{\n\t\tCode:  recurly.String(accountCode),\n\t\tEmail:
+          recurly.String(\"benjamin@example.com\"),\n\t\tBillingInfo: &recurly.BillingInfoCreate{\n\t\t\tFirstName:
+          \               recurly.String(\"Benjamin\"),\n\t\t\tLastName:                 recurly.String(\"Du
+          Monde\"),\n\t\t\tOnlineBankingPaymentType: recurly.String(\"ideal\"),\n\t\t},\n\t},\n\tLineItems:
+          []recurly.LineItemCreate{\n\t\t{\n\t\t\tCurrency:   recurly.String(\"EUR\"),\n\t\t\tUnitAmount:
+          recurly.Float(1000),\n\t\t\tType:       recurly.String(\"charge\"),\n\t\t},\n\t},\n}\ncollection,
+          err := client.CreatePendingPurchase(purchaseReq)\nif e, ok := err.(*recurly.Error);
+          ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
+          validation: %v\", e)\n\t\treturn nil, err\n\t}\n\n\tfmt.Printf(\"Unexpected
+          Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Created ChargeInvoice
+          with UUID: %s.\\n\", collection.ChargeInvoice.Uuid)\n"
   "/export_dates":
     get:
       tags:
@@ -14593,8 +14868,73 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/invoice_templates":
+    get:
+      tags:
+      - invoice_templates
+      operationId: list_invoice_templates
+      summary: Show the invoice templates for a site
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/sort_dates"
+      responses:
+        '200':
+          description: A list of the the invoice templates on a site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InvoiceTemplateList"
+        '404':
+          description: Incorrect site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/invoice_templates/{invoice_template_id}":
+    parameters:
+    - "$ref": "#/components/parameters/invoice_template_id"
+    get:
+      tags:
+      - invoice_templates
+      operationId: get_invoice_template
+      summary: Show the settings for an invoice template
+      responses:
+        '200':
+          description: Settings for an invoice template.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InvoiceTemplate"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or invoice template ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
 servers:
 - url: https://v3.recurly.com
+- url: https://v3.eu.recurly.com
 components:
   parameters:
     site_id:
@@ -14662,7 +15002,8 @@ components:
     invoice_template_id:
       name: invoice_template_id
       in: path
-      description: Invoice template ID.
+      description: Invoice template ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`.
+        For code use prefix `code-`, e.g. `code-bob`.
       required: true
       schema:
         type: string
@@ -15503,11 +15844,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this account. For sites without
-            multiple dunning campaigns enabled, the default dunning campaign will
-            always be used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this account. For
+            sites without multiple dunning campaigns enabled, the default dunning
+            campaign will always be used.
         invoice_template_id:
           type: string
           title: Invoice Template ID
@@ -15587,19 +15927,24 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this account. For sites without
-            multiple dunning campaigns enabled, the default dunning campaign will
-            always be used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this account. For
+            sites without multiple dunning campaigns enabled, the default dunning
+            campaign will always be used.
+        invoice_template_id:
+          type: string
+          title: Invoice Template ID
+          description: Unique ID to identify an invoice template. Available when the
+            Invoice Customization feature is enabled. Used to specify if a non-default
+            invoice template will be used to generate invoices for the account. For
+            sites without multiple invoice templates enabled, the default template
+            will always be used.
         address:
           "$ref": "#/components/schemas/Address"
         billing_info:
           "$ref": "#/components/schemas/BillingInfo"
         custom_fields:
           "$ref": "#/components/schemas/CustomFields"
-        invoice_template:
-          "$ref": "#/components/schemas/AccountInvoiceTemplate"
     AccountNote:
       type: object
       required:
@@ -15662,11 +16007,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this account. For sites without
-            multiple dunning campaigns enabled, the default dunning campaign will
-            always be used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this account. For
+            sites without multiple dunning campaigns enabled, the default dunning
+            campaign will always be used.
     AccountBalance:
       type: object
       properties:
@@ -15696,20 +16040,6 @@ components:
           format: float
           title: Amount
           description: Total amount the account is past due.
-    AccountInvoiceTemplate:
-      type: object
-      title: Invoice Template
-      description: Invoice template associated to the account. Available when invoice
-        customization flag is enabled.
-      properties:
-        id:
-          type: string
-          title: ID
-          description: Unique ID to identify the invoice template.
-        name:
-          type: string
-          title: Name
-          description: Template name
     InvoiceAddress:
       allOf:
       - "$ref": "#/components/schemas/Address"
@@ -15940,6 +16270,11 @@ components:
           title: Tiers
           items:
             "$ref": "#/components/schemas/Tier"
+        percentage_tiers:
+          type: array
+          title: Percentage Tiers
+          items:
+            "$ref": "#/components/schemas/PercentageTiersByCurrency"
         external_sku:
           type: string
           title: External SKU
@@ -16471,6 +16806,10 @@ components:
             billing info marked `primary_payment_method` can be set as a backup. An
             account can have a maximum of 1 backup, if a user sets a different payment
             method as a backup, the existing backup will no longer be marked as such.
+        external_hpp_type:
+          "$ref": "#/components/schemas/ExternalHppTypeEnum"
+        online_banking_payment_type:
+          "$ref": "#/components/schemas/OnlineBankingPaymentTypeEnum"
     BillingInfoVerify:
       type: object
       properties:
@@ -17429,6 +17768,10 @@ components:
           type: string
           title: Invoice ID
           readOnly: true
+        uuid:
+          type: string
+          title: Invoice UUID
+          readOnly: true
         object:
           type: string
           title: Object type
@@ -17624,9 +17967,8 @@ components:
           type: string
           title: Dunning Campaign ID
           description: Unique ID to identify the dunning campaign used when dunning
-            the invoice. Available when the Dunning Campaigns feature is enabled.
-            For sites without multiple dunning campaigns enabled, this will always
-            be the default dunning campaign.
+            the invoice. For sites without multiple dunning campaigns enabled, this
+            will always be the default dunning campaign.
     InvoiceCreate:
       type: object
       properties:
@@ -18556,11 +18898,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this plan. For sites without multiple
-            dunning campaigns enabled, the default dunning campaign will always be
-            used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this plan. For sites
+            without multiple dunning campaigns enabled, the default dunning campaign
+            will always be used.
         created_at:
           type: string
           format: date-time
@@ -18720,11 +19061,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this plan. For sites without multiple
-            dunning campaigns enabled, the default dunning campaign will always be
-            used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this plan. For sites
+            without multiple dunning campaigns enabled, the default dunning campaign
+            will always be used.
       required:
       - code
       - name
@@ -18911,11 +19251,10 @@ components:
         dunning_campaign_id:
           type: string
           title: Dunning Campaign ID
-          description: Unique ID to identify a dunning campaign. Available when the
-            Dunning Campaigns feature is enabled. Used to specify if a non-default
-            dunning campaign should be assigned to this plan. For sites without multiple
-            dunning campaigns enabled, the default dunning campaign will always be
-            used.
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this plan. For sites
+            without multiple dunning campaigns enabled, the default dunning campaign
+            will always be used.
     AddOnPricing:
       type: object
       properties:
@@ -19014,13 +19353,44 @@ components:
         usage_percentage:
           type: string
           title: Usage Percentage
-          description: Decimal usage percentage.
+          description: This field is deprecated. Do not used it anymore for percentage
+            tiers add ons. Use the percentage_tiers object instead.
+          deprecated: true
         currencies:
           type: array
           title: Tier pricing
           items:
             "$ref": "#/components/schemas/TierPricing"
           minItems: 1
+    PercentageTiersByCurrency:
+      type: object
+      properties:
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        tiers:
+          type: array
+          title: Tiers
+          items:
+            "$ref": "#/components/schemas/PercentageTier"
+          minItems: 1
+    PercentageTier:
+      type: object
+      properties:
+        ending_amount:
+          type: number
+          format: float
+          title: Ending amount
+          minimum: 0.1
+          maximum: 9999999999999
+          description: Ending amount for the tier. Allows up to 2 decimal places.
+            The last tier ending_amount is null.
+        usage_percentage:
+          type: string
+          title: Usage Percentage
+          description: Decimal usage percentage.
     Settings:
       type: object
       properties:
@@ -19714,6 +20084,15 @@ components:
           description: |
             If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
             removed and replaced by the tiers in the request.
+        percentage_tiers:
+          type: array
+          title: Percentage Tiers
+          items:
+            "$ref": "#/components/schemas/SubscriptionAddOnPercentageTier"
+          minItems: 1
+          description: |
+            If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
+            removed and replaced by the percentage tiers in the request.
         usage_percentage:
           type: number
           format: float
@@ -19888,11 +20267,26 @@ components:
         usage_percentage:
           type: string
           title: Usage Percentage
-          description: The percentage taken of the monetary amount of usage tracked.
+          description: This field is deprecated. Do not used it anymore for percentage
+            tiers subscription add ons. Use the percentage_tiers object instead.
+          deprecated: true
+    SubscriptionAddOnPercentageTier:
+      type: object
+      properties:
+        ending_amount:
+          type: number
+          format: float
+          title: Ending amount
+          minimum: 1
+          maximum: 9999999999999.99
+          default: 
+        usage_percentage:
+          type: string
+          title: Usage Percentage
+          description: |
+            The percentage taken of the monetary amount of usage tracked.
             This can be up to 4 decimal places represented as a string. A value between
-            0.0 and 100.0. Optionally, override tiers' default usage percentage. Required
-            if add-on's `add_on_type` is `usage` and `usage_type` is `percentage`.
-            Must be omitted otherwise.
+            0.0 and 100.0.
     SubscriptionCancel:
       type: object
       properties:
@@ -21327,6 +21721,46 @@ components:
           maxItems: 200
           items:
             "$ref": "#/components/schemas/Plan"
+    InvoiceTemplateList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/InvoiceTemplate"
+    InvoiceTemplate:
+      type: object
+      description: Settings for an invoice template.
+      properties:
+        id:
+          type: string
+        code:
+          type: string
+          description: Invoice template code.
+        name:
+          type: string
+          description: Invoice template name.
+        description:
+          type: string
+          description: Invoice template description.
+        created_at:
+          type: string
+          format: date-time
+          description: When the invoice template was created in Recurly.
+        updated_at:
+          type: string
+          format: date-time
+          description: When the invoice template was updated in Recurly.
     PaymentMethod:
       properties:
         object:
@@ -22245,3 +22679,14 @@ components:
       enum:
       - checking
       - savings
+    ExternalHppTypeEnum:
+      type: string
+      description: Use for Adyen HPP billing info.
+      enum:
+      - adyen
+    OnlineBankingPaymentTypeEnum:
+      type: string
+      description: Use for Online Banking billing info.
+      enum:
+      - ideal
+      - sofort

@@ -30,6 +30,10 @@ module Recurly
       #   @return [String] Object type
       define_attribute :object, String
 
+      # @!attribute percentage_tiers
+      #   @return [Array[SubscriptionAddOnPercentageTier]] If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be removed and replaced by the percentage tiers in the request.
+      define_attribute :percentage_tiers, Array, { :item_type => :SubscriptionAddOnPercentageTier }
+
       # @!attribute quantity
       #   @return [Integer] Add-on quantity
       define_attribute :quantity, Integer

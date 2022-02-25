@@ -55,7 +55,7 @@ module Recurly
       define_attribute :due_at, DateTime
 
       # @!attribute dunning_campaign_id
-      #   @return [String] Unique ID to identify the dunning campaign used when dunning the invoice. Available when the Dunning Campaigns feature is enabled. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.
+      #   @return [String] Unique ID to identify the dunning campaign used when dunning the invoice. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.
       define_attribute :dunning_campaign_id, String
 
       # @!attribute has_more_line_items
@@ -145,6 +145,10 @@ module Recurly
       # @!attribute updated_at
       #   @return [DateTime] Last updated at
       define_attribute :updated_at, DateTime
+
+      # @!attribute uuid
+      #   @return [String] Invoice UUID
+      define_attribute :uuid, String
 
       # @!attribute vat_number
       #   @return [String] VAT registration number for the customer on this invoice. This will come from the VAT Number field in the Billing Info or the Account Info depending on your tax settings and the invoice collection method.

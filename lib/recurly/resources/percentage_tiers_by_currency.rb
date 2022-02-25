@@ -4,15 +4,15 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Resources
-    class AccountInvoiceTemplate < Resource
+    class PercentageTiersByCurrency < Resource
 
-      # @!attribute id
-      #   @return [String] Unique ID to identify the invoice template.
-      define_attribute :id, String
+      # @!attribute currency
+      #   @return [String] 3-letter ISO 4217 currency code.
+      define_attribute :currency, String
 
-      # @!attribute name
-      #   @return [String] Template name
-      define_attribute :name, String
+      # @!attribute tiers
+      #   @return [Array[PercentageTier]] Tiers
+      define_attribute :tiers, Array, { :item_type => :PercentageTier }
     end
   end
 end

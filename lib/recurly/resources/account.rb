@@ -43,7 +43,7 @@ module Recurly
       define_attribute :deleted_at, DateTime
 
       # @!attribute dunning_campaign_id
-      #   @return [String] Unique ID to identify a dunning campaign. Available when the Dunning Campaigns feature is enabled. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
+      #   @return [String] Unique ID to identify a dunning campaign. Used to specify if a non-default dunning campaign should be assigned to this account. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
       define_attribute :dunning_campaign_id, String
 
       # @!attribute email
@@ -90,9 +90,9 @@ module Recurly
       #   @return [String]
       define_attribute :id, String
 
-      # @!attribute invoice_template
-      #   @return [AccountInvoiceTemplate] Invoice template associated to the account. Available when invoice customization flag is enabled.
-      define_attribute :invoice_template, :AccountInvoiceTemplate
+      # @!attribute invoice_template_id
+      #   @return [String] Unique ID to identify an invoice template. Available when the Invoice Customization feature is enabled. Used to specify if a non-default invoice template will be used to generate invoices for the account. For sites without multiple invoice templates enabled, the default template will always be used.
+      define_attribute :invoice_template_id, String
 
       # @!attribute last_name
       #   @return [String]
