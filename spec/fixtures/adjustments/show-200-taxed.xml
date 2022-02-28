@@ -12,6 +12,7 @@ Content-Type: application/xml; charset=utf-8
   <origin>plan</origin>
   <description>$12 Annual Subscription</description>
   <unit_amount_in_cents type="integer">1200</unit_amount_in_cents>
+  <tax_inclusive type="boolean">false</tax_inclusive>
   <quantity type="integer">1</quantity>
   <discount_in_cents type="integer">0</discount_in_cents>
   <tax_in_cents type="integer">0</tax_in_cents>

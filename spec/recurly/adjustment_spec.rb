@@ -15,6 +15,7 @@ describe Adjustment do
       adjustment.tax_in_cents.to_i.must_equal 5000
       adjustment.currency.must_equal 'USD'
       adjustment.tax_exempt?.must_equal false
+      adjustment.tax_inclusive?.must_equal false
       adjustment.product_code.must_equal 'basic'
       adjustment.start_date.must_be_kind_of DateTime
       adjustment.end_date.must_be_kind_of DateTime
