@@ -34,6 +34,10 @@ module Recurly
       #   @return [String] *STRONGLY RECOMMENDED*
       define_attribute :cvv, String
 
+      # @!attribute external_hpp_type
+      #   @return [String] Use for Adyen HPP billing info.
+      define_attribute :external_hpp_type, String
+
       # @!attribute first_name
       #   @return [String] First name
       define_attribute :first_name, String
@@ -73,6 +77,10 @@ module Recurly
       # @!attribute number
       #   @return [String] Credit card number, spaces and dashes are accepted.
       define_attribute :number, String
+
+      # @!attribute online_banking_payment_type
+      #   @return [String] Use for Online Banking billing info.
+      define_attribute :online_banking_payment_type, String
 
       # @!attribute paypal_billing_agreement_id
       #   @return [String] PayPal billing agreement ID

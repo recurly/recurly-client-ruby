@@ -15,7 +15,7 @@ module Recurly
       define_attribute :ending_quantity, Integer
 
       # @!attribute usage_percentage
-      #   @return [String] Decimal usage percentage.
+      #   @return [String] This field is deprecated. Do not used it anymore for percentage tiers add ons. Use the percentage_tiers object instead.
       define_attribute :usage_percentage, String
     end
   end

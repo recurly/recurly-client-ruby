@@ -74,6 +74,10 @@ module Recurly
       #   @return [Boolean] Whether the add-on is optional for the customer to include in their purchase on the hosted payment page. If false, the add-on will be included when a subscription is created through the Recurly UI. However, the add-on will not be included when a subscription is created through the API.
       define_attribute :optional, :Boolean
 
+      # @!attribute percentage_tiers
+      #   @return [Array[PercentageTiersByCurrency]] Percentage Tiers
+      define_attribute :percentage_tiers, Array, { :item_type => :PercentageTiersByCurrency }
+
       # @!attribute plan_id
       #   @return [String] Plan ID
       define_attribute :plan_id, String
