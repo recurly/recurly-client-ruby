@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.18.23](https://github.com/recurly/recurly-client-ruby/tree/2.18.23) (2022-03-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.22...2.18.23)
+
+
+**Merged Pull Requests**
+
+- Add new online_banking_payment_type attr to billing info [#750](https://github.com/recurly/recurly-client-ruby/pull/750) ([horozcorecurly](https://github.com/horozcorecurly))
+- V2 Add invoice template support [#745](https://github.com/recurly/recurly-client-ruby/pull/745) ([icas-recurly](https://github.com/icas-recurly))
+
+
+
 ## [2.18.22](https://github.com/recurly/recurly-client-ruby/tree/2.18.22) (2021-10-27)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.21...2.18.22)
