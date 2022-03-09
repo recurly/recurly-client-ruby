@@ -16451,8 +16451,17 @@ components:
           description: |
             If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount` for
-            the desired `currencies`, or alternatively, `usage_percentage` for usage percentage type usage add ons. There must be one tier with an `ending_quantity`
+            the desired `currencies`. There must be one tier with an `ending_quantity`
             of 999999999 which is the default if not provided.
+        percentage_tiers:
+          type: array
+          title: Percentage Tiers By Currency
+          items:
+            "$ref": "#/components/schemas/PercentageTiersByCurrency"
+          description: |
+            Array of objects which must have at least one set of tiers
+            per currency and the currency code. The tier_type must be `volume` or `tiered`,
+            if not, it must be absent. There must be one tier without ending_amount value.
       required:
       - code
       - name
@@ -16580,8 +16589,17 @@ components:
           description: |
             If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount` for
-            the desired `currencies`, or alternatively, `usage_percentage` for usage percentage type usage add ons. There must be one tier with an `ending_quantity`
-            of 999999999 which is the default if not provided.
+            the desired `currencies`. There must be one tier without an `ending_quantity` value
+            that represents the final tier.
+        percentage_tiers:
+          type: array
+          title: Percentage Tiers By Currency
+          items:
+            "$ref": "#/components/schemas/PercentageTiersByCurrency"
+          description: |
+            `percentage_tiers` is an array of objects, which must have the set of tiers
+            per currency and the currency code. The tier_type must be `volume` or `tiered`,
+            if not, it must be absent.
     BillingInfo:
       type: object
       properties:
@@ -19345,16 +19363,14 @@ components:
           type: integer
           title: Ending quantity
           description: Ending quantity for the tier.  This represents a unit amount
-            for unit-priced add ons, but for percentage type usage add ons, represents
-            the site default currency in its minimum divisible unit.
+            for unit-priced add ons.
           minimum: 1
           maximum: 999999999
           default: 999999999
         usage_percentage:
           type: string
           title: Usage Percentage
-          description: This field is deprecated. Do not used it anymore for percentage
-            tiers add ons. Use the percentage_tiers object instead.
+          description: "(deprecated) -- Use the percentage_tiers object instead."
           deprecated: true
         currencies:
           type: array
@@ -20083,7 +20099,8 @@ components:
           minItems: 1
           description: |
             If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
-            removed and replaced by the tiers in the request.
+            removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and
+            add_on.usage_type is percentage use percentage_tiers instead.
         percentage_tiers:
           type: array
           title: Percentage Tiers
@@ -20092,7 +20109,8 @@ components:
           minItems: 1
           description: |
             If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
-            removed and replaced by the percentage tiers in the request.
+            removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
+            add_on.usage_type is percentage
         usage_percentage:
           type: number
           format: float
@@ -20158,9 +20176,19 @@ components:
           description: |
             If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount`.
-            There must be one tier with an `ending_quantity` of 999999999 which is the
-            default if not provided. See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
+            There must be one tier without ending_quantity value.
+            See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
             for an overview of how to configure quantity-based pricing models.
+        percentage_tiers:
+          type: array
+          title: Percentage Tiers
+          items:
+            "$ref": "#/components/schemas/SubscriptionAddOnPercentageTier"
+          minItems: 1
+          description: |
+            If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
+            removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value.
+            Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage.
         usage_percentage:
           type: number
           format: float
@@ -20247,7 +20275,7 @@ components:
           title: Ending quantity
           minimum: 1
           maximum: 999999999
-          default: 999999999
+          default: 
         unit_amount:
           type: number
           format: float
@@ -20267,8 +20295,7 @@ components:
         usage_percentage:
           type: string
           title: Usage Percentage
-          description: This field is deprecated. Do not used it anymore for percentage
-            tiers subscription add ons. Use the percentage_tiers object instead.
+          description: "(deprecated) -- Use the percentage_tiers object instead."
           deprecated: true
     SubscriptionAddOnPercentageTier:
       type: object
@@ -20866,9 +20893,10 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Do not use it anymore to update a
+            subscription's tax inclusivity. Use the POST subscription change route
+            instead.
+          deprecated: true
         shipping:
           "$ref": "#/components/schemas/SubscriptionShippingUpdate"
         billing_info_id:
@@ -21349,7 +21377,14 @@ components:
           items:
             "$ref": "#/components/schemas/SubscriptionAddOnTier"
           description: The tiers and prices of the subscription based on the usage_timestamp.
-            If tier_type = flat, tiers = null
+            If tier_type = flat, tiers = []
+        percentage_tiers:
+          type: array
+          title: Percentage Tiers
+          items:
+            "$ref": "#/components/schemas/SubscriptionAddOnPercentageTier"
+          description: The percentage tiers of the subscription based on the usage_timestamp.
+            If tier_type = flat, percentage_tiers = []
         measured_unit_id:
           type: string
           description: The ID of the measured unit associated with the add-on the
