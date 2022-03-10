@@ -20855,9 +20855,10 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Do not use it anymore to update a
+            subscription's tax inclusivity. Use the POST subscription change route
+            instead.
+          deprecated: true
         shipping:
           "$ref": "#/components/schemas/SubscriptionShippingUpdate"
         billing_info_id:
