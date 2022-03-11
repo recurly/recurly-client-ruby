@@ -43,8 +43,8 @@ module Recurly
       define_attribute :object, String
 
       # @!attribute usage_percentage
-      #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
-      define_attribute :usage_percentage, Float
+      #   @return [String] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0, represented as a string.
+      define_attribute :usage_percentage, String
 
       # @!attribute usage_type
       #   @return [String] Type of usage, returns usage type if `add_on_type` is `usage`.

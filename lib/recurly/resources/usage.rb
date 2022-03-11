@@ -34,6 +34,10 @@ module Recurly
       #   @return [String] Object type
       define_attribute :object, String
 
+      # @!attribute percentage_tiers
+      #   @return [Array[SubscriptionAddOnPercentageTier]] The percentage tiers of the subscription based on the usage_timestamp. If tier_type = flat, percentage_tiers = []
+      define_attribute :percentage_tiers, Array, { :item_type => :SubscriptionAddOnPercentageTier }
+
       # @!attribute recording_timestamp
       #   @return [DateTime] When the usage was recorded in your system.
       define_attribute :recording_timestamp, DateTime
@@ -43,7 +47,7 @@ module Recurly
       define_attribute :tier_type, String
 
       # @!attribute tiers
-      #   @return [Array[SubscriptionAddOnTier]] The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = null
+      #   @return [Array[SubscriptionAddOnTier]] The tiers and prices of the subscription based on the usage_timestamp. If tier_type = flat, tiers = []
       define_attribute :tiers, Array, { :item_type => :SubscriptionAddOnTier }
 
       # @!attribute unit_amount

@@ -14,6 +14,10 @@ module Recurly
       #   @return [String] If `add_on_source` is set to `plan_add_on` or left blank, then plan's add-on `code` should be used. If `add_on_source` is set to `item`, then the `code` from the associated item should be used.
       define_attribute :code, String
 
+      # @!attribute percentage_tiers
+      #   @return [Array[SubscriptionAddOnPercentageTier]] If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value. Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage.
+      define_attribute :percentage_tiers, Array, { :item_type => :SubscriptionAddOnPercentageTier }
+
       # @!attribute quantity
       #   @return [Integer] Quantity
       define_attribute :quantity, Integer
@@ -23,7 +27,7 @@ module Recurly
       define_attribute :revenue_schedule_type, String
 
       # @!attribute tiers
-      #   @return [Array[SubscriptionAddOnTier]] If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount`. There must be one tier with an `ending_quantity` of 999999999 which is the default if not provided. See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how to configure quantity-based pricing models.
+      #   @return [Array[SubscriptionAddOnTier]] If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount`. There must be one tier without ending_quantity value. See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how to configure quantity-based pricing models.
       define_attribute :tiers, Array, { :item_type => :SubscriptionAddOnTier }
 
       # @!attribute unit_amount
