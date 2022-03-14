@@ -39,7 +39,7 @@ module Recurly
       define_attribute :display_quantity, :Boolean
 
       # @!attribute item_code
-      #   @return [String] Unique code to identify an item. Available when the `Credit Invoices` feature are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+      #   @return [String] Unique code to identify an item. Available when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
       define_attribute :item_code, String
 
       # @!attribute item_id
@@ -62,6 +62,10 @@ module Recurly
       #   @return [Boolean] Whether the add-on is optional for the customer to include in their purchase on the hosted payment page. If false, the add-on will be included when a subscription is created through the Recurly UI. However, the add-on will not be included when a subscription is created through the API.
       define_attribute :optional, :Boolean
 
+      # @!attribute percentage_tiers
+      #   @return [Array[PercentageTiersByCurrency]] Array of objects which must have at least one set of tiers per currency and the currency code. The tier_type must be `volume` or `tiered`, if not, it must be absent. There must be one tier without ending_amount value.
+      define_attribute :percentage_tiers, Array, { :item_type => :PercentageTiersByCurrency }
+
       # @!attribute plan_id
       #   @return [String] Plan ID
       define_attribute :plan_id, String
@@ -79,12 +83,12 @@ module Recurly
       define_attribute :tier_type, String
 
       # @!attribute tiers
-      #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`, or alternatively, `usage_percentage` for usage percentage type usage add ons. There must be one tier with an `ending_quantity` of 999999999 which is the default if not provided.
+      #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`. There must be one tier with an `ending_quantity` of 999999999 which is the default if not provided.
       define_attribute :tiers, Array, { :item_type => :Tier }
 
       # @!attribute usage_percentage
-      #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
-      define_attribute :usage_percentage, Float
+      #   @return [String] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
+      define_attribute :usage_percentage, String
 
       # @!attribute usage_type
       #   @return [String] Type of usage, required if `add_on_type` is `usage`. See our [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an overview of how to configure usage add-ons.

@@ -11,12 +11,8 @@ module Recurly
       define_attribute :currencies, Array, { :item_type => :TierPricing }
 
       # @!attribute ending_quantity
-      #   @return [Integer] Ending quantity for the tier.  This represents a unit amount for unit-priced add ons, but for percentage type usage add ons, represents the site default currency in its minimum divisible unit.
+      #   @return [Integer] Ending quantity for the tier.  This represents a unit amount for unit-priced add ons.
       define_attribute :ending_quantity, Integer
-
-      # @!attribute usage_percentage
-      #   @return [String] This field is deprecated. Do not used it anymore for percentage tiers add ons. Use the percentage_tiers object instead.
-      define_attribute :usage_percentage, String
     end
   end
 end
