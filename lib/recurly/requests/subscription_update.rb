@@ -59,7 +59,7 @@ module Recurly
       define_attribute :shipping, :SubscriptionShippingUpdate
 
       # @!attribute tax_inclusive
-      #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
+      #   @return [Boolean] This field is deprecated. Do not use it anymore to update a subscription's tax inclusivity. Use the POST subscription change route instead.
       define_attribute :tax_inclusive, :Boolean
 
       # @!attribute terms_and_conditions

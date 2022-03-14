@@ -19,7 +19,7 @@ module Recurly
       define_attribute :unit_amount_decimal, String
 
       # @!attribute usage_percentage
-      #   @return [String] This field is deprecated. Do not used it anymore for percentage tiers subscription add ons. Use the percentage_tiers object instead.
+      #   @return [String] (deprecated) -- Use the percentage_tiers object instead.
       define_attribute :usage_percentage, String
     end
   end

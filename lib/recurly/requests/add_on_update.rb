@@ -54,6 +54,10 @@ module Recurly
       #   @return [Boolean] Whether the add-on is optional for the customer to include in their purchase on the hosted payment page. If false, the add-on will be included when a subscription is created through the Recurly UI. However, the add-on will not be included when a subscription is created through the API.
       define_attribute :optional, :Boolean
 
+      # @!attribute percentage_tiers
+      #   @return [Array[PercentageTiersByCurrency]] `percentage_tiers` is an array of objects, which must have the set of tiers per currency and the currency code. The tier_type must be `volume` or `tiered`, if not, it must be absent.
+      define_attribute :percentage_tiers, Array, { :item_type => :PercentageTiersByCurrency }
+
       # @!attribute revenue_schedule_type
       #   @return [String] When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.
       define_attribute :revenue_schedule_type, String
@@ -63,7 +67,7 @@ module Recurly
       define_attribute :tax_code, String
 
       # @!attribute tiers
-      #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`, or alternatively, `usage_percentage` for usage percentage type usage add ons. There must be one tier with an `ending_quantity` of 999999999 which is the default if not provided.
+      #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`. There must be one tier without an `ending_quantity` value that represents the final tier.
       define_attribute :tiers, Array, { :item_type => :Tier }
 
       # @!attribute usage_percentage
