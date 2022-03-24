@@ -16451,8 +16451,8 @@ components:
           description: |
             If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount` for
-            the desired `currencies`. There must be one tier with an `ending_quantity`
-            of 999999999 which is the default if not provided.
+            the desired `currencies`. There must be one tier without an `ending_quantity` value
+            which represents the final tier.
         percentage_tiers:
           type: array
           title: Percentage Tiers By Currency
@@ -16461,7 +16461,8 @@ components:
           description: |
             Array of objects which must have at least one set of tiers
             per currency and the currency code. The tier_type must be `volume` or `tiered`,
-            if not, it must be absent. There must be one tier without ending_amount value.
+            if not, it must be absent. There must be one tier without an `ending_amount` value
+            which represents the final tier.
       required:
       - code
       - name
@@ -16590,7 +16591,7 @@ components:
             If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount` for
             the desired `currencies`. There must be one tier without an `ending_quantity` value
-            that represents the final tier.
+            which represents the final tier.
         percentage_tiers:
           type: array
           title: Percentage Tiers By Currency
@@ -16599,7 +16600,8 @@ components:
           description: |
             `percentage_tiers` is an array of objects, which must have the set of tiers
             per currency and the currency code. The tier_type must be `volume` or `tiered`,
-            if not, it must be absent.
+            if not, it must be absent. There must be one tier without an `ending_amount` value
+            which represents the final tier.
     BillingInfo:
       type: object
       properties:
@@ -19362,11 +19364,11 @@ components:
         ending_quantity:
           type: integer
           title: Ending quantity
-          description: Ending quantity for the tier.  This represents a unit amount
-            for unit-priced add ons.
           minimum: 1
           maximum: 999999999
-          default: 999999999
+          default: 
+          description: Ending quantity for the tier.  This represents a unit amount
+            for unit-priced add ons. Must be left empty if it is the final tier.
         usage_percentage:
           type: string
           title: Usage Percentage
@@ -19399,14 +19401,19 @@ components:
           type: number
           format: float
           title: Ending amount
-          minimum: 0.1
-          maximum: 9999999999999
+          minimum: 0.01
+          maximum: 9999999999999.99
+          default: 
           description: Ending amount for the tier. Allows up to 2 decimal places.
-            The last tier ending_amount is null.
+            Must be left empty if it is the final tier.
         usage_percentage:
           type: string
           title: Usage Percentage
-          description: Decimal usage percentage.
+          minimum: 0
+          maximum: 100
+          description: |
+            The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places represented as a string.
     Settings:
       type: object
       properties:
@@ -20097,10 +20104,11 @@ components:
           items:
             "$ref": "#/components/schemas/SubscriptionAddOnTier"
           minItems: 1
-          description: |
-            If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
-            removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and
-            add_on.usage_type is percentage use percentage_tiers instead.
+          description: "If tiers are provided in the request, all existing tiers on
+            the Subscription Add-on will be\nremoved and replaced by the tiers in
+            the request. If add_on.tier_type is tiered or volume and\nadd_on.usage_type
+            is percentage use percentage_tiers instead. \nThere must be one tier without
+            an `ending_quantity` value which represents the final tier.\n"
         percentage_tiers:
           type: array
           title: Percentage Tiers
@@ -20110,7 +20118,8 @@ components:
           description: |
             If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
             removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
-            add_on.usage_type is percentage
+            add_on.usage_type is percentage.
+            There must be one tier without an `ending_amount` value which represents the final tier.
         usage_percentage:
           type: number
           format: float
@@ -20176,7 +20185,7 @@ components:
           description: |
             If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount`.
-            There must be one tier without ending_quantity value.
+            There must be one tier without an `ending_quantity` value which represents the final tier.
             See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
             for an overview of how to configure quantity-based pricing models.
         percentage_tiers:
@@ -20187,12 +20196,14 @@ components:
           minItems: 1
           description: |
             If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
-            removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value.
+            removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value which represents the final tier.
             Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage.
         usage_percentage:
           type: number
           format: float
           title: Usage Percentage
+          minimum: 0
+          maximum: 100
           description: The percentage taken of the monetary amount of usage tracked.
             This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
             if `add_on_type` is usage and `usage_type` is percentage. Must be omitted
@@ -20255,8 +20266,18 @@ components:
           description: |
             If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount`.
-            There must be one tier with an `ending_quantity` of 999999999 which is the
-            default if not provided.
+            There must be one tier without an `ending_quantity` value which represents the final tier.
+        percentage_tiers:
+          type: array
+          title: Percentage Tiers
+          items:
+            "$ref": "#/components/schemas/SubscriptionAddOnPercentageTier"
+          minItems: 1
+          description: |
+            If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
+            removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
+            add_on.usage_type is percentage.
+            There must be one tier without an `ending_amount` value which represents the final tier.
         usage_percentage:
           type: number
           format: float
@@ -20276,6 +20297,8 @@ components:
           minimum: 1
           maximum: 999999999
           default: 
+          description: Ending quantity for the tier.  This represents a unit amount
+            for unit-priced add ons. Must be left empty if it is the final tier.
         unit_amount:
           type: number
           format: float
@@ -20307,13 +20330,16 @@ components:
           minimum: 1
           maximum: 9999999999999.99
           default: 
+          description: Ending amount for the tier. Allows up to 2 decimal places.
+            Must be left empty if it is the final tier.
         usage_percentage:
           type: string
           title: Usage Percentage
+          minimum: 0
+          maximum: 100
           description: |
             The percentage taken of the monetary amount of usage tracked.
-            This can be up to 4 decimal places represented as a string. A value between
-            0.0 and 100.0.
+            This can be up to 4 decimal places represented as a string.
     SubscriptionCancel:
       type: object
       properties:
@@ -22632,6 +22658,7 @@ components:
       - three_d_secure_connection_error
       - three_d_secure_credential_error
       - three_d_secure_not_supported
+      - too_busy
       - too_many_attempts
       - total_credit_exceeds_capture
       - transaction_already_refunded
