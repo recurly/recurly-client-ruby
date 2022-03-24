@@ -18,6 +18,10 @@ module Recurly
       #   @return [String] When an id is provided, the existing subscription add-on attributes will persist unless overridden in the request.
       define_attribute :id, String
 
+      # @!attribute percentage_tiers
+      #   @return [Array[SubscriptionAddOnPercentageTier]] If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage. There must be one tier without an `ending_amount` value which represents the final tier.
+      define_attribute :percentage_tiers, Array, { :item_type => :SubscriptionAddOnPercentageTier }
+
       # @!attribute quantity
       #   @return [Integer] Quantity
       define_attribute :quantity, Integer
@@ -27,7 +31,7 @@ module Recurly
       define_attribute :revenue_schedule_type, String
 
       # @!attribute tiers
-      #   @return [Array[SubscriptionAddOnTier]] If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount`. There must be one tier with an `ending_quantity` of 999999999 which is the default if not provided.
+      #   @return [Array[SubscriptionAddOnTier]] If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount`. There must be one tier without an `ending_quantity` value which represents the final tier.
       define_attribute :tiers, Array, { :item_type => :SubscriptionAddOnTier }
 
       # @!attribute unit_amount
