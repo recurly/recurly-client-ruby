@@ -4,6 +4,8 @@ module Recurly
     belongs_to :plan
     # @return [[Tier], []]
     has_many :tiers, class_name: :Tier, readonly: false
+    # @return [[PercentageTier], []]
+    has_many :percentage_tiers, class_name: :CurrencyPercentageTier, readonly: false
 
     define_attribute_methods %w(
       add_on_code
@@ -24,6 +26,7 @@ module Recurly
       created_at
       updated_at
       tier_type
+      usage_timeframe
       external_sku
       avalara_service_type
       avalara_transaction_type
@@ -35,6 +38,8 @@ module Recurly
       attrs = super
       if tiers.any?(&:changed?)
         attrs['tiers'] = tiers.select(&:changed?)
+      elsif percentage_tiers.any?(&:changed?)
+        attrs['percentage_tiers'] = percentage_tiers.select(&:changed?)
       end
       attrs
     end

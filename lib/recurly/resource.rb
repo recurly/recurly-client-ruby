@@ -754,8 +754,8 @@ module Recurly
       if association
         value = fetch_associated(key, value)
       # FIXME: More explicit; less magic.
-      elsif value && key.end_with?('_in_cents') && !respond_to?(:currency)
-        value = Money.new(value, self, key) unless value.is_a?(Money)
+      elsif add_money_tag?(key, value)
+        value = Money.new(value, self, key)
       end
 
       attributes[key] = value
@@ -1117,6 +1117,15 @@ module Recurly
 
     def xml_keys
       changed_attributes.keys.sort
+    end
+
+    def add_money_tag?(key, value)
+      value &&
+        key.end_with?('_in_cents') &&
+        !respond_to?(:currency) &&
+        !value.is_a?(Money) &&
+        !is_a?(PercentageTier)&&
+        !is_a?(SubAddOnPercentageTier)
     end
   end
 end

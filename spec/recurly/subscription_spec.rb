@@ -165,6 +165,9 @@ describe Subscription do
     end
 
     describe ".update_attributes" do
+      let(:subscription) { Subscription.find '5895ce632d88b801b7831b41baba4c8b' }
+      let(:tiered_add_on) { subscription.subscription_add_ons[1] }
+      let(:tiered_percentage_add_on) { subscription.subscription_add_ons[2] }
       before do
         stub_api_request(
           :get, 'subscriptions/5895ce632d88b801b7831b41baba4c8b', 'subscriptions/add_ons/show-200'
@@ -175,7 +178,6 @@ describe Subscription do
       end
 
       it "will update subscription add-ons" do
-        subscription = Subscription.find '5895ce632d88b801b7831b41baba4c8b'
         subscription.subscription_add_ons[0].unit_amount_in_cents.must_equal 999
 
         subscription.update_attributes!(timeframe: "now")
@@ -183,14 +185,21 @@ describe Subscription do
       end
 
       it "will update subscription add-on tiers" do
-        subscription = Subscription.find '5895ce632d88b801b7831b41baba4c8b'
-        subscription.subscription_add_ons.length.must_equal 2
-        subscription.subscription_add_ons[1].tiers.length.must_equal 2
+        subscription.subscription_add_ons.length.must_equal 3
 
         subscription.update_attributes!(timeframe: "now")
-        subscription.subscription_add_ons[1].tiers.length.must_equal 3
-        subscription.subscription_add_ons[1].tiers[0].unit_amount_in_cents["USD"].must_equal 5500
-        subscription.subscription_add_ons[1].tiers[1].unit_amount_in_cents["USD"].must_equal 4999
+        tiered_add_on.tiers.length.must_equal 3
+        tiered_add_on.tiers[0].unit_amount_in_cents["USD"].must_equal 5500
+        tiered_add_on.tiers[1].unit_amount_in_cents["USD"].must_equal 4999
+      end
+
+      it 'will update subscription add-on percentage_tiers' do
+        subscription.subscription_add_ons.length.must_equal 3
+
+        subscription.update_attributes!(timeframe: "now")
+        tiered_percentage_add_on.percentage_tiers.length.must_equal 3
+        tiered_percentage_add_on.percentage_tiers[0].ending_amount_in_cents.must_equal 10000
+        tiered_percentage_add_on.percentage_tiers[1].ending_amount_in_cents.must_equal 20000
       end
     end
   end

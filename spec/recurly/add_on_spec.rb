@@ -18,7 +18,13 @@ describe AddOn do
       :get, 'plans/plantfile', 'plans/show-200-tiered'
     )
     stub_api_request(
+      :get, 'plans/percentageplan', 'plans/show-200-tiered-percentage'
+    )
+    stub_api_request(
       :get, 'plans/plantfile/add_ons', 'plans/add_ons/index-200-tiered'
+    )
+    stub_api_request(
+      :get, 'plans/percentageplan/add_ons', 'plans/add_ons/index-200-tiered-percentage'
     )
   end
 
@@ -63,6 +69,21 @@ describe AddOn do
       add_on = add_ons.first
       add_on.must_be_instance_of AddOn
       add_on.tier_type.must_equal "tiered"
+    end
+
+    it "must return an addon with percentage-tiered-pricing and usage_timeframe when available" do
+      plan = Plan.find 'percentageplan'
+      add_ons = plan.add_ons
+
+      add_on = add_ons.first
+      add_on.must_be_instance_of AddOn
+      add_on.tier_type.must_equal "tiered"
+      add_on.usage_type.must_equal "percentage"
+      add_on.usage_timeframe.must_equal "billing_period"
+      add_on.percentage_tiers.count.must_equal 2
+      add_on.percentage_tiers.first.must_be_instance_of CurrencyPercentageTier
+      add_on.percentage_tiers.first.tiers.count.must_equal 2
+      add_on.percentage_tiers.first.tiers.first.must_be_instance_of PercentageTier
     end
   end
 end
