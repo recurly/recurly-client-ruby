@@ -16,6 +16,7 @@ module Recurly
       add_on_type
       usage_type
       usage_percentage
+      usage_timeframe
       add_on_source
     )
 
@@ -36,6 +37,7 @@ module Recurly
           self.add_on_source = add_on.add_on_source
         end
         self.tiers = add_on.tiers if add_on.tiers.any?
+        self.tiers = add_on.percentage_tiers if add_on.percentage_tiers.any?
       when Hash
         self.attributes = add_on
       when String, Symbol

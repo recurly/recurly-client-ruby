@@ -1,13 +1,11 @@
 module Recurly
-  class Tier < Resource
+  class PercentageTier < Resource
 
     belongs_to :add_on
-    belongs_to :subscription_add_on
 
     define_attribute_methods %w(
-      ending_quantity
-      unit_amount_in_cents
-      ending_amount
+      currency
+      ending_amount_in_cents
       usage_percentage
     )
 
