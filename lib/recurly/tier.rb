@@ -7,7 +7,7 @@ module Recurly
     define_attribute_methods %w(
       ending_quantity
       unit_amount_in_cents
-      ending_amount
+      ending_amount_in_cents
       usage_percentage
     )
 

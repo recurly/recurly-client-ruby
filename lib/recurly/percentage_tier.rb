@@ -4,7 +4,6 @@ module Recurly
     belongs_to :add_on
 
     define_attribute_methods %w(
-      currency
       ending_amount_in_cents
       usage_percentage
     )

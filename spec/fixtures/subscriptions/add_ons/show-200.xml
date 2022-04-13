@@ -70,6 +70,25 @@ Content-Type: application/xml; charset=utf-8
       </tiers>
       <add_on_source>plan_add_on</add_on_source>
     </subscription_add_on>
+    <subscription_add_on>
+      <add_on_type>usage</add_on_type>
+      <add_on_code>termbasedperc</add_on_code>
+      <quantity type="integer">1</quantity>
+      <usage_type>percentage</usage_type>
+      <usage_timeframe>subscription_term</usage_timeframe>
+      <tier_type>tiered</tier_type>
+      <percentage_tiers type="array">
+        <percentage_tier>
+          <ending_amount_in_cents type="integer">20000</ending_amount_in_cents>
+          <usage_percentage>5.55</usage_percentage>
+        </percentage_tier>
+        <percentage_tier>
+          <ending_amount_in_cents nil="nil"></ending_amount_in_cents>
+          <usage_percentage>3.33</usage_percentage>
+        </percentage_tier>
+      </percentage_tiers>
+      <add_on_source>plan_add_on</add_on_source>
+    </subscription_add_on>
   </subscription_add_ons>
   <custom_fields type="array">
   </custom_fields>
