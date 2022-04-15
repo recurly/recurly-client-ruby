@@ -19999,6 +19999,13 @@ components:
           type: string
           title: Billing Info ID
           description: Billing Info ID.
+        active_invoice_id:
+          type: string
+          title: Active invoice ID
+          description: The invoice ID of the latest invoice created for an active
+            subscription.
+          maxLength: 13
+          readOnly: true
     SubscriptionAddOn:
       type: object
       title: Subscription Add-on
