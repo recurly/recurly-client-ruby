@@ -110,6 +110,10 @@ module Recurly
       #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0.
       define_attribute :usage_percentage, Float
 
+      # @!attribute usage_timeframe
+      #   @return [String] The time at which usage totals are reset for billing purposes.
+      define_attribute :usage_timeframe, String
+
       # @!attribute usage_type
       #   @return [String] Type of usage, returns usage type if `add_on_type` is `usage`.
       define_attribute :usage_type, String

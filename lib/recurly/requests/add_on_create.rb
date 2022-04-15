@@ -90,6 +90,10 @@ module Recurly
       #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
       define_attribute :usage_percentage, Float
 
+      # @!attribute usage_timeframe
+      #   @return [String] The time at which usage totals are reset for billing purposes. Allows for `tiered` add-ons to accumulate usage over the course of multiple billing periods.
+      define_attribute :usage_timeframe, String
+
       # @!attribute usage_type
       #   @return [String] Type of usage, required if `add_on_type` is `usage`. See our [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an overview of how to configure usage add-ons.
       define_attribute :usage_type, String
