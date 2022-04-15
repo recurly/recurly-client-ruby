@@ -16265,6 +16265,8 @@ components:
           readOnly: true
         tier_type:
           "$ref": "#/components/schemas/TierTypeEnum"
+        usage_timeframe:
+          "$ref": "#/components/schemas/UsageTimeframeEnum"
         tiers:
           type: array
           title: Tiers
@@ -16443,6 +16445,8 @@ components:
             * Must be absent if `add_on_type` is `usage` and `usage_type` is `percentage`.
         tier_type:
           "$ref": "#/components/schemas/TierTypeEnum"
+        usage_timeframe:
+          "$ref": "#/components/schemas/UsageTimeframeCreateEnum"
         tiers:
           type: array
           title: Tiers
@@ -20059,6 +20063,13 @@ components:
           type: string
           title: Billing Info ID
           description: Billing Info ID.
+        active_invoice_id:
+          type: string
+          title: Active invoice ID
+          description: The invoice ID of the latest invoice created for an active
+            subscription.
+          maxLength: 13
+          readOnly: true
     SubscriptionAddOn:
       type: object
       title: Subscription Add-on
@@ -20098,6 +20109,8 @@ components:
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
         tier_type:
           "$ref": "#/components/schemas/TierTypeEnum"
+        usage_timeframe:
+          "$ref": "#/components/schemas/UsageTimeframeEnum"
         tiers:
           type: array
           title: Tiers
@@ -22176,6 +22189,25 @@ components:
       - tiered
       - stairstep
       - volume
+    UsageTimeframeEnum:
+      type: string
+      title: Usage Timeframe
+      description: The time at which usage totals are reset for billing purposes.
+      enum:
+      - billing_period
+      - subscription_term
+      default: billing_period
+    UsageTimeframeCreateEnum:
+      type: string
+      title: Usage Timeframe
+      description: |
+        The time at which usage totals are reset for billing purposes.
+        Allows for `tiered` add-ons to accumulate usage over the course of multiple
+        billing periods.
+      enum:
+      - billing_period
+      - subscription_term
+      default: billing_period
     CreditPaymentActionEnum:
       type: string
       enum:
