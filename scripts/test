@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -e
 
-./bin/rake spec
+rake spec
