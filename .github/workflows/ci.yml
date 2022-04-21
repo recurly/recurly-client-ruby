@@ -1,0 +1,29 @@
+name: CI
+on: [push]
+concurrency: 
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Ruby ${{ matrix.ruby }} tests
+    strategy:
+      matrix:
+        ruby: [2.4, 2.5, 2.6, 2.7, 3.0]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - run: ./scripts/build
+      - run: ./scripts/test
+  buildall:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    name: Build (matrix)
+    needs: build
+    steps:
+      - name: Check build matrix status
+        if: ${{ needs.build.result != 'success' }}
+        run: exit 1
