@@ -6378,7 +6378,7 @@ components:
           type: string
           title: Invoice Template ID
           description: Unique ID to identify an invoice template.  Available when
-            the Invoice Customization feature is enabled.  Used to specify which invoice
+            the site is on a Pro or Enterprise plan.  Used to specify which invoice
             template, if any, should be used to generate invoices for the account.
         address:
           "$ref": "#/components/schemas/Address"
@@ -6461,7 +6461,7 @@ components:
           type: string
           title: Invoice Template ID
           description: Unique ID to identify an invoice template. Available when the
-            Invoice Customization feature is enabled. Used to specify if a non-default
+            site is on a Pro or Enterprise plan. Used to specify if a non-default
             invoice template will be used to generate invoices for the account. For
             sites without multiple invoice templates enabled, the default template
             will always be used.
@@ -6791,6 +6791,8 @@ components:
           readOnly: true
         tier_type:
           "$ref": "#/components/schemas/TierTypeEnum"
+        usage_timeframe:
+          "$ref": "#/components/schemas/UsageTimeframeEnum"
         tiers:
           type: array
           title: Tiers
@@ -6968,6 +6970,8 @@ components:
             * Must be absent if `add_on_type` is `usage` and `usage_type` is `percentage`.
         tier_type:
           "$ref": "#/components/schemas/TierTypeEnum"
+        usage_timeframe:
+          "$ref": "#/components/schemas/UsageTimeframeCreateEnum"
         tiers:
           type: array
           title: Tiers
@@ -6976,8 +6980,8 @@ components:
           description: |
             If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount` for
-            the desired `currencies`. There must be one tier with an `ending_quantity`
-            of 999999999 which is the default if not provided.
+            the desired `currencies`. There must be one tier without an `ending_quantity` value
+            which represents the final tier.
         percentage_tiers:
           type: array
           title: Percentage Tiers By Currency
@@ -6986,7 +6990,8 @@ components:
           description: |
             Array of objects which must have at least one set of tiers
             per currency and the currency code. The tier_type must be `volume` or `tiered`,
-            if not, it must be absent. There must be one tier without ending_amount value.
+            if not, it must be absent. There must be one tier without an `ending_amount` value
+            which represents the final tier.
       required:
       - code
       - name
@@ -7114,7 +7119,7 @@ components:
             If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount` for
             the desired `currencies`. There must be one tier without an `ending_quantity` value
-            that represents the final tier.
+            which represents the final tier.
         percentage_tiers:
           type: array
           title: Percentage Tiers By Currency
@@ -7123,7 +7128,8 @@ components:
           description: |
             `percentage_tiers` is an array of objects, which must have the set of tiers
             per currency and the currency code. The tier_type must be `volume` or `tiered`,
-            if not, it must be absent.
+            if not, it must be absent. There must be one tier without an `ending_amount` value
+            which represents the final tier.
     BillingInfo:
       type: object
       properties:
@@ -9372,6 +9378,14 @@ components:
             renew its term at renewal. If `auto_renew` is `false`, then a subscription
             will expire at the end of its term. `auto_renew` can be overridden on
             the subscription record itself.
+        pricing_model:
+          title: Pricing Model
+          "$ref": "#/components/schemas/PricingModelTypeEnum"
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          items:
+            "$ref": "#/components/schemas/PlanRampInterval"
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -9534,6 +9548,14 @@ components:
             renew its term at renewal. If `auto_renew` is `false`, then a subscription
             will expire at the end of its term. `auto_renew` can be overridden on
             the subscription record itself.
+        pricing_model:
+          title: Pricing Model
+          "$ref": "#/components/schemas/PricingModelTypeEnum"
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          items:
+            "$ref": "#/components/schemas/PlanRampInterval"
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -9655,15 +9677,22 @@ components:
           type: number
           format: float
           title: Unit price
+          description: This field should not be sent when the pricing model is 'ramp'.
           minimum: 0
           maximum: 1000000
-        tax_inclusive:
-          type: boolean
-          title: Tax Inclusive?
-          default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+    PlanRampInterval:
+      type: object
+      title: Plan Ramp Interval
+      properties:
+        starting_billing_cycle:
+          type: integer
+          description: Represents the first billing cycle of a ramp.
+          default: 1
+        currencies:
+          type: array
+          description: Represents the price for the ramp interval.
+          items:
+            "$ref": "#/components/schemas/PlanRampPricing"
     PlanUpdate:
       type: object
       properties:
@@ -9776,6 +9805,7 @@ components:
         currencies:
           type: array
           title: Pricing
+          description: Optional when the pricing model is 'ramp'.
           items:
             "$ref": "#/components/schemas/PlanPricing"
           minItems: 1
@@ -9821,13 +9851,6 @@ components:
           description: |
             Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
             If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
-        tax_inclusive:
-          type: boolean
-          title: Tax Inclusive?
-          default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
       required:
       - currency
     TierPricing:
@@ -9856,6 +9879,24 @@ components:
             If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
       required:
       - currency
+    PlanRampPricing:
+      type: object
+      properties:
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        unit_amount:
+          type: number
+          format: float
+          title: Unit price
+          description: Represents the price for the Ramp Interval.
+          minimum: 0
+          maximum: 1000000
+      required:
+      - currency
+      - unit_amount
     Pricing:
       type: object
       properties:
@@ -9870,13 +9911,6 @@ components:
           title: Unit price
           minimum: 0
           maximum: 1000000
-        tax_inclusive:
-          type: boolean
-          title: Tax Inclusive?
-          default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
       required:
       - currency
       - unit_amount
@@ -9886,11 +9920,11 @@ components:
         ending_quantity:
           type: integer
           title: Ending quantity
-          description: Ending quantity for the tier.  This represents a unit amount
-            for unit-priced add ons.
           minimum: 1
           maximum: 999999999
-          default: 999999999
+          default: 
+          description: Ending quantity for the tier. This represents a unit amount
+            for unit-priced add ons. Must be left empty if it is the final tier.
         currencies:
           type: array
           title: Tier pricing
@@ -9918,14 +9952,19 @@ components:
           type: number
           format: float
           title: Ending amount
-          minimum: 0.1
-          maximum: 9999999999999
+          minimum: 0.01
+          maximum: 9999999999999.99
+          default: 
           description: Ending amount for the tier. Allows up to 2 decimal places.
-            The last tier ending_amount is null.
+            Must be left empty if it is the final tier.
         usage_percentage:
           type: string
           title: Usage Percentage
-          description: Decimal usage percentage.
+          minimum: 0
+          maximum: 100
+          description: |
+            The percentage taken of the monetary amount of usage tracked.
+            This can be up to 4 decimal places represented as a string.
     Settings:
       type: object
       properties:
@@ -10571,6 +10610,13 @@ components:
           type: string
           title: Billing Info ID
           description: Billing Info ID.
+        active_invoice_id:
+          type: string
+          title: Active invoice ID
+          description: The invoice ID of the latest invoice created for an active
+            subscription.
+          maxLength: 13
+          readOnly: true
     SubscriptionAddOn:
       type: object
       title: Subscription Add-on
@@ -10610,6 +10656,8 @@ components:
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
         tier_type:
           "$ref": "#/components/schemas/TierTypeEnum"
+        usage_timeframe:
+          "$ref": "#/components/schemas/UsageTimeframeEnum"
         tiers:
           type: array
           title: Tiers
@@ -10620,6 +10668,7 @@ components:
             If tiers are provided in the request, all existing tiers on the Subscription Add-on will be
             removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and
             add_on.usage_type is percentage use percentage_tiers instead.
+            There must be one tier without an `ending_quantity` value which represents the final tier.
         percentage_tiers:
           type: array
           title: Percentage Tiers
@@ -10630,6 +10679,7 @@ components:
             If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
             removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
             add_on.usage_type is percentage.
+            There must be one tier without an `ending_amount` value which represents the final tier.
         usage_percentage:
           type: number
           format: float
@@ -10695,7 +10745,7 @@ components:
           description: |
             If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount`.
-            There must be one tier without ending_quantity value.
+            There must be one tier without an `ending_quantity` value which represents the final tier.
             See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
             for an overview of how to configure quantity-based pricing models.
         percentage_tiers:
@@ -10706,12 +10756,14 @@ components:
           minItems: 1
           description: |
             If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
-            removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value.
+            removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value which represents the final tier.
             Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage.
         usage_percentage:
           type: number
           format: float
           title: Usage Percentage
+          minimum: 0
+          maximum: 100
           description: The percentage taken of the monetary amount of usage tracked.
             This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
             if `add_on_type` is usage and `usage_type` is percentage. Must be omitted
@@ -10774,8 +10826,19 @@ components:
           description: |
             If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount`.
-            There must be one tier with an `ending_quantity` of 999999999 which is the
-            default if not provided.
+            There must be one tier without an `ending_quantity` value
+            which represents the final tier.
+        percentage_tiers:
+          type: array
+          title: Percentage Tiers
+          items:
+            "$ref": "#/components/schemas/SubscriptionAddOnPercentageTier"
+          minItems: 1
+          description: |
+            If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
+            removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
+            add_on.usage_type is percentage.
+            There must be one tier without an `ending_amount` value which represents the final tier.
         usage_percentage:
           type: number
           format: float
@@ -10795,6 +10858,8 @@ components:
           minimum: 1
           maximum: 999999999
           default: 
+          description: Ending quantity for the tier.  This represents a unit amount
+            for unit-priced add ons. Must be left empty if it is the final tier.
         unit_amount:
           type: number
           format: float
@@ -10816,16 +10881,19 @@ components:
           type: number
           format: float
           title: Ending amount
-          minimum: 1
+          minimum: 0.01
           maximum: 9999999999999.99
           default: 
+          description: Ending amount for the tier. Allows up to 2 decimal places.
+            Must be left empty if it is the final tier.
         usage_percentage:
           type: string
           title: Usage Percentage
+          minimum: 0
+          maximum: 100
           description: |
             The percentage taken of the monetary amount of usage tracked.
-            This can be up to 4 decimal places represented as a string. A value between
-            0.0 and 100.0.
+            This can be up to 4 decimal places represented as a string.
     SubscriptionCancel:
       type: object
       properties:
@@ -10866,13 +10934,6 @@ components:
           type: number
           format: float
           title: Unit amount
-        tax_inclusive:
-          type: boolean
-          title: Tax Inclusive?
-          default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
         quantity:
           type: integer
           title: Subscription quantity
@@ -10965,13 +11026,6 @@ components:
             be used.
           minimum: 0
           maximum: 1000000
-        tax_inclusive:
-          type: boolean
-          title: Tax Inclusive?
-          default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
         quantity:
           type: integer
           title: Quantity
@@ -12695,6 +12749,25 @@ components:
       - tiered
       - stairstep
       - volume
+    UsageTimeframeEnum:
+      type: string
+      title: Usage Timeframe
+      description: The time at which usage totals are reset for billing purposes.
+      enum:
+      - billing_period
+      - subscription_term
+      default: billing_period
+    UsageTimeframeCreateEnum:
+      type: string
+      title: Usage Timeframe
+      description: |
+        The time at which usage totals are reset for billing purposes.
+        Allows for `tiered` add-ons to accumulate usage over the course of multiple
+        billing periods.
+      enum:
+      - billing_period
+      - subscription_term
+      default: billing_period
     CreditPaymentActionEnum:
       type: string
       enum:
@@ -12708,6 +12781,16 @@ components:
       - api_only
       - read_only
       - write
+    PricingModelTypeEnum:
+      type: string
+      enum:
+      - fixed
+      - ramp
+      default: fixed
+      description: |
+        A fixed pricing model has the same price for each billing period.
+        A ramp pricing model defines a set of Ramp Intervals, where a subscription changes price on
+        a specified cadence of billing periods. The price change could be an increase or decrease.
     RevenueScheduleTypeEnum:
       type: string
       enum:
@@ -13176,6 +13259,7 @@ components:
       - three_d_secure_connection_error
       - three_d_secure_credential_error
       - three_d_secure_not_supported
+      - too_busy
       - too_many_attempts
       - total_credit_exceeds_capture
       - transaction_already_refunded

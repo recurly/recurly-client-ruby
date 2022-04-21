@@ -14,6 +14,10 @@ module Recurly
       #   @return [DateTime] Activated at
       define_attribute :activated_at, DateTime
 
+      # @!attribute active_invoice_id
+      #   @return [String] The invoice ID of the latest invoice created for an active subscription.
+      define_attribute :active_invoice_id, String
+
       # @!attribute add_ons
       #   @return [Array[SubscriptionAddOn]] Add-ons
       define_attribute :add_ons, Array, { :item_type => :SubscriptionAddOn }

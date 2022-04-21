@@ -31,7 +31,7 @@ module Recurly
       define_attribute :code, String
 
       # @!attribute currencies
-      #   @return [Array[PlanPricing]] Pricing
+      #   @return [Array[PlanPricing]] Optional when the pricing model is 'ramp'.
       define_attribute :currencies, Array, { :item_type => :PlanPricing }
 
       # @!attribute description
