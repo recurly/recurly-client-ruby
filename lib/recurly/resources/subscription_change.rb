@@ -70,10 +70,6 @@ module Recurly
       #   @return [String] The ID of the subscription that is going to be changed.
       define_attribute :subscription_id, String
 
-      # @!attribute tax_inclusive
-      #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
-      define_attribute :tax_inclusive, :Boolean
-
       # @!attribute unit_amount
       #   @return [Float] Unit amount
       define_attribute :unit_amount, Float

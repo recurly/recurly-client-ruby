@@ -31,7 +31,7 @@ module Recurly
       define_attribute :object, String
 
       # @!attribute percentage_tiers
-      #   @return [Array[SubscriptionAddOnPercentageTier]] If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage.
+      #   @return [Array[SubscriptionAddOnPercentageTier]] If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage. There must be one tier without an `ending_amount` value which represents the final tier.
       define_attribute :percentage_tiers, Array, { :item_type => :SubscriptionAddOnPercentageTier }
 
       # @!attribute quantity
@@ -51,7 +51,7 @@ module Recurly
       define_attribute :tier_type, String
 
       # @!attribute tiers
-      #   @return [Array[SubscriptionAddOnTier]] If tiers are provided in the request, all existing tiers on the Subscription Add-on will be removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and add_on.usage_type is percentage use percentage_tiers instead.
+      #   @return [Array[SubscriptionAddOnTier]] If tiers are provided in the request, all existing tiers on the Subscription Add-on will be removed and replaced by the tiers in the request. If add_on.tier_type is tiered or volume and add_on.usage_type is percentage use percentage_tiers instead. There must be one tier without an `ending_quantity` value which represents the final tier.
       define_attribute :tiers, Array, { :item_type => :SubscriptionAddOnTier }
 
       # @!attribute unit_amount
@@ -69,6 +69,10 @@ module Recurly
       # @!attribute usage_percentage
       #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if add_on_type is usage and usage_type is percentage.
       define_attribute :usage_percentage, Float
+
+      # @!attribute usage_timeframe
+      #   @return [String] The time at which usage totals are reset for billing purposes.
+      define_attribute :usage_timeframe, String
     end
   end
 end

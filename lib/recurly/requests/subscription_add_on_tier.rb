@@ -7,7 +7,7 @@ module Recurly
     class SubscriptionAddOnTier < Request
 
       # @!attribute ending_quantity
-      #   @return [Integer] Ending quantity
+      #   @return [Integer] Ending quantity for the tier.  This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.
       define_attribute :ending_quantity, Integer
 
       # @!attribute unit_amount

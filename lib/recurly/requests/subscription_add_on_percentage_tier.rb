@@ -7,11 +7,11 @@ module Recurly
     class SubscriptionAddOnPercentageTier < Request
 
       # @!attribute ending_amount
-      #   @return [Float] Ending amount
+      #   @return [Float] Ending amount for the tier. Allows up to 2 decimal places. Must be left empty if it is the final tier.
       define_attribute :ending_amount, Float
 
       # @!attribute usage_percentage
-      #   @return [String] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string. A value between 0.0 and 100.0.
+      #   @return [String] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string.
       define_attribute :usage_percentage, String
     end
   end

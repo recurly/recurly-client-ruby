@@ -63,7 +63,7 @@ module Recurly
       define_attribute :optional, :Boolean
 
       # @!attribute percentage_tiers
-      #   @return [Array[PercentageTiersByCurrency]] Array of objects which must have at least one set of tiers per currency and the currency code. The tier_type must be `volume` or `tiered`, if not, it must be absent. There must be one tier without ending_amount value.
+      #   @return [Array[PercentageTiersByCurrency]] Array of objects which must have at least one set of tiers per currency and the currency code. The tier_type must be `volume` or `tiered`, if not, it must be absent. There must be one tier without an `ending_amount` value which represents the final tier.
       define_attribute :percentage_tiers, Array, { :item_type => :PercentageTiersByCurrency }
 
       # @!attribute plan_id
@@ -83,12 +83,16 @@ module Recurly
       define_attribute :tier_type, String
 
       # @!attribute tiers
-      #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`. There must be one tier with an `ending_quantity` of 999999999 which is the default if not provided.
+      #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`. There must be one tier without an `ending_quantity` value which represents the final tier.
       define_attribute :tiers, Array, { :item_type => :Tier }
 
       # @!attribute usage_percentage
       #   @return [String] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
       define_attribute :usage_percentage, String
+
+      # @!attribute usage_timeframe
+      #   @return [String] The time at which usage totals are reset for billing purposes. Allows for `tiered` add-ons to accumulate usage over the course of multiple billing periods.
+      define_attribute :usage_timeframe, String
 
       # @!attribute usage_type
       #   @return [String] Type of usage, required if `add_on_type` is `usage`. See our [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html) for an overview of how to configure usage add-ons.
