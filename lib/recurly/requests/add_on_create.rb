@@ -39,7 +39,7 @@ module Recurly
       define_attribute :display_quantity, :Boolean
 
       # @!attribute item_code
-      #   @return [String] Unique code to identify an item. Available when the `Credit Invoices` feature are enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
+      #   @return [String] Unique code to identify an item. Available when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
       define_attribute :item_code, String
 
       # @!attribute item_id
@@ -87,8 +87,8 @@ module Recurly
       define_attribute :tiers, Array, { :item_type => :Tier }
 
       # @!attribute usage_percentage
-      #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
-      define_attribute :usage_percentage, Float
+      #   @return [String] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places represented as a string. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
+      define_attribute :usage_percentage, String
 
       # @!attribute usage_timeframe
       #   @return [String] The time at which usage totals are reset for billing purposes. Allows for `tiered` add-ons to accumulate usage over the course of multiple billing periods.

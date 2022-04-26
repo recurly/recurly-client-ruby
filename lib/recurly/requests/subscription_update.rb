@@ -58,10 +58,6 @@ module Recurly
       #   @return [SubscriptionShippingUpdate] Subscription shipping details
       define_attribute :shipping, :SubscriptionShippingUpdate
 
-      # @!attribute tax_inclusive
-      #   @return [Boolean] This field is deprecated. Do not use it anymore to update a subscription's tax inclusivity. Use the POST subscription change route instead.
-      define_attribute :tax_inclusive, :Boolean
-
       # @!attribute terms_and_conditions
       #   @return [String] Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.
       define_attribute :terms_and_conditions, String

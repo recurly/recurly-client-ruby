@@ -34,6 +34,10 @@ module Recurly
       #   @return [Integer] Optionally override the default quantity of 1.
       define_attribute :quantity, Integer
 
+      # @!attribute ramp_intervals
+      #   @return [Array[SubscriptionRampInterval]] Ramp Intervals
+      define_attribute :ramp_intervals, Array, { :item_type => :SubscriptionRampInterval }
+
       # @!attribute renewal_billing_cycles
       #   @return [Integer] If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.
       define_attribute :renewal_billing_cycles, Integer

@@ -14,12 +14,8 @@ module Recurly
       #   @return [Float] Amount of one-time setup fee automatically charged at the beginning of a subscription billing cycle. For subscription plans with a trial, the setup fee will be charged at the time of signup. Setup fees do not increase with the quantity of a subscription plan.
       define_attribute :setup_fee, Float
 
-      # @!attribute tax_inclusive
-      #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
-      define_attribute :tax_inclusive, :Boolean
-
       # @!attribute unit_amount
-      #   @return [Float] Unit price
+      #   @return [Float] This field should not be sent when the pricing model is 'ramp'.
       define_attribute :unit_amount, Float
     end
   end

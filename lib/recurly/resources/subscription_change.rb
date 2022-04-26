@@ -54,6 +54,10 @@ module Recurly
       #   @return [Integer] Subscription quantity
       define_attribute :quantity, Integer
 
+      # @!attribute ramp_intervals
+      #   @return [Array[SubscriptionRampIntervalResponse]] Ramp Intervals
+      define_attribute :ramp_intervals, Array, { :item_type => :SubscriptionRampIntervalResponse }
+
       # @!attribute revenue_schedule_type
       #   @return [String] Revenue schedule type
       define_attribute :revenue_schedule_type, String
@@ -65,10 +69,6 @@ module Recurly
       # @!attribute subscription_id
       #   @return [String] The ID of the subscription that is going to be changed.
       define_attribute :subscription_id, String
-
-      # @!attribute tax_inclusive
-      #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
-      define_attribute :tax_inclusive, :Boolean
 
       # @!attribute unit_amount
       #   @return [Float] Unit amount
