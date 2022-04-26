@@ -62,6 +62,14 @@ module Recurly
       #   @return [String] This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
       define_attribute :name, String
 
+      # @!attribute pricing_model
+      #   @return [String] A fixed pricing model has the same price for each billing period. A ramp pricing model defines a set of Ramp Intervals, where a subscription changes price on a specified cadence of billing periods. The price change could be an increase or decrease.
+      define_attribute :pricing_model, String
+
+      # @!attribute ramp_intervals
+      #   @return [Array[PlanRampInterval]] Ramp Intervals
+      define_attribute :ramp_intervals, Array, { :item_type => :PlanRampInterval }
+
       # @!attribute revenue_schedule_type
       #   @return [String] Revenue schedule type
       define_attribute :revenue_schedule_type, String

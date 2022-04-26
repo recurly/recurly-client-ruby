@@ -4,15 +4,15 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Requests
-    class Pricing < Request
+    class SubscriptionRampInterval < Request
 
-      # @!attribute currency
-      #   @return [String] 3-letter ISO 4217 currency code.
-      define_attribute :currency, String
+      # @!attribute starting_billing_cycle
+      #   @return [Integer] Represents how many billing cycles are included in a ramp interval.
+      define_attribute :starting_billing_cycle, Integer
 
       # @!attribute unit_amount
-      #   @return [Float] Unit price
-      define_attribute :unit_amount, Float
+      #   @return [Integer] Represents the price for the ramp interval.
+      define_attribute :unit_amount, Integer
     end
   end
 end
