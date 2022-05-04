@@ -1,0 +1,49 @@
+HTTP/1.1 200 OK
+        Content-Type: application/xml; charset=utf-8
+
+        <?xml version="1.0" encoding="UTF-8"?>
+<add_ons type="array">
+  <add_on href="https://your-subdomain.recurly.com/v2/plans/percentageplan/add_ons/planter">
+    <plan href="https://your-subdomain.recurly.com/v2/plans/percentageplan"/>
+    <measured_unit href="https://your-subdomain.recurly.com/v2/measured_units/3065053711917834322"/>
+    <add_on_code>planter</add_on_code>
+    <name>planter</name>
+    <default_quantity type="integer">1</default_quantity>
+    <display_quantity_on_hosted_page type="boolean">true</display_quantity_on_hosted_page>
+    <percentage_tiers>
+      <percentage_tier>
+        <currency>USD</currency>
+        <tiers>
+          <tier>
+            <ending_amount_in_cents>1000</ending_amount_in_cents>
+            <usage_percentage>10</usage_percentage>
+          </tier>
+          <tier>
+            <usage_percentage>20</usage_percentage>
+          </tier>
+        </tiers>
+      </percentage_tier>
+      <percentage_tier>
+        <currency>JPY</currency>
+        <tiers>
+          <tier>
+            <ending_amount_in_cents>200</ending_amount_in_cents>
+            <usage_percentage>15</usage_percentage>
+          </tier>
+          <tier>
+            <usage_percentage>25</usage_percentage>
+          </tier>
+        </tiers>
+      </percentage_tier>
+    </percentage_tiers>
+    <accounting_code nil="nil"></accounting_code>
+    <add_on_type>usage</add_on_type>
+    <optional type="boolean">true</optional>
+    <usage_type>percentage</usage_type>
+    <usage_percentage nil="nil"></usage_percentage>
+    <usage_timeframe>billing_period</usage_timeframe>
+    <tier_type>tiered</tier_type>
+    <created_at type="datetime">2020-07-30T23:14:35Z</created_at>
+    <updated_at type="datetime">2020-07-30T23:14:35Z</updated_at>
+  </add_on>
+</add_ons>
