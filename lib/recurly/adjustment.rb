@@ -51,6 +51,7 @@ module Recurly
       tax_region
       tax_rate
       tax_exempt
+      tax_inclusive
       tax_code
       tax_details
       tax_types
