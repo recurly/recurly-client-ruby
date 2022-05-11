@@ -72,6 +72,7 @@ module Recurly
       tax_type
       tax_region
       tax_rate
+      tax_inclusive
       bulk
       bank_account_authorized_at
       terms_and_conditions
