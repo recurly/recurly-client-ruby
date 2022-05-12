@@ -1,7 +1,7 @@
 HTTP/1.1 200 OK
-        Content-Type: application/xml; charset=utf-8
+Content-Type: application/xml; charset=utf-8
 
-        <?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <add_ons type="array">
   <add_on href="https://your-subdomain.recurly.com/v2/plans/percentageplan/add_ons/planter">
     <plan href="https://your-subdomain.recurly.com/v2/plans/percentageplan"/>
