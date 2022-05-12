@@ -8,7 +8,7 @@ module Recurly
       end
 
       def add_element name, value = nil
-        root.add_child(node = ::Nokogiri::XML::Element.new(name, root))
+        root.add_child(node = ::Nokogiri::XML::Element.new(name, root.document))
         node << value if value
         node
       end
