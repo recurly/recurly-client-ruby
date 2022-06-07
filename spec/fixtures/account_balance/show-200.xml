@@ -9,4 +9,8 @@ Content-Type: application/xml; charset=utf-8
     <USD type="integer">2910</USD>
     <EUR type="integer">-520</EUR>
   </balance_in_cents>
+  <processing_prepayment_balance_in_cents>
+    <USD type="integer">-3000</USD>
+    <EUR type="integer">0</EUR>
+  </processing_prepayment_balance_in_cents>
 </account_balance>
