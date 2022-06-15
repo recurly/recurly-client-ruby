@@ -99,11 +99,11 @@ module Recurly
       define_attribute :sort_code, String
 
       # @!attribute tax_identifier
-      #   @return [String] Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.
+      #   @return [String] Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF/CNPJ (Brazil) and CUIT (Argentina). CPF, CNPJ and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.
       define_attribute :tax_identifier, String
 
       # @!attribute tax_identifier_type
-      #   @return [String] This field and a value of `cpf` or `cuit` are required if adding a billing info that is an elo or hipercard type in Brazil or in Argentina.
+      #   @return [String] This field and a value of `cpf`, `cnpj` or `cuit` are required if adding a billing info that is an elo or hipercard type in Brazil or in Argentina.
       define_attribute :tax_identifier_type, String
 
       # @!attribute three_d_secure_action_result_token_id

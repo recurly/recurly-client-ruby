@@ -3351,6 +3351,17 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::InvoiceCollection] A preview of the subscription's renewal invoice(s).
+    # @example
+    #   begin
+    #     invoice_collection = @client.get_preview_renewal(
+    #       subscription_id: subscription_id
+    #     )
+    #     puts "Fetched Renewal Preview with total: #{invoice_collection.charge_invoice.total}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
     #
     def get_preview_renewal(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/preview_renewal", subscription_id: subscription_id)
