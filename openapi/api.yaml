@@ -15426,11 +15426,13 @@ components:
           - ko-KR
           - nl-BE
           - nl-NL
+          - pl-PL
           - pt-BR
           - pt-PT
           - ro-RO
           - ru-RU
           - sk-SK
+          - sv-SE
           - tr-TR
           - zh-CN
         cc_emails:
@@ -15556,11 +15558,13 @@ components:
           - ko-KR
           - nl-BE
           - nl-NL
+          - pl-PL
           - pt-BR
           - pt-PT
           - ro-RO
           - ru-RU
           - sk-SK
+          - sv-SE
           - tr-TR
           - zh-CN
         cc_emails:
@@ -15714,6 +15718,12 @@ components:
           format: float
           title: Amount
           description: Total amount the account is past due.
+        processing_prepayment_amount:
+          type: number
+          format: float
+          title: Amount
+          description: Total amount for the prepayment credit invoices in a `processing`
+            state on the account.
     InvoiceAddress:
       allOf:
       - "$ref": "#/components/schemas/Address"
@@ -19127,9 +19137,8 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Please do not use it.
+          deprecated: true
     PlanUpdate:
       type: object
       properties:
@@ -19294,9 +19303,8 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Please do not use it.
+          deprecated: true
       required:
       - currency
       - unit_amount
@@ -19318,9 +19326,8 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Please do not use it.
+          deprecated: true
       required:
       - currency
       - unit_amount
@@ -20289,9 +20296,8 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Please do not use it.
+          deprecated: true
         quantity:
           type: integer
           title: Subscription quantity
@@ -20401,9 +20407,8 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Please do not use it.
+          deprecated: true
         quantity:
           type: integer
           title: Quantity
@@ -20862,9 +20867,7 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: This field is deprecated. Do not use it anymore to update a
-            subscription's tax inclusivity. Use the POST subscription change route
-            instead.
+          description: This field is deprecated. Please do not use it.
           deprecated: true
         shipping:
           "$ref": "#/components/schemas/SubscriptionShippingUpdate"
