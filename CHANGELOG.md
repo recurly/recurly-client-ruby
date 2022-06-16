@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.20.0](https://github.com/recurly/recurly-client-ruby/tree/3.20.0) (2022-06-16)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.19.0...3.20.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2019-10-10 [#775](https://github.com/recurly/recurly-client-ruby/pull/775) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [3.19.0](https://github.com/recurly/recurly-client-ruby/tree/3.19.0) (2022-04-15)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.18.1...3.19.0)
@@ -416,7 +427,7 @@
 
 **Merged Pull Requests**
 
-- V3 Update v2018-08-09 [#460](https://github.com/recurly/recurly-client-ruby/pull/460) ([aaron-suarez](https://github.com/aaron-suarez))
+- V3 Update v2018-08-09 [#460](https://github.com/recurly/recurly-client-ruby/pull/460) ([aaron-junot](https://github.com/aaron-junot))
 - Small fixes for private beta [#458](https://github.com/recurly/recurly-client-ruby/pull/458) ([bhelx](https://github.com/bhelx))
 - Use Net-http-persistent for persistent connection [#408](https://github.com/recurly/recurly-client-ruby/pull/408) ([bhelx](https://github.com/bhelx))
 - Update to API 2018-06-06 [#407](https://github.com/recurly/recurly-client-ruby/pull/407) ([bhelx](https://github.com/bhelx))
