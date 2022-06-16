@@ -12519,7 +12519,97 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-      x-code-samples: []
+      x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const invoiceCollection = await client.getPreviewRenewal(subscriptionId)
+            console.log('Fetched Renewal Preview with total: ', invoiceCollection.chargeInvoice.total)
+          } catch (err) {
+            if (err instanceof recurly.errors.NotFoundError) {
+              // If the request was not found, you may want to alert the user or
+              // just return null
+              console.log('Resource Not Found')
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              invoice_collection = client.get_preview_renewal(subscription_id)
+              print("Fetched Renewal Preview with total: %s" % invoice_collection.charge_invoice.total)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: ".NET"
+        source: |
+          try
+          {
+              InvoiceCollection invoiceCollection = client.GetPreviewRenewal(subscriptionId);
+              Console.WriteLine($"Fetched Renewal Preview with total {invoiceCollection.ChargeInvoice.Total}");
+          }
+          catch (Recurly.Errors.NotFound ex)
+          {
+              // If the resource was not found
+              // we may want to alert the user or just return null
+              Console.WriteLine($"Resource Not Found: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            invoice_collection = @client.get_preview_renewal(
+              subscription_id: subscription_id
+            )
+            puts "Fetched Renewal Preview with total: #{invoice_collection.charge_invoice.total}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Java
+        source: |
+          try {
+              final InvoiceCollection invoiceCollection = client.getPreviewRenewal(subscriptionId);
+              System.out.println("Fetched Renewal Preview with total: " + invoiceCollection.getChargeInvoice().getTotal());
+          } catch (ValidationException e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in e.getError().getParams()
+              System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: PHP
+        source: |
+          try {
+              $invoiceCollection = $client->getPreviewRenewal($subscription_id);
+
+              echo 'Fetched Renewal Preview with total: ' . $invoiceCollection->getChargeInvoice()->getTotal() . PHP_EOL;
+              var_dump($invoiceCollection);
+          } catch (\Recurly\Errors\NotFound $e) {
+              // Could not find the resource, you may want to inform the user
+              // or just return a NULL
+              echo 'Could not find resource.' . PHP_EOL;
+              var_dump($e);
+          } catch (\Recurly\RecurlyError $e) {
+              // Something bad happened... tell the user so that they can fix it?
+              echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
+          }
+      - lang: Go
+        source: "invoiceCollection, err := client.GetPreviewRenewal(subID)\nif e,
+          ok := err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeNotFound
+          {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
+          Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Fetched Renewal
+          Preview with total: %f\", invoiceCollection.ChargeInvoice.Total)"
   "/subscriptions/{subscription_id}/change":
     get:
       tags:
@@ -15852,7 +15942,7 @@ components:
           type: string
           title: Invoice Template ID
           description: Unique ID to identify an invoice template.  Available when
-            the Invoice Customization feature is enabled.  Used to specify which invoice
+            the site is on a Pro or Enterprise plan.  Used to specify which invoice
             template, if any, should be used to generate invoices for the account.
         address:
           "$ref": "#/components/schemas/Address"
@@ -15935,7 +16025,7 @@ components:
           type: string
           title: Invoice Template ID
           description: Unique ID to identify an invoice template. Available when the
-            Invoice Customization feature is enabled. Used to specify if a non-default
+            site is on a Pro or Enterprise plan. Used to specify if a non-default
             invoice template will be used to generate invoices for the account. For
             sites without multiple invoice templates enabled, the default template
             will always be used.
@@ -16040,6 +16130,12 @@ components:
           format: float
           title: Amount
           description: Total amount the account is past due.
+        processing_prepayment_amount:
+          type: number
+          format: float
+          title: Amount
+          description: Total amount for the prepayment credit invoices in a `processing`
+            state on the account.
     InvoiceAddress:
       allOf:
       - "$ref": "#/components/schemas/Address"
@@ -16805,11 +16901,12 @@ components:
           type: string
           description: Tax identifier is required if adding a billing info that is
             a consumer card in Brazil or in Argentina. This would be the customer's
-            CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for
-            all residents who pay taxes in Brazil and Argentina respectively.
+            CPF/CNPJ (Brazil) and CUIT (Argentina). CPF, CNPJ and CUIT are tax identifiers
+            for all residents who pay taxes in Brazil and Argentina respectively.
         tax_identifier_type:
-          description: This field and a value of `cpf` or `cuit` are required if adding
-            a billing info that is an elo or hipercard type in Brazil or in Argentina.
+          description: This field and a value of `cpf`, `cnpj` or `cuit` are required
+            if adding a billing info that is an elo or hipercard type in Brazil or
+            in Argentina.
           "$ref": "#/components/schemas/TaxIdentifierTypeEnum"
         primary_payment_method:
           type: boolean
@@ -19143,9 +19240,8 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Please do not use it.
+          deprecated: true
     PlanUpdate:
       type: object
       properties:
@@ -19307,9 +19403,8 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Please do not use it.
+          deprecated: true
       required:
       - currency
     TierPricing:
@@ -19356,9 +19451,8 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Please do not use it.
+          deprecated: true
       required:
       - currency
       - unit_amount
@@ -20397,9 +20491,8 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Please do not use it.
+          deprecated: true
         quantity:
           type: integer
           title: Subscription quantity
@@ -20491,9 +20584,8 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: Determines whether or not tax is included in the unit amount.
-            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
-            feature) must be enabled to use this flag.
+          description: This field is deprecated. Please do not use it.
+          deprecated: true
         quantity:
           type: integer
           title: Quantity
@@ -20932,9 +21024,7 @@ components:
           type: boolean
           title: Tax Inclusive?
           default: false
-          description: This field is deprecated. Do not use it anymore to update a
-            subscription's tax inclusivity. Use the POST subscription change route
-            instead.
+          description: This field is deprecated. Please do not use it.
           deprecated: true
         shipping:
           "$ref": "#/components/schemas/SubscriptionShippingUpdate"
@@ -22074,11 +22164,13 @@ components:
       - ko-KR
       - nl-BE
       - nl-NL
+      - pl-PL
       - pt-BR
       - pt-PT
       - ro-RO
       - ru-RU
       - sk-SK
+      - sv-SE
       - tr-TR
       - zh-CN
     BillToEnum:
@@ -22752,6 +22844,7 @@ components:
       type: string
       enum:
       - cpf
+      - cnpj
       - cuit
     DunningCycleTypeEnum:
       type: string
