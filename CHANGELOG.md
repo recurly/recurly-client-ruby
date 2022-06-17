@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.18.24](https://github.com/recurly/recurly-client-ruby/tree/2.18.24) (2022-06-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.23...2.18.24)
+
+
+**Merged Pull Requests**
+
+- V2 add processing_prepayment_balance_in_cents to AccountBalance [#774](https://github.com/recurly/recurly-client-ruby/pull/774) ([judith](https://github.com/judith))
+- Add usage timeframe and percentage tiers [#767](https://github.com/recurly/recurly-client-ruby/pull/767) ([faiberrec](https://github.com/faiberrec))
+- Add tax inclusive to subscriptions [#756](https://github.com/recurly/recurly-client-ruby/pull/756) ([efeygelson](https://github.com/efeygelson))
+- v2 Tax Inclusive Adjustments [#755](https://github.com/recurly/recurly-client-ruby/pull/755) ([efeygelson](https://github.com/efeygelson))
+
+
+
 ## [2.18.23](https://github.com/recurly/recurly-client-ruby/tree/2.18.23) (2022-03-03)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.22...2.18.23)
@@ -322,9 +336,9 @@
 
 **Merged Pull Requests**
 
-- Release version 2.17.11 [#481](https://github.com/recurly/recurly-client-ruby/pull/481) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 2.17.11 [#481](https://github.com/recurly/recurly-client-ruby/pull/481) ([aaron-junot](https://github.com/aaron-junot))
 - Update notification.rb [#480](https://github.com/recurly/recurly-client-ruby/pull/480) ([natebeck](https://github.com/natebeck))
-- Add 3DS tokens to transaction error and billing info [#479](https://github.com/recurly/recurly-client-ruby/pull/479) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add 3DS tokens to transaction error and billing info [#479](https://github.com/recurly/recurly-client-ruby/pull/479) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -335,7 +349,7 @@
 
 **Merged Pull Requests**
 
-- Release version 2.17.10 [#475](https://github.com/recurly/recurly-client-ruby/pull/475) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 2.17.10 [#475](https://github.com/recurly/recurly-client-ruby/pull/475) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -346,8 +360,8 @@
 
 **Merged Pull Requests**
 
-- Bump to version 2.17.9 [#473](https://github.com/recurly/recurly-client-ruby/pull/473) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add fraud_session_id to billing_info [#471](https://github.com/recurly/recurly-client-ruby/pull/471) ([aaron-suarez](https://github.com/aaron-suarez))
+- Bump to version 2.17.9 [#473](https://github.com/recurly/recurly-client-ruby/pull/473) ([aaron-junot](https://github.com/aaron-junot))
+- Add fraud_session_id to billing_info [#471](https://github.com/recurly/recurly-client-ruby/pull/471) ([aaron-junot](https://github.com/aaron-junot))
 - Update issue templates [#459](https://github.com/recurly/recurly-client-ruby/pull/459) ([bhelx](https://github.com/bhelx))
 
 
@@ -359,7 +373,7 @@
 
 **Merged Pull Requests**
 
-- Release version 2.17.8 / API version 2.19 [#457](https://github.com/recurly/recurly-client-ruby/pull/457) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 2.17.8 / API version 2.19 [#457](https://github.com/recurly/recurly-client-ruby/pull/457) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -370,10 +384,10 @@
 
 **Merged Pull Requests**
 
-- Bump to version 2.17.7 [#456](https://github.com/recurly/recurly-client-ruby/pull/456) ([aaron-suarez](https://github.com/aaron-suarez))
-- Fix NoMethodError thrown by Resource.invalid! [#455](https://github.com/recurly/recurly-client-ruby/pull/455) ([aaron-suarez](https://github.com/aaron-suarez))
+- Bump to version 2.17.7 [#456](https://github.com/recurly/recurly-client-ruby/pull/456) ([aaron-junot](https://github.com/aaron-junot))
+- Fix NoMethodError thrown by Resource.invalid! [#455](https://github.com/recurly/recurly-client-ruby/pull/455) ([aaron-junot](https://github.com/aaron-junot))
 - Fix link to supported versions section of README [#454](https://github.com/recurly/recurly-client-ruby/pull/454) ([0xtobit](https://github.com/0xtobit))
-- Add support for Account Acquisition [#450](https://github.com/recurly/recurly-client-ruby/pull/450) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add support for Account Acquisition [#450](https://github.com/recurly/recurly-client-ruby/pull/450) ([aaron-junot](https://github.com/aaron-junot))
 
 **Closed Issues**
 
@@ -389,7 +403,7 @@
 
 **Merged Pull Requests**
 
-- Release version 2.17.6 / API version 2.18 [#452](https://github.com/recurly/recurly-client-ruby/pull/452) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 2.17.6 / API version 2.18 [#452](https://github.com/recurly/recurly-client-ruby/pull/452) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -400,8 +414,8 @@
 
 **Merged Pull Requests**
 
-- Bump to version 2.17.5 [#447](https://github.com/recurly/recurly-client-ruby/pull/447) ([aaron-suarez](https://github.com/aaron-suarez))
-- Ensure error message for a single returned error [#441](https://github.com/recurly/recurly-client-ruby/pull/441) ([aaron-suarez](https://github.com/aaron-suarez))
+- Bump to version 2.17.5 [#447](https://github.com/recurly/recurly-client-ruby/pull/447) ([aaron-junot](https://github.com/aaron-junot))
+- Ensure error message for a single returned error [#441](https://github.com/recurly/recurly-client-ruby/pull/441) ([aaron-junot](https://github.com/aaron-junot))
 - Fixes typo in the changelog [#440](https://github.com/recurly/recurly-client-ruby/pull/440) ([chrissrogers](https://github.com/chrissrogers))
 
 **Closed Issues**
@@ -416,13 +430,13 @@
 
 **Merged Pull Requests**
 
-- Release version 2.17.4 / API version 2.17 [#439](https://github.com/recurly/recurly-client-ruby/pull/439) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add OpenSSL version to user_agent [#438](https://github.com/recurly/recurly-client-ruby/pull/438) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 2.17.4 / API version 2.17 [#439](https://github.com/recurly/recurly-client-ruby/pull/439) ([aaron-junot](https://github.com/aaron-junot))
+- Add OpenSSL version to user_agent [#438](https://github.com/recurly/recurly-client-ruby/pull/438) ([aaron-junot](https://github.com/aaron-junot))
 - Mis-typed the minor version here [#437](https://github.com/recurly/recurly-client-ruby/pull/437) ([bhelx](https://github.com/bhelx))
 - Fix missing type instance variable and add specs [#436](https://github.com/recurly/recurly-client-ruby/pull/436) ([spyrbri](https://github.com/spyrbri))
-- Add exemption certificate [#434](https://github.com/recurly/recurly-client-ruby/pull/434) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add webhooks [#433](https://github.com/recurly/recurly-client-ruby/pull/433) ([aaron-suarez](https://github.com/aaron-suarez))
-- Add gateway_code to invoice and subscription [#432](https://github.com/recurly/recurly-client-ruby/pull/432) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add exemption certificate [#434](https://github.com/recurly/recurly-client-ruby/pull/434) ([aaron-junot](https://github.com/aaron-junot))
+- Add webhooks [#433](https://github.com/recurly/recurly-client-ruby/pull/433) ([aaron-junot](https://github.com/aaron-junot))
+- Add gateway_code to invoice and subscription [#432](https://github.com/recurly/recurly-client-ruby/pull/432) ([aaron-junot](https://github.com/aaron-junot))
 
 **Closed Issues**
 
@@ -438,7 +452,7 @@
 
 **Merged Pull Requests**
 
-- Release version 2.17.3 [#429](https://github.com/recurly/recurly-client-ruby/pull/429) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 2.17.3 [#429](https://github.com/recurly/recurly-client-ruby/pull/429) ([aaron-junot](https://github.com/aaron-junot))
 - Fix bug when company is not included in xml response [#428](https://github.com/recurly/recurly-client-ruby/pull/428) ([hasghari](https://github.com/hasghari))
 
 
@@ -450,12 +464,12 @@
 
 **Merged Pull Requests**
 
-- Release version 2.17.2 / API version 2.16 [#427](https://github.com/recurly/recurly-client-ruby/pull/427) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 2.17.2 / API version 2.16 [#427](https://github.com/recurly/recurly-client-ruby/pull/427) ([aaron-junot](https://github.com/aaron-junot))
 - Remove Rails generator mention from README [#426](https://github.com/recurly/recurly-client-ruby/pull/426) ([lauramosher](https://github.com/lauramosher))
 - Handle malformed XML errors gracefully. [#424](https://github.com/recurly/recurly-client-ruby/pull/424) ([scottyp-env](https://github.com/scottyp-env))
-- Add missing webhook properties to models [#422](https://github.com/recurly/recurly-client-ruby/pull/422) ([aaron-suarez](https://github.com/aaron-suarez))
-- Remove line that assumes cursor is an integer [#421](https://github.com/recurly/recurly-client-ruby/pull/421) ([aaron-suarez](https://github.com/aaron-suarez))
-- Fix bundler warnings related to dev dependencies [#420](https://github.com/recurly/recurly-client-ruby/pull/420) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add missing webhook properties to models [#422](https://github.com/recurly/recurly-client-ruby/pull/422) ([aaron-junot](https://github.com/aaron-junot))
+- Remove line that assumes cursor is an integer [#421](https://github.com/recurly/recurly-client-ruby/pull/421) ([aaron-junot](https://github.com/aaron-junot))
+- Fix bundler warnings related to dev dependencies [#420](https://github.com/recurly/recurly-client-ruby/pull/420) ([aaron-junot](https://github.com/aaron-junot))
 - Alias company and company_name [#413](https://github.com/recurly/recurly-client-ruby/pull/413) ([bhelx](https://github.com/bhelx))
 
 **Closed Issues**
@@ -474,7 +488,7 @@
 
 **Merged Pull Requests**
 
-- Release version 2.17.1 / API version 2.15 [#419](https://github.com/recurly/recurly-client-ruby/pull/419) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release version 2.17.1 / API version 2.15 [#419](https://github.com/recurly/recurly-client-ruby/pull/419) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -502,8 +516,8 @@
 
 **Merged Pull Requests**
 
-- Release 2.16.2 / API version 2.14 [#410](https://github.com/recurly/recurly-client-ruby/pull/410) ([aaron-suarez](https://github.com/aaron-suarez))
-- Support TransactionAuthorizedNotification webhook [#404](https://github.com/recurly/recurly-client-ruby/pull/404) ([aaron-suarez](https://github.com/aaron-suarez))
+- Release 2.16.2 / API version 2.14 [#410](https://github.com/recurly/recurly-client-ruby/pull/410) ([aaron-junot](https://github.com/aaron-junot))
+- Support TransactionAuthorizedNotification webhook [#404](https://github.com/recurly/recurly-client-ruby/pull/404) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -516,9 +530,9 @@
 
 - Bump 2.16.1 [#402](https://github.com/recurly/recurly-client-ruby/pull/402) ([bhelx](https://github.com/bhelx))
 - Remove the old recurly binary [#398](https://github.com/recurly/recurly-client-ruby/pull/398) ([drewish](https://github.com/drewish))
-- Add gateway_token and gateway_code attributes to BillingInfo class [#395](https://github.com/recurly/recurly-client-ruby/pull/395) ([aaron-suarez](https://github.com/aaron-suarez))
+- Add gateway_token and gateway_code attributes to BillingInfo class [#395](https://github.com/recurly/recurly-client-ruby/pull/395) ([aaron-junot](https://github.com/aaron-junot))
 - Correctly document the response type in Purchases [#394](https://github.com/recurly/recurly-client-ruby/pull/394) ([bhelx](https://github.com/bhelx))
-- Adjust inline documentation for clarity, grammar, and syntax [#393](https://github.com/recurly/recurly-client-ruby/pull/393) ([aaron-suarez](https://github.com/aaron-suarez))
+- Adjust inline documentation for clarity, grammar, and syntax [#393](https://github.com/recurly/recurly-client-ruby/pull/393) ([aaron-junot](https://github.com/aaron-junot))
 
 
 
@@ -2258,7 +2272,18 @@
 
 ## [2.2.2](https://github.com/recurly/recurly-client-ruby/tree/2.2.2) (2014-02-21)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.2.0...2.2.2)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.2.1...2.2.2)
+
+
+
+**Closed Issues**
+
+- Canceling a subscription returns false without any attached errors [#98](https://github.com/recurly/recurly-client-ruby/issues/98)
+
+
+## [2.2.1](https://github.com/recurly/recurly-client-ruby/tree/2.2.1) (2014-01-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.2.0...2.2.1)
 
 
 
@@ -2271,14 +2296,6 @@
 
 
 ## [2.2.0](https://github.com/recurly/recurly-client-ruby/tree/2.2.0) (2013-11-12)
-
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.2.1...2.2.0)
-
-
-
-
-
-## [2.2.1](https://github.com/recurly/recurly-client-ruby/tree/2.2.1) (2014-01-03)
 
 
 
