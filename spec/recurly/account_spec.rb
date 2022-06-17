@@ -299,6 +299,9 @@ XML
         balance = account_balance.balance_in_cents
         balance[:USD].must_equal(2910)
         balance[:EUR].must_equal(-520)
+        processing_prepayment_balance = account_balance.processing_prepayment_balance_in_cents
+        processing_prepayment_balance[:USD].must_equal(-3000)
+        processing_prepayment_balance[:EUR].must_equal(0)
       end
     end
 

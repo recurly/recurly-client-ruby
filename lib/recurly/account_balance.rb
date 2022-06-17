@@ -11,6 +11,7 @@ module Recurly
     define_attribute_methods %w(
       past_due
       balance_in_cents
+      processing_prepayment_balance_in_cents
     )
 
     # This object does not represent a model on the server side
