@@ -26,6 +26,10 @@ module Recurly
       #   @return [Boolean] The `backup_payment_method` field is used to designate a billing info as a backup on the account that will be tried if the initial billing info used for an invoice is declined. All payment methods, including the billing info marked `primary_payment_method` can be set as a backup. An account can have a maximum of 1 backup, if a user sets a different payment method as a backup, the existing backup will no longer be marked as such.
       define_attribute :backup_payment_method, :Boolean
 
+      # @!attribute card_type
+      #   @return [String]
+      define_attribute :card_type, String
+
       # @!attribute company
       #   @return [String] Company name
       define_attribute :company, String
