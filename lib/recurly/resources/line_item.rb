@@ -174,6 +174,10 @@ module Recurly
       #   @return [Boolean] `true` exempts tax on charges, `false` applies tax on charges. If not defined, then defaults to the Plan and Site settings. This attribute does not work for credits (negative line items). Credits are always applied post-tax. Pre-tax discounts should use the Coupons feature.
       define_attribute :tax_exempt, :Boolean
 
+      # @!attribute tax_inclusive
+      #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to utilize this flag.
+      define_attribute :tax_inclusive, :Boolean
+
       # @!attribute tax_info
       #   @return [TaxInfo] Tax info
       define_attribute :tax_info, :TaxInfo
