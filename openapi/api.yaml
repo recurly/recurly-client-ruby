@@ -18428,6 +18428,12 @@ components:
           format: float
           title: Unit amount
           description: Positive amount for a charge, negative amount for a credit.
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to utilize this flag.
         subtotal:
           type: number
           format: float
@@ -19921,6 +19927,12 @@ components:
           type: number
           format: float
           title: Subscription unit price
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to utilize this flag.
         quantity:
           type: integer
           title: Subscription quantity

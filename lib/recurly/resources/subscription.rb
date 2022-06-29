@@ -150,6 +150,10 @@ module Recurly
       #   @return [Float] Estimated total, before tax.
       define_attribute :subtotal, Float
 
+      # @!attribute tax_inclusive
+      #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to utilize this flag.
+      define_attribute :tax_inclusive, :Boolean
+
       # @!attribute terms_and_conditions
       #   @return [String] Terms and conditions
       define_attribute :terms_and_conditions, String
