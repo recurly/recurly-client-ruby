@@ -131,7 +131,21 @@ XML
         billing_info_with_cc_bin_country.cc_bin_country.must_equal 'US'
       end
     end
+
+    describe "#username" do
+      before do
+        stub_api_request(
+          :get, 'accounts/venmo1234567890/billing_info', 'billing_info/show-200-username'
+        )
+      end
+
+      it "exposes username as an attribute" do
+        billing_info = BillingInfo.find 'venmo1234567890'
+        billing_info.username.must_equal 'johnrambo'
+      end
+    end
   end
+
 
   describe 'verify' do
     it 'verifies billing info' do
