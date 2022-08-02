@@ -46,6 +46,10 @@ module Recurly
       #   @return [Integer] Optionally override the default quantity of 1.
       define_attribute :quantity, Integer
 
+      # @!attribute ramp_intervals
+      #   @return [Array[SubscriptionRampInterval]] The new set of ramp intervals for the subscription.
+      define_attribute :ramp_intervals, Array, { :item_type => :SubscriptionRampInterval }
+
       # @!attribute revenue_schedule_type
       #   @return [String] Revenue schedule type
       define_attribute :revenue_schedule_type, String

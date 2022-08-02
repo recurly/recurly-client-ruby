@@ -17259,7 +17259,7 @@ components:
           title: Field value
           description: Any values that resemble a credit card number or security code
             (CVV/CVC) will be rejected.
-          maxLength: 100
+          maxLength: 255
       required:
       - name
       - value
@@ -18828,6 +18828,22 @@ components:
             renew its term at renewal. If `auto_renew` is `false`, then a subscription
             will expire at the end of its term. `auto_renew` can be overridden on
             the subscription record itself.
+        pricing_model:
+          title: Pricing Model
+          type: string
+          enum:
+          - fixed
+          - ramp
+          default: fixed
+          description: |
+            A fixed pricing model has the same price for each billing period.
+            A ramp pricing model defines a set of Ramp Intervals, where a subscription changes price on
+            a specified cadence of billing periods. The price change could be an increase or decrease.
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          items:
+            "$ref": "#/components/schemas/PlanRampInterval"
         accounting_code:
           type: string
           title: Plan accounting code
@@ -19006,6 +19022,22 @@ components:
             renew its term at renewal. If `auto_renew` is `false`, then a subscription
             will expire at the end of its term. `auto_renew` can be overridden on
             the subscription record itself.
+        pricing_model:
+          title: Pricing Model
+          type: string
+          enum:
+          - fixed
+          - ramp
+          default: fixed
+          description: |
+            A fixed pricing model has the same price for each billing period.
+            A ramp pricing model defines a set of Ramp Intervals, where a subscription changes price on
+            a specified cadence of billing periods. The price change could be an increase or decrease.
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          items:
+            "$ref": "#/components/schemas/PlanRampInterval"
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -19137,6 +19169,7 @@ components:
           type: number
           format: float
           title: Unit price
+          description: This field should not be sent when the pricing model is 'ramp'.
           minimum: 0
           maximum: 1000000
         tax_inclusive:
@@ -19214,6 +19247,11 @@ components:
             renew its term at renewal. If `auto_renew` is `false`, then a subscription
             will expire at the end of its term. `auto_renew` can be overridden on
             the subscription record itself.
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          items:
+            "$ref": "#/components/schemas/PlanRampInterval"
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -19291,6 +19329,19 @@ components:
             a non-default dunning campaign should be assigned to this plan. For sites
             without multiple dunning campaigns enabled, the default dunning campaign
             will always be used.
+    PlanRampInterval:
+      type: object
+      title: Plan Ramp Interval
+      properties:
+        starting_billing_cycle:
+          type: integer
+          description: Represents the first billing cycle of a ramp.
+          default: 1
+        currencies:
+          type: array
+          description: Represents the price for the ramp interval.
+          items:
+            "$ref": "#/components/schemas/PlanRampPricing"
     AddOnPricing:
       type: object
       properties:
@@ -19311,6 +19362,24 @@ components:
           default: false
           description: This field is deprecated. Please do not use it.
           deprecated: true
+      required:
+      - currency
+      - unit_amount
+    PlanRampPricing:
+      type: object
+      properties:
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        unit_amount:
+          type: number
+          format: float
+          title: Unit price
+          description: Represents the price for the Ramp Interval.
+          minimum: 0
+          maximum: 1000000
       required:
       - currency
       - unit_amount
@@ -19899,6 +19968,13 @@ components:
           default: true
           title: Auto renew
           description: Whether the subscription renews at the end of its term.
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The ramp intervals representing the pricing schedule for the
+            subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampIntervalResponse"
         paused_at:
           type: string
           format: date-time
@@ -20362,6 +20438,13 @@ components:
           readOnly: true
         billing_info:
           "$ref": "#/components/schemas/SubscriptionChangeBillingInfo"
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The ramp intervals representing the pricing schedule for the
+            subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampIntervalResponse"
     SubscriptionChangeBillingInfo:
       type: object
       description: Accept nested attributes for three_d_secure_action_result_token_id
@@ -20501,6 +20584,12 @@ components:
           - moto
         billing_info:
           "$ref": "#/components/schemas/SubscriptionChangeBillingInfoCreate"
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The new set of ramp intervals for the subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampInterval"
     SubscriptionChangePreview:
       type: object
       allOf:
@@ -20652,6 +20741,12 @@ components:
           default: true
           title: Auto renew
           description: Whether the subscription renews at the end of its term.
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The new set of ramp intervals for the subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampInterval"
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -20803,6 +20898,12 @@ components:
           - evenly
           - at_range_end
           - at_range_start
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The new set of ramp intervals for the subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampInterval"
       required:
       - plan_code
     SubscriptionUpdate:
@@ -20986,6 +21087,30 @@ components:
           format: float
           title: Assigns the subscription's shipping cost. If this is greater than
             zero then a `method_id` or `method_code` is required.
+    SubscriptionRampInterval:
+      type: object
+      title: Subscription Ramp Interval
+      properties:
+        starting_billing_cycle:
+          type: integer
+          description: Represents how many billing cycles are included in a ramp interval.
+          default: 1
+        unit_amount:
+          type: integer
+          description: Represents the price for the ramp interval.
+    SubscriptionRampIntervalResponse:
+      type: object
+      title: Subscription Ramp Interval
+      properties:
+        starting_billing_cycle:
+          type: integer
+          description: Represents how many billing cycles are included in a ramp interval.
+        remaining_billing_cycles:
+          type: integer
+          description: Represents how many billing cycles are left in a ramp interval.
+        unit_amount:
+          type: integer
+          description: Represents the price for the ramp interval.
     TaxInfo:
       type: object
       title: Tax info

@@ -19,7 +19,7 @@ module Recurly
       define_attribute :tax_inclusive, :Boolean
 
       # @!attribute unit_amount
-      #   @return [Float] Unit price
+      #   @return [Float] This field should not be sent when the pricing model is 'ramp'.
       define_attribute :unit_amount, Float
     end
   end
