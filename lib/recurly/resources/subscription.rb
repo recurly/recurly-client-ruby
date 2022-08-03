@@ -126,6 +126,10 @@ module Recurly
       #   @return [Integer] Subscription quantity
       define_attribute :quantity, Integer
 
+      # @!attribute ramp_intervals
+      #   @return [Array[SubscriptionRampIntervalResponse]] The ramp intervals representing the pricing schedule for the subscription.
+      define_attribute :ramp_intervals, Array, { :item_type => :SubscriptionRampIntervalResponse }
+
       # @!attribute remaining_billing_cycles
       #   @return [Integer] The remaining billing cycles in the current term.
       define_attribute :remaining_billing_cycles, Integer

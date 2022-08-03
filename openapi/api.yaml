@@ -17535,7 +17535,7 @@ components:
           title: Field value
           description: Any values that resemble a credit card number or security code
             (CVV/CVC) will be rejected.
-          maxLength: 100
+          maxLength: 255
       required:
       - name
       - value
@@ -18959,6 +18959,14 @@ components:
             renew its term at renewal. If `auto_renew` is `false`, then a subscription
             will expire at the end of its term. `auto_renew` can be overridden on
             the subscription record itself.
+        pricing_model:
+          title: Pricing Model
+          "$ref": "#/components/schemas/PricingModelTypeEnum"
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          items:
+            "$ref": "#/components/schemas/PlanRampInterval"
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -19121,6 +19129,14 @@ components:
             renew its term at renewal. If `auto_renew` is `false`, then a subscription
             will expire at the end of its term. `auto_renew` can be overridden on
             the subscription record itself.
+        pricing_model:
+          title: Pricing Model
+          "$ref": "#/components/schemas/PricingModelTypeEnum"
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          items:
+            "$ref": "#/components/schemas/PlanRampInterval"
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -19242,6 +19258,7 @@ components:
           type: number
           format: float
           title: Unit price
+          description: This field should not be sent when the pricing model is 'ramp'.
           minimum: 0
           maximum: 1000000
         tax_inclusive:
@@ -19250,6 +19267,19 @@ components:
           default: false
           description: This field is deprecated. Please do not use it.
           deprecated: true
+    PlanRampInterval:
+      type: object
+      title: Plan Ramp Interval
+      properties:
+        starting_billing_cycle:
+          type: integer
+          description: Represents the first billing cycle of a ramp.
+          default: 1
+        currencies:
+          type: array
+          description: Represents the price for the ramp interval.
+          items:
+            "$ref": "#/components/schemas/PlanRampPricing"
     PlanUpdate:
       type: object
       properties:
@@ -19316,6 +19346,11 @@ components:
             renew its term at renewal. If `auto_renew` is `false`, then a subscription
             will expire at the end of its term. `auto_renew` can be overridden on
             the subscription record itself.
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          items:
+            "$ref": "#/components/schemas/PlanRampInterval"
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -19362,6 +19397,7 @@ components:
         currencies:
           type: array
           title: Pricing
+          description: Optional when the pricing model is 'ramp'.
           items:
             "$ref": "#/components/schemas/PlanPricing"
           minItems: 1
@@ -19441,6 +19477,24 @@ components:
             If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
       required:
       - currency
+    PlanRampPricing:
+      type: object
+      properties:
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        unit_amount:
+          type: number
+          format: float
+          title: Unit price
+          description: Represents the price for the Ramp Interval.
+          minimum: 0
+          maximum: 1000000
+      required:
+      - currency
+      - unit_amount
     Pricing:
       type: object
       properties:
@@ -20044,6 +20098,13 @@ components:
           default: true
           title: Auto renew
           description: Whether the subscription renews at the end of its term.
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The ramp intervals representing the pricing schedule for the
+            subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampIntervalResponse"
         paused_at:
           type: string
           format: date-time
@@ -20546,6 +20607,13 @@ components:
           readOnly: true
         billing_info:
           "$ref": "#/components/schemas/SubscriptionChangeBillingInfo"
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The ramp intervals representing the pricing schedule for the
+            subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampIntervalResponse"
     SubscriptionChangeBillingInfo:
       type: object
       description: Accept nested attributes for three_d_secure_action_result_token_id
@@ -20671,6 +20739,12 @@ components:
           "$ref": "#/components/schemas/GatewayTransactionTypeEnum"
         billing_info:
           "$ref": "#/components/schemas/SubscriptionChangeBillingInfoCreate"
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The new set of ramp intervals for the subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampInterval"
     SubscriptionChangeShippingCreate:
       type: object
       title: Shipping details that will be changed on a subscription
@@ -20825,6 +20899,12 @@ components:
           default: true
           title: Auto renew
           description: Whether the subscription renews at the end of its term.
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The new set of ramp intervals for the subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampInterval"
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -20964,6 +21044,12 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The new set of ramp intervals for the subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampInterval"
       required:
       - plan_code
     SubscriptionUpdate:
@@ -21145,6 +21231,30 @@ components:
           format: float
           title: Assigns the subscription's shipping cost. If this is greater than
             zero then a `method_id` or `method_code` is required.
+    SubscriptionRampInterval:
+      type: object
+      title: Subscription Ramp Interval
+      properties:
+        starting_billing_cycle:
+          type: integer
+          description: Represents how many billing cycles are included in a ramp interval.
+          default: 1
+        unit_amount:
+          type: integer
+          description: Represents the price for the ramp interval.
+    SubscriptionRampIntervalResponse:
+      type: object
+      title: Subscription Ramp Interval
+      properties:
+        starting_billing_cycle:
+          type: integer
+          description: Represents how many billing cycles are included in a ramp interval.
+        remaining_billing_cycles:
+          type: integer
+          description: Represents how many billing cycles are left in a ramp interval.
+        unit_amount:
+          type: integer
+          description: Represents the price for the ramp interval.
     TaxInfo:
       type: object
       title: Tax info
@@ -21998,6 +22108,10 @@ components:
         routing_number_bank:
           type: string
           description: The bank name of this routing number.
+        username:
+          type: string
+          description: Username of the associated payment method. Currently only associated
+            with Venmo.
     Error:
       type: object
       properties:
@@ -22327,6 +22441,16 @@ components:
       - api_only
       - read_only
       - write
+    PricingModelTypeEnum:
+      type: string
+      enum:
+      - fixed
+      - ramp
+      default: fixed
+      description: |
+        A fixed pricing model has the same price for each billing period.
+        A ramp pricing model defines a set of Ramp Intervals, where a subscription changes price on
+        a specified cadence of billing periods. The price change could be an increase or decrease.
     RevenueScheduleTypeEnum:
       type: string
       enum:
@@ -22594,6 +22718,7 @@ components:
       - paypal_billing_agreement
       - roku
       - sepadirectdebit
+      - venmo
       - wire_transfer
       - braintree_v_zero
     CardTypeEnum:
