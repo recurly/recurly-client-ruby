@@ -65,6 +65,10 @@ module Recurly
       # @!attribute routing_number_bank
       #   @return [String] The bank name of this routing number.
       define_attribute :routing_number_bank, String
+
+      # @!attribute username
+      #   @return [String] Username of the associated payment method. Currently only associated with Venmo.
+      define_attribute :username, String
     end
   end
 end
