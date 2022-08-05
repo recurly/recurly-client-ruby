@@ -33,6 +33,7 @@ module Recurly
   require 'recurly/shipping_method'
   require 'recurly/subscription'
   require 'recurly/subscription_add_on'
+  require 'recurly/subscription_ramp_interval'
   require 'recurly/transaction'
   require 'recurly/usage'
   require 'recurly/version'

@@ -1125,7 +1125,8 @@ module Recurly
         !respond_to?(:currency) &&
         !value.is_a?(Money) &&
         !is_a?(PercentageTier)&&
-        !is_a?(SubAddOnPercentageTier)
+        !is_a?(SubAddOnPercentageTier)&&
+        !is_a?(SubscriptionRampInterval)
     end
   end
 end
