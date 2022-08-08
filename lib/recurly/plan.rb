@@ -4,6 +4,9 @@ module Recurly
     # @return [Pager<AddOn>, []]
     has_many :add_ons
 
+    # @return [[PlanRampInterval], nil]
+    has_many :ramp_intervals, class_name: :PlanRampInterval
+
     define_attribute_methods %w(
       plan_code
       name
@@ -21,6 +24,8 @@ module Recurly
       unit_amount_in_cents
       plan_interval_length
       plan_interval_unit
+      pricing_model
+      ramp_intervals
       trial_interval_length
       trial_interval_unit
       total_billing_cycles

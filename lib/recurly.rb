@@ -27,6 +27,7 @@ module Recurly
   require 'recurly/measured_unit'
   require 'recurly/note'
   require 'recurly/plan'
+  require 'recurly/plan_ramp_interval'
   require 'recurly/redemption'
   require 'recurly/shipping_fee'
   require 'recurly/shipping_method'
