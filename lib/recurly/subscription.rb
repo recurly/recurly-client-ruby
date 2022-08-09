@@ -23,6 +23,9 @@ module Recurly
     # @return [[CustomField], []]
     has_many :custom_fields, class_name: :CustomField, readonly: false
 
+    # @return [[SubscriptionRampInterval], nil]
+    has_many :ramp_intervals, class_name: :SubscriptionRampInterval
+
     # @return [Account]
     belongs_to :account
 
@@ -63,6 +66,7 @@ module Recurly
       subscription_add_ons
       coupon_code
       coupon_codes
+      ramp_intervals
       total_billing_cycles
       remaining_billing_cycles
       net_terms

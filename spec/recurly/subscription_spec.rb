@@ -69,6 +69,28 @@ describe Subscription do
       subscription = Subscription.new attributes
       subscription.to_xml.must_equal get_raw_xml("subscriptions/serialize-with-bulk.xml")
     end
+
+    describe 'when plan is ramp pricing' do
+      before do
+        attributes.merge!(
+          ramp_intervals: [
+            SubscriptionRampInterval.new(
+              starting_billing_cycle: 1,
+              unit_amount_in_cents: 1000
+            ),
+            SubscriptionRampInterval.new(
+              starting_billing_cycle: 2,
+              unit_amount_in_cents: 2000
+            )
+          ]
+        )
+      end
+
+      it 'properly serializes' do
+        subscription = Subscription.new attributes
+        subscription.to_xml.must_equal get_raw_xml('subscriptions/serialize-with-ramps.xml')
+      end
+    end
   end
 
   describe "add-ons" do
