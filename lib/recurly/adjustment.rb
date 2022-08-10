@@ -62,6 +62,7 @@ module Recurly
       surcharge_in_cents
       avalara_transaction_type
       avalara_service_type
+      refundable_total_in_cents
     )
     alias to_param uuid
 

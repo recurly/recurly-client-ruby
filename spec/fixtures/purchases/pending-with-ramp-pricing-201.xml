@@ -1,0 +1,81 @@
+HTTP/1.1 201 Created
+Content-Type: application/xml; charset=utf-8
+Location: https://api.recurly.com/v2/invoices/3517
+
+<?xml version="1.0" encoding="UTF-8"?>
+<invoice_collection>
+    <charge_invoice>
+        <account href="https://api.recurly.com/v2/accounts/account-927"/>
+        <dunning_campaign_id nil="nil"/>
+        <address>
+            <name_on_account nil="nil"/>
+            <first_name>Verena</first_name>
+            <last_name>Example</last_name>
+            <company/>
+            <address1>123 Main St.</address1>
+            <address2 nil="nil"/>
+            <city>San Francisco</city>
+            <state>CA</state>
+            <zip>94105</zip>
+            <country>US</country>
+            <phone nil="nil"/>
+        </address>
+        <uuid>63f8291689cdd27b4c4200404f85510a</uuid>
+        <state>pending</state>
+        <invoice_number_prefix/>
+        <invoice_number nil="nil"/>
+        <vat_number nil="nil"/>
+        <tax_in_cents type="integer">0</tax_in_cents>
+        <total_in_cents type="integer">7000</total_in_cents>
+        <currency>USD</currency>
+        <created_at nil="nil"/>
+        <updated_at nil="nil"/>
+        <attempt_next_collection_at type="datetime">2022-08-10T20:06:44Z</attempt_next_collection_at>
+        <closed_at nil="nil"/>
+        <customer_notes nil="nil"/>
+        <recovery_reason nil="nil"/>
+        <gateway_code nil="nil"/>
+        <subtotal_before_discount_in_cents type="integer">7000</subtotal_before_discount_in_cents>
+        <subtotal_in_cents type="integer">7000</subtotal_in_cents>
+        <discount_in_cents type="integer">0</discount_in_cents>
+        <due_on type="datetime">2022-08-10T20:06:44Z</due_on>
+        <balance_in_cents type="integer">7000</balance_in_cents>
+        <type>charge</type>
+        <origin>purchase</origin>
+        <refundable_total_in_cents type="integer">7000</refundable_total_in_cents>
+        <credit_payments type="array"/>
+        <net_terms type="integer">0</net_terms>
+        <collection_method>automatic</collection_method>
+        <po_number nil="nil"/>
+        <terms_and_conditions nil="nil"/>
+        <line_items type="array">
+            <adjustment type="charge">
+                <account href="https://api.recurly.com/v2/accounts/account-927"/>
+                <bill_for_account href="https://api.recurly.com/v2/accounts/account-927"/>
+                <item_code nil="nil"/>
+                <external_sku nil="nil"/>
+                <refundable_total_in_cents type="integer">7000</refundable_total_in_cents>
+                <uuid>63f829167ecb1afea6250d4a6a90189d</uuid>
+                <state>pending</state>
+                <description>plan-927</description>
+                <accounting_code/>
+                <product_code>plan-927</product_code>
+                <origin>plan</origin>
+                <unit_amount_in_cents type="integer">7000</unit_amount_in_cents>
+                <quantity type="integer">1</quantity>
+                <discount_in_cents type="integer">0</discount_in_cents>
+                <tax_in_cents type="integer">0</tax_in_cents>
+                <total_in_cents type="integer">7000</total_in_cents>
+                <currency>USD</currency>
+                <proration_rate nil="nil"/>
+                <start_date type="datetime">2022-08-10T20:06:44Z</start_date>
+                <end_date type="datetime">2022-09-10T20:06:44Z</end_date>
+                <created_at nil="nil"/>
+                <updated_at nil="nil"/>
+                <revenue_schedule_type>evenly</revenue_schedule_type>
+            </adjustment>
+        </line_items>
+        <transactions type="array"/>
+    </charge_invoice>
+    <credit_invoices type="array"/>
+</invoice_collection>
