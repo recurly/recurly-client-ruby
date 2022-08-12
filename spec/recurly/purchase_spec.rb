@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe Purchase do
+  let(:plan_code) { 'plan_code' }
   let(:purchase) do
     Purchase.new(
       account: {account_code: 'account123'},
@@ -14,7 +15,7 @@ describe Purchase do
       ],
       subscriptions: [
         {
-          plan_code: 'plan_code',
+          plan_code: plan_code,
           subscription_add_ons: [
             add_on_code: 'add_on_code',
             unit_amount_in_cents: 200
@@ -42,72 +43,141 @@ describe Purchase do
     )
   end
 
-  describe "Purchase.invoice!" do
-    it "should return an invoice_collection when valid" do
+  describe 'Purchase.invoice!' do
+    it 'should return an invoice_collection when valid' do
       stub_api_request(:post, 'purchases', 'purchases/invoice-201')
       collection = Purchase.invoice!(purchase)
       collection.charge_invoice.must_be_instance_of Invoice
       shipping_address = collection.charge_invoice.line_items.first.shipping_address
       shipping_address.must_be_instance_of ShippingAddress
     end
-    it "should raise an Invalid error when data is invalid" do
+
+    it 'the first ramp interval unit amount is reflected in these expected attributes' do
+      stub_api_request(:post, 'purchases', 'purchases/invoice-with-ramp-pricing-201')
+      collection = Purchase.invoice!(purchase)
+      charge_invoice = collection.charge_invoice
+
+      charge_invoice.total_in_cents.must_equal 7000
+      charge_invoice.subtotal_before_discount_in_cents.must_equal 7000
+      charge_invoice.subtotal_in_cents.must_equal 7000
+      charge_invoice.refundable_total_in_cents.must_equal 7000
+
+      charge_invoice.line_items.first.unit_amount_in_cents.must_equal 7000
+      charge_invoice.line_items.first.refundable_total_in_cents.must_equal 7000
+      charge_invoice.line_items.first.total_in_cents.must_equal 7000
+
+      charge_invoice.transactions.first.amount_in_cents.must_equal 7000
+    end
+
+    it 'should raise an Invalid error when data is invalid' do
       stub_api_request(:post, 'purchases', 'purchases/invoice-422')
       # ensure error is raised
-      proc {Purchase.invoice!(purchase)}.must_raise Resource::Invalid
+      proc { Purchase.invoice!(purchase) }.must_raise Resource::Invalid
       # ensure error details are mapped back
-      purchase.adjustments.first.errors["unit_amount_in_cents"].must_equal ["is not a number"]
-      purchase.subscriptions.first.errors["subscription_add_ons"].must_equal ["is invalid"]
+      purchase.adjustments.first.errors['unit_amount_in_cents'].must_equal ['is not a number']
+      purchase.subscriptions.first.errors['subscription_add_ons'].must_equal ['is invalid']
     end
-    it "should raise a Transaction::Error error when transaction fails" do
+
+    it 'should raise a Transaction::Error error when transaction fails' do
       stub_api_request(:post, 'purchases', 'purchases/invoice-declined-422')
-      proc {Purchase.invoice!(purchase)}.must_raise Transaction::DeclinedError
+      proc { Purchase.invoice!(purchase) }.must_raise Transaction::DeclinedError
     end
   end
 
-  describe "Purchase.preview!" do
-    it "should return a preview invoice when valid" do
+  describe 'Purchase.preview!' do
+    it 'should return a preview invoice when valid' do
       stub_api_request(:post, 'purchases/preview', 'purchases/preview-201')
       preview_collection = Purchase.preview!(purchase)
       preview_collection.charge_invoice.must_be_instance_of Invoice
     end
-    it "should raise an Invalid error when data is invalid" do
+
+    it 'the first ramp interval unit amount is reflected in these expected attributes' do
+      stub_api_request(:post, 'purchases/preview', 'purchases/preview-with-ramp-pricing-201')
+      collection = Purchase.preview!(purchase)
+      charge_invoice = collection.charge_invoice
+
+      charge_invoice.total_in_cents.must_equal 7000
+      charge_invoice.subtotal_before_discount_in_cents.must_equal 7000
+      charge_invoice.subtotal_in_cents.must_equal 7000
+      charge_invoice.refundable_total_in_cents.must_equal 7000
+
+      charge_invoice.line_items.first.unit_amount_in_cents.must_equal 7000
+      charge_invoice.line_items.first.refundable_total_in_cents.must_equal 7000
+      charge_invoice.line_items.first.total_in_cents.must_equal 7000
+    end
+
+    it 'should raise an Invalid error when data is invalid' do
       stub_api_request(:post, 'purchases/preview', 'purchases/invoice-422')
       # ensure error is raised
       proc {Purchase.preview!(purchase)}.must_raise Resource::Invalid
       # ensure error details are mapped back
-      purchase.adjustments.first.errors["unit_amount_in_cents"].must_equal ["is not a number"]
+      purchase.adjustments.first.errors['unit_amount_in_cents'].must_equal ['is not a number']
     end
   end
 
-  describe "Purchase.authorize!" do
-    it "should return an authorized invoice when valid" do
+  describe 'Purchase.authorize!' do
+    it 'should return an authorized invoice when valid' do
       stub_api_request(:post, 'purchases/authorize', 'purchases/preview-201')
       authorized_collection = Purchase.authorize!(purchase)
       authorized_invoice = authorized_collection.charge_invoice
       authorized_invoice.must_be_instance_of Invoice
     end
-    it "should raise an Invalid error when data is invalid" do
+
+    it 'the first ramp interval unit amount is reflected in these expected attributes' do
+      stub_api_request(:post, 'purchases/authorize', 'purchases/authorize-with-ramp-pricing-201')
+      collection = Purchase.authorize!(purchase)
+      charge_invoice = collection.charge_invoice
+
+      charge_invoice.total_in_cents.must_equal 7000
+      charge_invoice.subtotal_before_discount_in_cents.must_equal 7000
+      charge_invoice.subtotal_in_cents.must_equal 7000
+      charge_invoice.refundable_total_in_cents.must_equal 7000
+
+      charge_invoice.line_items.first.unit_amount_in_cents.must_equal 7000
+      charge_invoice.line_items.first.refundable_total_in_cents.must_equal 7000
+      charge_invoice.line_items.first.total_in_cents.must_equal 7000
+
+      charge_invoice.transactions.first.amount_in_cents.must_equal 7000
+    end
+
+    it 'should raise an Invalid error when data is invalid' do
       stub_api_request(:post, 'purchases/authorize', 'purchases/invoice-422')
       # ensure error is raised
       proc {Purchase.authorize!(purchase)}.must_raise Resource::Invalid
       # ensure error details are mapped back
-      purchase.adjustments.first.errors["unit_amount_in_cents"].must_equal ["is not a number"]
+      purchase.adjustments.first.errors['unit_amount_in_cents'].must_equal ['is not a number']
     end
   end
 
-  describe "Purchase.pending!" do
-    it "should return an authorized invoice when valid" do
+  describe 'Purchase.pending!' do
+    it 'should return an authorized invoice when valid' do
       stub_api_request(:post, 'purchases/pending', 'purchases/preview-201')
       authorized_collection = Purchase.pending!(purchase)
       authorized_invoice = authorized_collection.charge_invoice
       authorized_invoice.must_be_instance_of Invoice
     end
-    it "should raise an Invalid error when data is invalid" do
+
+    it 'the first ramp interval unit amount is reflected in these expected attributes' do
+      stub_api_request(:post, 'purchases/pending', 'purchases/pending-with-ramp-pricing-201')
+      collection = Purchase.pending!(purchase)
+      charge_invoice = collection.charge_invoice
+
+      charge_invoice.total_in_cents.must_equal 7000
+      charge_invoice.subtotal_before_discount_in_cents.must_equal 7000
+      charge_invoice.subtotal_in_cents.must_equal 7000
+      charge_invoice.refundable_total_in_cents.must_equal 7000
+
+      charge_invoice.line_items.first.unit_amount_in_cents.must_equal 7000
+      charge_invoice.line_items.first.refundable_total_in_cents.must_equal 7000
+      charge_invoice.line_items.first.total_in_cents.must_equal 7000
+    end
+
+    it 'should raise an Invalid error when data is invalid' do
       stub_api_request(:post, 'purchases/pending', 'purchases/invoice-422')
       # ensure error is raised
-      proc {Purchase.pending!(purchase)}.must_raise Resource::Invalid
+      proc { Purchase.pending!(purchase) }.must_raise Resource::Invalid
       # ensure error details are mapped back
-      purchase.adjustments.first.errors["unit_amount_in_cents"].must_equal ["is not a number"]
+      purchase.adjustments.first.errors['unit_amount_in_cents'].must_equal ['is not a number']
     end
   end
 

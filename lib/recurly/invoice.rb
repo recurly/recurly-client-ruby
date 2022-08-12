@@ -116,6 +116,7 @@ module Recurly
       tax_details
       billing_info_uuid
       dunning_campaign_id
+      refundable_total_in_cents
     )
     alias to_param invoice_number_with_prefix
 
