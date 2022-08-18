@@ -59,6 +59,19 @@ module Recurly
       Transaction.from_response API.post("#{path}/verify", attrs.empty? ? nil : Verify.to_xml(attrs))
     end
 
+    def self.to_xml(attrs)
+      billing_info = new attrs
+      billing_info.to_xml
+    end
+
+    # Verify a credit card CVV
+    #
+    # @param [Hash] verification_value is the credit card CVV
+    # @return [BillingInfo]
+    def verify_cvv(attrs = {})
+      BillingInfo.from_response API.post("#{path}/verify_cvv", attrs.empty? ? nil : self.class.to_xml(attrs))
+    end
+
     # @return [String]
     def inspect
       attributes = self.class.attribute_names
