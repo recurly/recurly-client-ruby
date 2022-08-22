@@ -14922,6 +14922,8 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
   "/dunning_campaigns/{dunning_campaign_id}/bulk_update":
+    parameters:
+    - "$ref": "#/components/parameters/dunning_campaign_id"
     put:
       tags:
       - dunning_campaigns
@@ -20774,7 +20776,7 @@ components:
             zero then a `method_id` or `method_code` is required.
         address_id:
           type: string
-          titpe: Shipping address ID
+          title: Shipping address ID
           description: Assign a shipping address from the account's existing shipping
             addresses. If this and address are both present, address will take precedence.
         address:
