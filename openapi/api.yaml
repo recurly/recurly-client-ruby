@@ -2441,6 +2441,53 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Fetched Transaction:
           %v\", transaction)"
+  "/accounts/{account_id}/billing_info/verify_cvv":
+    post:
+      tags:
+      - billing_info
+      operationId: verify_billing_info_cvv
+      summary: Verify an account's credit card billing cvv
+      parameters:
+      - "$ref": "#/components/parameters/account_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BillingInfoVerifyCVV"
+      responses:
+        '200':
+          description: Transaction information from verify.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Transaction"
+        '500':
+          description: Invalid CVV
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveCVV"
+        '400':
+          description: Over limit error. A credit card can only be checked 3 times
+            in 24 hours.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorOverLimit"
+        '422':
+          description: Invalid billing information, or error running the verification
+            transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/billing_infos":
     get:
       tags:
@@ -16942,6 +16989,12 @@ components:
           type: string
           description: An identifier for a specific payment gateway.
           maxLength: 13
+    BillingInfoVerifyCVV:
+      type: object
+      properties:
+        verification_value:
+          type: string
+          description: Unique security code for a credit card.
     Coupon:
       type: object
       properties:
@@ -22131,6 +22184,27 @@ components:
             properties:
               param:
                 type: string
+    ErrorOverLimit:
+      type: object
+      properties:
+        type:
+          title: Type
+          "$ref": "#/components/schemas/ErrorTypeEnum"
+        message:
+          type: string
+          title: Message
+          description: This credit card has too many cvv check attempts.
+    ErrorMayHaveCVV:
+      type: object
+      properties:
+        type:
+          title: Type
+          "$ref": "#/components/schemas/ErrorTypeEnum"
+        message:
+          type: string
+          title: Message
+          description: The security code you entered does not match. Please update
+            the CVV and try again.
     ErrorMayHaveTransaction:
       allOf:
       - "$ref": "#/components/schemas/Error"
