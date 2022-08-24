@@ -1,5 +1,19 @@
 # Changelog
 
+## [2.18.25](https://github.com/recurly/recurly-client-ruby/tree/2.18.25) (2022-08-24)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.24...2.18.25)
+
+
+**Merged Pull Requests**
+
+- Added support for ramp-pricing purchases [#785](https://github.com/recurly/recurly-client-ruby/pull/785) ([danilocandido](https://github.com/danilocandido))
+- Added support for ramp-pricing subscriptions [#784](https://github.com/recurly/recurly-client-ruby/pull/784) ([csampson](https://github.com/csampson))
+- Added support for ramp-pricing plans [#781](https://github.com/recurly/recurly-client-ruby/pull/781) ([csampson](https://github.com/csampson))
+- add username to billing info attributes [#780](https://github.com/recurly/recurly-client-ruby/pull/780) ([ricardopaul0](https://github.com/ricardopaul0))
+
+
+
 ## [2.18.24](https://github.com/recurly/recurly-client-ruby/tree/2.18.24) (2022-06-17)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.23...2.18.24)
