@@ -189,6 +189,34 @@ XML
     end
   end
 
+  describe 'verify_cvv' do
+    it 'verifies the cvv' do
+      stub_api_request(
+        :get, 'accounts/abcdef1234567890/billing_info', 'billing_info/verify-cvv-200'
+      )
+      stub_api_request(
+        :post, 'accounts/abcdef1234567890/billing_info/verify_cvv', 'billing_info/verify-cvv-200'
+      )
+      billing_info = BillingInfo.find 'abcdef1234567890'
+      attrs = { verification_value: 876 }
+      verified = billing_info.verify_cvv(attrs)
+      verified.must_be_instance_of Recurly::BillingInfo
+    end
+
+    it 'sends the verification value' do
+      stub_api_request(
+        :get, 'accounts/abcdef1234567890/billing_info', 'billing_info/verify-cvv-200'
+      )
+      stub_api_request(
+        :post, 'accounts/abcdef1234567890/billing_info/verify_cvv', 'billing_info/verify-cvv-200'
+      )
+      billing_info = BillingInfo.find 'abcdef1234567890'
+      attrs = { verification_value: 876 }
+      billing_info.verify_cvv(attrs)
+      Recurly::BillingInfo.to_xml(attrs).must_equal "<billing_info><verification_value>876</verification_value></billing_info>"
+    end
+  end
+
   describe 'marshal methods' do
     it 'must return the same instance variables' do
       stub_api_request(
