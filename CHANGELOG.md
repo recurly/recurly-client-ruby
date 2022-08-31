@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.18.26](https://github.com/recurly/recurly-client-ruby/tree/2.18.26) (2022-08-31)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.25...2.18.26)
+
+
+**Merged Pull Requests**
+
+- add verify_cvv endpoint [#786](https://github.com/recurly/recurly-client-ruby/pull/786) ([ricardopaul0](https://github.com/ricardopaul0))
+
+
+
 ## [2.18.25](https://github.com/recurly/recurly-client-ruby/tree/2.18.25) (2022-08-24)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.24...2.18.25)
