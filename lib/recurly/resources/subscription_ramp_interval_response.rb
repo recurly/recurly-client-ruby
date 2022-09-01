@@ -11,7 +11,7 @@ module Recurly
       define_attribute :remaining_billing_cycles, Integer
 
       # @!attribute starting_billing_cycle
-      #   @return [Integer] Represents how many billing cycles are included in a ramp interval.
+      #   @return [Integer] Represents the billing cycle where a ramp interval starts.
       define_attribute :starting_billing_cycle, Integer
 
       # @!attribute unit_amount
