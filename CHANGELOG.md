@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.21.0](https://github.com/recurly/recurly-client-ruby/tree/4.21.0) (2022-09-07)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.20.0...4.21.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#790](https://github.com/recurly/recurly-client-ruby/pull/790) ([recurly-integrations](https://github.com/recurly-integrations))
+- Fixes bug with put_dunning_campaign_bulk_update [#788](https://github.com/recurly/recurly-client-ruby/pull/788) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.20.0](https://github.com/recurly/recurly-client-ruby/tree/4.20.0) (2022-08-03)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.19.0...4.20.0)
