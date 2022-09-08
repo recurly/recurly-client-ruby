@@ -15,8 +15,8 @@ module Recurly
       define_attribute :starting_billing_cycle, Integer
 
       # @!attribute unit_amount
-      #   @return [Integer] Represents the price for the ramp interval.
-      define_attribute :unit_amount, Integer
+      #   @return [Float] Represents the price for the ramp interval.
+      define_attribute :unit_amount, Float
     end
   end
 end
