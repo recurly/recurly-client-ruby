@@ -21302,7 +21302,9 @@ components:
           type: integer
           description: Represents how many billing cycles are left in a ramp interval.
         unit_amount:
-          type: integer
+          type: number
+          format: float
+          title: Unit price
           description: Represents the price for the ramp interval.
     TaxInfo:
       type: object
