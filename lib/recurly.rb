@@ -9,6 +9,7 @@ require "recurly/http"
 require "recurly/errors"
 require "recurly/connection_pool"
 require "recurly/client"
+require "recurly/webhooks"
 
 module Recurly
   STRICT_MODE = ENV["RECURLY_STRICT_MODE"] && ENV["RECURLY_STRICT_MODE"].downcase == "true"
