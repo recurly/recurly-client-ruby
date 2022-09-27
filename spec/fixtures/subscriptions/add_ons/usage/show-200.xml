@@ -5,7 +5,7 @@ Content-Type: application/xml; charset=utf-8
 <usage href="https://api.recurly.com/v2/subscriptions/359f274d5e88885f05c7ad4b91a4779b/add_ons/marketing_email/usage/388186972511798731">
   <measured_unit href="https://api.recurly.com/v2/measured_units/388159600349677344"/>
   <id type="integer">551976004109730817</id>
-  <amount type="integer">10</amount>
+  <amount type="float">10</amount>
   <merchant_tag>The latest batch of marketing emails recorded for customer</merchant_tag>
   <recording_timestamp type="date">2016-04-19T03:30:15+00:00</recording_timestamp>
   <usage_timestamp type="date">2016-04-19T21:12:19+00:00</usage_timestamp>
