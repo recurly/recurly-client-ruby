@@ -9,6 +9,7 @@ module Recurly
       unit_amount_in_cents
       usage_percentage
       amount
+      amount_decimal
       merchant_tag
       usage_timestamp
       recording_timestamp

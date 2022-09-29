@@ -10,6 +10,7 @@ describe Adjustment do
       adjustment.must_be_instance_of Adjustment
       adjustment.type.must_equal 'charge'
       adjustment.quantity.must_equal 1
+      adjustment.quantity_decimal.must_equal '1.2'
       adjustment.unit_amount_in_cents.to_i.must_equal 1200
       adjustment.discount_in_cents.to_i.must_equal 0
       adjustment.tax_in_cents.to_i.must_equal 5000
