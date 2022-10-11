@@ -278,9 +278,11 @@ module Recurly
       line_items ||= []
       node = builder.add_element 'line_items'
       line_items.each do |line_item|
+        binding.pry
         adj_node = node.add_element 'adjustment'
         adj_node.add_element 'uuid', line_item[:adjustment].uuid
         adj_node.add_element 'quantity', line_item[:quantity]
+        adj_node.add_element('quantity_decimal', line_item[:quantity_decimal]) if line_item.key?(:quantity_decimal)
         adj_node.add_element 'prorate', line_item[:prorate]
       end
       builder.to_s
