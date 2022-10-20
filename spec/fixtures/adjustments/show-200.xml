@@ -18,6 +18,7 @@ Content-Type: application/xml; charset=utf-8
   <description>$12 Annual Subscription</description>
   <unit_amount_in_cents type="integer">1200</unit_amount_in_cents>
   <quantity type="integer">1</quantity>
+  <quantity_decimal>1.2</quantity_decimal>
   <discount_in_cents type="integer">0</discount_in_cents>
   <tax_in_cents type="integer">5000</tax_in_cents>
   <tax_type>usst</tax_type>

@@ -34,6 +34,7 @@ module Recurly
       origin
       unit_amount_in_cents
       quantity
+      quantity_decimal
       discount_in_cents
       total_in_cents
       currency
@@ -45,6 +46,7 @@ module Recurly
       created_at
       updated_at
       quantity_remaining
+      quantity_decimal_remaining
       revenue_schedule_type
       tax_in_cents
       tax_type

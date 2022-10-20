@@ -65,12 +65,14 @@ describe Usage do
     it "must serialize to correct xml" do
       time = DateTime.now.strftime
       usage.amount = 10
+      usage.amount_decimal = 10.2
       usage.merchant_tag = "10 emails delivered for merchant"
       usage.recording_timestamp = time
       usage.usage_timestamp = time
       usage.to_xml.must_equal <<XML.chomp
 <usage>\
 <amount>10</amount>\
+<amount_decimal>10.2</amount_decimal>\
 <merchant_tag>10 emails delivered for merchant</merchant_tag>\
 <recording_timestamp>#{time}</recording_timestamp>\
 <usage_timestamp>#{time}</usage_timestamp>\
