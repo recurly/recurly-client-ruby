@@ -39,7 +39,7 @@ module Recurly
       define_attribute :cvv, String
 
       # @!attribute external_hpp_type
-      #   @return [String] Use for Adyen HPP billing info.
+      #   @return [String] Use for Adyen HPP billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.
       define_attribute :external_hpp_type, String
 
       # @!attribute first_name
@@ -83,7 +83,7 @@ module Recurly
       define_attribute :number, String
 
       # @!attribute online_banking_payment_type
-      #   @return [String] Use for Online Banking billing info.
+      #   @return [String] Use for Online Banking billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.
       define_attribute :online_banking_payment_type, String
 
       # @!attribute paypal_billing_agreement_id
