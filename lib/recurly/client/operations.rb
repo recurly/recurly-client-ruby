@@ -34,14 +34,6 @@ module Recurly
     #        :state [String] Filter by state.
     #
     # @return [Pager<Resources::Site>] A list of sites.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   sites = @client.list_sites(params: params)
-    #   sites.each do |site|
-    #     puts "Site: #{site.subdomain}"
-    #   end
     #
     def list_sites(**options)
       path = "/sites"
@@ -56,15 +48,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Site] A site.
-    # @example
-    #   begin
-    #     site = @client.get_site(site_id: site_id)
-    #     puts "Got Site #{site}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_site(site_id:, **options)
       path = interpolate_path("/sites/{site_id}", site_id: site_id)
@@ -107,14 +90,6 @@ module Recurly
     #        :past_due [String] Filter for accounts with an invoice in the +past_due+ state.
     #
     # @return [Pager<Resources::Account>] A list of the site's accounts.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   accounts = @client.list_accounts(params: params)
-    #   accounts.each do |account|
-    #     puts "Account: #{account.code}"
-    #   end
     #
     def list_accounts(**options)
       path = "/accounts"
@@ -129,41 +104,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Account] An account.
-    # @example
-    #   begin
-    #     account_create = {
-    #       code: account_code,
-    #       first_name: "Benjamin",
-    #       last_name: "Du Monde",
-    #       acquisition: {
-    #         campaign: "podcast-marketing",
-    #         channel: "social_media",
-    #         subchannel: "twitter",
-    #         cost: {
-    #           currency: "USD",
-    #           amount: 0.50
-    #         }
-    #       },
-    #       shipping_addresses: [
-    #         {
-    #           nickname: "Home",
-    #           street1: "1 Tchoupitoulas St",
-    #           city: "New Orleans",
-    #           region: "LA",
-    #           country: "US",
-    #           postal_code: "70115",
-    #           first_name: "Benjamin",
-    #           last_name: "Du Monde"
-    #         }
-    #       ]
-    #     }
-    #     account = @client.create_account(body: account_create)
-    #     puts "Created Account #{account}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_account(body:, **options)
       path = "/accounts"
@@ -178,15 +118,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Account] An account.
-    # @example
-    #   begin
-    #     account = @client.get_account(account_id: account_id)
-    #     puts "Got Account #{account}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_account(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}", account_id: account_id)
@@ -202,22 +133,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Account] An account.
-    # @example
-    #   begin
-    #     account_update = {
-    #       first_name: "Aaron",
-    #       last_name: "Du Monde",
-    #     }
-    #     account = @client.update_account(
-    #       account_id: account_id,
-    #       body: account_update
-    #     )
-    #     puts "Updated Account #{account}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def update_account(account_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}", account_id: account_id)
@@ -232,15 +147,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Account] An account.
-    # @example
-    #   begin
-    #     account = @client.deactivate_account(account_id: account_id)
-    #     puts "Deactivated Account #{account}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def deactivate_account(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}", account_id: account_id)
@@ -255,15 +161,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::AccountAcquisition] An account's acquisition data.
-    # @example
-    #   begin
-    #     @client.get_account_acquisition(account_id: account_id)
-    #     puts "Got AccountAcquisition"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_account_acquisition(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/acquisition", account_id: account_id)
@@ -279,27 +176,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::AccountAcquisition] An account's updated acquisition data.
-    # @example
-    #   begin
-    #     acquisition_update = {
-    #       campaign: "podcast-marketing",
-    #       channel: "social_media",
-    #       subchannel: "twitter",
-    #       cost: {
-    #         currency: "USD",
-    #         amount: 0.50
-    #       }
-    #     }
-    #     acquisition = @client.update_account_acquisition(
-    #       account_id: account_id,
-    #       body: acquisition_update
-    #     )
-    #     puts "Updated AccountAcqusition #{acquisition}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def update_account_acquisition(account_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}/acquisition", account_id: account_id)
@@ -314,15 +190,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Empty] Acquisition data was succesfully deleted.
-    # @example
-    #   begin
-    #     acquisition = @client.remove_account_acquisition(account_id: account_id)
-    #     puts "Removed AccountAcqusition #{acquisition}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def remove_account_acquisition(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/acquisition", account_id: account_id)
@@ -337,15 +204,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Account] An account.
-    # @example
-    #   begin
-    #     account = @client.reactivate_account(account_id: account_id)
-    #     puts "Reactivated account #{account}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def reactivate_account(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/reactivate", account_id: account_id)
@@ -360,15 +218,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::AccountBalance] An account's balance.
-    # @example
-    #   begin
-    #     balance = @client.get_account_balance(account_id: account_id)
-    #     puts "Got AccountBalance #{balance}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_account_balance(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/balance", account_id: account_id)
@@ -383,15 +232,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::BillingInfo] An account's billing information.
-    # @example
-    #   begin
-    #     billing = @client.get_billing_info(account_id: account_id)
-    #     puts "Got BillingInfo #{billing}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_billing_info(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/billing_info", account_id: account_id)
@@ -407,22 +247,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::BillingInfo] Updated billing information.
-    # @example
-    #   begin
-    #     billing_update = {
-    #       first_name: "Aaron",
-    #       last_name: "Du Monde",
-    #     }
-    #     billing = @client.update_billing_info(
-    #       account_id: account_id,
-    #       body: billing_update
-    #     )
-    #     puts "Updated BillingInfo #{billing}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def update_billing_info(account_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}/billing_info", account_id: account_id)
@@ -437,15 +261,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Empty] Billing information deleted
-    # @example
-    #   begin
-    #     @client.remove_billing_info(account_id: account_id)
-    #     puts "Removed BillingInfo #{account_id}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def remove_billing_info(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/billing_info", account_id: account_id)
@@ -461,15 +276,6 @@ module Recurly
     #        :body [Requests::BillingInfoVerify] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoVerify}
     #
     # @return [Resources::Transaction] Transaction information from verify.
-    # @example
-    #   begin
-    #     transaction = @client.verify_billing_info(account_id: account_id)
-    #     puts "Got Transaction #{transaction}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def verify_billing_info(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/billing_info/verify", account_id: account_id)
@@ -619,17 +425,6 @@ module Recurly
     #        :state [String] Filter by state.
     #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions on an account.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   redemptions = @client.list_account_coupon_redemptions(
-    #     account_id: account_id,
-    #     params: params
-    #   )
-    #   redemptions.each do |redemption|
-    #     puts "CouponRedemption: #{redemption.id}"
-    #   end
     #
     def list_account_coupon_redemptions(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/coupon_redemptions", account_id: account_id)
@@ -644,14 +439,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Pager<Resources::CouponRedemption>] Active coupon redemptions on an account.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   redemptions = @client.list_active_coupon_redemptions(account_id: account_id, params: params)
-    #   redemptions.each do |redemption|
-    #     puts "Redemption: #{redemption.id}"
-    #   end
     #
     def list_active_coupon_redemptions(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/coupon_redemptions/active", account_id: account_id)
@@ -667,22 +454,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::CouponRedemption] Returns the new coupon redemption.
-    # @example
-    #   begin
-    #     redemption_create = {
-    #       currency: 'USD',
-    #       coupon_id: coupon_id
-    #     }
-    #     redemption = @client.create_coupon_redemption(
-    #       account_id: account_id,
-    #       body: redemption_create
-    #     )
-    #     puts "Created CouponRedemption #{redemption}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_coupon_redemption(account_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}/coupon_redemptions/active", account_id: account_id)
@@ -697,15 +468,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::CouponRedemption] Coupon redemption deleted.
-    # @example
-    #   begin
-    #     @client.remove_coupon_redemption(account_id: account_id)
-    #     puts "Removed CouponRedemption #{account_id}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def remove_coupon_redemption(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/coupon_redemptions/active", account_id: account_id)
@@ -732,17 +494,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::CreditPayment>] A list of the account's credit payments.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   payments = @client.list_account_credit_payments(
-    #     account_id: account_id,
-    #     params: params
-    #   )
-    #   payments.each do |payment|
-    #     puts "CreditPayment: #{payment.id}"
-    #   end
     #
     def list_account_credit_payments(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/credit_payments", account_id: account_id)
@@ -787,17 +538,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::Invoice>] A list of the account's invoices.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   invoices = @client.list_account_invoices(
-    #     account_id: account_id,
-    #     params: params
-    #   )
-    #   invoices.each do |invoice|
-    #     puts "Invoice: #{invoice.number}"
-    #   end
     #
     def list_account_invoices(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/invoices", account_id: account_id)
@@ -813,22 +553,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::InvoiceCollection] Returns the new invoices.
-    # @example
-    #   begin
-    #     invoice_create = {
-    #       currency: 'USD',
-    #       collection_method: 'automatic'
-    #     }
-    #     collection = @client.create_invoice(
-    #       account_id: account_id,
-    #       body: invoice_create
-    #     )
-    #     puts "Created InvoiceCollection #{collection}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_invoice(account_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}/invoices", account_id: account_id)
@@ -844,22 +568,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::InvoiceCollection] Returns the invoice previews.
-    # @example
-    #   begin
-    #     invoice_preview = {
-    #       currency: "USD",
-    #       collection_method: "automatic"
-    #     }
-    #     collection = @client.create_invoice(
-    #       account_id: account_id,
-    #       body: invoice_preview
-    #     )
-    #     puts "Created InvoiceCollection #{collection}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def preview_invoice(account_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}/invoices/preview", account_id: account_id)
@@ -901,17 +609,6 @@ module Recurly
     #        :type [String] Filter by type field.
     #
     # @return [Pager<Resources::LineItem>] A list of the account's line items.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   line_items = @client.list_account_line_items(
-    #     account_id: account_id,
-    #     params: params
-    #   )
-    #   line_items.each do |line_item|
-    #     puts "LineItem: #{line_item.id}"
-    #   end
     #
     def list_account_line_items(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/line_items", account_id: account_id)
@@ -927,23 +624,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::LineItem] Returns the new line item.
-    # @example
-    #   begin
-    #     line_item_create = {
-    #       currency: 'USD',
-    #       unit_amount: 1_000,
-    #       type: :charge
-    #     }
-    #     line_item = @client.create_line_item(
-    #       account_id: account_id,
-    #       body: line_item_create
-    #     )
-    #     puts "Created LineItem #{line_item}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_line_item(account_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}/line_items", account_id: account_id)
@@ -970,14 +650,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::AccountNote>] A list of an account's notes.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   account_notes = @client.list_account_notes(account_id: account_id, params: params)
-    #   account_notes.each do |note|
-    #     puts "AccountNote: #{note.message}"
-    #   end
     #
     def list_account_notes(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/notes", account_id: account_id)
@@ -993,18 +665,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::AccountNote] An account note.
-    # @example
-    #   begin
-    #     note = @client.get_account_note(
-    #       account_id: account_id,
-    #       account_note_id: note_id
-    #     )
-    #     puts "Got AccountNote #{note}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_account_note(account_id:, account_note_id:, **options)
       path = interpolate_path("/accounts/{account_id}/notes/{account_note_id}", account_id: account_id, account_note_id: account_note_id)
@@ -1043,17 +703,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::ShippingAddress>] A list of an account's shipping addresses.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   shipping_addresses = @client.list_shipping_addresses(
-    #     account_id: account_id,
-    #     params: params
-    #   )
-    #   shipping_addresses.each do |addr|
-    #     puts "ShippingAddress: #{addr.nickname} - #{addr.street1}"
-    #   end
     #
     def list_shipping_addresses(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/shipping_addresses", account_id: account_id)
@@ -1069,25 +718,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::ShippingAddress] Returns the new shipping address.
-    # @example
-    #   begin
-    #     shipping_address_create = {
-    #       nickname: 'Work',
-    #       street1: '900 Camp St',
-    #       city: 'New Orleans',
-    #       region: 'LA',
-    #       country: 'US',
-    #       postal_code: '70115',
-    #       first_name: 'Joanna',
-    #       last_name: 'Du Monde'
-    #     }
-    #     shipping_address = @client.create_shipping_address(account_id: account_id, body: shipping_address_create)
-    #     puts "Created Shipping Address #{shipping_address}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def create_shipping_address(account_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}/shipping_addresses", account_id: account_id)
@@ -1103,18 +733,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::ShippingAddress] A shipping address.
-    # @example
-    #   begin
-    #     address = @client.get_shipping_address(
-    #       account_id: account_id,
-    #       shipping_address_id: shipping_address_id
-    #     )
-    #     puts "Got ShippingAddress #{address}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_shipping_address(account_id:, shipping_address_id:, **options)
       path = interpolate_path("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", account_id: account_id, shipping_address_id: shipping_address_id)
@@ -1131,24 +749,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::ShippingAddress] The updated shipping address.
-    # @example
-    #   begin
-    #     address_update = {
-    #       first_name: "Aaron",
-    #       last_name: "Du Monde",
-    #       postal_code: "70130"
-    #     }
-    #     address = @client.update_shipping_address(
-    #       account_id: account_id,
-    #       shipping_address_id: shipping_address_id,
-    #       body: address_update
-    #     )
-    #     puts "Updated ShippingAddress #{address}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def update_shipping_address(account_id:, shipping_address_id:, body:, **options)
       path = interpolate_path("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", account_id: account_id, shipping_address_id: shipping_address_id)
@@ -1164,18 +764,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Empty] Shipping address deleted.
-    # @example
-    #   begin
-    #     @client.remove_shipping_address(
-    #       account_id: account_id,
-    #       shipping_address_id: shipping_address_id
-    #     )
-    #     puts "Removed ShippingAddress #{shipping_address_id}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def remove_shipping_address(account_id:, shipping_address_id:, **options)
       path = interpolate_path("/accounts/{account_id}/shipping_addresses/{shipping_address_id}", account_id: account_id, shipping_address_id: shipping_address_id)
@@ -1220,17 +808,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::Subscription>] A list of the account's subscriptions.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   subscriptions = @client.list_account_subscriptions(
-    #     account_id: account_id,
-    #     params: params
-    #   )
-    #   subscriptions.each do |subscription|
-    #     puts "Subscription: #{subscription.uuid}"
-    #   end
     #
     def list_account_subscriptions(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/subscriptions", account_id: account_id)
@@ -1271,17 +848,6 @@ module Recurly
     #        :success [String] Filter by success field.
     #
     # @return [Pager<Resources::Transaction>] A list of the account's transactions.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   transactions = @client.list_account_transactions(
-    #     account_id: account_id,
-    #     params: params
-    #   )
-    #   transactions.each do |transaction|
-    #     puts "Transaction: #{transaction.uuid}"
-    #   end
     #
     def list_account_transactions(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/transactions", account_id: account_id)
@@ -1325,17 +891,6 @@ module Recurly
     #        :past_due [String] Filter for accounts with an invoice in the +past_due+ state.
     #
     # @return [Pager<Resources::Account>] A list of an account's child accounts.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   child_accounts = @client.list_child_accounts(
-    #     account_id: account_id,
-    #     params: params
-    #   )
-    #   child_accounts.each do |child|
-    #     puts "Account: #{child.code}"
-    #   end
     #
     def list_child_accounts(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/accounts", account_id: account_id)
@@ -1373,14 +928,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::AccountAcquisition>] A list of the site's account acquisition data.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   acquisitions = @client.list_account_acquisition(params: params)
-    #   acquisitions.each do |acquisition|
-    #     puts "AccountAcquisition: #{acquisition.cost}"
-    #   end
     #
     def list_account_acquisition(**options)
       path = "/acquisitions"
@@ -1418,14 +965,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::Coupon>] A list of the site's coupons.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   coupons = @client.list_coupons(params: params)
-    #   coupons.each do |coupon|
-    #     puts "coupon: #{coupon.code}"
-    #   end
     #
     def list_coupons(**options)
       path = "/coupons"
@@ -1440,28 +979,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Coupon] A new coupon.
-    # @example
-    #   begin
-    #     coupon_create = {
-    #       name: "Promotional Coupon",
-    #       code: coupon_code,
-    #       discount_type: 'fixed',
-    #       currencies: [
-    #         {
-    #           currency: 'USD',
-    #           discount: 10_000
-    #         }
-    #       ]
-    #     }
-    #     coupon = @client.create_coupon(
-    #       body: coupon_create
-    #     )
-    #     puts "Created Coupon #{coupon}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_coupon(body:, **options)
       path = "/coupons"
@@ -1476,15 +993,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Coupon] A coupon.
-    # @example
-    #   begin
-    #     coupon = @client.get_coupon(coupon_id: coupon_id)
-    #     puts "Got Coupon #{coupon}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_coupon(coupon_id:, **options)
       path = interpolate_path("/coupons/{coupon_id}", coupon_id: coupon_id)
@@ -1500,18 +1008,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Coupon] The updated coupon.
-    # @example
-    #   begin
-    #     coupon_update = {
-    #       name: "New Coupon Name"
-    #     }
-    #     coupon = @client.update_coupon(coupon_id: coupon_id, body: coupon_update)
-    #     puts "Updated Coupon #{coupon}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def update_coupon(coupon_id:, body:, **options)
       path = interpolate_path("/coupons/{coupon_id}", coupon_id: coupon_id)
@@ -1526,15 +1022,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Coupon] The expired Coupon
-    # @example
-    #   begin
-    #     coupon = @client.deactivate_coupon(coupon_id: coupon_id)
-    #     puts "Deactivated Coupon #{coupon}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def deactivate_coupon(coupon_id:, **options)
       path = interpolate_path("/coupons/{coupon_id}", coupon_id: coupon_id)
@@ -1628,14 +1115,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::CreditPayment>] A list of the site's credit payments.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   payments = @client.list_credit_payments(params: params)
-    #   payments.each do |payment|
-    #     puts "CreditPayment: #{payment.id}"
-    #   end
     #
     def list_credit_payments(**options)
       path = "/credit_payments"
@@ -1688,14 +1167,6 @@ module Recurly
     #        :related_type [String] Filter by related type.
     #
     # @return [Pager<Resources::CustomFieldDefinition>] A list of the site's custom field definitions.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   custom_fields = @client.list_custom_field_definitions(params: params)
-    #   custom_fields.each do |field|
-    #     puts "CustomFieldDefinition: #{field.name}"
-    #   end
     #
     def list_custom_field_definitions(**options)
       path = "/custom_field_definitions"
@@ -1710,17 +1181,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::CustomFieldDefinition] An custom field definition.
-    # @example
-    #   begin
-    #     custom_field_definition = @client.get_custom_field_definition(
-    #       custom_field_definition_id: custom_field_definition_id
-    #     )
-    #     puts "Got Custom Field Definition #{custom_field_definition}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_custom_field_definition(custom_field_definition_id:, **options)
       path = interpolate_path("/custom_field_definitions/{custom_field_definition_id}", custom_field_definition_id: custom_field_definition_id)
@@ -1802,14 +1262,6 @@ module Recurly
     #        :state [String] Filter by state.
     #
     # @return [Pager<Resources::Item>] A list of the site's items.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   items = @client.list_items(params: params)
-    #   items.each do |item|
-    #     puts "Item: #{item.code}"
-    #   end
     #
     def list_items(**options)
       path = "/items"
@@ -1824,27 +1276,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Item] A new item.
-    # @example
-    #   begin
-    #     item_create = {
-    #       code: item_code,
-    #       name: "Item Name",
-    #       description: "Item Description",
-    #       external_sku: "a35JE-44",
-    #       accounting_code: "item-code-127",
-    #       revenue_schedule_type: "at_range_end",
-    #       custom_fields: [{
-    #         name: "custom-field-1",
-    #         value: "Custom Field 1 value"
-    #       }]
-    #     }
-    #     item = @client.create_item(body: item_create)
-    #     puts "Created Item #{item}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_item(body:, **options)
       path = "/items"
@@ -1859,15 +1290,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Item] An item.
-    # @example
-    #   begin
-    #     item = @client.get_item(item_id: item_id)
-    #     puts "Got Item #{item}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_item(item_id:, **options)
       path = interpolate_path("/items/{item_id}", item_id: item_id)
@@ -1883,22 +1305,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Item] The updated item.
-    # @example
-    #   begin
-    #     item_update = {
-    #       name: "New Item Name",
-    #       description: "New Item Description"
-    #     }
-    #     item = @client.update_item(
-    #       item_id: item_id,
-    #       body: item_update
-    #     )
-    #     puts "Updated Item #{item}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def update_item(item_id:, body:, **options)
       path = interpolate_path("/items/{item_id}", item_id: item_id)
@@ -1913,15 +1319,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Item] An item.
-    # @example
-    #   begin
-    #     item = @client.deactivate_item(item_id: item_id)
-    #     puts "Deactivated Item #{item}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def deactivate_item(item_id:, **options)
       path = interpolate_path("/items/{item_id}", item_id: item_id)
@@ -1936,15 +1333,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Item] An item.
-    # @example
-    #   begin
-    #     item = @client.reactivate_item(item_id: item_id)
-    #     puts "Reactivated Item #{item}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def reactivate_item(item_id:, **options)
       path = interpolate_path("/items/{item_id}/reactivate", item_id: item_id)
@@ -2083,14 +1471,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::Invoice>] A list of the site's invoices.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   invoices = @client.list_invoices(params: params)
-    #   invoices.each do |invoice|
-    #     puts "Invoice: #{invoice.number}"
-    #   end
     #
     def list_invoices(**options)
       path = "/invoices"
@@ -2105,15 +1485,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] An invoice.
-    # @example
-    #   begin
-    #     invoice = @client.get_invoice(invoice_id: invoice_id)
-    #     puts "Got invoice #{invoice}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_invoice(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}", invoice_id: invoice_id)
@@ -2129,19 +1500,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] An invoice.
-    # @example
-    #   begin
-    #     invoice_update = {
-    #       customer_notes: "New Notes",
-    #       terms_and_conditions: "New Terms and Conditions"
-    #     }
-    #     invoice = @client.update_invoice(invoice_id: invoice_id, body: invoice_update)
-    #     puts "Updated invoice #{invoice}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def update_invoice(invoice_id:, body:, **options)
       path = interpolate_path("/invoices/{invoice_id}", invoice_id: invoice_id)
@@ -2156,18 +1514,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::BinaryFile] An invoice as a PDF.
-    # @example
-    #   begin
-    #     invoice = @client.get_invoice_pdf(invoice_id: invoice_id)
-    #     puts "Got invoice #{invoice}"
-    #     filename = "#{download_directory}/rubyinvoice-#{invoice_id}.pdf"
-    #     IO.write(filename, invoice.data)
-    #     puts "Saved Invoice PDF to #{filename}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_invoice_pdf(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}.pdf", invoice_id: invoice_id)
@@ -2183,15 +1529,6 @@ module Recurly
     #        :body [Requests::InvoiceCollect] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCollect}
     #
     # @return [Resources::Invoice] The updated invoice.
-    # @example
-    #   begin
-    #     invoice = @client.collect_invoice(invoice_id: invoice_id)
-    #     puts "Collected invoice #{invoice}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def collect_invoice(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/collect", invoice_id: invoice_id)
@@ -2206,15 +1543,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] The updated invoice.
-    # @example
-    #   begin
-    #     invoice = @client.mark_invoice_failed(invoice_id: invoice_id)
-    #     puts "Failed invoice #{invoice}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def mark_invoice_failed(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/mark_failed", invoice_id: invoice_id)
@@ -2229,15 +1557,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] The updated invoice.
-    # @example
-    #   begin
-    #     invoice = @client.mark_invoice_successful(invoice_id: invoice_id)
-    #     puts "Marked invoice sucessful #{invoice}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def mark_invoice_successful(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/mark_successful", invoice_id: invoice_id)
@@ -2252,15 +1571,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] The updated invoice.
-    # @example
-    #   begin
-    #     invoice = @client.reopen_invoice(invoice_id: invoice_id)
-    #     puts "Reopened invoice #{invoice}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def reopen_invoice(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/reopen", invoice_id: invoice_id)
@@ -2275,15 +1585,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] The updated invoice.
-    # @example
-    #   begin
-    #     invoice = @client.void_invoice(invoice_id: invoice_id)
-    #     puts "Voided invoice #{invoice}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def void_invoice(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/void", invoice_id: invoice_id)
@@ -2340,17 +1641,6 @@ module Recurly
     #        :type [String] Filter by type field.
     #
     # @return [Pager<Resources::LineItem>] A list of the invoice's line items.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   line_items = @client.list_invoice_line_items(
-    #     invoice_id: invoice_id,
-    #     params: params
-    #   )
-    #   line_items.each do |line_item|
-    #     puts "Line Item: #{line_item.id}"
-    #   end
     #
     def list_invoice_line_items(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/line_items", invoice_id: invoice_id)
@@ -2387,17 +1677,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions associated with the invoice.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   coupon_redemptions = @client.list_invoice_coupon_redemptions(
-    #     invoice_id: invoice_id,
-    #     params: params
-    #   )
-    #   coupon_redemptions.each do |redemption|
-    #     puts "CouponRedemption: #{redemption.id}"
-    #   end
     #
     def list_invoice_coupon_redemptions(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/coupon_redemptions", invoice_id: invoice_id)
@@ -2412,17 +1691,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Pager<Resources::Invoice>] A list of the credit or charge invoices associated with the invoice.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   invoices = @client.list_related_invoices(
-    #     invoice_id: invoice_id,
-    #     params: params
-    #   )
-    #   invoices.each do |invoice|
-    #     puts "Invoice: #{invoice.number}"
-    #   end
     #
     def list_related_invoices(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/related_invoices", invoice_id: invoice_id)
@@ -2438,22 +1706,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] Returns the new credit invoice.
-    # @example
-    #   begin
-    #     invoice_refund = {
-    #       type: "amount",
-    #       amount: 100,
-    #     }
-    #     invoice = @client.refund_invoice(
-    #       invoice_id: invoice_id,
-    #       body: invoice_refund
-    #     )
-    #     puts "Refunded invoice #{invoice}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def refund_invoice(invoice_id:, body:, **options)
       path = interpolate_path("/invoices/{invoice_id}/refund", invoice_id: invoice_id)
@@ -2494,16 +1746,6 @@ module Recurly
     #        :type [String] Filter by type field.
     #
     # @return [Pager<Resources::LineItem>] A list of the site's line items.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   line_items = @client.list_line_items(
-    #     params: params
-    #   )
-    #   line_items.each do |line_item|
-    #     puts "LineItem: #{line_item.id}"
-    #   end
     #
     def list_line_items(**options)
       path = "/line_items"
@@ -2518,15 +1760,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::LineItem] A line item.
-    # @example
-    #   begin
-    #     line_item = @client.get_line_item(line_item_id: line_item_id)
-    #     puts "Got LineItem #{line_item}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_line_item(line_item_id:, **options)
       path = interpolate_path("/line_items/{line_item_id}", line_item_id: line_item_id)
@@ -2541,17 +1774,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Empty] Line item deleted.
-    # @example
-    #   begin
-    #     @client.remove_line_item(
-    #       line_item_id: line_item_id
-    #     )
-    #     puts "Removed LineItem #{line_item_id}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def remove_line_item(line_item_id:, **options)
       path = interpolate_path("/line_items/{line_item_id}", line_item_id: line_item_id)
@@ -2590,14 +1812,6 @@ module Recurly
     #        :state [String] Filter by state.
     #
     # @return [Pager<Resources::Plan>] A list of plans.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   plans = @client.list_plans(params: params)
-    #   plans.each do |plan|
-    #     puts "Plan: #{plan.code}"
-    #   end
     #
     def list_plans(**options)
       path = "/plans"
@@ -2612,32 +1826,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Plan] A plan.
-    # @example
-    #   begin
-    #     plan_create = {
-    #       code: plan_code,
-    #       name: plan_name,
-    #       currencies: [
-    #         currency: "USD",
-    #         setup_fee: 1_000
-    #       ],
-    #       add_ons: [
-    #         {
-    #           name: 'Extra User',
-    #           code: 'extra_user',
-    #           currencies: [
-    #             { currency: 'USD', unit_amount: 10_000 }
-    #           ]
-    #         }
-    #       ]
-    #     }
-    #     plan = @client.create_plan(body: plan_create)
-    #     puts "Created Plan #{plan}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_plan(body:, **options)
       path = "/plans"
@@ -2652,15 +1840,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Plan] A plan.
-    # @example
-    #   begin
-    #     plan = @client.get_plan(plan_id: plan_id)
-    #     puts "Got plan #{plan}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_plan(plan_id:, **options)
       path = interpolate_path("/plans/{plan_id}", plan_id: plan_id)
@@ -2676,18 +1855,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Plan] A plan.
-    # @example
-    #   begin
-    #     plan_update = {
-    #       name: "Monthly Kombucha Subscription"
-    #     }
-    #     plan = @client.update_plan(plan_id: plan_id, body: plan_update)
-    #     puts "Updated plan #{plan}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def update_plan(plan_id:, body:, **options)
       path = interpolate_path("/plans/{plan_id}", plan_id: plan_id)
@@ -2702,15 +1869,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Plan] Plan deleted
-    # @example
-    #   begin
-    #     plan = @client.remove_plan(plan_id: plan_id)
-    #     puts "Removed plan #{plan}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def remove_plan(plan_id:, **options)
       path = interpolate_path("/plans/{plan_id}", plan_id: plan_id)
@@ -2750,17 +1908,6 @@ module Recurly
     #        :state [String] Filter by state.
     #
     # @return [Pager<Resources::AddOn>] A list of add-ons.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   add_ons = @client.list_plan_add_ons(
-    #     plan_id: plan_id,
-    #     params: params
-    #   )
-    #   add_ons.each do |add_on|
-    #     puts "AddOn: #{add_on.code}"
-    #   end
     #
     def list_plan_add_ons(plan_id:, **options)
       path = interpolate_path("/plans/{plan_id}/add_ons", plan_id: plan_id)
@@ -2776,26 +1923,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::AddOn] An add-on.
-    # @example
-    #   begin
-    #     new_add_on = {
-    #       code: 'coffee_grinder',
-    #       name: 'A quality grinder for your beans',
-    #       default_quantity: 1,
-    #       currencies: [
-    #         {
-    #           currency: 'USD',
-    #           unit_amount: 10_000
-    #         }
-    #       ]
-    #     }
-    #     add_on = @client.create_plan_add_on(plan_id: plan_id, body: new_add_on)
-    #     puts "Created plan add-on #{add_on}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def create_plan_add_on(plan_id:, body:, **options)
       path = interpolate_path("/plans/{plan_id}/add_ons", plan_id: plan_id)
@@ -2811,17 +1938,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::AddOn] An add-on.
-    # @example
-    #   begin
-    #     add_on = @client.get_plan_add_on(
-    #       plan_id: plan_id, add_on_id: add_on_id
-    #     )
-    #     puts "Got plan add-on #{add_on}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_plan_add_on(plan_id:, add_on_id:, **options)
       path = interpolate_path("/plans/{plan_id}/add_ons/{add_on_id}", plan_id: plan_id, add_on_id: add_on_id)
@@ -2838,22 +1954,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::AddOn] An add-on.
-    # @example
-    #   begin
-    #     add_on_update = {
-    #       name: "A quality grinder for your finest beans"
-    #     }
-    #     add_on = @client.update_plan_add_on(
-    #       plan_id: plan_id,
-    #       add_on_id: add_on_id,
-    #       body: add_on_update
-    #     )
-    #     puts "Updated add-on #{add_on}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def update_plan_add_on(plan_id:, add_on_id:, body:, **options)
       path = interpolate_path("/plans/{plan_id}/add_ons/{add_on_id}", plan_id: plan_id, add_on_id: add_on_id)
@@ -2869,18 +1969,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::AddOn] Add-on deleted
-    # @example
-    #   begin
-    #     add_on = @client.remove_plan_add_on(
-    #       plan_id: plan_id,
-    #       add_on_id: add_on_id
-    #     )
-    #     puts "Removed add-on #{add_on}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def remove_plan_add_on(plan_id:, add_on_id:, **options)
       path = interpolate_path("/plans/{plan_id}/add_ons/{add_on_id}", plan_id: plan_id, add_on_id: add_on_id)
@@ -2919,16 +2007,6 @@ module Recurly
     #        :state [String] Filter by state.
     #
     # @return [Pager<Resources::AddOn>] A list of add-ons.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   add_ons = @client.list_add_ons(
-    #     params: params
-    #   )
-    #   add_ons.each do |add_on|
-    #     puts "AddOn: #{add_on.code}"
-    #   end
     #
     def list_add_ons(**options)
       path = "/add_ons"
@@ -2943,15 +2021,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::AddOn] An add-on.
-    # @example
-    #   begin
-    #     add_on = @client.get_add_on(add_on_id: add_on_id)
-    #     puts "Got add-on #{add_on}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_add_on(add_on_id:, **options)
       path = interpolate_path("/add_ons/{add_on_id}", add_on_id: add_on_id)
@@ -2989,16 +2058,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::ShippingMethod>] A list of the site's shipping methods.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   shipping_methods = @client.list_shipping_methods(
-    #     params: params
-    #   )
-    #   shipping_methods.each do |shipping_method|
-    #     puts "Shipping Method: #{shipping_method.code}"
-    #   end
     #
     def list_shipping_methods(**options)
       path = "/shipping_methods"
@@ -3099,14 +2158,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::Subscription>] A list of the site's subscriptions.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   subscriptions = @client.list_subscriptions(params: params)
-    #   subscriptions.each do |subscription|
-    #     puts "Subscription: #{subscription.uuid}"
-    #   end
     #
     def list_subscriptions(**options)
       path = "/subscriptions"
@@ -3121,25 +2172,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Subscription] A subscription.
-    # @example
-    #   begin
-    #     subscription_create = {
-    #       plan_code: plan_code,
-    #       currency: "USD",
-    #       # This can be an existing account or a new account
-    #       account: {
-    #         code: account_code,
-    #       }
-    #     }
-    #     subscription = @client.create_subscription(
-    #       body: subscription_create
-    #     )
-    #     puts "Created Subscription #{subscription}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_subscription(body:, **options)
       path = "/subscriptions"
@@ -3154,17 +2186,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Subscription] A subscription.
-    # @example
-    #   begin
-    #     subscription = @client.get_subscription(
-    #       subscription_id: subscription_id
-    #     )
-    #     puts "Got Subscription #{subscription}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_subscription(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}", subscription_id: subscription_id)
@@ -3180,22 +2201,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Subscription] A subscription.
-    # @example
-    #   begin
-    #     subscription_update = {
-    #       customer_notes: "New Notes",
-    #       terms_and_conditions: "New ToC"
-    #     }
-    #     subscription = @client.update_subscription(
-    #       subscription_id: subscription_id,
-    #       body: subscription_update
-    #     )
-    #     puts "Modified Subscription #{subscription}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def update_subscription(subscription_id:, body:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}", subscription_id: subscription_id)
@@ -3221,17 +2226,6 @@ module Recurly
     #        :charge [Boolean] Applicable only if the subscription has usage based add-ons and unbilled usage logged for the current billing cycle. If true, current billing cycle unbilled usage is billed on the final invoice. If false, Recurly will create a negative usage record for current billing cycle usage that will zero out the final invoice line items.
     #
     # @return [Resources::Subscription] An expired subscription.
-    # @example
-    #   begin
-    #     subscription = @client.terminate_subscription(
-    #       subscription_id: subscription_id,
-    #     )
-    #     puts "Terminated Subscription #{subscription}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def terminate_subscription(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}", subscription_id: subscription_id)
@@ -3247,17 +2241,6 @@ module Recurly
     #        :body [Requests::SubscriptionCancel] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::SubscriptionCancel}
     #
     # @return [Resources::Subscription] A canceled or failed subscription.
-    # @example
-    #   begin
-    #     subscription = @client.cancel_subscription(
-    #       subscription_id: subscription_id
-    #     )
-    #     puts "Canceled Subscription #{subscription}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def cancel_subscription(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/cancel", subscription_id: subscription_id)
@@ -3272,17 +2255,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Subscription] An active subscription.
-    # @example
-    #   begin
-    #     subscription = @client.reactivate_subscription(
-    #       subscription_id: subscription_id
-    #     )
-    #     puts "Reactivated Canceled Subscription #{subscription}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def reactivate_subscription(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/reactivate", subscription_id: subscription_id)
@@ -3298,21 +2270,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Subscription] A subscription.
-    # @example
-    #   begin
-    #     subscription_pause = {
-    #       remaining_pause_cycles: 10
-    #     }
-    #     subscription = @client.pause_subscription(
-    #       subscription_id: subscription_id,
-    #       body: subscription_pause
-    #     )
-    #     puts "Paused Subscription #{subscription}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def pause_subscription(subscription_id:, body:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/pause", subscription_id: subscription_id)
@@ -3327,17 +2284,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Subscription] A subscription.
-    # @example
-    #   begin
-    #     subscription = @client.resume_subscription(
-    #       subscription_id: subscription_id
-    #     )
-    #     puts "Resumed Subscription #{subscription}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def resume_subscription(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/resume", subscription_id: subscription_id)
@@ -3366,17 +2312,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::InvoiceCollection] A preview of the subscription's renewal invoice(s).
-    # @example
-    #   begin
-    #     invoice_collection = @client.get_preview_renewal(
-    #       subscription_id: subscription_id
-    #     )
-    #     puts "Fetched Renewal Preview with total: #{invoice_collection.charge_invoice.total}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_preview_renewal(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/preview_renewal", subscription_id: subscription_id)
@@ -3391,17 +2326,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::SubscriptionChange] A subscription's pending change.
-    # @example
-    #   begin
-    #     change = @client.get_subscription_change(
-    #       subscription_id: subscription_id
-    #     )
-    #     puts "Got SubscriptionChange #{change}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_subscription_change(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/change", subscription_id: subscription_id)
@@ -3417,22 +2341,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::SubscriptionChange] A subscription change.
-    # @example
-    #   begin
-    #     change_create = {
-    #       timeframe: "now",
-    #       plan_code: new_plan_code
-    #     }
-    #     change = @client.create_subscription_change(
-    #       subscription_id: subscription_id,
-    #       body: change_create
-    #     )
-    #     puts "Created SubscriptionChange #{change}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_subscription_change(subscription_id:, body:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/change", subscription_id: subscription_id)
@@ -3447,17 +2355,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Empty] Subscription change was deleted.
-    # @example
-    #   begin
-    #     @client.remove_subscription_change(
-    #       subscription_id: subscription_id
-    #     )
-    #     puts "Removed SubscriptionChange #{subscription_id}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def remove_subscription_change(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/change", subscription_id: subscription_id)
@@ -3517,17 +2414,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::Invoice>] A list of the subscription's invoices.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   invoices = @client.list_subscription_invoices(
-    #     subscription_id: subscription_id,
-    #     params: params
-    #   )
-    #   invoices.each do |invoice|
-    #     puts "Invoice: #{invoice.number}"
-    #   end
     #
     def list_subscription_invoices(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/invoices", subscription_id: subscription_id)
@@ -3569,17 +2455,6 @@ module Recurly
     #        :type [String] Filter by type field.
     #
     # @return [Pager<Resources::LineItem>] A list of the subscription's line items.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   line_items = @client.list_subscription_line_items(
-    #     subscription_id: subscription_id,
-    #     params: params
-    #   )
-    #   line_items.each do |line_item|
-    #     puts "LineItem: #{line_item.id}"
-    #   end
     #
     def list_subscription_line_items(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/line_items", subscription_id: subscription_id)
@@ -3616,17 +2491,6 @@ module Recurly
     #
     #
     # @return [Pager<Resources::CouponRedemption>] A list of the the coupon redemptions on a subscription.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   coupon_redemptions = @client.list_subscription_coupon_redemptions(
-    #     subscription_id: subscription_id,
-    #     params: params
-    #   )
-    #   coupon_redemptions.each do |redemption|
-    #     puts "CouponRedemption: #{redemption.id}"
-    #   end
     #
     def list_subscription_coupon_redemptions(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/coupon_redemptions", subscription_id: subscription_id)
@@ -3765,14 +2629,6 @@ module Recurly
     #        :success [String] Filter by success field.
     #
     # @return [Pager<Resources::Transaction>] A list of the site's transactions.
-    # @example
-    #   params = {
-    #     limit: 200
-    #   }
-    #   transactions = @client.list_transactions(params: params)
-    #   transactions.each do |transaction|
-    #     puts "Transaction: #{transaction.uuid}"
-    #   end
     #
     def list_transactions(**options)
       path = "/transactions"
@@ -3787,15 +2643,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Transaction] A transaction.
-    # @example
-    #   begin
-    #     transaction = @client.get_transaction(transaction_id: transaction_id)
-    #     puts "Got Transaction #{transaction}"
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_transaction(transaction_id:, **options)
       path = interpolate_path("/transactions/{transaction_id}", transaction_id: transaction_id)
@@ -3852,32 +2699,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::InvoiceCollection] Returns the new invoices
-    # @example
-    #   begin
-    #     purchase = {
-    #       currency: "USD",
-    #       account: {
-    #         code: account_code,
-    #         first_name: "Benjamin",
-    #         last_name: "Du Monde",
-    #         billing_info: {
-    #           token_id: rjs_token_id
-    #         },
-    #       },
-    #       subscriptions: [
-    #         { plan_code: plan_code }
-    #       ]
-    #     }
-    #     invoice_collection = @client.create_purchase(
-    #       body: purchase
-    #     )
-    #     puts "Created Charge Invoice #{invoice_collection.charge_invoice}"
-    #     puts "Created Credit Invoices #{invoice_collection.credit_invoices}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_purchase(body:, **options)
       path = "/purchases"
@@ -3892,32 +2713,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::InvoiceCollection] Returns preview of the new invoices
-    # @example
-    #   begin
-    #     purchase = {
-    #       currency: "USD",
-    #       account: {
-    #         code: account_code,
-    #         first_name: "Benjamin",
-    #         last_name: "Du Monde",
-    #         billing_info: {
-    #           token_id: rjs_token_id
-    #         },
-    #       },
-    #       subscriptions: [
-    #         { plan_code: plan_code }
-    #       ]
-    #     }
-    #     invoice_collection = @client.preview_purchase(
-    #       body: purchase
-    #     )
-    #     puts "Preview Charge Invoice #{invoice_collection.charge_invoice}"
-    #     puts "Preview Credit Invoices #{invoice_collection.credit_invoices}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def preview_purchase(body:, **options)
       path = "/purchases/preview"
@@ -3932,34 +2727,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::InvoiceCollection] Returns the pending invoice
-    # @example
-    #   begin
-    #     purchase = {
-    #       currency: 'EUR',
-    #       account: {
-    #         code: account_code,
-    #         email: 'benjamin@example.com',
-    #         billing_info: {
-    #           first_name: 'Benjamin',
-    #           last_name: 'Du Monde',
-    #           online_banking_payment_type: 'ideal'
-    #         },
-    #       },
-    #       line_items: [
-    #         {
-    #           currency: 'EUR',
-    #           unit_amount: 1000,
-    #           type: 'charge'
-    #         }
-    #       ]
-    #     }
-    #     invoice_collection = @client.create_pending_purchase(body: purchase)
-    #     puts "Created ChargeInvoice with UUID: #{invoice_collection.charge_invoice.uuid}"
-    #   rescue Recurly::Errors::ValidationError => e
-    #     # If the request was invalid, you may want to tell your user
-    #     # why. You can find the invalid params and reasons in e.recurly_error.params
-    #     puts "ValidationError: #{e.recurly_error.params}"
-    #   end
     #
     def create_pending_purchase(body:, **options)
       path = "/purchases/pending"
@@ -3973,17 +2740,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::ExportDates] Returns a list of dates.
-    # @example
-    #   begin
-    #     export_dates = @client.get_export_dates()
-    #     export_dates.dates.each do |date|
-    #       puts "Exports are available for: #{date}"
-    #     end
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_export_dates(**options)
       path = "/export_dates"
@@ -3998,17 +2754,6 @@ module Recurly
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::ExportFiles] Returns a list of export files to download.
-    # @example
-    #   begin
-    #     export_files = @client.get_export_files(export_date: export_date)
-    #     export_files.files.each do |file|
-    #       puts "Export file download URL: #{file.href}"
-    #     end
-    #   rescue Recurly::Errors::NotFoundError
-    #     # If the resource was not found, you may want to alert the user or
-    #     # just return nil
-    #     puts "Resource Not Found"
-    #   end
     #
     def get_export_files(export_date:, **options)
       path = interpolate_path("/export_dates/{export_date}/export_files", export_date: export_date)
