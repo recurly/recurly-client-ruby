@@ -5,14 +5,15 @@
 module Recurly
   module Resources
     class PlanRampPricing < Resource
-
+      
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
-
+      
       # @!attribute unit_amount
       #   @return [Float] Represents the price for the Ramp Interval.
       define_attribute :unit_amount, Float
+      
     end
   end
 end

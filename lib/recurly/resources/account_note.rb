@@ -5,30 +5,31 @@
 module Recurly
   module Resources
     class AccountNote < Resource
-
+      
       # @!attribute account_id
-      #   @return [String]
+      #   @return [String] 
       define_attribute :account_id, String
-
+      
       # @!attribute created_at
-      #   @return [DateTime]
+      #   @return [DateTime] 
       define_attribute :created_at, DateTime
-
+      
       # @!attribute id
-      #   @return [String]
+      #   @return [String] 
       define_attribute :id, String
-
+      
       # @!attribute message
-      #   @return [String]
+      #   @return [String] 
       define_attribute :message, String
-
+      
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
-
+      
       # @!attribute user
-      #   @return [User]
+      #   @return [User] 
       define_attribute :user, :User
+      
     end
   end
 end

@@ -5,22 +5,23 @@
 module Recurly
   module Resources
     class ErrorMayHaveTransaction < Resource
-
+      
       # @!attribute message
       #   @return [String] Message
       define_attribute :message, String
-
+      
       # @!attribute params
       #   @return [Array[Hash]] Parameter specific errors
-      define_attribute :params, Array, { :item_type => Hash }
-
+      define_attribute :params, Array, {:item_type=>Hash}
+      
       # @!attribute transaction_error
       #   @return [TransactionError] This is only included on errors with `type=transaction`.
       define_attribute :transaction_error, :TransactionError
-
+      
       # @!attribute type
       #   @return [String] Type
       define_attribute :type, String
+      
     end
   end
 end

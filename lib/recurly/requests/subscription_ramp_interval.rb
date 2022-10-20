@@ -5,14 +5,15 @@
 module Recurly
   module Requests
     class SubscriptionRampInterval < Request
-
+      
       # @!attribute starting_billing_cycle
       #   @return [Integer] Represents the billing cycle where a ramp interval starts.
       define_attribute :starting_billing_cycle, Integer
-
+      
       # @!attribute unit_amount
       #   @return [Integer] Represents the price for the ramp interval.
       define_attribute :unit_amount, Integer
+      
     end
   end
 end

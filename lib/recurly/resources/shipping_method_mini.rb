@@ -5,22 +5,23 @@
 module Recurly
   module Resources
     class ShippingMethodMini < Resource
-
+      
       # @!attribute code
       #   @return [String] The internal name used identify the shipping method.
       define_attribute :code, String
-
+      
       # @!attribute id
       #   @return [String] Shipping Method ID
       define_attribute :id, String
-
+      
       # @!attribute name
       #   @return [String] The name of the shipping method displayed to customers.
       define_attribute :name, String
-
+      
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+      
     end
   end
 end

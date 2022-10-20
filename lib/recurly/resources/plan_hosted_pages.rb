@@ -5,22 +5,23 @@
 module Recurly
   module Resources
     class PlanHostedPages < Resource
-
+      
       # @!attribute bypass_confirmation
       #   @return [Boolean] If `true`, the customer will be sent directly to your `success_url` after a successful signup, bypassing Recurly's hosted confirmation page.
       define_attribute :bypass_confirmation, :Boolean
-
+      
       # @!attribute cancel_url
       #   @return [String] URL to redirect to on canceled signup on the hosted payment pages.
       define_attribute :cancel_url, String
-
+      
       # @!attribute display_quantity
       #   @return [Boolean] Determines if the quantity field is displayed on the hosted pages for the plan.
       define_attribute :display_quantity, :Boolean
-
+      
       # @!attribute success_url
       #   @return [String] URL to redirect to after signup on the hosted payment pages.
       define_attribute :success_url, String
+      
     end
   end
 end

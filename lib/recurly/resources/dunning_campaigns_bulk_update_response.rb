@@ -5,14 +5,15 @@
 module Recurly
   module Resources
     class DunningCampaignsBulkUpdateResponse < Resource
-
+      
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
-
+      
       # @!attribute plans
       #   @return [Array[Plan]] An array containing all of the `Plan` resources that have been updated.
-      define_attribute :plans, Array, { :item_type => :Plan }
+      define_attribute :plans, Array, {:item_type=>:Plan}
+      
     end
   end
 end

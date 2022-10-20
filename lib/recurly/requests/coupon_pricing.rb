@@ -5,14 +5,15 @@
 module Recurly
   module Requests
     class CouponPricing < Request
-
+      
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
-
+      
       # @!attribute discount
       #   @return [Float] The fixed discount (in dollars) for the corresponding currency.
       define_attribute :discount, Float
+      
     end
   end
 end

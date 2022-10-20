@@ -5,18 +5,19 @@
 module Recurly
   module Requests
     class MeasuredUnitCreate < Request
-
+      
       # @!attribute description
       #   @return [String] Optional internal description.
       define_attribute :description, String
-
+      
       # @!attribute display_name
       #   @return [String] Display name for the measured unit.
       define_attribute :display_name, String
-
+      
       # @!attribute name
       #   @return [String] Unique internal name of the measured unit on your site.
       define_attribute :name, String
+      
     end
   end
 end

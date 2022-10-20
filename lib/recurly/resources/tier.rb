@@ -5,18 +5,19 @@
 module Recurly
   module Resources
     class Tier < Resource
-
+      
       # @!attribute currencies
       #   @return [Array[TierPricing]] Tier pricing
-      define_attribute :currencies, Array, { :item_type => :TierPricing }
-
+      define_attribute :currencies, Array, {:item_type=>:TierPricing}
+      
       # @!attribute ending_quantity
       #   @return [Integer] Ending quantity for the tier.  This represents a unit amount for unit-priced add ons. Must be left empty if it is the final tier.
       define_attribute :ending_quantity, Integer
-
+      
       # @!attribute usage_percentage
       #   @return [String] (deprecated) -- Use the percentage_tiers object instead.
       define_attribute :usage_percentage, String
+      
     end
   end
 end

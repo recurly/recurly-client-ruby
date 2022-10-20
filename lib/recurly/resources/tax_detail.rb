@@ -5,22 +5,23 @@
 module Recurly
   module Resources
     class TaxDetail < Resource
-
+      
       # @!attribute rate
       #   @return [Float] Provides the tax rate for the region.
       define_attribute :rate, Float
-
+      
       # @!attribute region
       #   @return [String] Provides the tax region applied on an invoice. For Canadian Sales Tax, this will be either the 2 letter province code or country code.
       define_attribute :region, String
-
+      
       # @!attribute tax
       #   @return [Float] The total tax applied for this tax type.
       define_attribute :tax, Float
-
+      
       # @!attribute type
       #   @return [String] Provides the tax type for the region. For Canadian Sales Tax, this will be GST, HST, QST or PST.
       define_attribute :type, String
+      
     end
   end
 end

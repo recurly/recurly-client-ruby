@@ -5,18 +5,19 @@
 module Recurly
   module Requests
     class SubscriptionShippingUpdate < Request
-
+      
       # @!attribute address
-      #   @return [ShippingAddressCreate]
+      #   @return [ShippingAddressCreate] 
       define_attribute :address, :ShippingAddressCreate
-
+      
       # @!attribute address_id
       #   @return [String] Assign a shipping address from the account's existing shipping addresses.
       define_attribute :address_id, String
-
+      
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+      
     end
   end
 end

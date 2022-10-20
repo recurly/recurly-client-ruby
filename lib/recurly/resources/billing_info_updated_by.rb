@@ -5,14 +5,15 @@
 module Recurly
   module Resources
     class BillingInfoUpdatedBy < Resource
-
+      
       # @!attribute country
       #   @return [String] Country, 2-letter ISO 3166-1 alpha-2 code matching the origin IP address, if known by Recurly.
       define_attribute :country, String
-
+      
       # @!attribute ip
       #   @return [String] Customer's IP address when updating their billing information.
       define_attribute :ip, String
+      
     end
   end
 end

@@ -5,10 +5,11 @@
 module Recurly
   module Requests
     class BillingInfoVerify < Request
-
+      
       # @!attribute gateway_code
       #   @return [String] An identifier for a specific payment gateway.
       define_attribute :gateway_code, String
+      
     end
   end
 end

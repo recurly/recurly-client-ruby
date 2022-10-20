@@ -5,10 +5,11 @@
 module Recurly
   module Resources
     class BinaryFile < Resource
-
+      
       # @!attribute data
-      #   @return [String]
+      #   @return [String] 
       define_attribute :data, String
+      
     end
   end
 end

@@ -5,18 +5,19 @@
 module Recurly
   module Resources
     class SubscriptionRampIntervalResponse < Resource
-
+      
       # @!attribute remaining_billing_cycles
       #   @return [Integer] Represents how many billing cycles are left in a ramp interval.
       define_attribute :remaining_billing_cycles, Integer
-
+      
       # @!attribute starting_billing_cycle
       #   @return [Integer] Represents the billing cycle where a ramp interval starts.
       define_attribute :starting_billing_cycle, Integer
-
+      
       # @!attribute unit_amount
       #   @return [Float] Represents the price for the ramp interval.
       define_attribute :unit_amount, Float
+      
     end
   end
 end

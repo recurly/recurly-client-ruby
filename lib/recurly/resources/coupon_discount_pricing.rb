@@ -5,14 +5,15 @@
 module Recurly
   module Resources
     class CouponDiscountPricing < Resource
-
+      
       # @!attribute amount
       #   @return [Float] Value of the fixed discount that this coupon applies.
       define_attribute :amount, Float
-
+      
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
+      
     end
   end
 end

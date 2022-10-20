@@ -5,14 +5,15 @@
 module Recurly
   module Resources
     class CouponDiscountTrial < Resource
-
+      
       # @!attribute length
       #   @return [Integer] Trial length measured in the units specified by the sibling `unit` property
       define_attribute :length, Integer
-
+      
       # @!attribute unit
       #   @return [String] Temporal unit of the free trial
       define_attribute :unit, String
+      
     end
   end
 end

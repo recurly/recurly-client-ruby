@@ -5,22 +5,23 @@
 module Recurly
   module Resources
     class CouponDiscount < Resource
-
+      
       # @!attribute currencies
       #   @return [Array[CouponDiscountPricing]] This is only present when `type=fixed`.
-      define_attribute :currencies, Array, { :item_type => :CouponDiscountPricing }
-
+      define_attribute :currencies, Array, {:item_type=>:CouponDiscountPricing}
+      
       # @!attribute percent
       #   @return [Integer] This is only present when `type=percent`.
       define_attribute :percent, Integer
-
+      
       # @!attribute trial
       #   @return [CouponDiscountTrial] This is only present when `type=free_trial`.
       define_attribute :trial, :CouponDiscountTrial
-
+      
       # @!attribute type
-      #   @return [String]
+      #   @return [String] 
       define_attribute :type, String
+      
     end
   end
 end

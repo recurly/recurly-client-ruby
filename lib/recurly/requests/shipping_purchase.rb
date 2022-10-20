@@ -5,18 +5,19 @@
 module Recurly
   module Requests
     class ShippingPurchase < Request
-
+      
       # @!attribute address
-      #   @return [ShippingAddressCreate]
+      #   @return [ShippingAddressCreate] 
       define_attribute :address, :ShippingAddressCreate
-
+      
       # @!attribute address_id
       #   @return [String] Assign a shipping address from the account's existing shipping addresses. If this and `address` are both present, `address` will take precedence.
       define_attribute :address_id, String
-
+      
       # @!attribute fees
       #   @return [Array[ShippingFeeCreate]] A list of shipping fees to be created as charges with the purchase.
-      define_attribute :fees, Array, { :item_type => :ShippingFeeCreate }
+      define_attribute :fees, Array, {:item_type=>:ShippingFeeCreate}
+      
     end
   end
 end

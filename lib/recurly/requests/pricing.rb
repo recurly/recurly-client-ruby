@@ -5,18 +5,19 @@
 module Recurly
   module Requests
     class Pricing < Request
-
+      
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
-
+      
       # @!attribute tax_inclusive
       #   @return [Boolean] This field is deprecated. Please do not use it.
       define_attribute :tax_inclusive, :Boolean
-
+      
       # @!attribute unit_amount
       #   @return [Float] Unit price
       define_attribute :unit_amount, Float
+      
     end
   end
 end

@@ -5,30 +5,31 @@
 module Recurly
   module Resources
     class CouponRedemptionMini < Resource
-
+      
       # @!attribute coupon
-      #   @return [CouponMini]
+      #   @return [CouponMini] 
       define_attribute :coupon, :CouponMini
-
+      
       # @!attribute created_at
       #   @return [DateTime] Created at
       define_attribute :created_at, DateTime
-
+      
       # @!attribute discounted
       #   @return [Float] The amount that was discounted upon the application of the coupon, formatted with the currency.
       define_attribute :discounted, Float
-
+      
       # @!attribute id
       #   @return [String] Coupon Redemption ID
       define_attribute :id, String
-
+      
       # @!attribute object
       #   @return [String] Will always be `coupon`.
       define_attribute :object, String
-
+      
       # @!attribute state
       #   @return [String] Invoice state
       define_attribute :state, String
+      
     end
   end
 end

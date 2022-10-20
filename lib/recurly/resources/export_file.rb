@@ -5,18 +5,19 @@
 module Recurly
   module Resources
     class ExportFile < Resource
-
+      
       # @!attribute href
       #   @return [String] A presigned link to download the export file.
       define_attribute :href, String
-
+      
       # @!attribute md5sum
       #   @return [String] MD5 hash of the export file.
       define_attribute :md5sum, String
-
+      
       # @!attribute name
       #   @return [String] Name of the export file.
       define_attribute :name, String
+      
     end
   end
 end

@@ -5,22 +5,23 @@
 module Recurly
   module Resources
     class SubscriptionShipping < Resource
-
+      
       # @!attribute address
-      #   @return [ShippingAddress]
+      #   @return [ShippingAddress] 
       define_attribute :address, :ShippingAddress
-
+      
       # @!attribute amount
       #   @return [Float] Subscription's shipping cost
       define_attribute :amount, Float
-
+      
       # @!attribute method
-      #   @return [ShippingMethodMini]
+      #   @return [ShippingMethodMini] 
       define_attribute :method, :ShippingMethodMini
-
+      
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+      
     end
   end
 end

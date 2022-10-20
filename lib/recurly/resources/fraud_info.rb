@@ -5,18 +5,19 @@
 module Recurly
   module Resources
     class FraudInfo < Resource
-
+      
       # @!attribute decision
       #   @return [String] Kount decision
       define_attribute :decision, String
-
+      
       # @!attribute risk_rules_triggered
       #   @return [Hash] Kount rules
       define_attribute :risk_rules_triggered, Hash
-
+      
       # @!attribute score
       #   @return [Integer] Kount score
       define_attribute :score, Integer
+      
     end
   end
 end

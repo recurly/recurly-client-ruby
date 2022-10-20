@@ -5,10 +5,11 @@
 module Recurly
   module Requests
     class BillingInfoVerifyCVV < Request
-
+      
       # @!attribute verification_value
       #   @return [String] Unique security code for a credit card.
       define_attribute :verification_value, String
+      
     end
   end
 end

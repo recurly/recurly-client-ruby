@@ -5,22 +5,23 @@
 module Recurly
   module Requests
     class AccountAcquisitionUpdate < Request
-
+      
       # @!attribute campaign
       #   @return [String] An arbitrary identifier for the marketing campaign that led to the acquisition of this account.
       define_attribute :campaign, String
-
+      
       # @!attribute channel
       #   @return [String] The channel through which the account was acquired.
       define_attribute :channel, String
-
+      
       # @!attribute cost
       #   @return [AccountAcquisitionCost] Account balance
       define_attribute :cost, :AccountAcquisitionCost
-
+      
       # @!attribute subchannel
       #   @return [String] An arbitrary subchannel string representing a distinction/subcategory within a broader channel.
       define_attribute :subchannel, String
+      
     end
   end
 end

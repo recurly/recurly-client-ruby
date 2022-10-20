@@ -5,14 +5,15 @@
 module Recurly
   module Resources
     class DunningInterval < Resource
-
+      
       # @!attribute days
       #   @return [Integer] Number of days before sending the next email.
       define_attribute :days, Integer
-
+      
       # @!attribute email_template
       #   @return [String] Email template being used.
       define_attribute :email_template, String
+      
     end
   end
 end

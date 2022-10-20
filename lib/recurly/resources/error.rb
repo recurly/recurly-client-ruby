@@ -5,18 +5,19 @@
 module Recurly
   module Resources
     class Error < Resource
-
+      
       # @!attribute message
       #   @return [String] Message
       define_attribute :message, String
-
+      
       # @!attribute params
       #   @return [Array[Hash]] Parameter specific errors
-      define_attribute :params, Array, { :item_type => Hash }
-
+      define_attribute :params, Array, {:item_type=>Hash}
+      
       # @!attribute type
       #   @return [String] Type
       define_attribute :type, String
+      
     end
   end
 end

@@ -5,58 +5,59 @@
 module Recurly
   module Requests
     class ShippingAddressCreate < Request
-
+      
       # @!attribute city
-      #   @return [String]
+      #   @return [String] 
       define_attribute :city, String
-
+      
       # @!attribute company
-      #   @return [String]
+      #   @return [String] 
       define_attribute :company, String
-
+      
       # @!attribute country
       #   @return [String] Country, 2-letter ISO 3166-1 alpha-2 code.
       define_attribute :country, String
-
+      
       # @!attribute email
-      #   @return [String]
+      #   @return [String] 
       define_attribute :email, String
-
+      
       # @!attribute first_name
-      #   @return [String]
+      #   @return [String] 
       define_attribute :first_name, String
-
+      
       # @!attribute last_name
-      #   @return [String]
+      #   @return [String] 
       define_attribute :last_name, String
-
+      
       # @!attribute nickname
-      #   @return [String]
+      #   @return [String] 
       define_attribute :nickname, String
-
+      
       # @!attribute phone
-      #   @return [String]
+      #   @return [String] 
       define_attribute :phone, String
-
+      
       # @!attribute postal_code
       #   @return [String] Zip or postal code.
       define_attribute :postal_code, String
-
+      
       # @!attribute region
       #   @return [String] State or province.
       define_attribute :region, String
-
+      
       # @!attribute street1
-      #   @return [String]
+      #   @return [String] 
       define_attribute :street1, String
-
+      
       # @!attribute street2
-      #   @return [String]
+      #   @return [String] 
       define_attribute :street2, String
-
+      
       # @!attribute vat_number
-      #   @return [String]
+      #   @return [String] 
       define_attribute :vat_number, String
+      
     end
   end
 end

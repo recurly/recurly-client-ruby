@@ -5,18 +5,19 @@
 module Recurly
   module Resources
     class AccountBalanceAmount < Resource
-
+      
       # @!attribute amount
       #   @return [Float] Total amount the account is past due.
       define_attribute :amount, Float
-
+      
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
-
+      
       # @!attribute processing_prepayment_amount
       #   @return [Float] Total amount for the prepayment credit invoices in a `processing` state on the account.
       define_attribute :processing_prepayment_amount, Float
+      
     end
   end
 end

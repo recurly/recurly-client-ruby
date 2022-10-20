@@ -5,14 +5,15 @@
 module Recurly
   module Resources
     class ExportFiles < Resource
-
+      
       # @!attribute files
-      #   @return [Array[ExportFile]]
-      define_attribute :files, Array, { :item_type => :ExportFile }
-
+      #   @return [Array[ExportFile]] 
+      define_attribute :files, Array, {:item_type=>:ExportFile}
+      
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+      
     end
   end
 end

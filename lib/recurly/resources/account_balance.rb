@@ -5,22 +5,23 @@
 module Recurly
   module Resources
     class AccountBalance < Resource
-
+      
       # @!attribute account
       #   @return [AccountMini] Account mini details
       define_attribute :account, :AccountMini
-
+      
       # @!attribute balances
-      #   @return [Array[AccountBalanceAmount]]
-      define_attribute :balances, Array, { :item_type => :AccountBalanceAmount }
-
+      #   @return [Array[AccountBalanceAmount]] 
+      define_attribute :balances, Array, {:item_type=>:AccountBalanceAmount}
+      
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
-
+      
       # @!attribute past_due
-      #   @return [Boolean]
+      #   @return [Boolean] 
       define_attribute :past_due, :Boolean
+      
     end
   end
 end

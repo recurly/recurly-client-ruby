@@ -5,14 +5,15 @@
 module Recurly
   module Requests
     class PlanRampInterval < Request
-
+      
       # @!attribute currencies
       #   @return [Array[PlanRampPricing]] Represents the price for the ramp interval.
-      define_attribute :currencies, Array, { :item_type => :PlanRampPricing }
-
+      define_attribute :currencies, Array, {:item_type=>:PlanRampPricing}
+      
       # @!attribute starting_billing_cycle
       #   @return [Integer] Represents the billing cycle where a ramp interval starts.
       define_attribute :starting_billing_cycle, Integer
+      
     end
   end
 end
