@@ -26,6 +26,10 @@ module Recurly
       #   @return [Boolean] The `backup_payment_method` field is used to designate a billing info as a backup on the account that will be tried if the initial billing info used for an invoice is declined. All payment methods, including the billing info marked `primary_payment_method` can be set as a backup. An account can have a maximum of 1 backup, if a user sets a different payment method as a backup, the existing backup will no longer be marked as such.
       define_attribute :backup_payment_method, :Boolean
 
+      # @!attribute card_type
+      #   @return [String]
+      define_attribute :card_type, String
+
       # @!attribute company
       #   @return [String] Company name
       define_attribute :company, String
@@ -35,7 +39,7 @@ module Recurly
       define_attribute :cvv, String
 
       # @!attribute external_hpp_type
-      #   @return [String] Use for Adyen HPP billing info.
+      #   @return [String] Use for Adyen HPP billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.
       define_attribute :external_hpp_type, String
 
       # @!attribute first_name
@@ -79,7 +83,7 @@ module Recurly
       define_attribute :number, String
 
       # @!attribute online_banking_payment_type
-      #   @return [String] Use for Online Banking billing info.
+      #   @return [String] Use for Online Banking billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.
       define_attribute :online_banking_payment_type, String
 
       # @!attribute paypal_billing_agreement_id
@@ -99,11 +103,11 @@ module Recurly
       define_attribute :sort_code, String
 
       # @!attribute tax_identifier
-      #   @return [String] Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.
+      #   @return [String] Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF/CNPJ (Brazil) and CUIT (Argentina). CPF, CNPJ and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.
       define_attribute :tax_identifier, String
 
       # @!attribute tax_identifier_type
-      #   @return [String] This field and a value of `cpf` or `cuit` are required if adding a billing info that is an elo or hipercard type in Brazil or in Argentina.
+      #   @return [String] This field and a value of `cpf`, `cnpj` or `cuit` are required if adding a billing info that is an elo or hipercard type in Brazil or in Argentina.
       define_attribute :tax_identifier_type, String
 
       # @!attribute three_d_secure_action_result_token_id

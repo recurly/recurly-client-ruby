@@ -875,6 +875,47 @@ paths:
               schema:
                 "$ref": "#/components/schemas/ErrorMayHaveTransaction"
       x-code-samples: []
+  "/accounts/{account_id}/billing_info/verify_cvv":
+    post:
+      tags:
+      - billing_info
+      operationId: verify_billing_info_cvv
+      summary: Verify an account's credit card billing cvv
+      parameters:
+      - "$ref": "#/components/parameters/account_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BillingInfoVerifyCVV"
+      responses:
+        '200':
+          description: Transaction information from verify.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Transaction"
+        '429':
+          description: Over limit error. A credit card can only be checked 3 times
+            in 24 hours.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid billing information, or error running the verification
+            transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/billing_infos":
     get:
       tags:
@@ -5358,6 +5399,8 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
   "/dunning_campaigns/{dunning_campaign_id}/bulk_update":
+    parameters:
+    - "$ref": "#/components/parameters/dunning_campaign_id"
     put:
       tags:
       - dunning_campaigns
@@ -6566,6 +6609,12 @@ components:
           format: float
           title: Amount
           description: Total amount the account is past due.
+        processing_prepayment_amount:
+          type: number
+          format: float
+          title: Amount
+          description: Total amount for the prepayment credit invoices in a `processing`
+            state on the account.
     InvoiceAddress:
       allOf:
       - "$ref": "#/components/schemas/Address"
@@ -7329,11 +7378,12 @@ components:
           type: string
           description: Tax identifier is required if adding a billing info that is
             a consumer card in Brazil or in Argentina. This would be the customer's
-            CPF (Brazil) and CUIT (Argentina). CPF and CUIT are tax identifiers for
-            all residents who pay taxes in Brazil and Argentina respectively.
+            CPF/CNPJ (Brazil) and CUIT (Argentina). CPF, CNPJ and CUIT are tax identifiers
+            for all residents who pay taxes in Brazil and Argentina respectively.
         tax_identifier_type:
-          description: This field and a value of `cpf` or `cuit` are required if adding
-            a billing info that is an elo or hipercard type in Brazil or in Argentina.
+          description: This field and a value of `cpf`, `cnpj` or `cuit` are required
+            if adding a billing info that is an elo or hipercard type in Brazil or
+            in Argentina.
           "$ref": "#/components/schemas/TaxIdentifierTypeEnum"
         primary_payment_method:
           type: boolean
@@ -7358,6 +7408,8 @@ components:
           "$ref": "#/components/schemas/ExternalHppTypeEnum"
         online_banking_payment_type:
           "$ref": "#/components/schemas/OnlineBankingPaymentTypeEnum"
+        card_type:
+          "$ref": "#/components/schemas/CardTypeEnum"
     BillingInfoVerify:
       type: object
       properties:
@@ -7365,6 +7417,12 @@ components:
           type: string
           description: An identifier for a specific payment gateway.
           maxLength: 13
+    BillingInfoVerifyCVV:
+      type: object
+      properties:
+        verification_value:
+          type: string
+          description: Unique security code for a credit card.
     Coupon:
       type: object
       properties:
@@ -7960,7 +8018,7 @@ components:
           title: Field value
           description: Any values that resemble a credit card number or security code
             (CVV/CVC) will be rejected.
-          maxLength: 100
+          maxLength: 255
       required:
       - name
       - value
@@ -8998,6 +9056,14 @@ components:
           description: This number will be multiplied by the unit amount to compute
             the subtotal before any discounts or taxes.
           default: 1
+        quantity_decimal:
+          type: string
+          title: Quantity Decimal
+          description: A floating-point alternative to Quantity. If this value is
+            present, it will be used in place of Quantity for calculations, and Quantity
+            will be the rounded integer value of this number. This field supports
+            up to 9 decimal places. The Decimal Quantity feature must be enabled to
+            utilize this field.
         unit_amount:
           type: number
           format: float
@@ -9007,6 +9073,12 @@ components:
           type: string
           title: Unit amount decimal
           description: Positive amount for a charge, negative amount for a credit.
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to utilize this flag.
         subtotal:
           type: number
           format: float
@@ -9076,6 +9148,13 @@ components:
           title: Refunded Quantity
           description: For refund charges, the quantity being refunded. For non-refund
             charges, the total quantity refunded (possibly over multiple refunds).
+        refunded_quantity_decimal:
+          type: string
+          title: Refunded Quantity Decimal
+          description: A floating-point alternative to Refunded Quantity. For refund
+            charges, the quantity being refunded. For non-refund charges, the total
+            quantity refunded (possibly over multiple refunds). The Decimal Quantity
+            feature must be enabled to utilize this field.
         credit_applied:
           type: number
           format: float
@@ -9117,6 +9196,14 @@ components:
           type: integer
           title: Quantity
           description: Line item quantity to be refunded.
+        quantity_decimal:
+          type: string
+          title: Quantity Decimal
+          description: A floating-point alternative to Quantity. If this value is
+            present, it will be used in place of Quantity for calculations, and Quantity
+            will be the rounded integer value of this number. This field supports
+            up to 9 decimal places. The Decimal Quantity feature must be enabled to
+            utilize this field.
         prorate:
           type: boolean
           title: Prorate
@@ -9686,7 +9773,7 @@ components:
       properties:
         starting_billing_cycle:
           type: integer
-          description: Represents the first billing cycle of a ramp.
+          description: Represents the billing cycle where a ramp interval starts.
           default: 1
         currencies:
           type: array
@@ -10494,6 +10581,13 @@ components:
           default: true
           title: Auto renew
           description: Whether the subscription renews at the end of its term.
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The ramp intervals representing the pricing schedule for the
+            subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampIntervalResponse"
         paused_at:
           type: string
           format: date-time
@@ -10517,6 +10611,12 @@ components:
           type: number
           format: float
           title: Subscription unit price
+        tax_inclusive:
+          type: boolean
+          title: Tax Inclusive?
+          description: Determines whether or not tax is included in the unit amount.
+            The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing
+            feature) must be enabled to utilize this flag.
         quantity:
           type: integer
           title: Subscription quantity
@@ -10981,6 +11081,8 @@ components:
         ramp_intervals:
           type: array
           title: Ramp Intervals
+          description: The ramp intervals representing the pricing schedule for the
+            subscription.
           items:
             "$ref": "#/components/schemas/SubscriptionRampIntervalResponse"
     SubscriptionChangeBillingInfo:
@@ -11105,6 +11207,7 @@ components:
         ramp_intervals:
           type: array
           title: Ramp Intervals
+          description: The new set of ramp intervals for the subscription.
           items:
             "$ref": "#/components/schemas/SubscriptionRampInterval"
     SubscriptionChangeShippingCreate:
@@ -11136,7 +11239,7 @@ components:
             zero then a `method_id` or `method_code` is required.
         address_id:
           type: string
-          titpe: Shipping address ID
+          title: Shipping address ID
           description: Assign a shipping address from the account's existing shipping
             addresses. If this and address are both present, address will take precedence.
         address:
@@ -11261,6 +11364,12 @@ components:
           default: true
           title: Auto renew
           description: Whether the subscription renews at the end of its term.
+        ramp_intervals:
+          type: array
+          title: Ramp Intervals
+          description: The new set of ramp intervals for the subscription.
+          items:
+            "$ref": "#/components/schemas/SubscriptionRampInterval"
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -11403,6 +11512,7 @@ components:
         ramp_intervals:
           type: array
           title: Ramp Intervals
+          description: The new set of ramp intervals for the subscription.
           items:
             "$ref": "#/components/schemas/SubscriptionRampInterval"
       required:
@@ -11586,7 +11696,7 @@ components:
       properties:
         starting_billing_cycle:
           type: integer
-          description: Represents how many billing cycles are included in a ramp interval.
+          description: Represents the billing cycle where a ramp interval starts.
           default: 1
         unit_amount:
           type: integer
@@ -11597,7 +11707,7 @@ components:
       properties:
         starting_billing_cycle:
           type: integer
-          description: Represents how many billing cycles are included in a ramp interval.
+          description: Represents the billing cycle where a ramp interval starts.
         remaining_billing_cycles:
           type: integer
           description: Represents how many billing cycles are left in a ramp interval.
@@ -11965,10 +12075,11 @@ components:
         amount:
           type: number
           format: float
-          description: The amount of usage. Can be positive, negative, or 0. No decimals
-            allowed, we will strip them. If the usage-based add-on is billed with
-            a percentage, your usage will be a monetary amount you will want to format
-            in cents. (e.g., $5.00 is "500").
+          description: The amount of usage. Can be positive, negative, or 0. If the
+            Decimal Quantity feature is enabled, this value will be rounded to nine
+            decimal places.  Otherwise, all digits after the decimal will be stripped.
+            If the usage-based add-on is billed with a percentage, your usage should
+            be a monetary amount formatted in cents (e.g., $5.00 is "500").
         usage_type:
           "$ref": "#/components/schemas/UsageTypeEnum"
         tier_type:
@@ -12039,10 +12150,11 @@ components:
         amount:
           type: number
           format: float
-          description: The amount of usage. Can be positive, negative, or 0. No decimals
-            allowed, we will strip them. If the usage-based add-on is billed with
-            a percentage, your usage will be a monetary amount you will want to format
-            in cents. (e.g., $5.00 is "500").
+          description: The amount of usage. Can be positive, negative, or 0. If the
+            Decimal Quantity feature is enabled, this value will be rounded to nine
+            decimal places.  Otherwise, all digits after the decimal will be stripped.
+            If the usage-based add-on is billed with a percentage, your usage should
+            be a monetary amount formatted in cents (e.g., $5.00 is "500").
         recording_timestamp:
           type: string
           format: date-time
@@ -12457,6 +12569,10 @@ components:
         routing_number_bank:
           type: string
           description: The bank name of this routing number.
+        username:
+          type: string
+          description: Username of the associated payment method. Currently only associated
+            with Venmo.
     Error:
       type: object
       properties:
@@ -12639,11 +12755,13 @@ components:
       - ko-KR
       - nl-BE
       - nl-NL
+      - pl-PL
       - pt-BR
       - pt-PT
       - ro-RO
       - ru-RU
       - sk-SK
+      - sv-SE
       - tr-TR
       - zh-CN
     BillToEnum:
@@ -13062,6 +13180,7 @@ components:
       - paypal_billing_agreement
       - roku
       - sepadirectdebit
+      - venmo
       - wire_transfer
       - braintree_v_zero
     CardTypeEnum:
@@ -13326,6 +13445,7 @@ components:
       type: string
       enum:
       - cpf
+      - cnpj
       - cuit
     DunningCycleTypeEnum:
       type: string
@@ -13349,12 +13469,16 @@ components:
       - savings
     ExternalHppTypeEnum:
       type: string
-      description: Use for Adyen HPP billing info.
+      description: Use for Adyen HPP billing info. This should only be used as part
+        of a pending purchase request, when the billing info is nested inside an account
+        object.
       enum:
       - adyen
     OnlineBankingPaymentTypeEnum:
       type: string
-      description: Use for Online Banking billing info.
+      description: Use for Online Banking billing info. This should only be used as
+        part of a pending purchase request, when the billing info is nested inside
+        an account object.
       enum:
       - ideal
       - sofort

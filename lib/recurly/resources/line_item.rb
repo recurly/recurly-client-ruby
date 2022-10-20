@@ -130,6 +130,10 @@ module Recurly
       #   @return [Integer] This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
       define_attribute :quantity, Integer
 
+      # @!attribute quantity_decimal
+      #   @return [String] A floating-point alternative to Quantity. If this value is present, it will be used in place of Quantity for calculations, and Quantity will be the rounded integer value of this number. This field supports up to 9 decimal places. The Decimal Quantity feature must be enabled to utilize this field.
+      define_attribute :quantity_decimal, String
+
       # @!attribute refund
       #   @return [Boolean] Refund?
       define_attribute :refund, :Boolean
@@ -137,6 +141,10 @@ module Recurly
       # @!attribute refunded_quantity
       #   @return [Integer] For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds).
       define_attribute :refunded_quantity, Integer
+
+      # @!attribute refunded_quantity_decimal
+      #   @return [String] A floating-point alternative to Refunded Quantity. For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds). The Decimal Quantity feature must be enabled to utilize this field.
+      define_attribute :refunded_quantity_decimal, String
 
       # @!attribute revenue_schedule_type
       #   @return [String] Revenue schedule type
@@ -173,6 +181,10 @@ module Recurly
       # @!attribute tax_exempt
       #   @return [Boolean] `true` exempts tax on charges, `false` applies tax on charges. If not defined, then defaults to the Plan and Site settings. This attribute does not work for credits (negative line items). Credits are always applied post-tax. Pre-tax discounts should use the Coupons feature.
       define_attribute :tax_exempt, :Boolean
+
+      # @!attribute tax_inclusive
+      #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to utilize this flag.
+      define_attribute :tax_inclusive, :Boolean
 
       # @!attribute tax_info
       #   @return [TaxInfo] Tax info

@@ -282,6 +282,21 @@ module Recurly
       post(path, options[:body], Requests::BillingInfoVerify, **options)
     end
 
+    # Verify an account's credit card billing cvv
+    #
+    # {https://developers.recurly.com/api/v2022-01-01#operation/verify_billing_info_cvv verify_billing_info_cvv api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param body [Requests::BillingInfoVerifyCVV] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoVerifyCVV}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::Transaction] Transaction information from verify.
+    #
+    def verify_billing_info_cvv(account_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_info/verify_cvv", account_id: account_id)
+      post(path, body, Requests::BillingInfoVerifyCVV, **options)
+    end
+
     # Get the list of billing information associated with an account
     #
     # {https://developers.recurly.com/api/v2022-01-01#operation/list_billing_infos list_billing_infos api documentation}
@@ -2780,13 +2795,14 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2022-01-01#operation/put_dunning_campaign_bulk_update put_dunning_campaign_bulk_update api documentation}
     #
+    # @param dunning_campaign_id [String] Dunning Campaign ID, e.g. +e28zov4fw0v2+.
     # @param body [Requests::DunningCampaignsBulkUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::DunningCampaignsBulkUpdate}
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::DunningCampaignsBulkUpdateResponse] A list of updated plans.
     #
-    def put_dunning_campaign_bulk_update(body:, **options)
-      path = "/dunning_campaigns/{dunning_campaign_id}/bulk_update"
+    def put_dunning_campaign_bulk_update(dunning_campaign_id:, body:, **options)
+      path = interpolate_path("/dunning_campaigns/{dunning_campaign_id}/bulk_update", dunning_campaign_id: dunning_campaign_id)
       put(path, body, Requests::DunningCampaignsBulkUpdate, **options)
     end
 

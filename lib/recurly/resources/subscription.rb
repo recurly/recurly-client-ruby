@@ -126,6 +126,10 @@ module Recurly
       #   @return [Integer] Subscription quantity
       define_attribute :quantity, Integer
 
+      # @!attribute ramp_intervals
+      #   @return [Array[SubscriptionRampIntervalResponse]] The ramp intervals representing the pricing schedule for the subscription.
+      define_attribute :ramp_intervals, Array, { :item_type => :SubscriptionRampIntervalResponse }
+
       # @!attribute remaining_billing_cycles
       #   @return [Integer] The remaining billing cycles in the current term.
       define_attribute :remaining_billing_cycles, Integer
@@ -157,6 +161,10 @@ module Recurly
       # @!attribute tax
       #   @return [Float] Estimated tax
       define_attribute :tax, Float
+
+      # @!attribute tax_inclusive
+      #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to utilize this flag.
+      define_attribute :tax_inclusive, :Boolean
 
       # @!attribute tax_info
       #   @return [TaxInfo] Tax info

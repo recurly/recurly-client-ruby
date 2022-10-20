@@ -35,7 +35,7 @@ module Recurly
       define_attribute :quantity, Integer
 
       # @!attribute ramp_intervals
-      #   @return [Array[SubscriptionRampInterval]] Ramp Intervals
+      #   @return [Array[SubscriptionRampInterval]] The new set of ramp intervals for the subscription.
       define_attribute :ramp_intervals, Array, { :item_type => :SubscriptionRampInterval }
 
       # @!attribute renewal_billing_cycles

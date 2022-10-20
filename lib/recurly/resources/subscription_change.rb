@@ -55,7 +55,7 @@ module Recurly
       define_attribute :quantity, Integer
 
       # @!attribute ramp_intervals
-      #   @return [Array[SubscriptionRampIntervalResponse]] Ramp Intervals
+      #   @return [Array[SubscriptionRampIntervalResponse]] The ramp intervals representing the pricing schedule for the subscription.
       define_attribute :ramp_intervals, Array, { :item_type => :SubscriptionRampIntervalResponse }
 
       # @!attribute revenue_schedule_type
