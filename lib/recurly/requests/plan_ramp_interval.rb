@@ -11,7 +11,7 @@ module Recurly
       define_attribute :currencies, Array, { :item_type => :PlanRampPricing }
 
       # @!attribute starting_billing_cycle
-      #   @return [Integer] Represents the first billing cycle of a ramp.
+      #   @return [Integer] Represents the billing cycle where a ramp interval starts.
       define_attribute :starting_billing_cycle, Integer
     end
   end
