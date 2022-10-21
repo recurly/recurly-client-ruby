@@ -3841,12 +3841,13 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/put_dunning_campaign_bulk_update put_dunning_campaign_bulk_update api documentation}
     #
+    # @param dunning_campaign_id [String] Dunning Campaign ID, e.g. +e28zov4fw0v2+.
     # @param body [Requests::DunningCampaignsBulkUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::DunningCampaignsBulkUpdate}
     #
     # @return [Resources::DunningCampaignsBulkUpdateResponse] A list of updated plans.
     #
-    def put_dunning_campaign_bulk_update(body:)
-      path = "/dunning_campaigns/{dunning_campaign_id}/bulk_update"
+    def put_dunning_campaign_bulk_update(dunning_campaign_id:, body:)
+      path = interpolate_path("/dunning_campaigns/{dunning_campaign_id}/bulk_update", dunning_campaign_id: dunning_campaign_id)
       put(path, body, Requests::DunningCampaignsBulkUpdate)
     end
   end

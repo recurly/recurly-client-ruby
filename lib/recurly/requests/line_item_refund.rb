@@ -17,6 +17,10 @@ module Recurly
       # @!attribute quantity
       #   @return [Integer] Line item quantity to be refunded.
       define_attribute :quantity, Integer
+
+      # @!attribute quantity_decimal
+      #   @return [String] A floating-point alternative to Quantity. If this value is present, it will be used in place of Quantity for calculations, and Quantity will be the rounded integer value of this number. This field supports up to 9 decimal places. The Decimal Quantity feature must be enabled to utilize this field.
+      define_attribute :quantity_decimal, String
     end
   end
 end

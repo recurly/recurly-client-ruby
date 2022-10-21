@@ -7,7 +7,7 @@ module Recurly
     class Usage < Resource
 
       # @!attribute amount
-      #   @return [Float] The amount of usage. Can be positive, negative, or 0. No decimals allowed, we will strip them. If the usage-based add-on is billed with a percentage, your usage will be a monetary amount you will want to format in cents. (e.g., $5.00 is "500").
+      #   @return [Float] The amount of usage. Can be positive, negative, or 0. If the Decimal Quantity feature is enabled, this value will be rounded to nine decimal places.  Otherwise, all digits after the decimal will be stripped. If the usage-based add-on is billed with a percentage, your usage should be a monetary amount formatted in cents (e.g., $5.00 is "500").
       define_attribute :amount, Float
 
       # @!attribute billed_at

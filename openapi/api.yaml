@@ -14463,6 +14463,8 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
   "/dunning_campaigns/{dunning_campaign_id}/bulk_update":
+    parameters:
+    - "$ref": "#/components/parameters/dunning_campaign_id"
     put:
       tags:
       - dunning_campaigns
@@ -18423,6 +18425,14 @@ components:
           description: This number will be multiplied by the unit amount to compute
             the subtotal before any discounts or taxes.
           default: 1
+        quantity_decimal:
+          type: string
+          title: Quantity Decimal
+          description: A floating-point alternative to Quantity. If this value is
+            present, it will be used in place of Quantity for calculations, and Quantity
+            will be the rounded integer value of this number. This field supports
+            up to 9 decimal places. The Decimal Quantity feature must be enabled to
+            utilize this field.
         unit_amount:
           type: number
           format: float
@@ -18503,6 +18513,13 @@ components:
           title: Refunded Quantity
           description: For refund charges, the quantity being refunded. For non-refund
             charges, the total quantity refunded (possibly over multiple refunds).
+        refunded_quantity_decimal:
+          type: string
+          title: Refunded Quantity Decimal
+          description: A floating-point alternative to Refunded Quantity. For refund
+            charges, the quantity being refunded. For non-refund charges, the total
+            quantity refunded (possibly over multiple refunds). The Decimal Quantity
+            feature must be enabled to utilize this field.
         credit_applied:
           type: number
           format: float
@@ -18544,6 +18561,14 @@ components:
           type: integer
           title: Quantity
           description: Line item quantity to be refunded.
+        quantity_decimal:
+          type: string
+          title: Quantity Decimal
+          description: A floating-point alternative to Quantity. If this value is
+            present, it will be used in place of Quantity for calculations, and Quantity
+            will be the rounded integer value of this number. This field supports
+            up to 9 decimal places. The Decimal Quantity feature must be enabled to
+            utilize this field.
         prorate:
           type: boolean
           title: Prorate
@@ -19335,7 +19360,7 @@ components:
       properties:
         starting_billing_cycle:
           type: integer
-          description: Represents the first billing cycle of a ramp.
+          description: Represents the billing cycle where a ramp interval starts.
           default: 1
         currencies:
           type: array
@@ -21093,7 +21118,7 @@ components:
       properties:
         starting_billing_cycle:
           type: integer
-          description: Represents how many billing cycles are included in a ramp interval.
+          description: Represents the billing cycle where a ramp interval starts.
           default: 1
         unit_amount:
           type: integer
@@ -21104,7 +21129,7 @@ components:
       properties:
         starting_billing_cycle:
           type: integer
-          description: Represents how many billing cycles are included in a ramp interval.
+          description: Represents the billing cycle where a ramp interval starts.
         remaining_billing_cycles:
           type: integer
           description: Represents how many billing cycles are left in a ramp interval.
@@ -21533,10 +21558,11 @@ components:
         amount:
           type: number
           format: float
-          description: The amount of usage. Can be positive, negative, or 0. No decimals
-            allowed, we will strip them. If the usage-based add-on is billed with
-            a percentage, your usage will be a monetary amount you will want to format
-            in cents. (e.g., $5.00 is "500").
+          description: The amount of usage. Can be positive, negative, or 0. If the
+            Decimal Quantity feature is enabled, this value will be rounded to nine
+            decimal places.  Otherwise, all digits after the decimal will be stripped.
+            If the usage-based add-on is billed with a percentage, your usage should
+            be a monetary amount formatted in cents (e.g., $5.00 is "500").
         usage_type:
           type: string
           enum:
@@ -21609,10 +21635,11 @@ components:
         amount:
           type: number
           format: float
-          description: The amount of usage. Can be positive, negative, or 0. No decimals
-            allowed, we will strip them. If the usage-based add-on is billed with
-            a percentage, your usage will be a monetary amount you will want to format
-            in cents. (e.g., $5.00 is "500").
+          description: The amount of usage. Can be positive, negative, or 0. If the
+            Decimal Quantity feature is enabled, this value will be rounded to nine
+            decimal places.  Otherwise, all digits after the decimal will be stripped.
+            If the usage-based add-on is billed with a percentage, your usage should
+            be a monetary amount formatted in cents (e.g., $5.00 is "500").
         recording_timestamp:
           type: string
           format: date-time
