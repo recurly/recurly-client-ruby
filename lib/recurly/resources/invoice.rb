@@ -58,6 +58,14 @@ module Recurly
       #   @return [String] Unique ID to identify the dunning campaign used when dunning the invoice. For sites without multiple dunning campaigns enabled, this will always be the default dunning campaign.
       define_attribute :dunning_campaign_id, String
 
+      # @!attribute dunning_events_sent
+      #   @return [Integer] Number of times the event was sent.
+      define_attribute :dunning_events_sent, Integer
+
+      # @!attribute final_dunning_event
+      #   @return [Boolean] Last communication attempt.
+      define_attribute :final_dunning_event, :Boolean
+
       # @!attribute has_more_line_items
       #   @return [Boolean] Identifies if the invoice has more line items than are returned in `line_items`. If `has_more_line_items` is `true`, then a request needs to be made to the `list_invoice_line_items` endpoint.
       define_attribute :has_more_line_items, :Boolean
