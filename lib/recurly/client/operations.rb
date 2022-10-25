@@ -4091,5 +4091,24 @@ module Recurly
       path = interpolate_path("/invoice_templates/{invoice_template_id}", invoice_template_id: invoice_template_id)
       get(path, **options)
     end
+
+    # Show all entitlements granted to an account
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements list_entitlements api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param params [Hash] Optional query string parameters:
+    #        :state [String] Filter the entitlements based on the state of the applicable subscription.
+    #
+    #   - When +state=active+, +state=canceled+, +state=expired+, or +state=future+, subscriptions with states that match the query and only those subscriptions will be returned.
+    #   - When no state is provided, subscriptions with active or canceled states will be returned.
+    #
+    #
+    # @return [Pager<Resources::Entitlements>] A list of the entitlements granted to an account.
+    #
+    def list_entitlements(account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/entitlements", account_id: account_id)
+      pager(path, **options)
+    end
   end
 end
