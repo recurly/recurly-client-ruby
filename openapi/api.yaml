@@ -305,6 +305,8 @@ tags:
   description: A purchase is a checkout containing at least one or more subscriptions
     or one-time charges (line items) and supports both coupon and gift card redemptions.
     All items purchased will be on one invoice and paid for with one transaction.
+    The purchases endpoint can also be used to immediately create a credit invoice
+    on an account, when Credit Invoices is enabled on your site.
 - name: usage
   x-displayName: Usage
   description: Send Recurly your customer usage and we will automatically bill them
@@ -3773,6 +3775,8 @@ paths:
       - line_item
       operationId: create_line_item
       summary: Create a new line item for the account
+      description: When using the Credit Invoices feature, utilize the purchases endpoint
+        in order to immediately post credit to a credit invoice.
       parameters:
       - "$ref": "#/components/parameters/account_id"
       requestBody:
@@ -15065,6 +15069,35 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/accounts/{account_id}/entitlements":
+    parameters:
+    - "$ref": "#/components/parameters/account_id"
+    - "$ref": "#/components/parameters/filter_limited_subscription_state"
+    get:
+      tags:
+      - account
+      operationId: list_entitlements
+      summary: Show all entitlements granted to an account
+      responses:
+        '200':
+          description: A list of the entitlements granted to an account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Entitlements"
+        '404':
+          description: Incorrect site or account ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
 servers:
 - url: https://v3.recurly.com
 - url: https://v3.eu.recurly.com
@@ -15306,6 +15339,16 @@ components:
         - When `state=live`, only subscriptions that are in an active, canceled, or future state or are in trial will be returned.
       schema:
         "$ref": "#/components/schemas/FilterSubscriptionStateEnum"
+    filter_limited_subscription_state:
+      name: state
+      in: query
+      description: |
+        Filter the entitlements based on the state of the applicable subscription.
+
+        - When `state=active`, `state=canceled`, `state=expired`, or `state=future`, subscriptions with states that match the query and only those subscriptions will be returned.
+        - When no state is provided, subscriptions with active or canceled states will be returned.
+      schema:
+        "$ref": "#/components/schemas/FilterLimitedSubscriptionStateEnum"
     filter_begin_time:
       name: begin_time
       in: query
@@ -22093,6 +22136,75 @@ components:
           maxItems: 200
           items:
             "$ref": "#/components/schemas/Plan"
+    Entitlements:
+      type: object
+      description: A list of privileges granted to a customer through the purchase
+        of a plan or item.
+      properties:
+        object:
+          type: string
+          title: Object Type
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Entitlement"
+    Entitlement:
+      type: object
+      properties:
+        object:
+          type: string
+          description: Entitlement
+        customer_permission:
+          "$ref": "#/components/schemas/CustomerPermission"
+        granted_by:
+          type: array
+          description: Subscription or item that granted the customer permission.
+          items:
+            "$ref": "#/components/schemas/GrantedBy"
+        created_at:
+          type: string
+          format: date-time
+          description: Time object was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Time the object was last updated
+    CustomerPermission:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Customer permission ID.
+        code:
+          type: string
+          description: Customer permission code.
+        name:
+          type: string
+          description: Customer permission name.
+        description:
+          type: string
+          description: Description of customer permission.
+        object:
+          type: string
+          description: It will always be "customer_permission".
+    GrantedBy:
+      type: object
+      description: The subscription or external subscription that grants customer
+        permissions.
+      properties:
+        object:
+          type: string
+          title: Object Type
+        id:
+          type: string
+          description: The ID of the subscription or external subscription that grants
+            the permission to the account.
     InvoiceTemplateList:
       type: object
       properties:
@@ -22306,6 +22418,13 @@ components:
       - future
       - in_trial
       - live
+    FilterLimitedSubscriptionStateEnum:
+      type: string
+      enum:
+      - active
+      - canceled
+      - expired
+      - future
     TrueEnum:
       type: string
       enum:
