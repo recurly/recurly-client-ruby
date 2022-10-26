@@ -305,6 +305,24 @@ XML
       end
     end
 
+    describe "when account has entitlements" do
+      let(:account) {
+        stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+        stub_api_request :get, 'accounts/abcdef1234567890/entitlements', 'accounts/entitlements/show-200'
+        Account.find 'abcdef1234567890'
+      }
+
+      it "is able to retrieve and parse entitlements" do
+        entitlements = account.entitlements
+        entitlement = entitlements.first
+        entitlement.must_be_instance_of Entitlement
+        entitlement.account.must_be_instance_of Account
+        entitlement.customer_permission.must_be_instance_of CustomerPermission
+        entitlement.granted_by.first.must_be_instance_of ExternalSubscription
+        entitlement.granted_by.last.must_be_instance_of Subscription
+      end
+    end
+
     describe "when account has notes" do
       let(:account) {
         stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
