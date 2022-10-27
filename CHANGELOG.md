@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.18.28](https://github.com/recurly/recurly-client-ruby/tree/2.18.28) (2022-10-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.27...2.18.28)
+
+
+**Merged Pull Requests**
+
+- Update client library to support entitlements [#798](https://github.com/recurly/recurly-client-ruby/pull/798) ([lsfernandes92](https://github.com/lsfernandes92))
+
+
+
 ## [2.18.27](https://github.com/recurly/recurly-client-ruby/tree/2.18.27) (2022-10-20)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.26...2.18.27)
