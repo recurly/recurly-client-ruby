@@ -48,4 +48,5 @@ module Recurly
 
   require_relative "./errors/api_errors"
   require_relative "./errors/network_errors"
+  require_relative "./errors/webhooks_errors"
 end
