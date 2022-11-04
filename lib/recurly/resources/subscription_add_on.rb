@@ -47,7 +47,7 @@ module Recurly
       define_attribute :subscription_id, String
 
       # @!attribute tier_type
-      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview of how to configure quantity-based pricing models.
+      #   @return [String] The pricing model for the add-on.  For more information, [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See our [Guide](https://recurly.com/developers/guides/item-addon-guide.html) for an overview of how to configure quantity-based pricing models.
       define_attribute :tier_type, String
 
       # @!attribute tiers
