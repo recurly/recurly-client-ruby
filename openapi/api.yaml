@@ -304,6 +304,8 @@ tags:
   description: A purchase is a checkout containing at least one or more subscriptions
     or one-time charges (line items) and supports both coupon and gift card redemptions.
     All items purchased will be on one invoice and paid for with one transaction.
+    The purchases endpoint can also be used to immediately create a credit invoice
+    on an account, when Credit Invoices is enabled on your site.
 - name: usage
   x-displayName: Usage
   description: Send Recurly your customer usage and we will automatically bill them
@@ -3715,6 +3717,8 @@ paths:
       - line_item
       operationId: create_line_item
       summary: Create a new line item for the account
+      description: When using the Credit Invoices feature, utilize the purchases endpoint
+        in order to immediately post credit to a credit invoice.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
