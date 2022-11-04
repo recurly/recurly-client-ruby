@@ -38,6 +38,10 @@ module Recurly
       #   @return [Array[PlanPricing]] Pricing
       define_attribute :currencies, Array, { :item_type => :PlanPricing }
 
+      # @!attribute custom_fields
+      #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
+
       # @!attribute deleted_at
       #   @return [DateTime] Deleted at
       define_attribute :deleted_at, DateTime

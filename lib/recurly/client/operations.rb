@@ -565,7 +565,7 @@ module Recurly
       delete(path, **options)
     end
 
-    # Show the coupon redemptions for an account
+    # List the coupon redemptions for an account
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_account_coupon_redemptions list_account_coupon_redemptions api documentation}
     #
@@ -610,7 +610,7 @@ module Recurly
       pager(path, **options)
     end
 
-    # Show the coupon redemption that is active on an account
+    # Fetch the coupon redemption that is active on an account
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/get_active_coupon_redemption get_active_coupon_redemption api documentation}
     #
@@ -916,7 +916,7 @@ module Recurly
       post(path, body, Requests::LineItemCreate, **options)
     end
 
-    # Fetch a list of an account's notes
+    # List an account's notes
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_account_notes list_account_notes api documentation}
     #
@@ -2240,7 +2240,7 @@ module Recurly
       pager(path, **options)
     end
 
-    # Show the coupon redemptions applied to an invoice
+    # List the coupon redemptions applied to an invoice
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_invoice_coupon_redemptions list_invoice_coupon_redemptions api documentation}
     #
@@ -3427,7 +3427,7 @@ module Recurly
       pager(path, **options)
     end
 
-    # Show the coupon redemptions for a subscription
+    # List the coupon redemptions for a subscription
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_subscription_coupon_redemptions list_subscription_coupon_redemptions api documentation}
     #
@@ -3808,7 +3808,7 @@ module Recurly
       get(path, **options)
     end
 
-    # Show the dunning campaigns for a site
+    # List the dunning campaigns for a site
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_dunning_campaigns list_dunning_campaigns api documentation}
     #
@@ -3824,7 +3824,7 @@ module Recurly
       pager(path, **options)
     end
 
-    # Show the settings for a dunning campaign
+    # Fetch a dunning campaign
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/get_dunning_campaign get_dunning_campaign api documentation}
     #

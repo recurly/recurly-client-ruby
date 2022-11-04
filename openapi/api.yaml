@@ -57,7 +57,7 @@ info:
 
     We encourage you to update to the latest version of the API and corresponding client library,
     as most recent versions are more performant than their predecessors. See the
-    [changelog](https://developers.recurly.com/api/changelog.html) for a comprehensive list of changes
+    [changelog](https://recurly.com/developers/api/changelog.html) for a comprehensive list of changes
     introduced in the latest API version.
 
     ### Default Versions
@@ -113,7 +113,7 @@ info:
     Please consider changing these messages in target system to be better
     suited to the audience of the system.
 
-    Please see [transaction error codes](https://developers.recurly.com/pages/api-transaction-errors.html) for more details.
+    Please see [transaction error codes](https://recurly.com/developers/pages/api-transaction-errors.html) for more details.
 
     ## Pagination
     ### Response Schema
@@ -180,7 +180,7 @@ info:
 
     ## Change Log
 
-    A list of changes for this version can be found [in the changelog](https://developers.recurly.com/api/changelog.html#v2019-10-10).
+    A list of changes for this version can be found [in the changelog](https://recurly.com/developers/api/changelog.html#v2019-10-10).
   version: v2019-10-10
 security:
 - api_key: []
@@ -304,6 +304,8 @@ tags:
   description: A purchase is a checkout containing at least one or more subscriptions
     or one-time charges (line items) and supports both coupon and gift card redemptions.
     All items purchased will be on one invoice and paid for with one transaction.
+    The purchases endpoint can also be used to immediately create a credit invoice
+    on an account, when Credit Invoices is enabled on your site.
 - name: usage
   x-displayName: Usage
   description: Send Recurly your customer usage and we will automatically bill them
@@ -2634,7 +2636,7 @@ paths:
       tags:
       - coupon_redemption
       operationId: list_account_coupon_redemptions
-      summary: Show the coupon redemptions for an account
+      summary: List the coupon redemptions for an account
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
@@ -2723,7 +2725,7 @@ paths:
       tags:
       - coupon_redemption
       operationId: get_active_coupon_redemption
-      summary: Show the coupon redemption that is active on an account
+      summary: Fetch the coupon redemption that is active on an account
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -3715,6 +3717,8 @@ paths:
       - line_item
       operationId: create_line_item
       summary: Create a new line item for the account
+      description: When using the Credit Invoices feature, utilize the purchases endpoint
+        in order to immediately post credit to a credit invoice.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -3883,7 +3887,7 @@ paths:
       tags:
       - note
       operationId: list_account_notes
-      summary: Fetch a list of an account's notes
+      summary: List an account's notes
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
@@ -6169,6 +6173,7 @@ paths:
           enum:
           - account
           - item
+          - plan
           - subscription
       responses:
         '200':
@@ -8658,7 +8663,7 @@ paths:
       tags:
       - coupon_redemption
       operationId: list_invoice_coupon_redemptions
-      summary: Show the coupon redemptions applied to an invoice
+      summary: List the coupon redemptions applied to an invoice
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
@@ -13107,7 +13112,7 @@ paths:
       tags:
       - coupon_redemption
       operationId: list_subscription_coupon_redemptions
-      summary: Show the coupon redemptions for a subscription
+      summary: List the coupon redemptions for a subscription
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
@@ -14403,7 +14408,7 @@ paths:
       tags:
       - dunning_campaigns
       operationId: list_dunning_campaigns
-      summary: Show the dunning campaigns for a site
+      summary: List the dunning campaigns for a site
       description: See the [Pagination Guide](/guides/pagination.html) to learn how
         to use pagination in the API and Client Libraries.
       parameters:
@@ -14435,7 +14440,7 @@ paths:
       tags:
       - dunning_campaigns
       operationId: get_dunning_campaign
-      summary: Show the settings for a dunning campaign
+      summary: Fetch a dunning campaign
       responses:
         '200':
           description: Settings for a dunning campaign.
@@ -16061,7 +16066,7 @@ components:
           title: Usage Type
           description: |
             Type of usage, required if `add_on_type` is `usage`. See our
-            [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html)
+            [Guide](https://recurly.com/developers/guides/usage-based-billing-guide.html)
             for an overview of how to configure usage add-ons.
         usage_percentage:
           type: number
@@ -16177,7 +16182,7 @@ components:
           description: |
             The pricing model for the add-on.  For more information,
             [click here](https://docs.recurly.com/docs/billing-models#section-quantity-based). See
-            our [Guide](https://developers.recurly.com/guides/item-addon-guide.html) for an overview
+            our [Guide](https://recurly.com/developers/guides/item-addon-guide.html) for an overview
             of how to configure quantity-based pricing models.
           default: flat
           enum:
@@ -16428,7 +16433,7 @@ components:
         token_id:
           type: string
           title: Token ID
-          description: A token [generated by Recurly.js](https://developers.recurly.com/reference/recurly-js/#getting-a-token).
+          description: A token [generated by Recurly.js](https://recurly.com/developers/reference/recurly-js/#getting-a-token).
           maxLength: 22
         first_name:
           type: string
@@ -17291,6 +17296,7 @@ components:
           enum:
           - account
           - item
+          - plan
           - subscription
         name:
           type: string
@@ -18869,6 +18875,8 @@ components:
           title: Ramp Intervals
           items:
             "$ref": "#/components/schemas/PlanRampInterval"
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
         accounting_code:
           type: string
           title: Plan accounting code
@@ -19063,6 +19071,8 @@ components:
           title: Ramp Intervals
           items:
             "$ref": "#/components/schemas/PlanRampInterval"
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -19277,6 +19287,8 @@ components:
           title: Ramp Intervals
           items:
             "$ref": "#/components/schemas/PlanRampInterval"
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
         revenue_schedule_type:
           type: string
           title: Revenue schedule type
@@ -20257,7 +20269,7 @@ components:
             If the plan add-on's `tier_type` is `flat`, then `tiers` must be absent. The `tiers` object
             must include one to many tiers with `ending_quantity` and `unit_amount`.
             There must be one tier with an `ending_quantity` of 999999999 which is the
-            default if not provided. See our [Guide](https://developers.recurly.com/guides/item-addon-guide.html)
+            default if not provided. See our [Guide](https://recurly.com/developers/guides/item-addon-guide.html)
             for an overview of how to configure quantity-based pricing models.
         usage_percentage:
           type: number
@@ -20266,7 +20278,7 @@ components:
           description: The percentage taken of the monetary amount of usage tracked.
             This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
             if `add_on_type` is usage and `usage_type` is percentage. Must be omitted
-            otherwise. `usage_percentage` does not support tiers. See our [Guide](https://developers.recurly.com/guides/usage-based-billing-guide.html)
+            otherwise. `usage_percentage` does not support tiers. See our [Guide](https://recurly.com/developers/guides/usage-based-billing-guide.html)
             for an overview of how to configure usage add-ons.
         revenue_schedule_type:
           type: string
