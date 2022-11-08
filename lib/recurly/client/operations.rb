@@ -2046,6 +2046,68 @@ module Recurly
       delete(path, **options)
     end
 
+    # List a site's external products
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_external_products list_external_products api documentation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #
+    # @return [Pager<Resources::ExternalProduct>] A list of the the external_products on a site.
+    #
+    def list_external_products(**options)
+      path = "/external_products"
+      pager(path, **options)
+    end
+
+    # Fetch an external product
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_external_product get_external_product api documentation}
+    #
+    # @param external_product_id [String] External product id
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalProduct] Settings for an external product.
+    #
+    def get_external_product(external_product_id:, **options)
+      path = interpolate_path("/external_products/{external_product_id}", external_product_id: external_product_id)
+      get(path, **options)
+    end
+
+    # List a site's external subscriptions
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions list_external_subscriptions api documentation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #
+    # @return [Pager<Resources::ExternalSubscription>] A list of the the external_subscriptions on a site.
+    #
+    def list_external_subscriptions(**options)
+      path = "/external_subscriptions"
+      pager(path, **options)
+    end
+
+    # Fetch an external subscription
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription get_external_subscription api documentation}
+    #
+    # @param external_subscription_id [String] External subscription id
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalSubscription] Settings for an external subscription.
+    #
+    def get_external_subscription(external_subscription_id:, **options)
+      path = interpolate_path("/external_subscriptions/{external_subscription_id}", external_subscription_id: external_subscription_id)
+      get(path, **options)
+    end
+
     # List a site's invoices
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_invoices list_invoices api documentation}
@@ -4108,6 +4170,24 @@ module Recurly
     #
     def list_entitlements(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/entitlements", account_id: account_id)
+      pager(path, **options)
+    end
+
+    # List an account's external subscriptions
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_subscriptions list_account_external_subscriptions api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param params [Hash] Optional query string parameters:
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #
+    # @return [Pager<Resources::ExternalSubscription>] A list of the the external_subscriptions on an account.
+    #
+    def list_account_external_subscriptions(account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/external_subscriptions", account_id: account_id)
       pager(path, **options)
     end
   end
