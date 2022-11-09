@@ -4,6 +4,9 @@ module Recurly
     # @return [Pager<AddOn>, []]
     has_many :add_ons
 
+    # @return <ExternalProduct>
+    has_one :external_product
+
     # @return [[PlanRampInterval], nil]
     has_many :ramp_intervals, class_name: :PlanRampInterval
 
