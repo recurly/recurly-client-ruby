@@ -199,6 +199,8 @@ x-tagGroups:
   - purchase
   - usage
   - automated_exports
+  - external_subscriptions
+  - external_products
 - name: Products and Promotions
   tags:
   - item
@@ -338,6 +340,16 @@ tags:
 - name: dunning_campaigns
   x-displayName: Dunning Campaigns
   description: Settings used when attempting to dun customers whose payments are declined.
+- name: external_subscriptions
+  x-displayName: External Subscription
+  description: A subscription from an external resource that is not managed by the
+    Recurly platform and instead is managed by third-party platforms like Apple Store
+    and Google Play.
+- name: external_products
+  x-displayName: External Product
+  description: A product from an external resource that is not managed by the Recurly
+    platform and instead is managed by third-party platforms like Apple Store and
+    Google Play.
 paths:
   "/sites":
     get:
@@ -7431,6 +7443,129 @@ paths:
                 "$ref": "#/components/schemas/MeasuredUnit"
         '422':
           description: Measured unit may already be inactive.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/external_products":
+    get:
+      tags:
+      - external_products
+      operationId: list_external_products
+      summary: List a site's external products
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/sort_dates"
+      responses:
+        '200':
+          description: A list of the the external_products on a site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalProductList"
+        '404':
+          description: Incorrect site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/external_products/{external_product_id}":
+    parameters:
+    - "$ref": "#/components/parameters/external_product_id"
+    get:
+      tags:
+      - external_products
+      operationId: get_external_product
+      summary: Fetch an external product
+      responses:
+        '200':
+          description: Settings for an external product.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalProduct"
+        '404':
+          description: Incorrect site or external product ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/external_subscriptions":
+    get:
+      tags:
+      - external_subscriptions
+      operationId: list_external_subscriptions
+      summary: List a site's external subscriptions
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/sort_dates"
+      responses:
+        '200':
+          description: A list of the the external_subscriptions on a site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalSubscriptionList"
+        '404':
+          description: Incorrect site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/external_subscriptions/{external_subscription_id}":
+    parameters:
+    - "$ref": "#/components/parameters/external_subscription_id"
+    get:
+      tags:
+      - external_subscriptions
+      operationId: get_external_subscription
+      summary: Fetch an external subscription
+      responses:
+        '200':
+          description: Settings for an external subscription.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalSubscription"
+        '404':
+          description: Incorrect site or external subscription ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Validation error with external resource connection or feature
+            flag.
           content:
             application/json:
               schema:
@@ -15098,6 +15233,38 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/accounts/{account_id}/external_subscriptions":
+    parameters:
+    - "$ref": "#/components/parameters/account_id"
+    get:
+      tags:
+      - account
+      operationId: list_account_external_subscriptions
+      summary: List an account's external subscriptions
+      description: See the [Pagination Guide](/guides/pagination.html) to learn how
+        to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/sort_dates"
+      responses:
+        '200':
+          description: A list of the the external_subscriptions on an account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalSubscriptionList"
+        '404':
+          description: Incorrect account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
 servers:
 - url: https://v3.recurly.com
 - url: https://v3.eu.recurly.com
@@ -15162,6 +15329,20 @@ components:
       name: custom_field_definition_id
       in: path
       description: Custom Field Definition ID
+      required: true
+      schema:
+        type: string
+    external_product_id:
+      name: external_product_id
+      in: path
+      description: External product id
+      required: true
+      schema:
+        type: string
+    external_subscription_id:
+      name: external_subscription_id
+      in: path
+      description: External subscription id
       required: true
       schema:
         type: string
@@ -16369,6 +16550,8 @@ components:
           "$ref": "#/components/schemas/AddOnTypeEnum"
         usage_type:
           "$ref": "#/components/schemas/UsageTypeEnum"
+        usage_calculation_type:
+          "$ref": "#/components/schemas/UsageCalculationTypeEnum"
         usage_percentage:
           type: number
           format: float
@@ -16522,6 +16705,8 @@ components:
           "$ref": "#/components/schemas/AddOnTypeCreateEnum"
         usage_type:
           "$ref": "#/components/schemas/UsageTypeCreateEnum"
+        usage_calculation_type:
+          "$ref": "#/components/schemas/UsageCalculationTypeEnum"
         usage_percentage:
           type: number
           format: float
@@ -16682,6 +16867,8 @@ components:
             This can be up to 4 decimal places. A value between 0.0 and 100.0. Required
             if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage.
             Must be omitted otherwise.
+        usage_calculation_type:
+          "$ref": "#/components/schemas/UsageCalculationTypeEnum"
         measured_unit_id:
           type: string
           title: Measured Unit ID
@@ -20407,6 +20594,8 @@ components:
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
         tier_type:
           "$ref": "#/components/schemas/TierTypeEnum"
+        usage_calculation_type:
+          "$ref": "#/components/schemas/UsageCalculationTypeEnum"
         usage_timeframe:
           "$ref": "#/components/schemas/UsageTimeframeEnum"
         tiers:
@@ -22181,6 +22370,184 @@ components:
           type: string
           format: date-time
           description: Time the object was last updated
+    ExternalProduct:
+      type: object
+      description: Product from an external resource such as Apple App or Google Play.
+      properties:
+        id:
+          type: string
+          title: External product ID.
+          description: System-generated unique identifier for an external product
+            ID, e.g. `e28zov4fw0v2`.
+        object:
+          type: string
+          title: Object type
+        name:
+          type: string
+          title: Name
+          description: Name to identify the external product in Recurly.
+        plan:
+          "$ref": "#/components/schemas/PlanMini"
+        created_at:
+          type: string
+          format: date-time
+          description: When the external product was created in Recurly.
+        updated_at:
+          type: string
+          format: date-time
+          description: When the external product was updated in Recurly.
+        external_product_references:
+          type: array
+          title: External Product References
+          description: List of external product references of the external product.
+          items:
+            "$ref": "#/components/schemas/ExternalProductReferenceMini"
+    ExternalProductList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExternalProduct"
+    ExternalProductReferenceMini:
+      type: object
+      title: External Product Reference details
+      description: External Product Reference details
+      properties:
+        id:
+          type: string
+          title: External Product ID
+          description: System-generated unique identifier for an external product
+            ID, e.g. `e28zov4fw0v2`.
+        object:
+          type: string
+          title: object
+        reference_code:
+          type: string
+          title: reference_code
+          description: A code which associates the external product to a corresponding
+            object or resource in an external platform like the Apple App Store or
+            Google Play Store.
+        external_connection_type:
+          type: string
+          title: external_connection_type
+          description: Source connection platform.
+        created_at:
+          type: string
+          format: date-time
+          description: When the external product was created in Recurly.
+        updated_at:
+          type: string
+          format: date-time
+          description: When the external product was updated in Recurly.
+    ExternalSubscription:
+      type: object
+      description: Subscription from an external resource such as Apple App or Google
+        Play.
+      properties:
+        id:
+          type: string
+          title: External subscription ID
+          description: System-generated unique identifier for an external subscription
+            ID, e.g. `e28zov4fw0v2`.
+        object:
+          type: string
+          title: Object type
+        account:
+          "$ref": "#/components/schemas/AccountMini"
+        external_resource:
+          "$ref": "#/components/schemas/ExternalResourceMini"
+        external_product_reference:
+          "$ref": "#/components/schemas/ExternalProductReferenceMini"
+        last_purchased:
+          type: string
+          format: date-time
+          title: Last purchased
+          description: When a new billing event occurred on the external subscription
+            in conjunction with a recent billing period, reactivation or upgrade/downgrade.
+        auto_renew:
+          type: boolean
+          title: Auto-renew
+          description: An indication of whether or not the external subscription will
+            auto-renew at the expiration date.
+          default: false
+        app_identifier:
+          type: string
+          title: App identifier
+          description: Identifier of the app that generated the external subscription.
+        quantity:
+          type: integer
+          title: Quantity
+          description: An indication of the quantity of a subscribed item's quantity.
+          default: 1
+          minimum: 0
+        activated_at:
+          type: string
+          format: date-time
+          title: Activated at
+          description: When the external subscription was activated in the external
+            platform.
+        expires_at:
+          type: string
+          format: date-time
+          title: Expires at
+          description: When the external subscription expires in the external platform.
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          description: When the external subscription was created in Recurly.
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated at
+          description: When the external subscription was updated in Recurly.
+    ExternalSubscriptionList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExternalSubscription"
+    ExternalResourceMini:
+      type: object
+      title: External Resource mini details
+      properties:
+        id:
+          type: string
+          title: External resource ID
+          description: System-generated unique identifier for an external resource
+            ID, e.g. `e28zov4fw0v2`.
+        object:
+          type: string
+          title: Object type
+        external_object_reference:
+          type: string
+          title: External Object Reference
+          description: Identifier or URL reference where the resource is canonically
+            available in the external platform.
+          maxLength: 255
+          readOnly: true
     CustomerPermission:
       type: object
       properties:
@@ -22399,6 +22766,15 @@ components:
       - percentage
       title: Usage Type
       description: Type of usage, returns usage type if `add_on_type` is `usage`.
+    UsageCalculationTypeEnum:
+      type: string
+      description: The type of calculation to be employed for an add-on.  Cumulative
+        billing will sum all usage records created in the current billing cycle.  Last-in-period
+        billing will apply only the most recent usage record in the billing period.  If
+        no value is specified, cumulative billing will be used.
+      enum:
+      - cumulative
+      - last_in_period
     BillingStatusEnum:
       type: string
       default: unbilled

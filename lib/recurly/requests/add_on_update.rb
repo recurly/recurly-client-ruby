@@ -70,6 +70,10 @@ module Recurly
       #   @return [Array[Tier]] If the tier_type is `flat`, then `tiers` must be absent. The `tiers` object must include one to many tiers with `ending_quantity` and `unit_amount` for the desired `currencies`. There must be one tier without an `ending_quantity` value which represents the final tier.
       define_attribute :tiers, Array, { :item_type => :Tier }
 
+      # @!attribute usage_calculation_type
+      #   @return [String] The type of calculation to be employed for an add-on.  Cumulative billing will sum all usage records created in the current billing cycle.  Last-in-period billing will apply only the most recent usage record in the billing period.  If no value is specified, cumulative billing will be used.
+      define_attribute :usage_calculation_type, String
+
       # @!attribute usage_percentage
       #   @return [Float] The percentage taken of the monetary amount of usage tracked. This can be up to 4 decimal places. A value between 0.0 and 100.0. Required if `add_on_type` is usage, `tier_type` is `flat` and `usage_type` is percentage. Must be omitted otherwise.
       define_attribute :usage_percentage, Float
