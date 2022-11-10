@@ -20,6 +20,7 @@ module Recurly
       usage_type
       usage_percentage
       usage_timeframe
+      usage_calculation_type
       add_on_source
     )
 

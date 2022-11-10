@@ -27,6 +27,7 @@ module Recurly
       updated_at
       tier_type
       usage_timeframe
+      usage_calculation_type
       external_sku
       avalara_service_type
       avalara_transaction_type
