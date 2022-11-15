@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.25.0](https://github.com/recurly/recurly-client-ruby/tree/4.25.0) (2022-11-15)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.24.0...4.25.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (External Subscriptions feature) [#809](https://github.com/recurly/recurly-client-ruby/pull/809) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2021-02-25 [#807](https://github.com/recurly/recurly-client-ruby/pull/807) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.24.0](https://github.com/recurly/recurly-client-ruby/tree/4.24.0) (2022-11-03)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.23.0...4.24.0)
