@@ -1,7 +1,19 @@
 module Recurly
   class ExternalSubscription < Resource
 
+      # @return [Account]
+      belongs_to :account
+
+      # @return [ExternalResource]
+      has_one :external_resource
+      
+      # @return [ExternalProductReference]
+      belongs_to :external_product_reference
+
     define_attribute_methods %w(
+      account
+      external_resource
+      external_product_reference
       quantity
       activated_at
       expires_at
@@ -12,9 +24,8 @@ module Recurly
       app_identifier
     )
 
-    # This object does not represent a model on the server side
-    # so we do not need to expose these methods.
+    # We do not expose PUT or POST in the v2 API.
     protected(*%w(save save!))
-    private_class_method(*%w(all find_each first paginate scoped where create! create))
+    private_class_method(*%w(create! create))
   end
 end

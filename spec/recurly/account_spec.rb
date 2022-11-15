@@ -323,6 +323,23 @@ XML
       end
     end
 
+    describe "when account has external subscriptions" do
+      let(:account) {
+        stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+        stub_api_request :get,
+          'accounts/abcdef1234567890/external_subscriptions',
+          'accounts/external_subscriptions/show-200'
+        Account.find 'abcdef1234567890'
+      }
+
+      it "is able to retrieve and parse external_subscriptions" do
+        external_subscriptions = account.external_subscriptions
+        external_subs = external_subscriptions.first
+        external_subs.must_be_instance_of ExternalSubscription
+        external_subs.account.must_be_instance_of Account
+      end
+    end
+
     describe "when account has notes" do
       let(:account) {
         stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
