@@ -345,7 +345,7 @@ paths:
       description: |
         This route is most useful for finding a site's ID for subsequent requests.
 
-        See the [Pagination Guide](/guides/pagination.html) to learn how to use pagination in the API and Client Libraries.
+        See the [Pagination Guide](/developers/guides/pagination.html) to learn how to use pagination in the API and Client Libraries.
       tags:
       - site
       parameters:
@@ -544,8 +544,8 @@ paths:
       - account
       operationId: list_accounts
       summary: List a site's accounts
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -2427,8 +2427,8 @@ paths:
       - billing_infos
       operationId: list_billing_infos
       summary: Get the list of billing information associated with an account
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -2637,8 +2637,8 @@ paths:
       - coupon_redemption
       operationId: list_account_coupon_redemptions
       summary: List the coupon redemptions for an account
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -3088,8 +3088,8 @@ paths:
       - credit_payment
       operationId: list_account_credit_payments
       summary: List an account's credit payments
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -3183,8 +3183,8 @@ paths:
       - invoice
       operationId: list_account_invoices
       summary: List an account's invoices
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -3619,8 +3619,8 @@ paths:
       - line_item
       operationId: list_account_line_items
       summary: List an account's line items
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -3888,8 +3888,8 @@ paths:
       - note
       operationId: list_account_notes
       summary: List an account's notes
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -4096,8 +4096,8 @@ paths:
       - shipping_address
       operationId: list_shipping_addresses
       summary: Fetch a list of an account's shipping addresses
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -4775,8 +4775,8 @@ paths:
       - subscription
       operationId: list_account_subscriptions
       summary: List an account's subscriptions
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -4871,8 +4871,8 @@ paths:
       - transaction
       operationId: list_account_transactions
       summary: List an account's transactions
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -4969,8 +4969,8 @@ paths:
       - account
       operationId: list_child_accounts
       summary: List an account's child accounts
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
@@ -5044,8 +5044,8 @@ paths:
       - account_acquisition
       operationId: list_account_acquisition
       summary: List a site's account acquisition data
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -5136,8 +5136,8 @@ paths:
       - coupon
       operationId: list_coupons
       summary: List a site's coupons
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -5999,8 +5999,8 @@ paths:
       - unique_coupon_code
       operationId: list_unique_coupon_codes
       summary: List unique coupon codes associated with a bulk coupon
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/coupon_id"
@@ -6036,8 +6036,8 @@ paths:
       - credit_payment
       operationId: list_credit_payments
       summary: List a site's credit payments
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/limit"
@@ -6155,8 +6155,8 @@ paths:
       - custom_field_definition
       operationId: list_custom_field_definitions
       summary: List a site's custom field definitions
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -6374,8 +6374,8 @@ paths:
       - item
       operationId: list_items
       summary: List a site's items
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -7196,8 +7196,8 @@ paths:
       - measured_unit
       operationId: list_measured_unit
       summary: List a site's measured units
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -7382,8 +7382,8 @@ paths:
       - invoice
       operationId: list_invoices
       summary: List a site's invoices
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -7873,6 +7873,44 @@ paths:
               // Something bad happened... tell the user so that they can fix it?
               echo 'Some unexpected Recurly error happened. Try again later.' . PHP_EOL;
           }
+  "/sites/{site_id}/invoices/{invoice_id}/apply_credit_balance":
+    put:
+      tags:
+      - invoice
+      operationId: apply_credit_balance
+      summary: Apply available credit to a pending or past due charge invoice
+      description: Apply credit payment to the outstanding balance on an existing
+        charge invoice from an account’s available balance from existing credit invoices.
+      parameters:
+      - "$ref": "#/components/parameters/site_id"
+      - "$ref": "#/components/parameters/invoice_id"
+      responses:
+        '200':
+          description: The updated invoice.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Invoice"
+        '404':
+          description: Incorrect site or invoice ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Tried applying credit to a legacy or closed invoice or there
+            was an error processing the credit payment.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/sites/{site_id}/invoices/{invoice_id}/collect":
     put:
       tags:
@@ -8562,8 +8600,8 @@ paths:
       - line_item
       operationId: list_invoice_line_items
       summary: List an invoice's line items
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
@@ -8664,8 +8702,8 @@ paths:
       - coupon_redemption
       operationId: list_invoice_coupon_redemptions
       summary: List the coupon redemptions applied to an invoice
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
@@ -8761,7 +8799,7 @@ paths:
         For a charge invoice the related invoices will be credit invoices.
         For a credit invoice the related invoices will be charge invoices.
 
-        See the [Pagination Guide](/guides/pagination.html) to learn how to use pagination in the API and Client Libraries.
+        See the [Pagination Guide](/developers/guides/pagination.html) to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
@@ -9011,8 +9049,8 @@ paths:
       - line_item
       operationId: list_line_items
       summary: List a site's line items
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -9341,8 +9379,8 @@ paths:
       - plan
       operationId: list_plans
       summary: List a site's plans
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -10002,8 +10040,8 @@ paths:
       - add-on
       operationId: list_plan_add_ons
       summary: List a plan's add-ons
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/plan_id"
@@ -10664,8 +10702,8 @@ paths:
       - add-on
       operationId: list_add_ons
       summary: List a site's add-ons
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -10874,8 +10912,8 @@ paths:
       - shipping_method
       operationId: list_shipping_methods
       summary: List a site's shipping methods
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -11125,8 +11163,8 @@ paths:
       - subscription
       operationId: list_subscriptions
       summary: List a site's subscriptions
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -12917,8 +12955,8 @@ paths:
       - invoice
       operationId: list_subscription_invoices
       summary: List a subscription's invoices
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
@@ -13014,8 +13052,8 @@ paths:
       - line_item
       operationId: list_subscription_line_items
       summary: List a subscription's line items
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
@@ -13113,8 +13151,8 @@ paths:
       - coupon_redemption
       operationId: list_subscription_coupon_redemptions
       summary: List the coupon redemptions for a subscription
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
@@ -13407,8 +13445,8 @@ paths:
       - transaction
       operationId: list_transactions
       summary: List a site's transactions
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
@@ -14409,8 +14447,8 @@ paths:
       - dunning_campaigns
       operationId: list_dunning_campaigns
       summary: List the dunning campaigns for a site
-      description: See the [Pagination Guide](/guides/pagination.html) to learn how
-        to use pagination in the API and Client Libraries.
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/sort_dates"
       responses:
@@ -15728,9 +15766,15 @@ components:
         processing_prepayment_amount:
           type: number
           format: float
-          title: Amount
+          title: Processing Prepayment Amount
           description: Total amount for the prepayment credit invoices in a `processing`
             state on the account.
+        available_credit_amount:
+          type: number
+          format: float
+          title: Available Credit Amount
+          description: Total amount of the open balances on credit invoices for the
+            account.
     InvoiceAddress:
       allOf:
       - "$ref": "#/components/schemas/Address"
