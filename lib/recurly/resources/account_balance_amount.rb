@@ -10,6 +10,10 @@ module Recurly
       #   @return [Float] Total amount the account is past due.
       define_attribute :amount, Float
 
+      # @!attribute available_credit_amount
+      #   @return [Float] Total amount of the open balances on credit invoices for the account.
+      define_attribute :available_credit_amount, Float
+
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
