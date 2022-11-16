@@ -2060,6 +2060,20 @@ module Recurly
       get(path, **options)
     end
 
+    # Apply available credit to a pending or past due charge invoice
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/apply_credit_balance apply_credit_balance api documentation}
+    #
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Invoice] The updated invoice.
+    #
+    def apply_credit_balance(invoice_id:, **options)
+      path = interpolate_path("/invoices/{invoice_id}/apply_credit_balance", invoice_id: invoice_id)
+      put(path, **options)
+    end
+
     # Collect a pending or past due, automatic invoice
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/collect_invoice collect_invoice api documentation}
