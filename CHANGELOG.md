@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.23.0](https://github.com/recurly/recurly-client-ruby/tree/3.23.0) (2022-11-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.22.0...3.23.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2019-10-10 (Apply Credit Balance feature) [#810](https://github.com/recurly/recurly-client-ruby/pull/810) ([recurly-integrations](https://github.com/recurly-integrations))
+- Generated Latest Changes for v2019-10-10 [#806](https://github.com/recurly/recurly-client-ruby/pull/806) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [3.22.0](https://github.com/recurly/recurly-client-ruby/tree/3.22.0) (2022-10-21)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.21.0...3.22.0)
