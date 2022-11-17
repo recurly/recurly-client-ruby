@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.26.0](https://github.com/recurly/recurly-client-ruby/tree/4.26.0) (2022-11-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.25.0...4.26.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (Apply Credit Balance feature) [#811](https://github.com/recurly/recurly-client-ruby/pull/811) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.25.0](https://github.com/recurly/recurly-client-ruby/tree/4.25.0) (2022-11-15)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.24.0...4.25.0)
