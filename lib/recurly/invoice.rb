@@ -177,6 +177,16 @@ module Recurly
       true
     end
 
+    # Applies the open credit balance on the account to the invoice balance.
+    #
+    # @return [true, false] +true+ when successful, +false+ when unable to
+    #   (e.g., the invoice is no longer collectible).
+    def apply_credit_balance
+      return false unless link? :apply_credit_balance
+      reload follow_link :apply_credit_balance
+      true
+    end
+
     # Posts an offline payment on this invoice
     #
     # @return [Transaction]

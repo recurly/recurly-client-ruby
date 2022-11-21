@@ -13,4 +13,8 @@ Content-Type: application/xml; charset=utf-8
     <USD type="integer">-3000</USD>
     <EUR type="integer">0</EUR>
   </processing_prepayment_balance_in_cents>
+  <available_credit_balance_in_cents>
+    <USD type="integer">-3000</USD>
+    <EUR type="integer">0</EUR>
+  </available_credit_balance_in_cents>
 </account_balance>

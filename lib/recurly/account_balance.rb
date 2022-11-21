@@ -12,6 +12,7 @@ module Recurly
       past_due
       balance_in_cents
       processing_prepayment_balance_in_cents
+      available_credit_balance_in_cents
     )
 
     # This object does not represent a model on the server side
