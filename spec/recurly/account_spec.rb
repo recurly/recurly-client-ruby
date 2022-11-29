@@ -302,6 +302,9 @@ XML
         processing_prepayment_balance = account_balance.processing_prepayment_balance_in_cents
         processing_prepayment_balance[:USD].must_equal(-3000)
         processing_prepayment_balance[:EUR].must_equal(0)
+        available_credit_balance = account_balance.available_credit_balance_in_cents
+        available_credit_balance[:USD].must_equal(-3000)
+        available_credit_balance[:EUR].must_equal(0)
       end
     end
 

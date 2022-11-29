@@ -234,6 +234,15 @@ describe Invoice do
     end
   end
 
+  describe "#apply_credit_balance" do
+    it "must call /apply_credit_balance" do
+      stub_api_request :get, 'invoices/1000', 'invoices/show-200'
+      stub_api_request :put, 'invoices/created-invoice/apply_credit_balance', 'invoices/show-200-updated'
+      invoice = Invoice.find(1000)
+      invoice.apply_credit_balance
+    end
+  end
+
   describe "#save" do
     it "must update an invoice" do
       stub_api_request :get, 'invoices/1000', 'invoices/show-200'
