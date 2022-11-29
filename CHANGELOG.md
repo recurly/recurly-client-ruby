@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.18.31](https://github.com/recurly/recurly-client-ruby/tree/2.18.31) (2022-11-29)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.30...2.18.31)
+
+
+**Merged Pull Requests**
+
+- V2 add support for Apply Credit Balance to existing invoice feature [#812](https://github.com/recurly/recurly-client-ruby/pull/812) ([judith](https://github.com/judith))
+
+
+
 ## [2.18.30](https://github.com/recurly/recurly-client-ruby/tree/2.18.30) (2022-11-15)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.29...2.18.30)
