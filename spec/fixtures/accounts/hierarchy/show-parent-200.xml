@@ -22,6 +22,7 @@ Content-Type: application/xml; charset=utf-8
   <company_name nil="nil"></company_name>
   <vat_number nil="nil"></vat_number>
   <preferred_locale nil="nil"></preferred_locale>
+  <preferred_time_zone nil="nil"></preferred_time_zone>
   <address>
     <address1 nil="nil"></address1>
     <address2 nil="nil"></address2>

@@ -103,6 +103,7 @@ module Recurly
       has_past_due_invoice
       has_paused_subscription
       preferred_locale
+      preferred_time_zone
       transaction_type
       dunning_campaign_id
       invoice_template_uuid

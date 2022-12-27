@@ -111,6 +111,7 @@ describe Account do
       account.has_future_subscription.must_equal false
       account.has_past_due_invoice.must_equal false
       account.preferred_locale.must_equal 'fr-FR'
+      account.preferred_time_zone.must_equal 'America/Los_Angeles'
     end
 
     it 'must return an account with tax state' do
