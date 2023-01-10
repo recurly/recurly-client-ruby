@@ -106,6 +106,10 @@ module Recurly
       #   @return [String] Used to determine the language and locale of emails sent on behalf of the merchant to the customer.
       define_attribute :preferred_locale, String
 
+      # @!attribute preferred_time_zone
+      #   @return [String] The [IANA time zone name](https://docs.recurly.com/docs/email-time-zones-and-time-stamps#supported-api-iana-time-zone-names) used to determine the time zone of emails sent on behalf of the merchant to the customer.
+      define_attribute :preferred_time_zone, String
+
       # @!attribute shipping_addresses
       #   @return [Array[ShippingAddress]] The shipping addresses on the account.
       define_attribute :shipping_addresses, Array, { :item_type => :ShippingAddress }
