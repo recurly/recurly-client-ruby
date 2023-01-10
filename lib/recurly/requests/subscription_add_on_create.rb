@@ -15,7 +15,7 @@ module Recurly
       define_attribute :code, String
 
       # @!attribute percentage_tiers
-      #   @return [Array[SubscriptionAddOnPercentageTier]] If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value which represents the final tier. Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage.
+      #   @return [Array[SubscriptionAddOnPercentageTier]] If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value which represents the final tier. Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage. This feature is currently in development and requires approval and enablement, please contact support.
       define_attribute :percentage_tiers, Array, { :item_type => :SubscriptionAddOnPercentageTier }
 
       # @!attribute quantity

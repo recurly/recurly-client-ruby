@@ -75,7 +75,7 @@ module Recurly
       define_attribute :optional, :Boolean
 
       # @!attribute percentage_tiers
-      #   @return [Array[PercentageTiersByCurrency]] Percentage Tiers
+      #   @return [Array[PercentageTiersByCurrency]] This feature is currently in development and requires approval and enablement, please contact support.
       define_attribute :percentage_tiers, Array, { :item_type => :PercentageTiersByCurrency }
 
       # @!attribute plan_id

@@ -343,13 +343,13 @@ tags:
 - name: external_subscriptions
   x-displayName: External Subscription
   description: A subscription from an external resource that is not managed by the
-    Recurly platform and instead is managed by third-party platforms like Apple Store
-    and Google Play.
+    Recurly platform and instead is managed by third-party platforms like Apple App
+    Store and Google Play Store.
 - name: external_products
   x-displayName: External Product
   description: A product from an external resource that is not managed by the Recurly
-    platform and instead is managed by third-party platforms like Apple Store and
-    Google Play.
+    platform and instead is managed by third-party platforms like Apple App Store
+    and Google Play Store.
 paths:
   "/sites":
     get:
@@ -8092,6 +8092,8 @@ paths:
       summary: Apply available credit to a pending or past due charge invoice
       description: Apply credit payment to the outstanding balance on an existing
         charge invoice from an account’s available balance from existing credit invoices.
+        Credit that was refunded from the invoice cannot be applied back to the invoice
+        as payment.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
@@ -8110,7 +8112,8 @@ paths:
                 "$ref": "#/components/schemas/Error"
         '422':
           description: Tried applying credit to a legacy or closed invoice or there
-            was an error processing the credit payment.
+            was an error processing the credit payment, such as no available credit
+            on the account.
           content:
             application/json:
               schema:
@@ -8121,7 +8124,95 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/Error"
-      x-code-samples: []
+      x-code-samples:
+      - lang: Node.js
+        source: |
+          try {
+            const invoice = await client.applyCreditBalance(invoiceId)
+            console.log('Applied credit balance to invoice: ', invoice)
+          } catch (err) {
+            if (err instanceof recurly.errors.ValidationError) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              console.log('Failed validation', err.params)
+            } else {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              console.log('Unknown Error: ', err)
+            }
+          }
+      - lang: Python
+        source: |
+          try:
+              invoice = client.apply_credit_balance(invoice_id)
+              print("Applied credit balance to invoice %s" % invoice.id)
+          except recurly.errors.NotFoundError:
+              # If the resource was not found, you may want to alert the user or
+              # just return nil
+              print("Resource Not Found")
+      - lang: ".NET"
+        source: |
+          try
+          {
+              Invoice invoice = client.ApplyCreditBalance(invoiceId);
+              Console.WriteLine($"Applied credit balance to invoice #{invoice.Number}");
+          }
+          catch (Recurly.Errors.Validation ex)
+          {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in ex.Error.Params
+              Console.WriteLine($"Failed validation: {ex.Error.Message}");
+          }
+          catch (Recurly.Errors.ApiError ex)
+          {
+              // Use ApiError to catch a generic error from the API
+              Console.WriteLine($"Unexpected Recurly Error: {ex.Error.Message}");
+          }
+      - lang: Ruby
+        source: |
+          begin
+            invoice = @client.apply_credit_balance(invoice_id: invoice_id)
+            puts "Applied credit balance to invoice #{invoice}"
+          rescue Recurly::Errors::NotFoundError
+            # If the resource was not found, you may want to alert the user or
+            # just return nil
+            puts "Resource Not Found"
+          end
+      - lang: Java
+        source: |
+          try {
+            final Invoice invoice = client.applyCreditBalance(invoiceId);
+            System.out.println("Applied credit balance to invoice " + invoice.getId());
+          } catch (final ValidationException e) {
+            // If the request was not valid, you may want to tell your user
+            // why. You can find the invalid params and reasons in e.getError().getParams()
+            System.out.println("Failed validation: " + e.getError().getMessage());
+          } catch (final ApiException e) {
+              // Use ApiException to catch a generic error from the API
+              System.out.println("Unexpected Recurly Error: " + e.getError().getMessage());
+          }
+      - lang: PHP
+        source: |
+          try {
+              $invoice = $client->applyCreditBalance($invoice_id);
+
+              echo 'Applied credit balance to invoice:' . PHP_EOL;
+              var_dump($invoice);
+          } catch (\Recurly\Errors\Validation $e) {
+              // If the request was not valid, you may want to tell your user
+              // why. You can find the invalid params and reasons in err.params
+              var_dump($e);
+          } catch (\Recurly\RecurlyError $e) {
+              // If we don't know what to do with the err, we should
+              // probably re-raise and let our web framework and logger handle it
+              var_dump($e);
+          }
+      - lang: Go
+        source: "invoice, err := client.ApplyCreditBalance(invoiceID)\nif e, ok :=
+          err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
+          validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
+          Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Applied credit
+          balance to invoice: %v\", invoice)"
   "/invoices/{invoice_id}/collect":
     put:
       tags:
@@ -16177,6 +16268,11 @@ components:
             behalf of the merchant to the customer. The list of locales is restricted
             to those the merchant has enabled on the site.
           "$ref": "#/components/schemas/PreferredLocaleEnum"
+        preferred_time_zone:
+          type: string
+          example: America/Los_Angeles
+          description: Used to determine the time zone of emails sent on behalf of
+            the merchant to the customer. Must be a [supported IANA time zone name](https://docs.recurly.com/docs/email-time-zones-and-time-stamps#supported-api-iana-time-zone-names)
         cc_emails:
           type: string
           description: Additional email address that should receive account correspondence.
@@ -16279,6 +16375,12 @@ components:
           description: Used to determine the language and locale of emails sent on
             behalf of the merchant to the customer.
           "$ref": "#/components/schemas/PreferredLocaleEnum"
+        preferred_time_zone:
+          type: string
+          example: America/Los_Angeles
+          description: The [IANA time zone name](https://docs.recurly.com/docs/email-time-zones-and-time-stamps#supported-api-iana-time-zone-names)
+            used to determine the time zone of emails sent on behalf of the merchant
+            to the customer.
         cc_emails:
           type: string
           description: Additional email address that should receive account correspondence.
@@ -16684,6 +16786,8 @@ components:
         percentage_tiers:
           type: array
           title: Percentage Tiers
+          description: This feature is currently in development and requires approval
+            and enablement, please contact support.
           items:
             "$ref": "#/components/schemas/PercentageTiersByCurrency"
         external_sku:
@@ -16877,7 +16981,8 @@ components:
             Array of objects which must have at least one set of tiers
             per currency and the currency code. The tier_type must be `volume` or `tiered`,
             if not, it must be absent. There must be one tier without an `ending_amount` value
-            which represents the final tier.
+            which represents the final tier. This feature is currently in development and
+            requires approval and enablement, please contact support.
       required:
       - code
       - name
@@ -17018,7 +17123,8 @@ components:
             `percentage_tiers` is an array of objects, which must have the set of tiers
             per currency and the currency code. The tier_type must be `volume` or `tiered`,
             if not, it must be absent. There must be one tier without an `ending_amount` value
-            which represents the final tier.
+            which represents the final tier.  This feature is currently in development and
+            requires approval and enablement, please contact support.
     BillingInfo:
       type: object
       properties:
@@ -18256,7 +18362,11 @@ components:
           type: string
           title: Previous invoice ID
           description: On refund invoices, this value will exist and show the invoice
-            ID of the purchase invoice the refund was created from.
+            ID of the purchase invoice the refund was created from. This field is
+            only populated for sites without the [Only Bill What Changed](https://docs.recurly.com/docs/only-bill-what-changed)
+            feature enabled. Sites with Only Bill What Changed enabled should use
+            the [related_invoices endpoint](https://recurly.com/developers/api/v2021-02-25/index.html#operation/list_related_invoices)
+            to see purchase invoices refunded by this invoice.
           maxLength: 13
         number:
           type: string
@@ -20662,8 +20772,8 @@ components:
           description: |
             If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
             removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
-            add_on.usage_type is percentage.
-            There must be one tier without an `ending_amount` value which represents the final tier.
+            add_on.usage_type is percentage. There must be one tier without an `ending_amount` value which represents the final tier.
+            This feature is currently in development and requires approval and enablement, please contact support.
         usage_percentage:
           type: number
           format: float
@@ -20740,8 +20850,9 @@ components:
           minItems: 1
           description: |
             If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
-            removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value which represents the final tier.
-            Use only if add_on.tier_type is tiered or volume and add_on.usage_type is percentage.
+            removed and replaced by the percentage tiers in the request. There must be one tier without ending_amount value
+            which represents the final tier. Use only if add_on.tier_type is tiered or volume and add_on.usage_type is
+            percentage. This feature is currently in development and requires approval and enablement, please contact support.
         usage_percentage:
           type: number
           format: float
@@ -20820,8 +20931,8 @@ components:
           description: |
             If percentage tiers are provided in the request, all existing percentage tiers on the Subscription Add-on will be
             removed and replaced by the percentage tiers in the request. Use only if add_on.tier_type is tiered or volume and
-            add_on.usage_type is percentage.
-            There must be one tier without an `ending_amount` value which represents the final tier.
+            add_on.usage_type is percentage. There must be one tier without an `ending_amount` value which represents the
+            final tier. This feature is currently in development and requires approval and enablement, please contact support.
         usage_percentage:
           type: number
           format: float
@@ -22002,7 +22113,8 @@ components:
           items:
             "$ref": "#/components/schemas/SubscriptionAddOnPercentageTier"
           description: The percentage tiers of the subscription based on the usage_timestamp.
-            If tier_type = flat, percentage_tiers = []
+            If tier_type = flat, percentage_tiers = []. This feature is currently
+            in development and requires approval and enablement, please contact support.
         measured_unit_id:
           type: string
           description: The ID of the measured unit associated with the add-on the
@@ -22416,7 +22528,8 @@ components:
           description: Time the object was last updated
     ExternalProduct:
       type: object
-      description: Product from an external resource such as Apple App or Google Play.
+      description: Product from an external resource such as Apple App Store or Google
+        Play Store.
       properties:
         id:
           type: string
@@ -22496,8 +22609,8 @@ components:
           description: When the external product was updated in Recurly.
     ExternalSubscription:
       type: object
-      description: Subscription from an external resource such as Apple App or Google
-        Play.
+      description: Subscription from an external resource such as Apple App Store
+        or Google Play Store.
       properties:
         id:
           type: string
