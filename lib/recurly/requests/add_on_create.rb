@@ -63,7 +63,7 @@ module Recurly
       define_attribute :optional, :Boolean
 
       # @!attribute percentage_tiers
-      #   @return [Array[PercentageTiersByCurrency]] Array of objects which must have at least one set of tiers per currency and the currency code. The tier_type must be `volume` or `tiered`, if not, it must be absent. There must be one tier without an `ending_amount` value which represents the final tier.
+      #   @return [Array[PercentageTiersByCurrency]] Array of objects which must have at least one set of tiers per currency and the currency code. The tier_type must be `volume` or `tiered`, if not, it must be absent. There must be one tier without an `ending_amount` value which represents the final tier. This feature is currently in development and requires approval and enablement, please contact support.
       define_attribute :percentage_tiers, Array, { :item_type => :PercentageTiersByCurrency }
 
       # @!attribute plan_id

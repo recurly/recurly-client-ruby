@@ -2245,6 +2245,15 @@ module Recurly
     #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
+    # @example
+    #   begin
+    #     invoice = @client.apply_credit_balance(invoice_id: invoice_id)
+    #     puts "Applied credit balance to invoice #{invoice}"
+    #   rescue Recurly::Errors::NotFoundError
+    #     # If the resource was not found, you may want to alert the user or
+    #     # just return nil
+    #     puts "Resource Not Found"
+    #   end
     #
     def apply_credit_balance(invoice_id:, **options)
       path = interpolate_path("/invoices/{invoice_id}/apply_credit_balance", invoice_id: invoice_id)
