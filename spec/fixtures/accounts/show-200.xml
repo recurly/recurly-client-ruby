@@ -46,6 +46,7 @@ Content-Type: application/xml; charset=utf-8
   <has_canceled_subscription type="boolean">false</has_canceled_subscription>
   <has_past_due_invoice type="boolean">false</has_past_due_invoice>
   <preferred_locale>fr-FR</preferred_locale>
+  <preferred_time_zone>America/Los_Angeles</preferred_time_zone>
   <custom_fields type="array">
     <custom_field>
       <name>acct_field</name>
