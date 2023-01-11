@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.18.32](https://github.com/recurly/recurly-client-ruby/tree/2.18.32) (2023-01-11)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.31...2.18.32)
+
+
+**Merged Pull Requests**
+
+- Add `preferred_time_zone` to Account [#814](https://github.com/recurly/recurly-client-ruby/pull/814) ([cbarton](https://github.com/cbarton))
+
+
+
 ## [2.18.31](https://github.com/recurly/recurly-client-ruby/tree/2.18.31) (2022-11-29)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.30...2.18.31)
