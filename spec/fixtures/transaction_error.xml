@@ -9,6 +9,7 @@ Content-Type: application/xml; charset=utf-8
     <customer_message lang="en-US">Your card number is not valid. Please update your card number.</customer_message>
     <merchant_advice lang="en-US">The credit card number is not valid. The customer needs to try a different number.</merchant_advice>
     <gateway_error_code>123</gateway_error_code>
+    <decline_code>invalid_number</decline_code>
   </transaction_error>
   <error field="transaction.account.billing_info.credit_card_number" symbol="invalid" lang="en-US">is not valid</error>
   <transaction href="https://api.recurly.com/v2/transactions/abcdef1234567890">
