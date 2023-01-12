@@ -52,6 +52,8 @@ describe Adjustment do
 
       stub_api_request(:get, 'adjustments/abcdef1234567890', 'adjustments/show-200')
       adjustment.credit_adjustments.must_be_instance_of Resource::Pager
+      adjustment.custom_fields.first.name.must_equal 'field1'
+      adjustment.custom_fields.first.value.must_equal 'priceless'
     end
 
     it 'must return tax info when the site has it enabled' do

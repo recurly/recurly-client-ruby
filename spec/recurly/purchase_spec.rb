@@ -10,7 +10,13 @@ describe Purchase do
         {
           product_code: 'product_code',
           unit_amount_in_cents: 1_000,
-          quantity: 1
+          quantity: 1,
+          custom_fields: [
+            {
+              name: 'field1',
+              value: 'priceless'
+            }
+          ]
         }
       ],
       subscriptions: [
@@ -81,6 +87,13 @@ describe Purchase do
     it 'should raise a Transaction::Error error when transaction fails' do
       stub_api_request(:post, 'purchases', 'purchases/invoice-declined-422')
       proc { Purchase.invoice!(purchase) }.must_raise Transaction::DeclinedError
+    end
+
+    it 'should return custom fields for an adjustment on a purchase that has custom fields' do
+      stub_api_request(:post, 'purchases', 'purchases/invoice-422')
+
+      purchase.adjustments.first.custom_fields.first.name.must_equal 'field1'
+      purchase.adjustments.first.custom_fields.first.value.must_equal 'priceless'
     end
   end
 
