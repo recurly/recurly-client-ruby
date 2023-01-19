@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.28.0](https://github.com/recurly/recurly-client-ruby/tree/4.28.0) (2023-01-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.27.0...4.28.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (Custom Fields on Line Items) [#821](https://github.com/recurly/recurly-client-ruby/pull/821) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.27.0](https://github.com/recurly/recurly-client-ruby/tree/4.27.0) (2023-01-11)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.26.0...4.27.0)
