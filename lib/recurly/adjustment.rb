@@ -26,7 +26,10 @@ module Recurly
     # @return [ShippingAddress, nil]
     has_one :shipping_address, class_name: :ShippingAddress, readonly: false
 
-    define_attribute_methods %w(
+    # @return [[CustomField], []]
+    has_many :custom_fields, class_name: :CustomField, readonly: false
+
+    define_attribute_methods %w[
       uuid
       state
       description
@@ -65,7 +68,7 @@ module Recurly
       avalara_transaction_type
       avalara_service_type
       refundable_total_in_cents
-    )
+    ]
     alias to_param uuid
 
     # @return ["charge", "credit", nil] The type of adjustment.
@@ -79,6 +82,14 @@ module Recurly
     # @see Resource#initialize
     def initialize(attributes = {})
       super({ :currency => Recurly.default_currency }.merge attributes)
+    end
+
+    def changed_attributes
+      attrs = super
+      if custom_fields.any?(&:changed?)
+        attrs['custom_fields'] = custom_fields.select(&:changed?)
+      end
+      attrs
     end
 
     # Adjustments are only writeable through an {Account} instance.
