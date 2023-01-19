@@ -1,0 +1,36 @@
+HTTP/1.1 201 Created
+Content-Type: application/xml; charset=utf-8
+Location: https://api.recurly.com/v2/adjustments/67360781108ceacd23dee747b7b1f5af
+
+<adjustment href="https://api.recurly.com/v2/adjustments/67360781108ceacd23dee747b7b1f5af">
+  <account href="https://api.recurly.com/v2/accounts/7747ed3b-1771-4a03-b32a-503e9d65d3ad"/>
+  <bill_for_account href="https://api.recurly.com/v2/accounts/account1"/>
+  <item_code nil="nil"/>
+  <external_sku nil="nil"/>
+  <credit_adjustments href="https://api.recurly.com/v2/adjustments/67360781108ceacd23dee747b7b1f5af/credit_adjustments"/>
+  <refundable_total_in_cents type="integer">0</refundable_total_in_cents>
+  <uuid>67360781108ceacd23dee747b7b1f5af</uuid>
+  <state>pending</state>
+  <description nil="nil"/>
+  <accounting_code nil="nil"/>
+  <product_code nil="nil"/>
+  <origin>debit</origin>
+  <unit_amount_in_cents type="integer">5000</unit_amount_in_cents>
+  <quantity type="integer">1</quantity>
+  <discount_in_cents type="integer">0</discount_in_cents>
+  <tax_in_cents type="integer">0</tax_in_cents>
+  <total_in_cents type="integer">5000</total_in_cents>
+  <currency>USD</currency>
+  <proration_rate nil="nil"/>
+  <start_date type="datetime">2023-01-18T23:34:52Z</start_date>
+  <end_date nil="nil"/>
+  <created_at type="datetime">2023-01-18T23:34:52Z</created_at>
+  <updated_at type="datetime">2023-01-18T23:34:52Z</updated_at>
+  <revenue_schedule_type>at_invoice</revenue_schedule_type>
+  <custom_fields type="array">
+    <custom_field>
+      <name>field1</name>
+      <value>priceless</value>
+    </custom_field>
+  </custom_fields>
+</adjustment>
