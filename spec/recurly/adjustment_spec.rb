@@ -140,4 +140,51 @@ describe Adjustment do
       adjustment.bill_for_account.must_be_instance_of Account
     end
   end
+
+  describe '#POST /accounts/{account_code}/adjustments' do
+    let(:adjustment_body) do
+      {
+        unit_amount_in_cents:   5000,
+        currency:               'USD',
+        quantity:               1,
+        accounting_code:        'bandwidth',
+        tax_exempt:             false,
+        custom_fields: [
+          {
+            name: 'field1',
+            value: 'priceless'
+          }
+        ]
+      }
+    end
+    let(:adjustment) { Adjustment.new(adjustment_body) }
+
+    it 'must serialize' do
+      adjustment.to_xml.must_equal <<XML.chomp
+<adjustment>\
+<accounting_code>bandwidth</accounting_code>\
+<currency>USD</currency>\
+<custom_fields>\
+<custom_field>\
+<name>field1</name>\
+<value>priceless</value>\
+</custom_field>\
+</custom_fields>\
+<quantity>1</quantity>\
+<tax_exempt>false</tax_exempt>\
+<unit_amount_in_cents>5000</unit_amount_in_cents>\
+</adjustment>
+XML
+    end
+
+    it 'creates an adjustment on the account specified' do
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+      stub_api_request :post, 'accounts/abcdef1234567890/adjustments', 'adjustments/create-201'
+
+      account = Account.find('abcdef1234567890')
+
+      charge = account.adjustments.create(adjustment_body)
+      charge.custom_fields.must_equal [CustomField.new(name: 'field1', value: 'priceless')]
+    end
+  end
 end
