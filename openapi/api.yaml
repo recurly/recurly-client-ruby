@@ -722,6 +722,7 @@ paths:
               code: accountCode,
               firstName: 'Benjamin',
               lastName: 'Du Monde',
+              preferredTimeZone: 'America/Chicago',
               address: {
                 street1: '900 Camp St',
                 city: 'New Orleans',
@@ -750,6 +751,7 @@ paths:
                   "code": account_code,
                   "first_name": "Benjamin",
                   "last_name": "Du Monde",
+                  "preferred_time_zone": "America/Chicago",
                   "acquisition": {
                       "campaign": "podcast-marketing",
                       "channel": "social_media",
@@ -785,6 +787,7 @@ paths:
                   Code = accountCode,
                   FirstName = "Benjamin",
                   LastName = "Du Monde",
+                  PreferredTimeZone = "America/Chicago",
                   Address = new Address()
                   {
                       City = "New Orleans",
@@ -815,6 +818,7 @@ paths:
               code: account_code,
               first_name: "Benjamin",
               last_name: "Du Monde",
+              preferred_time_zone: "America/Chicago",
               acquisition: {
                 campaign: "podcast-marketing",
                 channel: "social_media",
@@ -853,6 +857,7 @@ paths:
               accountReq.setCode(accountCode);
               accountReq.setFirstName("Aaron");
               accountReq.setLastName("Du Monde");
+              accountReq.setPreferredTimeZone("America/Chicago");
 
               address.setStreet1("900 Camp St.");
               address.setCity("New Orleans");
@@ -879,6 +884,7 @@ paths:
                   "code" => $account_code,
                   "first_name" => "Douglas",
                   "last_name" => "DuMonde",
+                  "preferred_time_zone" => "America/Chicago",
                   "shipping_addresses" => [
                       [
                           "first_name" => "Douglas",
@@ -908,17 +914,17 @@ paths:
       - lang: Go
         source: "accountReq := &recurly.AccountCreate{\n\tCode:      &accountCode,\n\tFirstName:
           recurly.String(\"Isaac\"),\n\tLastName:  recurly.String(\"Du Monde\"),\n\tEmail:
-          \    recurly.String(\"isaac@example.com\"),\n\tBillingInfo: &recurly.BillingInfoCreate{\n\t\tFirstName:
-          recurly.String(\"Isaac\"),\n\t\tLastName:  recurly.String(\"Du Monde\"),\n\t\tAddress:
-          &recurly.AddressCreate{\n\t\t\tPhone:      recurly.String(\"415-555-5555\"),\n\t\t\tStreet1:
-          \   recurly.String(\"400 Alabama St.\"),\n\t\t\tCity:       recurly.String(\"San
-          Francisco\"),\n\t\t\tPostalCode: recurly.String(\"94110\"),\n\t\t\tCountry:
-          \   recurly.String(\"US\"),\n\t\t\tRegion:     recurly.String(\"CA\"),\n\t\t},\n\t\tNumber:
-          recurly.String(\"4111111111111111\"),\n\t\tMonth:  recurly.String(\"12\"),\n\t\tYear:
-          \  recurly.String(\"22\"),\n\t\tCvv:    recurly.String(\"123\"),\n\t},\n}\n\naccount,
-          err := client.CreateAccount(accountReq)\nif e, ok := err.(*recurly.Error);
-          ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
-          validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
+          \    recurly.String(\"isaac@example.com\"),\n\tPreferredTimeZone: recurly.String(\"America/Los_Angeles\"),\n\tBillingInfo:
+          &recurly.BillingInfoCreate{\n\t\tFirstName: recurly.String(\"Isaac\"),\n\t\tLastName:
+          \ recurly.String(\"Du Monde\"),\n\t\tAddress: &recurly.AddressCreate{\n\t\t\tPhone:
+          \     recurly.String(\"415-555-5555\"),\n\t\t\tStreet1:    recurly.String(\"400
+          Alabama St.\"),\n\t\t\tCity:       recurly.String(\"San Francisco\"),\n\t\t\tPostalCode:
+          recurly.String(\"94110\"),\n\t\t\tCountry:    recurly.String(\"US\"),\n\t\t\tRegion:
+          \    recurly.String(\"CA\"),\n\t\t},\n\t\tNumber: recurly.String(\"4111111111111111\"),\n\t\tMonth:
+          \ recurly.String(\"12\"),\n\t\tYear:   recurly.String(\"22\"),\n\t\tCvv:
+          \   recurly.String(\"123\"),\n\t},\n}\n\naccount, err := client.CreateAccount(accountReq)\nif
+          e, ok := err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeValidation
+          {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Created Account:
           %s\", account.Id)"
   "/accounts/{account_id}":
@@ -14688,6 +14694,8 @@ paths:
         The API request allows the inclusion of one of the following fields: **external_hpp_type** with `'adyen'` and **online_banking_payment_type** with `'ideal'` or `'sofort'` in the **billing_info** object.
 
         For additional information regarding shipping fees, please see https://docs.recurly.com/docs/shipping
+
+        Note: an email address is required on the account for a Pending Purchase.
       requestBody:
         content:
           application/json:
@@ -19133,6 +19141,8 @@ components:
           format: date-time
           title: End date
           description: If this date is provided, it indicates the end of a time range.
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
         created_at:
           type: string
           format: date-time
@@ -19299,6 +19309,8 @@ components:
             true.  This origin creates a charge and opposite credit on the account
             to be used for future invoices.
           "$ref": "#/components/schemas/LineItemCreateOriginEnum"
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
         start_date:
           type: string
           format: date-time
@@ -22899,6 +22911,7 @@ components:
       - item
       - plan
       - subscription
+      - charge
     RefundTypeEnum:
       type: string
       enum:
