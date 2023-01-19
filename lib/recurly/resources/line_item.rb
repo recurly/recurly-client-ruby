@@ -54,6 +54,10 @@ module Recurly
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
 
+      # @!attribute custom_fields
+      #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
+
       # @!attribute description
       #   @return [String] Description that appears on the invoice. For subscription related items this will be filled in automatically.
       define_attribute :description, String
