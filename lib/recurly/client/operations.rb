@@ -127,6 +127,7 @@ module Recurly
     #       code: account_code,
     #       first_name: "Benjamin",
     #       last_name: "Du Monde",
+    #       preferred_time_zone: "America/Chicago",
     #       acquisition: {
     #         campaign: "podcast-marketing",
     #         channel: "social_media",
