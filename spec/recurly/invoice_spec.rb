@@ -117,6 +117,17 @@ describe Invoice do
         canada.tax_in_cents.to_i.must_equal 20
       end
     end
+
+    it 'should extract custom fields' do
+      stub_api_request :get, 'invoices/1000', 'invoices/show-200'
+
+      invoice = Invoice.find('1000')
+      custom_field = invoice.line_items[0].custom_fields[0]
+
+      custom_field.must_be_instance_of Resource::CustomField
+      custom_field.name.must_equal('size')
+      custom_field.value.must_equal('large')
+    end
   end
 
   describe "line item refund" do

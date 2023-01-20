@@ -33,7 +33,7 @@ Content-Type: application/xml; charset=utf-8
   <recovery_reason nil="nil"></recovery_reason>
   <surcharge_in_cents type="integer">100</surcharge_in_cents>
   <tax_types nil="nil"></tax_types>
-  <line_items>
+  <line_items type="array">
     <adjustment href="https://api.recurly.com/v2/adjustments/charge" type="charge">
       <account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
       <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
@@ -52,6 +52,12 @@ Content-Type: application/xml; charset=utf-8
       <start_date nil="nil"></start_date>
       <end_date nil="nil"></end_date>
       <created_at type="datetime">2011-04-30T08:00:00Z</created_at>
+      <custom_fields type="array">
+        <custom_field>
+          <name>size</name>
+          <value>large</value>
+        </custom_field>
+      </custom_fields>
     </adjustment>
   </line_items>
   <transactions>
