@@ -48,6 +48,10 @@ module Recurly
         xml.text '/errors/transaction_error/gateway_error_code'
       end
 
+      def decline_code
+        xml.text '/errors/transaction_error/decline_code'
+      end
+
       private
 
       def update_transaction transaction
