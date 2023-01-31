@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<custom_field_definition href="https://api.recurly.com/v2/custom_field_definitions/3722298505492673710">
+  <id>3722298505492673710</id>
+  <related_type>plan</related_type>
+  <name>package</name>
+  <user_access>writable</user_access>
+  <display_name>Package</display_name>
+  <tooltip>Value can be 'Basic' or 'Premium'</tooltip>
+  <created_at type="datetime">2023-01-23T19:02:40Z</created_at>
+  <updated_at type="datetime">2023-01-23T19:02:47Z</updated_at>
+  <deleted_at nil="nil"></deleted_at>
+</custom_field_definition>
