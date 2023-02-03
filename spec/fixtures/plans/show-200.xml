@@ -32,4 +32,10 @@ Content-Type: application/xml; charset=utf-8
   <setup_fee_in_cents>
     <USD type="integer">0</USD>
   </setup_fee_in_cents>
+  <custom_fields type="array">
+    <custom_field>
+      <name>color</name>
+      <value>Red</value>
+    </custom_field>
+  </custom_fields>
 </plan>
