@@ -10,6 +10,9 @@ module Recurly
     # @return [[PlanRampInterval], nil]
     has_many :ramp_intervals, class_name: :PlanRampInterval
 
+    # @return [[CustomField], []]
+    has_many :custom_fields, class_name: :CustomField, readonly: false
+
     define_attribute_methods %w(
       plan_code
       name
@@ -44,6 +47,7 @@ module Recurly
       avalara_transaction_type
       avalara_service_type
       dunning_campaign_id
+      custom_fields
       created_at
       updated_at
     )
