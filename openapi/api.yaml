@@ -201,6 +201,7 @@ x-tagGroups:
   - automated_exports
   - external_subscriptions
   - external_products
+  - gift_cards
 - name: Products and Promotions
   tags:
   - item
@@ -350,6 +351,10 @@ tags:
   description: A product from an external resource that is not managed by the Recurly
     platform and instead is managed by third-party platforms like Apple App Store
     and Google Play Store.
+- name: gift_cards
+  x-displayName: Gift Cards
+  description: Add gift card purchases to your checkout and allow gift card recipients
+    to redeem the gift card for credit towards any of your products.
 paths:
   "/sites":
     get:
@@ -15402,6 +15407,175 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/gift_cards":
+    get:
+      tags:
+      - gift_cards
+      operationId: list_gift_cards
+      summary: List gift cards
+      responses:
+        '200':
+          description: List of all created gift cards on your site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GiftCardList"
+        '404':
+          description: Incorrect site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    post:
+      tags:
+      - gift_cards
+      operationId: create_gift_card
+      summary: Create gift card
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/GiftCardCreate"
+        required: true
+      responses:
+        '201':
+          description: Returns the gift card
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GiftCard"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Gift card cannot be completed for the specified reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/gift_cards/{gift_card_id}":
+    parameters:
+    - "$ref": "#/components/parameters/gift_card_id"
+    get:
+      tags:
+      - gift_cards
+      operationId: get_gift_card
+      summary: Fetch a gift card
+      responses:
+        '200':
+          description: Gift card details
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GiftCard"
+        '404':
+          description: Incorrect site or gift card ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/gift_cards/preview":
+    post:
+      tags:
+      - gift_cards
+      operationId: preview_gift_card
+      summary: Preview gift card
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/GiftCardCreate"
+        required: true
+      responses:
+        '201':
+          description: Returns the gift card
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GiftCard"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Gift card cannot be completed for the specified reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/gift_cards/{redemption_code}/redeem":
+    parameters:
+    - "$ref": "#/components/parameters/redemption_code"
+    post:
+      tags:
+      - gift_cards
+      operationId: redeem_gift_card
+      summary: Redeem gift card
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/GiftCardRedeem"
+        required: true
+      responses:
+        '201':
+          description: Redeems and returns the gift card
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GiftCard"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Gift card cannot be redeemed for the specified reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
 servers:
 - url: https://v3.recurly.com
 - url: https://v3.eu.recurly.com
@@ -15573,6 +15747,20 @@ components:
       name: dunning_campaign_id
       in: path
       description: Dunning Campaign ID, e.g. `e28zov4fw0v2`.
+      required: true
+      schema:
+        type: string
+    gift_card_id:
+      name: gift_card_id
+      in: path
+      description: Gift Card ID, e.g. `e28zov4fw0v2`.
+      required: true
+      schema:
+        type: string
+    redemption_code:
+      name: redemption_code
+      in: path
+      description: Gift Card redemption code, e.g., `N1A2T8IRXSCMO40V`.
       required: true
       schema:
         type: string
@@ -16257,6 +16445,15 @@ components:
         required:
         - code
       - "$ref": "#/components/schemas/AccountUpdate"
+    AccountReference:
+      type: object
+      properties:
+        id:
+          type: string
+          maxLength: 13
+        code:
+          type: string
+          maxLength: 50
     AccountUpdate:
       type: object
       properties:
@@ -20721,6 +20918,16 @@ components:
             subscription.
           maxLength: 13
           readOnly: true
+        started_with_gift:
+          type: boolean
+          default: false
+          description: Whether the subscription was started with a gift certificate.
+          title: Started with Gift
+        converted_at:
+          type: string
+          format: date-time
+          description: When the subscription was converted from a gift card.
+          title: Converted at
     SubscriptionAddOn:
       type: object
       title: Subscription Add-on
@@ -21433,6 +21640,11 @@ components:
             created by this request. Supports 'moto' value, which is the acronym for
             mail order and telephone transactions.
           "$ref": "#/components/schemas/GatewayTransactionTypeEnum"
+        gift_card_redemption_code:
+          type: string
+          title: Gift card Redemption Code
+          description: A gift card redemption code to be redeemed on the purchase
+            invoice.
       required:
       - plan_code
       - currency
@@ -22850,6 +23062,262 @@ components:
           type: string
           description: Username of the associated payment method. Currently only associated
             with Venmo.
+    GiftCardList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/GiftCard"
+    GiftCard:
+      type: object
+      description: Gift card details
+      properties:
+        id:
+          title: Gift card ID
+          type: string
+          maxLength: 13
+          readOnly: true
+        object:
+          title: Object type
+          type: string
+          readOnly: true
+        gifter_account_id:
+          title: Gifter account ID
+          type: string
+          maxLength: 13
+          description: The ID of the account that purchased the gift card.
+        recipient_account_id:
+          title: Recipient account ID
+          type: string
+          maxLength: 13
+          description: The ID of the account that redeemed the gift card redemption
+            code.  Does not have a value until gift card is redeemed.
+        purchase_invoice_id:
+          title: Purchase invoice ID
+          type: string
+          maxLength: 13
+          description: The ID of the invoice for the gift card purchase made by the
+            gifter.
+        redemption_invoice_id:
+          title: Redemption invoice ID
+          type: string
+          maxLength: 13
+          description: The ID of the invoice for the gift card redemption made by
+            the recipient.  Does not have a value until gift card is redeemed.
+        redemption_code:
+          title: Redemption code
+          type: string
+          description: The unique redemption code for the gift card, generated by
+            Recurly. Will be 16 characters, alphanumeric, displayed uppercase, but
+            accepted in any case at redemption. Used by the recipient account to create
+            a credit in the amount of the `unit_amount` on their account.
+        balance:
+          title: Remaining balance
+          type: number
+          format: float
+          description: The remaining credit on the recipient account associated with
+            this gift card. Only has a value once the gift card has been redeemed.
+            Can be used to create gift card balance displays for your customers.
+        product_code:
+          title: Product code
+          type: string
+          description: The product code or SKU of the gift card product.
+        unit_amount:
+          title: Purchase unit amount
+          type: number
+          format: float
+          description: The amount of the gift card, which is the amount of the charge
+            to the gifter account and the amount of credit that is applied to the
+            recipient account upon successful redemption.
+        currency:
+          title: Currency
+          type: string
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        delivery:
+          title: Delivery details
+          description: The delivery details for the gift card.
+          readOnly: true
+          "$ref": "#/components/schemas/GiftCardDelivery"
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          title: Last updated at
+          readOnly: true
+        delivered_at:
+          type: string
+          format: date-time
+          title: Delivered at
+          readOnly: true
+          description: When the gift card was sent to the recipient by Recurly via
+            email, if method was email and the "Gift Card Delivery" email template
+            was enabled. This will be empty for post delivery or email delivery where
+            the email template was disabled.
+        redeemed_at:
+          type: string
+          format: date-time
+          title: Redeemed at
+          readOnly: true
+          description: When the gift card was redeemed by the recipient.
+        canceled_at:
+          type: string
+          format: date-time
+          title: Canceled at
+          readOnly: true
+          description: When the gift card was canceled.
+    GiftCardCreate:
+      type: object
+      description: Gift card details
+      properties:
+        product_code:
+          title: Product code
+          type: string
+          description: The product code or SKU of the gift card product.
+        unit_amount:
+          title: Purchase unit amount
+          type: number
+          format: float
+          description: The amount of the gift card, which is the amount of the charge
+            to the gifter account and the amount of credit that is applied to the
+            recipient account upon successful redemption.
+        currency:
+          title: Currency
+          type: string
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        delivery:
+          title: Delivery details
+          description: The delivery details for the gift card.
+          readOnly: true
+          "$ref": "#/components/schemas/GiftCardDeliveryCreate"
+        gifter_account:
+          title: Gifter account details
+          description: Block of account details for the gifter. This references an
+            existing account_code.
+          readOnly: true
+          "$ref": "#/components/schemas/AccountPurchase"
+      required:
+      - product_code
+      - unit_amount
+      - currency
+      - delivery
+      - gifter_account
+    GiftCardDeliveryCreate:
+      type: object
+      description: Gift card delivery details
+      properties:
+        method:
+          title: Delivery method
+          description: Whether the delivery method is email or postal service.
+          "$ref": "#/components/schemas/DeliveryMethodEnum"
+        email_address:
+          title: Recipient email address
+          type: string
+          description: The email address of the recipient. Required if `method` is
+            `email`.
+        deliver_at:
+          type: string
+          format: date-time
+          title: Deliver at
+          readOnly: true
+          description: When the gift card should be delivered to the recipient. If
+            null, the gift card will be delivered immediately. If a datetime is provided,
+            the delivery will be in an hourly window, rounding down. For example,
+            6:23 pm will be in the 6:00 pm hourly batch.
+        first_name:
+          title: Recipient first name
+          type: string
+          description: The first name of the recipient.
+        last_name:
+          title: Recipient last name
+          type: string
+          description: The last name of the recipient.
+        recipient_address:
+          title: Recipient address
+          description: Address information for the recipient. Required if `method`
+            is `post`.
+          "$ref": "#/components/schemas/Address"
+        gifter_name:
+          title: Gifter name
+          type: string
+          description: The name of the gifter for the purpose of a message displayed
+            to the recipient.
+        personal_message:
+          title: Personal message
+          type: string
+          maxLength: 255
+          description: The personal message from the gifter to the recipient.
+      required:
+      - method
+    GiftCardDelivery:
+      type: object
+      description: Gift card delivery details
+      properties:
+        method:
+          title: Delivery method
+          description: Whether the delivery method is email or postal service.
+          "$ref": "#/components/schemas/DeliveryMethodEnum"
+        email_address:
+          title: Recipient email address
+          type: string
+          description: The email address of the recipient.
+        deliver_at:
+          type: string
+          format: date-time
+          title: Deliver at
+          readOnly: true
+          description: When the gift card should be delivered to the recipient. If
+            null, the gift card will be delivered immediately. If a datetime is provided,
+            the delivery will be in an hourly window, rounding down. For example,
+            6:23 pm will be in the 6:00 pm hourly batch.
+        first_name:
+          title: Recipient first name
+          type: string
+          description: The first name of the recipient.
+        last_name:
+          title: Recipient last name
+          type: string
+          description: The last name of the recipient.
+        recipient_address:
+          title: Recipient address
+          description: Address information for the recipient.
+          "$ref": "#/components/schemas/Address"
+        gifter_name:
+          title: Gifter name
+          type: string
+          description: The name of the gifter for the purpose of a message displayed
+            to the recipient.
+        personal_message:
+          title: Personal message
+          type: string
+          maxLength: 255
+          description: The personal message from the gifter to the recipient.
+    GiftCardRedeem:
+      type: object
+      description: The information necessary to redeem a gift card.
+      properties:
+        recipient_account:
+          title: Recipient account
+          description: The account for the recipient of the gift card.
+          "$ref": "#/components/schemas/AccountReference"
+      required:
+      - recipient_account
     Error:
       type: object
       properties:
@@ -22891,6 +23359,9 @@ components:
               code:
                 title: Code
                 "$ref": "#/components/schemas/ErrorCodeEnum"
+              decline_code:
+                title: Decline code
+                "$ref": "#/components/schemas/DeclineCodeEnum"
               message:
                 type: string
                 title: Customer message
@@ -23062,6 +23533,11 @@ components:
       enum:
       - parent
       - self
+    DeliveryMethodEnum:
+      type: string
+      enum:
+      - email
+      - post
     GatewayTransactionTypeEnum:
       type: string
       enum:
@@ -23699,6 +24175,38 @@ components:
       - unmapped_partner_error
       - vaultly_service_unavailable
       - zero_dollar_auth_not_supported
+    DeclineCodeEnum:
+      type: string
+      enum:
+      - account_closed
+      - call_issuer
+      - card_not_activated
+      - card_not_supported
+      - cardholder_requested_stop
+      - do_not_honor
+      - do_not_try_again
+      - exceeds_daily_limit
+      - generic_decline
+      - expired_card
+      - fraudulent
+      - insufficient_funds
+      - incorrect_address
+      - incorrect_security_code
+      - invalid_amount
+      - invalid_number
+      - invalid_transaction
+      - issuer_unavailable
+      - lifecycle_decline
+      - lost_card
+      - pickup_card
+      - policy_decline
+      - restricted_card
+      - restricted_card_chargeback
+      - security_decline
+      - stolen_card
+      - try_again
+      - update_cardholder_data
+      - requires_3d_secure
     ExportDates:
       type: object
       properties:
