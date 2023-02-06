@@ -46,6 +46,10 @@ module Recurly
       #   @return [String] This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.
       define_attribute :customer_notes, String
 
+      # @!attribute gift_card_redemption_code
+      #   @return [String] A gift card redemption code to be redeemed on the purchase invoice.
+      define_attribute :gift_card_redemption_code, String
+
       # @!attribute net_terms
       #   @return [Integer] Integer representing the number of days after an invoice's creation that the invoice will become past due. If an invoice's net terms are set to '0', it is due 'On Receipt' and will become past due 24 hours after it’s created. If an invoice is due net 30, it will become past due at 31 days exactly.
       define_attribute :net_terms, Integer

@@ -46,6 +46,10 @@ module Recurly
       #   @return [String] Collection method
       define_attribute :collection_method, String
 
+      # @!attribute converted_at
+      #   @return [DateTime] When the subscription was converted from a gift card.
+      define_attribute :converted_at, DateTime
+
       # @!attribute coupon_redemptions
       #   @return [Array[CouponRedemptionMini]] Returns subscription level coupon redemptions that are tied to this subscription.
       define_attribute :coupon_redemptions, Array, { :item_type => :CouponRedemptionMini }
@@ -149,6 +153,10 @@ module Recurly
       # @!attribute shipping
       #   @return [SubscriptionShipping] Subscription shipping details
       define_attribute :shipping, :SubscriptionShipping
+
+      # @!attribute started_with_gift
+      #   @return [Boolean] Whether the subscription was started with a gift certificate.
+      define_attribute :started_with_gift, :Boolean
 
       # @!attribute state
       #   @return [String] State

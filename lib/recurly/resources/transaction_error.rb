@@ -14,6 +14,10 @@ module Recurly
       #   @return [String] Code
       define_attribute :code, String
 
+      # @!attribute decline_code
+      #   @return [String] Decline code
+      define_attribute :decline_code, String
+
       # @!attribute merchant_advice
       #   @return [String] Merchant message
       define_attribute :merchant_advice, String
