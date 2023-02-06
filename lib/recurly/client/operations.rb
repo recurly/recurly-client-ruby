@@ -4215,5 +4215,75 @@ module Recurly
       path = interpolate_path("/accounts/{account_id}/external_subscriptions", account_id: account_id)
       pager(path, **options)
     end
+
+    # List gift cards
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_gift_cards list_gift_cards api documentation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Pager<Resources::GiftCard>] List of all created gift cards on your site.
+    #
+    def list_gift_cards(**options)
+      path = "/gift_cards"
+      pager(path, **options)
+    end
+
+    # Create gift card
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_gift_card create_gift_card api documentation}
+    #
+    # @param body [Requests::GiftCardCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::GiftCardCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::GiftCard] Returns the gift card
+    #
+    def create_gift_card(body:, **options)
+      path = "/gift_cards"
+      post(path, body, Requests::GiftCardCreate, **options)
+    end
+
+    # Fetch a gift card
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_gift_card get_gift_card api documentation}
+    #
+    # @param gift_card_id [String] Gift Card ID, e.g. +e28zov4fw0v2+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::GiftCard] Gift card details
+    #
+    def get_gift_card(gift_card_id:, **options)
+      path = interpolate_path("/gift_cards/{gift_card_id}", gift_card_id: gift_card_id)
+      get(path, **options)
+    end
+
+    # Preview gift card
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/preview_gift_card preview_gift_card api documentation}
+    #
+    # @param body [Requests::GiftCardCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::GiftCardCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::GiftCard] Returns the gift card
+    #
+    def preview_gift_card(body:, **options)
+      path = "/gift_cards/preview"
+      post(path, body, Requests::GiftCardCreate, **options)
+    end
+
+    # Redeem gift card
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/redeem_gift_card redeem_gift_card api documentation}
+    #
+    # @param redemption_code [String] Gift Card redemption code, e.g., +N1A2T8IRXSCMO40V+.
+    # @param body [Requests::GiftCardRedeem] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::GiftCardRedeem}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::GiftCard] Redeems and returns the gift card
+    #
+    def redeem_gift_card(redemption_code:, body:, **options)
+      path = interpolate_path("/gift_cards/{redemption_code}/redeem", redemption_code: redemption_code)
+      post(path, body, Requests::GiftCardRedeem, **options)
+    end
   end
 end
