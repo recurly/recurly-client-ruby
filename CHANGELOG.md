@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.18.33](https://github.com/recurly/recurly-client-ruby/tree/2.18.33) (2023-02-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.32...2.18.33)
+
+
+**Merged Pull Requests**
+
+- Add Specs for Custom Fields on Adjustments in Invoice Responses [#823](https://github.com/recurly/recurly-client-ruby/pull/823) ([douglaslise](https://github.com/douglaslise))
+- Custom fields on charges adjustments specs [#820](https://github.com/recurly/recurly-client-ruby/pull/820) ([jorge](https://github.com/jorge))
+- Added custom fields to adjustments [#819](https://github.com/recurly/recurly-client-ruby/pull/819) ([jorge](https://github.com/jorge))
+- Added custom fields to adjustments [#818](https://github.com/recurly/recurly-client-ruby/pull/818) ([jorge](https://github.com/jorge))
+- Added decline code to transaction error [#817](https://github.com/recurly/recurly-client-ruby/pull/817) ([arzitney](https://github.com/arzitney))
+
+
+
 ## [2.18.32](https://github.com/recurly/recurly-client-ruby/tree/2.18.32) (2023-01-11)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.31...2.18.32)
