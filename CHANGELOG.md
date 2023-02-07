@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.29.0](https://github.com/recurly/recurly-client-ruby/tree/4.29.0) (2023-02-07)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.28.0...4.29.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (GiftCard endpoints and new transaction error support) [#827](https://github.com/recurly/recurly-client-ruby/pull/827) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.28.0](https://github.com/recurly/recurly-client-ruby/tree/4.28.0) (2023-01-19)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.27.0...4.28.0)
