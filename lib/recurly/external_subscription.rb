@@ -4,15 +4,12 @@ module Recurly
       # @return [Account]
       belongs_to :account
 
-      # @return [ExternalResource]
-      has_one :external_resource
-      
       # @return [ExternalProductReference]
       belongs_to :external_product_reference
 
     define_attribute_methods %w(
       account
-      external_resource
+      external_id
       external_product_reference
       quantity
       activated_at
@@ -22,6 +19,7 @@ module Recurly
       last_purchased
       auto_renew
       app_identifier
+      state
     )
 
     # We do not expose PUT or POST in the v2 API.
