@@ -228,8 +228,8 @@ tags:
   x-displayName: Site
 - name: custom_field_definition
   x-displayName: Custom Field Definition
-  description: Describes the fields that can use used as custom fields on accounts
-    or subscriptions.
+  description: Describes the fields that can be used as custom fields on accounts,
+    items, line-items (one time charges), plans, or subscriptions.
 - name: item
   x-displayName: Item
   description: |-
@@ -18211,6 +18211,7 @@ components:
             - `read_only` - Users with the Customers role will be able to view this field's data via the admin UI, but
               editing will only be available via the API.
             - `write` - Users with the Customers role will be able to view and edit this field's data via the admin UI.
+            - `set_only` - Users with the Customers role will be able to set this field's data via the admin console.
           "$ref": "#/components/schemas/UserAccessEnum"
         display_name:
           type: string
@@ -22846,10 +22847,13 @@ components:
           title: Object type
         account:
           "$ref": "#/components/schemas/AccountMini"
-        external_resource:
-          "$ref": "#/components/schemas/ExternalResourceMini"
         external_product_reference:
           "$ref": "#/components/schemas/ExternalProductReferenceMini"
+        external_id:
+          type: string
+          title: External Id
+          description: The id of the subscription in the external systems., I.e. Apple
+            App Store or Google Play Store.
         last_purchased:
           type: string
           format: date-time
@@ -22872,6 +22876,10 @@ components:
           description: An indication of the quantity of a subscribed item's quantity.
           default: 1
           minimum: 0
+        state:
+          type: string
+          description: External subscriptions can be active, canceled, expired, or
+            future.
         activated_at:
           type: string
           format: date-time
@@ -22910,25 +22918,6 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/ExternalSubscription"
-    ExternalResourceMini:
-      type: object
-      title: External Resource mini details
-      properties:
-        id:
-          type: string
-          title: External resource ID
-          description: System-generated unique identifier for an external resource
-            ID, e.g. `e28zov4fw0v2`.
-        object:
-          type: string
-          title: Object type
-        external_object_reference:
-          type: string
-          title: External Object Reference
-          description: Identifier or URL reference where the resource is canonically
-            available in the external platform.
-          maxLength: 255
-          readOnly: true
     CustomerPermission:
       type: object
       properties:
@@ -23673,6 +23662,7 @@ components:
       - api_only
       - read_only
       - write
+      - set_only
     PricingModelTypeEnum:
       type: string
       enum:
