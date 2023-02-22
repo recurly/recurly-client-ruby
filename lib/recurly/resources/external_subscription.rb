@@ -30,13 +30,13 @@ module Recurly
       #   @return [DateTime] When the external subscription expires in the external platform.
       define_attribute :expires_at, DateTime
 
+      # @!attribute external_id
+      #   @return [String] The id of the subscription in the external systems., I.e. Apple App Store or Google Play Store.
+      define_attribute :external_id, String
+
       # @!attribute external_product_reference
       #   @return [ExternalProductReferenceMini] External Product Reference details
       define_attribute :external_product_reference, :ExternalProductReferenceMini
-
-      # @!attribute external_resource
-      #   @return [ExternalResourceMini] External Resource mini details
-      define_attribute :external_resource, :ExternalResourceMini
 
       # @!attribute id
       #   @return [String] System-generated unique identifier for an external subscription ID, e.g. `e28zov4fw0v2`.
@@ -53,6 +53,10 @@ module Recurly
       # @!attribute quantity
       #   @return [Integer] An indication of the quantity of a subscribed item's quantity.
       define_attribute :quantity, Integer
+
+      # @!attribute state
+      #   @return [String] External subscriptions can be active, canceled, expired, or future.
+      define_attribute :state, String
 
       # @!attribute updated_at
       #   @return [DateTime] When the external subscription was updated in Recurly.
