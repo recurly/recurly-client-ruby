@@ -22,7 +22,6 @@ module Recurly
   require 'recurly/entitlement'
   require 'recurly/external_product'
   require 'recurly/external_product_reference'
-  require 'recurly/external_resource'
   require 'recurly/external_subscription'
   require 'recurly/helper'
   require 'recurly/invoice'
