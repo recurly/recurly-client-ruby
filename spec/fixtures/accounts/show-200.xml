@@ -8,6 +8,7 @@ Content-Type: application/xml; charset=utf-8
   <billing_info href="https://api.recurly.com/v2/accounts/abcdef1234567890/billing_info"/>
   <entitlements href="https://api.recurly.com/v2/accounts/abcdef1234567890/entitlements"/>
   <external_subscriptions href="https://api.recurly.com/v2/accounts/abcdef1234567890/external_subscriptions"/>
+  <external_invoices href="https://api.recurly.com/v2/accounts/abcdef1234567890/external_invoices"/>
   <invoices href="https://api.recurly.com/v2/accounts/abcdef1234567890/invoices"/>
   <redemptions href="https://api.recurly.com/v2/accounts/abcdef1234567890/redemptions"/>
   <subscriptions href="https://api.recurly.com/v2/accounts/abcdef1234567890/subscriptions"/>
