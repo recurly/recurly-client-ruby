@@ -200,6 +200,7 @@ x-tagGroups:
   - usage
   - automated_exports
   - external_subscriptions
+  - external_invoices
   - external_products
   - gift_cards
 - name: Products and Promotions
@@ -346,6 +347,11 @@ tags:
   description: A subscription from an external resource that is not managed by the
     Recurly platform and instead is managed by third-party platforms like Apple App
     Store and Google Play Store.
+- name: external_invoices
+  x-displayName: External Invoices
+  description: An invoice from an external resource that is not managed by the Recurly
+    platform and instead is managed by third-party platforms like Apple App Store
+    and Google Play Store.
 - name: external_products
   x-displayName: External Product
   description: A product from an external resource that is not managed by the Recurly
@@ -3244,6 +3250,40 @@ paths:
           := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve next
           page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, creditPayment := range creditPayments.Data()
           {\n\t\tfmt.Printf(\"Account Credit Payment %3d: %s\\n\",\n\t\t\ti,\n\t\t\tcreditPayment.Id,\n\t\t)\n\t}\n}"
+  "/accounts/{account_id}/external_invoices":
+    parameters:
+    - "$ref": "#/components/parameters/account_id"
+    get:
+      tags:
+      - account
+      operationId: list_account_external_invoices
+      summary: List the external invoices on an account
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/sort_dates"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/order"
+      responses:
+        '200':
+          description: A list of the the external_invoices on an account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalInvoiceList"
+        '404':
+          description: Incorrect account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/invoices":
     get:
       tags:
@@ -7577,6 +7617,40 @@ paths:
         '422':
           description: Validation error with external resource connection or feature
             flag.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/external_subscriptions/{external_subscription_id}/external_invoices":
+    parameters:
+    - "$ref": "#/components/parameters/external_subscription_id"
+    get:
+      tags:
+      - external_subscriptions
+      operationId: list_external_subscription_external_invoices
+      summary: List the external invoices on an external subscription
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/sort_dates"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/order"
+      responses:
+        '200':
+          description: A list of the the external_invoices on a site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalInvoiceList"
+        '404':
+          description: Incorrect site.
           content:
             application/json:
               schema:
@@ -15346,6 +15420,72 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/external_invoices":
+    get:
+      tags:
+      - external_invoices
+      operationId: list_external_invoices
+      summary: List the external invoices on a site
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/sort_dates"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/order"
+      responses:
+        '200':
+          description: A list of the the external_invoices on a site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalInvoiceList"
+        '404':
+          description: Incorrect site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/external_invoices/{external_invoice_id}":
+    parameters:
+    - "$ref": "#/components/parameters/external_invoice_id"
+    get:
+      tags:
+      - external_invoices
+      operationId: show_external_invoice
+      summary: Fetch an external invoice
+      responses:
+        '201':
+          description: Returns the external invoice
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalInvoice"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: External invoice cannot be found for the specified reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/entitlements":
     parameters:
     - "$ref": "#/components/parameters/account_id"
@@ -15640,6 +15780,13 @@ components:
       name: custom_field_definition_id
       in: path
       description: Custom Field Definition ID
+      required: true
+      schema:
+        type: string
+    external_invoice_id:
+      name: external_invoice_id
+      in: path
+      description: External invoice ID, e.g. `e28zov4fw0v2`.
       required: true
       schema:
         type: string
@@ -22918,6 +23065,110 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/ExternalSubscription"
+    ExternalInvoice:
+      type: object
+      description: Invoice from an external resource such as Apple App Store or Google
+        Play Store.
+      properties:
+        id:
+          type: string
+          title: External invoice ID
+          description: System-generated unique identifier for an external invoice
+            ID, e.g. `e28zov4fw0v2`.
+        object:
+          type: string
+          title: Object type
+        account:
+          "$ref": "#/components/schemas/AccountMini"
+        external_subscription:
+          "$ref": "#/components/schemas/ExternalSubscription"
+        external_id:
+          type: string
+          description: An identifier which associates the external invoice to a corresponding
+            object in an external platform.
+        state:
+          "$ref": "#/components/schemas/ExternalInvoiceStateEnum"
+        total:
+          type: number
+          format: float
+          title: Total
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+        line_items:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExternalCharge"
+        purchased_at:
+          type: string
+          format: date-time
+          description: When the invoice was created in the external platform.
+        created_at:
+          type: string
+          format: date-time
+          description: When the external invoice was created in Recurly.
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated at
+          description: When the external invoice was updated in Recurly.
+    ExternalInvoiceList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExternalInvoice"
+    ExternalCharge:
+      type: object
+      description: Charge from an external resource such as Apple App Store or Google
+        Play Store.
+      properties:
+        id:
+          type: string
+          title: External invoice ID
+          description: System-generated unique identifier for an external charge ID,
+            e.g. `e28zov4fw0v2`.
+        object:
+          type: string
+          title: Object type
+        account:
+          "$ref": "#/components/schemas/AccountMini"
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+        unit_amount:
+          type: number
+          format: float
+          title: Unit Amount
+        quantity:
+          type: integer
+        description:
+          type: string
+        external_product_reference:
+          "$ref": "#/components/schemas/ExternalProductReferenceMini"
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          description: When the external charge was created in Recurly.
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated at
+          description: When the external charge was updated in Recurly.
     CustomerPermission:
       type: object
       properties:
@@ -24276,3 +24527,7 @@ components:
       enum:
       - ideal
       - sofort
+    ExternalInvoiceStateEnum:
+      type: string
+      enum:
+      - paid
