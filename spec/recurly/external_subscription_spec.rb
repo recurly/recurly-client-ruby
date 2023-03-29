@@ -24,6 +24,23 @@ describe ExternalSubscription do
     )
   }
 
+      describe "when external_subscription has external invoices" do
+      let(:external_subscription) {
+        stub_api_request :get, 'external_subscriptions/sdam2lfeop3e', 'external_subscriptions/show-200'
+        stub_api_request :get, "https://api.recurly.com/v2/accounts/AWE-348dds", 'accounts/show-200'
+        stub_api_request :get,
+          'external_subscriptions/sdam2lfeop3e/external_invoices',
+          'external_subscriptions/external_invoices/show-200'
+        ExternalSubscription.find 'sdam2lfeop3e'
+      }
+
+      it "is able to retrieve and parse external_invoices" do
+        external_invoice = external_subscription.external_invoices.first
+        external_invoice.must_be_instance_of ExternalInvoice
+        external_invoice.external_subscription.must_be_instance_of ExternalSubscription
+      end
+    end
+
   describe 'serializing the record' do
     it 'must serialize' do
       external_subscription.to_xml.must_equal <<XML.chomp

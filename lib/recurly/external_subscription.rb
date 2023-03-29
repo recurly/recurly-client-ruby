@@ -1,11 +1,14 @@
 module Recurly
   class ExternalSubscription < Resource
 
-      # @return [Account]
-      belongs_to :account
+    # @return [Account]
+    belongs_to :account
 
-      # @return [ExternalProductReference]
-      belongs_to :external_product_reference
+    # @return [ExternalProductReference]
+    belongs_to :external_product_reference
+
+    # @return [ExternalInvoice]
+    has_many :external_invoices
 
     define_attribute_methods %w(
       account

@@ -29,6 +29,9 @@ module Recurly
     # @return [Pager<ExternalSubscription>, []] A pager that yields External Subscriptions for persisted
     has_many :external_subscriptions
 
+    # @return [Pager<ExternalInvoice>, []] A pager that yields External Subscriptions for persisted
+    has_many :external_invoices
+
     # @return [Pager<Entitlement>, []] A pager that yields Entitlement for persisted
     has_many :entitlements
 

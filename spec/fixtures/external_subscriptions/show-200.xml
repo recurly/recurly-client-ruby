@@ -1,0 +1,25 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<external_subscription href="https://api.recurly.com/v2/external_subscriptions/sdam2lfeop3e">
+    <account href="https://api.recurly.com/v2/accounts/AWE-348dds"/>
+    <external_invoices href="https://api.recurly.com/v2/external_subscriptions/sdam2lfeop3e/external_invoices"/>
+    <external_id>external-id</external_id>
+    <external_product_reference>
+        <id>sd1eheqcn5a2</id>
+        <reference_code>1234</reference_code>
+        <external_connection_type>apple_app_store</external_connection_type>
+        <created_at type="datetime">2023-02-07T16:03:56Z</created_at>
+        <updated_at type="datetime">2023-02-08T23:02:30Z</updated_at>
+    </external_product_reference>
+    <last_purchased type="datetime">2023-01-13T17:28:02Z</last_purchased>
+    <auto_renew type="boolean">true</auto_renew>
+    <app_identifier>external-id</app_identifier>
+    <quantity type="integer">1</quantity>
+    <state>expired</state>
+    <activated_at type="datetime">2023-01-13T17:28:02Z</activated_at>
+    <expires_at type="datetime">2023-01-13T17:28:02Z</expires_at>
+    <created_at type="datetime">2023-02-08T23:02:30Z</created_at>
+    <updated_at type="datetime">2023-02-08T23:02:30Z</updated_at>
+</external_subscription>

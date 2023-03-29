@@ -3,8 +3,9 @@ Content-Type: application/xml; charset=utf-8
 
 <?xml version="1.0" encoding="UTF-8"?>
 <external_subscriptions type="array">
-    <external_subscription href="https://pcc.recurly.dev:3000/v2/external_subscriptions/ru8rz20qmmju">
-        <account href="https://pcc.recurly.dev:3000/v2/accounts/AWE-76"/>
+    <external_subscription href="https://api.recurly.com/v2/external_subscriptions/ru8rz20qmmju">
+        <account href="https://api.recurly.com/v2/accounts/AWE-76"/>
+        <external_invoices href="https://api.recurly.com/v2/external_subscriptions/sdam2lfeop3e/external_invoices"/>
         <external_id>1234abcd</external_id>
         <external_product_reference nil="nil"></external_product_reference>
         <last_purchased nil="nil"></last_purchased>
