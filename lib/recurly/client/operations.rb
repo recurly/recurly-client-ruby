@@ -750,6 +750,26 @@ module Recurly
       pager(path, **options)
     end
 
+    # List the external invoices on an account
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_invoices list_account_external_invoices api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param params [Hash] Optional query string parameters:
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #        :limit [Integer] Limit number of records 1-200.
+    #        :order [String] Sort order.
+    #
+    # @return [Pager<Resources::ExternalInvoice>] A list of the the external_invoices on an account.
+    #
+    def list_account_external_invoices(account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/external_invoices", account_id: account_id)
+      pager(path, **options)
+    end
+
     # List an account's invoices
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_account_invoices list_account_invoices api documentation}
@@ -2107,6 +2127,26 @@ module Recurly
     def get_external_subscription(external_subscription_id:, **options)
       path = interpolate_path("/external_subscriptions/{external_subscription_id}", external_subscription_id: external_subscription_id)
       get(path, **options)
+    end
+
+    # List the external invoices on an external subscription
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_invoices list_external_subscription_external_invoices api documentation}
+    #
+    # @param external_subscription_id [String] External subscription id
+    # @param params [Hash] Optional query string parameters:
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #        :limit [Integer] Limit number of records 1-200.
+    #        :order [String] Sort order.
+    #
+    # @return [Pager<Resources::ExternalInvoice>] A list of the the external_invoices on a site.
+    #
+    def list_external_subscription_external_invoices(external_subscription_id:, **options)
+      path = interpolate_path("/external_subscriptions/{external_subscription_id}/external_invoices", external_subscription_id: external_subscription_id)
+      pager(path, **options)
     end
 
     # List a site's invoices
@@ -4176,6 +4216,39 @@ module Recurly
     #
     def get_invoice_template(invoice_template_id:, **options)
       path = interpolate_path("/invoice_templates/{invoice_template_id}", invoice_template_id: invoice_template_id)
+      get(path, **options)
+    end
+
+    # List the external invoices on a site
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_external_invoices list_external_invoices api documentation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #        :limit [Integer] Limit number of records 1-200.
+    #        :order [String] Sort order.
+    #
+    # @return [Pager<Resources::ExternalInvoice>] A list of the the external_invoices on a site.
+    #
+    def list_external_invoices(**options)
+      path = "/external_invoices"
+      pager(path, **options)
+    end
+
+    # Fetch an external invoice
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/show_external_invoice show_external_invoice api documentation}
+    #
+    # @param external_invoice_id [String] External invoice ID, e.g. +e28zov4fw0v2+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalInvoice] Returns the external invoice
+    #
+    def show_external_invoice(external_invoice_id:, **options)
+      path = interpolate_path("/external_invoices/{external_invoice_id}", external_invoice_id: external_invoice_id)
       get(path, **options)
     end
 
