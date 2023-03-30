@@ -10,7 +10,7 @@ Content-Type: application/xml; charset=utf-8
         <external_id>abc123</external_id>
         <state>paid</state>
         <currency>USD</currency>
-        <total type="integer">0</total>
+        <total type="string">100.95</total>
         <line_items type="array">
             <external_charge>
                 <account href="https://pcc.recurly.dev:3000/v2/accounts/AWE-348dds"/>
@@ -23,7 +23,7 @@ Content-Type: application/xml; charset=utf-8
                     <updated_at type="datetime">2023-03-14T19:55:18Z</updated_at>
                 </external_product_reference>
                 <description>string</description>
-                <unit_amount type="integer">0</unit_amount>
+                <unit_amount type="string">100.95</unit_amount>
                 <currency>USD</currency>
                 <quantity>0</quantity>
                 <created_at type="datetime">2023-03-14T19:55:13Z</created_at>

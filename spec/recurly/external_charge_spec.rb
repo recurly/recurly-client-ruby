@@ -13,7 +13,7 @@ describe ExternalCharge do
       external_invoice: ExternalInvoice.new(),
       account: Account.new(account_code: 'account_code'),
       description: 'good',
-      unit_amount: 50,
+      unit_amount: '50.72',
       currency: 'USD',
       quantity: 2,
       created_at: '2023-02-07T18:53:55Z',
@@ -32,7 +32,7 @@ describe ExternalCharge do
   describe "#methods" do
     it "has correct attributes" do
       expect(external_charge.description).must_equal('good')
-      expect(external_charge.unit_amount).must_equal(50)
+      expect(external_charge.unit_amount).must_equal('50.72')
       expect(external_charge.currency).must_equal('USD')
       expect(external_charge.quantity).must_equal(2)
       expect(external_charge.created_at).must_equal('2023-02-07T18:53:55Z')
