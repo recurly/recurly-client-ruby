@@ -39,8 +39,8 @@ module Recurly
       define_attribute :quantity, Integer
 
       # @!attribute unit_amount
-      #   @return [Float] Unit Amount
-      define_attribute :unit_amount, Float
+      #   @return [String] Unit Amount
+      define_attribute :unit_amount, String
 
       # @!attribute updated_at
       #   @return [DateTime] When the external charge was updated in Recurly.
