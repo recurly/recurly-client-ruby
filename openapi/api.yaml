@@ -17604,6 +17604,9 @@ components:
           title: Security code or CVV
           description: "*STRONGLY RECOMMENDED*"
           maxLength: 4
+        currency:
+          type: string
+          description: 3-letter ISO 4217 currency code.
         vat_number:
           type: string
           title: VAT number
@@ -23089,8 +23092,8 @@ components:
         state:
           "$ref": "#/components/schemas/ExternalInvoiceStateEnum"
         total:
-          type: number
-          format: float
+          type: string
+          format: decimal
           title: Total
         currency:
           type: string
@@ -23150,8 +23153,8 @@ components:
           title: Currency
           description: 3-letter ISO 4217 currency code.
         unit_amount:
-          type: number
-          format: float
+          type: string
+          format: decimal
           title: Unit Amount
         quantity:
           type: integer

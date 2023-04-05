@@ -34,6 +34,10 @@ module Recurly
       #   @return [String] Company name
       define_attribute :company, String
 
+      # @!attribute currency
+      #   @return [String] 3-letter ISO 4217 currency code.
+      define_attribute :currency, String
+
       # @!attribute cvv
       #   @return [String] *STRONGLY RECOMMENDED*
       define_attribute :cvv, String

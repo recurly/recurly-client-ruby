@@ -47,8 +47,8 @@ module Recurly
       define_attribute :state, String
 
       # @!attribute total
-      #   @return [Float] Total
-      define_attribute :total, Float
+      #   @return [String] Total
+      define_attribute :total, String
 
       # @!attribute updated_at
       #   @return [DateTime] When the external invoice was updated in Recurly.
