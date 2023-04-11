@@ -50,6 +50,10 @@ module Recurly
       #   @return [String] The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.
       define_attribute :exemption_certificate, String
 
+      # @!attribute external_accounts
+      #   @return [Array[ExternalAccountCreate]] External Accounts
+      define_attribute :external_accounts, Array, { :item_type => :ExternalAccountCreate }
+
       # @!attribute first_name
       #   @return [String]
       define_attribute :first_name, String

@@ -750,6 +750,81 @@ module Recurly
       pager(path, **options)
     end
 
+    # List external accounts for an account
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_account list_account_external_account api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Pager<Resources::ExternalAccount>] A list of external accounts on an account.
+    #
+    def list_account_external_account(account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/external_accounts", account_id: account_id)
+      pager(path, **options)
+    end
+
+    # Create an external account
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_account_external_account create_account_external_account api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param body [Requests::ExternalAccountCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalAccountCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalAccount] A representation of the created external_account.
+    #
+    def create_account_external_account(account_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/external_accounts", account_id: account_id)
+      post(path, body, Requests::ExternalAccountCreate, **options)
+    end
+
+    # Get an external account for an account
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_account_external_account get_account_external_account api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param external_account_id [String] External account ID, e.g. +s28zov4fw0cb+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalAccount] A external account on an account.
+    #
+    def get_account_external_account(account_id:, external_account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/external_accounts/{external_account_id}", account_id: account_id, external_account_id: external_account_id)
+      get(path, **options)
+    end
+
+    # Update an external account
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/update_account_external_account update_account_external_account api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param external_account_id [String] External account ID, e.g. +s28zov4fw0cb+.
+    # @param body [Requests::ExternalAccountUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalAccountUpdate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalAccount] A representation of the updated external_account.
+    #
+    def update_account_external_account(account_id:, external_account_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/external_accounts/{external_account_id}", account_id: account_id, external_account_id: external_account_id)
+      put(path, body, Requests::ExternalAccountUpdate, **options)
+    end
+
+    # Delete an external account for an account
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/delete_account_external_account delete_account_external_account api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param external_account_id [String] External account ID, e.g. +s28zov4fw0cb+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalAccount] Successful Delete
+    #
+    def delete_account_external_account(account_id:, external_account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/external_accounts/{external_account_id}", account_id: account_id, external_account_id: external_account_id)
+      delete(path, **options)
+    end
+
     # List the external invoices on an account
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_account_external_invoices list_account_external_invoices api documentation}
