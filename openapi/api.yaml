@@ -202,6 +202,7 @@ x-tagGroups:
   - external_subscriptions
   - external_invoices
   - external_products
+  - external_accounts
   - gift_cards
 - name: Products and Promotions
   tags:
@@ -361,6 +362,11 @@ tags:
   x-displayName: Gift Cards
   description: Add gift card purchases to your checkout and allow gift card recipients
     to redeem the gift card for credit towards any of your products.
+- name: external_accounts
+  x-displayName: External Accounts
+  description: An account from an external resource that is not managed by the Recurly
+    platform and instead is managed by third-party platforms like Apple App Store
+    and Google Play Store.
 paths:
   "/sites":
     get:
@@ -3250,6 +3256,208 @@ paths:
           := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve next
           page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, creditPayment := range creditPayments.Data()
           {\n\t\tfmt.Printf(\"Account Credit Payment %3d: %s\\n\",\n\t\t\ti,\n\t\t\tcreditPayment.Id,\n\t\t)\n\t}\n}"
+  "/accounts/{account_id}/external_accounts":
+    parameters:
+    - "$ref": "#/components/parameters/account_id"
+    get:
+      tags:
+      - external_accounts
+      operationId: list_account_external_account
+      summary: List external accounts for an account
+      responses:
+        '200':
+          description: A list of external accounts on an account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalAccountList"
+        '404':
+          description: Incorrect account or external_account ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '406':
+          description: Unavailable API version
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Feature not enabled on site
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    post:
+      tags:
+      - external_accounts
+      operationId: create_account_external_account
+      summary: Create an external account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ExternalAccountCreate"
+      responses:
+        '200':
+          description: A representation of the created external_account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalAccount"
+        '404':
+          description: Incorrect account or external_account ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '406':
+          description: Unavailable API version
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Feature not enabled on site
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/accounts/{account_id}/external_accounts/{external_account_id}":
+    parameters:
+    - "$ref": "#/components/parameters/account_id"
+    - "$ref": "#/components/parameters/external_account_id"
+    get:
+      tags:
+      - external_accounts
+      operationId: get_account_external_account
+      summary: Get an external account for an account
+      responses:
+        '200':
+          description: A external account on an account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalAccount"
+        '404':
+          description: Incorrect account or external_account ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '406':
+          description: Unavailable API version
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Feature not enabled on site
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    put:
+      tags:
+      - external_accounts
+      operationId: update_account_external_account
+      summary: Update an external account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ExternalAccountUpdate"
+      responses:
+        '200':
+          description: A representation of the updated external_account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalAccount"
+        '404':
+          description: Incorrect account or external_account ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '406':
+          description: Unavailable API version
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Feature not enabled on site
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    delete:
+      tags:
+      - external_accounts
+      operationId: delete_account_external_account
+      summary: Delete an external account for an account
+      responses:
+        '200':
+          description: Successful Delete
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalAccount"
+        '404':
+          description: External Account not found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '406':
+          description: Unavailable API version
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Feature not enabled on site
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/external_invoices":
     parameters:
     - "$ref": "#/components/parameters/account_id"
@@ -15783,6 +15991,13 @@ components:
       required: true
       schema:
         type: string
+    external_account_id:
+      name: external_account_id
+      in: path
+      description: External account ID, e.g. `s28zov4fw0cb`.
+      required: true
+      schema:
+        type: string
     external_invoice_id:
       name: external_invoice_id
       in: path
@@ -16566,6 +16781,11 @@ components:
             maxLength: 50
           acquisition:
             "$ref": "#/components/schemas/AccountAcquisitionUpdate"
+          external_accounts:
+            type: array
+            title: External Accounts
+            items:
+              "$ref": "#/components/schemas/ExternalAccountCreate"
           shipping_addresses:
             type: array
             items:
@@ -16763,6 +16983,11 @@ components:
             merchant has an integration for the Vertex tax provider, this optional
             value will be sent in any tax calculation requests for the account.
           maxLength: 30
+        external_accounts:
+          type: array
+          description: The external accounts belonging to this account
+          items:
+            "$ref": "#/components/schemas/ExternalAccount"
         parent_account_id:
           type: string
           maxLength: 13
@@ -22951,6 +23176,70 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/ExternalProduct"
+    ExternalAccountList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExternalAccount"
+    ExternalAccountCreate:
+      type: object
+      properties:
+        external_account_code:
+          type: string
+          description: Represents the account code for the external account.
+        external_connection_type:
+          type: string
+          description: Represents the connection type. `AppleAppStore` or `GooglePlayStore`
+      required:
+      - external_account_code
+      - external_connection_type
+    ExternalAccountUpdate:
+      type: object
+      properties:
+        external_account_code:
+          type: string
+          description: Represents the account code for the external account.
+        external_connection_type:
+          type: string
+          description: Represents the connection type. `AppleAppStore` or `GooglePlayStore`
+    ExternalAccount:
+      type: object
+      title: External Account
+      properties:
+        object:
+          type: string
+          default: external_account
+        id:
+          type: string
+          description: UUID of the external_account .
+        external_account_code:
+          type: string
+          description: Represents the account code for the external account.
+        external_connection_type:
+          type: string
+          description: Represents the connection type. `AppleAppStore` or `GooglePlayStore`
+        created_at:
+          type: string
+          format: date-time
+          description: Created at
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          description: Last updated at
+          readOnly: true
     ExternalProductReferenceMini:
       type: object
       title: External Product Reference details
