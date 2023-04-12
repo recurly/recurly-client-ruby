@@ -26,6 +26,9 @@ module Recurly
     # @return [Pager<Transaction>, []] A pager that yields Transaction for persisted
     has_many :transactions
 
+    # @return [Pager<ExternalAccount>, []] A pager that yields External Accounts for persisted
+    has_many :external_accounts
+
     # @return [Pager<ExternalSubscription>, []] A pager that yields External Subscriptions for persisted
     has_many :external_subscriptions
 

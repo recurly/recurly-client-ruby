@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<external_accounts type="array">
+  <external_account href="https://pcc.recurly.dev:3000/v2/accounts/ac-135-927/external_accounts/sok2zqg88n6u">
+    <external_account_code>b115bda0-4259-45c9-8784-bea417724f84</external_account_code>
+    <external_connection_type>GooglePlayStore</external_connection_type>
+    <id>sd28t3zdm59p</id>
+    <created_at type="datetime">2023-01-23T19:02:40Z</created_at>
+    <updated_at type="datetime">2023-01-23T19:02:47Z</updated_at>
+  </external_account>
+</external_accounts>
