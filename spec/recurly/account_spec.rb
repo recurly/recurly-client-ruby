@@ -344,6 +344,23 @@ XML
       end
     end
 
+    describe "when account has external accounts" do
+      let(:account) {
+        stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+        stub_api_request :get,
+          'accounts/abcdef1234567890/external_accounts',
+          'accounts/external_accounts/index-200'
+        Account.find 'abcdef1234567890'
+      }
+
+      it "is able to retrieve and parse accounts" do
+        external_accounts = account.external_accounts
+        external_account = external_accounts.first
+        external_account.must_be_instance_of ExternalAccount
+        external_account.account.must_be_instance_of Account
+      end
+    end
+
     describe "when account has external invoices" do
       let(:account) {
         stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'

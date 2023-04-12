@@ -20,6 +20,7 @@ module Recurly
   require 'recurly/credit_payment'
   require 'recurly/customer_permission'
   require 'recurly/entitlement'
+  require 'recurly/external_account'
   require 'recurly/external_charge'
   require 'recurly/external_invoice'
   require 'recurly/external_product'
