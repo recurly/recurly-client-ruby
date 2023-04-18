@@ -64,6 +64,10 @@ describe Invoice do
         invoice.tax_type.must_equal 'usst'
       end
 
+      it 'used_tax_service is true' do
+        invoice.used_tax_service.must_equal true
+      end
+
       it 'has a vertex fields' do
         invoice.refund_tax_date.must_equal DateTime.new(2017, 04, 30)
         invoice.refund_geo_code.must_equal 'ABC123'
