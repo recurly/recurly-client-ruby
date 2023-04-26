@@ -154,6 +154,10 @@ module Recurly
       #   @return [DateTime] Last updated at
       define_attribute :updated_at, DateTime
 
+      # @!attribute used_tax_service
+      #   @return [Boolean] Will be `true` when the invoice had a successful response from the tax service and `false` when the invoice was not sent to tax service due to a lack of address or enabled jurisdiction or was processed without tax due to a non-blocking error returned from the tax service.
+      define_attribute :used_tax_service, :Boolean
+
       # @!attribute uuid
       #   @return [String] Invoice UUID
       define_attribute :uuid, String
