@@ -224,8 +224,8 @@ tags:
   x-displayName: Site
 - name: custom_field_definition
   x-displayName: Custom Field Definition
-  description: Describes the fields that can use used as custom fields on accounts
-    or subscriptions.
+  description: Describes the fields that can be used as custom fields on accounts,
+    items, line-items (one time charges), plans, or subscriptions.
 - name: item
   x-displayName: Item
   description: |-
@@ -15561,7 +15561,9 @@ components:
           - es-MX
           - es-US
           - fi-FI
+          - fr-BE
           - fr-CA
+          - fr-CH
           - fr-FR
           - hi-IN
           - it-IT
@@ -15698,7 +15700,9 @@ components:
           - es-MX
           - es-US
           - fi-FI
+          - fr-BE
           - fr-CA
+          - fr-CH
           - fr-FR
           - hi-IN
           - it-IT
@@ -16619,6 +16623,9 @@ components:
           title: Security code or CVV
           description: "*STRONGLY RECOMMENDED*"
           maxLength: 4
+        currency:
+          type: string
+          description: 3-letter ISO 4217 currency code.
         vat_number:
           type: string
           title: VAT number
@@ -17468,10 +17475,12 @@ components:
             - `read_only` - Users with the Customers role will be able to view this field's data via the admin UI, but
               editing will only be available via the API.
             - `write` - Users with the Customers role will be able to view and edit this field's data via the admin UI.
+            - `set_only` - Users with the Customers role will be able to set this field's data via the admin console.
           enum:
           - api_only
           - read_only
           - write
+          - set_only
         display_name:
           type: string
           title: Display name
@@ -17966,6 +17975,13 @@ components:
           description: The outstanding balance remaining on this invoice.
         tax_info:
           "$ref": "#/components/schemas/TaxInfo"
+        used_tax_service:
+          type: boolean
+          title: Used Tax Service?
+          description: Will be `true` when the invoice had a successful response from
+            the tax service and `false` when the invoice was not sent to tax service
+            due to a lack of address or enabled jurisdiction or was processed without
+            tax due to a non-blocking error returned from the tax service.
         vat_number:
           type: string
           title: VAT number
