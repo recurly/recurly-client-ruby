@@ -43,7 +43,7 @@ module Recurly
       define_attribute :updated_at, DateTime
 
       # @!attribute user_access
-      #   @return [String] The access control applied inside Recurly's admin UI: - `api_only` - No one will be able to view or edit this field's data via the admin UI. - `read_only` - Users with the Customers role will be able to view this field's data via the admin UI, but   editing will only be available via the API. - `write` - Users with the Customers role will be able to view and edit this field's data via the admin UI.
+      #   @return [String] The access control applied inside Recurly's admin UI: - `api_only` - No one will be able to view or edit this field's data via the admin UI. - `read_only` - Users with the Customers role will be able to view this field's data via the admin UI, but   editing will only be available via the API. - `write` - Users with the Customers role will be able to view and edit this field's data via the admin UI. - `set_only` - Users with the Customers role will be able to set this field's data via the admin console.
       define_attribute :user_access, String
     end
   end
