@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.19.3](https://github.com/recurly/recurly-client-ruby/tree/2.19.3) (2023-04-26)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.2...2.19.3)
+
+
+**Merged Pull Requests**
+
+- Add used_tax_service to Invoice response [#837](https://github.com/recurly/recurly-client-ruby/pull/837) ([judith](https://github.com/judith))
+
+
+
 ## [2.19.2](https://github.com/recurly/recurly-client-ruby/tree/2.19.2) (2023-04-13)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.1...2.19.2)
