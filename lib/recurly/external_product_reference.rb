@@ -12,7 +12,7 @@ module Recurly
       updated_at
     )
 
-    protected(*%w(save save!))
-    private_class_method(*%w(all first paginate scoped where create create!))
+    # ExternalProductReferences are only writeable and readable through {ExternalProduct} instances.
+    embedded! true
   end
 end
