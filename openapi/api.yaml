@@ -199,11 +199,13 @@ x-tagGroups:
   - purchase
   - usage
   - automated_exports
+  - gift_cards
+- name: App Management
+  tags:
   - external_subscriptions
   - external_invoices
   - external_products
   - external_accounts
-  - gift_cards
 - name: Products and Promotions
   tags:
   - item
@@ -349,7 +351,7 @@ tags:
     Recurly platform and instead is managed by third-party platforms like Apple App
     Store and Google Play Store.
 - name: external_invoices
-  x-displayName: External Invoices
+  x-displayName: External Invoice
   description: An invoice from an external resource that is not managed by the Recurly
     platform and instead is managed by third-party platforms like Apple App Store
     and Google Play Store.
@@ -363,7 +365,7 @@ tags:
   description: Add gift card purchases to your checkout and allow gift card recipients
     to redeem the gift card for credit towards any of your products.
 - name: external_accounts
-  x-displayName: External Accounts
+  x-displayName: External Account
   description: An account from an external resource that is not managed by the Recurly
     platform and instead is managed by third-party platforms like Apple App Store
     and Google Play Store.
@@ -24312,6 +24314,7 @@ components:
     ExternalPaymentMethodEnum:
       type: string
       enum:
+      - bacs
       - ach
       - amazon
       - apple_pay
@@ -24432,6 +24435,7 @@ components:
       enum:
       - api
       - chargeback
+      - external_recovery
       - force_collect
       - hpp
       - merchant
@@ -24501,6 +24505,7 @@ components:
     PaymentMethodEnum:
       type: string
       enum:
+      - bacs
       - amazon
       - amazon_billing_agreement
       - apple_pay
