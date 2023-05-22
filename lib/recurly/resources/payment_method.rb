@@ -34,6 +34,10 @@ module Recurly
       #   @return [String] Credit card number's first six digits.
       define_attribute :first_six, String
 
+      # @!attribute gateway_attributes
+      #   @return [GatewayAttributes] Gateway specific attributes associated with this PaymentMethod
+      define_attribute :gateway_attributes, :GatewayAttributes
+
       # @!attribute gateway_code
       #   @return [String] An identifier for a specific payment gateway.
       define_attribute :gateway_code, String
