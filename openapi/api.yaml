@@ -16645,6 +16645,17 @@ components:
           title: An identifier for a specific payment gateway. Must be used in conjunction
             with `gateway_token`.
           maxLength: 12
+        gateway_attributes:
+          type: object
+          description: Additional attributes to send to the gateway.
+          x-class-name: GatewayAttributes
+          properties:
+            account_reference:
+              type: string
+              description: Used by Adyen gateways. The Shopper Reference value used
+                when the external token was created. Must be used in conjunction with
+                gateway_token and gateway_code.
+              maxLength: 264
         amazon_billing_agreement_id:
           type: string
           title: Amazon billing agreement ID
@@ -21470,6 +21481,7 @@ components:
           - force_collect
           - refunded_externally
           - chargeback
+          - external_recovery
         currency:
           type: string
           title: Currency
@@ -22185,6 +22197,7 @@ components:
         object:
           type: string
           enum:
+          - bacs
           - credit_card
           - paypal
           - amazon
@@ -22255,6 +22268,16 @@ components:
           type: string
           description: An identifier for a specific payment gateway.
           maxLength: 13
+        gateway_attributes:
+          type: object
+          description: Gateway specific attributes associated with this PaymentMethod
+          x-class-name: GatewayAttributes
+          properties:
+            account_reference:
+              type: string
+              description: Used by Adyen gateways. The Shopper Reference value used
+                when the external token was created.
+              maxLength: 264
         billing_agreement_id:
           type: string
           description: Billing Agreement identifier. Only present for Amazon or Paypal
