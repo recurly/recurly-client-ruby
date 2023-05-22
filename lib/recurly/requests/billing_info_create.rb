@@ -46,6 +46,10 @@ module Recurly
       #   @return [String] Fraud Session ID
       define_attribute :fraud_session_id, String
 
+      # @!attribute gateway_attributes
+      #   @return [GatewayAttributes] Additional attributes to send to the gateway.
+      define_attribute :gateway_attributes, :GatewayAttributes
+
       # @!attribute gateway_code
       #   @return [String] An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.
       define_attribute :gateway_code, String
