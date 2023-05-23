@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.28.0](https://github.com/recurly/recurly-client-ruby/tree/3.28.0) (2023-05-23)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.27.0...3.28.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2019-10-10 (gateway_attributes on PaymentMethod) [#847](https://github.com/recurly/recurly-client-ruby/pull/847) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [3.27.0](https://github.com/recurly/recurly-client-ruby/tree/3.27.0) (2023-05-03)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.26.0...3.27.0)
