@@ -206,6 +206,7 @@ x-tagGroups:
   - external_invoices
   - external_products
   - external_accounts
+  - external_product_references
 - name: Products and Promotions
   tags:
   - item
@@ -360,6 +361,10 @@ tags:
   description: A product from an external resource that is not managed by the Recurly
     platform and instead is managed by third-party platforms like Apple App Store
     and Google Play Store.
+- name: external_product_references
+  x-displayName: External Product Reference
+  description: Associates an external product to a corresponding resource on an external
+    platform like the Apple App Store or Google Play Store.
 - name: gift_cards
   x-displayName: Gift Cards
   description: Add gift card purchases to your checkout and allow gift card recipients
@@ -7745,6 +7750,43 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+    post:
+      tags:
+      - external_products
+      operationId: create_external_product
+      summary: Create an external product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ExternalProductCreate"
+        required: true
+      responses:
+        '201':
+          description: Returns the external product
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalProduct"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: External product cannot be created for the specified reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/external_products/{external_product_id}":
     parameters:
     - "$ref": "#/components/parameters/external_product_id"
@@ -7762,6 +7804,181 @@ paths:
                 "$ref": "#/components/schemas/ExternalProduct"
         '404':
           description: Incorrect site or external product ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    put:
+      tags:
+      - external_products
+      operationId: update_external_product
+      summary: Update an external product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ExternalProductUpdate"
+        required: true
+      responses:
+        '200':
+          description: Settings for an external product.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalProduct"
+        '404':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    delete:
+      tags:
+      - external_products
+      operationId: deactivate_external_products
+      summary: Deactivate an external product
+      description: Deactivate an external product.
+      responses:
+        '200':
+          description: Deactivated external product.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalProduct"
+        '404':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/external_products/{external_product_id}/external_product_references":
+    parameters:
+    - "$ref": "#/components/parameters/external_product_id"
+    get:
+      tags:
+      - external_product_references
+      operationId: list_external_product_external_product_references
+      summary: List the external product references for an external product
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/sort_dates"
+      responses:
+        '200':
+          description: A list of the the external product references for an external
+            product.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalProductReferenceCollection"
+        '404':
+          description: Incorrect site or external product ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    post:
+      tags:
+      - external_product_references
+      operationId: create_external_product_external_product_reference
+      summary: Create an external product reference on an external product
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ExternalProductReferenceCreate"
+        required: true
+      responses:
+        '201':
+          description: Details for the external product reference.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalProductReferenceMini"
+        '404':
+          description: Incorrect site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/external_products/{external_product_id}/external_product_references/{external_product_reference_id}":
+    parameters:
+    - "$ref": "#/components/parameters/external_product_id"
+    - "$ref": "#/components/parameters/external_product_reference_id"
+    get:
+      tags:
+      - external_product_references
+      operationId: get_external_product_external_product_reference
+      summary: Fetch an external product reference
+      responses:
+        '200':
+          description: Details for an external product reference.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalProductReferenceMini"
+        '404':
+          description: Incorrect site or external product ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    delete:
+      tags:
+      - external_product_references
+      operationId: deactivate_external_product_external_product_reference
+      summary: Deactivate an external product reference
+      responses:
+        '200':
+          description: Details for an external product reference.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalProductReferenceMini"
+        '404':
+          description: Incorrect site or external product reference ID.
           content:
             application/json:
               schema:
@@ -16014,6 +16231,13 @@ components:
       required: true
       schema:
         type: string
+    external_product_reference_id:
+      name: external_product_reference_id
+      in: path
+      description: External product reference ID, e.g. `d39iun2fw1v4`.
+      required: true
+      schema:
+        type: string
     external_subscription_id:
       name: external_subscription_id
       in: path
@@ -23220,6 +23444,73 @@ components:
           type: array
           items:
             "$ref": "#/components/schemas/ExternalProduct"
+    ExternalProductCreate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: External product name.
+        plan_id:
+          type: string
+          description: Recurly plan UUID.
+        external_product_references:
+          type: array
+          title: External Product References
+          description: List of external product references of the external product.
+          items:
+            "$ref": "#/components/schemas/ExternalProductReferenceBase"
+      required:
+      - name
+    ExternalProductUpdate:
+      type: object
+      properties:
+        plan_id:
+          type: string
+          description: Recurly plan UUID.
+      required:
+      - plan_id
+    ExternalProductReferenceBase:
+      type: object
+      properties:
+        reference_code:
+          type: string
+          description: A code which associates the external product to a corresponding
+            object or resource in an external platform like the Apple App Store or
+            Google Play Store.
+          maxLength: 255
+        external_connection_type:
+          "$ref": "#/components/schemas/ExternalProductReferenceConnectionTypeEnum"
+    ExternalProductReferenceCollection:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExternalProductReferenceMini"
+    ExternalProductReferenceCreate:
+      allOf:
+      - "$ref": "#/components/schemas/ExternalProductReferenceBase"
+      required:
+      - reference_code
+      - external_connection_type
+    ExternalProductReferenceUpdate:
+      allOf:
+      - "$ref": "#/components/schemas/ExternalProductReferenceBase"
+    ExternalProductReferenceConnectionTypeEnum:
+      type: string
+      enum:
+      - apple_app_store
+      - google_play_store
     ExternalAccountList:
       type: object
       properties:

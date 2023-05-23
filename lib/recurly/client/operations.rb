@@ -2159,6 +2159,20 @@ module Recurly
       pager(path, **options)
     end
 
+    # Create an external product
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_external_product create_external_product api documentation}
+    #
+    # @param body [Requests::ExternalProductCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalProductCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalProduct] Returns the external product
+    #
+    def create_external_product(body:, **options)
+      path = "/external_products"
+      post(path, body, Requests::ExternalProductCreate, **options)
+    end
+
     # Fetch an external product
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_external_product get_external_product api documentation}
@@ -2171,6 +2185,98 @@ module Recurly
     def get_external_product(external_product_id:, **options)
       path = interpolate_path("/external_products/{external_product_id}", external_product_id: external_product_id)
       get(path, **options)
+    end
+
+    # Update an external product
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/update_external_product update_external_product api documentation}
+    #
+    # @param external_product_id [String] External product id
+    # @param body [Requests::ExternalProductUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalProductUpdate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalProduct] Settings for an external product.
+    #
+    def update_external_product(external_product_id:, body:, **options)
+      path = interpolate_path("/external_products/{external_product_id}", external_product_id: external_product_id)
+      put(path, body, Requests::ExternalProductUpdate, **options)
+    end
+
+    # Deactivate an external product
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_products deactivate_external_products api documentation}
+    #
+    # @param external_product_id [String] External product id
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalProduct] Deactivated external product.
+    #
+    def deactivate_external_products(external_product_id:, **options)
+      path = interpolate_path("/external_products/{external_product_id}", external_product_id: external_product_id)
+      delete(path, **options)
+    end
+
+    # List the external product references for an external product
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_external_product_external_product_references list_external_product_external_product_references api documentation}
+    #
+    # @param external_product_id [String] External product id
+    # @param params [Hash] Optional query string parameters:
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #
+    # @return [Pager<Resources::ExternalProductReferenceCollection>] A list of the the external product references for an external product.
+    #
+    def list_external_product_external_product_references(external_product_id:, **options)
+      path = interpolate_path("/external_products/{external_product_id}/external_product_references", external_product_id: external_product_id)
+      pager(path, **options)
+    end
+
+    # Create an external product reference on an external product
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_external_product_external_product_reference create_external_product_external_product_reference api documentation}
+    #
+    # @param external_product_id [String] External product id
+    # @param body [Requests::ExternalProductReferenceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalProductReferenceCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalProductReferenceMini] Details for the external product reference.
+    #
+    def create_external_product_external_product_reference(external_product_id:, body:, **options)
+      path = interpolate_path("/external_products/{external_product_id}/external_product_references", external_product_id: external_product_id)
+      post(path, body, Requests::ExternalProductReferenceCreate, **options)
+    end
+
+    # Fetch an external product reference
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_external_product_external_product_reference get_external_product_external_product_reference api documentation}
+    #
+    # @param external_product_id [String] External product id
+    # @param external_product_reference_id [String] External product reference ID, e.g. +d39iun2fw1v4+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalProductReferenceMini] Details for an external product reference.
+    #
+    def get_external_product_external_product_reference(external_product_id:, external_product_reference_id:, **options)
+      path = interpolate_path("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", external_product_id: external_product_id, external_product_reference_id: external_product_reference_id)
+      get(path, **options)
+    end
+
+    # Deactivate an external product reference
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/deactivate_external_product_external_product_reference deactivate_external_product_external_product_reference api documentation}
+    #
+    # @param external_product_id [String] External product id
+    # @param external_product_reference_id [String] External product reference ID, e.g. +d39iun2fw1v4+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalProductReferenceMini] Details for an external product reference.
+    #
+    def deactivate_external_product_external_product_reference(external_product_id:, external_product_reference_id:, **options)
+      path = interpolate_path("/external_products/{external_product_id}/external_product_references/{external_product_reference_id}", external_product_id: external_product_id, external_product_reference_id: external_product_reference_id)
+      delete(path, **options)
     end
 
     # List a site's external subscriptions
