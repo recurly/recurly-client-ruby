@@ -13,8 +13,22 @@ module Recurly
       updated_at
     )
 
-    # We do not expose POST or PUT via the v2 API
-    protected(*%w(save save!))
-    private_class_method(*%w(create! create))
+    def create_external_product_reference(external_product_reference)
+      external_product_reference.uri = "#{path}/external_product_references"
+      external_product_reference.save!
+      external_product_reference
+    end
+
+    def get_external_product_references
+      Pager.new(Recurly::ExternalProductReference, uri: "#{path}/external_product_references", parent: self)
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
+    end
+
+    def get_external_product_reference(external_product_reference_uuid)
+      ExternalProductReference.from_response API.get("#{path}/external_product_references/#{external_product_reference_uuid}")
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
+    end
   end
 end
