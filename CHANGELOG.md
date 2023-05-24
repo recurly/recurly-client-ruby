@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.19.4](https://github.com/recurly/recurly-client-ruby/tree/2.19.4) (2023-05-24)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.3...2.19.4)
+
+
+
+
+
 ## [2.19.3](https://github.com/recurly/recurly-client-ruby/tree/2.19.3) (2023-04-26)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.2...2.19.3)
