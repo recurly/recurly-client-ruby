@@ -16,6 +16,8 @@ module Recurly
     # @return [Account]
     belongs_to :account
 
+    has_one :gateway_attribute, class_name: :GatewayAttribute, readonly: false
+
     define_attribute_methods %w(
       uuid
       first_name
