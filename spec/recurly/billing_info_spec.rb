@@ -11,6 +11,7 @@ describe BillingInfo do
           :last_four  => "1111",
           :city       => "Los Angeles",
           :state      => "CA",
+          :gateway_attributes => { account_reference: "ABC123" },
         )
       }
     
@@ -22,6 +23,9 @@ describe BillingInfo do
 <card_type>Visa</card_type>\
 <city>Los Angeles</city>\
 <first_name>Larry</first_name>\
+<gateway_attributes>\
+<account_reference>ABC123</account_reference>\
+</gateway_attributes>\
 <gateway_code>gatewaycode123</gateway_code>\
 <gateway_token>gatewaytoken123</gateway_token>\
 <last_four>1111</last_four>\

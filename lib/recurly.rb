@@ -5,6 +5,7 @@ module Recurly
   require 'recurly/api'
   require 'recurly/resource'
   require 'recurly/shipping_address'
+  require 'recurly/gateway_attribute'
   require 'recurly/billing_info'
   require 'recurly/custom_field'
   require 'recurly/account_acquisition'
