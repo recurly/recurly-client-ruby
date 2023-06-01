@@ -106,6 +106,10 @@ module Recurly
       #   @return [String] Object type
       define_attribute :object, String
 
+      # @!attribute override_business_entity_id
+      #   @return [String] Unique ID to identify the business entity assigned to the account. Available when the `Multiple Business Entities` feature is enabled.
+      define_attribute :override_business_entity_id, String
+
       # @!attribute parent_account_id
       #   @return [String] The UUID of the parent account associated with this account.
       define_attribute :parent_account_id, String

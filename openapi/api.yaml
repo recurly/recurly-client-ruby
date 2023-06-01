@@ -228,6 +228,7 @@ x-tagGroups:
   - custom_field_definition
   - shipping_method
   - dunning_campaigns
+  - business_entities
 tags:
 - name: site
   x-displayName: Site
@@ -374,6 +375,10 @@ tags:
   description: An account from an external resource that is not managed by the Recurly
     platform and instead is managed by third-party platforms like Apple App Store
     and Google Play Store.
+- name: business_entities
+  x-displayName: Business Entities
+  description: Describes the business address that will be used for invoices and taxes
+    depending on settings and subscriber location.
 paths:
   "/sites":
     get:
@@ -15974,6 +15979,60 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/business_entities/{business_entity_id}":
+    parameters:
+    - "$ref": "#/components/parameters/business_entity_id"
+    get:
+      tags:
+      - business_entities
+      operationId: get_business_entity
+      summary: Fetch a business entity
+      responses:
+        '200':
+          description: Business entity details
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BusinessEntity"
+        '404':
+          description: Incorrect site or business entity ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/business_entities":
+    get:
+      tags:
+      - business_entities
+      operationId: list_business_entities
+      summary: List business entities
+      responses:
+        '200':
+          description: List of all business entities on your site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BusinessEntityList"
+        '404':
+          description: Incorrect site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/gift_cards":
     get:
       tags:
@@ -16143,6 +16202,49 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/business_entities/{business_entity_id}/invoices":
+    get:
+      tags:
+      - invoice
+      operationId: list_business_entity_invoices
+      summary: List a business entity's invoices
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/business_entity_id"
+      - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/order"
+      - "$ref": "#/components/parameters/sort_dates"
+      - "$ref": "#/components/parameters/filter_begin_time"
+      - "$ref": "#/components/parameters/filter_end_time"
+      - "$ref": "#/components/parameters/filter_invoice_type"
+      responses:
+        '200':
+          description: A list of the business entity's invoices.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InvoiceList"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or business entity ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
 servers:
 - url: https://v3.recurly.com
 - url: https://v3.eu.recurly.com
@@ -16177,6 +16279,14 @@ components:
       in: path
       description: Billing Info ID. Can ONLY be used for sites utilizing the Wallet
         feature.
+      required: true
+      schema:
+        type: string
+    business_entity_id:
+      name: business_entity_id
+      in: path
+      description: Business Entity ID. For ID no prefix is used e.g. `e28zov4fw0v2`.
+        For code use prefix `code-`, e.g. `code-entity1`.
       required: true
       schema:
         type: string
@@ -17101,6 +17211,11 @@ components:
             merchant has an integration for the Vertex tax provider, this optional
             value will be sent in any tax calculation requests for the account.
           maxLength: 30
+        override_business_entity_id:
+          type: string
+          title: Override Business Entity ID
+          description: Unique ID to identify the business entity assigned to the account.
+            Available when the `Multiple Business Entities` feature is enabled.
         parent_account_code:
           type: string
           maxLength: 50
@@ -17169,6 +17284,11 @@ components:
             The customer will also use this email address to log into your hosted
             account management pages. This value does not need to be unique.
           maxLength: 255
+        override_business_entity_id:
+          type: string
+          title: Override Business Entity ID
+          description: Unique ID to identify the business entity assigned to the account.
+            Available when the `Multiple Business Entities` feature is enabled.
         preferred_locale:
           description: Used to determine the language and locale of emails sent on
             behalf of the merchant to the customer.
@@ -19358,6 +19478,11 @@ components:
           type: boolean
           title: Final Dunning Event
           description: Last communication attempt.
+        business_entity_id:
+          type: string
+          title: Business Entity ID
+          description: Unique ID to identify the business entity assigned to the invoice.
+            Available when the `Multiple Business Entities` feature is enabled.
     InvoiceCreate:
       type: object
       properties:
@@ -23939,6 +24064,84 @@ components:
           type: string
           description: Username of the associated payment method. Currently only associated
             with Venmo.
+    BusinessEntityList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/BusinessEntity"
+    BusinessEntity:
+      type: object
+      description: Business entity details
+      properties:
+        id:
+          title: Business entity ID
+          type: string
+          maxLength: 13
+          readOnly: true
+        object:
+          title: Object type
+          type: string
+          readOnly: true
+        code:
+          title: Business entity code
+          type: string
+          maxLength: 50
+          description: The entity code of the business entity.
+        name:
+          type: string
+          title: Name
+          description: This name describes your business entity and will appear on
+            the invoice.
+          maxLength: 255
+        invoice_display_address:
+          title: Invoice display address
+          description: Address information for the business entity that will appear
+            on the invoice.
+          "$ref": "#/components/schemas/Address"
+        tax_address:
+          title: Tax address
+          description: Address information for the business entity that will be used
+            for calculating taxes.
+          "$ref": "#/components/schemas/Address"
+        default_vat_number:
+          type: string
+          title: Default VAT number
+          description: VAT number for the customer used on the invoice.
+          maxLength: 20
+        default_registration_number:
+          type: string
+          title: Default registration number
+          description: Registration number for the customer used on the invoice.
+          maxLength: 30
+        subscriber_location_countries:
+          type: array
+          title: Subscriber location countries
+          description: List of countries for which the business entity will be used.
+          items:
+            type: string
+            title: Country code
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          title: Last updated at
+          readOnly: true
     GiftCardList:
       type: object
       properties:

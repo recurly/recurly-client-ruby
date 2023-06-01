@@ -22,6 +22,10 @@ module Recurly
       #   @return [String] The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
       define_attribute :billing_info_id, String
 
+      # @!attribute business_entity_id
+      #   @return [String] Unique ID to identify the business entity assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled.
+      define_attribute :business_entity_id, String
+
       # @!attribute closed_at
       #   @return [DateTime] Date invoice was marked paid or failed.
       define_attribute :closed_at, DateTime
