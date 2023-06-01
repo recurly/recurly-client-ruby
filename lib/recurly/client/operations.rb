@@ -4470,6 +4470,33 @@ module Recurly
       pager(path, **options)
     end
 
+    # Fetch a business entity
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_business_entity get_business_entity api documentation}
+    #
+    # @param business_entity_id [String] Business Entity ID. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-entity1+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::BusinessEntity] Business entity details
+    #
+    def get_business_entity(business_entity_id:, **options)
+      path = interpolate_path("/business_entities/{business_entity_id}", business_entity_id: business_entity_id)
+      get(path, **options)
+    end
+
+    # List business entities
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_business_entities list_business_entities api documentation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Pager<Resources::BusinessEntity>] List of all business entities on your site.
+    #
+    def list_business_entities(**options)
+      path = "/business_entities"
+      pager(path, **options)
+    end
+
     # List gift cards
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_gift_cards list_gift_cards api documentation}
@@ -4538,6 +4565,50 @@ module Recurly
     def redeem_gift_card(redemption_code:, body:, **options)
       path = interpolate_path("/gift_cards/{redemption_code}/redeem", redemption_code: redemption_code)
       post(path, body, Requests::GiftCardRedeem, **options)
+    end
+
+    # List a business entity's invoices
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_business_entity_invoices list_business_entity_invoices api documentation}
+    #
+    # @param business_entity_id [String] Business Entity ID. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-entity1+.
+    # @param params [Hash] Optional query string parameters:
+    #        :ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    #        :limit [Integer] Limit number of records 1-200.
+    #        :order [String] Sort order.
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #        :begin_time [DateTime] Inclusively filter by begin_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
+    #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
+    #
+    #        :type [String] Filter by type when:
+    #   - +type=charge+, only charge invoices will be returned.
+    #   - +type=credit+, only credit invoices will be returned.
+    #   - +type=non-legacy+, only charge and credit invoices will be returned.
+    #   - +type=legacy+, only legacy invoices will be returned.
+    #
+    #
+    # @return [Pager<Resources::Invoice>] A list of the business entity's invoices.
+    #
+    def list_business_entity_invoices(business_entity_id:, **options)
+      path = interpolate_path("/business_entities/{business_entity_id}/invoices", business_entity_id: business_entity_id)
+      pager(path, **options)
     end
   end
 end
