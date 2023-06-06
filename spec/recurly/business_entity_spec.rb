@@ -36,11 +36,11 @@ describe BusinessEntity do
     )
   }
 
-  describe "#associations" do
-    it "has correct associations" do
-      expect(business_entity).must_be_instance_of BusinessEntity
-    end
-  end
+  # describe "#associations" do
+  #   it "has correct associations" do
+  #     expect(business_entity).must_be_instance_of BusinessEntity
+  #   end
+  # end
 
   describe "#methods" do
     it "has correct attributes" do

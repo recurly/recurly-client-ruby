@@ -7,15 +7,15 @@ module Recurly
     has_many :accounts
 
     define_attribute_methods %w(
-      id,
-      code,
-      name,
-      invoice_display_address,
-      tax_address,
-      subscriber_location_countries,
-      default_vat_number,
-      default_registration_number,
-      created_at,
+      id
+      code
+      name
+      invoice_display_address
+      tax_address
+      subscriber_location_countries
+      default_vat_number
+      default_registration_number
+      created_at
       updated_at
     )
 
