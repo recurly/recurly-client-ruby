@@ -1,0 +1,35 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+Link: <https://api.recurly.com/v2/business_entities?cursor=1234567890&per_page=20>; rel="start", <https://api.recurly.com/v2/business_entities?cursor=1234566890&per_page=20>; rel="next"
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<business_entities type="array">
+	<business_entity href="https://rlew-loves-local.recurly.dev:3000/v2/business_entities/sbup2j0fx800">
+		<id>sbup2j0fx800</id>
+		<code>default</code>
+		<name>Default Business Entity</name>
+		<invoice_display_address>
+			<address1>456 main ave</address1>
+			<address2>123 main ave</address2>
+			<city>alhambra</city>
+			<state>CA</state>
+			<zip>90210</zip>
+			<country>US</country>
+			<phone nil="nil"></phone>
+		</invoice_display_address>
+		<tax_address>
+			<address1>456 main ave</address1>
+			<address2>123 main ave</address2>
+			<city>alhambra</city>
+			<state>CA</state>
+			<zip>90210</zip>
+			<country>US</country>
+			<phone nil="nil"></phone>
+		</tax_address>
+		<default_vat_number nil="nil"></default_vat_number>
+		<default_registration_number nil="nil"></default_registration_number>
+		<created_at type="datetime">2023-02-01T16:26:40Z</created_at>
+		<updated_at type="datetime">2023-02-01T16:26:40Z</updated_at>
+	</business_entity>
+</business_entities>

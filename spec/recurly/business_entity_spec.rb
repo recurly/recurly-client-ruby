@@ -36,11 +36,11 @@ describe BusinessEntity do
     )
   }
 
-  # describe "#associations" do
-  #   it "has correct associations" do
-  #     expect(business_entity).must_be_instance_of BusinessEntity
-  #   end
-  # end
+  describe "#associations" do
+    it "has correct associations" do
+      expect(business_entity).must_be_instance_of BusinessEntity
+    end
+  end
 
   describe "#methods" do
     it "has correct attributes" do
@@ -49,6 +49,36 @@ describe BusinessEntity do
       expect(business_entity.subscriber_location_countries).must_equal(['US', 'AU'])
       expect(business_entity.created_at).must_equal('2023-05-23T19:02:40Z')
       expect(business_entity.updated_at).must_equal('2023-06-23T19:02:40Z')
+    end
+  end
+
+  describe ".index" do
+    before do
+      stub_api_request(
+        :get, "https://api.recurly.com/v2/business_entities",
+        "business_entities/index-200"
+      )
+    end
+
+    it "returns a business entity" do
+      business_entity.must_be_instance_of(BusinessEntity)
+      business_entity.id.must_equal('abc123')
+      business_entity.code.must_equal('samplecode')
+    end
+  end
+
+  describe ".find" do
+    before do
+      stub_api_request(
+        :get, "https://api.recurly.com/v2/business_entities/abc123",
+        "business_entities/show-200"
+      )
+    end
+
+    it "returns a business entity" do
+      business_entity.must_be_instance_of(BusinessEntity)
+      business_entity.id.must_equal('abc123')
+      business_entity.code.must_equal('samplecode')
     end
   end
 end
