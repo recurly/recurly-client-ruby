@@ -56,4 +56,5 @@ Content-Type: application/xml; charset=utf-8
     </custom_field>
   </custom_fields>
   <dunning_campaign_id>1234abcd</dunning_campaign_id>
+  <override_business_entity href="https://api.recurly.com/v2/business_entities/sokvpa93ztmm"/>
 </account>

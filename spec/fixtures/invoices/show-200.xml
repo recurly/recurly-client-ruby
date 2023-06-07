@@ -125,4 +125,5 @@ Content-Type: application/xml; charset=utf-8
     </credit_payment>
   </credit_payments>
   <dunning_campaign_id>1234abcd</dunning_campaign_id>
+  <business_entity href="https://api.recurly.com/v2/business_entities/sokvpa93ztmm"/>
 </invoice>

@@ -72,6 +72,8 @@ module Recurly
     # @return [InvoiceTemplate, nil]
     belongs_to :invoice_template, class_name: :InvoiceTemplate, readonly: true
 
+    belongs_to :override_business_entity, class_name: 'BusinessEntity'
+
     # Get's the first redemption given a coupon code
     # @deprecated Use #{redemptions} instead
     # @param coupon_code [String] The coupon code for the redemption
@@ -113,6 +115,7 @@ module Recurly
       transaction_type
       dunning_campaign_id
       invoice_template_uuid
+      override_business_entity_id
     )
     alias to_param account_code
 

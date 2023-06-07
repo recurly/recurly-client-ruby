@@ -22,6 +22,9 @@ module Recurly
     # @return [Account]
     belongs_to :account
 
+    # @return [BusinessEntity]
+    belongs_to :business_entity
+
     # @return [Pager<Subscription>, []]
     has_many :subscriptions
 
@@ -118,6 +121,7 @@ module Recurly
       dunning_campaign_id
       refundable_total_in_cents
       used_tax_service
+      business_entity_id
     )
     alias to_param invoice_number_with_prefix
 

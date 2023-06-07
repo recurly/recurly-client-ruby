@@ -44,6 +44,13 @@ describe Invoice do
       invoice.dunning_campaign_id.must_equal("1234abcd")
     end
 
+    it "should have a business entity" do
+      stub_api_request :get, "invoices/1000", "invoices/show-200"
+      stub_api_request :get, "business_entities/sokvpa93ztmm", "business_entities/show-200"
+      invoice = Invoice.find("1000")
+      invoice.business_entity.must_be_instance_of(BusinessEntity)
+    end
+
     it 'includes the invoice number prefix' do
       stub_api_request :get, 'invoices/invoice-with-prefix', 'invoices/show-200-prefix'
 

@@ -13,6 +13,7 @@ module Recurly
   require 'recurly/account_balance'
   require 'recurly/add_on'
   require 'recurly/address'
+  require 'recurly/business_entity'
   require 'recurly/tax_detail'
   require 'recurly/tax_type'
   require 'recurly/juris_detail'

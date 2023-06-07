@@ -433,6 +433,18 @@ XML
     end
   end
 
+  describe "override_business_entity_id" do
+    let(:account) {
+      stub_api_request :get, "accounts/abcdef1234567890", "accounts/show-200"
+      Account.find("abcdef1234567890")
+    }
+
+    it "should have an override business entity" do
+      stub_api_request :get, "business_entities/sokvpa93ztmm", "business_entities/show-200"
+      account.override_business_entity.must_be_instance_of(BusinessEntity)
+    end
+  end
+
   describe "#company" do
     it "should respond to company_name even if the xml gives you company" do
       account = Account.from_xml "<account><company>My Company Inc.</company></account>"
