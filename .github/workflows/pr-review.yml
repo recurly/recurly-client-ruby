@@ -1,0 +1,27 @@
+name: PR Review
+
+on:
+  pull_request:
+    types:
+      - opened
+      - repoened
+      - edited
+      - synchronize
+      - labeled
+      - unlabeled
+
+concurrency: 
+  group: ${{ github.workflow }} - ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  label-checker:
+    runs-on: ubuntu-latest
+    name: Label Checker
+    steps:
+      - name: Check Labels
+        uses: docker://agilepathway/pull-request-label-checker:latest
+        with:
+          one_of: V4
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+ 
