@@ -1,10 +1,24 @@
 # Changelog
 
+## [2.19.6](https://github.com/recurly/recurly-client-ruby/tree/2.19.6) (2023-06-13)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.5...2.19.6)
+
+
+**Merged Pull Requests**
+
+- Multiple business entities [#852](https://github.com/recurly/recurly-client-ruby/pull/852) ([rlew421](https://github.com/rlew421))
+
+
+
 ## [2.19.5](https://github.com/recurly/recurly-client-ruby/tree/2.19.5) (2023-05-27)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.4...2.19.5)
 
 
+**Merged Pull Requests**
+
+- Add GatewayAttributes and account_reference to BillingInfo [#849](https://github.com/recurly/recurly-client-ruby/pull/849) ([gilv93](https://github.com/gilv93))
 
 
 
@@ -13,6 +27,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.3...2.19.4)
 
 
+**Merged Pull Requests**
+
+- external-product-references [#844](https://github.com/recurly/recurly-client-ruby/pull/844) ([amandamfielding](https://github.com/amandamfielding))
 
 
 
@@ -32,6 +49,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.1...2.19.2)
 
 
+**Merged Pull Requests**
+
+- Add external accounts endpoints [#834](https://github.com/recurly/recurly-client-ruby/pull/834) ([Patrick-Duvall](https://github.com/Patrick-Duvall))
 
 
 
@@ -40,6 +60,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.0...2.19.1)
 
 
+**Merged Pull Requests**
+
+- ExternalInvoice, ExternalCharge datatype fix [#832](https://github.com/recurly/recurly-client-ruby/pull/832) ([amandamfielding](https://github.com/amandamfielding))
 
 
 
@@ -48,6 +71,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.34...2.19.0)
 
 
+**Merged Pull Requests**
+
+- [external-invoices-endpoints] Add external charge and external invoice [#830](https://github.com/recurly/recurly-client-ruby/pull/830) ([Patrick-Duvall](https://github.com/Patrick-Duvall))
 
 
 
@@ -56,6 +82,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.33...2.18.34)
 
 
+**Merged Pull Requests**
+
+- Modify external subscriptions [#828](https://github.com/recurly/recurly-client-ruby/pull/828) ([amandamfielding](https://github.com/amandamfielding))
 
 
 
@@ -66,6 +95,8 @@
 
 **Merged Pull Requests**
 
+- Update client library to support custom fields [#825](https://github.com/recurly/recurly-client-ruby/pull/825) ([lsfernandes92](https://github.com/lsfernandes92))
+- Update client library to support `CustomFieldDefinition` [#824](https://github.com/recurly/recurly-client-ruby/pull/824) ([lsfernandes92](https://github.com/lsfernandes92))
 - Add Specs for Custom Fields on Adjustments in Invoice Responses [#823](https://github.com/recurly/recurly-client-ruby/pull/823) ([douglaslise](https://github.com/douglaslise))
 - Custom fields on charges adjustments specs [#820](https://github.com/recurly/recurly-client-ruby/pull/820) ([jorge](https://github.com/jorge))
 - Added custom fields to adjustments [#819](https://github.com/recurly/recurly-client-ruby/pull/819) ([jorge](https://github.com/jorge))
@@ -101,6 +132,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.29...2.18.30)
 
 
+**Merged Pull Requests**
+
+- Show external subs and products [#808](https://github.com/recurly/recurly-client-ruby/pull/808) ([Patrick-Duvall](https://github.com/Patrick-Duvall))
 
 
 
@@ -109,6 +143,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.28...2.18.29)
 
 
+**Merged Pull Requests**
+
+- Add usage_calculation_type to add-ons [#803](https://github.com/recurly/recurly-client-ruby/pull/803) ([naspthorp](https://github.com/naspthorp))
 
 
 
@@ -128,6 +165,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.18.26...2.18.27)
 
 
+**Merged Pull Requests**
+
+- Add decimal quantity fields to Charge [#797](https://github.com/recurly/recurly-client-ruby/pull/797) ([naspthorp](https://github.com/naspthorp))
 
 
 
@@ -164,6 +204,7 @@
 **Merged Pull Requests**
 
 - V2 add processing_prepayment_balance_in_cents to AccountBalance [#774](https://github.com/recurly/recurly-client-ruby/pull/774) ([judith](https://github.com/judith))
+- Nokogiri: Fix XML formatting to make tests green & remove warning [#773](https://github.com/recurly/recurly-client-ruby/pull/773) ([carlosantoniodasilva](https://github.com/carlosantoniodasilva))
 - Add usage timeframe and percentage tiers [#767](https://github.com/recurly/recurly-client-ruby/pull/767) ([faiberrec](https://github.com/faiberrec))
 - Add tax inclusive to subscriptions [#756](https://github.com/recurly/recurly-client-ruby/pull/756) ([efeygelson](https://github.com/efeygelson))
 - v2 Tax Inclusive Adjustments [#755](https://github.com/recurly/recurly-client-ruby/pull/755) ([efeygelson](https://github.com/efeygelson))
@@ -215,6 +256,8 @@
 **Merged Pull Requests**
 
 - Add tax_type and tax_region to TaxDetails [#704](https://github.com/recurly/recurly-client-ruby/pull/704) ([naspthorp](https://github.com/naspthorp))
+- Postpone subscriptions using the field next_bill_date [#701](https://github.com/recurly/recurly-client-ruby/pull/701) ([cyberxander90](https://github.com/cyberxander90))
+- Add scheduled subscription update webhook [#700](https://github.com/recurly/recurly-client-ruby/pull/700) ([jguidry-recurly](https://github.com/jguidry-recurly))
 - Add prerenewal_notification webhook [#697](https://github.com/recurly/recurly-client-ruby/pull/697) ([joannasese](https://github.com/joannasese))
 
 
