@@ -23,6 +23,10 @@ module Recurly
       auto_renew
       app_identifier
       state
+      trial_started_at
+      trial_ends_at
+      canceled_at
+      in_grace_period
     )
 
     # We do not expose PUT or POST in the v2 API.
