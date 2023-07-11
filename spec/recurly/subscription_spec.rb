@@ -90,6 +90,41 @@ describe Subscription do
         subscription = Subscription.new attributes
         subscription.to_xml.must_equal get_raw_xml('subscriptions/serialize-with-ramps.xml')
       end
+
+      describe 'with starting_on and ending_on' do
+        before do
+          attributes.merge!(
+            ramp_intervals: [
+              SubscriptionRampInterval.new(
+                starting_billing_cycle: 1,
+                unit_amount_in_cents: 1000,
+                starting_on: '2022-09-23 16:16:34.000000',
+                ending_on: '2022-10-23 16:16:34.000000'
+              ),
+              SubscriptionRampInterval.new(
+                starting_billing_cycle: 2,
+                unit_amount_in_cents: 2000,
+                starting_on: '2022-10-23 16:16:34.000000',
+                ending_on: nil
+              )
+            ]
+          )
+        end
+
+        it 'contains the expected attributes' do
+          sub = Subscription.from_xml(get_raw_xml 'subscriptions/serialize-with-ramps-starting-on-ending-on.xml')
+
+          expect(sub.ramp_intervals[0].starting_on).must_equal('2022-09-23 16:16:34.000000')
+          expect(sub.ramp_intervals[0].ending_on).must_equal('2022-10-23 16:16:34.000000')
+          expect(sub.ramp_intervals[0].starting_billing_cycle).must_equal('1')
+          expect(sub.ramp_intervals[0].unit_amount_in_cents).must_equal('1000')
+
+          expect(sub.ramp_intervals[1].starting_on).must_equal('2022-10-23 16:16:34.000000')
+          expect(sub.ramp_intervals[1].ending_on).must_equal(nil)
+          expect(sub.ramp_intervals[1].starting_billing_cycle).must_equal('2')
+          expect(sub.ramp_intervals[1].unit_amount_in_cents).must_equal('2000')
+        end
+      end
     end
   end
 
