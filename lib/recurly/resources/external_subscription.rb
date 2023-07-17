@@ -22,6 +22,10 @@ module Recurly
       #   @return [Boolean] An indication of whether or not the external subscription will auto-renew at the expiration date.
       define_attribute :auto_renew, :Boolean
 
+      # @!attribute canceled_at
+      #   @return [DateTime] When the external subscription was canceled in the external platform.
+      define_attribute :canceled_at, DateTime
+
       # @!attribute created_at
       #   @return [DateTime] When the external subscription was created in Recurly.
       define_attribute :created_at, DateTime
@@ -42,6 +46,10 @@ module Recurly
       #   @return [String] System-generated unique identifier for an external subscription ID, e.g. `e28zov4fw0v2`.
       define_attribute :id, String
 
+      # @!attribute in_grace_period
+      #   @return [Boolean] An indication of whether or not the external subscription is in a grace period.
+      define_attribute :in_grace_period, :Boolean
+
       # @!attribute last_purchased
       #   @return [DateTime] When a new billing event occurred on the external subscription in conjunction with a recent billing period, reactivation or upgrade/downgrade.
       define_attribute :last_purchased, DateTime
@@ -55,8 +63,16 @@ module Recurly
       define_attribute :quantity, Integer
 
       # @!attribute state
-      #   @return [String] External subscriptions can be active, canceled, expired, or future.
+      #   @return [String] External subscriptions can be active, canceled, expired, or past_due.
       define_attribute :state, String
+
+      # @!attribute trial_ends_at
+      #   @return [DateTime] When the external subscription trial period ends in the external platform.
+      define_attribute :trial_ends_at, DateTime
+
+      # @!attribute trial_started_at
+      #   @return [DateTime] When the external subscription trial period started in the external platform.
+      define_attribute :trial_started_at, DateTime
 
       # @!attribute updated_at
       #   @return [DateTime] When the external subscription was updated in Recurly.

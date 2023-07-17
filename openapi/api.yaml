@@ -23765,6 +23765,12 @@ components:
           description: An indication of whether or not the external subscription will
             auto-renew at the expiration date.
           default: false
+        in_grace_period:
+          type: boolean
+          title: In grace period
+          description: An indication of whether or not the external subscription is
+            in a grace period.
+          default: false
         app_identifier:
           type: string
           title: App identifier
@@ -23778,18 +23784,37 @@ components:
         state:
           type: string
           description: External subscriptions can be active, canceled, expired, or
-            future.
+            past_due.
+          default: active
         activated_at:
           type: string
           format: date-time
           title: Activated at
           description: When the external subscription was activated in the external
             platform.
+        canceled_at:
+          type: string
+          format: date-time
+          title: Canceled at
+          description: When the external subscription was canceled in the external
+            platform.
         expires_at:
           type: string
           format: date-time
           title: Expires at
           description: When the external subscription expires in the external platform.
+        trial_started_at:
+          type: string
+          format: date-time
+          title: Trial started at
+          description: When the external subscription trial period started in the
+            external platform.
+        trial_ends_at:
+          type: string
+          format: date-time
+          title: Trial ends at
+          description: When the external subscription trial period ends in the external
+            platform.
         created_at:
           type: string
           format: date-time
@@ -25039,6 +25064,7 @@ components:
       - venmo
       - wire_transfer
       - braintree_v_zero
+      - boleto
     CardTypeEnum:
       type: string
       enum:
