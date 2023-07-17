@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.19.7](https://github.com/recurly/recurly-client-ruby/tree/2.19.7) (2023-07-17)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.6...2.19.7)
+
+
+**Merged Pull Requests**
+
+- modify external subscription [#857](https://github.com/recurly/recurly-client-ruby/pull/857) ([amandamfielding](https://github.com/amandamfielding))
+
+
+
 ## [2.19.6](https://github.com/recurly/recurly-client-ruby/tree/2.19.6) (2023-06-13)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.5...2.19.6)
