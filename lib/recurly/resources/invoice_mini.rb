@@ -6,6 +6,10 @@ module Recurly
   module Resources
     class InvoiceMini < Resource
 
+      # @!attribute business_entity_id
+      #   @return [String] Unique ID to identify the business entity assigned to the invoice. Available when the `Multiple Business Entities` feature is enabled.
+      define_attribute :business_entity_id, String
+
       # @!attribute id
       #   @return [String] Invoice ID
       define_attribute :id, String
