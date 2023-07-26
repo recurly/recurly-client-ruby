@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.39.0](https://github.com/recurly/recurly-client-ruby/tree/4.39.0) (2023-07-26)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.38.0...4.39.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (App Management - External Subscriptions) [#859](https://github.com/recurly/recurly-client-ruby/pull/859) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.38.0](https://github.com/recurly/recurly-client-ruby/tree/4.38.0) (2023-06-01)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.37.0...4.38.0)
@@ -160,6 +171,9 @@
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.23.0...4.24.0)
 
 
+**Merged Pull Requests**
+
+- Add Webhooks::verify_signature [#794](https://github.com/recurly/recurly-client-ruby/pull/794) ([jguidry-recurly](https://github.com/jguidry-recurly))
 
 
 
