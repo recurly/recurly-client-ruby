@@ -20,6 +20,10 @@ Content-Type: application/xml; charset=utf-8
     <state>expired</state>
     <activated_at type="datetime">2023-01-13T17:28:02Z</activated_at>
     <expires_at type="datetime">2023-01-13T17:28:02Z</expires_at>
+    <trial_started_at nil="nil"></trial_started_at>
+    <trial_ends_at nil="nil"></trial_ends_at>
+    <canceled_at nil="nil"></canceled_at>
+    <in_grace_period>false</in_grace_period>
     <created_at type="datetime">2023-02-08T23:02:30Z</created_at>
     <updated_at type="datetime">2023-02-08T23:02:30Z</updated_at>
 </external_subscription>
