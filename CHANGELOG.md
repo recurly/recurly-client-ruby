@@ -1,12 +1,13 @@
 # Changelog
 
-## [4.39.0](https://github.com/recurly/recurly-client-ruby/tree/4.39.0) (2023-07-26)
+## [4.40.0](https://github.com/recurly/recurly-client-ruby/tree/4.40.0) (2023-07-27)
 
-[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.38.0...4.39.0)
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.38.0...4.40.0)
 
 
 **Merged Pull Requests**
 
+- Generated Latest Changes for v2021-02-25 (Ramp Dates, Net Terms, Invoice Business Entity) [#860](https://github.com/recurly/recurly-client-ruby/pull/860) ([recurly-integrations](https://github.com/recurly-integrations))
 - Generated Latest Changes for v2021-02-25 (App Management - External Subscriptions) [#859](https://github.com/recurly/recurly-client-ruby/pull/859) ([recurly-integrations](https://github.com/recurly-integrations))
 
 
