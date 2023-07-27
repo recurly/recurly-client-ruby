@@ -13,7 +13,7 @@ describe Recurly::API::ResponseError do
     end
 
     describe "when response assigned" do
-      let(:response) { MiniTest::Mock.new }
+      let(:response) { Minitest::Mock.new }
       let(:error) { Recurly::API::ResponseError.new nil, response }
 
       describe "when xml already cached" do
