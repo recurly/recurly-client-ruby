@@ -1,5 +1,17 @@
 # Changelog
 
+## [2.19.8](https://github.com/recurly/recurly-client-ruby/tree/2.19.8) (2023-07-27)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.7...2.19.8)
+
+
+**Merged Pull Requests**
+
+- Fixed usage of Minitest [#862](https://github.com/recurly/recurly-client-ruby/pull/862) ([csampson](https://github.com/csampson))
+- [V2] Add starting_on and ending_on to subscription ramps [#858](https://github.com/recurly/recurly-client-ruby/pull/858) ([rlew421](https://github.com/rlew421))
+
+
+
 ## [2.19.7](https://github.com/recurly/recurly-client-ruby/tree/2.19.7) (2023-07-17)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.6...2.19.7)
