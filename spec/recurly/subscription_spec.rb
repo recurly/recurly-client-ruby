@@ -126,6 +126,11 @@ describe Subscription do
         end
       end
     end
+
+    it 'contains action result attribute' do
+      subscription = Subscription.from_xml(get_raw_xml 'subscriptions/serialize-with-action-result.xml')
+      expect(subscription.action_result).must_equal('example')
+    end
   end
 
   describe "add-ons" do

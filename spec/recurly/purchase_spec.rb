@@ -58,6 +58,12 @@ describe Purchase do
       shipping_address.must_be_instance_of ShippingAddress
     end
 
+    it 'should contain action result attribute on response' do
+      stub_api_request(:post, 'purchases', 'purchases/invoice-with-action-result-201')
+      collection = Purchase.invoice!(purchase)
+      expect(collection.charge_invoice.transactions.first.action_result).must_equal('example')
+    end
+
     it 'the first ramp interval unit amount is reflected in these expected attributes' do
       stub_api_request(:post, 'purchases', 'purchases/invoice-with-ramp-pricing-201')
       collection = Purchase.invoice!(purchase)
