@@ -107,6 +107,7 @@ module Recurly
       resume_at
       gateway_code
       transaction_type
+      action_result
     )
     alias to_param uuid
 
