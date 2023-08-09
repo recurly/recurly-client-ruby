@@ -10,6 +10,10 @@ module Recurly
       #   @return [AccountMini] Account mini details
       define_attribute :account, :AccountMini
 
+      # @!attribute action_result
+      #   @return [Hash] Action result params to be used in Recurly-JS to complete a payment when using asynchronous payment methods, e.g., Boleto, iDEAL and Sofort.
+      define_attribute :action_result, Hash
+
       # @!attribute amount
       #   @return [Float] Total transaction amount sent to the payment gateway.
       define_attribute :amount, Float

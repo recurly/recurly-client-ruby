@@ -18204,9 +18204,10 @@ components:
           properties:
             account_reference:
               type: string
-              description: Used by Adyen gateways. The Shopper Reference value used
-                when the external token was created. Must be used in conjunction with
-                gateway_token and gateway_code.
+              description: Used by Adyen and Braintree gateways. For Adyen the Shopper
+                Reference value used when the external token was created. Must be
+                used in conjunction with gateway_token and gateway_code. For Braintree
+                the PayPal PayerID is populated in the response.
               maxLength: 264
         amazon_billing_agreement_id:
           type: string
@@ -21712,6 +21713,12 @@ components:
           format: date-time
           description: When the subscription was converted from a gift card.
           title: Converted at
+        action_result:
+          type: object
+          description: Action result params to be used in Recurly-JS to complete a
+            payment when using asynchronous payment methods, e.g., Boleto, iDEAL and
+            Sofort.
+          title: Action result
     SubscriptionAddOn:
       type: object
       title: Subscription Add-on
@@ -23027,6 +23034,12 @@ components:
           format: date-time
           title: Collected at, or if not collected yet, the time the transaction was
             created.
+        action_result:
+          type: object
+          description: Action result params to be used in Recurly-JS to complete a
+            payment when using asynchronous payment methods, e.g., Boleto, iDEAL and
+            Sofort.
+          title: Action result
     ExternalTransaction:
       type: object
       properties:
@@ -24149,8 +24162,9 @@ components:
           properties:
             account_reference:
               type: string
-              description: Used by Adyen gateways. The Shopper Reference value used
-                when the external token was created.
+              description: Used by Adyen and Braintree gateways. For Adyen the Shopper
+                Reference value used when the external token was created. For Braintree
+                the PayPal PayerID is populated in the response.
               maxLength: 264
         billing_agreement_id:
           type: string
