@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.19.9](https://github.com/recurly/recurly-client-ruby/tree/2.19.9) (2023-08-10)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.8...2.19.9)
+
+
+**Merged Pull Requests**
+
+- [V2] Add action_result to Subscription and Transaction [#863](https://github.com/recurly/recurly-client-ruby/pull/863) ([fkosouski](https://github.com/fkosouski))
+
+
+
 ## [2.19.8](https://github.com/recurly/recurly-client-ruby/tree/2.19.8) (2023-07-27)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.7...2.19.8)
