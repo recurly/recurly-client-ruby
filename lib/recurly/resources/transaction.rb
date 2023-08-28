@@ -154,6 +154,10 @@ module Recurly
       #   @return [String] The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
       define_attribute :uuid, String
 
+      # @!attribute vat_number
+      #   @return [String] VAT number for the customer on this transaction. If the customer's Billing Info country is BR or AR, then this will be their Tax Identifier. For all other countries this will come from the VAT Number field in the Billing Info.
+      define_attribute :vat_number, String
+
       # @!attribute voided_at
       #   @return [DateTime] Voided at
       define_attribute :voided_at, DateTime

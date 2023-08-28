@@ -23040,6 +23040,13 @@ components:
             payment when using asynchronous payment methods, e.g., Boleto, iDEAL and
             Sofort.
           title: Action result
+        vat_number:
+          type: string
+          description: VAT number for the customer on this transaction. If the customer's
+            Billing Info country is BR or AR, then this will be their Tax Identifier.
+            For all other countries this will come from the VAT Number field in the
+            Billing Info.
+          title: VAT Number
     ExternalTransaction:
       type: object
       properties:
@@ -25336,6 +25343,7 @@ components:
       - invalid_payment_method_hard
       - invalid_transaction
       - issuer_unavailable
+      - lifecycle_decline
       - merch_max_transaction_limit_exceeded
       - moneybot_disconnect
       - moneybot_unavailable
