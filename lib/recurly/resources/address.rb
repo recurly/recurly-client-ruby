@@ -14,6 +14,10 @@ module Recurly
       #   @return [String] Country, 2-letter ISO 3166-1 alpha-2 code.
       define_attribute :country, String
 
+      # @!attribute geo_code
+      #   @return [String] Code that represents a geographic entity (location or object). Only returned for Sling Vertex Integration
+      define_attribute :geo_code, String
+
       # @!attribute phone
       #   @return [String] Phone number
       define_attribute :phone, String

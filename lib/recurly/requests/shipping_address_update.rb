@@ -26,6 +26,10 @@ module Recurly
       #   @return [String]
       define_attribute :first_name, String
 
+      # @!attribute geo_code
+      #   @return [String] Code that represents a geographic entity (location or object). Only returned for Sling Vertex Integration
+      define_attribute :geo_code, String
+
       # @!attribute id
       #   @return [String] Shipping Address ID
       define_attribute :id, String

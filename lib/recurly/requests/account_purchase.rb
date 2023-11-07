@@ -59,7 +59,7 @@ module Recurly
       define_attribute :id, String
 
       # @!attribute invoice_template_id
-      #   @return [String] Unique ID to identify an invoice template.  Available when the site is on a Pro or Enterprise plan.  Used to specify which invoice template, if any, should be used to generate invoices for the account.
+      #   @return [String] Unique ID to identify an invoice template.  Available when the site is on a Pro or Elite plan.  Used to specify which invoice template, if any, should be used to generate invoices for the account.
       define_attribute :invoice_template_id, String
 
       # @!attribute last_name
