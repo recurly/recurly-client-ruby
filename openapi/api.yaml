@@ -17256,8 +17256,8 @@ components:
           type: string
           title: Invoice Template ID
           description: Unique ID to identify an invoice template.  Available when
-            the site is on a Pro or Enterprise plan.  Used to specify which invoice
-            template, if any, should be used to generate invoices for the account.
+            the site is on a Pro or Elite plan.  Used to specify which invoice template,
+            if any, should be used to generate invoices for the account.
         address:
           "$ref": "#/components/schemas/Address"
         billing_info:
@@ -17355,10 +17355,10 @@ components:
           type: string
           title: Invoice Template ID
           description: Unique ID to identify an invoice template. Available when the
-            site is on a Pro or Enterprise plan. Used to specify if a non-default
-            invoice template will be used to generate invoices for the account. For
-            sites without multiple invoice templates enabled, the default template
-            will always be used.
+            site is on a Pro or Elite plan. Used to specify if a non-default invoice
+            template will be used to generate invoices for the account. For sites
+            without multiple invoice templates enabled, the default template will
+            always be used.
         address:
           "$ref": "#/components/schemas/Address"
         billing_info:
@@ -17511,6 +17511,11 @@ components:
           type: string
           title: Country
           description: Country, 2-letter ISO 3166-1 alpha-2 code.
+        geo_code:
+          type: string
+          maxLength: 20
+          description: Code that represents a geographic entity (location or object).
+            Only returned for Sling Vertex Integration
     AddressWithName:
       allOf:
       - "$ref": "#/components/schemas/Address"
@@ -18215,6 +18220,9 @@ components:
         paypal_billing_agreement_id:
           type: string
           title: PayPal billing agreement ID
+        roku_billing_agreement_id:
+          type: string
+          title: Roku's CIB if billing through Roku
         fraud_session_id:
           type: string
           title: Fraud Session ID
@@ -21107,6 +21115,11 @@ components:
           type: string
           maxLength: 50
           description: Country, 2-letter ISO 3166-1 alpha-2 code.
+        geo_code:
+          type: string
+          maxLength: 20
+          description: Code that represents a geographic entity (location or object).
+            Only returned for Sling Vertex Integration
         created_at:
           type: string
           title: Created at
@@ -21158,6 +21171,11 @@ components:
           type: string
           maxLength: 20
           description: Zip or postal code.
+        geo_code:
+          type: string
+          maxLength: 20
+          description: Code that represents a geographic entity (location or object).
+            Only returned for Sling Vertex Integration
         country:
           type: string
           maxLength: 50
@@ -21412,6 +21430,11 @@ components:
           type: string
           maxLength: 50
           description: Country, 2-letter ISO 3166-1 alpha-2 code.
+        geo_code:
+          type: string
+          maxLength: 20
+          description: Code that represents a geographic entity (location or object).
+            Only returned for Sling Vertex Integration
     Site:
       type: object
       properties:
@@ -24979,6 +25002,7 @@ components:
       - check
       - credit_card
       - eft
+      - google_pay
       - money_order
       - other
       - paypal
@@ -25172,6 +25196,7 @@ components:
       - credit_card
       - eft
       - gateway_token
+      - google_pay
       - iban_bank_account
       - money_order
       - other
