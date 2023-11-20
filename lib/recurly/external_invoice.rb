@@ -5,6 +5,7 @@ module Recurly
     belongs_to :site
     belongs_to :account
     belongs_to :external_subscription
+    belongs_to :external_payment_phase
 
     # @return [[ExternalCharge], nil]
     has_many :line_items, class_name: :ExternalCharge

@@ -27,6 +27,7 @@ module Recurly
   require 'recurly/external_invoice'
   require 'recurly/external_product'
   require 'recurly/external_product_reference'
+  require 'recurly/external_payment_phase'
   require 'recurly/external_subscription'
   require 'recurly/helper'
   require 'recurly/invoice'

@@ -10,6 +10,9 @@ module Recurly
     # @return [ExternalInvoice]
     has_many :external_invoices
 
+    # @return [ExternalPaymentPhase]
+    has_many :external_payment_phases
+
     define_attribute_methods %w(
       account
       external_id
@@ -32,5 +35,17 @@ module Recurly
     # We do not expose PUT or POST in the v2 API.
     protected(*%w(save save!))
     private_class_method(*%w(create! create))
+
+    def get_external_payment_phases
+      Pager.new(Recurly::ExternalPaymentPhase, uri: "#{path}/external_payment_phases", parent: self)
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
+    end
+
+    def get_external_payment_phase(external_payment_phase_uuid)
+      ExternalPaymentPhase.from_response API.get("#{path}/external_payment_phases/#{external_payment_phase_uuid}")
+    rescue Recurly::API::UnprocessableEntity => e
+      raise Invalid, e.message
+    end
   end
 end

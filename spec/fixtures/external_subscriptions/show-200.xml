@@ -5,6 +5,7 @@ Content-Type: application/xml; charset=utf-8
 <external_subscription href="https://api.recurly.com/v2/external_subscriptions/sdam2lfeop3e">
     <account href="https://api.recurly.com/v2/accounts/AWE-348dds"/>
     <external_invoices href="https://api.recurly.com/v2/external_subscriptions/sdam2lfeop3e/external_invoices"/>
+    <external_payment_phases href="https://api.recurly.com/v2/external_subscriptions/sdam2lfeop3e/external_payment_phases"/>
     <external_id>external-id</external_id>
     <external_product_reference>
         <id>sd1eheqcn5a2</id>
