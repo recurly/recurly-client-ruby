@@ -46,6 +46,10 @@ module Recurly
       #   @return [String] This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.
       define_attribute :customer_notes, String
 
+      # @!attribute gateway_code
+      #   @return [String] If present, this subscription's transactions will use the payment gateway with this code.
+      define_attribute :gateway_code, String
+
       # @!attribute gift_card_redemption_code
       #   @return [String] A gift card redemption code to be redeemed on the purchase invoice.
       define_attribute :gift_card_redemption_code, String
