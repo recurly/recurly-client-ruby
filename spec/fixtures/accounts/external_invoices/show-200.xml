@@ -6,6 +6,7 @@ Content-Type: application/xml; charset=utf-8
     <external_invoice href="https://pcc.recurly.dev:3000/v2/external_invoices/sk0bmpw0wbby">
         <account href="https://pcc.recurly.dev:3000/v2/accounts/AWE-348dds"/>
         <external_subscription href="https://pcc.recurly.dev:3000/v2/external_subscriptions/sdam2lfeop3e"/>
+        <external_payment_phase href="https://pcc.recurly.dev:3000/v2/external_payment_phases/sdam2lfeop3e"/>
         <external_id>abc123</external_id>
         <state>paid</state>
         <currency>USD</currency>
