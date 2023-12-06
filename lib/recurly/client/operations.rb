@@ -4433,6 +4433,41 @@ module Recurly
       get(path, **options)
     end
 
+    # List the external payment phases on an external subscription
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscription_external_payment_phases list_external_subscription_external_payment_phases api documentation}
+    #
+    # @param external_subscription_id [String] External subscription id
+    # @param params [Hash] Optional query string parameters:
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #        :limit [Integer] Limit number of records 1-200.
+    #        :order [String] Sort order.
+    #
+    # @return [Pager<Resources::ExternalPaymentPhase>] A list of the the external_payment_phases on a site.
+    #
+    def list_external_subscription_external_payment_phases(external_subscription_id:, **options)
+      path = interpolate_path("/external_subscriptions/{external_subscription_id}/external_payment_phases", external_subscription_id: external_subscription_id)
+      pager(path, **options)
+    end
+
+    # Fetch an external payment_phase
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase get_external_subscription_external_payment_phase api documentation}
+    #
+    # @param external_subscription_id [String] External subscription id
+    # @param external_payment_phase_id [String] External payment phase ID, e.g. +a34ypb2ef9w1+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalPaymentPhase] Details for an external payment_phase.
+    #
+    def get_external_subscription_external_payment_phase(external_subscription_id:, external_payment_phase_id:, **options)
+      path = interpolate_path("/external_subscriptions/{external_subscription_id}/external_payment_phases/{external_payment_phase_id}", external_subscription_id: external_subscription_id, external_payment_phase_id: external_payment_phase_id)
+      get(path, **options)
+    end
+
     # List entitlements granted to an account
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_entitlements list_entitlements api documentation}

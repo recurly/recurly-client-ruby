@@ -191,7 +191,7 @@ module Recurly
       define_attribute :tax_inclusive, :Boolean
 
       # @!attribute tax_info
-      #   @return [TaxInfo] Tax info
+      #   @return [TaxInfo] Only for merchants using Recurly's In-The-Box taxes.
       define_attribute :tax_info, :TaxInfo
 
       # @!attribute taxable

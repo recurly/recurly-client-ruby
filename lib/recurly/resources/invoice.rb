@@ -139,7 +139,7 @@ module Recurly
       define_attribute :tax, Float
 
       # @!attribute tax_info
-      #   @return [TaxInfo] Tax info
+      #   @return [TaxInfo] Only for merchants using Recurly's In-The-Box taxes.
       define_attribute :tax_info, :TaxInfo
 
       # @!attribute terms_and_conditions

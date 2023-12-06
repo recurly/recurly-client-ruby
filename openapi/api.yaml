@@ -207,6 +207,7 @@ x-tagGroups:
   - external_products
   - external_accounts
   - external_product_references
+  - external_payment_phases
 - name: Products and Promotions
   tags:
   - item
@@ -366,6 +367,11 @@ tags:
   x-displayName: External Product Reference
   description: Associates an external product to a corresponding resource on an external
     platform like the Apple App Store or Google Play Store.
+- name: external_payment_phases
+  x-displayName: External Payment Phase
+  description: Details of payments in the lifecycle of a subscription from an external
+    resource that is not managed by the Recurly platform, e.g. App Store or Google
+    Play Store.
 - name: gift_cards
   x-displayName: Gift Cards
   description: Add gift card purchases to your checkout and allow gift card recipients
@@ -15918,6 +15924,69 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/external_subscriptions/{external_subscription_id}/external_payment_phases":
+    parameters:
+    - "$ref": "#/components/parameters/external_subscription_id"
+    get:
+      tags:
+      - external_subscriptions
+      operationId: list_external_subscription_external_payment_phases
+      summary: List the external payment phases on an external subscription
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/sort_dates"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/order"
+      responses:
+        '200':
+          description: A list of the the external_payment_phases on a site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalPaymentPhaseList"
+        '404':
+          description: Incorrect site.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/external_subscriptions/{external_subscription_id}/external_payment_phases/{external_payment_phase_id}":
+    parameters:
+    - "$ref": "#/components/parameters/external_subscription_id"
+    - "$ref": "#/components/parameters/external_payment_phase_id"
+    get:
+      tags:
+      - external_payment_phases
+      operationId: get_external_subscription_external_payment_phase
+      summary: Fetch an external payment_phase
+      responses:
+        '200':
+          description: Details for an external payment_phase.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalPaymentPhase"
+        '404':
+          description: Incorrect site or external subscription ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/entitlements":
     parameters:
     - "$ref": "#/components/parameters/account_id"
@@ -16352,6 +16421,13 @@ components:
       name: external_subscription_id
       in: path
       description: External subscription id
+      required: true
+      schema:
+        type: string
+    external_payment_phase_id:
+      name: external_payment_phase_id
+      in: path
+      description: External payment phase ID, e.g. `a34ypb2ef9w1`.
       required: true
       schema:
         type: string
@@ -21633,6 +21709,7 @@ components:
           type: number
           format: float
           title: Estimated tax
+          description: Only for merchants using Recurly's In-The-Box taxes.
         tax_info:
           "$ref": "#/components/schemas/TaxInfo"
         total:
@@ -22464,6 +22541,12 @@ components:
           default: 0
         net_terms_type:
           "$ref": "#/components/schemas/NetTermsTypeEnum"
+        gateway_code:
+          type: string
+          title: Gateway Code
+          description: If present, this subscription's transactions will use the payment
+            gateway with this code.
+          maxLength: 13
         transaction_type:
           description: An optional type designation for the payment gateway transaction
             created by this request. Supports 'moto' value, which is the acronym for
@@ -22805,6 +22888,7 @@ components:
     TaxInfo:
       type: object
       title: Tax info
+      description: Only for merchants using Recurly's In-The-Box taxes.
       properties:
         type:
           type: string
@@ -23646,6 +23730,90 @@ components:
           type: string
           format: date-time
           description: Time the object was last updated
+    ExternalPaymentPhase:
+      type: object
+      description: Details of payments in the lifecycle of a subscription from an
+        external resource that is not managed by the Recurly platform, e.g. App Store
+        or Google Play Store.
+      properties:
+        id:
+          type: string
+          title: External payment phase ID
+          description: System-generated unique identifier for an external payment
+            phase ID, e.g. `e28zov4fw0v2`.
+        object:
+          type: string
+          title: Object type
+        external_subscription:
+          "$ref": "#/components/schemas/ExternalSubscription"
+        started_at:
+          type: string
+          format: date-time
+          title: Started At
+        ends_at:
+          type: string
+          format: date-time
+          title: Ends At
+        starting_billing_period_index:
+          type: integer
+          title: Starting Billing Period Index
+        ending_billing_period_index:
+          type: integer
+          title: Ending Billing Period Index
+        offer_type:
+          type: string
+          title: Offer Type
+          description: Type of discount offer given, e.g. "FREE_TRIAL"
+        offer_name:
+          type: string
+          title: Offer Name
+          description: Name of the discount offer given, e.g. "introductory"
+        period_count:
+          type: integer
+          title: Period Count
+          description: Number of billing periods
+        period_length:
+          type: string
+          title: Period Length
+          description: Billing cycle length
+        amount:
+          type: string
+          format: decimal
+          title: Amount
+          minimum: 0
+          description: Allows up to 9 decimal places
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          description: When the external subscription was created in Recurly.
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated at
+          description: When the external subscription was updated in Recurly.
+    ExternalPaymentPhaseList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExternalPaymentPhase"
     ExternalProduct:
       type: object
       description: Product from an external resource such as Apple App Store or Google
