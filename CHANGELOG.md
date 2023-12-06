@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.19.10](https://github.com/recurly/recurly-client-ruby/tree/2.19.10) (2023-12-06)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.9...2.19.10)
+
+
+**Merged Pull Requests**
+
+- External payment phases [#868](https://github.com/recurly/recurly-client-ruby/pull/868) ([amandamfielding](https://github.com/amandamfielding))
+
+
+
 ## [2.19.9](https://github.com/recurly/recurly-client-ruby/tree/2.19.9) (2023-08-10)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.8...2.19.9)
