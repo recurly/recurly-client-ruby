@@ -27,7 +27,7 @@ module Recurly
       define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
       # @!attribute net_terms
-      #   @return [Integer] Integer normally paired with `Net Terms Type` and representing the number of days past the current date (for `net` Net Terms Type) or days after the last day of the current month (for `eom` Net Terms Type) that the invoice will become past due. During a subscription change, it's not necessary to provide both the `Net Terms Type` and `Net Terms` parameters.  For more information please visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms)
+      #   @return [Integer] Integer normally paired with `Net Terms Type` and representing the number of days past the current date (for `net` Net Terms Type) or days after the last day of the current month (for `eom` Net Terms Type) that the invoice will become past due. During a subscription change, it's not necessary to provide both the `Net Terms Type` and `Net Terms` parameters.  For more information on how net terms work with `manual` collection visit our docs page (https://docs.recurly.com/docs/manual-payments#section-collection-terms) or visit (https://docs.recurly.com/docs/automatic-invoicing-terms#section-collection-terms) for information about net terms using `automatic` collection.
       define_attribute :net_terms, Integer
 
       # @!attribute net_terms_type
