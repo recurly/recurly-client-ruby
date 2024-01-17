@@ -58,6 +58,10 @@ module Recurly
       #   @return [String] When processed, result from checking the CVV/CVC value on the transaction.
       define_attribute :cvv_check, String
 
+      # @!attribute fraud_info
+      #   @return [TransactionFraudInfo] Fraud information
+      define_attribute :fraud_info, :TransactionFraudInfo
+
       # @!attribute gateway_approval_code
       #   @return [String] Transaction approval code from the payment gateway.
       define_attribute :gateway_approval_code, String
