@@ -62,6 +62,7 @@ module Recurly
   require 'recurly/currency_percentage_tier'
   require 'recurly/sub_add_on_percentage_tier'
   require 'recurly/custom_field_definition'
+  require 'recurly/general_ledger_account'
 
   @subdomain = nil
 

@@ -1,0 +1,78 @@
+HTTP/1.1 200 OK
+        Content-Type: application/xml; charset=utf-8
+
+        <?xml version="1.0" encoding="UTF-8"?>
+<general_ledger_accounts type="array">
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/ty4utwr0mrgz">
+    <id>ty4utwr0mrgz</id>
+    <code>90-557-279-6957</code>
+    <account_type>liability</account_type>
+    <description>optimize rich content</description>
+    <created_at type="datetime">2023-11-22T16:36:34Z</created_at>
+    <updated_at type="datetime">2023-11-22T16:36:34Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/twyyzw8vcm36">
+    <id>twyyzw8vcm36</id>
+    <code>45-571-736-1179</code>
+    <account_type>liability</account_type>
+    <description>incentivize sexy functionalities</description>
+    <created_at type="datetime">2023-11-16T19:45:05Z</created_at>
+    <updated_at type="datetime">2023-11-16T19:45:05Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/twywtf01wkgb">
+    <id>twywtf01wkgb</id>
+    <code>70-818-669-8644</code>
+    <account_type>liability</account_type>
+    <description>generate transparent metrics</description>
+    <created_at type="datetime">2023-11-16T19:32:52Z</created_at>
+    <updated_at type="datetime">2023-11-16T19:32:52Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/twywqfr48v9l">
+    <id>twywqfr48v9l</id>
+    <code>7-271-680-5012</code>
+    <account_type>liability</account_type>
+    <description>My main liability account</description>
+    <created_at type="datetime">2023-11-16T19:32:24Z</created_at>
+    <updated_at type="datetime">2023-11-16T19:32:24Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/twyvjlhbnej2">
+    <id>twyvjlhbnej2</id>
+    <code>1234</code>
+    <account_type>liability</account_type>
+    <description>My main liability account</description>
+    <created_at type="datetime">2023-11-16T19:25:44Z</created_at>
+    <updated_at type="datetime">2023-11-16T19:25:44Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/trkzlcm2pde8">
+    <id>trkzlcm2pde8</id>
+    <code>validategla</code>
+    <account_type>liability</account_type>
+    <description>HOWDY</description>
+    <created_at type="datetime">2023-10-20T15:22:49Z</created_at>
+    <updated_at type="datetime">2023-10-20T15:22:49Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/trkzinjccchm">
+    <id>trkzinjccchm</id>
+    <code>j</code>
+    <account_type>liability</account_type>
+    <description>HOWDY</description>
+    <created_at type="datetime">2023-10-20T15:22:24Z</created_at>
+    <updated_at type="datetime">2023-10-20T15:22:24Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/tep8f2u4qq51">
+    <id>tep8f2u4qq51</id>
+    <code>get dat monayyy</code>
+    <account_type>liability</account_type>
+    <description>i can has money</description>
+    <created_at type="datetime">2023-08-16T15:45:40Z</created_at>
+    <updated_at type="datetime">2023-08-16T15:45:40Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/tejv6lw4eovy">
+    <id>tejv6lw4eovy</id>
+    <code>demo_liability</code>
+    <account_type>liability</account_type>
+    <description>i be descriptin'</description>
+    <created_at type="datetime">2023-08-15T21:42:35Z</created_at>
+    <updated_at type="datetime">2023-09-13T15:38:04Z</updated_at>
+  </general_ledger_account>
+</general_ledger_accounts>
