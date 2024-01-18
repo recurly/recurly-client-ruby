@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+        Content-Type: application/xml; charset=utf-8
+
+        <?xml version="1.0" encoding="UTF-8"?>
+<general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/u90r5deeaxix">
+  <id>u90r5deeaxix</id>
+  <code>code1</code>
+  <account_type>revenue</account_type>
+  <description>string</description>
+  <created_at type="datetime">2024-01-16T14:34:16Z</created_at>
+  <updated_at type="datetime">2024-01-16T14:34:16Z</updated_at>
+</general_ledger_account>
