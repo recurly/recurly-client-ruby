@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pry'
 
 describe GeneralLedgerAccount do
   let(:general_ledger_account) {
