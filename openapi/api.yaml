@@ -956,7 +956,7 @@ paths:
           Alabama St.\"),\n\t\t\tCity:       recurly.String(\"San Francisco\"),\n\t\t\tPostalCode:
           recurly.String(\"94110\"),\n\t\t\tCountry:    recurly.String(\"US\"),\n\t\t\tRegion:
           \    recurly.String(\"CA\"),\n\t\t},\n\t\tNumber: recurly.String(\"4111111111111111\"),\n\t\tMonth:
-          \ recurly.String(\"12\"),\n\t\tYear:   recurly.String(\"22\"),\n\t\tCvv:
+          \ recurly.String(\"12\"),\n\t\tYear:   recurly.String(\"30\"),\n\t\tCvv:
           \   recurly.String(\"123\"),\n\t},\n}\n\naccount, err := client.CreateAccount(accountReq)\nif
           e, ok := err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeValidation
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
@@ -24833,6 +24833,8 @@ components:
                   a transaction. Pass this value to Recurly.js so it can continue
                   the challenge flow.
                 maxLength: 22
+              fraud_info:
+                "$ref": "#/components/schemas/TransactionFraudInfo"
     RelatedTypeEnum:
       type: string
       enum:
