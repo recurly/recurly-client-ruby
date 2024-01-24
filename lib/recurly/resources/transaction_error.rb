@@ -18,6 +18,10 @@ module Recurly
       #   @return [String] Decline code
       define_attribute :decline_code, String
 
+      # @!attribute fraud_info
+      #   @return [TransactionFraudInfo] Fraud information
+      define_attribute :fraud_info, :TransactionFraudInfo
+
       # @!attribute merchant_advice
       #   @return [String] Merchant message
       define_attribute :merchant_advice, String
