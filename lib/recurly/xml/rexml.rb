@@ -22,7 +22,7 @@ module Recurly
       def each element = root
         element.each_element do |el|
           yield el
-          each el, &Proc.new
+          each el, &Proc.new { |e| yield e }
         end
       end
 
