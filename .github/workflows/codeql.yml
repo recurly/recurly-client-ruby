@@ -1,6 +1,4 @@
 # Managed by Security
-# Documentation: https://coda.io/d/Information-Security_dDTWpZde3Uu/GitHub-Advanced-Security_suXj4#_lu8Xf
-# Contact us in the security slack channel for concerns
 name: "Security check - CodeQL"
 
 on:
