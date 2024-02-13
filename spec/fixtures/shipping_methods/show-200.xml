@@ -6,6 +6,9 @@ Content-Type: application/xml; charset=utf-8
     <code>fedex_ground</code>
     <name>FedEx Ground</name>
     <accounting_code></accounting_code>
+    <liability_gl_account_id>twywqfr48v9l</liability_gl_account_id>
+    <revenue_gl_account_id>thproqnpcuwp</revenue_gl_account_id>
+    <performance_obligation_id>4</performance_obligation_id>
     <tax_code></tax_code>
     <created_at type="datetime">2019-05-07T16:36:22Z</created_at>
     <updated_at type="datetime">2019-05-07T16:36:22Z</updated_at>
