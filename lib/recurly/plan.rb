@@ -1,5 +1,3 @@
-require_relative './rev_rec'
-
 module Recurly
   # Recurly Documentation: https://dev.recurly.com/docs/list-plans
   class Plan < Resource

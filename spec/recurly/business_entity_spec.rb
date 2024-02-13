@@ -43,8 +43,8 @@ describe BusinessEntity do
       subscriber_location_countries: ['US', 'AU'],
       default_vat_number: '12345',
       default_registration_number: '12345',
-      default_revenue_gl_account: revenue_gla,
-      default_liability_gl_account: liablity_gla,
+      default_revenue_gl_account_id: revenue_gla.id,
+      default_liability_gl_account_id: liablity_gla.id,
       created_at: '2023-05-23T19:02:40Z',
       updated_at: '2023-06-23T19:02:40Z'
     )
