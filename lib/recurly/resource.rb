@@ -1,5 +1,6 @@
 require 'date'
 require 'erb'
+require_relative './rev_rec'
 
 module Recurly
   # The base class for all Recurly resources (e.g. {Account}, {Subscription},
