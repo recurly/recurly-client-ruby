@@ -3521,6 +3521,7 @@ paths:
       parameters:
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/invoice_state"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
       - "$ref": "#/components/parameters/sort_dates"
@@ -8110,6 +8111,7 @@ paths:
         to learn how to use pagination in the API and Client Libraries.
       parameters:
       - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/invoice_state"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
       - "$ref": "#/components/parameters/sort_dates"
@@ -13909,6 +13911,7 @@ paths:
       parameters:
       - "$ref": "#/components/parameters/subscription_id"
       - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/invoice_state"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
       - "$ref": "#/components/parameters/sort_dates"
@@ -16282,6 +16285,7 @@ paths:
       parameters:
       - "$ref": "#/components/parameters/business_entity_id"
       - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/invoice_state"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
       - "$ref": "#/components/parameters/sort_dates"
@@ -16455,6 +16459,12 @@ components:
       required: true
       schema:
         type: string
+    invoice_state:
+      name: state
+      in: query
+      description: Invoice state.
+      schema:
+        "$ref": "#/components/schemas/InvoiceStateQueryParamEnum"
     measured_unit_id:
       name: measured_unit_id
       in: path
@@ -21069,7 +21079,6 @@ components:
           title: Ending quantity
           minimum: 1
           maximum: 999999999
-          default: 
           description: Ending quantity for the tier.  This represents a unit amount
             for unit-priced add ons. Must be left empty if it is the final tier.
         usage_percentage:
@@ -21106,7 +21115,6 @@ components:
           title: Ending amount
           minimum: 0.01
           maximum: 9999999999999.99
-          default: 
           description: Ending amount for the tier. Allows up to 2 decimal places.
             Must be left empty if it is the final tier.
         usage_percentage:
@@ -22070,7 +22078,6 @@ components:
           title: Ending quantity
           minimum: 1
           maximum: 999999999
-          default: 
           description: Ending quantity for the tier.  This represents a unit amount
             for unit-priced add ons. Must be left empty if it is the final tier.
         unit_amount:
@@ -22103,7 +22110,6 @@ components:
           title: Ending amount
           minimum: 1
           maximum: 9999999999999.99
-          default: 
           description: Ending amount for the tier. Allows up to 2 decimal places.
             Must be left empty if it is the final tier.
         usage_percentage:
@@ -25193,6 +25199,7 @@ components:
       - write_off
     InvoiceStateEnum:
       type: string
+      default: all
       enum:
       - open
       - pending
@@ -25202,6 +25209,14 @@ components:
       - closed
       - failed
       - voided
+    InvoiceStateQueryParamEnum:
+      type: string
+      default: all
+      enum:
+      - pending
+      - past_due
+      - paid
+      - failed
     CollectionMethodEnum:
       type: string
       enum:
