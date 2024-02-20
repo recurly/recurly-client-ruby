@@ -31,7 +31,7 @@ module Recurly
       external_sku
       avalara_service_type
       avalara_transaction_type
-    )
+    ) + RevRec::PRODUCT_ATTRIBUTES
     alias to_param add_on_code
     alias quantity default_quantity
 
