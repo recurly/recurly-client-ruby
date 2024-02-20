@@ -863,6 +863,7 @@ module Recurly
     #   * Records are returned in an arbitrary order. Since results are all
     #     returned at once you can sort the records yourself.
     #
+    #        :state [String] Invoice state.
     #        :limit [Integer] Limit number of records 1-200.
     #        :order [String] Sort order.
     #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
@@ -2347,6 +2348,7 @@ module Recurly
     #   * Records are returned in an arbitrary order. Since results are all
     #     returned at once you can sort the records yourself.
     #
+    #        :state [String] Invoice state.
     #        :limit [Integer] Limit number of records 1-200.
     #        :order [String] Sort order.
     #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
@@ -3805,6 +3807,7 @@ module Recurly
     #   * Records are returned in an arbitrary order. Since results are all
     #     returned at once you can sort the records yourself.
     #
+    #        :state [String] Invoice state.
     #        :limit [Integer] Limit number of records 1-200.
     #        :order [String] Sort order.
     #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
@@ -4620,6 +4623,7 @@ module Recurly
     #   * Records are returned in an arbitrary order. Since results are all
     #     returned at once you can sort the records yourself.
     #
+    #        :state [String] Invoice state.
     #        :limit [Integer] Limit number of records 1-200.
     #        :order [String] Sort order.
     #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
