@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.47.0](https://github.com/recurly/recurly-client-ruby/tree/4.47.0) (2024-02-20)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.46.0...4.47.0)
+
+
+**Merged Pull Requests**
+
+- Add invoice state param for v2021-02-25 [#887](https://github.com/recurly/recurly-client-ruby/pull/887) ([recurly-integrations](https://github.com/recurly-integrations))
+- Remove internal wiki link. [#882](https://github.com/recurly/recurly-client-ruby/pull/882) ([recurly-bearley](https://github.com/recurly-bearley))
+
+
+
 ## [4.46.0](https://github.com/recurly/recurly-client-ruby/tree/4.46.0) (2024-01-24)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.45.0...4.46.0)
