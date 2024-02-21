@@ -21,4 +21,7 @@ Content-Type: application/xml; charset=utf-8
   <created_at type="datetime">2019-09-23T21:25:45Z</created_at>
   <updated_at type="datetime">2019-09-23T21:25:45Z</updated_at>
   <deleted_at nil="nil"/>
+  <liability_gl_account_id>uf0jwj5zhclg</liability_gl_account_id>
+  <revenue_gl_account_id>uf0jwincednb</revenue_gl_account_id>
+  <performance_obligation_id>1</performance_obligation_id>
 </item>

@@ -16,7 +16,7 @@ module Recurly
       created_at
       updated_at
       deleted_at
-    )
+    ) + RevRec::PRODUCT_ATTRIBUTES
 
     def changed_attributes
       attrs = super
