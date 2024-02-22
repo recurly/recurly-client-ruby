@@ -10,7 +10,10 @@ describe Item do
       accounting_code: '1234',
       revenue_schedule_type: 'evenly',
       avalara_transaction_type: 600,
-      avalara_service_type: 3
+      avalara_service_type: 3,
+      liability_gl_account_id: 'uf0jwj5zhclg',
+      revenue_gl_account_id: 'uf0jwincednb',
+      performance_obligation_id: '1'
     )
   end
 
@@ -23,7 +26,10 @@ describe Item do
 <description>Some Pink Sweaters</description>\
 <external_sku>ABC-123</external_sku>\
 <item_code>pink_sweaters</item_code>\
+<liability_gl_account_id>uf0jwj5zhclg</liability_gl_account_id>\
 <name>Pink Sweaters</name>\
+<performance_obligation_id>1</performance_obligation_id>\
+<revenue_gl_account_id>uf0jwincednb</revenue_gl_account_id>\
 <revenue_schedule_type>evenly</revenue_schedule_type>\
 </item>
 XML
@@ -32,12 +38,41 @@ XML
   describe "methods" do
     let(:item) { Item.find 'plastic_gloves' }
 
-    describe ".find" do
-      it "must return an item when available" do
-        stub_api_request :get, 'items/plastic_gloves', 'items/show-200'
-
+    describe "create" do
+      it "must create a new item" do
+        stub_api_request :post, 'items', 'items/create-201'
+        item = Item.create(
+          item_code: 'pink_sweaters',
+          name: 'Pink Sweaters',
+          description: 'Some Pink Sweaters',
+          external_sku: 'ABC-123',
+          accounting_code: '1234',
+          revenue_schedule_type: 'evenly',
+          avalara_transaction_type: 600,
+          avalara_service_type: 3,
+          liability_gl_account_id: 'uf0jwj5zhclg',
+          revenue_gl_account_id: 'uf0jwincednb',
+          performance_obligation_id: '1'
+        )
         item.must_be_instance_of Item
         item.description.must_equal 'Sleek Plastic'
+      end
+    end
+
+    describe ".find" do
+      before do
+        stub_api_request :get, 'items/plastic_gloves', 'items/show-200'
+      end
+
+      it "must return an item when available" do
+        item.must_be_instance_of Item
+        item.description.must_equal 'Sleek Plastic'
+      end
+
+      it "must return RevRec details when available" do
+        item.liability_gl_account_id.must_equal('uf0jwj5zhclg')
+        item.revenue_gl_account_id.must_equal('uf0jwincednb')
+        item.performance_obligation_id.must_equal('1')
       end
     end
 
@@ -57,9 +92,10 @@ XML
       it "sends changed attributes to the server" do
         stub_api_request :get, 'items/plastic_gloves', 'items/show-200'
         stub_request(:put, "https://api.recurly.com/v2/items/plastic_gloves").
-        with(:body => "<item><name>Sleek Plastic Gloves</name></item>",
+        with(:body => "<item><liability_gl_account_id>a8hkyaw9nm</liability_gl_account_id><name>Sleek Plastic Gloves</name><performance_obligation_id>6</performance_obligation_id><revenue_gl_account_id>aksdfu48</revenue_gl_account_id></item>",
           :headers => Recurly::API.headers).to_return(:status => 200, :body => "", :headers => {})
-        item.update_attributes({ name: 'Sleek Plastic Gloves' })
+        item.update_attributes({ name: 'Sleek Plastic Gloves', revenue_gl_account_id: 'aksdfu48', 
+                                 liability_gl_account_id: 'a8hkyaw9nm', performance_obligation_id: '6'})
       end
     end
 
