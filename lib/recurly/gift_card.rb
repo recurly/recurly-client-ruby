@@ -36,7 +36,7 @@ module Recurly
       gifter_account_code
       recipient_account_code
       invoice_number
-    )
+    ) + RevRec::PRODUCT_ATTRIBUTES
     alias to_param id
 
     # Preview a GiftCard given some attributes

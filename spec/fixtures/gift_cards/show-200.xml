@@ -37,4 +37,7 @@ Content-Type: application/xml; charset=utf-8
   <delivered_at nil="nil"></delivered_at>
   <redeemed_at type="datetime">2016-07-28T00:01:46Z</redeemed_at>
   <canceled_at nil="nil"></canceled_at>
+  <liability_gl_account_id>uf0jwj5zhclg</liability_gl_account_id>
+  <revenue_gl_account_id>uf0jwincednb</revenue_gl_account_id>
+  <performance_obligation_id>1</performance_obligation_id>
 </gift_card>
