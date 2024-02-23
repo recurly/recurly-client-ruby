@@ -71,6 +71,12 @@ describe GiftCard do
       address.country.must_equal "US"
       address.phone.must_equal "337-555-5555"
     end
+
+    it "should return RevRec settings" do
+      gift_card.revenue_gl_account_id.must_equal "uf0jwincednb"
+      gift_card.liability_gl_account_id.must_equal "uf0jwj5zhclg"
+      gift_card.performance_obligation_id.must_equal "1"
+    end
   end
 
   describe "#to_xml" do
@@ -86,6 +92,7 @@ describe GiftCard do
         gift_card.to_xml.must_equal expected
       end
     end
+
     describe "when creating the account with the gift card purchase" do
       let(:account_data) do
         {
@@ -121,7 +128,10 @@ describe GiftCard do
           currency: 'USD',
           unit_amount_in_cents: 2000,
           gifter_account: account_data,
-          delivery: delivery_data
+          delivery: delivery_data,
+          liability_gl_account_id: "uf0jwj5zhclg",
+          revenue_gl_account_id: "uf0jwincednb",
+          performance_obligation_id: "1"
         )
       }
 
@@ -153,7 +163,10 @@ describe GiftCard do
             <first_name>Sally</first_name>
             <last_name>Smith</last_name>
           </gifter_account>
+          <liability_gl_account_id>uf0jwj5zhclg</liability_gl_account_id>
+          <performance_obligation_id>1</performance_obligation_id>
           <product_code>gift_card</product_code>
+          <revenue_gl_account_id>uf0jwincednb</revenue_gl_account_id>
           <unit_amount_in_cents>2000</unit_amount_in_cents>
         </gift_card>
         XML
