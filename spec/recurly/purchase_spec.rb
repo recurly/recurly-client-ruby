@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry'
 
 describe Purchase do
   let(:plan_code) { 'plan_code' }
@@ -11,6 +12,9 @@ describe Purchase do
           product_code: 'product_code',
           unit_amount_in_cents: 1_000,
           quantity: 1,
+          liability_gl_account_id: 'ad8h3layw',
+          revenue_gl_account_id: 'ydu5owk',
+          performance_obligation_id: '5',
           custom_fields: [
             {
               name: 'field1',
@@ -52,6 +56,7 @@ describe Purchase do
   describe 'Purchase.invoice!' do
     it 'should return an invoice_collection when valid' do
       stub_api_request(:post, 'purchases', 'purchases/invoice-201')
+      binding.pry
       collection = Purchase.invoice!(purchase)
       collection.charge_invoice.must_be_instance_of Invoice
       shipping_address = collection.charge_invoice.line_items.first.shipping_address
@@ -100,6 +105,14 @@ describe Purchase do
 
       purchase.adjustments.first.custom_fields.first.name.must_equal 'field1'
       purchase.adjustments.first.custom_fields.first.value.must_equal 'priceless'
+    end
+
+    it 'should return RevRec details for an adjustment on a purchase that has RevRec details' do
+      stub_api_request(:post, 'purchases', 'purchases/invoice-201')
+
+      purchase.adjustments.first.liability_gl_account_id.must_equal 'ad8h3layw'
+      purchase.adjustments.first.revenue_gl_account_id.must_equal 'ydu5owk'
+      purchase.adjustments.first.performance_obligation_id.must_equal '5'
     end
   end
 

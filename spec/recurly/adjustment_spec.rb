@@ -149,6 +149,9 @@ describe Adjustment do
         quantity:               1,
         accounting_code:        'bandwidth',
         tax_exempt:             false,
+        liability_gl_account_id: 'ad8h3layw',
+        revenue_gl_account_id: 'ydu5owk',
+        performance_obligation_id: 5,
         custom_fields: [
           {
             name: 'field1',
@@ -170,7 +173,10 @@ describe Adjustment do
 <value>priceless</value>\
 </custom_field>\
 </custom_fields>\
+<liability_gl_account_id>ad8h3layw</liability_gl_account_id>\
+<performance_obligation_id>5</performance_obligation_id>\
 <quantity>1</quantity>\
+<revenue_gl_account_id>ydu5owk</revenue_gl_account_id>\
 <tax_exempt>false</tax_exempt>\
 <unit_amount_in_cents>5000</unit_amount_in_cents>\
 </adjustment>
