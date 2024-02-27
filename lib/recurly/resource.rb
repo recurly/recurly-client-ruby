@@ -15,7 +15,8 @@ module Recurly
     end
 
     def ==(other_resource)
-      self.attributes == other_resource.attributes
+      other.is_a?(Recurly::Resource) &&
+        attributes == other.attributes
     end
 
     # Hide instance variables to keep from accidental logging
