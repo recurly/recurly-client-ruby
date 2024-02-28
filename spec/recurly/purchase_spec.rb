@@ -116,8 +116,8 @@ describe Purchase do
         stub_api_request(:post, 'purchases', 'purchases/invoice-201-with-revrec')
         collection = Purchase.invoice!(purchase)
         adjustment_list = collection.charge_invoice.line_items
-        adjustment_list.first.liability_gl_account_code.must_equal 'liability_gl'
-        adjustment_list.first.revenue_gl_account_code.must_equal 'rev_gl'
+        adjustment_list.first.liability_gl_account_code.must_equal 'liability_gla'
+        adjustment_list.first.revenue_gl_account_code.must_equal 'rev_gla'
         adjustment_list.first.performance_obligation_id.must_equal '5'
       end
     end
@@ -167,8 +167,8 @@ describe Purchase do
         stub_api_request(:post, 'purchases/preview', 'purchases/preview-201-with-revrec')
         preview_collection = Purchase.preview!(purchase)
         adjustment_list = preview_collection.charge_invoice.line_items
-        adjustment_list.first.liability_gl_account_code.must_equal 'liability_gl'
-        adjustment_list.first.revenue_gl_account_code.must_equal 'rev_gl'
+        adjustment_list.first.liability_gl_account_code.must_equal 'liability_gla'
+        adjustment_list.first.revenue_gl_account_code.must_equal 'rev_gla'
         adjustment_list.first.performance_obligation_id.must_equal '5'
       end
     end
@@ -206,6 +206,26 @@ describe Purchase do
       # ensure error details are mapped back
       purchase.adjustments.first.errors['unit_amount_in_cents'].must_equal ['is not a number']
     end
+
+    describe 'with RevRec feature flag' do
+      let(:adjustments) { [{
+          product_code: 'product_code',
+          unit_amount_in_cents: 1_000,
+          quantity: 1,
+          liability_gl_account_id: 'ad8h3layw',
+          revenue_gl_account_id: 'ydu5owk',
+          performance_obligation_id: '5',
+        }]
+      }
+      it 'should return RevRec details for an adjustment on a purchase that has RevRec details' do
+        stub_api_request(:post, 'purchases/authorize', 'purchases/preview-201-with-revrec')
+        authorized_collection = Purchase.authorize!(purchase)
+        adjustment_list = authorized_collection.charge_invoice.line_items
+        adjustment_list.first.liability_gl_account_code.must_equal 'liability_gla'
+        adjustment_list.first.revenue_gl_account_code.must_equal 'rev_gla'
+        adjustment_list.first.performance_obligation_id.must_equal '5'
+      end
+    end
   end
 
   describe 'Purchase.pending!' do
@@ -237,6 +257,26 @@ describe Purchase do
       proc { Purchase.pending!(purchase) }.must_raise Resource::Invalid
       # ensure error details are mapped back
       purchase.adjustments.first.errors['unit_amount_in_cents'].must_equal ['is not a number']
+    end
+
+    describe 'with RevRec feature flag' do
+      let(:adjustments) { [{
+          product_code: 'product_code',
+          unit_amount_in_cents: 1_000,
+          quantity: 1,
+          liability_gl_account_id: 'ad8h3layw',
+          revenue_gl_account_id: 'ydu5owk',
+          performance_obligation_id: '5',
+        }]
+      }
+      it 'should return RevRec details for an adjustment on a purchase that has RevRec details' do
+        stub_api_request(:post, 'purchases/pending', 'purchases/preview-201-with-revrec')
+        pending_collection = Purchase.pending!(purchase)
+        adjustment_list = pending_collection.charge_invoice.line_items
+        adjustment_list.first.liability_gl_account_code.must_equal 'liability_gla'
+        adjustment_list.first.revenue_gl_account_code.must_equal 'rev_gla'
+        adjustment_list.first.performance_obligation_id.must_equal '5'
+      end
     end
   end
 
