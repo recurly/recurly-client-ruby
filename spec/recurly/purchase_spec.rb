@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pry'
 
 describe Purchase do
   let(:plan_code) { 'plan_code' }
@@ -117,7 +116,7 @@ describe Purchase do
         collection = Purchase.invoice!(purchase)
         adjustment_list = collection.charge_invoice.line_items
         adjustment_list.first.liability_gl_account_code.must_equal 'liability_gla'
-        adjustment_list.first.revenue_gl_account_code.must_equal 'rev_gla'
+        adjustment_list.first.revenue_gl_account_code.must_equal 'revenue_gla'
         adjustment_list.first.performance_obligation_id.must_equal '5'
       end
     end
@@ -168,7 +167,7 @@ describe Purchase do
         preview_collection = Purchase.preview!(purchase)
         adjustment_list = preview_collection.charge_invoice.line_items
         adjustment_list.first.liability_gl_account_code.must_equal 'liability_gla'
-        adjustment_list.first.revenue_gl_account_code.must_equal 'rev_gla'
+        adjustment_list.first.revenue_gl_account_code.must_equal 'revenue_gla'
         adjustment_list.first.performance_obligation_id.must_equal '5'
       end
     end
@@ -222,7 +221,7 @@ describe Purchase do
         authorized_collection = Purchase.authorize!(purchase)
         adjustment_list = authorized_collection.charge_invoice.line_items
         adjustment_list.first.liability_gl_account_code.must_equal 'liability_gla'
-        adjustment_list.first.revenue_gl_account_code.must_equal 'rev_gla'
+        adjustment_list.first.revenue_gl_account_code.must_equal 'revenue_gla'
         adjustment_list.first.performance_obligation_id.must_equal '5'
       end
     end
@@ -274,7 +273,7 @@ describe Purchase do
         pending_collection = Purchase.pending!(purchase)
         adjustment_list = pending_collection.charge_invoice.line_items
         adjustment_list.first.liability_gl_account_code.must_equal 'liability_gla'
-        adjustment_list.first.revenue_gl_account_code.must_equal 'rev_gla'
+        adjustment_list.first.revenue_gl_account_code.must_equal 'revenue_gla'
         adjustment_list.first.performance_obligation_id.must_equal '5'
       end
     end

@@ -1,0 +1,64 @@
+HTTP/1.1 200 OK
+Content-Type: application/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<adjustment href="https://api.recurly.com/v2/adjustments/abcdef1234567890" type="charge">
+  <account href="https://api.recurly.com/v2/accounts/account"/>
+  <bill_for_account href="https://api.recurly.com/v2/accounts/abcdef1234567890"/>
+  <invoice href="https://api.recurly.com/v2/invoices/created-invoice"/>
+  <subscription href="https://api.recurly.com/v2/subscriptions/abcdef1234567890"/>
+  <credit_adjustments href="https://api.recurly.com/v2/adjustments/abcdef1234567890/credit_adjustments"/>
+  <item href="https://api.recurly.com/v2/items/plastic_gloves"/>
+  <item_code>plastic_gloves</item_code>
+  <external_sku>plastic_gloves</external_sku>
+  <uuid>abcdef1234567890</uuid>
+  <state>pending</state>
+  <accounting_code nil="nil"></accounting_code>
+  <origin>plan</origin>
+  <description>$12 Annual Subscription</description>
+  <unit_amount_in_cents type="integer">1200</unit_amount_in_cents>
+  <quantity type="integer">1</quantity>
+  <quantity_decimal>1.2</quantity_decimal>
+  <discount_in_cents type="integer">0</discount_in_cents>
+  <tax_in_cents type="integer">5000</tax_in_cents>
+  <tax_type>usst</tax_type>
+  <tax_region>CA</tax_region>
+  <tax_rate type="float">0.0875</tax_rate>
+  <total_in_cents type="integer">1200</total_in_cents>
+  <currency>USD</currency>
+  <product_code>basic</product_code>
+  <revenue_schedule_type>evenly</revenue_schedule_type>
+  <surcharge_in_cents type="integer">100</surcharge_in_cents>
+  <avalara_service_type type="integer">3</avalara_service_type>
+  <avalara_transaction_type type="integer">600</avalara_transaction_type>
+  <liability_gl_account_code>liability_gla</liability_gl_account_code>
+  <revenue_gl_account_code>revenue_gla</revenue_gl_account_code>
+  <performance_obligation_id>5</performance_obligation_id>
+  <tax_details type="array">
+    <tax_detail>
+      <name>california</name>
+      <type>state</type>
+      <tax_rate type="float">0.065</tax_rate>
+      <tax_in_cents type="integer">3000</tax_in_cents>
+      <level>state</level>
+      <billable type="boolean">true</billable>
+    </tax_detail>
+    <tax_detail>
+      <name>san francisco</name>
+      <type>county</type>
+      <tax_rate type="float">0.02</tax_rate>
+      <tax_in_cents type="integer">2000</tax_in_cents>
+    </tax_detail>
+  </tax_details>
+  <proration_rate type="float">0.5</proration_rate>
+  <original_adjustment_uuid>abcdefg1234567</original_adjustment_uuid>
+  <start_date type="datetime">2011-04-30T07:00:00Z</start_date>
+  <end_date type="datetime">2011-04-30T07:00:00Z</end_date>
+  <created_at type="datetime">2011-08-31T03:30:00Z</created_at>
+  <custom_fields>
+    <custom_field>
+      <name>field1</name>
+      <value>priceless</value>
+    </custom_field>
+  </custom_fields>
+</adjustment>
