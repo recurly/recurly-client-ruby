@@ -144,14 +144,14 @@ describe Adjustment do
   describe '#POST /accounts/{account_code}/adjustments' do
     let(:adjustment_body) do
       {
-        unit_amount_in_cents:   5000,
-        currency:               'USD',
-        quantity:               1,
-        accounting_code:        'bandwidth',
-        tax_exempt:             false,
-        liability_gl_account_id: 'ad8h3layw',
-        revenue_gl_account_id: 'ydu5owk',
-        performance_obligation_id: 5,
+        unit_amount_in_cents:       5000,
+        currency:                   'USD',
+        quantity:                   1,
+        accounting_code:            'bandwidth',
+        tax_exempt:                 false,
+        liability_gl_account_id:    'ad8h3layw',
+        revenue_gl_account_id:      'ydu5owk',
+        performance_obligation_id:  5,
         custom_fields: [
           {
             name: 'field1',

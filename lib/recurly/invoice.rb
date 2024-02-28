@@ -122,7 +122,7 @@ module Recurly
       refundable_total_in_cents
       used_tax_service
       business_entity_id
-    )
+    ) + RevRec::PRODUCT_ATTRIBUTES
     alias to_param invoice_number_with_prefix
 
     def self.to_xml(attrs)

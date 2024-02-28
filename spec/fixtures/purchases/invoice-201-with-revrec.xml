@@ -73,6 +73,9 @@ Location: https://api.recurly.com/v2/invoices/3517
         <created_at type="datetime">2018-03-27T17:52:42Z</created_at>
         <updated_at type="datetime">2018-03-27T17:52:42Z</updated_at>
         <revenue_schedule_type>evenly</revenue_schedule_type>
+        <liability_gl_account_code>liability_gl</liability_gl_account_code>
+        <revenue_gl_account_code>rev_gl</revenue_gl_account_code>
+        <performance_obligation_id>5</performance_obligation_id>
         <shipping_address>
           <address1>400 Alabama St</address1>
           <address2 nil="nil"></address2>

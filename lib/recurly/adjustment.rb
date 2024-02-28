@@ -68,7 +68,7 @@ module Recurly
       avalara_transaction_type
       avalara_service_type
       refundable_total_in_cents
-    ] + RevRec::PRODUCT_ATTRIBUTES
+    ] + RevRec::ALL_ATTRIBUTES
     alias to_param uuid
 
     # @return ["charge", "credit", nil] The type of adjustment.
