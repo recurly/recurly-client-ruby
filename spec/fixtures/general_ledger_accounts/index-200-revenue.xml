@@ -1,0 +1,38 @@
+HTTP/1.1 200 OK
+        Content-Type: application/xml; charset=utf-8
+
+        <?xml version="1.0" encoding="UTF-8"?>
+<general_ledger_accounts type="array">
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/u90r5deeaxix">
+    <id>u90r5deeaxix</id>
+    <code>string</code>
+    <account_type>revenue</account_type>
+    <description>string</description>
+    <created_at type="datetime">2024-01-16T14:34:16Z</created_at>
+    <updated_at type="datetime">2024-01-16T14:34:16Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/trl0h3br1dl7">
+    <id>trl0h3br1dl7</id>
+    <code>100</code>
+    <account_type>revenue</account_type>
+    <description>HOWDY</description>
+    <created_at type="datetime">2023-10-20T15:27:46Z</created_at>
+    <updated_at type="datetime">2023-10-20T15:27:46Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/trkz0atorlk3">
+    <id>trkz0atorlk3</id>
+    <code>NEW code</code>
+    <account_type>revenue</account_type>
+    <description>NEW description</description>
+    <created_at type="datetime">2023-10-20T15:19:32Z</created_at>
+    <updated_at type="datetime">2023-10-20T15:29:30Z</updated_at>
+  </general_ledger_account>
+  <general_ledger_account href="https://api.recurly.com/v2/general_ledger_accounts/thproqnpcuwp">
+    <id>thproqnpcuwp</id>
+    <code>303</code>
+    <account_type>revenue</account_type>
+    <description></description>
+    <created_at type="datetime">2023-08-31T20:46:04Z</created_at>
+    <updated_at type="datetime">2023-08-31T20:46:04Z</updated_at>
+  </general_ledger_account>
+</general_ledger_accounts>

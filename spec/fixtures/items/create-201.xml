@@ -9,6 +9,9 @@ Location: https://api.recurly.com/v2/items/plastic_gloves
   <description>Sleek Plastic</description>
   <external_sku>awesome-plastic-gloves</external_sku>
   <accounting_code>1569273944</accounting_code>
+  <liability_gl_account_id>uf0jwj5zhclg</liability_gl_account_id>
+  <revenue_gl_account_id>uf0jwincednb'</revenue_gl_account_id>
+  <performance_obligation_id>1</performance_obligation_id>
   <revenue_schedule_type>never</revenue_schedule_type>
   <tax_exempt type="boolean">true</tax_exempt>
   <tax_code nil="nil"/>

@@ -29,6 +29,8 @@ Link: <https://api.recurly.com/v2/business_entities?cursor=1234567890&per_page=2
 		</tax_address>
 		<default_vat_number nil="nil"></default_vat_number>
 		<default_registration_number nil="nil"></default_registration_number>
+    <default_liability_gl_account_id>12345</default_liability_gl_account_id>
+    <default_revenue_gl_account_id>56789</default_revenue_gl_account_id>
 		<created_at type="datetime">2023-03-01T16:26:40Z</created_at>
 		<updated_at type="datetime">2023-04-01T16:26:40Z</updated_at>
 	</business_entity>
@@ -55,7 +57,8 @@ Link: <https://api.recurly.com/v2/business_entities?cursor=1234567890&per_page=2
 			<phone nil="nil"></phone>
 		</tax_address>
 		<default_vat_number nil="nil"></default_vat_number>
-		<default_registration_number nil="nil"></default_registration_number>
+		<default_liability_gl_account_id>abc123</default_liability_gl_account_id>
+    <default_revenue_gl_account_id>xyz789</default_revenue_gl_account_id>
 		<created_at type="datetime">2023-06-01T16:26:40Z</created_at>
 		<updated_at type="datetime">2023-07-01T16:26:40Z</updated_at>
 	</business_entity>
