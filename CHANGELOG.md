@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.19.11](https://github.com/recurly/recurly-client-ruby/tree/2.19.11) (2024-03-13)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.10...2.19.11)
+
+
+**Merged Pull Requests**
+
+- add revrec to purchases and adjustments [#891](https://github.com/recurly/recurly-client-ruby/pull/891) ([wsethbrown](https://github.com/wsethbrown))
+- add revrec to gift cards [#889](https://github.com/recurly/recurly-client-ruby/pull/889) ([wsethbrown](https://github.com/wsethbrown))
+- add revrec to addons and items [#885](https://github.com/recurly/recurly-client-ruby/pull/885) ([wsethbrown](https://github.com/wsethbrown))
+- Add revrec shipping methods [#883](https://github.com/recurly/recurly-client-ruby/pull/883) ([wsethbrown](https://github.com/wsethbrown))
+- add plan setup fee revrec [#881](https://github.com/recurly/recurly-client-ruby/pull/881) ([wsethbrown](https://github.com/wsethbrown))
+- add get business entity [#880](https://github.com/recurly/recurly-client-ruby/pull/880) ([wsethbrown](https://github.com/wsethbrown))
+- Add pobs [#879](https://github.com/recurly/recurly-client-ruby/pull/879) ([wsethbrown](https://github.com/wsethbrown))
+- Add RevRec features to ruby [#878](https://github.com/recurly/recurly-client-ruby/pull/878) ([faiberrec](https://github.com/faiberrec))
+- Adding support for General Ledger Accounts [#875](https://github.com/recurly/recurly-client-ruby/pull/875) ([faiberrec](https://github.com/faiberrec))
+
+
+
 ## [2.19.10](https://github.com/recurly/recurly-client-ruby/tree/2.19.10) (2023-12-06)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.9...2.19.10)
@@ -1034,7 +1053,7 @@
 - Fix AddOn quantity accumulator [#278](https://github.com/recurly/recurly-client-ruby/pull/278) ([bhelx](https://github.com/bhelx))
 - Add new dunning event notification [#277](https://github.com/recurly/recurly-client-ruby/pull/277) ([bhelx](https://github.com/bhelx))
 - Fix failing dependency for ruby 1.9.3 [#276](https://github.com/recurly/recurly-client-ruby/pull/276) ([bhelx](https://github.com/bhelx))
-- Correct rails deprecation warning [#275](https://github.com/recurly/recurly-client-ruby/pull/275) ([jdeseno](https://github.com/jdeseno))
+- Correct rails deprecation warning [#275](https://github.com/recurly/recurly-client-ruby/pull/275) ([ghost](https://github.com/ghost))
 - Fix redeem bang [#271](https://github.com/recurly/recurly-client-ruby/pull/271) ([sdhull](https://github.com/sdhull))
 - Cleanup code around message interpolation [#268](https://github.com/recurly/recurly-client-ruby/pull/268) ([bhelx](https://github.com/bhelx))
 - removes base from error messages [#267](https://github.com/recurly/recurly-client-ruby/pull/267) ([lmnleaf](https://github.com/lmnleaf))
@@ -1580,7 +1599,7 @@
 - Fix AddOn quantity accumulator [#278](https://github.com/recurly/recurly-client-ruby/pull/278) ([bhelx](https://github.com/bhelx))
 - Add new dunning event notification [#277](https://github.com/recurly/recurly-client-ruby/pull/277) ([bhelx](https://github.com/bhelx))
 - Fix failing dependency for ruby 1.9.3 [#276](https://github.com/recurly/recurly-client-ruby/pull/276) ([bhelx](https://github.com/bhelx))
-- Correct rails deprecation warning [#275](https://github.com/recurly/recurly-client-ruby/pull/275) ([jdeseno](https://github.com/jdeseno))
+- Correct rails deprecation warning [#275](https://github.com/recurly/recurly-client-ruby/pull/275) ([ghost](https://github.com/ghost))
 - Fix redeem bang [#271](https://github.com/recurly/recurly-client-ruby/pull/271) ([sdhull](https://github.com/sdhull))
 - Cleanup code around message interpolation [#268](https://github.com/recurly/recurly-client-ruby/pull/268) ([bhelx](https://github.com/bhelx))
 - removes base from error messages [#267](https://github.com/recurly/recurly-client-ruby/pull/267) ([lmnleaf](https://github.com/lmnleaf))
@@ -2198,7 +2217,7 @@
 - Fix AddOn quantity accumulator [#278](https://github.com/recurly/recurly-client-ruby/pull/278) ([bhelx](https://github.com/bhelx))
 - Add new dunning event notification [#277](https://github.com/recurly/recurly-client-ruby/pull/277) ([bhelx](https://github.com/bhelx))
 - Fix failing dependency for ruby 1.9.3 [#276](https://github.com/recurly/recurly-client-ruby/pull/276) ([bhelx](https://github.com/bhelx))
-- Correct rails deprecation warning [#275](https://github.com/recurly/recurly-client-ruby/pull/275) ([jdeseno](https://github.com/jdeseno))
+- Correct rails deprecation warning [#275](https://github.com/recurly/recurly-client-ruby/pull/275) ([ghost](https://github.com/ghost))
 - Fix redeem bang [#271](https://github.com/recurly/recurly-client-ruby/pull/271) ([sdhull](https://github.com/sdhull))
 - Cleanup code around message interpolation [#268](https://github.com/recurly/recurly-client-ruby/pull/268) ([bhelx](https://github.com/bhelx))
 - removes base from error messages [#267](https://github.com/recurly/recurly-client-ruby/pull/267) ([lmnleaf](https://github.com/lmnleaf))
