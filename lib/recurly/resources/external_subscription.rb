@@ -66,6 +66,10 @@ module Recurly
       #   @return [String] External subscriptions can be active, canceled, expired, or past_due.
       define_attribute :state, String
 
+      # @!attribute test
+      #   @return [Boolean] An indication of whether or not the external subscription was purchased in a sandbox environment.
+      define_attribute :test, :Boolean
+
       # @!attribute trial_ends_at
       #   @return [DateTime] When the external subscription trial period ends in the external platform.
       define_attribute :trial_ends_at, DateTime

@@ -8617,8 +8617,6 @@ paths:
       summary: Apply available credit to a pending or past due charge invoice
       description: Apply credit payment to the outstanding balance on an existing
         charge invoice from an account’s available balance from existing credit invoices.
-        Credit that was refunded from the invoice cannot be applied back to the invoice
-        as payment.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
@@ -18389,6 +18387,10 @@ components:
           deprecated: true
         card_type:
           "$ref": "#/components/schemas/CardTypeEnum"
+        card_network_preference:
+          description: Represents the card network preference associated with the
+            billing info for dual badged cards. Must be a supported card network.
+          "$ref": "#/components/schemas/CardNetworkEnum"
     BillingInfoVerify:
       type: object
       properties:
@@ -24173,6 +24175,12 @@ components:
           title: Trial ends at
           description: When the external subscription trial period ends in the external
             platform.
+        test:
+          type: boolean
+          title: Test
+          description: An indication of whether or not the external subscription was
+            purchased in a sandbox environment.
+          default: false
         created_at:
           type: string
           format: date-time
@@ -24427,6 +24435,10 @@ components:
                 Reference value used when the external token was created. For Braintree
                 the PayPal PayerID is populated in the response.
               maxLength: 264
+        card_network_preference:
+          description: Represents the card network preference associated with the
+            billing info for dual badged cards. Must be a supported card network.
+          "$ref": "#/components/schemas/CardNetworkEnum"
         billing_agreement_id:
           type: string
           description: Billing Agreement identifier. Only present for Amazon or Paypal
@@ -25469,6 +25481,14 @@ components:
       - Unknown
       - Visa
       - Tarjeta Naranja
+    CardNetworkEnum:
+      type: string
+      enum:
+      - Bancontact
+      - CartesBancaires
+      - Dankort
+      - MasterCard
+      - Visa
     AccountTypeEnum:
       type: string
       enum:
