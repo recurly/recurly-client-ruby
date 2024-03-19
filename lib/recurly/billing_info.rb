@@ -50,6 +50,7 @@ module Recurly
       backup_payment_method
       cc_bin_country
       online_banking_payment_type
+      card_network_preference
     ) | CREDIT_CARD_ATTRIBUTES | BANK_ACCOUNT_ATTRIBUTES | AMAZON_ATTRIBUTES | PAYPAL_ATTRIBUTES | ROKU_ATTRIBUTES | SEPA_ATTRIBUTES | BACS_ATTRIBUTES | BECS_ATTRIBUTES | VENMO_ATTRIBUTES
 
     # Verify an account's stored billing info

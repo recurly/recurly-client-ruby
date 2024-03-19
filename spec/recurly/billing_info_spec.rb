@@ -11,6 +11,7 @@ describe BillingInfo do
           :last_four  => "1111",
           :city       => "Los Angeles",
           :state      => "CA",
+          :card_network_preference => "Cartes Bancaires",
           :gateway_attributes => { account_reference: "ABC123" },
         )
       }
@@ -20,6 +21,7 @@ describe BillingInfo do
         binfo.gateway_code = "gatewaycode123"
         binfo.to_xml.must_equal <<XML.chomp
 <billing_info>\
+<card_network_preference>Cartes Bancaires</card_network_preference>\
 <card_type>Visa</card_type>\
 <city>Los Angeles</city>\
 <first_name>Larry</first_name>\
