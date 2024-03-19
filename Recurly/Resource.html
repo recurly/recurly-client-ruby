@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Recurly::Resource
+  
+    &mdash; Documentation by YARD 0.9.36
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Recurly::Resource";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (R)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Recurly.html" title="Recurly (module)">Recurly</a></span></span>
+     &raquo; 
+    <span class="title">Resource</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Recurly::Resource
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">Recurly::Resource</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  <dl>
+      <dt>Extended by:</dt>
+      <dd><span class='object_link'><a href="Schema/ResourceCaster.html" title="Recurly::Schema::ResourceCaster (module)">Schema::ResourceCaster</a></span>, <span class='object_link'><a href="Schema/SchemaFactory.html" title="Recurly::Schema::SchemaFactory (module)">Schema::SchemaFactory</a></span></dd>
+  </dl>
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Schema/SchemaValidator.html" title="Recurly::Schema::SchemaValidator (module)">Schema::SchemaValidator</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/recurly/resource.rb</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This class represents an object as it exists on the Recurly servers. It is generated from a response. If you wish to update or change a resource, you need to send a request to the server and get a new Resource.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><div id="subclasses">
+  <h2>Direct Known Subclasses</h2>
+  <p class="children"><span class='object_link'><a href="Resources/Account.html" title="Recurly::Resources::Account (class)">Recurly::Resources::Account</a></span>, <span class='object_link'><a href="Resources/AccountAcquisition.html" title="Recurly::Resources::AccountAcquisition (class)">Recurly::Resources::AccountAcquisition</a></span>, <span class='object_link'><a href="Resources/AccountAcquisitionCost.html" title="Recurly::Resources::AccountAcquisitionCost (class)">Recurly::Resources::AccountAcquisitionCost</a></span>, <span class='object_link'><a href="Resources/AccountBalance.html" title="Recurly::Resources::AccountBalance (class)">Recurly::Resources::AccountBalance</a></span>, <span class='object_link'><a href="Resources/AccountBalanceAmount.html" title="Recurly::Resources::AccountBalanceAmount (class)">Recurly::Resources::AccountBalanceAmount</a></span>, <span class='object_link'><a href="Resources/AccountMini.html" title="Recurly::Resources::AccountMini (class)">Recurly::Resources::AccountMini</a></span>, <span class='object_link'><a href="Resources/AccountNote.html" title="Recurly::Resources::AccountNote (class)">Recurly::Resources::AccountNote</a></span>, <span class='object_link'><a href="Resources/AddOn.html" title="Recurly::Resources::AddOn (class)">Recurly::Resources::AddOn</a></span>, <span class='object_link'><a href="Resources/AddOnMini.html" title="Recurly::Resources::AddOnMini (class)">Recurly::Resources::AddOnMini</a></span>, <span class='object_link'><a href="Resources/AddOnPricing.html" title="Recurly::Resources::AddOnPricing (class)">Recurly::Resources::AddOnPricing</a></span>, <span class='object_link'><a href="Resources/Address.html" title="Recurly::Resources::Address (class)">Recurly::Resources::Address</a></span>, <span class='object_link'><a href="Resources/AddressWithName.html" title="Recurly::Resources::AddressWithName (class)">Recurly::Resources::AddressWithName</a></span>, <span class='object_link'><a href="Resources/BillingInfo.html" title="Recurly::Resources::BillingInfo (class)">Recurly::Resources::BillingInfo</a></span>, <span class='object_link'><a href="Resources/BillingInfoUpdatedBy.html" title="Recurly::Resources::BillingInfoUpdatedBy (class)">Recurly::Resources::BillingInfoUpdatedBy</a></span>, <span class='object_link'><a href="Resources/BinaryFile.html" title="Recurly::Resources::BinaryFile (class)">Recurly::Resources::BinaryFile</a></span>, <span class='object_link'><a href="Resources/BusinessEntity.html" title="Recurly::Resources::BusinessEntity (class)">Recurly::Resources::BusinessEntity</a></span>, <span class='object_link'><a href="Resources/Coupon.html" title="Recurly::Resources::Coupon (class)">Recurly::Resources::Coupon</a></span>, <span class='object_link'><a href="Resources/CouponDiscount.html" title="Recurly::Resources::CouponDiscount (class)">Recurly::Resources::CouponDiscount</a></span>, <span class='object_link'><a href="Resources/CouponDiscountPricing.html" title="Recurly::Resources::CouponDiscountPricing (class)">Recurly::Resources::CouponDiscountPricing</a></span>, <span class='object_link'><a href="Resources/CouponDiscountTrial.html" title="Recurly::Resources::CouponDiscountTrial (class)">Recurly::Resources::CouponDiscountTrial</a></span>, <span class='object_link'><a href="Resources/CouponMini.html" title="Recurly::Resources::CouponMini (class)">Recurly::Resources::CouponMini</a></span>, <span class='object_link'><a href="Resources/CouponRedemption.html" title="Recurly::Resources::CouponRedemption (class)">Recurly::Resources::CouponRedemption</a></span>, <span class='object_link'><a href="Resources/CouponRedemptionMini.html" title="Recurly::Resources::CouponRedemptionMini (class)">Recurly::Resources::CouponRedemptionMini</a></span>, <span class='object_link'><a href="Resources/CreditPayment.html" title="Recurly::Resources::CreditPayment (class)">Recurly::Resources::CreditPayment</a></span>, <span class='object_link'><a href="Resources/CustomField.html" title="Recurly::Resources::CustomField (class)">Recurly::Resources::CustomField</a></span>, <span class='object_link'><a href="Resources/CustomFieldDefinition.html" title="Recurly::Resources::CustomFieldDefinition (class)">Recurly::Resources::CustomFieldDefinition</a></span>, <span class='object_link'><a href="Resources/CustomerPermission.html" title="Recurly::Resources::CustomerPermission (class)">Recurly::Resources::CustomerPermission</a></span>, <span class='object_link'><a href="Resources/DunningCampaign.html" title="Recurly::Resources::DunningCampaign (class)">Recurly::Resources::DunningCampaign</a></span>, <span class='object_link'><a href="Resources/DunningCampaignsBulkUpdateResponse.html" title="Recurly::Resources::DunningCampaignsBulkUpdateResponse (class)">Recurly::Resources::DunningCampaignsBulkUpdateResponse</a></span>, <span class='object_link'><a href="Resources/DunningCycle.html" title="Recurly::Resources::DunningCycle (class)">Recurly::Resources::DunningCycle</a></span>, <span class='object_link'><a href="Resources/DunningInterval.html" title="Recurly::Resources::DunningInterval (class)">Recurly::Resources::DunningInterval</a></span>, <span class='object_link'><a href="Resources/Empty.html" title="Recurly::Resources::Empty (class)">Recurly::Resources::Empty</a></span>, <span class='object_link'><a href="Resources/Entitlement.html" title="Recurly::Resources::Entitlement (class)">Recurly::Resources::Entitlement</a></span>, <span class='object_link'><a href="Resources/Entitlements.html" title="Recurly::Resources::Entitlements (class)">Recurly::Resources::Entitlements</a></span>, <span class='object_link'><a href="Resources/Error.html" title="Recurly::Resources::Error (class)">Recurly::Resources::Error</a></span>, <span class='object_link'><a href="Resources/ErrorMayHaveTransaction.html" title="Recurly::Resources::ErrorMayHaveTransaction (class)">Recurly::Resources::ErrorMayHaveTransaction</a></span>, <span class='object_link'><a href="Resources/ExportDates.html" title="Recurly::Resources::ExportDates (class)">Recurly::Resources::ExportDates</a></span>, <span class='object_link'><a href="Resources/ExportFile.html" title="Recurly::Resources::ExportFile (class)">Recurly::Resources::ExportFile</a></span>, <span class='object_link'><a href="Resources/ExportFiles.html" title="Recurly::Resources::ExportFiles (class)">Recurly::Resources::ExportFiles</a></span>, <span class='object_link'><a href="Resources/ExternalAccount.html" title="Recurly::Resources::ExternalAccount (class)">Recurly::Resources::ExternalAccount</a></span>, <span class='object_link'><a href="Resources/ExternalCharge.html" title="Recurly::Resources::ExternalCharge (class)">Recurly::Resources::ExternalCharge</a></span>, <span class='object_link'><a href="Resources/ExternalInvoice.html" title="Recurly::Resources::ExternalInvoice (class)">Recurly::Resources::ExternalInvoice</a></span>, <span class='object_link'><a href="Resources/ExternalPaymentPhase.html" title="Recurly::Resources::ExternalPaymentPhase (class)">Recurly::Resources::ExternalPaymentPhase</a></span>, <span class='object_link'><a href="Resources/ExternalProduct.html" title="Recurly::Resources::ExternalProduct (class)">Recurly::Resources::ExternalProduct</a></span>, <span class='object_link'><a href="Resources/ExternalProductReferenceCollection.html" title="Recurly::Resources::ExternalProductReferenceCollection (class)">Recurly::Resources::ExternalProductReferenceCollection</a></span>, <span class='object_link'><a href="Resources/ExternalProductReferenceMini.html" title="Recurly::Resources::ExternalProductReferenceMini (class)">Recurly::Resources::ExternalProductReferenceMini</a></span>, <span class='object_link'><a href="Resources/ExternalSubscription.html" title="Recurly::Resources::ExternalSubscription (class)">Recurly::Resources::ExternalSubscription</a></span>, <span class='object_link'><a href="Resources/FraudInfo.html" title="Recurly::Resources::FraudInfo (class)">Recurly::Resources::FraudInfo</a></span>, <span class='object_link'><a href="Resources/FraudRiskRule.html" title="Recurly::Resources::FraudRiskRule (class)">Recurly::Resources::FraudRiskRule</a></span>, <span class='object_link'><a href="Resources/GatewayAttributes.html" title="Recurly::Resources::GatewayAttributes (class)">Recurly::Resources::GatewayAttributes</a></span>, <span class='object_link'><a href="Resources/GiftCard.html" title="Recurly::Resources::GiftCard (class)">Recurly::Resources::GiftCard</a></span>, <span class='object_link'><a href="Resources/GiftCardDelivery.html" title="Recurly::Resources::GiftCardDelivery (class)">Recurly::Resources::GiftCardDelivery</a></span>, <span class='object_link'><a href="Resources/GrantedBy.html" title="Recurly::Resources::GrantedBy (class)">Recurly::Resources::GrantedBy</a></span>, <span class='object_link'><a href="Resources/Invoice.html" title="Recurly::Resources::Invoice (class)">Recurly::Resources::Invoice</a></span>, <span class='object_link'><a href="Resources/InvoiceAddress.html" title="Recurly::Resources::InvoiceAddress (class)">Recurly::Resources::InvoiceAddress</a></span>, <span class='object_link'><a href="Resources/InvoiceCollection.html" title="Recurly::Resources::InvoiceCollection (class)">Recurly::Resources::InvoiceCollection</a></span>, <span class='object_link'><a href="Resources/InvoiceMini.html" title="Recurly::Resources::InvoiceMini (class)">Recurly::Resources::InvoiceMini</a></span>, <span class='object_link'><a href="Resources/InvoiceTemplate.html" title="Recurly::Resources::InvoiceTemplate (class)">Recurly::Resources::InvoiceTemplate</a></span>, <span class='object_link'><a href="Resources/Item.html" title="Recurly::Resources::Item (class)">Recurly::Resources::Item</a></span>, <span class='object_link'><a href="Resources/ItemMini.html" title="Recurly::Resources::ItemMini (class)">Recurly::Resources::ItemMini</a></span>, <span class='object_link'><a href="Resources/LineItem.html" title="Recurly::Resources::LineItem (class)">Recurly::Resources::LineItem</a></span>, <span class='object_link'><a href="Resources/MeasuredUnit.html" title="Recurly::Resources::MeasuredUnit (class)">Recurly::Resources::MeasuredUnit</a></span>, <span class='object_link'><a href="Resources/Page.html" title="Recurly::Resources::Page (class)">Recurly::Resources::Page</a></span>, <span class='object_link'><a href="Resources/PaymentMethod.html" title="Recurly::Resources::PaymentMethod (class)">Recurly::Resources::PaymentMethod</a></span>, <span class='object_link'><a href="Resources/PercentageTier.html" title="Recurly::Resources::PercentageTier (class)">Recurly::Resources::PercentageTier</a></span>, <span class='object_link'><a href="Resources/PercentageTiersByCurrency.html" title="Recurly::Resources::PercentageTiersByCurrency (class)">Recurly::Resources::PercentageTiersByCurrency</a></span>, <span class='object_link'><a href="Resources/Plan.html" title="Recurly::Resources::Plan (class)">Recurly::Resources::Plan</a></span>, <span class='object_link'><a href="Resources/PlanHostedPages.html" title="Recurly::Resources::PlanHostedPages (class)">Recurly::Resources::PlanHostedPages</a></span>, <span class='object_link'><a href="Resources/PlanMini.html" title="Recurly::Resources::PlanMini (class)">Recurly::Resources::PlanMini</a></span>, <span class='object_link'><a href="Resources/PlanPricing.html" title="Recurly::Resources::PlanPricing (class)">Recurly::Resources::PlanPricing</a></span>, <span class='object_link'><a href="Resources/PlanRampInterval.html" title="Recurly::Resources::PlanRampInterval (class)">Recurly::Resources::PlanRampInterval</a></span>, <span class='object_link'><a href="Resources/PlanRampPricing.html" title="Recurly::Resources::PlanRampPricing (class)">Recurly::Resources::PlanRampPricing</a></span>, <span class='object_link'><a href="Resources/Pricing.html" title="Recurly::Resources::Pricing (class)">Recurly::Resources::Pricing</a></span>, <span class='object_link'><a href="Resources/Settings.html" title="Recurly::Resources::Settings (class)">Recurly::Resources::Settings</a></span>, <span class='object_link'><a href="Resources/ShippingAddress.html" title="Recurly::Resources::ShippingAddress (class)">Recurly::Resources::ShippingAddress</a></span>, <span class='object_link'><a href="Resources/ShippingMethod.html" title="Recurly::Resources::ShippingMethod (class)">Recurly::Resources::ShippingMethod</a></span>, <span class='object_link'><a href="Resources/ShippingMethodMini.html" title="Recurly::Resources::ShippingMethodMini (class)">Recurly::Resources::ShippingMethodMini</a></span>, <span class='object_link'><a href="Resources/Site.html" title="Recurly::Resources::Site (class)">Recurly::Resources::Site</a></span>, <span class='object_link'><a href="Resources/Subscription.html" title="Recurly::Resources::Subscription (class)">Recurly::Resources::Subscription</a></span>, <span class='object_link'><a href="Resources/SubscriptionAddOn.html" title="Recurly::Resources::SubscriptionAddOn (class)">Recurly::Resources::SubscriptionAddOn</a></span>, <span class='object_link'><a href="Resources/SubscriptionAddOnPercentageTier.html" title="Recurly::Resources::SubscriptionAddOnPercentageTier (class)">Recurly::Resources::SubscriptionAddOnPercentageTier</a></span>, <span class='object_link'><a href="Resources/SubscriptionAddOnTier.html" title="Recurly::Resources::SubscriptionAddOnTier (class)">Recurly::Resources::SubscriptionAddOnTier</a></span>, <span class='object_link'><a href="Resources/SubscriptionChange.html" title="Recurly::Resources::SubscriptionChange (class)">Recurly::Resources::SubscriptionChange</a></span>, <span class='object_link'><a href="Resources/SubscriptionChangeBillingInfo.html" title="Recurly::Resources::SubscriptionChangeBillingInfo (class)">Recurly::Resources::SubscriptionChangeBillingInfo</a></span>, <span class='object_link'><a href="Resources/SubscriptionRampIntervalResponse.html" title="Recurly::Resources::SubscriptionRampIntervalResponse (class)">Recurly::Resources::SubscriptionRampIntervalResponse</a></span>, <span class='object_link'><a href="Resources/SubscriptionShipping.html" title="Recurly::Resources::SubscriptionShipping (class)">Recurly::Resources::SubscriptionShipping</a></span>, <span class='object_link'><a href="Resources/TaxDetail.html" title="Recurly::Resources::TaxDetail (class)">Recurly::Resources::TaxDetail</a></span>, <span class='object_link'><a href="Resources/TaxInfo.html" title="Recurly::Resources::TaxInfo (class)">Recurly::Resources::TaxInfo</a></span>, <span class='object_link'><a href="Resources/Tier.html" title="Recurly::Resources::Tier (class)">Recurly::Resources::Tier</a></span>, <span class='object_link'><a href="Resources/TierPricing.html" title="Recurly::Resources::TierPricing (class)">Recurly::Resources::TierPricing</a></span>, <span class='object_link'><a href="Resources/Transaction.html" title="Recurly::Resources::Transaction (class)">Recurly::Resources::Transaction</a></span>, <span class='object_link'><a href="Resources/TransactionError.html" title="Recurly::Resources::TransactionError (class)">Recurly::Resources::TransactionError</a></span>, <span class='object_link'><a href="Resources/TransactionFraudInfo.html" title="Recurly::Resources::TransactionFraudInfo (class)">Recurly::Resources::TransactionFraudInfo</a></span>, <span class='object_link'><a href="Resources/TransactionPaymentGateway.html" title="Recurly::Resources::TransactionPaymentGateway (class)">Recurly::Resources::TransactionPaymentGateway</a></span>, <span class='object_link'><a href="Resources/UniqueCouponCode.html" title="Recurly::Resources::UniqueCouponCode (class)">Recurly::Resources::UniqueCouponCode</a></span>, <span class='object_link'><a href="Resources/UniqueCouponCodeParams.html" title="Recurly::Resources::UniqueCouponCodeParams (class)">Recurly::Resources::UniqueCouponCodeParams</a></span>, <span class='object_link'><a href="Resources/Usage.html" title="Recurly::Resources::Usage (class)">Recurly::Resources::Usage</a></span>, <span class='object_link'><a href="Resources/User.html" title="Recurly::Resources::User (class)">Recurly::Resources::User</a></span></p>
+</div>
+
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#attributes-instance_method" title="#attributes (instance method)">#<strong>attributes</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+      <span class="note title readonly">readonly</span>
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute attributes.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#==-instance_method" title="#== (instance method)">#<strong>==</strong>(other_resource)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get_response-instance_method" title="#get_response (instance method)">#<strong>get_response</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inspect-instance_method" title="#inspect (instance method)">#<strong>inspect</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Hide instance variables to keep from accidental logging.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#requires_client%3F-instance_method" title="#requires_client? (instance method)">#<strong>requires_client?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_json-instance_method" title="#to_json (instance method)">#<strong>to_json</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#to_s-instance_method" title="#to_s (instance method)">#<strong>to_s</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Schema/ResourceCaster.html" title="Recurly::Schema::ResourceCaster (module)">Schema::ResourceCaster</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Schema/ResourceCaster.html#cast-instance_method" title="Recurly::Schema::ResourceCaster#cast (method)">cast</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Schema/SchemaValidator.html" title="Recurly::Schema::SchemaValidator (module)">Schema::SchemaValidator</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Schema/SchemaValidator.html#get_did_you_mean-instance_method" title="Recurly::Schema::SchemaValidator#get_did_you_mean (method)">#get_did_you_mean</a></span>, <span class='object_link'><a href="Schema/SchemaValidator.html#validate!-instance_method" title="Recurly::Schema::SchemaValidator#validate! (method)">#validate!</a></span>, <span class='object_link'><a href="Schema/SchemaValidator.html#validate_attribute!-instance_method" title="Recurly::Schema::SchemaValidator#validate_attribute! (method)">#validate_attribute!</a></span></p>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id=""></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="attributes-instance_method">
+  
+    #<strong>attributes</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute attributes.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11
+12
+13</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resource.rb', line 11</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_attributes'>attributes</span>
+  <span class='ivar'>@attributes</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="==-instance_method">
+  
+    #<strong>==</strong>(other_resource)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+17
+18
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resource.rb', line 17</span>
+
+<span class='kw'>def</span> <span class='op'>==</span><span class='lparen'>(</span><span class='id identifier rubyid_other_resource'>other_resource</span><span class='rparen'>)</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_attributes'>attributes</span> <span class='op'>==</span> <span class='id identifier rubyid_other_resource'>other_resource</span><span class='period'>.</span><span class='id identifier rubyid_attributes'>attributes</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get_response-instance_method">
+  
+    #<strong>get_response</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+34
+35
+36</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resource.rb', line 34</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get_response'>get_response</span>
+  <span class='ivar'>@response</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="inspect-instance_method">
+  
+    #<strong>inspect</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Hide instance variables to keep from accidental logging</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+22
+23
+24</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resource.rb', line 22</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;</span><span class='embexpr_beg'>#{</span><span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_name'>name</span><span class='embexpr_end'>}</span><span class='tstring_content'>:</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_object_id'>object_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>} @attributes=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_attributes'>attributes</span><span class='embexpr_end'>}</span><span class='tstring_content'>&gt;</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="requires_client?-instance_method">
+  
+    #<strong>requires_client?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resource.rb', line 13</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_requires_client?'>requires_client?</span>
+  <span class='kw'>false</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_json-instance_method">
+  
+    #<strong>to_json</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>NoMethodError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resource.rb', line 30</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_json'>to_json</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>NoMethodError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>to_json is not implemented for Resources. Please use Resource#attributes</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="to_s-instance_method">
+  
+    #<strong>to_s</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+26
+27
+28</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resource.rb', line 26</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Tue Mar 19 20:29:30 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-2.6.10).
+</div>
+
+    </div>
+  </body>
+</html>

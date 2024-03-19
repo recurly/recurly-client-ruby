@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Recurly::Resources::PaymentMethod
+  
+    &mdash; Documentation by YARD 0.9.36
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Recurly::Resources::PaymentMethod";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (P)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Recurly.html" title="Recurly (module)">Recurly</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Resources.html" title="Recurly::Resources (module)">Resources</a></span></span>
+     &raquo; 
+    <span class="title">PaymentMethod</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Recurly::Resources::PaymentMethod
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="../Resource.html" title="Recurly::Resource (class)">Recurly::Resource</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="../Resource.html" title="Recurly::Resource (class)">Recurly::Resource</a></span></li>
+          
+            <li class="next">Recurly::Resources::PaymentMethod</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/recurly/resources/payment_method.rb</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#account_type-instance_method" title="#account_type (instance method)">#<strong>account_type</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The bank account type.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#billing_agreement_id-instance_method" title="#billing_agreement_id (instance method)">#<strong>billing_agreement_id</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Billing Agreement identifier.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#card_network_preference-instance_method" title="#card_network_preference (instance method)">#<strong>card_network_preference</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Represents the card network preference associated with the billing info for dual badged cards.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#card_type-instance_method" title="#card_type (instance method)">#<strong>card_type</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Visa, MasterCard, American Express, Discover, JCB, etc.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#cc_bin_country-instance_method" title="#cc_bin_country (instance method)">#<strong>cc_bin_country</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The 2-letter ISO 3166-1 alpha-2 country code associated with the credit card BIN, if known by Recurly.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#exp_month-instance_method" title="#exp_month (instance method)">#<strong>exp_month</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Expiration month.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#exp_year-instance_method" title="#exp_year (instance method)">#<strong>exp_year</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Expiration year.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#first_six-instance_method" title="#first_six (instance method)">#<strong>first_six</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Credit card number&#39;s first six digits.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#gateway_attributes-instance_method" title="#gateway_attributes (instance method)">#<strong>gateway_attributes</strong>  &#x21d2; GatewayAttributes </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Gateway specific attributes associated with this PaymentMethod.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#gateway_code-instance_method" title="#gateway_code (instance method)">#<strong>gateway_code</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>An identifier for a specific payment gateway.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#gateway_token-instance_method" title="#gateway_token (instance method)">#<strong>gateway_token</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A token used in place of a credit card in order to perform transactions.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#last_four-instance_method" title="#last_four (instance method)">#<strong>last_four</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Credit card number&#39;s last four digits.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#last_two-instance_method" title="#last_two (instance method)">#<strong>last_two</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The IBAN bank account&#39;s last two digits.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name_on_account-instance_method" title="#name_on_account (instance method)">#<strong>name_on_account</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The name associated with the bank account.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#object-instance_method" title="#object (instance method)">#<strong>object</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#routing_number-instance_method" title="#routing_number (instance method)">#<strong>routing_number</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The bank account&#39;s routing number.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#routing_number_bank-instance_method" title="#routing_number_bank (instance method)">#<strong>routing_number_bank</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The bank name of this routing number.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#username-instance_method" title="#username (instance method)">#<strong>username</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Username of the associated payment method.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+  
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="../Resource.html" title="Recurly::Resource (class)">Recurly::Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Resource.html#attributes-instance_method" title="Recurly::Resource#attributes (method)">#attributes</a></span></p>
+
+
+
+  
+  
+  
+  
+  
+  
+  <h2>Method Summary</h2>
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Resource.html" title="Recurly::Resource (class)">Recurly::Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Resource.html#==-instance_method" title="Recurly::Resource#== (method)">#==</a></span>, <span class='object_link'><a href="../Resource.html#get_response-instance_method" title="Recurly::Resource#get_response (method)">#get_response</a></span>, <span class='object_link'><a href="../Resource.html#inspect-instance_method" title="Recurly::Resource#inspect (method)">#inspect</a></span>, <span class='object_link'><a href="../Resource.html#requires_client%3F-instance_method" title="Recurly::Resource#requires_client? (method)">#requires_client?</a></span>, <span class='object_link'><a href="../Resource.html#to_json-instance_method" title="Recurly::Resource#to_json (method)">#to_json</a></span>, <span class='object_link'><a href="../Resource.html#to_s-instance_method" title="Recurly::Resource#to_s (method)">#to_s</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Schema/SchemaFactory.html" title="Recurly::Schema::SchemaFactory (module)">Schema::SchemaFactory</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Schema/SchemaFactory.html#schema-instance_method" title="Recurly::Schema::SchemaFactory#schema (method)">#schema</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Schema/ResourceCaster.html" title="Recurly::Schema::ResourceCaster (module)">Schema::ResourceCaster</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Schema/ResourceCaster.html#cast-instance_method" title="Recurly::Schema::ResourceCaster#cast (method)">#cast</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Schema/SchemaValidator.html" title="Recurly::Schema::SchemaValidator (module)">Schema::SchemaValidator</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Schema/SchemaValidator.html#get_did_you_mean-instance_method" title="Recurly::Schema::SchemaValidator#get_did_you_mean (method)">#get_did_you_mean</a></span>, <span class='object_link'><a href="../Schema/SchemaValidator.html#validate!-instance_method" title="Recurly::Schema::SchemaValidator#validate! (method)">#validate!</a></span>, <span class='object_link'><a href="../Schema/SchemaValidator.html#validate_attribute!-instance_method" title="Recurly::Schema::SchemaValidator#validate_attribute! (method)">#validate_attribute!</a></span></p>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="account_type=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="account_type-instance_method">
+  
+    #<strong>account_type</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The bank account type. Only present for ACH payment methods.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The bank account type. Only present for ACH payment methods.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 11</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:account_type</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="billing_agreement_id=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="billing_agreement_id-instance_method">
+  
+    #<strong>billing_agreement_id</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Billing Agreement identifier. Only present for Amazon or Paypal payment methods.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Billing Agreement identifier. Only present for Amazon or Paypal payment methods.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 15</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:billing_agreement_id</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="card_network_preference=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="card_network_preference-instance_method">
+  
+    #<strong>card_network_preference</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Represents the card network preference associated with the billing info for dual badged cards. Must be a supported card network.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Represents the card network preference associated with the billing info for dual badged cards. Must be a supported card network.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 19</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:card_network_preference</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="card_type=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="card_type-instance_method">
+  
+    #<strong>card_type</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Visa, MasterCard, American Express, Discover, JCB, etc.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Visa, MasterCard, American Express, Discover, JCB, etc.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 23</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:card_type</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="cc_bin_country=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="cc_bin_country-instance_method">
+  
+    #<strong>cc_bin_country</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The 2-letter ISO 3166-1 alpha-2 country code associated with the credit card BIN, if known by Recurly. Available on the BillingInfo object only. Available when the BIN country lookup feature is enabled.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The 2-letter ISO 3166-1 alpha-2 country code associated with the credit card BIN, if known by Recurly. Available on the BillingInfo object only. Available when the BIN country lookup feature is enabled.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 27</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:cc_bin_country</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="exp_month=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="exp_month-instance_method">
+  
+    #<strong>exp_month</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Expiration month.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Expiration month.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 31</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:exp_month</span><span class='comma'>,</span> <span class='const'>Integer</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="exp_year=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="exp_year-instance_method">
+  
+    #<strong>exp_year</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Expiration year.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Expiration year.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 35</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:exp_year</span><span class='comma'>,</span> <span class='const'>Integer</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="first_six=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="first_six-instance_method">
+  
+    #<strong>first_six</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Credit card number&#39;s first six digits.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Credit card number&#39;s first six digits.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 39</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:first_six</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="gateway_attributes=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="gateway_attributes-instance_method">
+  
+    #<strong>gateway_attributes</strong>  &#x21d2; <tt><span class='object_link'><a href="GatewayAttributes.html" title="Recurly::Resources::GatewayAttributes (class)">GatewayAttributes</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Gateway specific attributes associated with this PaymentMethod.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="GatewayAttributes.html" title="Recurly::Resources::GatewayAttributes (class)">GatewayAttributes</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Gateway specific attributes associated with this PaymentMethod</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 43</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:gateway_attributes</span><span class='comma'>,</span> <span class='symbol'>:GatewayAttributes</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="gateway_code=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="gateway_code-instance_method">
+  
+    #<strong>gateway_code</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns An identifier for a specific payment gateway.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>An identifier for a specific payment gateway.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 47</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:gateway_code</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="gateway_token=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="gateway_token-instance_method">
+  
+    #<strong>gateway_token</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns A token used in place of a credit card in order to perform transactions.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A token used in place of a credit card in order to perform transactions.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 51</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:gateway_token</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="last_four=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="last_four-instance_method">
+  
+    #<strong>last_four</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Credit card number&#39;s last four digits. Will refer to bank account if payment method is ACH.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Credit card number&#39;s last four digits. Will refer to bank account if payment method is ACH.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 55</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:last_four</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="last_two=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="last_two-instance_method">
+  
+    #<strong>last_two</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The IBAN bank account&#39;s last two digits.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The IBAN bank account&#39;s last two digits.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+59</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 59</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:last_two</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="name_on_account=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="name_on_account-instance_method">
+  
+    #<strong>name_on_account</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The name associated with the bank account.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The name associated with the bank account.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 63</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:name_on_account</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="object=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="object-instance_method">
+  
+    #<strong>object</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+67</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 67</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:object</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="routing_number=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="routing_number-instance_method">
+  
+    #<strong>routing_number</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The bank account&#39;s routing number. Only present for ACH payment methods.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The bank account&#39;s routing number. Only present for ACH payment methods.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 71</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:routing_number</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="routing_number_bank=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="routing_number_bank-instance_method">
+  
+    #<strong>routing_number_bank</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The bank name of this routing number.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The bank name of this routing number.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 75</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:routing_number_bank</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="username=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="username-instance_method">
+  
+    #<strong>username</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Username of the associated payment method. Currently only associated with Venmo.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Username of the associated payment method. Currently only associated with Venmo.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/payment_method.rb', line 79</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:username</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+</div>
+
+      <div id="footer">
+  Generated on Tue Mar 19 20:29:34 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-2.6.10).
+</div>
+
+    </div>
+  </body>
+</html>

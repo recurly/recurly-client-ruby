@@ -1,0 +1,2620 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: Recurly::Resources::Coupon
+  
+    &mdash; Documentation by YARD 0.9.36
+  
+</title>
+
+  <link rel="stylesheet" href="../../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Recurly::Resources::Coupon";
+  relpath = '../../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../../_index.html">Index (C)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../../Recurly.html" title="Recurly (module)">Recurly</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../Resources.html" title="Recurly::Resources (module)">Resources</a></span></span>
+     &raquo; 
+    <span class="title">Coupon</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: Recurly::Resources::Coupon
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName"><span class='object_link'><a href="../Resource.html" title="Recurly::Resource (class)">Recurly::Resource</a></span></span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next"><span class='object_link'><a href="../Resource.html" title="Recurly::Resource (class)">Recurly::Resource</a></span></li>
+          
+            <li class="next">Recurly::Resources::Coupon</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/recurly/resources/coupon.rb</dd>
+  </dl>
+  
+</div>
+
+
+
+
+
+  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#applies_to_all_items-instance_method" title="#applies_to_all_items (instance method)">#<strong>applies_to_all_items</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The coupon is valid for all items if true.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#applies_to_all_plans-instance_method" title="#applies_to_all_plans (instance method)">#<strong>applies_to_all_plans</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The coupon is valid for all plans if true.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#applies_to_non_plan_charges-instance_method" title="#applies_to_non_plan_charges (instance method)">#<strong>applies_to_non_plan_charges</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The coupon is valid for one-time, non-plan charges if true.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#code-instance_method" title="#code (instance method)">#<strong>code</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The code the customer enters to redeem the coupon.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#coupon_type-instance_method" title="#coupon_type (instance method)">#<strong>coupon_type</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether the coupon is “single_code” or “bulk”.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#created_at-instance_method" title="#created_at (instance method)">#<strong>created_at</strong>  &#x21d2; DateTime </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Created at.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#discount-instance_method" title="#discount (instance method)">#<strong>discount</strong>  &#x21d2; CouponDiscount </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Details of the discount a coupon applies.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#duration-instance_method" title="#duration (instance method)">#<strong>duration</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><ul><li>
+<p>“single_use” coupons applies to the first invoice only.</p>
+</li></ul>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#expired_at-instance_method" title="#expired_at (instance method)">#<strong>expired_at</strong>  &#x21d2; DateTime </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The date and time the coupon was expired early or reached its `max_redemptions`.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#free_trial_amount-instance_method" title="#free_trial_amount (instance method)">#<strong>free_trial_amount</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Sets the duration of time the `free_trial_unit` is for.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#free_trial_unit-instance_method" title="#free_trial_unit (instance method)">#<strong>free_trial_unit</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Description of the unit of time the coupon is for.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#hosted_page_description-instance_method" title="#hosted_page_description (instance method)">#<strong>hosted_page_description</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>This description will show up when a customer redeems a coupon on your Hosted Payment Pages, or if you choose to show the description on your own checkout page.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#id-instance_method" title="#id (instance method)">#<strong>id</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Coupon ID.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#invoice_description-instance_method" title="#invoice_description (instance method)">#<strong>invoice_description</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Description of the coupon on the invoice.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#items-instance_method" title="#items (instance method)">#<strong>items</strong>  &#x21d2; Array[ItemMini] </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A list of items for which this coupon applies.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#max_redemptions-instance_method" title="#max_redemptions (instance method)">#<strong>max_redemptions</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A maximum number of redemptions for the coupon.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#max_redemptions_per_account-instance_method" title="#max_redemptions_per_account (instance method)">#<strong>max_redemptions_per_account</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Redemptions per account is the number of times a specific account can redeem the coupon.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#name-instance_method" title="#name (instance method)">#<strong>name</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The internal name for the coupon.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#object-instance_method" title="#object (instance method)">#<strong>object</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Object type.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#plans-instance_method" title="#plans (instance method)">#<strong>plans</strong>  &#x21d2; Array[PlanMini] </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A list of plans for which this coupon applies.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#redeem_by-instance_method" title="#redeem_by (instance method)">#<strong>redeem_by</strong>  &#x21d2; DateTime </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>The date and time the coupon will expire and can no longer be redeemed.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#redemption_resource-instance_method" title="#redemption_resource (instance method)">#<strong>redemption_resource</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Whether the discount is for all eligible charges on the account, or only a specific subscription.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#state-instance_method" title="#state (instance method)">#<strong>state</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Indicates if the coupon is redeemable, and if it is not, why.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#temporal_amount-instance_method" title="#temporal_amount (instance method)">#<strong>temporal_amount</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>If `duration` is “temporal” than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#temporal_unit-instance_method" title="#temporal_unit (instance method)">#<strong>temporal_unit</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>If `duration` is “temporal” than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unique_code_template-instance_method" title="#unique_code_template (instance method)">#<strong>unique_code_template</strong>  &#x21d2; String </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>On a bulk coupon, the template from which unique coupon codes are generated.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unique_coupon_code-instance_method" title="#unique_coupon_code (instance method)">#<strong>unique_coupon_code</strong>  &#x21d2; Hash </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Will be populated when the Coupon being returned is a `UniqueCouponCode`.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#unique_coupon_codes_count-instance_method" title="#unique_coupon_codes_count (instance method)">#<strong>unique_coupon_codes_count</strong>  &#x21d2; Integer </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>When this number reaches `max_redemptions` the coupon will no longer be redeemable.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#updated_at-instance_method" title="#updated_at (instance method)">#<strong>updated_at</strong>  &#x21d2; DateTime </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Last updated at.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+  
+  
+  <h3 class="inherited">Attributes inherited from <span class='object_link'><a href="../Resource.html" title="Recurly::Resource (class)">Recurly::Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Resource.html#attributes-instance_method" title="Recurly::Resource#attributes (method)">#attributes</a></span></p>
+
+
+
+  
+  
+  
+  
+  
+  
+  <h2>Method Summary</h2>
+  
+  <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../Resource.html" title="Recurly::Resource (class)">Recurly::Resource</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Resource.html#==-instance_method" title="Recurly::Resource#== (method)">#==</a></span>, <span class='object_link'><a href="../Resource.html#get_response-instance_method" title="Recurly::Resource#get_response (method)">#get_response</a></span>, <span class='object_link'><a href="../Resource.html#inspect-instance_method" title="Recurly::Resource#inspect (method)">#inspect</a></span>, <span class='object_link'><a href="../Resource.html#requires_client%3F-instance_method" title="Recurly::Resource#requires_client? (method)">#requires_client?</a></span>, <span class='object_link'><a href="../Resource.html#to_json-instance_method" title="Recurly::Resource#to_json (method)">#to_json</a></span>, <span class='object_link'><a href="../Resource.html#to_s-instance_method" title="Recurly::Resource#to_s (method)">#to_s</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Schema/SchemaFactory.html" title="Recurly::Schema::SchemaFactory (module)">Schema::SchemaFactory</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Schema/SchemaFactory.html#schema-instance_method" title="Recurly::Schema::SchemaFactory#schema (method)">#schema</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Schema/ResourceCaster.html" title="Recurly::Schema::ResourceCaster (module)">Schema::ResourceCaster</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Schema/ResourceCaster.html#cast-instance_method" title="Recurly::Schema::ResourceCaster#cast (method)">#cast</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="../Schema/SchemaValidator.html" title="Recurly::Schema::SchemaValidator (module)">Schema::SchemaValidator</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="../Schema/SchemaValidator.html#get_did_you_mean-instance_method" title="Recurly::Schema::SchemaValidator#get_did_you_mean (method)">#get_did_you_mean</a></span>, <span class='object_link'><a href="../Schema/SchemaValidator.html#validate!-instance_method" title="Recurly::Schema::SchemaValidator#validate! (method)">#validate!</a></span>, <span class='object_link'><a href="../Schema/SchemaValidator.html#validate_attribute!-instance_method" title="Recurly::Schema::SchemaValidator#validate_attribute! (method)">#validate_attribute!</a></span></p>
+
+  <div id="instance_attr_details" class="attr_details">
+    <h2>Instance Attribute Details</h2>
+    
+      
+      <span id="applies_to_all_items=-instance_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="applies_to_all_items-instance_method">
+  
+    #<strong>applies_to_all_items</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The coupon is valid for all items if true. If false then `items` will list the applicable items.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The coupon is valid for all items if true. If false then `items` will list the applicable items.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+11</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 11</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:applies_to_all_items</span><span class='comma'>,</span> <span class='symbol'>:Boolean</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="applies_to_all_plans=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="applies_to_all_plans-instance_method">
+  
+    #<strong>applies_to_all_plans</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The coupon is valid for all plans if true. If false then `plans` will list the applicable plans.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 15</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:applies_to_all_plans</span><span class='comma'>,</span> <span class='symbol'>:Boolean</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="applies_to_non_plan_charges=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="applies_to_non_plan_charges-instance_method">
+  
+    #<strong>applies_to_non_plan_charges</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The coupon is valid for one-time, non-plan charges if true.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The coupon is valid for one-time, non-plan charges if true.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+19</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 19</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:applies_to_non_plan_charges</span><span class='comma'>,</span> <span class='symbol'>:Boolean</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="code=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="code-instance_method">
+  
+    #<strong>code</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The code the customer enters to redeem the coupon.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The code the customer enters to redeem the coupon.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+23</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 23</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:code</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="coupon_type=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="coupon_type-instance_method">
+  
+    #<strong>coupon_type</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Whether the coupon is “single_code” or “bulk”. Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether the coupon is “single_code” or “bulk”. Bulk coupons will require a `unique_code_template` and will generate unique codes through the `/generate` endpoint.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 27</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:coupon_type</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="created_at=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="created_at-instance_method">
+  
+    #<strong>created_at</strong>  &#x21d2; <tt>DateTime</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Created at.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>DateTime</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Created at</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 31</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:created_at</span><span class='comma'>,</span> <span class='const'>DateTime</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="discount=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="discount-instance_method">
+  
+    #<strong>discount</strong>  &#x21d2; <tt><span class='object_link'><a href="CouponDiscount.html" title="Recurly::Resources::CouponDiscount (class)">CouponDiscount</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Details of the discount a coupon applies. Will contain a `type` property and one of the following properties: `percent`, `fixed`, `trial`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="CouponDiscount.html" title="Recurly::Resources::CouponDiscount (class)">CouponDiscount</a></span></tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Details of the discount a coupon applies. Will contain a `type` property and one of the following properties: `percent`, `fixed`, `trial`.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 35</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:discount</span><span class='comma'>,</span> <span class='symbol'>:CouponDiscount</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="duration=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="duration-instance_method">
+  
+    #<strong>duration</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns - “single_use” coupons applies to the first invoice only. - “temporal” coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><ul><li>
+<p>“single_use” coupons applies to the first invoice only. - “temporal” coupons will apply to invoices for the duration determined by the `temporal_unit` and `temporal_amount` attributes.</p>
+</li></ul>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+39</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 39</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:duration</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="expired_at=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="expired_at-instance_method">
+  
+    #<strong>expired_at</strong>  &#x21d2; <tt>DateTime</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The date and time the coupon was expired early or reached its `max_redemptions`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>DateTime</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The date and time the coupon was expired early or reached its `max_redemptions`.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+43</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 43</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:expired_at</span><span class='comma'>,</span> <span class='const'>DateTime</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="free_trial_amount=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="free_trial_amount-instance_method">
+  
+    #<strong>free_trial_amount</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Sets the duration of time the `free_trial_unit` is for.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Sets the duration of time the `free_trial_unit` is for.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+47</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 47</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:free_trial_amount</span><span class='comma'>,</span> <span class='const'>Integer</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="free_trial_unit=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="free_trial_unit-instance_method">
+  
+    #<strong>free_trial_unit</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Description of the unit of time the coupon is for. Used with `free_trial_amount` to determine the duration of time the coupon is for.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Description of the unit of time the coupon is for. Used with `free_trial_amount` to determine the duration of time the coupon is for.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 51</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:free_trial_unit</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="hosted_page_description=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="hosted_page_description-instance_method">
+  
+    #<strong>hosted_page_description</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns This description will show up when a customer redeems a coupon on your Hosted Payment Pages, or if you choose to show the description on your own checkout page.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>This description will show up when a customer redeems a coupon on your Hosted Payment Pages, or if you choose to show the description on your own checkout page.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+55</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 55</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:hosted_page_description</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="id=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="id-instance_method">
+  
+    #<strong>id</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Coupon ID.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Coupon ID</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+59</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 59</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:id</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="invoice_description=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="invoice_description-instance_method">
+  
+    #<strong>invoice_description</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Description of the coupon on the invoice.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Description of the coupon on the invoice.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+63</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 63</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:invoice_description</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="items=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="items-instance_method">
+  
+    #<strong>items</strong>  &#x21d2; <tt>Array[<span class='object_link'><a href="ItemMini.html" title="Recurly::Resources::ItemMini (class)">ItemMini</a></span>]</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns A list of items for which this coupon applies. This will be `null` if `applies_to_all_items=true`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array[<span class='object_link'><a href="ItemMini.html" title="Recurly::Resources::ItemMini (class)">ItemMini</a></span>]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A list of items for which this coupon applies. This will be `null` if `applies_to_all_items=true`.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+67</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 67</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:items</span><span class='comma'>,</span> <span class='const'>Array</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='symbol'>:item_type</span> <span class='op'>=&gt;</span> <span class='symbol'>:ItemMini</span> <span class='rbrace'>}</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="max_redemptions=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="max_redemptions-instance_method">
+  
+    #<strong>max_redemptions</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns A maximum number of redemptions for the coupon. The coupon will expire when it hits its maximum redemptions.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A maximum number of redemptions for the coupon. The coupon will expire when it hits its maximum redemptions.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 71</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:max_redemptions</span><span class='comma'>,</span> <span class='const'>Integer</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="max_redemptions_per_account=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="max_redemptions_per_account-instance_method">
+  
+    #<strong>max_redemptions_per_account</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Redemptions per account is the number of times a specific account can redeem the coupon. Set redemptions per account to `1` if you want to keep customers from gaming the system and getting more than one discount from the coupon campaign.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Redemptions per account is the number of times a specific account can redeem the coupon. Set redemptions per account to `1` if you want to keep customers from gaming the system and getting more than one discount from the coupon campaign.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 75</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:max_redemptions_per_account</span><span class='comma'>,</span> <span class='const'>Integer</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="name=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="name-instance_method">
+  
+    #<strong>name</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The internal name for the coupon.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The internal name for the coupon.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+79</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 79</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:name</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="object=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="object-instance_method">
+  
+    #<strong>object</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Object type.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Object type</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+83</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 83</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:object</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="plans=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="plans-instance_method">
+  
+    #<strong>plans</strong>  &#x21d2; <tt>Array[<span class='object_link'><a href="PlanMini.html" title="Recurly::Resources::PlanMini (class)">PlanMini</a></span>]</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array[<span class='object_link'><a href="PlanMini.html" title="Recurly::Resources::PlanMini (class)">PlanMini</a></span>]</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A list of plans for which this coupon applies. This will be `null` if `applies_to_all_plans=true`.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+87</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 87</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:plans</span><span class='comma'>,</span> <span class='const'>Array</span><span class='comma'>,</span> <span class='lbrace'>{</span> <span class='symbol'>:item_type</span> <span class='op'>=&gt;</span> <span class='symbol'>:PlanMini</span> <span class='rbrace'>}</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="redeem_by=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="redeem_by-instance_method">
+  
+    #<strong>redeem_by</strong>  &#x21d2; <tt>DateTime</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>DateTime</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+91</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 91</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:redeem_by</span><span class='comma'>,</span> <span class='const'>DateTime</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="redemption_resource=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="redemption_resource-instance_method">
+  
+    #<strong>redemption_resource</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Whether the discount is for all eligible charges on the account, or only a specific subscription.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether the discount is for all eligible charges on the account, or only a specific subscription.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 95</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:redemption_resource</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="state=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="state-instance_method">
+  
+    #<strong>state</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Indicates if the coupon is redeemable, and if it is not, why.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Indicates if the coupon is redeemable, and if it is not, why.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+99</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 99</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:state</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="temporal_amount=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="temporal_amount-instance_method">
+  
+    #<strong>temporal_amount</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns If `duration` is “temporal” than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If `duration` is “temporal” than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+103</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 103</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:temporal_amount</span><span class='comma'>,</span> <span class='const'>Integer</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="temporal_unit=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="temporal_unit-instance_method">
+  
+    #<strong>temporal_unit</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns If `duration` is “temporal” than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If `duration` is “temporal” than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+107</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 107</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:temporal_unit</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="unique_code_template=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="unique_code_template-instance_method">
+  
+    #<strong>unique_code_template</strong>  &#x21d2; <tt>String</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns On a bulk coupon, the template from which unique coupon codes are generated.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>On a bulk coupon, the template from which unique coupon codes are generated.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+111</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 111</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:unique_code_template</span><span class='comma'>,</span> <span class='const'>String</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="unique_coupon_code=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="unique_coupon_code-instance_method">
+  
+    #<strong>unique_coupon_code</strong>  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Will be populated when the Coupon being returned is a `UniqueCouponCode`.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Will be populated when the Coupon being returned is a `UniqueCouponCode`.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+115</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 115</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:unique_coupon_code</span><span class='comma'>,</span> <span class='const'>Hash</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="unique_coupon_codes_count=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="unique_coupon_codes_count-instance_method">
+  
+    #<strong>unique_coupon_codes_count</strong>  &#x21d2; <tt>Integer</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns When this number reaches `max_redemptions` the coupon will no longer be redeemable.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>When this number reaches `max_redemptions` the coupon will no longer be redeemable.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+119</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 119</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:unique_coupon_codes_count</span><span class='comma'>,</span> <span class='const'>Integer</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="updated_at=-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="updated_at-instance_method">
+  
+    #<strong>updated_at</strong>  &#x21d2; <tt>DateTime</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns Last updated at.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>DateTime</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Last updated at</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+123</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/recurly/resources/coupon.rb', line 123</span>
+
+<span class='id identifier rubyid_define_attribute'>define_attribute</span> <span class='symbol'>:updated_at</span><span class='comma'>,</span> <span class='const'>DateTime</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+</div>
+
+      <div id="footer">
+  Generated on Tue Mar 19 20:29:31 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-2.6.10).
+</div>
+
+    </div>
+  </body>
+</html>

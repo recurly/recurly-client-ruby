@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: GETTING_STARTED
+  
+    &mdash; Documentation by YARD 0.9.36
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "GETTING_STARTED";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: GETTING_STARTED</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<p>This repository houses the official ruby client for Recurly&#39;s V3 API.</p>
+
+<h1 id="label-Installing">Installing</h1>
+
+<p>In your Gemfile, add <code>recurly</code> as a dependency.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_gem'>gem</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>recurly</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>~&gt; 4.48</span><span class='tstring_end'>&#39;</span></span>
+</code></pre>
+
+<blockquote>
+<p><em>Note</em>: We try to follow <a href="https://semver.org/">semantic versioning</a> and will only apply breaking changes to major versions.</p>
+</blockquote>
+
+<h1 id="label-Creating+a+client">Creating a client</h1>
+
+<p>A client represents a connection to the Recurly servers. Every call to the server exists as a method on this class. To initialize, you only need the private API key which can be obtained on the <a href="https://app.recurly.com/go/integrations/api_keys">API Credentials Page</a>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>API_KEY</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>83749879bbde395b5fe0cc1a5abf8e5</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Client.html" title="Recurly::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Recurly/Client.html#initialize-instance_method" title="Recurly::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>api_key:</span> <span class='const'>API_KEY</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_sub'>sub</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_get_subscription'>get_subscription</span><span class='lparen'>(</span><span class='label'>subscription_id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abcd123456</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<p>To access Recurly API in Europe, you will need to specify the EU Region in the argument region.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'>API_KEY</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>83749879bbde395b5fe0cc1a5abf8e5</span><span class='tstring_end'>&#39;</span></span>
+<span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Client.html" title="Recurly::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Recurly/Client.html#initialize-instance_method" title="Recurly::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>api_key:</span> <span class='const'>API_KEY</span><span class='comma'>,</span> <span class='label'>region:</span> <span class='symbol'>:eu</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_sub'>sub</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_get_subscription'>get_subscription</span><span class='lparen'>(</span><span class='label'>subscription_id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abcd123456</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<p>You can also pass the initializer a block. This will give you a client scoped for just that block:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Client.html" title="Recurly::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Recurly/Client.html#initialize-instance_method" title="Recurly::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>api_key:</span> <span class='const'>API_KEY</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_client'>client</span><span class='op'>|</span>
+  <span class='id identifier rubyid_sub'>sub</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_get_subscription'>get_subscription</span><span class='lparen'>(</span><span class='label'>subscription_id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abcd123456</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>If you plan on using the client for more than one site, you should initialize a new client for each site.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Client.html" title="Recurly::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Recurly/Client.html#initialize-instance_method" title="Recurly::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>api_key:</span> <span class='const'>API_KEY1</span><span class='rparen'>)</span> 
+<span class='id identifier rubyid_sub'>sub</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_get_subscription'>get_subscription</span><span class='lparen'>(</span><span class='label'>subscription_id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abcd123456</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+
+<span class='comment'># you should create a new client to connect to another site
+</span><span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Client.html" title="Recurly::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Recurly/Client.html#initialize-instance_method" title="Recurly::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>api_key:</span> <span class='const'>API_KEY2</span><span class='rparen'>)</span> 
+<span class='id identifier rubyid_sub'>sub</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_get_subscription'>get_subscription</span><span class='lparen'>(</span><span class='label'>subscription_id:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>abcd7890</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
+</code></pre>
+
+<h2 id="label-Logging">Logging</h2>
+
+<p>The client constructor optionally accepts a logger provided by the programmer. The logger you pass should be an instance of ruby stdlib&#39;s <a href="https://ruby-doc.org/stdlib/libdoc/logger/rdoc/Logger.html">Logger</a> or follow the same interface. By default, the client creates a logger to <code>STDOUT</code> with level <code>WARN</code>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>logger</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='comment'># Create a logger to STDOUT
+</span><span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='const'>STDOUT</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_logger'>logger</span><span class='period'>.</span><span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='const'>Logger</span><span class='op'>::</span><span class='const'>INFO</span>
+
+<span class='comment'># You could also use an existing logger
+</span><span class='comment'># If you are using Rails you may want to use your application&#39;s logger
+</span><span class='id identifier rubyid_logger'>logger</span> <span class='op'>=</span> <span class='const'>Rails</span><span class='period'>.</span><span class='id identifier rubyid_logger'>logger</span>
+
+<span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Client.html" title="Recurly::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Recurly/Client.html#initialize-instance_method" title="Recurly::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>api_key:</span> <span class='const'>API_KEY</span><span class='comma'>,</span> <span class='label'>logger:</span> <span class='id identifier rubyid_logger'>logger</span><span class='rparen'>)</span>
+</code></pre>
+
+<blockquote>
+<p><em>SECURITY WARNING</em>: The log level should never be set to DEBUG in production. This could potentially result in sensitive data in your logging system.</p>
+</blockquote>
+
+<h1 id="label-Operations">Operations</h1>
+
+<p>The <span class='object_link'><a href="Recurly/Client.html" title="Recurly::Client (class)">Recurly::Client</a></span> contains every <code>operation</code> you can perform on the site as a list of methods. Each method is documented explaining the types and descriptions for each input and return type. You can view all available operations by looking at the <code>Instance Methods Summary</code> list on the <span class='object_link'><a href="Recurly/Client.html" title="Recurly::Client (class)">Recurly::Client</a></span> documentation page. Clicking a method will give you detailed information about its inputs and returns. Take the <code>create_account</code> operation as an example: <span class='object_link'><a href="Recurly/Client.html#create_account-instance_method" title="Recurly::Client#create_account (method)">Recurly::Client#create_account</a></span>.</p>
+
+<h1 id="label-Pagination">Pagination</h1>
+
+<p>Pagination is done by the class <span class='object_link'><a href="Recurly/Pager.html" title="Recurly::Pager (class)">Recurly::Pager</a></span>. All <code>list_*</code> methods on the client return an instance of this class. The pager has an <code>each</code> method which accepts a block for each object in the entire list. Each page is fetched automatically for you presenting the elements as a single enumerable.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_plans'>plans</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_list_plans'>list_plans</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_plans'>plans</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plan'>plan</span><span class='op'>|</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Plan: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plan'>plan</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>You may also paginate in chunks with <code>each_page</code>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_plans'>plans</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_list_plans'>list_plans</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_plans'>plans</span><span class='period'>.</span><span class='id identifier rubyid_each_page'>each_page</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='op'>|</span>
+  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plan'>plan</span><span class='op'>|</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Plan: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plan'>plan</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Both Pager#each and Pager#each_page return Enumerators if a block is not given. This allows you to use other Enumerator methods such as <code>map</code> or <code>each_with_index</code>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_plans'>plans</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_list_plans'>list_plans</span><span class='lparen'>(</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_plans'>plans</span><span class='period'>.</span><span class='id identifier rubyid_each_page'>each_page</span><span class='period'>.</span><span class='id identifier rubyid_each_with_index'>each_with_index</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_page_num'>page_num</span><span class='op'>|</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Page Number </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_page_num'>page_num</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plan'>plan</span><span class='op'>|</span>
+    <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Plan: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plan'>plan</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p>Pagination endpoints take a number of options to sort and filter the results. They can be passed in as a hash provided by the <code>:params</code> keyword argument. The names, types, and descriptions of these arguments are listed in the rubydocs for each method:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_options'>options</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+  <span class='label'>params:</span> <span class='lbrace'>{</span>
+    <span class='label'>limit:</span> <span class='int'>200</span><span class='comma'>,</span> <span class='comment'># number of items per page
+</span>    <span class='label'>state:</span> <span class='symbol'>:active</span><span class='comma'>,</span> <span class='comment'># only active plans
+</span>    <span class='label'>sort:</span> <span class='symbol'>:updated_at</span><span class='comma'>,</span>
+    <span class='label'>order:</span> <span class='symbol'>:asc</span><span class='comma'>,</span>
+    <span class='label'>begin_time:</span> <span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='int'>2017</span><span class='comma'>,</span><span class='int'>1</span><span class='comma'>,</span><span class='int'>1</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='comment'># January 1st 2017,
+</span>    <span class='label'>end_time:</span> <span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
+  <span class='rbrace'>}</span>
+<span class='rbrace'>}</span>
+
+<span class='id identifier rubyid_plans'>plans</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_list_plans'>list_plans</span><span class='lparen'>(</span><span class='op'>**</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='id identifier rubyid_plans'>plans</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_plan'>plan</span><span class='op'>|</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Plan: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_plan'>plan</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
+</code></pre>
+
+<p><strong>A note on <code>limit</code></strong>:</p>
+
+<p><code>limit</code> defaults to 20 items per page and can be set from 1 to 200. Choosing a lower limit means more network requests but smaller payloads. We recommend keeping the default for most cases but increasing the limit if you are planning on iterating through many pages of items (e.g. all transactions in your site).</p>
+
+<h2 id="label-Efficiently+Fetch+the+First+or+Last+Resource">Efficiently Fetch the First or Last Resource</h2>
+
+<p>The Pager class implements a first method which allows you to fetch just the first or last resource from the server. On top of being a convenient abstraction, this is implemented efficiently by only asking the server for the 1 item you want.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_accounts'>accounts</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_list_accounts'>list_accounts</span><span class='lparen'>(</span>
+  <span class='label'>subscriber:</span> <span class='kw'>true</span><span class='comma'>,</span>
+  <span class='label'>order:</span> <span class='symbol'>:desc</span>
+<span class='rparen'>)</span>
+
+<span class='id identifier rubyid_last_subscriber'>last_subscriber</span> <span class='op'>=</span> <span class='id identifier rubyid_accounts'>accounts</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+</code></pre>
+
+<p>If you want to fetch the last account in this scenario, invert the order from descending <code>desc</code> to ascending <code>asc</code>:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_accounts'>accounts</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_list_accounts'>list_accounts</span><span class='lparen'>(</span>
+  <span class='label'>subscriber:</span> <span class='kw'>true</span><span class='comma'>,</span>
+  <span class='label'>order:</span> <span class='symbol'>:asc</span>
+<span class='rparen'>)</span>
+
+<span class='id identifier rubyid_first_subscriber'>first_subscriber</span> <span class='op'>=</span> <span class='id identifier rubyid_accounts'>accounts</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+</code></pre>
+
+<h2 id="label-Counting+Resources">Counting Resources</h2>
+
+<p>The Pager class implements a <code>count</code> method which allows you to count the resources the pager would return. It does so by calling the endpoint with <code>HEAD</code> and parsing and returning the <code>Recurly-Total-Records</code> header. This method respects any filtering parameters you apply to the pager, but the sorting parameters will have no effect.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_accounts'>accounts</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_list_accounts'>list_accounts</span><span class='lparen'>(</span>
+  <span class='label'>subscriber:</span> <span class='kw'>true</span><span class='comma'>,</span>
+  <span class='label'>begin_time:</span> <span class='const'>DateTime</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='int'>2017</span><span class='comma'>,</span><span class='int'>1</span><span class='comma'>,</span><span class='int'>1</span><span class='rparen'>)</span>
+<span class='rparen'>)</span>
+
+<span class='comment'># Calling count here will return an integer indicating
+</span><span class='comment'># the number of subscribers since 2017
+</span><span class='id identifier rubyid_count'>count</span> <span class='op'>=</span> <span class='id identifier rubyid_accounts'>accounts</span><span class='period'>.</span><span class='id identifier rubyid_count'>count</span>
+<span class='comment'># =&gt; 573
+</span></code></pre>
+
+<h1 id="label-Creating+Resources">Creating Resources</h1>
+
+<p>Currently, resources are created by passing in a <code>body</code> keyword argument in the form of a <code>Hash</code>. This Hash must follow the schema of the documented request type. For example, the <code>create_plan</code> operation takes a request of type <span class='object_link'><a href="Recurly/Requests/PlanCreate.html" title="Recurly::Requests::PlanCreate (class)">Recurly::Requests::PlanCreate</a></span>. Failing to conform to this schema will result in an argument error.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>securerandom</span><span class='tstring_end'>&#39;</span></span>
+
+<span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='const'>SecureRandom</span><span class='period'>.</span><span class='id identifier rubyid_uuid'>uuid</span>
+<span class='id identifier rubyid_plan_data'>plan_data</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+  <span class='label'>code:</span> <span class='id identifier rubyid_code'>code</span><span class='comma'>,</span>
+  <span class='label'>interval_length:</span> <span class='int'>1</span><span class='comma'>,</span>
+  <span class='label'>interval_unit:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>months</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+  <span class='label'>name:</span> <span class='id identifier rubyid_code'>code</span><span class='comma'>,</span>
+  <span class='label'>currencies:</span> <span class='lbracket'>[</span>
+    <span class='lbrace'>{</span>
+      <span class='label'>currency:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>USD</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+      <span class='label'>setup_fee:</span> <span class='int'>800</span><span class='comma'>,</span>
+      <span class='label'>unit_amount:</span> <span class='int'>10</span>
+    <span class='rbrace'>}</span>
+  <span class='rbracket'>]</span>
+<span class='rbrace'>}</span>
+
+<span class='id identifier rubyid_plan'>plan</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_plan'>create_plan</span><span class='lparen'>(</span><span class='label'>body:</span> <span class='id identifier rubyid_plan_data'>plan_data</span><span class='rparen'>)</span>
+</code></pre>
+
+<h1 id="label-Error+Handling">Error Handling</h1>
+
+<p>All errors thrown by this library are based off of the <code>Recurly::Errors::APIError</code>. There</p>
+
+<p>This library throws one main type of exception, <code>Recurly::Errors::APIError</code>. There exists an additional hierarchy of errors to facilitate the process of rescuing various classes of errors. More detail can be found in the <a href="./lib/recurly/errors/api_errors.rb">Api Errors Module</a>.</p>
+
+<p>You can catch specific or generic versions of these exceptions. Example:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>begin</span>
+  <span class='id identifier rubyid_client'>client</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Client.html" title="Recurly::Client (class)">Client</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Recurly/Client.html#initialize-instance_method" title="Recurly::Client#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='label'>api_key:</span> <span class='const'>API_KEY</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>iexistalready</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_plan_data'>plan_data</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+    <span class='label'>code:</span> <span class='id identifier rubyid_code'>code</span><span class='comma'>,</span>
+    <span class='label'>interval_length:</span> <span class='int'>1</span><span class='comma'>,</span>
+    <span class='label'>interval_unit:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>months</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+    <span class='label'>name:</span> <span class='id identifier rubyid_code'>code</span><span class='comma'>,</span>
+    <span class='label'>currencies:</span> <span class='lbracket'>[</span>
+      <span class='lbrace'>{</span>
+        <span class='label'>currency:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>USD</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span>
+        <span class='label'>setup_fee:</span> <span class='int'>800</span><span class='comma'>,</span>
+        <span class='label'>unit_amount:</span> <span class='int'>10</span>
+      <span class='rbrace'>}</span>
+    <span class='rbracket'>]</span>
+  <span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_plan'>plan</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_create_plan'>create_plan</span><span class='lparen'>(</span><span class='label'>body:</span> <span class='id identifier rubyid_plan_data'>plan_data</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Errors.html" title="Recurly::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Errors/ValidationError.html" title="Recurly::Errors::ValidationError (class)">ValidationError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span>
+  <span class='comment'>#=&gt; #&lt;Recurly::ValidationError: Recurly::ValidationError: Code &#39;iexistalready&#39; already exists&gt;
+</span>  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_recurly_error'>recurly_error</span><span class='period'>.</span><span class='id identifier rubyid_inspect'>inspect</span>
+  <span class='comment'>#=&gt; #&lt;Recurly::Error:0x007fbbdf8a32c8 @attributes={:type=&gt;&quot;validation&quot;, :message=&gt;&quot;Code &#39;iexistalready&#39; already exists&quot;, :params=&gt;[{&quot;param&quot;=&gt;&quot;code&quot;, &quot;message&quot;=&gt;&quot;&#39;iexistalready&#39; already exists&quot;}]}&gt;
+</span>  <span class='id identifier rubyid_puts'>puts</span> <span class='id identifier rubyid_ex'>ex</span><span class='period'>.</span><span class='id identifier rubyid_status_code'>status_code</span>
+  <span class='comment'>#=&gt; 422
+</span><span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Errors.html" title="Recurly::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Errors/TimeoutError.html" title="Recurly::Errors::TimeoutError (class)">TimeoutError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='comment'># catch a specific server error
+</span><span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Errors.html" title="Recurly::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Errors/ServerError.html" title="Recurly::Errors::ServerError (class)">ServerError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='comment'># catch a generic server error
+</span><span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Errors.html" title="Recurly::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Errors/APIError.html" title="Recurly::Errors::APIError (class)">APIError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_ex'>ex</span>
+  <span class='comment'># catch a generic api error
+</span><span class='kw'>end</span>
+</code></pre>
+
+<p><code>Recurly::Errors::APIError</code> instances provide access to the response via the <code>#get_response</code> method.</p>
+
+<h1 id="label-HTTP+Metadata">HTTP Metadata</h1>
+
+<p>Sometimes you might want to get some additional information about the underlying HTTP request and response. Instead of returning this information directly and forcing the programmer to unwrap it, we inject this metadata into the top level resource that was returned. You can access the <span class='object_link'><a href="Recurly/HTTP/Response.html" title="Recurly::HTTP::Response (class)">Recurly::HTTP::Response</a></span> by calling <code>#get_response</code> on any <span class='object_link'><a href="Recurly/Resource.html" title="Recurly::Resource (class)">Recurly::Resource</a></span>.</p>
+
+<p><strong>Warning</strong>: Do not log or render whole requests or responses as they may contain PII or sensitive data.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_account'>account</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_get_account'>get_account</span><span class='lparen'>(</span><span class='label'>account_id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>code-benjamin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_account'>account</span><span class='period'>.</span><span class='id identifier rubyid_get_response'>get_response</span>
+<span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_rate_limit_remaining'>rate_limit_remaining</span> <span class='comment'>#=&gt; 1985
+</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_request_id'>request_id</span> <span class='comment'>#=&gt; &quot;0av50sm5l2n2gkf88ehg&quot;
+</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='comment'>#=&gt; &quot;/sites/subdomain-mysite/accounts/code-benjamin&quot;
+</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_request'>request</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span> <span class='comment'>#=&gt; None
+</span></code></pre>
+
+<p>This also works on <span class='object_link'><a href="Recurly/Resources/Empty.html" title="Recurly::Resources::Empty (class)">Recurly::Resources::Empty</a></span> responses:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='ivar'>@client</span><span class='period'>.</span><span class='id identifier rubyid_remove_line_item'>remove_line_item</span><span class='lparen'>(</span>
+  <span class='label'>line_item_id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>a959576b2b10b012</span><span class='tstring_end'>&quot;</span></span>
+<span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_get_response'>get_response</span>
+</code></pre>
+
+<p>And it can be captured on exceptions through the Recurly::APIError object:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='kw'>begin</span>
+  <span class='id identifier rubyid_account'>account</span> <span class='op'>=</span> <span class='id identifier rubyid_client'>client</span><span class='period'>.</span><span class='id identifier rubyid_get_account'>get_account</span><span class='lparen'>(</span><span class='label'>account_id:</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>code-benjamin</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="Recurly.html" title="Recurly (module)">Recurly</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Errors.html" title="Recurly::Errors (module)">Errors</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Recurly/Errors/NotFoundError.html" title="Recurly::Errors::NotFoundError (class)">NotFoundError</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_get_response'>get_response</span><span class='lparen'>(</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Give this request id to Recurly Support: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_response'>response</span><span class='period'>.</span><span class='id identifier rubyid_request_id'>request_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span>
+</code></pre>
+
+<h1 id="label-Webhooks">Webhooks</h1>
+
+<p>Recurly can send webhooks to any publicly accessible server. When an event in Recurly triggers a webhook (e.g., an account is opened), Recurly will attempt to send this notification to the endpoint(s) you specify. You can specify up to 10 endpoints through the application. All notifications will be sent to all configured endpoints for your site.</p>
+
+<p>See our <a href="https://docs.recurly.com/docs/webhooks">product docs</a> to learn more about webhooks and see our <a href="https://developers.recurly.com/pages/webhooks.html">dev docs</a> to learn about what payloads are available.</p>
+
+<p>Although our API is now JSON, our webhook payloads are still formatted as XML for the time being. This library is not yet responsible for handling webhooks. If you do need webhooks, we recommend using a simple XML to Hash parser.</p>
+
+<p>If you are using Rails, we&#39;d recommend <a href="https://apidock.com/rails/Hash/from_xml/class">Hash.from_xml</a>.</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_notification'>notification</span> <span class='op'>=</span> <span class='const'>Hash</span><span class='period'>.</span><span class='id identifier rubyid_from_xml'>from_xml</span> <span class='heredoc_beg'>&lt;&lt;-XML</span>
+<span class='tstring_content'>  &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+  &lt;new_account_notification&gt;
+    &lt;account&gt;
+      &lt;account_code&gt;1&lt;/account_code&gt;
+      &lt;username nil=&quot;true&quot;&gt;&lt;/username&gt;
+      &lt;email&gt;verena@example.com&lt;/email&gt;
+      &lt;first_name&gt;Verena&lt;/first_name&gt;
+      &lt;last_name&gt;Example&lt;/last_name&gt;
+      &lt;company_name nil=&quot;true&quot;&gt;&lt;/company_name&gt;
+    &lt;/account&gt;
+  &lt;/new_account_notification&gt;
+</span><span class='heredoc_end'>XML
+</span>
+<span class='id identifier rubyid_code'>code</span> <span class='op'>=</span> <span class='id identifier rubyid_notification'>notification</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>new_account_notification</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>account</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>account_code</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span>
+<span class='id identifier rubyid_puts'>puts</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>New Account with code </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_code'>code</span><span class='embexpr_end'>}</span><span class='tstring_content'> created.</span><span class='tstring_end'>&quot;</span></span>
+</code></pre>
+
+<p>If you are not using Rails, we recommend you use <a href="https://nokogiri.org/">nokogiri</a>; however, heed security warnings about parse options. Although the XML should only be coming from Recurly, you should parse it as untrusted to be safe. Read more about the security implications of parsing untrusted XML in <a href="https://cheatsheetseries.owasp.org/cheatsheets/XML_Security_Cheat_Sheet.html">this OWASP cheatsheet</a>.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Tue Mar 19 20:29:28 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-2.6.10).
+</div>
+
+    </div>
+  </body>
+</html>

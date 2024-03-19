@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Recurly::Errors
+  
+    &mdash; Documentation by YARD 0.9.36
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Recurly::Errors";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (E)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Recurly.html" title="Recurly (module)">Recurly</a></span></span>
+     &raquo; 
+    <span class="title">Errors</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Recurly::Errors
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/recurly/errors.rb<span class="defines">,<br />
+  lib/recurly/errors/api_errors.rb,<br /> lib/recurly/errors/network_errors.rb,<br /> lib/recurly/errors/webhooks_errors.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Errors/APIError.html" title="Recurly::Errors::APIError (class)">APIError</a></span>, <span class='object_link'><a href="Errors/BadGatewayError.html" title="Recurly::Errors::BadGatewayError (class)">BadGatewayError</a></span>, <span class='object_link'><a href="Errors/BadRequestError.html" title="Recurly::Errors::BadRequestError (class)">BadRequestError</a></span>, <span class='object_link'><a href="Errors/ClientError.html" title="Recurly::Errors::ClientError (class)">ClientError</a></span>, <span class='object_link'><a href="Errors/ConnectionFailedError.html" title="Recurly::Errors::ConnectionFailedError (class)">ConnectionFailedError</a></span>, <span class='object_link'><a href="Errors/ForbiddenError.html" title="Recurly::Errors::ForbiddenError (class)">ForbiddenError</a></span>, <span class='object_link'><a href="Errors/ImmutableSubscriptionError.html" title="Recurly::Errors::ImmutableSubscriptionError (class)">ImmutableSubscriptionError</a></span>, <span class='object_link'><a href="Errors/InternalServerError.html" title="Recurly::Errors::InternalServerError (class)">InternalServerError</a></span>, <span class='object_link'><a href="Errors/InvalidApiKeyError.html" title="Recurly::Errors::InvalidApiKeyError (class)">InvalidApiKeyError</a></span>, <span class='object_link'><a href="Errors/InvalidApiVersionError.html" title="Recurly::Errors::InvalidApiVersionError (class)">InvalidApiVersionError</a></span>, <span class='object_link'><a href="Errors/InvalidContentTypeError.html" title="Recurly::Errors::InvalidContentTypeError (class)">InvalidContentTypeError</a></span>, <span class='object_link'><a href="Errors/InvalidPermissionsError.html" title="Recurly::Errors::InvalidPermissionsError (class)">InvalidPermissionsError</a></span>, <span class='object_link'><a href="Errors/InvalidTokenError.html" title="Recurly::Errors::InvalidTokenError (class)">InvalidTokenError</a></span>, <span class='object_link'><a href="Errors/MissingFeatureError.html" title="Recurly::Errors::MissingFeatureError (class)">MissingFeatureError</a></span>, <span class='object_link'><a href="Errors/NetworkError.html" title="Recurly::Errors::NetworkError (class)">NetworkError</a></span>, <span class='object_link'><a href="Errors/NotAcceptableError.html" title="Recurly::Errors::NotAcceptableError (class)">NotAcceptableError</a></span>, <span class='object_link'><a href="Errors/NotFoundError.html" title="Recurly::Errors::NotFoundError (class)">NotFoundError</a></span>, <span class='object_link'><a href="Errors/NotModifiedError.html" title="Recurly::Errors::NotModifiedError (class)">NotModifiedError</a></span>, <span class='object_link'><a href="Errors/PaymentRequiredError.html" title="Recurly::Errors::PaymentRequiredError (class)">PaymentRequiredError</a></span>, <span class='object_link'><a href="Errors/PreconditionFailedError.html" title="Recurly::Errors::PreconditionFailedError (class)">PreconditionFailedError</a></span>, <span class='object_link'><a href="Errors/RateLimitedError.html" title="Recurly::Errors::RateLimitedError (class)">RateLimitedError</a></span>, <span class='object_link'><a href="Errors/RedirectionError.html" title="Recurly::Errors::RedirectionError (class)">RedirectionError</a></span>, <span class='object_link'><a href="Errors/ResponseError.html" title="Recurly::Errors::ResponseError (class)">ResponseError</a></span>, <span class='object_link'><a href="Errors/SSLError.html" title="Recurly::Errors::SSLError (class)">SSLError</a></span>, <span class='object_link'><a href="Errors/ServerError.html" title="Recurly::Errors::ServerError (class)">ServerError</a></span>, <span class='object_link'><a href="Errors/ServiceNotAvailableError.html" title="Recurly::Errors::ServiceNotAvailableError (class)">ServiceNotAvailableError</a></span>, <span class='object_link'><a href="Errors/ServiceUnavailableError.html" title="Recurly::Errors::ServiceUnavailableError (class)">ServiceUnavailableError</a></span>, <span class='object_link'><a href="Errors/SignatureVerificationError.html" title="Recurly::Errors::SignatureVerificationError (class)">SignatureVerificationError</a></span>, <span class='object_link'><a href="Errors/SimultaneousRequestError.html" title="Recurly::Errors::SimultaneousRequestError (class)">SimultaneousRequestError</a></span>, <span class='object_link'><a href="Errors/TaxServiceError.html" title="Recurly::Errors::TaxServiceError (class)">TaxServiceError</a></span>, <span class='object_link'><a href="Errors/TimeoutError.html" title="Recurly::Errors::TimeoutError (class)">TimeoutError</a></span>, <span class='object_link'><a href="Errors/TooManyRequestsError.html" title="Recurly::Errors::TooManyRequestsError (class)">TooManyRequestsError</a></span>, <span class='object_link'><a href="Errors/TransactionError.html" title="Recurly::Errors::TransactionError (class)">TransactionError</a></span>, <span class='object_link'><a href="Errors/UnauthorizedError.html" title="Recurly::Errors::UnauthorizedError (class)">UnauthorizedError</a></span>, <span class='object_link'><a href="Errors/UnavailableInApiVersionError.html" title="Recurly::Errors::UnavailableInApiVersionError (class)">UnavailableInApiVersionError</a></span>, <span class='object_link'><a href="Errors/UnknownApiVersionError.html" title="Recurly::Errors::UnknownApiVersionError (class)">UnknownApiVersionError</a></span>, <span class='object_link'><a href="Errors/UnprocessableEntityError.html" title="Recurly::Errors::UnprocessableEntityError (class)">UnprocessableEntityError</a></span>, <span class='object_link'><a href="Errors/ValidationError.html" title="Recurly::Errors::ValidationError (class)">ValidationError</a></span>
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="ERROR_MAP-constant" class="">ERROR_MAP =
+          
+        </dt>
+        <dd><pre class="code"><span class='lbrace'>{</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>500</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>InternalServerError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>502</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BadGatewayError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>503</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ServiceUnavailableError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>504</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>TimeoutError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>304</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>NotModifiedError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>400</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>BadRequestError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>401</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UnauthorizedError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>402</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>PaymentRequiredError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>403</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ForbiddenError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>404</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>NotFoundError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>406</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>NotAcceptableError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>412</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>PreconditionFailedError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>422</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>UnprocessableEntityError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>429</span><span class='tstring_end'>&quot;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>TooManyRequestsError</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+<span class='rbrace'>}</span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+
+
+</div>
+
+      <div id="footer">
+  Generated on Tue Mar 19 20:29:29 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-2.6.10).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Recurly::Requests
+  
+    &mdash; Documentation by YARD 0.9.36
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Recurly::Requests";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (R)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../Recurly.html" title="Recurly (module)">Recurly</a></span></span>
+     &raquo; 
+    <span class="title">Requests</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Recurly::Requests
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/recurly/requests.rb<span class="defines">,<br />
+  lib/recurly/requests/tier.rb,<br /> lib/recurly/requests/address.rb,<br /> lib/recurly/requests/pricing.rb,<br /> lib/recurly/requests/item_create.rb,<br /> lib/recurly/requests/item_update.rb,<br /> lib/recurly/requests/plan_create.rb,<br /> lib/recurly/requests/plan_update.rb,<br /> lib/recurly/requests/custom_field.rb,<br /> lib/recurly/requests/plan_pricing.rb,<br /> lib/recurly/requests/tier_pricing.rb,<br /> lib/recurly/requests/usage_create.rb,<br /> lib/recurly/requests/add_on_create.rb,<br /> lib/recurly/requests/add_on_update.rb,<br /> lib/recurly/requests/coupon_create.rb,<br /> lib/recurly/requests/coupon_update.rb,<br /> lib/recurly/requests/account_create.rb,<br /> lib/recurly/requests/account_update.rb,<br /> lib/recurly/requests/add_on_pricing.rb,<br /> lib/recurly/requests/coupon_pricing.rb,<br /> lib/recurly/requests/invoice_create.rb,<br /> lib/recurly/requests/invoice_refund.rb,<br /> lib/recurly/requests/invoice_update.rb,<br /> lib/recurly/requests/external_refund.rb,<br /> lib/recurly/requests/invoice_address.rb,<br /> lib/recurly/requests/invoice_collect.rb,<br /> lib/recurly/requests/percentage_tier.rb,<br /> lib/recurly/requests/purchase_create.rb,<br /> lib/recurly/requests/account_purchase.rb,<br /> lib/recurly/requests/gift_card_create.rb,<br /> lib/recurly/requests/gift_card_redeem.rb,<br /> lib/recurly/requests/line_item_create.rb,<br /> lib/recurly/requests/line_item_refund.rb,<br /> lib/recurly/requests/account_reference.rb,<br /> lib/recurly/requests/plan_hosted_pages.rb,<br /> lib/recurly/requests/plan_ramp_pricing.rb,<br /> lib/recurly/requests/shipping_purchase.rb,<br /> lib/recurly/requests/coupon_bulk_create.rb,<br /> lib/recurly/requests/gateway_attributes.rb,<br /> lib/recurly/requests/plan_ramp_interval.rb,<br /> lib/recurly/requests/subscription_pause.rb,<br /> lib/recurly/requests/billing_info_create.rb,<br /> lib/recurly/requests/billing_info_verify.rb,<br /> lib/recurly/requests/shipping_fee_create.rb,<br /> lib/recurly/requests/subscription_cancel.rb,<br /> lib/recurly/requests/subscription_create.rb,<br /> lib/recurly/requests/subscription_update.rb,<br /> lib/recurly/requests/external_transaction.rb,<br /> lib/recurly/requests/measured_unit_create.rb,<br /> lib/recurly/requests/measured_unit_update.rb,<br /> lib/recurly/requests/subscription_purchase.rb,<br /> lib/recurly/requests/shipping_method_create.rb,<br /> lib/recurly/requests/shipping_method_update.rb,<br /> lib/recurly/requests/billing_info_verify_cvv.rb,<br /> lib/recurly/requests/external_account_create.rb,<br /> lib/recurly/requests/external_account_update.rb,<br /> lib/recurly/requests/external_product_create.rb,<br /> lib/recurly/requests/external_product_update.rb,<br /> lib/recurly/requests/shipping_address_create.rb,<br /> lib/recurly/requests/shipping_address_update.rb,<br /> lib/recurly/requests/account_acquisition_cost.rb,<br /> lib/recurly/requests/coupon_redemption_create.rb,<br /> lib/recurly/requests/subscription_add_on_tier.rb,<br /> lib/recurly/requests/gift_card_delivery_create.rb,<br /> lib/recurly/requests/account_acquisition_update.rb,<br /> lib/recurly/requests/subscription_add_on_create.rb,<br /> lib/recurly/requests/subscription_add_on_update.rb,<br /> lib/recurly/requests/subscription_change_create.rb,<br /> lib/recurly/requests/subscription_ramp_interval.rb,<br /> lib/recurly/requests/percentage_tiers_by_currency.rb,<br /> lib/recurly/requests/subscription_shipping_create.rb,<br /> lib/recurly/requests/subscription_shipping_update.rb,<br /> lib/recurly/requests/dunning_campaigns_bulk_update.rb,<br /> lib/recurly/requests/subscription_shipping_purchase.rb,<br /> lib/recurly/requests/external_product_reference_base.rb,<br /> lib/recurly/requests/external_product_reference_create.rb,<br /> lib/recurly/requests/subscription_add_on_percentage_tier.rb,<br /> lib/recurly/requests/subscription_change_shipping_create.rb,<br /> lib/recurly/requests/subscription_change_billing_info_create.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Requests/AccountAcquisitionCost.html" title="Recurly::Requests::AccountAcquisitionCost (class)">AccountAcquisitionCost</a></span>, <span class='object_link'><a href="Requests/AccountAcquisitionUpdate.html" title="Recurly::Requests::AccountAcquisitionUpdate (class)">AccountAcquisitionUpdate</a></span>, <span class='object_link'><a href="Requests/AccountCreate.html" title="Recurly::Requests::AccountCreate (class)">AccountCreate</a></span>, <span class='object_link'><a href="Requests/AccountPurchase.html" title="Recurly::Requests::AccountPurchase (class)">AccountPurchase</a></span>, <span class='object_link'><a href="Requests/AccountReference.html" title="Recurly::Requests::AccountReference (class)">AccountReference</a></span>, <span class='object_link'><a href="Requests/AccountUpdate.html" title="Recurly::Requests::AccountUpdate (class)">AccountUpdate</a></span>, <span class='object_link'><a href="Requests/AddOnCreate.html" title="Recurly::Requests::AddOnCreate (class)">AddOnCreate</a></span>, <span class='object_link'><a href="Requests/AddOnPricing.html" title="Recurly::Requests::AddOnPricing (class)">AddOnPricing</a></span>, <span class='object_link'><a href="Requests/AddOnUpdate.html" title="Recurly::Requests::AddOnUpdate (class)">AddOnUpdate</a></span>, <span class='object_link'><a href="Requests/Address.html" title="Recurly::Requests::Address (class)">Address</a></span>, <span class='object_link'><a href="Requests/BillingInfoCreate.html" title="Recurly::Requests::BillingInfoCreate (class)">BillingInfoCreate</a></span>, <span class='object_link'><a href="Requests/BillingInfoVerify.html" title="Recurly::Requests::BillingInfoVerify (class)">BillingInfoVerify</a></span>, <span class='object_link'><a href="Requests/BillingInfoVerifyCVV.html" title="Recurly::Requests::BillingInfoVerifyCVV (class)">BillingInfoVerifyCVV</a></span>, <span class='object_link'><a href="Requests/CouponBulkCreate.html" title="Recurly::Requests::CouponBulkCreate (class)">CouponBulkCreate</a></span>, <span class='object_link'><a href="Requests/CouponCreate.html" title="Recurly::Requests::CouponCreate (class)">CouponCreate</a></span>, <span class='object_link'><a href="Requests/CouponPricing.html" title="Recurly::Requests::CouponPricing (class)">CouponPricing</a></span>, <span class='object_link'><a href="Requests/CouponRedemptionCreate.html" title="Recurly::Requests::CouponRedemptionCreate (class)">CouponRedemptionCreate</a></span>, <span class='object_link'><a href="Requests/CouponUpdate.html" title="Recurly::Requests::CouponUpdate (class)">CouponUpdate</a></span>, <span class='object_link'><a href="Requests/CustomField.html" title="Recurly::Requests::CustomField (class)">CustomField</a></span>, <span class='object_link'><a href="Requests/DunningCampaignsBulkUpdate.html" title="Recurly::Requests::DunningCampaignsBulkUpdate (class)">DunningCampaignsBulkUpdate</a></span>, <span class='object_link'><a href="Requests/ExternalAccountCreate.html" title="Recurly::Requests::ExternalAccountCreate (class)">ExternalAccountCreate</a></span>, <span class='object_link'><a href="Requests/ExternalAccountUpdate.html" title="Recurly::Requests::ExternalAccountUpdate (class)">ExternalAccountUpdate</a></span>, <span class='object_link'><a href="Requests/ExternalProductCreate.html" title="Recurly::Requests::ExternalProductCreate (class)">ExternalProductCreate</a></span>, <span class='object_link'><a href="Requests/ExternalProductReferenceBase.html" title="Recurly::Requests::ExternalProductReferenceBase (class)">ExternalProductReferenceBase</a></span>, <span class='object_link'><a href="Requests/ExternalProductReferenceCreate.html" title="Recurly::Requests::ExternalProductReferenceCreate (class)">ExternalProductReferenceCreate</a></span>, <span class='object_link'><a href="Requests/ExternalProductUpdate.html" title="Recurly::Requests::ExternalProductUpdate (class)">ExternalProductUpdate</a></span>, <span class='object_link'><a href="Requests/ExternalRefund.html" title="Recurly::Requests::ExternalRefund (class)">ExternalRefund</a></span>, <span class='object_link'><a href="Requests/ExternalTransaction.html" title="Recurly::Requests::ExternalTransaction (class)">ExternalTransaction</a></span>, <span class='object_link'><a href="Requests/GatewayAttributes.html" title="Recurly::Requests::GatewayAttributes (class)">GatewayAttributes</a></span>, <span class='object_link'><a href="Requests/GiftCardCreate.html" title="Recurly::Requests::GiftCardCreate (class)">GiftCardCreate</a></span>, <span class='object_link'><a href="Requests/GiftCardDeliveryCreate.html" title="Recurly::Requests::GiftCardDeliveryCreate (class)">GiftCardDeliveryCreate</a></span>, <span class='object_link'><a href="Requests/GiftCardRedeem.html" title="Recurly::Requests::GiftCardRedeem (class)">GiftCardRedeem</a></span>, <span class='object_link'><a href="Requests/InvoiceAddress.html" title="Recurly::Requests::InvoiceAddress (class)">InvoiceAddress</a></span>, <span class='object_link'><a href="Requests/InvoiceCollect.html" title="Recurly::Requests::InvoiceCollect (class)">InvoiceCollect</a></span>, <span class='object_link'><a href="Requests/InvoiceCreate.html" title="Recurly::Requests::InvoiceCreate (class)">InvoiceCreate</a></span>, <span class='object_link'><a href="Requests/InvoiceRefund.html" title="Recurly::Requests::InvoiceRefund (class)">InvoiceRefund</a></span>, <span class='object_link'><a href="Requests/InvoiceUpdate.html" title="Recurly::Requests::InvoiceUpdate (class)">InvoiceUpdate</a></span>, <span class='object_link'><a href="Requests/ItemCreate.html" title="Recurly::Requests::ItemCreate (class)">ItemCreate</a></span>, <span class='object_link'><a href="Requests/ItemUpdate.html" title="Recurly::Requests::ItemUpdate (class)">ItemUpdate</a></span>, <span class='object_link'><a href="Requests/LineItemCreate.html" title="Recurly::Requests::LineItemCreate (class)">LineItemCreate</a></span>, <span class='object_link'><a href="Requests/LineItemRefund.html" title="Recurly::Requests::LineItemRefund (class)">LineItemRefund</a></span>, <span class='object_link'><a href="Requests/MeasuredUnitCreate.html" title="Recurly::Requests::MeasuredUnitCreate (class)">MeasuredUnitCreate</a></span>, <span class='object_link'><a href="Requests/MeasuredUnitUpdate.html" title="Recurly::Requests::MeasuredUnitUpdate (class)">MeasuredUnitUpdate</a></span>, <span class='object_link'><a href="Requests/PercentageTier.html" title="Recurly::Requests::PercentageTier (class)">PercentageTier</a></span>, <span class='object_link'><a href="Requests/PercentageTiersByCurrency.html" title="Recurly::Requests::PercentageTiersByCurrency (class)">PercentageTiersByCurrency</a></span>, <span class='object_link'><a href="Requests/PlanCreate.html" title="Recurly::Requests::PlanCreate (class)">PlanCreate</a></span>, <span class='object_link'><a href="Requests/PlanHostedPages.html" title="Recurly::Requests::PlanHostedPages (class)">PlanHostedPages</a></span>, <span class='object_link'><a href="Requests/PlanPricing.html" title="Recurly::Requests::PlanPricing (class)">PlanPricing</a></span>, <span class='object_link'><a href="Requests/PlanRampInterval.html" title="Recurly::Requests::PlanRampInterval (class)">PlanRampInterval</a></span>, <span class='object_link'><a href="Requests/PlanRampPricing.html" title="Recurly::Requests::PlanRampPricing (class)">PlanRampPricing</a></span>, <span class='object_link'><a href="Requests/PlanUpdate.html" title="Recurly::Requests::PlanUpdate (class)">PlanUpdate</a></span>, <span class='object_link'><a href="Requests/Pricing.html" title="Recurly::Requests::Pricing (class)">Pricing</a></span>, <span class='object_link'><a href="Requests/PurchaseCreate.html" title="Recurly::Requests::PurchaseCreate (class)">PurchaseCreate</a></span>, <span class='object_link'><a href="Requests/ShippingAddressCreate.html" title="Recurly::Requests::ShippingAddressCreate (class)">ShippingAddressCreate</a></span>, <span class='object_link'><a href="Requests/ShippingAddressUpdate.html" title="Recurly::Requests::ShippingAddressUpdate (class)">ShippingAddressUpdate</a></span>, <span class='object_link'><a href="Requests/ShippingFeeCreate.html" title="Recurly::Requests::ShippingFeeCreate (class)">ShippingFeeCreate</a></span>, <span class='object_link'><a href="Requests/ShippingMethodCreate.html" title="Recurly::Requests::ShippingMethodCreate (class)">ShippingMethodCreate</a></span>, <span class='object_link'><a href="Requests/ShippingMethodUpdate.html" title="Recurly::Requests::ShippingMethodUpdate (class)">ShippingMethodUpdate</a></span>, <span class='object_link'><a href="Requests/ShippingPurchase.html" title="Recurly::Requests::ShippingPurchase (class)">ShippingPurchase</a></span>, <span class='object_link'><a href="Requests/SubscriptionAddOnCreate.html" title="Recurly::Requests::SubscriptionAddOnCreate (class)">SubscriptionAddOnCreate</a></span>, <span class='object_link'><a href="Requests/SubscriptionAddOnPercentageTier.html" title="Recurly::Requests::SubscriptionAddOnPercentageTier (class)">SubscriptionAddOnPercentageTier</a></span>, <span class='object_link'><a href="Requests/SubscriptionAddOnTier.html" title="Recurly::Requests::SubscriptionAddOnTier (class)">SubscriptionAddOnTier</a></span>, <span class='object_link'><a href="Requests/SubscriptionAddOnUpdate.html" title="Recurly::Requests::SubscriptionAddOnUpdate (class)">SubscriptionAddOnUpdate</a></span>, <span class='object_link'><a href="Requests/SubscriptionCancel.html" title="Recurly::Requests::SubscriptionCancel (class)">SubscriptionCancel</a></span>, <span class='object_link'><a href="Requests/SubscriptionChangeBillingInfoCreate.html" title="Recurly::Requests::SubscriptionChangeBillingInfoCreate (class)">SubscriptionChangeBillingInfoCreate</a></span>, <span class='object_link'><a href="Requests/SubscriptionChangeCreate.html" title="Recurly::Requests::SubscriptionChangeCreate (class)">SubscriptionChangeCreate</a></span>, <span class='object_link'><a href="Requests/SubscriptionChangeShippingCreate.html" title="Recurly::Requests::SubscriptionChangeShippingCreate (class)">SubscriptionChangeShippingCreate</a></span>, <span class='object_link'><a href="Requests/SubscriptionCreate.html" title="Recurly::Requests::SubscriptionCreate (class)">SubscriptionCreate</a></span>, <span class='object_link'><a href="Requests/SubscriptionPause.html" title="Recurly::Requests::SubscriptionPause (class)">SubscriptionPause</a></span>, <span class='object_link'><a href="Requests/SubscriptionPurchase.html" title="Recurly::Requests::SubscriptionPurchase (class)">SubscriptionPurchase</a></span>, <span class='object_link'><a href="Requests/SubscriptionRampInterval.html" title="Recurly::Requests::SubscriptionRampInterval (class)">SubscriptionRampInterval</a></span>, <span class='object_link'><a href="Requests/SubscriptionShippingCreate.html" title="Recurly::Requests::SubscriptionShippingCreate (class)">SubscriptionShippingCreate</a></span>, <span class='object_link'><a href="Requests/SubscriptionShippingPurchase.html" title="Recurly::Requests::SubscriptionShippingPurchase (class)">SubscriptionShippingPurchase</a></span>, <span class='object_link'><a href="Requests/SubscriptionShippingUpdate.html" title="Recurly::Requests::SubscriptionShippingUpdate (class)">SubscriptionShippingUpdate</a></span>, <span class='object_link'><a href="Requests/SubscriptionUpdate.html" title="Recurly::Requests::SubscriptionUpdate (class)">SubscriptionUpdate</a></span>, <span class='object_link'><a href="Requests/Tier.html" title="Recurly::Requests::Tier (class)">Tier</a></span>, <span class='object_link'><a href="Requests/TierPricing.html" title="Recurly::Requests::TierPricing (class)">TierPricing</a></span>, <span class='object_link'><a href="Requests/UsageCreate.html" title="Recurly::Requests::UsageCreate (class)">UsageCreate</a></span>
+    
+  
+</p>
+
+
+
+
+
+
+
+
+
+</div>
+
+      <div id="footer">
+  Generated on Tue Mar 19 20:29:29 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-2.6.10).
+</div>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Module: Recurly
+  
+    &mdash; Documentation by YARD 0.9.36
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "Recurly";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index (R)</a> &raquo;
+    
+    
+    <span class="title">Recurly</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Module: Recurly
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+
+  
+  
+  
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/recurly/requests/tier.rb<span class="defines">,<br />
+  lib/recurly.rb,<br /> lib/recurly/http.rb,<br /> lib/recurly/pager.rb,<br /> lib/recurly/client.rb,<br /> lib/recurly/errors.rb,<br /> lib/recurly/schema.rb,<br /> lib/recurly/request.rb,<br /> lib/recurly/version.rb,<br /> lib/recurly/requests.rb,<br /> lib/recurly/resource.rb,<br /> lib/recurly/webhooks.rb,<br /> lib/recurly/resources.rb,<br /> lib/recurly/resources/item.rb,<br /> lib/recurly/resources/plan.rb,<br /> lib/recurly/resources/site.rb,<br /> lib/recurly/resources/tier.rb,<br /> lib/recurly/resources/user.rb,<br /> lib/recurly/connection_pool.rb,<br /> lib/recurly/resources/error.rb,<br /> lib/recurly/resources/usage.rb,<br /> lib/recurly/requests/address.rb,<br /> lib/recurly/requests/pricing.rb,<br /> lib/recurly/resources/add_on.rb,<br /> lib/recurly/resources/coupon.rb,<br /> lib/recurly/client/operations.rb,<br /> lib/recurly/errors/api_errors.rb,<br /> lib/recurly/resources/account.rb,<br /> lib/recurly/resources/address.rb,<br /> lib/recurly/resources/invoice.rb,<br /> lib/recurly/resources/pricing.rb,<br /> lib/recurly/resources/settings.rb,<br /> lib/recurly/resources/tax_info.rb,<br /> lib/recurly/schema/file_parser.rb,<br /> lib/recurly/schema/json_parser.rb,<br /> lib/recurly/resources/gift_card.rb,<br /> lib/recurly/resources/item_mini.rb,<br /> lib/recurly/resources/line_item.rb,<br /> lib/recurly/resources/plan_mini.rb,<br /> lib/recurly/requests/item_create.rb,<br /> lib/recurly/requests/item_update.rb,<br /> lib/recurly/requests/plan_create.rb,<br /> lib/recurly/requests/plan_update.rb,<br /> lib/recurly/resources/fraud_info.rb,<br /> lib/recurly/resources/granted_by.rb,<br /> lib/recurly/resources/tax_detail.rb,<br /> lib/recurly/errors/network_errors.rb,<br /> lib/recurly/requests/custom_field.rb,<br /> lib/recurly/requests/plan_pricing.rb,<br /> lib/recurly/requests/tier_pricing.rb,<br /> lib/recurly/requests/usage_create.rb,<br /> lib/recurly/resources/add_on_mini.rb,<br /> lib/recurly/resources/binary_file.rb,<br /> lib/recurly/resources/coupon_mini.rb,<br /> lib/recurly/resources/entitlement.rb,<br /> lib/recurly/resources/export_file.rb,<br /> lib/recurly/resources/transaction.rb,<br /> lib/recurly/schema/request_caster.rb,<br /> lib/recurly/schema/schema_factory.rb,<br /> lib/recurly/errors/webhooks_errors.rb,<br /> lib/recurly/requests/add_on_create.rb,<br /> lib/recurly/requests/add_on_update.rb,<br /> lib/recurly/requests/coupon_create.rb,<br /> lib/recurly/requests/coupon_update.rb,<br /> lib/recurly/resources/account_mini.rb,<br /> lib/recurly/resources/account_note.rb,<br /> lib/recurly/resources/billing_info.rb,<br /> lib/recurly/resources/custom_field.rb,<br /> lib/recurly/resources/entitlements.rb,<br /> lib/recurly/resources/export_dates.rb,<br /> lib/recurly/resources/export_files.rb,<br /> lib/recurly/resources/invoice_mini.rb,<br /> lib/recurly/resources/plan_pricing.rb,<br /> lib/recurly/resources/subscription.rb,<br /> lib/recurly/resources/tier_pricing.rb,<br /> lib/recurly/schema/resource_caster.rb,<br /> lib/recurly/requests/account_create.rb,<br /> lib/recurly/requests/account_update.rb,<br /> lib/recurly/requests/add_on_pricing.rb,<br /> lib/recurly/requests/coupon_pricing.rb,<br /> lib/recurly/requests/invoice_create.rb,<br /> lib/recurly/requests/invoice_refund.rb,<br /> lib/recurly/requests/invoice_update.rb,<br /> lib/recurly/resources/dunning_cycle.rb,<br /> lib/recurly/resources/measured_unit.rb,<br /> lib/recurly/schema/schema_validator.rb,<br /> lib/recurly/requests/external_refund.rb,<br /> lib/recurly/requests/invoice_address.rb,<br /> lib/recurly/requests/invoice_collect.rb,<br /> lib/recurly/requests/percentage_tier.rb,<br /> lib/recurly/requests/purchase_create.rb,<br /> lib/recurly/resources/add_on_pricing.rb,<br /> lib/recurly/resources/credit_payment.rb,<br /> lib/recurly/resources/payment_method.rb,<br /> lib/recurly/requests/account_purchase.rb,<br /> lib/recurly/requests/gift_card_create.rb,<br /> lib/recurly/requests/gift_card_redeem.rb,<br /> lib/recurly/requests/line_item_create.rb,<br /> lib/recurly/requests/line_item_refund.rb,<br /> lib/recurly/resources/account_balance.rb,<br /> lib/recurly/resources/business_entity.rb,<br /> lib/recurly/resources/coupon_discount.rb,<br /> lib/recurly/resources/external_charge.rb,<br /> lib/recurly/resources/fraud_risk_rule.rb,<br /> lib/recurly/resources/invoice_address.rb,<br /> lib/recurly/resources/percentage_tier.rb,<br /> lib/recurly/resources/shipping_method.rb,<br /> lib/recurly/requests/account_reference.rb,<br /> lib/recurly/requests/plan_hosted_pages.rb,<br /> lib/recurly/requests/plan_ramp_pricing.rb,<br /> lib/recurly/requests/shipping_purchase.rb,<br /> lib/recurly/resources/dunning_campaign.rb,<br /> lib/recurly/resources/dunning_interval.rb,<br /> lib/recurly/resources/external_account.rb,<br /> lib/recurly/resources/external_invoice.rb,<br /> lib/recurly/resources/external_product.rb,<br /> lib/recurly/resources/invoice_template.rb,<br /> lib/recurly/resources/shipping_address.rb,<br /> lib/recurly/requests/coupon_bulk_create.rb,<br /> lib/recurly/requests/gateway_attributes.rb,<br /> lib/recurly/requests/plan_ramp_interval.rb,<br /> lib/recurly/requests/subscription_pause.rb,<br /> lib/recurly/resources/address_with_name.rb,<br /> lib/recurly/resources/coupon_redemption.rb,<br /> lib/recurly/resources/plan_hosted_pages.rb,<br /> lib/recurly/resources/plan_ramp_pricing.rb,<br /> lib/recurly/resources/transaction_error.rb,<br /> lib/recurly/requests/billing_info_create.rb,<br /> lib/recurly/requests/billing_info_verify.rb,<br /> lib/recurly/requests/shipping_fee_create.rb,<br /> lib/recurly/requests/subscription_cancel.rb,<br /> lib/recurly/requests/subscription_create.rb,<br /> lib/recurly/requests/subscription_update.rb,<br /> lib/recurly/resources/gateway_attributes.rb,<br /> lib/recurly/resources/gift_card_delivery.rb,<br /> lib/recurly/resources/invoice_collection.rb,<br /> lib/recurly/resources/plan_ramp_interval.rb,<br /> lib/recurly/resources/unique_coupon_code.rb,<br /> lib/recurly/requests/external_transaction.rb,<br /> lib/recurly/requests/measured_unit_create.rb,<br /> lib/recurly/requests/measured_unit_update.rb,<br /> lib/recurly/resources/account_acquisition.rb,<br /> lib/recurly/resources/customer_permission.rb,<br /> lib/recurly/resources/subscription_add_on.rb,<br /> lib/recurly/resources/subscription_change.rb,<br /> lib/recurly/requests/subscription_purchase.rb,<br /> lib/recurly/resources/shipping_method_mini.rb,<br /> lib/recurly/requests/shipping_method_create.rb,<br /> lib/recurly/requests/shipping_method_update.rb,<br /> lib/recurly/resources/coupon_discount_trial.rb,<br /> lib/recurly/resources/external_subscription.rb,<br /> lib/recurly/resources/subscription_shipping.rb,<br /> lib/recurly/requests/billing_info_verify_cvv.rb,<br /> lib/recurly/requests/external_account_create.rb,<br /> lib/recurly/requests/external_account_update.rb,<br /> lib/recurly/requests/external_product_create.rb,<br /> lib/recurly/requests/external_product_update.rb,<br /> lib/recurly/requests/shipping_address_create.rb,<br /> lib/recurly/requests/shipping_address_update.rb,<br /> lib/recurly/resources/account_balance_amount.rb,<br /> lib/recurly/resources/coupon_redemption_mini.rb,<br /> lib/recurly/resources/external_payment_phase.rb,<br /> lib/recurly/resources/transaction_fraud_info.rb,<br /> lib/recurly/requests/account_acquisition_cost.rb,<br /> lib/recurly/requests/coupon_redemption_create.rb,<br /> lib/recurly/requests/subscription_add_on_tier.rb,<br /> lib/recurly/resources/billing_info_updated_by.rb,<br /> lib/recurly/resources/coupon_discount_pricing.rb,<br /> lib/recurly/resources/custom_field_definition.rb,<br /> lib/recurly/requests/gift_card_delivery_create.rb,<br /> lib/recurly/resources/account_acquisition_cost.rb,<br /> lib/recurly/resources/subscription_add_on_tier.rb,<br /> lib/recurly/requests/account_acquisition_update.rb,<br /> lib/recurly/requests/subscription_add_on_create.rb,<br /> lib/recurly/requests/subscription_add_on_update.rb,<br /> lib/recurly/requests/subscription_change_create.rb,<br /> lib/recurly/requests/subscription_ramp_interval.rb,<br /> lib/recurly/resources/unique_coupon_code_params.rb,<br /> lib/recurly/resources/error_may_have_transaction.rb,<br /> lib/recurly/requests/percentage_tiers_by_currency.rb,<br /> lib/recurly/requests/subscription_shipping_create.rb,<br /> lib/recurly/requests/subscription_shipping_update.rb,<br /> lib/recurly/resources/transaction_payment_gateway.rb,<br /> lib/recurly/requests/dunning_campaigns_bulk_update.rb,<br /> lib/recurly/resources/percentage_tiers_by_currency.rb,<br /> lib/recurly/requests/subscription_shipping_purchase.rb,<br /> lib/recurly/requests/external_product_reference_base.rb,<br /> lib/recurly/resources/external_product_reference_mini.rb,<br /> lib/recurly/requests/external_product_reference_create.rb,<br /> lib/recurly/resources/subscription_change_billing_info.rb,<br /> lib/recurly/requests/subscription_add_on_percentage_tier.rb,<br /> lib/recurly/requests/subscription_change_shipping_create.rb,<br /> lib/recurly/resources/subscription_add_on_percentage_tier.rb,<br /> lib/recurly/resources/subscription_ramp_interval_response.rb,<br /> lib/recurly/resources/external_product_reference_collection.rb,<br /> lib/recurly/requests/subscription_change_billing_info_create.rb,<br /> lib/recurly/resources/dunning_campaigns_bulk_update_response.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This file is automatically created by Recurly&#39;s OpenAPI generation process and thus any edits you make by hand will be lost. If you wish to make a change to this file, please create a Github issue explaining the changes you need and we will usher them to the appropriate places.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Recurly/Errors.html" title="Recurly::Errors (module)">Errors</a></span>, <span class='object_link'><a href="Recurly/HTTP.html" title="Recurly::HTTP (module)">HTTP</a></span>, <span class='object_link'><a href="Recurly/Requests.html" title="Recurly::Requests (module)">Requests</a></span>, <span class='object_link'><a href="Recurly/Resources.html" title="Recurly::Resources (module)">Resources</a></span>, <span class='object_link'><a href="Recurly/Webhooks.html" title="Recurly::Webhooks (module)">Webhooks</a></span>
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="Recurly/Client.html" title="Recurly::Client (class)">Client</a></span>, <span class='object_link'><a href="Recurly/ConnectionPool.html" title="Recurly::ConnectionPool (class)">ConnectionPool</a></span>, <span class='object_link'><a href="Recurly/FileParser.html" title="Recurly::FileParser (class)">FileParser</a></span>, <span class='object_link'><a href="Recurly/JSONParser.html" title="Recurly::JSONParser (class)">JSONParser</a></span>, <span class='object_link'><a href="Recurly/Pager.html" title="Recurly::Pager (class)">Pager</a></span>, <span class='object_link'><a href="Recurly/Request.html" title="Recurly::Request (class)">Request</a></span>, <span class='object_link'><a href="Recurly/Resource.html" title="Recurly::Resource (class)">Resource</a></span>, <span class='object_link'><a href="Recurly/Schema.html" title="Recurly::Schema (class)">Schema</a></span>
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="STRICT_MODE-constant" class="">STRICT_MODE =
+          
+        </dt>
+        <dd><pre class="code"><span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RECURLY_STRICT_MODE</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span> <span class='op'>&amp;&amp;</span> <span class='const'>ENV</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>RECURLY_STRICT_MODE</span><span class='tstring_end'>&quot;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_downcase'>downcase</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>true</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+        <dt id="VERSION-constant" class="">VERSION =
+          
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>4.48.0</span><span class='tstring_end'>&quot;</span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+
+
+</div>
+
+      <div id="footer">
+  Generated on Tue Mar 19 20:29:29 2024 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.36 (ruby-2.6.10).
+</div>
+
+    </div>
+  </body>
+</html>
