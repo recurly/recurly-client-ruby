@@ -739,6 +739,7 @@ module Recurly
     #   * Records are returned in an arbitrary order. Since results are all
     #     returned at once you can sort the records yourself.
     #
+    # @param state [String] Invoice state.
     # @param limit [Integer] Limit number of records 1-200.
     # @param order [String] Sort order.
     # @param sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
@@ -1952,6 +1953,7 @@ module Recurly
     #   * Records are returned in an arbitrary order. Since results are all
     #     returned at once you can sort the records yourself.
     #
+    # @param state [String] Invoice state.
     # @param limit [Integer] Limit number of records 1-200.
     # @param order [String] Sort order.
     # @param sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
@@ -3367,6 +3369,7 @@ module Recurly
     #   * Records are returned in an arbitrary order. Since results are all
     #     returned at once you can sort the records yourself.
     #
+    # @param state [String] Invoice state.
     # @param limit [Integer] Limit number of records 1-200.
     # @param order [String] Sort order.
     # @param sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending

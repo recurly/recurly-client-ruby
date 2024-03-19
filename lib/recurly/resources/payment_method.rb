@@ -14,6 +14,10 @@ module Recurly
       #   @return [String] Billing Agreement identifier. Only present for Amazon or Paypal payment methods.
       define_attribute :billing_agreement_id, String
 
+      # @!attribute card_network_preference
+      #   @return [String] Represents the card network preference associated with the billing info for dual badged cards. Must be a supported card network.
+      define_attribute :card_network_preference, String
+
       # @!attribute card_type
       #   @return [String] Visa, MasterCard, American Express, Discover, JCB, etc.
       define_attribute :card_type, String
