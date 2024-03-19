@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.19.12](https://github.com/recurly/recurly-client-ruby/tree/2.19.12) (2024-03-19)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.11...2.19.12)
+
+
+**Merged Pull Requests**
+
+- Add card_network_preference field to v2 [#896](https://github.com/recurly/recurly-client-ruby/pull/896) ([gilv93](https://github.com/gilv93))
+
+
+
 ## [2.19.11](https://github.com/recurly/recurly-client-ruby/tree/2.19.11) (2024-03-13)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/2.19.10...2.19.11)
