@@ -4277,6 +4277,48 @@ module Recurly
       post(path, body, Requests::PurchaseCreate, **options)
     end
 
+    # Authorize a purchase
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_authorize_purchase create_authorize_purchase api documentation}
+    #
+    # @param body [Requests::PurchaseCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::PurchaseCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::InvoiceCollection] Returns the authorize invoice
+    #
+    def create_authorize_purchase(body:, **options)
+      path = "/purchases/authorize"
+      post(path, body, Requests::PurchaseCreate, **options)
+    end
+
+    # Capture a purchase
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_capture_purchase create_capture_purchase api documentation}
+    #
+    # @param transaction_id [String] Transaction ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::InvoiceCollection] Returns the captured invoice
+    #
+    def create_capture_purchase(transaction_id:, **options)
+      path = interpolate_path("/purchases/{transaction_id}/capture", transaction_id: transaction_id)
+      post(path, **options)
+    end
+
+    # Cancel Purchase
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/cancelPurchase cancelPurchase api documentation}
+    #
+    # @param transaction_id [String] Transaction ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::InvoiceCollection] Returns the cancelled invoice
+    #
+    def cancelPurchase(transaction_id:, **options)
+      path = interpolate_path("/purchases/{transaction_id}/cancel/", transaction_id: transaction_id)
+      post(path, **options)
+    end
+
     # List the dates that have an available export to download.
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_export_dates get_export_dates api documentation}
