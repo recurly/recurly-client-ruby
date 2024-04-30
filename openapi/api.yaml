@@ -15470,6 +15470,132 @@ paths:
           validation: %v\", e)\n\t\treturn nil, err\n\t}\n\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Created ChargeInvoice
           with UUID: %s.\\n\", collection.ChargeInvoice.Uuid)\n"
+  "/purchases/authorize":
+    post:
+      tags:
+      - purchase
+      operationId: create_authorize_purchase
+      summary: Authorize a purchase
+      description: |-
+        A purchase is a hybrid checkout containing at least one or more subscriptions or one-time charges (adjustments) and supports both coupon and gift card redemptions. All items purchased will be on one invoice and paid for with one transaction. A purchase is only a request data type and is not persistent in Recurly and an invoice collection will be the returned type.
+
+        The authorize endpoint will create a pending purchase that can be activated at a later time once payment has been completed on an external source.
+
+        For additional information regarding shipping fees, please see https://docs.recurly.com/docs/shipping
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/PurchaseCreate"
+        required: true
+      responses:
+        '200':
+          description: Returns the authorize invoice
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InvoiceCollection"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: authorize purchase cannot be completed for the specified reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/purchases/{transaction_id}/capture":
+    post:
+      tags:
+      - purchase
+      parameters:
+      - "$ref": "#/components/parameters/transaction_id"
+      operationId: create_capture_purchase
+      summary: Capture a purchase
+      description: |-
+        A purchase is a hybrid checkout containing at least one or more
+        subscriptions or one-time charges (adjustments) and supports both coupon
+        and gift card redemptions. All items purchased will be on one invoice
+        and paid for with one transaction. A purchase is only a request data
+        type and is not persistent in Recurly and an invoice collection will be
+        the returned type.
+
+
+        Capture an open Authorization request
+      responses:
+        '200':
+          description: Returns the captured invoice
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InvoiceCollection"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Capture purchase cannot be completed for the specified reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/purchases/{transaction_id}/cancel/":
+    parameters:
+    - "$ref": "#/components/parameters/transaction_id"
+    post:
+      summary: Cancel Purchase
+      description: |
+        A purchase is a hybrid checkout containing at least one or more subscriptions or one-time charges (adjustments) and supports both coupon and gift card redemptions. All items purchased will be on one invoice and paid for with one transaction. A purchase is only a request data type and is not persistent in Recurly and an invoice collection will be the returned type.
+
+        Cancel an open Authorization request
+      tags:
+      - purchase
+      operationId: cancelPurchase
+      responses:
+        '200':
+          description: Returns the cancelled invoice
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InvoiceCollection"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Cancel purchase cannot be completed for the specified reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/export_dates":
     get:
       tags:
@@ -25178,8 +25304,6 @@ components:
         Optionally supplied string that may be either `net` or `eom` (end-of-month).
         When `net`, an invoice becomes past due the specified number of `Net Terms` days from the current date.
         When `eom` an invoice becomes past due the specified number of `Net Terms` days from the last day of the current month.
-
-        This field is only available when the EOM Net Terms feature is enabled.
       enum:
       - net
       - eom
