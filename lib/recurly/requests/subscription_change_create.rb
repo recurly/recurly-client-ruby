@@ -46,6 +46,10 @@ module Recurly
       #   @return [String] For manual invoicing, this identifies the PO number associated with the subscription.
       define_attribute :po_number, String
 
+      # @!attribute proration_settings
+      #   @return [ProrationSettings] Allows you to control how any resulting charges and credits will be calculated and prorated.
+      define_attribute :proration_settings, :ProrationSettings
+
       # @!attribute quantity
       #   @return [Integer] Optionally override the default quantity of 1.
       define_attribute :quantity, Integer
