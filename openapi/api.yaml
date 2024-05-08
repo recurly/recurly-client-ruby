@@ -21253,6 +21253,34 @@ components:
           description: |
             The percentage taken of the monetary amount of usage tracked.
             This can be up to 4 decimal places represented as a string.
+    ProrationSettings:
+      type: object
+      title: Proration Settings
+      description: Allows you to control how any resulting charges and credits will
+        be calculated and prorated.
+      properties:
+        charge:
+          "$ref": "#/components/schemas/ProrationSettingsChargeEnum"
+        credit:
+          "$ref": "#/components/schemas/ProrationSettingsCreditEnum"
+    ProrationSettingsChargeEnum:
+      type: string
+      title: Charge
+      description: Determines how the amount charged is determined for this change
+      default: prorated_amount
+      enum:
+      - full_amount
+      - prorated_amount
+      - none
+    ProrationSettingsCreditEnum:
+      type: string
+      title: Credit
+      description: Determines how the amount credited is determined for this change
+      default: prorated_amount
+      enum:
+      - full_amount
+      - prorated_amount
+      - none
     Settings:
       type: object
       properties:
@@ -22476,6 +22504,8 @@ components:
           description: The new set of ramp intervals for the subscription.
           items:
             "$ref": "#/components/schemas/SubscriptionRampInterval"
+        proration_settings:
+          "$ref": "#/components/schemas/ProrationSettings"
     SubscriptionChangeShippingCreate:
       type: object
       title: Shipping details that will be changed on a subscription
