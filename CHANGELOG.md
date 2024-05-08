@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.50.0](https://github.com/recurly/recurly-client-ruby/tree/4.50.0) (2024-05-08)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.49.0...4.50.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (Proration Settings) [#901](https://github.com/recurly/recurly-client-ruby/pull/901) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.49.0](https://github.com/recurly/recurly-client-ruby/tree/4.49.0) (2024-05-01)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.48.1...4.49.0)
