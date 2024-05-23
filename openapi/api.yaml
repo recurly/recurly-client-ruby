@@ -17474,6 +17474,11 @@ components:
           "$ref": "#/components/schemas/BillingInfoCreate"
         custom_fields:
           "$ref": "#/components/schemas/CustomFields"
+        entity_use_code:
+          type: string
+          description: The Avalara AvaTax value that can be passed to identify the
+            customer type for tax purposes. The range of values can be A - R (more
+            info at Avalara). Value is case-sensitive.
     AccountResponse:
       type: object
       properties:
@@ -17575,6 +17580,11 @@ components:
           "$ref": "#/components/schemas/BillingInfo"
         custom_fields:
           "$ref": "#/components/schemas/CustomFields"
+        entity_use_code:
+          type: string
+          description: The Avalara AvaTax value that can be passed to identify the
+            customer type for tax purposes. The range of values can be A - R (more
+            info at Avalara). Value is case-sensitive.
     AccountNote:
       type: object
       required:

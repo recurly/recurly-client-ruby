@@ -50,6 +50,10 @@ module Recurly
       #   @return [String] The email address used for communicating with this customer. The customer will also use this email address to log into your hosted account management pages. This value does not need to be unique.
       define_attribute :email, String
 
+      # @!attribute entity_use_code
+      #   @return [String] The Avalara AvaTax value that can be passed to identify the customer type for tax purposes. The range of values can be A - R (more info at Avalara). Value is case-sensitive.
+      define_attribute :entity_use_code, String
+
       # @!attribute exemption_certificate
       #   @return [String] The tax exemption certificate number for the account. If the merchant has an integration for the Vertex tax provider, this optional value will be sent in any tax calculation requests for the account.
       define_attribute :exemption_certificate, String
