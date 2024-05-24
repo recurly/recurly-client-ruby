@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.29.0](https://github.com/recurly/recurly-client-ruby/tree/3.29.0) (2024-05-24)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.28.0...3.29.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2019-10-10 [#903](https://github.com/recurly/recurly-client-ruby/pull/903) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [3.28.0](https://github.com/recurly/recurly-client-ruby/tree/3.28.0) (2023-05-23)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/3.27.0...3.28.0)
