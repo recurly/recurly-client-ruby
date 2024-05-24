@@ -885,7 +885,7 @@ paths:
           Alabama St.\"),\n\t\t\tCity:       recurly.String(\"San Francisco\"),\n\t\t\tPostalCode:
           recurly.String(\"94110\"),\n\t\t\tCountry:    recurly.String(\"US\"),\n\t\t\tRegion:
           \    recurly.String(\"CA\"),\n\t\t},\n\t\tNumber: recurly.String(\"4111111111111111\"),\n\t\tMonth:
-          \ recurly.String(\"12\"),\n\t\tYear:   recurly.String(\"22\"),\n\t\tCvv:
+          \ recurly.String(\"12\"),\n\t\tYear:   recurly.String(\"30\"),\n\t\tCvv:
           \   recurly.String(\"123\"),\n\t},\n}\n\naccount, err := client.CreateAccount(accountReq)\nif
           e, ok := err.(*recurly.Error); ok {\n\tif e.Type == recurly.ErrorTypeValidation
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
@@ -3195,6 +3195,7 @@ paths:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/account_id"
       - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/invoice_state"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
       - "$ref": "#/components/parameters/sort_dates"
@@ -7394,6 +7395,7 @@ paths:
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/invoice_state"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
       - "$ref": "#/components/parameters/sort_dates"
@@ -7888,8 +7890,6 @@ paths:
       summary: Apply available credit to a pending or past due charge invoice
       description: Apply credit payment to the outstanding balance on an existing
         charge invoice from an account’s available balance from existing credit invoices.
-        Credit that was refunded from the invoice cannot be applied back to the invoice
-        as payment.
       parameters:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
@@ -13059,6 +13059,7 @@ paths:
       - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/subscription_id"
       - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/invoice_state"
       - "$ref": "#/components/parameters/limit"
       - "$ref": "#/components/parameters/order"
       - "$ref": "#/components/parameters/sort_dates"
@@ -14724,6 +14725,18 @@ components:
       required: true
       schema:
         type: string
+    invoice_state:
+      name: state
+      in: query
+      description: Invoice state.
+      schema:
+        type: string
+        default: all
+        enum:
+        - pending
+        - past_due
+        - paid
+        - failed
     measured_unit_id:
       name: measured_unit_id
       in: path
@@ -15662,6 +15675,11 @@ components:
           "$ref": "#/components/schemas/BillingInfoCreate"
         custom_fields:
           "$ref": "#/components/schemas/CustomFields"
+        entity_use_code:
+          type: string
+          description: The Avalara AvaTax value that can be passed to identify the
+            customer type for tax purposes. The range of values can be A - R (more
+            info at Avalara). Value is case-sensitive.
     AccountResponse:
       type: object
       properties:
@@ -15781,6 +15799,11 @@ components:
           "$ref": "#/components/schemas/BillingInfo"
         custom_fields:
           "$ref": "#/components/schemas/CustomFields"
+        entity_use_code:
+          type: string
+          description: The Avalara AvaTax value that can be passed to identify the
+            customer type for tax purposes. The range of values can be A - R (more
+            info at Avalara). Value is case-sensitive.
     AccountNote:
       type: object
       required:
@@ -15932,6 +15955,11 @@ components:
           type: string
           title: Country
           description: Country, 2-letter ISO 3166-1 alpha-2 code.
+        geo_code:
+          type: string
+          maxLength: 20
+          description: Code that represents a geographic entity (location or object).
+            Only returned for Sling Vertex Integration
     AddOnMini:
       type: object
       title: Add-on mini details
@@ -16652,16 +16680,30 @@ components:
           properties:
             account_reference:
               type: string
-              description: Used by Adyen gateways. The Shopper Reference value used
-                when the external token was created. Must be used in conjunction with
-                gateway_token and gateway_code.
+              description: Used by Adyen and Braintree gateways. For Adyen The Shopper
+                Reference value used when the external token was created. Must be
+                used in conjunction with gateway_token and gateway_code. For Braintree
+                the PayPal PayerID is populated in the response.
               maxLength: 264
+        card_network_preference:
+          type: string
+          description: Represents the card network preference associated with the
+            billing info for dual badged cards. Must be a supported card network.
+          enum:
+          - Bancontact
+          - CartesBancaires
+          - Dankort
+          - MasterCard
+          - Visa
         amazon_billing_agreement_id:
           type: string
           title: Amazon billing agreement ID
         paypal_billing_agreement_id:
           type: string
           title: PayPal billing agreement ID
+        roku_billing_agreement_id:
+          type: string
+          title: Roku's CIB if billing through Roku
         fraud_session_id:
           type: string
           title: Fraud Session ID
@@ -19734,6 +19776,11 @@ components:
           type: string
           maxLength: 50
           description: Country, 2-letter ISO 3166-1 alpha-2 code.
+        geo_code:
+          type: string
+          maxLength: 20
+          description: Code that represents a geographic entity (location or object).
+            Only returned for Sling Vertex Integration
         created_at:
           type: string
           title: Created at
@@ -19789,6 +19836,11 @@ components:
           type: string
           maxLength: 50
           description: Country, 2-letter ISO 3166-1 alpha-2 code.
+        geo_code:
+          type: string
+          maxLength: 20
+          description: Code that represents a geographic entity (location or object).
+            Only returned for Sling Vertex Integration
       required:
       - first_name
       - last_name
@@ -20039,6 +20091,11 @@ components:
           type: string
           maxLength: 50
           description: Country, 2-letter ISO 3166-1 alpha-2 code.
+        geo_code:
+          type: string
+          maxLength: 20
+          description: Code that represents a geographic entity (location or object).
+            Only returned for Sling Vertex Integration
     Site:
       type: object
       properties:
@@ -21334,6 +21391,14 @@ components:
         remaining_billing_cycles:
           type: integer
           description: Represents how many billing cycles are left in a ramp interval.
+        starting_on:
+          type: string
+          format: date-time
+          title: Date the ramp interval starts
+        ending_on:
+          type: string
+          format: date-time
+          title: Date the ramp interval ends
         unit_amount:
           type: integer
           description: Represents the price for the ramp interval.
@@ -22275,9 +22340,20 @@ components:
           properties:
             account_reference:
               type: string
-              description: Used by Adyen gateways. The Shopper Reference value used
-                when the external token was created.
+              description: Used by Adyen and Braintree gateways. For Adyen the Shopper
+                Reference value used when the external token was created. For Braintree
+                the PayPal PayerID is populated in the response.
               maxLength: 264
+        card_network_preference:
+          type: string
+          description: Represents the card network preference associated with the
+            billing info for dual badged cards. Must be a supported card network.
+          enum:
+          - Bancontact
+          - CartesBancaires
+          - Dankort
+          - MasterCard
+          - Visa
         billing_agreement_id:
           type: string
           description: Billing Agreement identifier. Only present for Amazon or Paypal
