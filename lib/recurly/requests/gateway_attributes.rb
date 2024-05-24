@@ -7,7 +7,7 @@ module Recurly
     class GatewayAttributes < Request
 
       # @!attribute account_reference
-      #   @return [String] Used by Adyen gateways. The Shopper Reference value used when the external token was created. Must be used in conjunction with gateway_token and gateway_code.
+      #   @return [String] Used by Adyen and Braintree gateways. For Adyen The Shopper Reference value used when the external token was created. Must be used in conjunction with gateway_token and gateway_code. For Braintree the PayPal PayerID is populated in the response.
       define_attribute :account_reference, String
     end
   end

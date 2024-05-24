@@ -26,6 +26,10 @@ module Recurly
       #   @return [Boolean] The `backup_payment_method` field is used to designate a billing info as a backup on the account that will be tried if the initial billing info used for an invoice is declined. All payment methods, including the billing info marked `primary_payment_method` can be set as a backup. An account can have a maximum of 1 backup, if a user sets a different payment method as a backup, the existing backup will no longer be marked as such.
       define_attribute :backup_payment_method, :Boolean
 
+      # @!attribute card_network_preference
+      #   @return [String] Represents the card network preference associated with the billing info for dual badged cards. Must be a supported card network.
+      define_attribute :card_network_preference, String
+
       # @!attribute company
       #   @return [String] Company name
       define_attribute :company, String
@@ -89,6 +93,10 @@ module Recurly
       # @!attribute primary_payment_method
       #   @return [Boolean] The `primary_payment_method` field is used to designate the primary billing info on the account. The first billing info created on an account will always become primary. Adding additional billing infos provides the flexibility to mark another billing info as primary, or adding additional non-primary billing infos. This can be accomplished by passing the `primary_payment_method` with a value of `true`. When adding billing infos via the billing_info and /accounts endpoints, this value is not permitted, and will return an error if provided.
       define_attribute :primary_payment_method, :Boolean
+
+      # @!attribute roku_billing_agreement_id
+      #   @return [String] Roku's CIB if billing through Roku
+      define_attribute :roku_billing_agreement_id, String
 
       # @!attribute routing_number
       #   @return [String] The bank's rounting number. (ACH only)
