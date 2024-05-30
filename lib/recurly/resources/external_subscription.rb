@@ -63,7 +63,7 @@ module Recurly
       define_attribute :quantity, Integer
 
       # @!attribute state
-      #   @return [String] External subscriptions can be active, canceled, expired, or past_due.
+      #   @return [String] External subscriptions can be active, canceled, expired, past_due, voided, revoked, or paused.
       define_attribute :state, String
 
       # @!attribute test
