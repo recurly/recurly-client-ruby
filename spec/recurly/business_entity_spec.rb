@@ -40,6 +40,8 @@ describe BusinessEntity do
         country: "Australia",
         zip: "2060"
       }),
+      origin_tax_address_source: 'origin',
+      destination_tax_address_source: 'desination',
       subscriber_location_countries: ['US', 'AU'],
       default_vat_number: '12345',
       default_registration_number: '12345',
@@ -74,6 +76,8 @@ describe BusinessEntity do
       business_entity.code.must_equal('default')
       business_entity.default_liability_gl_account_id.must_equal('12345')
       business_entity.default_revenue_gl_account_id.must_equal('56789')
+      business_entity.origin_tax_address_source.must_equal('origin')
+      business_entity.destination_tax_address_source.must_equal('destination')
     end
   end
 

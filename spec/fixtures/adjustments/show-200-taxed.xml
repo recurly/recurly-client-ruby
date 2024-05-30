@@ -18,6 +18,8 @@ Content-Type: application/xml; charset=utf-8
   <tax_in_cents type="integer">0</tax_in_cents>
   <total_in_cents type="integer">1200</total_in_cents>
   <currency>USD</currency>
+  <origin_tax_address_source>origin</origin_tax_address_source>
+  <destination_tax_address_source>destination</destination_tax_address_source>
   <tax_exempt type="boolean">false</tax_exempt>
   <product_code>basic</product_code>
   <!-- Vertex -->

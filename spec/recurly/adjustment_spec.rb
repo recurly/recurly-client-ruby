@@ -63,6 +63,8 @@ describe Adjustment do
 
       adjustment = Adjustment.find 'abcdef1234567890'
       adjustment.tax_exempt?.must_equal false
+      adjustment.origin_tax_address_source.must_equal('origin')
+      adjustment.destination_tax_address_source.must_equal('destination')
     end
 
     it 'must parse the vertex details if available' do
@@ -252,6 +254,46 @@ XML
       charge.liability_gl_account_code.must_equal 'liability_gla'
       charge.revenue_gl_account_code.must_equal 'revenue_gla'
       charge.performance_obligation_id.must_equal '5'
+    end
+  end
+
+  describe 'with taxable address sources #POST /accounts/{account_code}/adjustments' do
+    let(:adjustment_body) do
+      {
+        unit_amount_in_cents:           5000,
+        currency:                       'USD',
+        quantity:                       1,
+        accounting_code:                'bandwidth',
+        tax_exempt:                     false,
+        origin_tax_address_source:      'origin',
+        destination_tax_address_source: 'destination'
+      }
+    end
+    let(:adjustment) { Adjustment.new(adjustment_body) }
+
+    it 'must serialize' do
+      adjustment.to_xml.must_equal <<XML.chomp
+<adjustment>\
+<accounting_code>bandwidth</accounting_code>\
+<currency>USD</currency>\
+<destination_tax_address_source>destination</destination_tax_address_source>\
+<origin_tax_address_source>origin</origin_tax_address_source>\
+<quantity>1</quantity>\
+<tax_exempt>false</tax_exempt>\
+<unit_amount_in_cents>5000</unit_amount_in_cents>\
+</adjustment>
+XML
+    end
+
+    it 'it creates an adjustment with taxable address details on the account specified' do
+      stub_api_request :get, 'accounts/abcdef1234567890', 'accounts/show-200'
+      stub_api_request :post, 'accounts/abcdef1234567890/adjustments', 'adjustments/create-201-with-taxable-address-sources'
+
+      account = Account.find('abcdef1234567890')
+
+      charge = account.adjustments.create(adjustment_body)
+      charge.origin_tax_address_source.must_equal 'origin'
+      charge.destination_tax_address_source.must_equal 'destination'
     end
   end
 end

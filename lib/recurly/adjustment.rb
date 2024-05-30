@@ -55,6 +55,8 @@ module Recurly
       tax_type
       tax_region
       tax_rate
+      origin_tax_address_source
+      destination_tax_address_source
       tax_exempt
       tax_inclusive
       tax_code

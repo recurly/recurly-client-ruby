@@ -13,6 +13,8 @@ module Recurly
       name
       invoice_display_address
       tax_address
+      origin_tax_address_source
+      destination_tax_address_source
       subscriber_location_countries
       default_vat_number
       default_registration_number

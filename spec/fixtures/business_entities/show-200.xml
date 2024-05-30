@@ -24,6 +24,8 @@ Content-Type: application/xml; charset=utf-8
     <country>US</country>
     <phone nil="nil"></phone>
   </tax_address>
+  <origin_tax_address_source>origin</origin_tax_address_source>
+  <destination_tax_address_source>destination</destination_tax_address_source>
   <default_vat_number nil="nil"></default_vat_number>
   <default_registration_number nil="nil"></default_registration_number>
   <default_liability_gl_account_id>12345</default_liability_gl_account_id>
