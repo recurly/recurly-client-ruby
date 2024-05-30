@@ -19877,6 +19877,11 @@ components:
           maximum: 999
         address:
           "$ref": "#/components/schemas/InvoiceAddress"
+        gateway_code:
+          type: string
+          description: An alphanumeric code shown per gateway on your site's payment
+            gateways page. Set this code to ensure that a given invoice targets a
+            given gateway.
     InvoiceMini:
       type: object
       title: Invoice mini details
@@ -24309,8 +24314,8 @@ components:
           minimum: 0
         state:
           type: string
-          description: External subscriptions can be active, canceled, expired, or
-            past_due.
+          description: External subscriptions can be active, canceled, expired, past_due,
+            voided, revoked, or paused.
           default: active
         activated_at:
           type: string
@@ -25626,6 +25631,7 @@ components:
       - wire_transfer
       - braintree_v_zero
       - boleto
+      - cash_app
     CardTypeEnum:
       type: string
       enum:

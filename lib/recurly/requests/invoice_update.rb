@@ -14,6 +14,10 @@ module Recurly
       #   @return [String] Customer notes are an optional note field.
       define_attribute :customer_notes, String
 
+      # @!attribute gateway_code
+      #   @return [String] An alphanumeric code shown per gateway on your site's payment gateways page. Set this code to ensure that a given invoice targets a given gateway.
+      define_attribute :gateway_code, String
+
       # @!attribute net_terms
       #   @return [Integer] Integer representing the number of days after an invoice's creation that the invoice will become past due. Changing Net terms changes due_on, and the invoice could move between past due and pending.
       define_attribute :net_terms, Integer
