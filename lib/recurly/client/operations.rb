@@ -1806,7 +1806,7 @@ module Recurly
     # @param custom_field_definition_id [String] Custom Field Definition ID
     # @param params [Hash] Optional query string parameters:
     #
-    # @return [Resources::CustomFieldDefinition] An custom field definition.
+    # @return [Resources::CustomFieldDefinition] A custom field definition.
     # @example
     #   begin
     #     custom_field_definition = @client.get_custom_field_definition(
@@ -1822,6 +1822,108 @@ module Recurly
     def get_custom_field_definition(custom_field_definition_id:, **options)
       path = interpolate_path("/custom_field_definitions/{custom_field_definition_id}", custom_field_definition_id: custom_field_definition_id)
       get(path, **options)
+    end
+
+    # Create a new general ledger account
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_general_ledger_account create_general_ledger_account api documentation}
+    #
+    # @param body [Requests::GeneralLedgerAccountCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::GeneralLedgerAccountCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::GeneralLedgerAccount] A new general ledger account.
+    #
+    def create_general_ledger_account(body:, **options)
+      path = "/general_ledger_accounts"
+      post(path, body, Requests::GeneralLedgerAccountCreate, **options)
+    end
+
+    # List a site's general ledger accounts
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_general_ledger_accounts list_general_ledger_accounts api documentation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #        :ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    #        :limit [Integer] Limit number of records 1-200.
+    #        :order [String] Sort order.
+    #        :sort [String] Sort field. You *really* only want to sort by +updated_at+ in ascending
+    #   order. In descending order updated records will move behind the cursor and could
+    #   prevent some records from being returned.
+    #
+    #        :account_type [String] General Ledger Account type by which to filter the response.
+    #
+    # @return [Pager<Resources::GeneralLedgerAccount>] A list of the site's general ledger accounts.
+    #
+    def list_general_ledger_accounts(**options)
+      path = "/general_ledger_accounts"
+      pager(path, **options)
+    end
+
+    # Fetch a general ledger account
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_general_ledger_account get_general_ledger_account api documentation}
+    #
+    # @param general_ledger_account_id [String] General Ledger Account ID
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::GeneralLedgerAccount] A general ledger account.
+    #
+    def get_general_ledger_account(general_ledger_account_id:, **options)
+      path = interpolate_path("/general_ledger_accounts/{general_ledger_account_id}", general_ledger_account_id: general_ledger_account_id)
+      get(path, **options)
+    end
+
+    # Update a general ledger account
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/update_general_ledger_account update_general_ledger_account api documentation}
+    #
+    # @param general_ledger_account_id [String] General Ledger Account ID
+    # @param body [Requests::GeneralLedgerAccountUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::GeneralLedgerAccountUpdate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::GeneralLedgerAccount] The updated general ledger account.
+    #
+    def update_general_ledger_account(general_ledger_account_id:, body:, **options)
+      path = interpolate_path("/general_ledger_accounts/{general_ledger_account_id}", general_ledger_account_id: general_ledger_account_id)
+      put(path, body, Requests::GeneralLedgerAccountUpdate, **options)
+    end
+
+    # Get a single Performance Obligation.
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_performance_obligation get_performance_obligation api documentation}
+    #
+    # @param performance_obligation_id [String] Performance Obligation id.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::PerformanceObligation] A single Performance Obligation.
+    #
+    def get_performance_obligation(performance_obligation_id:, **options)
+      path = interpolate_path("/performance_obligations/{performance_obligation_id}", performance_obligation_id: performance_obligation_id)
+      get(path, **options)
+    end
+
+    # Get a site's Performance Obligations
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_performance_obligations get_performance_obligations api documentation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Pager<Resources::PerformanceObligation>] A list of Performance Obligations.
+    #
+    def get_performance_obligations(**options)
+      path = "/performance_obligations"
+      pager(path, **options)
     end
 
     # List an invoice template's associated accounts
@@ -2301,7 +2403,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription get_external_subscription api documentation}
     #
-    # @param external_subscription_id [String] External subscription id
+    # @param external_subscription_id [String] External subscription ID or external_id. For ID no prefix is used e.g. +e28zov4fw0v2+. For external_id use prefix +external-id-+, e.g. +external-id-123456+.
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::ExternalSubscription] Settings for an external subscription.
@@ -4498,7 +4600,7 @@ module Recurly
       pager(path, **options)
     end
 
-    # Fetch an external payment_phase
+    # Fetch an external payment phase
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription_external_payment_phase get_external_subscription_external_payment_phase api documentation}
     #
@@ -4506,7 +4608,7 @@ module Recurly
     # @param external_payment_phase_id [String] External payment phase ID, e.g. +a34ypb2ef9w1+.
     # @param params [Hash] Optional query string parameters:
     #
-    # @return [Resources::ExternalPaymentPhase] Details for an external payment_phase.
+    # @return [Resources::ExternalPaymentPhase] Details for an external payment phase.
     #
     def get_external_subscription_external_payment_phase(external_subscription_id:, external_payment_phase_id:, **options)
       path = interpolate_path("/external_subscriptions/{external_subscription_id}/external_payment_phases/{external_payment_phase_id}", external_subscription_id: external_subscription_id, external_payment_phase_id: external_payment_phase_id)

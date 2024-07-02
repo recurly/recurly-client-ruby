@@ -26,10 +26,6 @@ module Recurly
       #   @return [DateTime] Ends At
       define_attribute :ends_at, DateTime
 
-      # @!attribute external_subscription
-      #   @return [ExternalSubscription] Subscription from an external resource such as Apple App Store or Google Play Store.
-      define_attribute :external_subscription, :ExternalSubscription
-
       # @!attribute id
       #   @return [String] System-generated unique identifier for an external payment phase ID, e.g. `e28zov4fw0v2`.
       define_attribute :id, String

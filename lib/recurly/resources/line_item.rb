@@ -62,6 +62,10 @@ module Recurly
       #   @return [String] Description that appears on the invoice. For subscription related items this will be filled in automatically.
       define_attribute :description, String
 
+      # @!attribute destination_tax_address_source
+      #   @return [String] The source of the address that will be used as the destinaion in determining taxes. Available only when the site is on an Elite plan. A value of "destination" refers to the "Customer tax address". A value of "origin" refers to the "Business entity tax address".
+      define_attribute :destination_tax_address_source, String
+
       # @!attribute discount
       #   @return [Float] The discount applied to the line item.
       define_attribute :discount, Float
@@ -98,6 +102,10 @@ module Recurly
       #   @return [String] Category to describe the role of a line item on a legacy invoice: - "charges" refers to charges being billed for on this invoice. - "credits" refers to refund or proration credits. This portion of the invoice can be considered a credit memo. - "applied_credits" refers to previous credits applied to this invoice. See their original_line_item_id to determine where the credit first originated. - "carryforwards" can be ignored. They exist to consume any remaining credit balance. A new credit with the same amount will be created and placed back on the account.
       define_attribute :legacy_category, String
 
+      # @!attribute liability_gl_account_code
+      #   @return [String] Unique code to identify the ledger account. Each code must start with a letter or number. The following special characters are allowed: `-_.,:`
+      define_attribute :liability_gl_account_code, String
+
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
@@ -106,9 +114,17 @@ module Recurly
       #   @return [String] A credit created from an original charge will have the value of the charge's origin.
       define_attribute :origin, String
 
+      # @!attribute origin_tax_address_source
+      #   @return [String] The source of the address that will be used as the origin in determining taxes. Available only when the site is on an Elite plan. A value of "origin" refers to the "Business entity tax address". A value of "destination" refers to the "Customer tax address".
+      define_attribute :origin_tax_address_source, String
+
       # @!attribute original_line_item_invoice_id
       #   @return [String] The invoice where the credit originated. Will only have a value if the line item is a credit created from a previous credit, or if the credit was created from a charge refund.
       define_attribute :original_line_item_invoice_id, String
+
+      # @!attribute performance_obligation_id
+      #   @return [String] The ID of a performance obligation. Performance obligations are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :performance_obligation_id, String
 
       # @!attribute plan_code
       #   @return [String] If the line item is a charge or credit for a plan or add-on, this is the plan's code.
@@ -149,6 +165,10 @@ module Recurly
       # @!attribute refunded_quantity_decimal
       #   @return [String] A floating-point alternative to Refunded Quantity. For refund charges, the quantity being refunded. For non-refund charges, the total quantity refunded (possibly over multiple refunds). The Decimal Quantity feature must be enabled to utilize this field.
       define_attribute :refunded_quantity_decimal, String
+
+      # @!attribute revenue_gl_account_code
+      #   @return [String] Unique code to identify the ledger account. Each code must start with a letter or number. The following special characters are allowed: `-_.,:`
+      define_attribute :revenue_gl_account_code, String
 
       # @!attribute revenue_schedule_type
       #   @return [String] Revenue schedule type

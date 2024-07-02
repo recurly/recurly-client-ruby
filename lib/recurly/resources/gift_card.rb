@@ -38,9 +38,17 @@ module Recurly
       #   @return [String] Gift card ID
       define_attribute :id, String
 
+      # @!attribute liability_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :liability_gl_account_id, String
+
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+
+      # @!attribute performance_obligation_id
+      #   @return [String] The ID of a performance obligation. Performance obligations are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :performance_obligation_id, String
 
       # @!attribute product_code
       #   @return [String] The product code or SKU of the gift card product.
@@ -65,6 +73,10 @@ module Recurly
       # @!attribute redemption_invoice_id
       #   @return [String] The ID of the invoice for the gift card redemption made by the recipient.  Does not have a value until gift card is redeemed.
       define_attribute :redemption_invoice_id, String
+
+      # @!attribute revenue_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :revenue_gl_account_id, String
 
       # @!attribute unit_amount
       #   @return [Float] The amount of the gift card, which is the amount of the charge to the gifter account and the amount of credit that is applied to the recipient account upon successful redemption.

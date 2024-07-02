@@ -38,9 +38,21 @@ module Recurly
       #   @return [String] Optional, stock keeping unit to link the item to other inventory systems.
       define_attribute :external_sku, String
 
+      # @!attribute liability_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :liability_gl_account_id, String
+
       # @!attribute name
       #   @return [String] This name describes your item and will appear on the invoice when it's purchased on a one time basis.
       define_attribute :name, String
+
+      # @!attribute performance_obligation_id
+      #   @return [String] The ID of a performance obligation. Performance obligations are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :performance_obligation_id, String
+
+      # @!attribute revenue_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :revenue_gl_account_id, String
 
       # @!attribute revenue_schedule_type
       #   @return [String] Revenue schedule type

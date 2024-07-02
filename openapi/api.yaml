@@ -230,6 +230,8 @@ x-tagGroups:
   - shipping_method
   - dunning_campaigns
   - business_entities
+  - general_ledger_account
+  - performance_obligations
 tags:
 - name: site
   x-displayName: Site
@@ -242,7 +244,7 @@ tags:
   description: |-
     For merchants who sell the same things to many customers, documenting those offerings in a catalog allows for faster charge creation, easier management of offerings, and analytics about your offerings across all sales channels. Because your offerings can be physical, digital, or service-oriented, Recurly collectively calls these offerings "Items".
 
-    Recurly's item catalog requires the Credit Invoices features to be enabled.
+    Recurly's item catalog requires the Credit Invoices feature to be enabled.
 - name: plan
   x-displayName: Plan
   description: A plan tells Recurly how often and how much to charge your customers.
@@ -385,6 +387,55 @@ tags:
   x-displayName: Business Entities
   description: Describes the business address that will be used for invoices and taxes
     depending on settings and subscriber location.
+- name: general_ledger_account
+  x-displayName: General Ledger Account
+  description: |
+    A general ledger account is an account of record used to sort, store
+    and summarize a company's transactions. Recurly supports the balance
+    sheet (Liability) account and income (Revenue) account to be attached
+    to business entities, plans, or at the item level.
+
+    When invoices are created, system can default to the accounts based
+    on the GL Accounts attached at the plan/item level. The accounts can
+    be defaulted from the business entity level as well.
+
+    These accounts will be used in the Revenue Recognition module to create
+    the revenue journals that can be posted into Merchant GL system.
+
+    Revenue and Liability accounts can defined in the system using this
+    API or via the General Ledger Accounting page in the Admin UI and then
+    used at the plan/item level.
+
+    Recurly allows merchants to default the accounts at the following levels:
+    - Business Entities (default)
+    - Plans
+        - Base Price
+        - Setup Fee
+        - Add-ons
+    - Items
+    - Charges
+    - Gift Cards
+    - Shipping Methods
+    - Credits
+
+    If you are interested in Recurly Revenue Recognition features, please
+    contact a Recurly customer service representative.
+- name: performance_obligations
+  x-displayName: Performance Obligations
+  description: |
+    A performance obligation is a promise to provide a distinct good or
+    service or a series of distinct goods or services as defined by the revenue standard.
+    Performance obligations are completed and revenue is recognized either at a point in
+    time or over a period of time, depending on the type of obligation.
+    - Point in time  a company has to go through the criteria and determine if a performance
+    obligation is satisfied over time. If it does not meet those criteria, then the performance
+    obligation is satisfied and revenue recognized at the point in time when control of the good
+    or service is transferred to the customer.
+    - Over a period of time  a performance obligation is satisfied and revenue is recognized over
+    time if at least one of the following are met:
+      - The customer receives and consumes the benefits of the goods or services as they are provided
+      by the entity (routine, recurring services like a cleaning service are an example of a series of
+      services that are substantially the same and have the same pattern of transfer)
 paths:
   "/sites":
     get:
@@ -6566,7 +6617,7 @@ paths:
       - "$ref": "#/components/parameters/custom_field_definition_id"
       responses:
         '200':
-          description: An custom field definition.
+          description: A custom field definition.
           content:
             application/json:
               schema:
@@ -6672,6 +6723,150 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Fetched Custom
           Field Definition: %s\", definition.Id)"
+  "/general_ledger_accounts":
+    post:
+      tags:
+      - general_ledger_account
+      operationId: create_general_ledger_account
+      summary: Create a new general ledger account
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/GeneralLedgerAccountCreate"
+        required: true
+      responses:
+        '201':
+          description: A new general ledger account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GeneralLedgerAccount"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    get:
+      tags:
+      - general_ledger_account
+      operationId: list_general_ledger_accounts
+      summary: List a site's general ledger accounts
+      description: See the [Pagination Guide](/developers/guides/pagination.html)
+        to learn how to use pagination in the API and Client Libraries.
+      parameters:
+      - "$ref": "#/components/parameters/ids"
+      - "$ref": "#/components/parameters/limit"
+      - "$ref": "#/components/parameters/order"
+      - "$ref": "#/components/parameters/sort_dates"
+      - "$ref": "#/components/parameters/general_ledger_account_type_enum"
+      responses:
+        '200':
+          description: A list of the site's general ledger accounts.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GeneralLedgerAccountList"
+        '404':
+          description: Incorrect site ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/general_ledger_accounts/{general_ledger_account_id}":
+    get:
+      tags:
+      - general_ledger_account
+      operationId: get_general_ledger_account
+      summary: Fetch a general ledger account
+      parameters:
+      - "$ref": "#/components/parameters/general_ledger_account_id"
+      responses:
+        '200':
+          description: A general ledger account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GeneralLedgerAccount"
+        '404':
+          description: Incorrect site or general ledger account ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    put:
+      tags:
+      - general_ledger_account
+      operationId: update_general_ledger_account
+      summary: Update a general ledger account
+      parameters:
+      - "$ref": "#/components/parameters/general_ledger_account_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/GeneralLedgerAccountUpdate"
+        required: true
+      responses:
+        '200':
+          description: The updated general ledger account.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/GeneralLedgerAccount"
+        '404':
+          description: Incorrect site or general ledger account ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/performance_obligations/{performance_obligation_id}":
+    get:
+      tags:
+      - performance_obligations
+      operationId: get_performance_obligation
+      summary: Get a single Performance Obligation.
+      parameters:
+      - "$ref": "#/components/parameters/performance_obligation_id"
+      responses:
+        '200':
+          description: A single Performance Obligation.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PerformanceObligation"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/performance_obligations":
+    get:
+      tags:
+      - performance_obligations
+      operationId: get_performance_obligations
+      summary: Get a site's Performance Obligations
+      responses:
+        '200':
+          description: A list of Performance Obligations.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/PerformanceObligationList"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/invoice_templates/{invoice_template_id}/accounts":
     get:
       tags:
@@ -8034,7 +8229,7 @@ paths:
       x-code-samples: []
   "/external_subscriptions/{external_subscription_id}":
     parameters:
-    - "$ref": "#/components/parameters/external_subscription_id"
+    - "$ref": "#/components/parameters/external_subscription_id_fetch"
     get:
       tags:
       - external_subscriptions
@@ -16093,10 +16288,10 @@ paths:
       tags:
       - external_payment_phases
       operationId: get_external_subscription_external_payment_phase
-      summary: Fetch an external payment_phase
+      summary: Fetch an external payment phase
       responses:
         '200':
-          description: Details for an external payment_phase.
+          description: Details for an external payment phase.
           content:
             application/json:
               schema:
@@ -16545,6 +16740,14 @@ components:
       required: true
       schema:
         type: string
+    external_subscription_id_fetch:
+      name: external_subscription_id
+      in: path
+      description: External subscription ID or external_id. For ID no prefix is used
+        e.g. `e28zov4fw0v2`. For external_id use prefix `external-id-`, e.g. `external-id-123456`.
+      required: true
+      schema:
+        type: string
     external_subscription_id:
       name: external_subscription_id
       in: path
@@ -16559,6 +16762,25 @@ components:
       required: true
       schema:
         type: string
+    general_ledger_account_id:
+      name: general_ledger_account_id
+      in: path
+      description: General Ledger Account ID
+      required: true
+      schema:
+        type: string
+        title: General Ledger Account ID
+        description: |
+          The ID of a general ledger account. General ledger accounts are
+          only accessible as a part of the Recurly RevRec Standard and
+          Recurly RevRec Advanced features.
+        maxLength: 13
+    general_ledger_account_type_enum:
+      name: account_type
+      in: query
+      description: General Ledger Account type by which to filter the response.
+      schema:
+        "$ref": "#/components/schemas/GeneralLedgerAccountTypeEnum"
     invoice_template_id:
       name: invoice_template_id
       in: path
@@ -16604,6 +16826,19 @@ components:
       required: true
       schema:
         type: string
+    performance_obligation_id:
+      name: performance_obligation_id
+      in: path
+      description: Performance Obligation id.
+      required: true
+      schema:
+        type: string
+        title: Performance Obligation ID
+        description: |
+          The ID of a performance obligation. Performance obligations are
+          only accessible as a part of the Recurly RevRec Standard and
+          Recurly RevRec Advanced features.
+        maxLength: 13
     plan_id:
       name: plan_id
       in: path
@@ -17858,6 +18093,30 @@ components:
           description: System-generated unique identifier for an measured unit associated
             with the add-on.
           maxLength: 13
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         accounting_code:
           type: string
           title: Accounting code
@@ -17972,7 +18231,7 @@ components:
           type: string
           title: Item Code
           description: Unique code to identify an item. Available when the `Credit
-            Invoices` feature are enabled. If `item_id` and `item_code` are both present,
+            Invoices` feature is enabled. If `item_id` and `item_code` are both present,
             `item_id` will be used.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 50
@@ -18031,6 +18290,30 @@ components:
           title: Plan ID
           maxLength: 13
           readOnly: true
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         accounting_code:
           type: string
           title: Accounting code
@@ -18100,7 +18383,7 @@ components:
           minItems: 1
           description: |
             * If `item_code`/`item_id` is part of the request and the item
-            has a default currency then `currencies` is optional. If the item does
+            has a default currency, then `currencies` is optional. If the item does
             not have a default currency, then `currencies` is required. If `item_code`/`item_id`
             is not present `currencies` is required.
             * If the add-on's `tier_type` is `tiered`, `volume`, or `stairstep`,
@@ -18189,6 +18472,30 @@ components:
             to the `AddOn` then `accounting code` must be absent.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 20
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         revenue_schedule_type:
           title: Revenue schedule type
           description: When this add-on is invoiced, the line item will use this revenue
@@ -18271,7 +18578,7 @@ components:
             `percentage_tiers` is an array of objects, which must have the set of tiers
             per currency and the currency code. The tier_type must be `volume` or `tiered`,
             if not, it must be absent. There must be one tier without an `ending_amount` value
-            which represents the final tier.  This feature is currently in development and
+            which represents the final tier. This feature is currently in development and
             requires approval and enablement, please contact support.
     BillingInfo:
       type: object
@@ -19210,6 +19517,171 @@ components:
             are removed from the accouts or subscriptions, will be hard deleted an
             no longer visible.
           readOnly: true
+    GeneralLedgerAccountId:
+      type: string
+      title: General Ledger Account ID
+      description: |
+        The ID of a general ledger account. General ledger accounts are
+        only accessible as a part of the Recurly RevRec Standard and
+        Recurly RevRec Advanced features.
+      maxLength: 13
+    GeneralLedgerAccountCode:
+      type: string
+      title: Accounting code for the ledger account.
+      description: |
+        Unique code to identify the ledger account. Each code must start
+        with a letter or number. The following special characters are
+        allowed: `-_.,:`
+      pattern: "/^[A-Za-z0-9](( *)?[\\-A-Za-z0-9_.,:])*$/"
+      maxLength: 255
+    GeneralLedgerAccountDescription:
+      type: string
+      title: Description
+      description: Optional description.
+      maxLength: 255
+    GeneralLedgerAccount:
+      type: object
+      description: Full general ledger account details.
+      properties:
+        id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        object:
+          type: string
+          title: Object type
+          default: general_ledger_account
+          readOnly: true
+        code:
+          type: string
+          title: Accounting code for the ledger account.
+          description: |
+            Unique code to identify the ledger account. Each code must start
+            with a letter or number. The following special characters are
+            allowed: `-_.,:`
+          pattern: "/^[A-Za-z0-9](( *)?[\\-A-Za-z0-9_.,:])*$/"
+          maxLength: 255
+        description:
+          type: string
+          title: Description
+          description: Optional description.
+          maxLength: 255
+        account_type:
+          "$ref": "#/components/schemas/GeneralLedgerAccountTypeEnum"
+        created_at:
+          type: string
+          format: date-time
+          title: Created at
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          title: Last updated at
+          readOnly: true
+    GeneralLedgerAccountList:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be List.
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/GeneralLedgerAccount"
+    GeneralLedgerAccountCreate:
+      type: object
+      description: Create a new liability or revenue general ledger account.
+      properties:
+        code:
+          type: string
+          title: Accounting code for the ledger account.
+          description: |
+            Unique code to identify the ledger account. Each code must start
+            with a letter or number. The following special characters are
+            allowed: `-_.,:`
+          pattern: "/^[A-Za-z0-9](( *)?[\\-A-Za-z0-9_.,:])*$/"
+          maxLength: 255
+        description:
+          type: string
+          title: Description
+          description: Optional description.
+          maxLength: 255
+        account_type:
+          "$ref": "#/components/schemas/GeneralLedgerAccountTypeEnum"
+    GeneralLedgerAccountUpdate:
+      type: object
+      description: Update an existing general ledger account.
+      properties:
+        code:
+          type: string
+          title: Accounting code for the ledger account.
+          description: |
+            Unique code to identify the ledger account. Each code must start
+            with a letter or number. The following special characters are
+            allowed: `-_.,:`
+          pattern: "/^[A-Za-z0-9](( *)?[\\-A-Za-z0-9_.,:])*$/"
+          maxLength: 255
+        description:
+          type: string
+          title: Description
+          description: Optional description.
+          maxLength: 255
+    PerformanceObligationId:
+      type: string
+      title: Performance Obligation ID
+      description: |
+        The ID of a performance obligation. Performance obligations are
+        only accessible as a part of the Recurly RevRec Standard and
+        Recurly RevRec Advanced features.
+      maxLength: 13
+    PerformanceObligation:
+      type: object
+      description: Performance obligation details
+      properties:
+        id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        name:
+          title: Performance Obligation Name
+          type: string
+        created_at:
+          title: Created At
+          type: string
+          readOnly: true
+          format: date-time
+        updated_at:
+          title: Last updated at
+          type: string
+          readOnly: true
+          format: date-time
+    PerformanceObligationList:
+      type: object
+      description: List of Performance Obligations
+      properties:
+        object:
+          title: Object type
+          type: string
+        data:
+          title: Performance Obligation
+          type: array
+          items:
+            "$ref": "#/components/schemas/PerformanceObligation"
     ItemMini:
       type: object
       title: Item mini details
@@ -19294,6 +19766,30 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         avalara_transaction_type:
           type: integer
           title: Avalara Transaction Type
@@ -19378,6 +19874,30 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         avalara_transaction_type:
           type: integer
           title: Avalara Transaction Type
@@ -19450,6 +19970,30 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         avalara_transaction_type:
           type: integer
           title: Avalara Transaction Type
@@ -20269,6 +20813,32 @@ components:
           format: float
           title: Discount
           description: The discount applied to the line item.
+        liability_gl_account_code:
+          type: string
+          title: Accounting code for the ledger account.
+          description: |
+            Unique code to identify the ledger account. Each code must start
+            with a letter or number. The following special characters are
+            allowed: `-_.,:`
+          pattern: "/^[A-Za-z0-9](( *)?[\\-A-Za-z0-9_.,:])*$/"
+          maxLength: 255
+        revenue_gl_account_code:
+          type: string
+          title: Accounting code for the ledger account.
+          description: |
+            Unique code to identify the ledger account. Each code must start
+            with a letter or number. The following special characters are
+            allowed: `-_.,:`
+          pattern: "/^[A-Za-z0-9](( *)?[\\-A-Za-z0-9_.,:])*$/"
+          maxLength: 255
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         tax:
           type: number
           format: float
@@ -20310,6 +20880,10 @@ components:
           maxLength: 50
         tax_info:
           "$ref": "#/components/schemas/TaxInfo"
+        origin_tax_address_source:
+          "$ref": "#/components/schemas/OriginTaxAddressSourceEnum"
+        destination_tax_address_source:
+          "$ref": "#/components/schemas/DestinationTaxAddressSourceEnum"
         proration_rate:
           type: number
           format: float
@@ -20470,6 +21044,30 @@ components:
             is part of the request then `accounting_code` must be absent.
           pattern: "/^[a-z0-9_+-]+$/"
           maxLength: 20
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -20537,6 +21135,10 @@ components:
           format: date-time
           title: End date
           description: If this date is provided, it indicates the end of a time range.
+        origin_tax_address_source:
+          "$ref": "#/components/schemas/OriginTaxAddressSourceEnum"
+        destination_tax_address_source:
+          "$ref": "#/components/schemas/DestinationTaxAddressSourceEnum"
       required:
       - currency
       - unit_amount
@@ -20834,6 +21436,54 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        setup_fee_liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        setup_fee_revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        setup_fee_performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         setup_fee_revenue_schedule_type:
           title: Setup fee revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -21050,6 +21700,54 @@ components:
         revenue_schedule_type:
           title: Revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        setup_fee_liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        setup_fee_revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        setup_fee_performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         setup_fee_revenue_schedule_type:
           title: Setup fee revenue schedule type
           "$ref": "#/components/schemas/RevenueScheduleTypeEnum"
@@ -21508,6 +22206,30 @@ components:
             - `FR010200` – Delivery by Company Vehicle After Passage of Title
             - `NT` – Non-Taxable
           maxLength: 50
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         created_at:
           type: string
           format: date-time
@@ -21580,6 +22302,30 @@ components:
             - `FR010200` – Delivery by Company Vehicle After Passage of Title
             - `NT` – Non-Taxable
           maxLength: 50
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
       required:
       - code
       - name
@@ -21618,6 +22364,30 @@ components:
             - `FR010200` – Delivery by Company Vehicle After Passage of Title
             - `NT` – Non-Taxable
           maxLength: 50
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
     ShippingFeeCreate:
       type: object
       properties:
@@ -23980,8 +24750,6 @@ components:
         object:
           type: string
           title: Object type
-        external_subscription:
-          "$ref": "#/components/schemas/ExternalSubscription"
         started_at:
           type: string
           format: date-time
@@ -24279,6 +25047,12 @@ components:
           "$ref": "#/components/schemas/AccountMini"
         external_product_reference:
           "$ref": "#/components/schemas/ExternalProductReferenceMini"
+        external_payment_phases:
+          type: array
+          title: External payment phases
+          description: The phases of the external subscription payment lifecycle.
+          items:
+            "$ref": "#/components/schemas/ExternalPaymentPhase"
         external_id:
           type: string
           title: External Id
@@ -24351,6 +25125,12 @@ components:
           title: Test
           description: An indication of whether or not the external subscription was
             purchased in a sandbox environment.
+          default: false
+        imported:
+          type: boolean
+          title: Imported
+          description: An indication of whether or not the external subscription was
+            created by a historical data import.
           default: false
         created_at:
           type: string
@@ -24682,6 +25462,10 @@ components:
           description: Address information for the business entity that will be used
             for calculating taxes.
           "$ref": "#/components/schemas/Address"
+        origin_tax_address_source:
+          "$ref": "#/components/schemas/OriginTaxAddressSourceEnum"
+        destination_tax_address_source:
+          "$ref": "#/components/schemas/DestinationTaxAddressSourceEnum"
         default_vat_number:
           type: string
           title: Default VAT number
@@ -24699,6 +25483,22 @@ components:
           items:
             type: string
             title: Country code
+        default_liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        default_revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         created_at:
           type: string
           format: date-time
@@ -24797,6 +25597,30 @@ components:
           description: The delivery details for the gift card.
           readOnly: true
           "$ref": "#/components/schemas/GiftCardDelivery"
+        performance_obligation_id:
+          type: string
+          title: Performance Obligation ID
+          description: |
+            The ID of a performance obligation. Performance obligations are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        liability_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
+        revenue_gl_account_id:
+          type: string
+          title: General Ledger Account ID
+          description: |
+            The ID of a general ledger account. General ledger accounts are
+            only accessible as a part of the Recurly RevRec Standard and
+            Recurly RevRec Advanced features.
+          maxLength: 13
         created_at:
           type: string
           format: date-time
@@ -25978,3 +26802,30 @@ components:
       type: string
       enum:
       - paid
+    GeneralLedgerAccountTypeEnum:
+      type: string
+      enum:
+      - liability
+      - revenue
+    OriginTaxAddressSourceEnum:
+      type: string
+      title: Origin tax address source
+      description: The source of the address that will be used as the origin in determining
+        taxes. Available only when the site is on an Elite plan. A value of "origin"
+        refers to the "Business entity tax address". A value of "destination" refers
+        to the "Customer tax address".
+      default: origin
+      enum:
+      - origin
+      - destination
+    DestinationTaxAddressSourceEnum:
+      type: string
+      title: Destination tax address source
+      description: The source of the address that will be used as the destinaion in
+        determining taxes. Available only when the site is on an Elite plan. A value
+        of "destination" refers to the "Customer tax address". A value of "origin"
+        refers to the "Business entity tax address".
+      default: destination
+      enum:
+      - destination
+      - origin

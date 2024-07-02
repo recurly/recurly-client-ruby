@@ -58,6 +58,10 @@ module Recurly
       #   @return [ItemMini] Just the important parts.
       define_attribute :item, :ItemMini
 
+      # @!attribute liability_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :liability_gl_account_id, String
+
       # @!attribute measured_unit_id
       #   @return [String] System-generated unique identifier for an measured unit associated with the add-on.
       define_attribute :measured_unit_id, String
@@ -78,9 +82,17 @@ module Recurly
       #   @return [Array[PercentageTiersByCurrency]] This feature is currently in development and requires approval and enablement, please contact support.
       define_attribute :percentage_tiers, Array, { :item_type => :PercentageTiersByCurrency }
 
+      # @!attribute performance_obligation_id
+      #   @return [String] The ID of a performance obligation. Performance obligations are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :performance_obligation_id, String
+
       # @!attribute plan_id
       #   @return [String] Plan ID
       define_attribute :plan_id, String
+
+      # @!attribute revenue_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :revenue_gl_account_id, String
 
       # @!attribute revenue_schedule_type
       #   @return [String] When this add-on is invoiced, the line item will use this revenue schedule. If `item_code`/`item_id` is part of the request then `revenue_schedule_type` must be absent in the request as the value will be set from the item.
