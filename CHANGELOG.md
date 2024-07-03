@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.53.0](https://github.com/recurly/recurly-client-ruby/tree/4.53.0) (2024-07-03)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.52.0...4.53.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 (Taxable Address Control, RevRec) [#908](https://github.com/recurly/recurly-client-ruby/pull/908) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.52.0](https://github.com/recurly/recurly-client-ruby/tree/4.52.0) (2024-05-31)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.51.0...4.52.0)
