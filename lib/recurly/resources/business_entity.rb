@@ -14,13 +14,25 @@ module Recurly
       #   @return [DateTime] Created at
       define_attribute :created_at, DateTime
 
+      # @!attribute default_liability_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :default_liability_gl_account_id, String
+
       # @!attribute default_registration_number
       #   @return [String] Registration number for the customer used on the invoice.
       define_attribute :default_registration_number, String
 
+      # @!attribute default_revenue_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :default_revenue_gl_account_id, String
+
       # @!attribute default_vat_number
       #   @return [String] VAT number for the customer used on the invoice.
       define_attribute :default_vat_number, String
+
+      # @!attribute destination_tax_address_source
+      #   @return [String] The source of the address that will be used as the destinaion in determining taxes. Available only when the site is on an Elite plan. A value of "destination" refers to the "Customer tax address". A value of "origin" refers to the "Business entity tax address".
+      define_attribute :destination_tax_address_source, String
 
       # @!attribute id
       #   @return [String] Business entity ID
@@ -37,6 +49,10 @@ module Recurly
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+
+      # @!attribute origin_tax_address_source
+      #   @return [String] The source of the address that will be used as the origin in determining taxes. Available only when the site is on an Elite plan. A value of "origin" refers to the "Business entity tax address". A value of "destination" refers to the "Customer tax address".
+      define_attribute :origin_tax_address_source, String
 
       # @!attribute subscriber_location_countries
       #   @return [Array[String]] List of countries for which the business entity will be used.

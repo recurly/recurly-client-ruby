@@ -38,6 +38,10 @@ module Recurly
       #   @return [String] The id of the subscription in the external systems., I.e. Apple App Store or Google Play Store.
       define_attribute :external_id, String
 
+      # @!attribute external_payment_phases
+      #   @return [Array[ExternalPaymentPhase]] The phases of the external subscription payment lifecycle.
+      define_attribute :external_payment_phases, Array, { :item_type => :ExternalPaymentPhase }
+
       # @!attribute external_product_reference
       #   @return [ExternalProductReferenceMini] External Product Reference details
       define_attribute :external_product_reference, :ExternalProductReferenceMini
@@ -45,6 +49,10 @@ module Recurly
       # @!attribute id
       #   @return [String] System-generated unique identifier for an external subscription ID, e.g. `e28zov4fw0v2`.
       define_attribute :id, String
+
+      # @!attribute imported
+      #   @return [Boolean] An indication of whether or not the external subscription was created by a historical data import.
+      define_attribute :imported, :Boolean
 
       # @!attribute in_grace_period
       #   @return [Boolean] An indication of whether or not the external subscription is in a grace period.

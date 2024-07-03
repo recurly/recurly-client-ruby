@@ -34,6 +34,10 @@ module Recurly
       #   @return [String] Description that appears on the invoice. If `item_code`/`item_id` is part of the request then `description` must be absent.
       define_attribute :description, String
 
+      # @!attribute destination_tax_address_source
+      #   @return [String] The source of the address that will be used as the destinaion in determining taxes. Available only when the site is on an Elite plan. A value of "destination" refers to the "Customer tax address". A value of "origin" refers to the "Business entity tax address".
+      define_attribute :destination_tax_address_source, String
+
       # @!attribute end_date
       #   @return [DateTime] If this date is provided, it indicates the end of a time range.
       define_attribute :end_date, DateTime
@@ -46,9 +50,21 @@ module Recurly
       #   @return [String] System-generated unique identifier for an item. Available when the Credit Invoices feature is enabled.
       define_attribute :item_id, String
 
+      # @!attribute liability_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :liability_gl_account_id, String
+
       # @!attribute origin
       #   @return [String] Origin `external_gift_card` is allowed if the Gift Cards feature is enabled on your site and `type` is `credit`. Set this value in order to track gift card credits from external gift cards (like InComm). It also skips billing information requirements.  Origin `prepayment` is only allowed if `type` is `charge` and `tax_exempt` is left blank or set to true.  This origin creates a charge and opposite credit on the account to be used for future invoices.
       define_attribute :origin, String
+
+      # @!attribute origin_tax_address_source
+      #   @return [String] The source of the address that will be used as the origin in determining taxes. Available only when the site is on an Elite plan. A value of "origin" refers to the "Business entity tax address". A value of "destination" refers to the "Customer tax address".
+      define_attribute :origin_tax_address_source, String
+
+      # @!attribute performance_obligation_id
+      #   @return [String] The ID of a performance obligation. Performance obligations are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :performance_obligation_id, String
 
       # @!attribute product_code
       #   @return [String] Optional field to track a product code or SKU for the line item. This can be used to later reporting on product purchases. For Vertex tax calculations, this field will be used as the Vertex `product` field. If `item_code`/`item_id` is part of the request then `product_code` must be absent.
@@ -57,6 +73,10 @@ module Recurly
       # @!attribute quantity
       #   @return [Integer] This number will be multiplied by the unit amount to compute the subtotal before any discounts or taxes.
       define_attribute :quantity, Integer
+
+      # @!attribute revenue_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :revenue_gl_account_id, String
 
       # @!attribute revenue_schedule_type
       #   @return [String] Revenue schedule type
