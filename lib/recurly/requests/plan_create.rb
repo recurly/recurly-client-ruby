@@ -111,7 +111,7 @@ module Recurly
       define_attribute :setup_fee_revenue_schedule_type, String
 
       # @!attribute tax_code
-      #   @return [String] Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.
+      #   @return [String] Optional field used by Avalara, Vertex, and Recurly's In-the-Box tax solution to determine taxation rules. You can pass in specific tax codes using any of these tax integrations. For Recurly's In-the-Box tax offering you can also choose to instead use simple values of `unknown`, `physical`, or `digital` tax codes.
       define_attribute :tax_code, String
 
       # @!attribute tax_exempt
