@@ -2403,7 +2403,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_external_subscription get_external_subscription api documentation}
     #
-    # @param external_subscription_id [String] External subscription ID or external_id. For ID no prefix is used e.g. +e28zov4fw0v2+. For external_id use prefix +external-id-+, e.g. +external-id-123456+.
+    # @param external_subscription_id [String] External subscription ID, external_id or uuid. For ID no prefix is used e.g. +e28zov4fw0v2+. For external_id use prefix +external-id-+, e.g. +external-id-123456+ and for uuid use prefix +uuid-+ e.g. +uuid-7293239bae62777d8c1ae044a9843633+.
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::ExternalSubscription] Settings for an external subscription.
