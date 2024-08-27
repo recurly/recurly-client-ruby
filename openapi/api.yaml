@@ -16743,8 +16743,9 @@ components:
     external_subscription_id_fetch:
       name: external_subscription_id
       in: path
-      description: External subscription ID or external_id. For ID no prefix is used
-        e.g. `e28zov4fw0v2`. For external_id use prefix `external-id-`, e.g. `external-id-123456`.
+      description: External subscription ID, external_id or uuid. For ID no prefix
+        is used e.g. `e28zov4fw0v2`. For external_id use prefix `external-id-`, e.g.
+        `external-id-123456` and for uuid use prefix `uuid-` e.g. `uuid-7293239bae62777d8c1ae044a9843633`.
       required: true
       schema:
         type: string
@@ -25100,6 +25101,10 @@ components:
           title: External Id
           description: The id of the subscription in the external systems., I.e. Apple
             App Store or Google Play Store.
+        uuid:
+          type: string
+          title: Uuid
+          description: Universally Unique Identifier created automatically.
         last_purchased:
           type: string
           format: date-time

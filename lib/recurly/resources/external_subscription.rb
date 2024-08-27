@@ -89,6 +89,10 @@ module Recurly
       # @!attribute updated_at
       #   @return [DateTime] When the external subscription was updated in Recurly.
       define_attribute :updated_at, DateTime
+
+      # @!attribute uuid
+      #   @return [String] Universally Unique Identifier created automatically.
+      define_attribute :uuid, String
     end
   end
 end
