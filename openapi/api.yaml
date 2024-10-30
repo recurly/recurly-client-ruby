@@ -9915,10 +9915,11 @@ paths:
       summary: Refund an invoice
       description: |
         There are two ways to do a refund:
-        * refund a specific amount which is divided across all the line items.
-        * refund quantities of line items.
-        If you want to refund the entire refundable amount on the invoice, the
-        simplest way is to do `type=amount` without specifiying an `amount`.
+        * Apply a specific dollar/cent amount or percentage amount to an entire invoice, which will refund the resulting amount across all line items on the invoice.
+          * If you want to refund the entire refundable amount on the invoice, the simplest way is to do `type=amount` without specifiying an `amount`.
+          * Note: You must have the Credit Memos feature flag enabled on your site to utilize percentage amount refunds on invoices.
+        * Apply a refund to one or more individual line items on an invoice. A line item can be refunded by a quantity amount, a specific dollar/cent amount, or a percentage amount and will only apply to the specific line item you are aiming to refund.
+          * Note: You must have the Credit Memos feature flag enabled on your site to utilize specific dollar/cent amount and percentage amount refunds on line items.
       parameters:
       - "$ref": "#/components/parameters/invoice_id"
       requestBody:
@@ -23562,6 +23563,12 @@ components:
           title: Gift card Redemption Code
           description: A gift card redemption code to be redeemed on the purchase
             invoice.
+        bulk:
+          type: boolean
+          description: Optional field to be used only when needing to bypass the 60
+            second limit on creating subscriptions. Should only be used when creating
+            subscriptions in bulk from the API.
+          default: false
       required:
       - plan_code
       - currency
@@ -23664,6 +23671,12 @@ components:
           description: The new set of ramp intervals for the subscription.
           items:
             "$ref": "#/components/schemas/SubscriptionRampInterval"
+        bulk:
+          type: boolean
+          description: Optional field to be used only when needing to bypass the 60
+            second limit on creating subscriptions. Should only be used when creating
+            subscriptions in bulk from the API.
+          default: false
       required:
       - plan_code
     SubscriptionUpdate:
