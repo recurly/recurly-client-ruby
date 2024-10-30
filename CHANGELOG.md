@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.56.0](https://github.com/recurly/recurly-client-ruby/tree/4.56.0) (2024-10-30)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.55.0...4.56.0)
+
+
+**Merged Pull Requests**
+
+- Adds bulk parameter to SubscriptionCreate and SubscriptionPurchase [#915](https://github.com/recurly/recurly-client-ruby/pull/915) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.55.0](https://github.com/recurly/recurly-client-ruby/tree/4.55.0) (2024-08-28)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.54.0...4.55.0)
