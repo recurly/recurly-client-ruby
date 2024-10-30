@@ -14,6 +14,10 @@ module Recurly
       #   @return [Boolean] Whether the subscription renews at the end of its term.
       define_attribute :auto_renew, :Boolean
 
+      # @!attribute bulk
+      #   @return [Boolean] Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.
+      define_attribute :bulk, :Boolean
+
       # @!attribute custom_fields
       #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
       define_attribute :custom_fields, Array, { :item_type => :CustomField }
