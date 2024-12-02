@@ -129,6 +129,10 @@ module Recurly
       # @!attribute updated_at
       #   @return [DateTime] Last updated at
       define_attribute :updated_at, DateTime
+
+      # @!attribute vertex_transaction_type
+      #   @return [String] Used by Vertex for tax calculations. Possible values are `sale`, `rental`, `lease`.
+      define_attribute :vertex_transaction_type, String
     end
   end
 end
