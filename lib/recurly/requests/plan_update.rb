@@ -121,6 +121,10 @@ module Recurly
       # @!attribute trial_unit
       #   @return [String] Units for the plan's trial period.
       define_attribute :trial_unit, String
+
+      # @!attribute vertex_transaction_type
+      #   @return [String] Used by Vertex for tax calculations. Possible values are `sale`, `rental`, `lease`.
+      define_attribute :vertex_transaction_type, String
     end
   end
 end

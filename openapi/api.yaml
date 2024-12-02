@@ -21353,6 +21353,11 @@ components:
           title: Tax exempt?
           description: "`true` exempts tax on the plan, `false` applies tax on the
             plan."
+        vertex_transaction_type:
+          type: string
+          title: Vertex Transaction Type
+          description: Used by Vertex for tax calculations. Possible values are `sale`,
+            `rental`, `lease`.
         currencies:
           type: array
           title: Pricing
@@ -21568,6 +21573,11 @@ components:
           title: Tax exempt?
           description: "`true` exempts tax on the plan, `false` applies tax on the
             plan."
+        vertex_transaction_type:
+          type: string
+          title: Vertex Transaction Type
+          description: Used by Vertex for tax calculations. Possible values are `sale`,
+            `rental`, `lease`.
         currencies:
           type: array
           title: Pricing
@@ -21832,6 +21842,11 @@ components:
           title: Tax exempt?
           description: "`true` exempts tax on the plan, `false` applies tax on the
             plan."
+        vertex_transaction_type:
+          type: string
+          title: Vertex Transaction Type
+          description: Used by Vertex for tax calculations. Possible values are `sale`,
+            `rental`, `lease`.
         currencies:
           type: array
           title: Pricing
