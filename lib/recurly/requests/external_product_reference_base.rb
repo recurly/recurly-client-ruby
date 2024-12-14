@@ -7,8 +7,8 @@ module Recurly
     class ExternalProductReferenceBase < Request
 
       # @!attribute external_connection_type
-      #   @return [String]
-      define_attribute :external_connection_type, String
+      #   @return [ExternalProductReferenceConnectionType] Represents the connection type. One of the connection types of your enabled App Connectors
+      define_attribute :external_connection_type, :ExternalProductReferenceConnectionType
 
       # @!attribute reference_code
       #   @return [String] A code which associates the external product to a corresponding object or resource in an external platform like the Apple App Store or Google Play Store.

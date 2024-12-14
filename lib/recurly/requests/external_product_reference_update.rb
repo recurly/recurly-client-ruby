@@ -4,7 +4,7 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Requests
-    class ExternalProductReferenceCreate < Request
+    class ExternalProductReferenceUpdate < Request
 
       # @!attribute external_connection_type
       #   @return [ExternalProductReferenceConnectionType] Represents the connection type. One of the connection types of your enabled App Connectors

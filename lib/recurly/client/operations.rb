@@ -2382,7 +2382,21 @@ module Recurly
       delete(path, **options)
     end
 
-    # List a site's external subscriptions
+    # Create an external subscription
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_external_subscription create_external_subscription api documentation}
+    #
+    # @param body [Requests::ExternalSubscriptionCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalSubscriptionCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalSubscription] Returns the external subscription
+    #
+    def create_external_subscription(body:, **options)
+      path = "/external_subscriptions"
+      post(path, body, Requests::ExternalSubscriptionCreate, **options)
+    end
+
+    # List the external subscriptions on a site
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_external_subscriptions list_external_subscriptions api documentation}
     #
@@ -2411,6 +2425,21 @@ module Recurly
     def get_external_subscription(external_subscription_id:, **options)
       path = interpolate_path("/external_subscriptions/{external_subscription_id}", external_subscription_id: external_subscription_id)
       get(path, **options)
+    end
+
+    # Update an external subscription
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/put_external_subscription put_external_subscription api documentation}
+    #
+    # @param external_subscription_id [String] External subscription id
+    # @param params [Hash] Optional query string parameters:
+    #        :body [Requests::ExternalSubscriptionUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalSubscriptionUpdate}
+    #
+    # @return [Resources::ExternalSubscription] Settings for an external subscription.
+    #
+    def put_external_subscription(external_subscription_id:, **options)
+      path = interpolate_path("/external_subscriptions/{external_subscription_id}", external_subscription_id: external_subscription_id)
+      put(path, options[:body], Requests::ExternalSubscriptionUpdate, **options)
     end
 
     # List the external invoices on an external subscription

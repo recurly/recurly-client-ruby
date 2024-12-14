@@ -11,7 +11,7 @@ module Recurly
       define_attribute :external_account_code, String
 
       # @!attribute external_connection_type
-      #   @return [String] Represents the connection type. `AppleAppStore` or `GooglePlayStore`
+      #   @return [String] Represents the connection type. One of the connection types of your enabled App Connectors
       define_attribute :external_connection_type, String
     end
   end
