@@ -14,6 +14,14 @@ module Recurly
       #   @return [String] The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
       define_attribute :billing_info_id, String
 
+      # @!attribute business_entity_code
+      #   @return [String] The `business_entity_code` is the value that represents a specific business entity for an end customer. When `business_entity_code` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.
+      define_attribute :business_entity_code, String
+
+      # @!attribute business_entity_id
+      #   @return [String] The `business_entity_id` is the value that represents a specific business entity for an end customer. When `business_entity_id` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used.
+      define_attribute :business_entity_id, String
+
       # @!attribute collection_method
       #   @return [String] Must be set to manual in order to preview a purchase for an Account that does not have payment information associated with the Billing Info.
       define_attribute :collection_method, String
@@ -69,6 +77,10 @@ module Recurly
       # @!attribute terms_and_conditions
       #   @return [String] Terms and conditions to be put on the purchase invoice.
       define_attribute :terms_and_conditions, String
+
+      # @!attribute transaction
+      #   @return [Hash] (Transaction Data, Card on File) - Options for flagging transactions as Customer or Merchant Initiated Unscheduled.
+      define_attribute :transaction, Hash
 
       # @!attribute transaction_type
       #   @return [String] An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.

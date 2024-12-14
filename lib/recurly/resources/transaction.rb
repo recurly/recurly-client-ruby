@@ -90,6 +90,10 @@ module Recurly
       #   @return [String] Transaction ID
       define_attribute :id, String
 
+      # @!attribute indicator
+      #   @return [String] Must be sent for one-time transactions in order to provide context on which entity is submitting the transaction to ensure proper fraud checks are observed, such as 3DS. If the customer is in session, send `customer`. If this is a merchant initiated one-time transaction, send `merchant`.
+      define_attribute :indicator, String
+
       # @!attribute invoice
       #   @return [InvoiceMini] Invoice mini details
       define_attribute :invoice, :InvoiceMini
@@ -101,6 +105,10 @@ module Recurly
       # @!attribute ip_address_v4
       #   @return [String] IP address provided when the billing information was collected:  - When the customer enters billing information into the Recurly.js or Hosted Payment Pages, Recurly records the IP address. - When the merchant enters billing information using the API, the merchant may provide an IP address. - When the merchant enters billing information using the UI, no IP address is recorded.
       define_attribute :ip_address_v4, String
+
+      # @!attribute merchant_reason_code
+      #   @return [String] This conditional parameter is useful for merchants in specific industries who need to submit one-time Merchant Initiated transactions in specific cases. Not all gateways support these methods, but will support a generic one-time Merchant Initiated transaction. Only use this if the initiator value is "merchant". Otherwise, it will be ignored.   - Incremental: Send `incremental` with an additional purchase if the original authorization amount is not sufficient to cover the costs of your service or product. For example, if the customer adds goods or services or there are additional expenses.   - No Show: Send `no_show` if you charge customers a fee due to an agreed-upon cancellation policy in your industry.   - Resubmission: Send `resubmission` if you need to attempt collection on a declined transaction. You may also use the force collection behavior which has the same effect.   - Service Extension: Send `service_extension` if you are in a service industry and the customer has increased/extended their service in some way. For example: adding a day onto a car rental agreement.   - Split Shipment: Send `split_shipment` if you sell physical product and need to split up a shipment into multiple transactions when the customer is no longer in session.   - Top Up: Send `top_up` if you process one-time transactions based on a pre-arranged agreement with your customer where there is a pre-arranged account balance that needs maintaining. For example, if the customer has agreed to maintain an account balance of 30.00 and their current balance is 20.00, the MIT amount would be at least 10.00 to meet that 30.00 threshold.
+      define_attribute :merchant_reason_code, String
 
       # @!attribute object
       #   @return [String] Object type

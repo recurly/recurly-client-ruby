@@ -22,6 +22,10 @@ module Recurly
       #   @return [SubscriptionChangeBillingInfo] Accept nested attributes for three_d_secure_action_result_token_id
       define_attribute :billing_info, :SubscriptionChangeBillingInfo
 
+      # @!attribute business_entity
+      #   @return [BusinessEntityMini] Business entity details
+      define_attribute :business_entity, :BusinessEntityMini
+
       # @!attribute created_at
       #   @return [DateTime] Created at
       define_attribute :created_at, DateTime

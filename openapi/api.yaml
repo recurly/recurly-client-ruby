@@ -8198,11 +8198,49 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
   "/external_subscriptions":
+    post:
+      tags:
+      - external_subscriptions
+      operationId: create_external_subscription
+      summary: Create an external subscription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ExternalSubscriptionCreate"
+        required: true
+      responses:
+        '201':
+          description: Returns the external subscription
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalSubscription"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: External subscription cannot be completed for the specified
+            reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
     get:
       tags:
       - external_subscriptions
       operationId: list_external_subscriptions
-      summary: List a site's external subscriptions
+      summary: List the external subscriptions on a site
       description: See the [Pagination Guide](/developers/guides/pagination.html)
         to learn how to use pagination in the API and Client Libraries.
       parameters:
@@ -8228,9 +8266,9 @@ paths:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
   "/external_subscriptions/{external_subscription_id}":
-    parameters:
-    - "$ref": "#/components/parameters/external_subscription_id_fetch"
     get:
+      parameters:
+      - "$ref": "#/components/parameters/external_subscription_id_fetch"
       tags:
       - external_subscriptions
       operationId: get_external_subscription
@@ -8242,6 +8280,52 @@ paths:
             application/json:
               schema:
                 "$ref": "#/components/schemas/ExternalSubscription"
+        '404':
+          description: Incorrect site or external subscription ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Validation error with external resource connection or feature
+            flag.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    put:
+      parameters:
+      - "$ref": "#/components/parameters/external_subscription_id"
+      tags:
+      - external_subscriptions
+      operationId: put_external_subscription
+      summary: Update an external subscription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ExternalSubscriptionUpdate"
+        required: false
+      responses:
+        '200':
+          description: Settings for an external subscription.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalSubscription"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
         '404':
           description: Incorrect site or external subscription ID.
           content:
@@ -20294,6 +20378,22 @@ components:
           title: Currency
           description: 3-letter ISO 4217 currency code.
           maxLength: 3
+        business_entity_id:
+          type: string
+          title: Business Entity ID
+          description: The `business_entity_id` is the value that represents a specific
+            business entity for an end customer which will be assigned to the invoice.
+            Available when the `Multiple Business Entities` feature is enabled. If
+            both `business_entity_id` and `business_entity_code` are present, `business_entity_id`
+            will be used.
+        business_entity_code:
+          type: string
+          title: Business Entity Code
+          description: The `business_entity_code` is the value that represents a specific
+            business entity for an end customer which will be assigned to the invoice.
+            Available when the `Multiple Business Entities` feature is enabled. If
+            both `business_entity_id` and `business_entity_code` are present, `business_entity_id`
+            will be used.
         collection_method:
           title: Collection method
           description: An automatic invoice means a corresponding transaction is run
@@ -22820,6 +22920,13 @@ components:
             subscription.
           maxLength: 13
           readOnly: true
+        business_entity_id:
+          type: string
+          title: Business Entity ID
+          description: The ID of the business entity associated with the subscription.
+            This will be `null` if the subscription relies on resolving the business
+            entity during renewal.
+          maxLength: 13
         started_with_gift:
           type: boolean
           default: false
@@ -23186,6 +23293,9 @@ components:
         invoice_collection:
           title: Invoice Collection
           "$ref": "#/components/schemas/InvoiceCollection"
+        business_entity:
+          title: Business Entity
+          "$ref": "#/components/schemas/BusinessEntityMini"
         custom_fields:
           "$ref": "#/components/schemas/CustomFields"
         created_at:
@@ -23251,6 +23361,26 @@ components:
           maxLength: 50
           description: If you want to change to a new plan, you can provide the plan's
             code or id. If both are provided the `plan_id` will be used.
+        business_entity_id:
+          type: string
+          title: Business Entity ID
+          description: The `business_entity_id` is the value that represents a specific
+            business entity for an end customer. When `business_entity_id` is used
+            to assign a business entity to the subscription, all future billing events
+            for the subscription will bill to the specified business entity. Available
+            when the `Multiple Business Entities` feature is enabled. If both `business_entity_id`
+            and `business_entity_code` are present, `business_entity_id` will be used.
+            Only allowed if the `timeframe` is not `now`.
+        business_entity_code:
+          type: string
+          title: Business Entity Code
+          description: The `business_entity_code` is the value that represents a specific
+            business entity for an end customer. When `business_entity_code` is used
+            to assign a business entity to the subscription, all future billing events
+            for the subscription will bill to the specified business entity. Available
+            when the `Multiple Business Entities` feature is enabled. If both `business_entity_id`
+            and `business_entity_code` are present, `business_entity_id` will be used.
+            Only allowed if the `timeframe` is not `now`.
         unit_amount:
           type: number
           format: float
@@ -23399,6 +23529,24 @@ components:
           maxLength: 13
           description: You must provide either a `plan_code` or `plan_id`. If both
             are provided the `plan_id` will be used.
+        business_entity_id:
+          type: string
+          title: Business Entity ID
+          description: The `business_entity_id` is the value that represents a specific
+            business entity for an end customer. When `business_entity_id` is used
+            to assign a business entity to the subscription, all future billing events
+            for the subscription will bill to the specified business entity. Available
+            when the `Multiple Business Entities` feature is enabled. If both `business_entity_id`
+            and `business_entity_code` are present, `business_entity_id` will be used.
+        business_entity_code:
+          type: string
+          title: Business Entity Code
+          description: The `business_entity_code` is the value that represents a specific
+            business entity for an end customer. When `business_entity_code` is used
+            to assign a business entity to the subscription, all future billing events
+            for the subscription will bill to the specified business entity. Available
+            when the `Multiple Business Entities` feature is enabled. If both `business_entity_id`
+            and `business_entity_code` are present, `business_entity_id` will be used.
         account:
           "$ref": "#/components/schemas/AccountCreate"
         billing_info_id:
@@ -24023,8 +24171,12 @@ components:
           maxLength: 13
         account:
           "$ref": "#/components/schemas/AccountMini"
+        indicator:
+          "$ref": "#/components/schemas/TransactionIndicatorEnum"
         invoice:
           "$ref": "#/components/schemas/InvoiceMini"
+        merchant_reason_code:
+          "$ref": "#/components/schemas/TransactionMerchantReasonCodeEnum"
         voided_by_invoice:
           "$ref": "#/components/schemas/InvoiceMini"
         subscription_ids:
@@ -24511,6 +24663,24 @@ components:
             billing info to the subscription, all future billing events for the subscription
             will bill to the specified billing info. `billing_info_id` can ONLY be
             used for sites utilizing the Wallet feature.
+        business_entity_id:
+          type: string
+          title: Business Entity ID
+          description: The `business_entity_id` is the value that represents a specific
+            business entity for an end customer. When `business_entity_id` is used
+            to assign a business entity to the subscription, all future billing events
+            for the subscription will bill to the specified business entity. Available
+            when the `Multiple Business Entities` feature is enabled. If both `business_entity_id`
+            and `business_entity_code` are present, `business_entity_id` will be used.
+        business_entity_code:
+          type: string
+          title: Business Entity Code
+          description: The `business_entity_code` is the value that represents a specific
+            business entity for an end customer. When `business_entity_code` is used
+            to assign a business entity to the subscription, all future billing events
+            for the subscription will bill to the specified business entity. Available
+            when the `Multiple Business Entities` feature is enabled. If both `business_entity_id`
+            and `business_entity_code` are present, `business_entity_id` will be used.
         collection_method:
           title: Collection method
           description: Must be set to manual in order to preview a purchase for an
@@ -24552,6 +24722,17 @@ components:
           type: string
           title: Terms and conditions
           description: Terms and conditions to be put on the purchase invoice.
+        transaction:
+          type: object
+          description: "(Transaction Data, Card on File) - Options for flagging transactions
+            as Customer or Merchant Initiated Unscheduled."
+          allOf:
+          - type: object
+            properties:
+              indicator:
+                "$ref": "#/components/schemas/Transaction/properties/indicator"
+              merchant_reason_code:
+                "$ref": "#/components/schemas/Transaction/properties/merchant_reason_code"
         customer_notes:
           type: string
           title: Customer notes
@@ -24807,6 +24988,38 @@ components:
           type: string
           format: date-time
           description: Time the object was last updated
+    ExternalChargeCreate:
+      type: object
+      properties:
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        unit_amount:
+          type: string
+          format: decimal
+        quantity:
+          type: integer
+        description:
+          type: string
+        external_product_reference:
+          "$ref": "#/components/schemas/ExternalProductReferenceCreate"
+      required:
+      - quantity
+      - currency
+      - unit_amount
+    AccountExternalSubscription:
+      allOf:
+      - type: object
+        properties:
+          account_code:
+            type: string
+            description: The account code of a new or existing account to be used
+              when creating the external subscription.
+            maxLength: 50
+        required:
+        - account_code
     ExternalPaymentPhase:
       type: object
       description: Details of payments in the lifecycle of a subscription from an
@@ -24974,7 +25187,7 @@ components:
             Google Play Store.
           maxLength: 255
         external_connection_type:
-          "$ref": "#/components/schemas/ExternalProductReferenceConnectionTypeEnum"
+          "$ref": "#/components/schemas/ExternalProductReferenceConnectionType"
     ExternalProductReferenceCollection:
       type: object
       properties:
@@ -25001,11 +25214,10 @@ components:
     ExternalProductReferenceUpdate:
       allOf:
       - "$ref": "#/components/schemas/ExternalProductReferenceBase"
-    ExternalProductReferenceConnectionTypeEnum:
+    ExternalProductReferenceConnectionType:
       type: string
-      enum:
-      - apple_app_store
-      - google_play_store
+      description: Represents the connection type. One of the connection types of
+        your enabled App Connectors
     ExternalAccountList:
       type: object
       properties:
@@ -25031,7 +25243,8 @@ components:
           description: Represents the account code for the external account.
         external_connection_type:
           type: string
-          description: Represents the connection type. `AppleAppStore` or `GooglePlayStore`
+          description: Represents the connection type. One of the connection types
+            of your enabled App Connectors
       required:
       - external_account_code
       - external_connection_type
@@ -25043,7 +25256,8 @@ components:
           description: Represents the account code for the external account.
         external_connection_type:
           type: string
-          description: Represents the connection type. `AppleAppStore` or `GooglePlayStore`
+          description: Represents the connection type. One of the connection types
+            of your enabled App Connectors
     ExternalAccount:
       type: object
       title: External Account
@@ -25217,6 +25431,91 @@ components:
           format: date-time
           title: Updated at
           description: When the external subscription was updated in Recurly.
+    ExternalSubscriptionBase:
+      type: object
+      properties:
+        external_id:
+          type: string
+          title: External Id
+          description: Id of the subscription in the external system, i.e. Apple App
+            Store or Google Play Store.
+        last_purchased:
+          type: string
+          format: date-time
+          title: Last purchased
+          description: When a new billing event occurred on the external subscription
+            in conjunction with a recent billing period, reactivation or upgrade/downgrade.
+        auto_renew:
+          type: boolean
+          title: Auto-renew
+          description: An indication of whether or not the external subscription will
+            auto-renew at the expiration date.
+          default: false
+        state:
+          type: string
+          description: External subscriptions can be active, canceled, expired, past_due,
+            voided, revoked, or paused.
+          default: active
+        app_identifier:
+          type: string
+          title: App identifier
+          description: Identifier of the app that generated the external subscription.
+        quantity:
+          type: integer
+          title: Quantity
+          description: An indication of the quantity of a subscribed item's quantity.
+          default: 1
+          minimum: 0
+        activated_at:
+          type: string
+          format: date-time
+          title: Activated at
+          description: When the external subscription was activated in the external
+            platform.
+        expires_at:
+          type: string
+          format: date-time
+          title: Expires at
+          description: When the external subscription expires in the external platform.
+        trial_started_at:
+          type: string
+          format: date-time
+          title: Trial started at
+          description: When the external subscription trial period started in the
+            external platform.
+        trial_ends_at:
+          type: string
+          format: date-time
+          title: Trial ends at
+          description: When the external subscription trial period ends in the external
+            platform.
+        imported:
+          type: boolean
+          title: Import
+          description: An indication of whether or not the external subscription was
+            being created by a historical data import.
+          default: false
+    ExternalSubscriptionCreate:
+      allOf:
+      - type: object
+        properties:
+          account:
+            "$ref": "#/components/schemas/AccountExternalSubscription"
+          external_product_reference:
+            "$ref": "#/components/schemas/ExternalProductReferenceCreate"
+      - "$ref": "#/components/schemas/ExternalSubscriptionBase"
+      required:
+      - external_id
+      - quantity
+      - activated_at
+      - expires_at
+    ExternalSubscriptionUpdate:
+      allOf:
+      - type: object
+        properties:
+          external_product_reference:
+            "$ref": "#/components/schemas/ExternalProductReferenceUpdate"
+      - "$ref": "#/components/schemas/ExternalSubscriptionBase"
     ExternalSubscriptionList:
       type: object
       properties:
@@ -25282,6 +25581,86 @@ components:
           format: date-time
           title: Updated at
           description: When the external invoice was updated in Recurly.
+    ExternalPaymentPhaseBase:
+      type: object
+      properties:
+        started_at:
+          type: string
+          format: date-time
+          title: Started At
+        ends_at:
+          type: string
+          format: date-time
+          title: Ends At
+        starting_billing_period_index:
+          type: integer
+          title: Starting Billing Period Index
+        ending_billing_period_index:
+          type: integer
+          title: Ending Billing Period Index
+        offer_type:
+          type: string
+          title: Offer Type
+          description: Type of discount offer given, e.g. "FREE_TRIAL"
+        offer_name:
+          type: string
+          title: Offer Name
+          description: Name of the discount offer given, e.g. "introductory"
+        period_count:
+          type: integer
+          title: Period Count
+          description: Number of billing periods
+        period_length:
+          type: string
+          title: Period Length
+          description: Billing cycle length
+        amount:
+          type: string
+          format: decimal
+          title: Amount
+          minimum: 0
+          description: Allows up to 9 decimal places
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+    ExternalInvoiceCreate:
+      type: object
+      properties:
+        external_id:
+          type: string
+          description: An identifier which associates the external invoice to a corresponding
+            object in an external platform.
+        state:
+          "$ref": "#/components/schemas/ExternalInvoiceStateEnum"
+        total:
+          type: string
+          format: decimal
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        purchased_at:
+          type: string
+          format: date-time
+          description: When the invoice was created in the external platform.
+        line_items:
+          type: array
+          items:
+            "$ref": "#/components/schemas/ExternalChargeCreate"
+        external_payment_phase:
+          "$ref": "#/components/schemas/ExternalPaymentPhaseBase"
+        external_payment_phase_id:
+          type: string
+          description: External payment phase ID, e.g. `a34ypb2ef9w1`.
+      required:
+      - external_id
+      - state
+      - total
+      - currency
+      - purchased_at
     ExternalInvoiceList:
       type: object
       properties:
@@ -25584,6 +25963,30 @@ components:
           format: date-time
           title: Last updated at
           readOnly: true
+    BusinessEntityMini:
+      type: object
+      description: Business entity details
+      properties:
+        id:
+          title: Business entity ID
+          type: string
+          maxLength: 13
+          readOnly: true
+        object:
+          title: Object type
+          type: string
+          readOnly: true
+        code:
+          title: Business entity code
+          type: string
+          maxLength: 50
+          description: The entity code of the business entity.
+        name:
+          type: string
+          title: Name
+          description: This name describes your business entity and will appear on
+            the invoice.
+          maxLength: 255
     GiftCardList:
       type: object
       properties:
@@ -26907,3 +27310,32 @@ components:
       enum:
       - destination
       - origin
+    TransactionMerchantReasonCodeEnum:
+      type: string
+      default: none
+      description: |
+        This conditional parameter is useful for merchants in specific industries who need to submit one-time Merchant Initiated transactions in specific cases.
+        Not all gateways support these methods, but will support a generic one-time Merchant Initiated transaction.
+        Only use this if the initiator value is "merchant". Otherwise, it will be ignored.
+          - Incremental: Send `incremental` with an additional purchase if the original authorization amount is not sufficient to cover the costs of your service or product. For example, if the customer adds goods or services or there are additional expenses.
+          - No Show: Send `no_show` if you charge customers a fee due to an agreed-upon cancellation policy in your industry.
+          - Resubmission: Send `resubmission` if you need to attempt collection on a declined transaction. You may also use the force collection behavior which has the same effect.
+          - Service Extension: Send `service_extension` if you are in a service industry and the customer has increased/extended their service in some way. For example: adding a day onto a car rental agreement.
+          - Split Shipment: Send `split_shipment` if you sell physical product and need to split up a shipment into multiple transactions when the customer is no longer in session.
+          - Top Up: Send `top_up` if you process one-time transactions based on a pre-arranged agreement with your customer where there is a pre-arranged account balance that needs maintaining. For example, if the customer has agreed to maintain an account balance of 30.00 and their current balance is 20.00, the MIT amount would be at least 10.00 to meet that 30.00 threshold.
+      enum:
+      - incremental
+      - no_show
+      - resubmission
+      - service_extension
+      - split_shipment
+      - top_up
+    TransactionIndicatorEnum:
+      type: string
+      description: Must be sent for one-time transactions in order to provide context
+        on which entity is submitting the transaction to ensure proper fraud checks
+        are observed, such as 3DS. If the customer is in session, send `customer`.
+        If this is a merchant initiated one-time transaction, send `merchant`.
+      enum:
+      - customer
+      - merchant

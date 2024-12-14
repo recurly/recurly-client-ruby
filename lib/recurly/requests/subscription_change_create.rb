@@ -14,6 +14,14 @@ module Recurly
       #   @return [SubscriptionChangeBillingInfoCreate]
       define_attribute :billing_info, :SubscriptionChangeBillingInfoCreate
 
+      # @!attribute business_entity_code
+      #   @return [String] The `business_entity_code` is the value that represents a specific business entity for an end customer. When `business_entity_code` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used. Only allowed if the `timeframe` is not `now`.
+      define_attribute :business_entity_code, String
+
+      # @!attribute business_entity_id
+      #   @return [String] The `business_entity_id` is the value that represents a specific business entity for an end customer. When `business_entity_id` is used to assign a business entity to the subscription, all future billing events for the subscription will bill to the specified business entity. Available when the `Multiple Business Entities` feature is enabled. If both `business_entity_id` and `business_entity_code` are present, `business_entity_id` will be used. Only allowed if the `timeframe` is not `now`.
+      define_attribute :business_entity_id, String
+
       # @!attribute collection_method
       #   @return [String] Collection method
       define_attribute :collection_method, String
