@@ -1698,6 +1698,7 @@ module Recurly
     #        :end_time [DateTime] Inclusively filter by end_time when +sort=created_at+ or +sort=updated_at+.
     #   *Note:* this value is an ISO8601 timestamp. A partial timestamp that does not include a time zone will default to UTC.
     #
+    #        :redeemed [String] Filter unique coupon codes by redemption status. +true+ for redeemed, +false+ for not redeemed.
     #
     # @return [Pager<Resources::UniqueCouponCode>] A list of unique coupon codes that were generated
     #

@@ -7,7 +7,7 @@ module Recurly
     class CouponBulkCreate < Request
 
       # @!attribute number_of_unique_codes
-      #   @return [Integer] The quantity of unique coupon codes to generate
+      #   @return [Integer] The quantity of unique coupon codes to generate. A bulk coupon can have up to 100,000 unique codes (or your site's configured limit).
       define_attribute :number_of_unique_codes, Integer
     end
   end
