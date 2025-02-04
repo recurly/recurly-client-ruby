@@ -6265,8 +6265,7 @@ paths:
               schema:
                 "$ref": "#/components/schemas/UniqueCouponCodeParams"
         '400':
-          description: Invalid or unpermitted parameter; perhaps you tried to generate
-            more than 200 codes at a time?
+          description: Invalid or unpermitted parameter.
           content:
             application/json:
               schema:
@@ -6348,6 +6347,7 @@ paths:
       - "$ref": "#/components/parameters/sort_dates"
       - "$ref": "#/components/parameters/filter_begin_time"
       - "$ref": "#/components/parameters/filter_end_time"
+      - "$ref": "#/components/parameters/filter_redeemed"
       responses:
         '200':
           description: A list of unique coupon codes that were generated
@@ -17184,6 +17184,13 @@ components:
         - `type=legacy`, only legacy invoices will be returned.
       schema:
         "$ref": "#/components/schemas/FilterInvoiceTypeEnum"
+    filter_redeemed:
+      name: redeemed
+      in: query
+      description: Filter unique coupon codes by redemption status. `true` for redeemed,
+        `false` for not redeemed.
+      schema:
+        "$ref": "#/components/schemas/FilterRedeemedEnum"
     export_date:
       name: export_date
       in: path
@@ -18733,6 +18740,12 @@ components:
           description: The `backup_payment_method` field is used to indicate a billing
             info as a backup on the account that will be tried if the initial billing
             info used for an invoice is declined.
+        payment_gateway_references:
+          type: array
+          description: Array of Payment Gateway References, each a reference to a
+            third-party gateway object of varying types.
+          items:
+            "$ref": "#/components/schemas/PaymentGatewayReferences"
         created_at:
           type: string
           format: date-time
@@ -18815,9 +18828,21 @@ components:
           maxLength: 50
         gateway_code:
           type: string
-          title: An identifier for a specific payment gateway. Must be used in conjunction
-            with `gateway_token`.
+          title: An identifier for a specific payment gateway.
           maxLength: 12
+        payment_gateway_references:
+          type: array
+          description: Array of Payment Gateway References, each a reference to a
+            third-party gateway object of varying types.
+          items:
+            "$ref": "#/components/schemas/PaymentGatewayReferences"
+          properties:
+            token:
+              type: strings
+              maxLength: 50
+            reference_type:
+              type: string
+              "$ref": "#/components/schemas/PaymentGatewayReferencesEnum"
         gateway_attributes:
           type: object
           description: Additional attributes to send to the gateway.
@@ -19282,9 +19307,9 @@ components:
         number_of_unique_codes:
           type: integer
           title: Number of unique codes
-          description: The quantity of unique coupon codes to generate
+          description: The quantity of unique coupon codes to generate. A bulk coupon
+            can have up to 100,000 unique codes (or your site's configured limit).
           minimum: 1
-          maximum: 200
     CouponMini:
       type: object
       properties:
@@ -21285,6 +21310,22 @@ components:
       - currency
       - unit_amount
       - type
+    PaymentGatewayReferences:
+      type: object
+      title: Payment Gateway References Object
+      description: Array of Payment Gateway References, each a reference to a third-party
+        gateway object of varying types.
+      properties:
+        token:
+          type: string
+          title: Token
+          description: Reference value used when the external token was created. If
+            Stripe gateway is used, this value will need to be accompanied by its
+            reference_type.
+        reference_type:
+          type: string
+          title: Reference Type
+          "$ref": "#/components/schemas/PaymentGatewayReferencesEnum"
     PlanMini:
       type: object
       title: Plan mini details
@@ -26430,6 +26471,11 @@ components:
       - credit
       - legacy
       - non-legacy
+    FilterRedeemedEnum:
+      type: string
+      enum:
+      - true
+      - false
     ChannelEnum:
       type: string
       enum:
@@ -26491,6 +26537,14 @@ components:
       enum:
       - email
       - post
+    PaymentGatewayReferencesEnum:
+      type: string
+      description: The type of reference token. Required if token is passed in for
+        Stripe Gateway.
+      enum:
+      - stripe_confirmation_token
+      - stripe_customer
+      - stripe_payment_method
     GatewayTransactionTypeEnum:
       type: string
       enum:

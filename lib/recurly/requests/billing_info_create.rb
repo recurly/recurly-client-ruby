@@ -63,7 +63,7 @@ module Recurly
       define_attribute :gateway_attributes, :GatewayAttributes
 
       # @!attribute gateway_code
-      #   @return [String] An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.
+      #   @return [String] An identifier for a specific payment gateway.
       define_attribute :gateway_code, String
 
       # @!attribute gateway_token
@@ -97,6 +97,10 @@ module Recurly
       # @!attribute online_banking_payment_type
       #   @return [String] Use for Online Banking billing info. This should only be used as part of a pending purchase request, when the billing info is nested inside an account object.
       define_attribute :online_banking_payment_type, String
+
+      # @!attribute payment_gateway_references
+      #   @return [Array[PaymentGatewayReferences]] Array of Payment Gateway References, each a reference to a third-party gateway object of varying types.
+      define_attribute :payment_gateway_references, Array, { :item_type => :PaymentGatewayReferences }
 
       # @!attribute paypal_billing_agreement_id
       #   @return [String] PayPal billing agreement ID
