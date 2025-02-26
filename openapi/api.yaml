@@ -18838,7 +18838,7 @@ components:
             "$ref": "#/components/schemas/PaymentGatewayReferences"
           properties:
             token:
-              type: strings
+              type: string
               maxLength: 50
             reference_type:
               type: string
@@ -25314,7 +25314,8 @@ components:
           description: Represents the account code for the external account.
         external_connection_type:
           type: string
-          description: Represents the connection type. `AppleAppStore` or `GooglePlayStore`
+          description: Represents the connection type. One of the connection types
+            of your enabled App Connectors
         created_at:
           type: string
           format: date-time
@@ -25864,8 +25865,10 @@ components:
         cc_bin_country:
           type: string
           description: The 2-letter ISO 3166-1 alpha-2 country code associated with
-            the credit card BIN, if known by Recurly. Available on the BillingInfo
-            object only. Available when the BIN country lookup feature is enabled.
+            the card's issuer, if known.
+        funding_source:
+          "$ref": "#/components/schemas/CardFundingSourceEnum"
+          description: The funding source of the card, if known.
         gateway_code:
           type: string
           description: An identifier for a specific payment gateway.
@@ -27018,6 +27021,14 @@ components:
       - Dankort
       - MasterCard
       - Visa
+    CardFundingSourceEnum:
+      type: string
+      enum:
+      - credit
+      - debit
+      - charge
+      - prepaid
+      - deferred_debit
     AccountTypeEnum:
       type: string
       enum:
