@@ -23,7 +23,7 @@ module Recurly
       define_attribute :card_type, String
 
       # @!attribute cc_bin_country
-      #   @return [String] The 2-letter ISO 3166-1 alpha-2 country code associated with the credit card BIN, if known by Recurly. Available on the BillingInfo object only. Available when the BIN country lookup feature is enabled.
+      #   @return [String] The 2-letter ISO 3166-1 alpha-2 country code associated with the card's issuer, if known.
       define_attribute :cc_bin_country, String
 
       # @!attribute exp_month
@@ -37,6 +37,10 @@ module Recurly
       # @!attribute first_six
       #   @return [String] Credit card number's first six digits.
       define_attribute :first_six, String
+
+      # @!attribute funding_source
+      #   @return [String] The funding source of the card, if known.
+      define_attribute :funding_source, String
 
       # @!attribute gateway_attributes
       #   @return [GatewayAttributes] Gateway specific attributes associated with this PaymentMethod
