@@ -61,7 +61,7 @@ module Recurly
     # @param ca_file [String] The CA bundle to use when connecting to the API. Defaults to "data/ca-certificates.crt"
     # @param api_key [String] The private API key
     # @param logger [Logger] A logger to use. Defaults to creating a new STDOUT logger with level WARN.
-    def initialize(region: REGION, base_url: API_HOSTS[:us], ca_file: CA_FILE, api_key:, logger: nil)
+    def initialize(region: REGION, base_url: API_HOSTS[:us], ca_file: CA_FILE, api_key:, logger: nil, keep_alive_timeout: 600)
       raise ArgumentError, "'api_key' must be set to a non-nil value" if api_key.nil?
 
       raise ArgumentError, "Invalid region type. Expected one of: #{API_HOSTS.keys.join(", ")}" if !API_HOSTS.key?(region)
@@ -69,7 +69,7 @@ module Recurly
       base_url = API_HOSTS[region] if base_url == API_HOSTS[:us] && API_HOSTS.key?(region)
 
       set_api_key(api_key)
-      set_connection_options(base_url, ca_file)
+      set_connection_options(base_url, ca_file, keep_alive_timeout)
 
       if logger.nil?
         @logger = Logger.new(STDOUT).tap do |l|
@@ -172,7 +172,7 @@ module Recurly
     end
 
     def run_request(request, options = {})
-      self.class.connection_pool.with_connection(uri: @base_uri, ca_file: @ca_file) do |http|
+      self.class.connection_pool.with_connection(uri: @base_uri, keep_alive_timeout: @keep_alive_timeout, ca_file: @ca_file) do |http|
         set_http_options(http, options)
 
         retries = 0
@@ -353,9 +353,10 @@ module Recurly
       @api_key = api_key.to_s
     end
 
-    def set_connection_options(base_url, ca_file)
+    def set_connection_options(base_url, ca_file, keep_alive_timeout)
       @base_uri = URI.parse(base_url)
       @ca_file = ca_file
+      @keep_alive_timeout = keep_alive_timeout
     end
 
     def build_url(path, options)
