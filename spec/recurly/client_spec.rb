@@ -3,6 +3,7 @@ require "spec_helper"
 RSpec.describe Recurly::Client do
   subject(:client) { Recurly::Client.new(**client_options) }
   let(:client_options) { { api_key: api_key } }
+  let(:keep_alive_timeout) { 600 }
   let(:subdomain) { "test" }
   let(:api_key) { "recurly-good" }
   let(:resp_headers) do
@@ -18,7 +19,7 @@ RSpec.describe Recurly::Client do
     }
   end
   let(:net_http) {
-    Recurly::ConnectionPool.new.init_http_connection(URI.parse(Recurly::Client::API_HOSTS[:us]), Recurly::Client::CA_FILE)
+    Recurly::ConnectionPool.new.init_http_connection(URI.parse(Recurly::Client::API_HOSTS[:us]), keep_alive_timeout, Recurly::Client::CA_FILE)
   }
   let(:connection_pool) {
     pool = double("ConnectionPool")
@@ -64,6 +65,20 @@ RSpec.describe Recurly::Client do
         expect {
           Recurly::Client.new(**client_options.merge(region: :none))
         }.to raise_error(ArgumentError, "Invalid region type. Expected one of: #{Recurly::Client::API_HOSTS.keys.join(", ")}")
+      end
+    end
+
+    describe "using a custom keep alive timeout" do
+      let(:keep_alive_timeout) { 10 }
+
+      it "should use a custom base url in EU" do
+        client = Recurly::Client.new(**client_options.merge(region: :eu, keep_alive_timeout:))
+        expect(client.instance_variable_get(:@keep_alive_timeout)).to eq(10)
+      end
+
+      it "should use a custom base url in US" do
+        client = Recurly::Client.new(**client_options.merge(keep_alive_timeout:))
+        expect(client.instance_variable_get(:@keep_alive_timeout)).to eq(10)
       end
     end
   end
