@@ -77,7 +77,7 @@ RSpec.describe Recurly::Client do
       end
 
       it "should use a custom base url in US" do
-        client = Recurly::Client.new(**client_options.merge(keep_alive_timeout:))
+        client = Recurly::Client.new(**client_options.merge(keep_alive_timeout: keep_alive_timeout))
         expect(client.instance_variable_get(:@keep_alive_timeout)).to eq(10)
       end
     end
