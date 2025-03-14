@@ -20276,6 +20276,8 @@ components:
           format: float
           title: Tax
           description: The total tax on this invoice.
+        reference_only_currency_conversion:
+          "$ref": "#/components/schemas/ReferenceOnlyCurrencyConversion"
         total:
           type: number
           format: float
@@ -22289,6 +22291,25 @@ components:
           title: Updated at
           format: date-time
           readOnly: true
+    ReferenceOnlyCurrencyConversion:
+      type: object
+      title: Reference Only Currency Conversion
+      properties:
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        subtotal_in_cents:
+          type: number
+          format: float
+          title: Subtotal In Cents
+          description: The subtotal converted to the currency.
+        tax_in_cents:
+          type: number
+          format: float
+          title: Tax In Cents
+          description: The tax converted to the currency.
     ShippingAddressCreate:
       type: object
       properties:

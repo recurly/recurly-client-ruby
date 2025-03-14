@@ -114,6 +114,10 @@ module Recurly
       #   @return [String] On refund invoices, this value will exist and show the invoice ID of the purchase invoice the refund was created from. This field is only populated for sites without the [Only Bill What Changed](https://docs.recurly.com/docs/only-bill-what-changed) feature enabled. Sites with Only Bill What Changed enabled should use the [related_invoices endpoint](https://recurly.com/developers/api/v2021-02-25/index.html#operation/list_related_invoices) to see purchase invoices refunded by this invoice.
       define_attribute :previous_invoice_id, String
 
+      # @!attribute reference_only_currency_conversion
+      #   @return [ReferenceOnlyCurrencyConversion] Reference Only Currency Conversion
+      define_attribute :reference_only_currency_conversion, :ReferenceOnlyCurrencyConversion
+
       # @!attribute refundable_amount
       #   @return [Float] The refundable amount on a charge invoice. It will be null for all other invoices.
       define_attribute :refundable_amount, Float
