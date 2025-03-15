@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.61.0](https://github.com/recurly/recurly-client-ruby/tree/4.61.0) (2025-03-15)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.60.0...4.61.0)
+
+
+**Merged Pull Requests**
+
+- Add an option to override keep_alive_timeout [#922](https://github.com/recurly/recurly-client-ruby/pull/922) ([taltcher](https://github.com/taltcher))
+
+
+
 ## [4.60.0](https://github.com/recurly/recurly-client-ruby/tree/4.60.0) (2025-03-14)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.59.0...4.60.0)
