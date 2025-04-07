@@ -55,7 +55,7 @@ module Recurly
       define_attribute :shipping, :SubscriptionShippingPurchase
 
       # @!attribute starts_at
-      #   @return [DateTime] If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
+      #   @return [DateTime] If set, the subscription will begin on this specified date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
       define_attribute :starts_at, DateTime
 
       # @!attribute tax_inclusive
