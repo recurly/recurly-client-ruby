@@ -21322,8 +21322,8 @@ components:
           type: string
           title: Token
           description: Reference value used when the external token was created. If
-            Stripe gateway is used, this value will need to be accompanied by its
-            reference_type.
+            a Stripe gateway or Ebanx gateway is used, this value will need to be
+            accompanied by its reference_type.
         reference_type:
           type: string
           title: Reference Type
@@ -23682,7 +23682,7 @@ components:
           type: string
           format: date-time
           title: Start date
-          description: If set, the subscription will begin in the future on this date.
+          description: If set, the subscription will begin on this specified date.
             The subscription will apply the setup fee and trial period, unless the
             plan has no trial.
         next_bill_date:
@@ -23855,7 +23855,7 @@ components:
           type: string
           format: date-time
           title: Start date
-          description: If set, the subscription will begin in the future on this date.
+          description: If set, the subscription will begin on this specified date.
             The subscription will apply the setup fee and trial period, unless the
             plan has no trial.
         next_bill_date:
@@ -26564,11 +26564,12 @@ components:
     PaymentGatewayReferencesEnum:
       type: string
       description: The type of reference token. Required if token is passed in for
-        Stripe Gateway.
+        Stripe Gateway or Ebanx UPI.
       enum:
       - stripe_confirmation_token
       - stripe_customer
       - stripe_payment_method
+      - upi_vpa
     GatewayTransactionTypeEnum:
       type: string
       enum:
