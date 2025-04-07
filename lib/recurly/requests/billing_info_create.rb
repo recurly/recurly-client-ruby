@@ -55,7 +55,7 @@ module Recurly
       define_attribute :gateway_attributes, :GatewayAttributes
 
       # @!attribute gateway_code
-      #   @return [String] An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.
+      #   @return [String] An identifier for a specific payment gateway.
       define_attribute :gateway_code, String
 
       # @!attribute gateway_token

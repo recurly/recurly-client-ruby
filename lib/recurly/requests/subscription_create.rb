@@ -22,6 +22,10 @@ module Recurly
       #   @return [String] The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
       define_attribute :billing_info_id, String
 
+      # @!attribute bulk
+      #   @return [Boolean] Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.
+      define_attribute :bulk, :Boolean
+
       # @!attribute collection_method
       #   @return [String] Collection method
       define_attribute :collection_method, String
@@ -87,7 +91,7 @@ module Recurly
       define_attribute :shipping, :SubscriptionShippingCreate
 
       # @!attribute starts_at
-      #   @return [DateTime] If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
+      #   @return [DateTime] If set, the subscription will begin on this specified date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
       define_attribute :starts_at, DateTime
 
       # @!attribute tax_inclusive
