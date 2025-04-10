@@ -2463,6 +2463,21 @@ module Recurly
       pager(path, **options)
     end
 
+    # Create an external invoice
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_external_invoice create_external_invoice api documentation}
+    #
+    # @param external_subscription_id [String] External subscription id
+    # @param body [Requests::ExternalInvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalInvoiceCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::ExternalInvoice] Returns the external invoice
+    #
+    def create_external_invoice(external_subscription_id:, body:, **options)
+      path = interpolate_path("/external_subscriptions/{external_subscription_id}/external_invoices", external_subscription_id: external_subscription_id)
+      post(path, body, Requests::ExternalInvoiceCreate, **options)
+    end
+
     # List a site's invoices
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_invoices list_invoices api documentation}

@@ -8380,6 +8380,44 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+    post:
+      tags:
+      - external_invoices
+      operationId: create_external_invoice
+      summary: Create an external invoice
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ExternalInvoiceCreate"
+        required: true
+      responses:
+        '201':
+          description: Returns the external invoice
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ExternalInvoice"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: External subscription cannot be completed for the specified
+            reason.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/invoices":
     get:
       tags:
@@ -18948,6 +18986,12 @@ components:
           description: Represents the card network preference associated with the
             billing info for dual badged cards. Must be a supported card network.
           "$ref": "#/components/schemas/CardNetworkEnum"
+        return_url:
+          type: string
+          title: Return URL
+          description: Specifies a URL to which a consumer will be redirected upon
+            completion of a redirect payment flow. Only redirect payment flows operating
+            through Adyen Components will utilize this return URL.
     BillingInfoVerify:
       type: object
       properties:
