@@ -110,6 +110,10 @@ module Recurly
       #   @return [Boolean] The `primary_payment_method` field is used to designate the primary billing info on the account. The first billing info created on an account will always become primary. Adding additional billing infos provides the flexibility to mark another billing info as primary, or adding additional non-primary billing infos. This can be accomplished by passing the `primary_payment_method` with a value of `true`. When adding billing infos via the billing_info and /accounts endpoints, this value is not permitted, and will return an error if provided.
       define_attribute :primary_payment_method, :Boolean
 
+      # @!attribute return_url
+      #   @return [String] Specifies a URL to which a consumer will be redirected upon completion of a redirect payment flow. Only redirect payment flows operating through Adyen Components will utilize this return URL.
+      define_attribute :return_url, String
+
       # @!attribute roku_billing_agreement_id
       #   @return [String] Roku's CIB if billing through Roku
       define_attribute :roku_billing_agreement_id, String
