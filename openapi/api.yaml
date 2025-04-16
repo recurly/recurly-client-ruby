@@ -23728,7 +23728,8 @@ components:
           title: Start date
           description: If set, the subscription will begin on this specified date.
             The subscription will apply the setup fee and trial period, unless the
-            plan has no trial.
+            plan has no trial. Omit this field if the subscription should be started
+            immediately.
         next_bill_date:
           type: string
           format: date-time
@@ -23901,7 +23902,8 @@ components:
           title: Start date
           description: If set, the subscription will begin on this specified date.
             The subscription will apply the setup fee and trial period, unless the
-            plan has no trial.
+            plan has no trial. Omit this field if the subscription should be started
+            immediately.
         next_bill_date:
           type: string
           format: date-time
@@ -27060,6 +27062,7 @@ components:
       - braintree_v_zero
       - boleto
       - cash_app
+      - upi_autopay
     CardTypeEnum:
       type: string
       enum:
