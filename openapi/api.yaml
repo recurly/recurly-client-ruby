@@ -24279,8 +24279,8 @@ components:
           maxLength: 13
         account:
           "$ref": "#/components/schemas/AccountMini"
-        indicator:
-          "$ref": "#/components/schemas/TransactionIndicatorEnum"
+        initiator:
+          "$ref": "#/components/schemas/TransactionInitiatorEnum"
         invoice:
           "$ref": "#/components/schemas/InvoiceMini"
         merchant_reason_code:
@@ -24837,8 +24837,8 @@ components:
           allOf:
           - type: object
             properties:
-              indicator:
-                "$ref": "#/components/schemas/Transaction/properties/indicator"
+              initiator:
+                "$ref": "#/components/schemas/Transaction/properties/initiator"
               merchant_reason_code:
                 "$ref": "#/components/schemas/Transaction/properties/merchant_reason_code"
         customer_notes:
@@ -26613,8 +26613,6 @@ components:
         Stripe Gateway or Ebanx UPI.
       enum:
       - stripe_confirmation_token
-      - stripe_customer
-      - stripe_payment_method
       - upi_vpa
     GatewayTransactionTypeEnum:
       type: string
@@ -26978,6 +26976,12 @@ components:
       - recurring
       - refunded_externally
       - transparent
+      - token_api
+      - api_force_collect
+      - api_sub_change
+      - api_verify_card
+      - refund_balance
+      - amazon_v2_ipn
     TransactionStatusEnum:
       type: string
       enum:
@@ -27464,7 +27468,7 @@ components:
       - service_extension
       - split_shipment
       - top_up
-    TransactionIndicatorEnum:
+    TransactionInitiatorEnum:
       type: string
       description: Must be sent for one-time transactions in order to provide context
         on which entity is submitting the transaction to ensure proper fraud checks
