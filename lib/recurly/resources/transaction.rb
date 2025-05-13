@@ -90,9 +90,9 @@ module Recurly
       #   @return [String] Transaction ID
       define_attribute :id, String
 
-      # @!attribute indicator
+      # @!attribute initiator
       #   @return [String] Must be sent for one-time transactions in order to provide context on which entity is submitting the transaction to ensure proper fraud checks are observed, such as 3DS. If the customer is in session, send `customer`. If this is a merchant initiated one-time transaction, send `merchant`.
-      define_attribute :indicator, String
+      define_attribute :initiator, String
 
       # @!attribute invoice
       #   @return [InvoiceMini] Invoice mini details
