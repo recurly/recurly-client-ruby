@@ -19,7 +19,7 @@ module Recurly
       define_attribute :address, :Address
 
       # @!attribute amazon_billing_agreement_id
-      #   @return [String] Amazon billing agreement ID
+      #   @return [String] Only supported on Amazon V1. For Amazon V2, use token_id with Recurly.js.
       define_attribute :amazon_billing_agreement_id, String
 
       # @!attribute backup_payment_method

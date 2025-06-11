@@ -23,7 +23,7 @@ module Recurly
       define_attribute :add_on_id, String
 
       # @!attribute amount
-      #   @return [Float] `(quantity * unit_amount) - (discount + tax)`
+      #   @return [Float] `(quantity * unit_amount) - discount + tax`
       define_attribute :amount, Float
 
       # @!attribute avalara_service_type

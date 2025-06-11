@@ -55,7 +55,7 @@ module Recurly
       define_attribute :liability_gl_account_id, String
 
       # @!attribute origin
-      #   @return [String] Origin `external_gift_card` is allowed if the Gift Cards feature is enabled on your site and `type` is `credit`. Set this value in order to track gift card credits from external gift cards (like InComm). It also skips billing information requirements.  Origin `prepayment` is only allowed if `type` is `charge` and `tax_exempt` is left blank or set to true.  This origin creates a charge and opposite credit on the account to be used for future invoices.
+      #   @return [String] Origin `external_gift_card` is allowed if the Gift Cards feature is enabled on your site, `type` is `credit` and `tax_exempt` is `true` if you are using taxes. Set this value in order to track gift card credits from external gift cards (like InComm). It also skips billing information requirements.  Origin `prepayment` is only allowed if `type` is `charge` and `tax_exempt` is left blank or set to true.  This origin creates a charge and opposite credit on the account to be used for future invoices.
       define_attribute :origin, String
 
       # @!attribute origin_tax_address_source

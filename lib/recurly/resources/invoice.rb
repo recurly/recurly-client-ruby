@@ -138,6 +138,10 @@ module Recurly
       #   @return [Float] The summation of charges and credits, before discounts and taxes.
       define_attribute :subtotal, Float
 
+      # @!attribute subtotal_after_discount
+      #   @return [Float] The summation of charges and credits, after discounts applied.
+      define_attribute :subtotal_after_discount, Float
+
       # @!attribute tax
       #   @return [Float] The total tax on this invoice.
       define_attribute :tax, Float
