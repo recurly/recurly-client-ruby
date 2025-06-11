@@ -2793,6 +2793,97 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
       x-code-samples: []
+  "/accounts/{account_id}/billing_infos/{billing_info_id}/verify":
+    post:
+      tags:
+      - billing_infos
+      operationId: verify_billing_infos
+      summary: Verify a billing information's credit card
+      parameters:
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/billing_info_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BillingInfoVerify"
+        required: false
+      responses:
+        '200':
+          description: Transaction information from verify.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Transaction"
+        '404':
+          description: Billing information not found, or incorrect site or account
+            ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid billing information, or error running the verification
+            transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+      x-code-samples: []
+  "/accounts/{account_id}/billing_infos/{billing_info_id}/verify_cvv":
+    post:
+      tags:
+      - billing_infos
+      operationId: verify_billing_infos_cvv
+      summary: Verify a billing information's credit card cvv
+      parameters:
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/billing_info_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BillingInfoVerifyCVV"
+      responses:
+        '200':
+          description: Transaction information from verify.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Transaction"
+        '404':
+          description: Billing information not found, or incorrect site or account
+            ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid billing information, or error running the verification
+            transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+        '429':
+          description: Too many CVV verification attempts.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/coupon_redemptions":
     get:
       tags:
@@ -10830,7 +10921,7 @@ paths:
           }
       - lang: Go
         source: "planReq := &recurly.PlanCreate{\n\tCode: &planCode,\n\tName: recurly.String(\"Monthly
-          Coffee Subscription\"),\n\tCurrencies: []recurly.PlanPricingCreate{\n\t\t{\n\t\t\tCurrency:
+          Coffee Subscription\"),\n\tCurrencies: &[]recurly.PlanPricingCreate{\n\t\t{\n\t\t\tCurrency:
           \  recurly.String(\"USD\"),\n\t\t\tUnitAmount: recurly.Float(10000),\n\t\t},\n\t},\n}\n\nplan,
           err := client.CreatePlan(planReq)\nif e, ok := err.(*recurly.Error); ok
           {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
@@ -11499,7 +11590,7 @@ paths:
           }
       - lang: Go
         source: "addOnReq := &recurly.AddOnCreate{\n\tCode: &addOnCode,\n\tName: recurly.String(\"Fresh
-          beans shipped monthly\"),\n\tCurrencies: []recurly.AddOnPricingCreate{\n\t\t{\n\t\t\tCurrency:
+          beans shipped monthly\"),\n\tCurrencies: &[]recurly.AddOnPricingCreate{\n\t\t{\n\t\t\tCurrency:
           \  recurly.String(\"USD\"),\n\t\t\tUnitAmount: recurly.Float(10),\n\t\t},\n\t},\n}\n\nplanAddOn,
           err := client.CreatePlanAddOn(planID, addOnReq)\nif e, ok := err.(*recurly.Error);
           ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
@@ -15274,7 +15365,7 @@ paths:
       - lang: Go
         source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"USD\"),\n\tAccount:
           &recurly.AccountPurchase{\n\t\tCode: recurly.String(accountCode),\n\t},\n\tSubscriptions:
-          []recurly.SubscriptionPurchase{\n\t\t{\n\t\t\tPlanCode:     recurly.String(planCode),\n\t\t\tNextBillDate:
+          &[]recurly.SubscriptionPurchase{\n\t\t{\n\t\t\tPlanCode:     recurly.String(planCode),\n\t\t\tNextBillDate:
           recurly.Time(time.Date(2078, time.November, 10, 23, 0, 0, 0, time.UTC)),\n\t\t},\n\t},\n\tShipping:
           &recurly.ShippingPurchase{\n\t\tAddressId: recurly.String(shippingAddressID),\n\t},\n}\n\ncollection,
           err := client.CreatePurchase(purchaseReq)\nif e, ok := err.(*recurly.Error);
@@ -15508,7 +15599,7 @@ paths:
       - lang: Go
         source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"USD\"),\n\tAccount:
           &recurly.AccountPurchase{\n\t\tCode: recurly.String(account.Code),\n\t},\n\tSubscriptions:
-          []recurly.SubscriptionPurchase{\n\t\t{\n\t\t\tPlanCode:     recurly.String(plan.Code),\n\t\t\tNextBillDate:
+          &[]recurly.SubscriptionPurchase{\n\t\t{\n\t\t\tPlanCode:     recurly.String(plan.Code),\n\t\t\tNextBillDate:
           recurly.Time(time.Date(2078, time.November, 10, 23, 0, 0, 0, time.UTC)),\n\t\t},\n\t},\n\tShipping:
           &recurly.ShippingPurchase{\n\t\tAddressId: recurly.String(shippingAddressID),\n\t},\n}\ncollection,
           err := client.PreviewPurchase(purchaseReq)\nif e, ok := err.(*recurly.Error);
@@ -15776,12 +15867,12 @@ paths:
               var_dump($e);
           }
       - lang: Go
-        source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"EUR\"),\n\tAccount:
+        source: "purchaseReq := &recurly.PurchaseCreate{\n\tCurrency: recurly.String(\"USD\"),\n\tAccount:
           &recurly.AccountPurchase{\n\t\tCode:  recurly.String(accountCode),\n\t\tEmail:
           recurly.String(\"benjamin@example.com\"),\n\t\tBillingInfo: &recurly.BillingInfoCreate{\n\t\t\tFirstName:
           \               recurly.String(\"Benjamin\"),\n\t\t\tLastName:                 recurly.String(\"Du
           Monde\"),\n\t\t\tOnlineBankingPaymentType: recurly.String(\"ideal\"),\n\t\t},\n\t},\n\tLineItems:
-          []recurly.LineItemCreate{\n\t\t{\n\t\t\tCurrency:   recurly.String(\"EUR\"),\n\t\t\tUnitAmount:
+          &[]recurly.LineItemCreate{\n\t\t{\n\t\t\tCurrency:   recurly.String(\"USD\"),\n\t\t\tUnitAmount:
           recurly.Float(1000),\n\t\t\tType:       recurly.String(\"charge\"),\n\t\t},\n\t},\n}\ncollection,
           err := client.CreatePendingPurchase(purchaseReq)\nif e, ok := err.(*recurly.Error);
           ok {\n\tif e.Type == recurly.ErrorTypeValidation {\n\t\tfmt.Printf(\"Failed
@@ -18896,6 +18987,8 @@ components:
         amazon_billing_agreement_id:
           type: string
           title: Amazon billing agreement ID
+          description: Only supported on Amazon V1. For Amazon V2, use token_id with
+            Recurly.js.
         paypal_billing_agreement_id:
           type: string
           title: PayPal billing agreement ID
@@ -18999,12 +19092,27 @@ components:
           type: string
           description: An identifier for a specific payment gateway.
           maxLength: 13
+        three_d_secure_action_result_token_id:
+          type: string
+          description: A token generated by Recurly.js after completing a 3-D Secure
+            device fingerprinting or authentication challenge.
     BillingInfoVerifyCVV:
       type: object
       properties:
         verification_value:
           type: string
           description: Unique security code for a credit card.
+        gateway_code:
+          type: string
+          description: An identifier for a specific payment gateway.
+          maxLength: 13
+        three_d_secure_action_result_token_id:
+          type: string
+          description: A token generated by Recurly.js after completing a 3-D Secure
+            device fingerprinting or authentication challenge.
+        token_id:
+          type: string
+          description: A token [generated by Recurly.js](https://recurly.com/developers/reference/recurly-js/#getting-a-token).
     Coupon:
       type: object
       properties:
@@ -20315,6 +20423,11 @@ components:
           title: Subtotal
           description: The summation of charges and credits, before discounts and
             taxes.
+        subtotal_after_discount:
+          type: number
+          format: float
+          title: Subtotal After Discount
+          description: The summation of charges and credits, after discounts applied.
         tax:
           type: number
           format: float
@@ -20958,7 +21071,7 @@ components:
           type: number
           format: float
           title: Total after discounts and taxes
-          description: "`(quantity * unit_amount) - (discount + tax)`"
+          description: "`(quantity * unit_amount) - discount + tax`"
         description:
           type: string
           title: Description
@@ -21327,12 +21440,12 @@ components:
         origin:
           title: Origin
           description: Origin `external_gift_card` is allowed if the Gift Cards feature
-            is enabled on your site and `type` is `credit`. Set this value in order
-            to track gift card credits from external gift cards (like InComm). It
-            also skips billing information requirements.  Origin `prepayment` is only
-            allowed if `type` is `charge` and `tax_exempt` is left blank or set to
-            true.  This origin creates a charge and opposite credit on the account
-            to be used for future invoices.
+            is enabled on your site, `type` is `credit` and `tax_exempt` is `true`
+            if you are using taxes. Set this value in order to track gift card credits
+            from external gift cards (like InComm). It also skips billing information
+            requirements.  Origin `prepayment` is only allowed if `type` is `charge`
+            and `tax_exempt` is left blank or set to true.  This origin creates a
+            charge and opposite credit on the account to be used for future invoices.
           "$ref": "#/components/schemas/LineItemCreateOriginEnum"
         custom_fields:
           "$ref": "#/components/schemas/CustomFields"
@@ -24152,7 +24265,8 @@ components:
           description: Represents the billing cycle where a ramp interval starts.
           default: 1
         unit_amount:
-          type: integer
+          type: number
+          format: float
           description: Represents the price for the ramp interval.
     SubscriptionRampIntervalResponse:
       type: object

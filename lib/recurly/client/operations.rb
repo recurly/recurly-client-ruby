@@ -589,6 +589,38 @@ module Recurly
       delete(path, **options)
     end
 
+    # Verify a billing information's credit card
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos verify_billing_infos api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param billing_info_id [String] Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.
+    # @param params [Hash] Optional query string parameters:
+    #        :body [Requests::BillingInfoVerify] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoVerify}
+    #
+    # @return [Resources::Transaction] Transaction information from verify.
+    #
+    def verify_billing_infos(account_id:, billing_info_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}/verify", account_id: account_id, billing_info_id: billing_info_id)
+      post(path, options[:body], Requests::BillingInfoVerify, **options)
+    end
+
+    # Verify a billing information's credit card cvv
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/verify_billing_infos_cvv verify_billing_infos_cvv api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param billing_info_id [String] Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.
+    # @param body [Requests::BillingInfoVerifyCVV] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoVerifyCVV}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::Transaction] Transaction information from verify.
+    #
+    def verify_billing_infos_cvv(account_id:, billing_info_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}/verify_cvv", account_id: account_id, billing_info_id: billing_info_id)
+      post(path, body, Requests::BillingInfoVerifyCVV, **options)
+    end
+
     # List the coupon redemptions for an account
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_account_coupon_redemptions list_account_coupon_redemptions api documentation}
