@@ -17689,6 +17689,11 @@ components:
           type: string
           description: An arbitrary identifier for the marketing campaign that led
             to the acquisition of this account.
+        acquired_at:
+          type: string
+          format: date-time
+          description: Date the account was first created if different than the account.created_at.
+            ie Importing accounts.
     AccountAcquisitionReadOnly:
       type: object
       properties:
@@ -18998,6 +19003,11 @@ components:
         fraud_session_id:
           type: string
           title: Fraud Session ID
+        adyen_risk_profile_reference_id:
+          type: string
+          title: Adyen Risk Profile Reference ID
+          description: The Adyen Risk Profile Reference ID is used to identify the
+            risk profile for the payment method.
         transaction_type:
           description: An optional type designation for the payment gateway transaction
             created by this request. Supports 'moto' value, which is the acronym for
@@ -19943,6 +19953,12 @@ components:
         object:
           title: Object type
           type: string
+        has_more:
+          type: boolean
+          description: Indicates there are more results on subsequent pages.
+        next:
+          type: string
+          description: Path to subsequent page of results.
         data:
           title: Performance Obligation
           type: array
@@ -24218,6 +24234,11 @@ components:
           format: float
           title: Assigns the subscription's shipping cost. If this is greater than
             zero then a `method_id` or `method_code` is required.
+        expected_first_delivery_at:
+          type: string
+          format: date-time
+          title: Expected first delivery date
+          description: The expected date of the first delivery for the subscription.
     SubscriptionShippingUpdate:
       type: object
       title: Subscription shipping details
@@ -24256,6 +24277,11 @@ components:
           format: float
           title: Assigns the subscription's shipping cost. If this is greater than
             zero then a `method_id` or `method_code` is required.
+        expected_first_delivery_at:
+          type: string
+          format: date-time
+          title: Expected first delivery date
+          description: The expected date of the first delivery for the subscription.
     SubscriptionRampInterval:
       type: object
       title: Subscription Ramp Interval
@@ -25134,6 +25160,7 @@ components:
           format: date-time
           description: When the current settings were updated in Recurly.
     DunningInterval:
+      type: object
       properties:
         days:
           type: integer
@@ -25158,6 +25185,7 @@ components:
           items:
             type: string
     DunningCampaignsBulkUpdateResponse:
+      type: object
       properties:
         object:
           type: string
@@ -26011,6 +26039,7 @@ components:
           format: date-time
           description: When the invoice template was updated in Recurly.
     PaymentMethod:
+      type: object
       properties:
         object:
           "$ref": "#/components/schemas/PaymentMethodEnum"
@@ -27161,6 +27190,7 @@ components:
       - amazon
       - amazon_billing_agreement
       - apple_pay
+      - apple_pay_merchant_token
       - bank_account_info
       - braintree_apple_pay
       - check
