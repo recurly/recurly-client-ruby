@@ -10,6 +10,10 @@ module Recurly
       #   @return [AccountMini] Account mini details
       define_attribute :account, :AccountMini
 
+      # @!attribute acquired_at
+      #   @return [DateTime] Date the account was first created if different than the account.created_at. ie Importing accounts.
+      define_attribute :acquired_at, DateTime
+
       # @!attribute campaign
       #   @return [String] An arbitrary identifier for the marketing campaign that led to the acquisition of this account.
       define_attribute :campaign, String

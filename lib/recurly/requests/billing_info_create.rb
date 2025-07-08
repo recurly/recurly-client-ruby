@@ -18,6 +18,10 @@ module Recurly
       #   @return [Address]
       define_attribute :address, :Address
 
+      # @!attribute adyen_risk_profile_reference_id
+      #   @return [String] The Adyen Risk Profile Reference ID is used to identify the risk profile for the payment method.
+      define_attribute :adyen_risk_profile_reference_id, String
+
       # @!attribute amazon_billing_agreement_id
       #   @return [String] Only supported on Amazon V1. For Amazon V2, use token_id with Recurly.js.
       define_attribute :amazon_billing_agreement_id, String
