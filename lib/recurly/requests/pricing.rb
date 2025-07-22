@@ -15,7 +15,7 @@ module Recurly
       define_attribute :tax_inclusive, :Boolean
 
       # @!attribute unit_amount
-      #   @return [Float] Unit price
+      #   @return [Float]
       define_attribute :unit_amount, Float
     end
   end
