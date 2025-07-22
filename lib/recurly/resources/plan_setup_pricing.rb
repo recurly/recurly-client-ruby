@@ -4,18 +4,14 @@
 # need and we will usher them to the appropriate places.
 module Recurly
   module Resources
-    class Pricing < Resource
+    class PlanSetupPricing < Resource
 
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
 
-      # @!attribute tax_inclusive
-      #   @return [Boolean] This field is deprecated. Please do not use it.
-      define_attribute :tax_inclusive, :Boolean
-
       # @!attribute unit_amount
-      #   @return [Float]
+      #   @return [Float] Amount of one-time setup fee automatically charged at the beginning of a subscription billing cycle. For subscription plans with a trial, the setup fee will be charged at the time of signup. Setup fees do not increase with the quantity of a subscription plan.
       define_attribute :unit_amount, Float
     end
   end

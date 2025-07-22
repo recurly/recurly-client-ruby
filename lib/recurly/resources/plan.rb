@@ -35,7 +35,7 @@ module Recurly
       define_attribute :created_at, DateTime
 
       # @!attribute currencies
-      #   @return [Array[PlanPricing]] Pricing
+      #   @return [Array[PlanPricing]] Present only when `pricing_model` is `'fixed'`.
       define_attribute :currencies, Array, { :item_type => :PlanPricing }
 
       # @!attribute custom_fields
@@ -70,6 +70,10 @@ module Recurly
       #   @return [String] Unit for the plan's billing interval.
       define_attribute :interval_unit, String
 
+      # @!attribute liability_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :liability_gl_account_id, String
+
       # @!attribute name
       #   @return [String] This name describes your plan and will appear on the Hosted Payment Page and the subscriber's invoice.
       define_attribute :name, String
@@ -77,6 +81,10 @@ module Recurly
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+
+      # @!attribute performance_obligation_id
+      #   @return [String] The ID of a performance obligation. Performance obligations are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :performance_obligation_id, String
 
       # @!attribute pricing_model
       #   @return [String] A fixed pricing model has the same price for each billing period. A ramp pricing model defines a set of Ramp Intervals, where a subscription changes price on a specified cadence of billing periods. The price change could be an increase or decrease.
@@ -86,6 +94,10 @@ module Recurly
       #   @return [Array[PlanRampInterval]] Ramp Intervals
       define_attribute :ramp_intervals, Array, { :item_type => :PlanRampInterval }
 
+      # @!attribute revenue_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :revenue_gl_account_id, String
+
       # @!attribute revenue_schedule_type
       #   @return [String] Revenue schedule type
       define_attribute :revenue_schedule_type, String
@@ -94,9 +106,25 @@ module Recurly
       #   @return [String] Accounting code for invoice line items for the plan's setup fee. If no value is provided, it defaults to plan's accounting code.
       define_attribute :setup_fee_accounting_code, String
 
+      # @!attribute setup_fee_liability_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :setup_fee_liability_gl_account_id, String
+
+      # @!attribute setup_fee_performance_obligation_id
+      #   @return [String] The ID of a performance obligation. Performance obligations are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :setup_fee_performance_obligation_id, String
+
+      # @!attribute setup_fee_revenue_gl_account_id
+      #   @return [String] The ID of a general ledger account. General ledger accounts are only accessible as a part of the Recurly RevRec Standard and Recurly RevRec Advanced features.
+      define_attribute :setup_fee_revenue_gl_account_id, String
+
       # @!attribute setup_fee_revenue_schedule_type
       #   @return [String] Setup fee revenue schedule type
       define_attribute :setup_fee_revenue_schedule_type, String
+
+      # @!attribute setup_fees
+      #   @return [Array[PlanSetupPricing]] Setup Fees
+      define_attribute :setup_fees, Array, { :item_type => :PlanSetupPricing }
 
       # @!attribute state
       #   @return [String] The current state of the plan.

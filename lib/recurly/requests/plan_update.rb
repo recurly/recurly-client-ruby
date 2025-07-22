@@ -31,7 +31,7 @@ module Recurly
       define_attribute :code, String
 
       # @!attribute currencies
-      #   @return [Array[PlanPricing]] Optional when the pricing model is 'ramp'.
+      #   @return [Array[PlanPricing]] Required only when `pricing_model` is `'fixed'`.
       define_attribute :currencies, Array, { :item_type => :PlanPricing }
 
       # @!attribute custom_fields
@@ -51,7 +51,7 @@ module Recurly
       define_attribute :hosted_pages, :PlanHostedPages
 
       # @!attribute id
-      #   @return [String] Plan ID
+      #   @return [String] This field has no effect on the request/response.
       define_attribute :id, String
 
       # @!attribute liability_gl_account_id
@@ -98,6 +98,10 @@ module Recurly
       #   @return [String] Setup fee revenue schedule type
       define_attribute :setup_fee_revenue_schedule_type, String
 
+      # @!attribute setup_fees
+      #   @return [Array[PlanSetupPricingCreate]] Setup Fees
+      define_attribute :setup_fees, Array, { :item_type => :PlanSetupPricingCreate }
+
       # @!attribute tax_code
       #   @return [String] Optional field used by Avalara, Vertex, and Recurly's In-the-Box tax solution to determine taxation rules. You can pass in specific tax codes using any of these tax integrations. For Recurly's In-the-Box tax offering you can also choose to instead use simple values of `unknown`, `physical`, or `digital` tax codes.
       define_attribute :tax_code, String
@@ -107,7 +111,7 @@ module Recurly
       define_attribute :tax_exempt, :Boolean
 
       # @!attribute total_billing_cycles
-      #   @return [Integer] Automatically terminate plans after a defined number of billing cycles.
+      #   @return [Integer] Automatically terminate subscriptions after a defined number of billing cycles. Number of billing cycles before the plan automatically stops renewing, defaults to `null` for continuous, automatic renewal.
       define_attribute :total_billing_cycles, Integer
 
       # @!attribute trial_length

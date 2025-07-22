@@ -2566,7 +2566,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_invoice get_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] An invoice.
@@ -2589,7 +2589,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/update_invoice update_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param body [Requests::InvoiceUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceUpdate}
     # @param params [Hash] Optional query string parameters:
     #
@@ -2617,7 +2617,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_invoice_pdf get_invoice_pdf api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::BinaryFile] An invoice as a PDF.
@@ -2643,7 +2643,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/apply_credit_balance apply_credit_balance api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
@@ -2667,7 +2667,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/collect_invoice collect_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #        :body [Requests::InvoiceCollect] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCollect}
     #
@@ -2691,7 +2691,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_failed mark_invoice_failed api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] The updated invoice.
@@ -2714,7 +2714,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/mark_invoice_successful mark_invoice_successful api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] The updated invoice.
@@ -2737,7 +2737,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/reopen_invoice reopen_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] The updated invoice.
@@ -2760,7 +2760,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/void_invoice void_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Resources::Invoice] The updated invoice.
@@ -2783,7 +2783,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/record_external_transaction record_external_transaction api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param body [Requests::ExternalTransaction] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalTransaction}
     # @param params [Hash] Optional query string parameters:
     #
@@ -2798,7 +2798,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_line_items list_invoice_line_items api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #        :ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -2850,7 +2850,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_invoice_coupon_redemptions list_invoice_coupon_redemptions api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #        :ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
@@ -2897,7 +2897,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_related_invoices list_related_invoices api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
     #
     # @return [Pager<Resources::Invoice>] A list of the credit or charge invoices associated with the invoice.
@@ -2922,7 +2922,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/refund_invoice refund_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param body [Requests::InvoiceRefund] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceRefund}
     # @param params [Hash] Optional query string parameters:
     #
@@ -3374,6 +3374,47 @@ module Recurly
     def remove_plan_add_on(plan_id:, add_on_id:, **options)
       path = interpolate_path("/plans/{plan_id}/add_ons/{add_on_id}", plan_id: plan_id, add_on_id: add_on_id)
       delete(path, **options)
+    end
+
+    # List a site's price segments
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_price_segments list_price_segments api documentation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #        :ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
+    #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
+    #
+    #   *Important notes:*
+    #
+    #   * The +ids+ parameter cannot be used with any other ordering or filtering
+    #     parameters (+limit+, +order+, +sort+, +begin_time+, +end_time+, etc)
+    #   * Invalid or unknown IDs will be ignored, so you should check that the
+    #     results correspond to your request.
+    #   * Records are returned in an arbitrary order. Since results are all
+    #     returned at once you can sort the records yourself.
+    #
+    #        :limit [Integer] Limit number of records 1-200.
+    #        :order [String] Sort order.
+    #
+    # @return [Pager<Resources::PriceSegment>] A list of price segments.
+    #
+    def list_price_segments(**options)
+      path = "/price_segments"
+      pager(path, **options)
+    end
+
+    # Fetch a price segment
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_price_segment get_price_segment api documentation}
+    #
+    # @param price_segment_id [String] The price segment ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-gold+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::PriceSegment] A price segment.
+    #
+    def get_price_segment(price_segment_id:, **options)
+      path = interpolate_path("/price_segments/{price_segment_id}", price_segment_id: price_segment_id)
+      get(path, **options)
     end
 
     # List a site's add-ons
