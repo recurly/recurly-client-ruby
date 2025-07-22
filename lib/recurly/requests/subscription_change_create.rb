@@ -54,6 +54,10 @@ module Recurly
       #   @return [String] For manual invoicing, this identifies the PO number associated with the subscription.
       define_attribute :po_number, String
 
+      # @!attribute price_segment_id
+      #   @return [String] The price segment ID, e.g. `e28zov4fw0v2`.
+      define_attribute :price_segment_id, String
+
       # @!attribute proration_settings
       #   @return [ProrationSettings] Allows you to control how any resulting charges and credits will be calculated and prorated.
       define_attribute :proration_settings, :ProrationSettings

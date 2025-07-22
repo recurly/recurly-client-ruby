@@ -138,6 +138,10 @@ module Recurly
       #   @return [String] For manual invoicing, this identifies the PO number associated with the subscription.
       define_attribute :po_number, String
 
+      # @!attribute price_segment_id
+      #   @return [String] The price segment ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For requests, the code can also be used. Use prefix `code-`, e.g. `code-gold`.
+      define_attribute :price_segment_id, String
+
       # @!attribute quantity
       #   @return [Integer] Subscription quantity
       define_attribute :quantity, Integer

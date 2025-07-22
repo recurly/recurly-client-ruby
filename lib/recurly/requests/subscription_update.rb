@@ -46,6 +46,10 @@ module Recurly
       #   @return [String] For manual invoicing, this identifies the PO number associated with the subscription.
       define_attribute :po_number, String
 
+      # @!attribute price_segment_id
+      #   @return [String] The price segment ID, e.g. `e28zov4fw0v2`.
+      define_attribute :price_segment_id, String
+
       # @!attribute remaining_billing_cycles
       #   @return [Integer] The remaining billing cycles in the current term.
       define_attribute :remaining_billing_cycles, Integer
