@@ -27032,6 +27032,7 @@ components:
       - eft
       - gateway_token
       - google_pay
+      - google_pay_device_pan
       - iban_bank_account
       - money_order
       - other
