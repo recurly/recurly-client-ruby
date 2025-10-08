@@ -1113,6 +1113,21 @@ module Recurly
       pager(path, **options)
     end
 
+    # Create an account note
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_account_note create_account_note api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param body [Requests::AccountNoteCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::AccountNoteCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::AccountNote] An account note.
+    #
+    def create_account_note(account_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/notes", account_id: account_id)
+      post(path, body, Requests::AccountNoteCreate, **options)
+    end
+
     # Fetch an account note
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_account_note get_account_note api documentation}
@@ -1138,6 +1153,21 @@ module Recurly
     def get_account_note(account_id:, account_note_id:, **options)
       path = interpolate_path("/accounts/{account_id}/notes/{account_note_id}", account_id: account_id, account_note_id: account_note_id)
       get(path, **options)
+    end
+
+    # Delete an account note
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/remove_account_note remove_account_note api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param account_note_id [String] Account Note ID.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::Empty] Account note deleted.
+    #
+    def remove_account_note(account_id:, account_note_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/notes/{account_note_id}", account_id: account_id, account_note_id: account_note_id)
+      delete(path, **options)
     end
 
     # Fetch a list of an account's shipping addresses

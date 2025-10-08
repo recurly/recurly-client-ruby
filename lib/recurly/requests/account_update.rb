@@ -10,6 +10,10 @@ module Recurly
       #   @return [Address]
       define_attribute :address, :Address
 
+      # @!attribute bill_date
+      #   @return [DateTime] The preferred billing date for the account. This date will be used as the billing date for when activating new subscriptions on the account.
+      define_attribute :bill_date, DateTime
+
       # @!attribute bill_to
       #   @return [String] An enumerable describing the billing behavior of the account, specifically whether the account is self-paying or will rely on the parent account to pay.
       define_attribute :bill_to, String

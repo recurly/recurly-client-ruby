@@ -38,6 +38,10 @@ module Recurly
       #   @return [Boolean] Determines if the quantity field is displayed on the hosted pages for the add-on.
       define_attribute :display_quantity, :Boolean
 
+      # @!attribute harmonized_system_code
+      #   @return [String] The Harmonized System (HS) code is an internationally standardized system of names and numbers to classify traded products. The HS code, sometimes called Commodity Code, is used by customs authorities around the world to identify products when assessing duties and taxes. The HS code may also be referred to as the tariff code or customs code. Values should contain only digits and decimals.
+      define_attribute :harmonized_system_code, String
+
       # @!attribute item_code
       #   @return [String] Unique code to identify an item. Available when the `Credit Invoices` feature is enabled. If `item_id` and `item_code` are both present, `item_id` will be used.
       define_attribute :item_code, String
