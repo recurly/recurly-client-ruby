@@ -50,6 +50,10 @@ module Recurly
       #   @return [String] Unique ID to identify a dunning campaign. Used to specify if a non-default dunning campaign should be assigned to this plan. For sites without multiple dunning campaigns enabled, the default dunning campaign will always be used.
       define_attribute :dunning_campaign_id, String
 
+      # @!attribute harmonized_system_code
+      #   @return [String] The Harmonized System (HS) code is an internationally standardized system of names and numbers to classify traded products. The HS code, sometimes called Commodity Code, is used by customs authorities around the world to identify products when assessing duties and taxes. The HS code may also be referred to as the tariff code or customs code. Values should contain only digits and decimals.
+      define_attribute :harmonized_system_code, String
+
       # @!attribute hosted_pages
       #   @return [PlanHostedPages] Hosted pages settings
       define_attribute :hosted_pages, :PlanHostedPages

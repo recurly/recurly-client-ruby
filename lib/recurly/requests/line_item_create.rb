@@ -42,6 +42,10 @@ module Recurly
       #   @return [DateTime] If this date is provided, it indicates the end of a time range.
       define_attribute :end_date, DateTime
 
+      # @!attribute harmonized_system_code
+      #   @return [String] The Harmonized System (HS) code is an internationally standardized system of names and numbers to classify traded products. The HS code, sometimes called Commodity Code, is used by customs authorities around the world to identify products when assessing duties and taxes. The HS code may also be referred to as the tariff code or customs code. Values should contain only digits and decimals. If `item_code`/`item_id` is part of the request then `harmonized_system_code` must be absent.
+      define_attribute :harmonized_system_code, String
+
       # @!attribute item_code
       #   @return [String] Unique code to identify an item. Available when the Credit Invoices feature is enabled.
       define_attribute :item_code, String

@@ -38,6 +38,10 @@ module Recurly
       #   @return [String] The price segment ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`. For requests, the code can also be used. Use prefix `code-`, e.g. `code-gold`.
       define_attribute :price_segment_id, String
 
+      # @!attribute proration_settings
+      #   @return [SubscriptionCreateProrationSettings] Allows you to control how any resulting charges will be calculated and prorated.
+      define_attribute :proration_settings, :SubscriptionCreateProrationSettings
+
       # @!attribute quantity
       #   @return [Integer] Optionally override the default quantity of 1.
       define_attribute :quantity, Integer

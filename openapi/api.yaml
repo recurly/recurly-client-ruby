@@ -4462,6 +4462,51 @@ paths:
           accountNotes.Fetch()\n\tif e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed
           to retrieve next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, note := range
           accountNotes.Data() {\n\t\tfmt.Printf(\"Account Note %3d: %s\\n\",\n\t\t\ti,\n\t\t\tnote.Id,\n\t\t)\n\t}\n}"
+    post:
+      tags:
+      - note
+      operationId: create_account_note
+      summary: Create an account note
+      parameters:
+      - "$ref": "#/components/parameters/account_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/AccountNoteCreate"
+        required: true
+      responses:
+        '201':
+          description: An account note.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/AccountNote"
+        '400':
+          description: Bad request; perhaps missing or invalid parameters.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or account ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: A validation error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/notes/{account_note_id}":
     get:
       tags:
@@ -4470,12 +4515,7 @@ paths:
       summary: Fetch an account note
       parameters:
       - "$ref": "#/components/parameters/account_id"
-      - name: account_note_id
-        in: path
-        description: Account Note ID.
-        required: true
-        schema:
-          type: string
+      - "$ref": "#/components/parameters/account_note_id"
       responses:
         '200':
           description: An account note.
@@ -4588,6 +4628,30 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Fetched Account
           Note: %v\", accountNote)"
+    delete:
+      tags:
+      - note
+      operationId: remove_account_note
+      summary: Delete an account note
+      parameters:
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/account_note_id"
+      responses:
+        '204':
+          description: Account note deleted.
+        '404':
+          description: Incorrect site, account or note ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/shipping_addresses":
     get:
       tags:
@@ -16941,6 +17005,13 @@ components:
       required: true
       schema:
         type: string
+    account_note_id:
+      name: account_note_id
+      in: path
+      description: Account Note ID.
+      required: true
+      schema:
+        type: string
     add_on_id:
       name: add_on_id
       in: path
@@ -18046,6 +18117,13 @@ components:
           description: The Avalara AvaTax value that can be passed to identify the
             customer type for tax purposes. The range of values can be A - R (more
             info at Avalara). Value is case-sensitive.
+        bill_date:
+          type: string
+          title: Bill Date
+          format: date-time
+          description: The preferred billing date for the account. This date will
+            be used as the billing date for when activating new subscriptions on the
+            account.
     AccountResponse:
       type: object
       properties:
@@ -18152,6 +18230,13 @@ components:
           description: The Avalara AvaTax value that can be passed to identify the
             customer type for tax purposes. The range of values can be A - R (more
             info at Avalara). Value is case-sensitive.
+        bill_date:
+          title: Bill Date
+          type: string
+          format: date-time
+          description: The preferred billing date for the account. This date will
+            be used as the billing date for when activating new subscriptions on the
+            account.
     AccountNote:
       type: object
       required:
@@ -18175,6 +18260,14 @@ components:
           type: string
           format: date-time
           readOnly: true
+    AccountNoteCreate:
+      type: object
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: The content of the account note.
     AccountMini:
       type: object
       title: Account mini details
@@ -18488,6 +18581,17 @@ components:
             offering you can also choose to instead use simple values of `unknown`,
             `physical`, or `digital` tax codes. If `item_code`/`item_id` is part of
             the request then `tax_code` must be absent.
+        harmonized_system_code:
+          type: string
+          title: Harmonized System code
+          description: The Harmonized System (HS) code is an internationally standardized
+            system of names and numbers to classify traded products. The HS code,
+            sometimes called Commodity Code, is used by customs authorities around
+            the world to identify products when assessing duties and taxes. The HS
+            code may also be referred to as the tariff code or customs code. Values
+            should contain only digits and decimals.
+          pattern: "^\\d+(\\.\\d+)*$"
+          maxLength: 25
         display_quantity:
           type: boolean
           title: Display quantity?
@@ -18710,6 +18814,17 @@ components:
             offering you can also choose to instead use simple values of `unknown`,
             `physical`, or `digital` tax codes. If `item_code`/`item_id` is part of
             the request then `tax_code` must be absent.
+        harmonized_system_code:
+          type: string
+          title: Harmonized System code
+          description: The Harmonized System (HS) code is an internationally standardized
+            system of names and numbers to classify traded products. The HS code,
+            sometimes called Commodity Code, is used by customs authorities around
+            the world to identify products when assessing duties and taxes. The HS
+            code may also be referred to as the tariff code or customs code. Values
+            should contain only digits and decimals.
+          pattern: "^\\d+(\\.\\d+)*$"
+          maxLength: 25
         currencies:
           type: array
           title: Add-on pricing
@@ -18865,6 +18980,17 @@ components:
             offering you can also choose to instead use simple values of `unknown`,
             `physical`, or `digital` tax codes. If an `Item` is associated to the
             `AddOn` then `tax_code` must be absent.
+        harmonized_system_code:
+          type: string
+          title: Harmonized System code
+          description: The Harmonized System (HS) code is an internationally standardized
+            system of names and numbers to classify traded products. The HS code,
+            sometimes called Commodity Code, is used by customs authorities around
+            the world to identify products when assessing duties and taxes. The HS
+            code may also be referred to as the tariff code or customs code. Values
+            should contain only digits and decimals.
+          pattern: "^\\d+(\\.\\d+)*$"
+          maxLength: 25
         display_quantity:
           type: boolean
           title: Display quantity?
@@ -20207,6 +20333,17 @@ components:
             codes using any of these tax integrations. For Recurly's In-the-Box tax
             offering you can also choose to instead use simple values of `unknown`,
             `physical`, or `digital` tax codes.
+        harmonized_system_code:
+          type: string
+          title: Harmonized System code
+          description: The Harmonized System (HS) code is an internationally standardized
+            system of names and numbers to classify traded products. The HS code,
+            sometimes called Commodity Code, is used by customs authorities around
+            the world to identify products when assessing duties and taxes. The HS
+            code may also be referred to as the tariff code or customs code. Values
+            should contain only digits and decimals.
+          pattern: "^\\d+(\\.\\d+)*$"
+          maxLength: 25
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -20317,6 +20454,17 @@ components:
             codes using any of these tax integrations. For Recurly's In-the-Box tax
             offering you can also choose to instead use simple values of `unknown`,
             `physical`, or `digital` tax codes.
+        harmonized_system_code:
+          type: string
+          title: Harmonized System code
+          description: The Harmonized System (HS) code is an internationally standardized
+            system of names and numbers to classify traded products. The HS code,
+            sometimes called Commodity Code, is used by customs authorities around
+            the world to identify products when assessing duties and taxes. The HS
+            code may also be referred to as the tariff code or customs code. Values
+            should contain only digits and decimals.
+          pattern: "^\\d+(\\.\\d+)*$"
+          maxLength: 25
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -20415,6 +20563,17 @@ components:
             codes using any of these tax integrations. For Recurly's In-the-Box tax
             offering you can also choose to instead use simple values of `unknown`,
             `physical`, or `digital` tax codes.
+        harmonized_system_code:
+          type: string
+          title: Harmonized System Code
+          description: The Harmonized System (HS) code is an internationally standardized
+            system of names and numbers to classify traded products. The HS code,
+            sometimes called Commodity Code, is used by customs authorities around
+            the world to identify products when assessing duties and taxes. The HS
+            code may also be referred to as the tariff code or customs code. Values
+            should contain only digits and decimals.
+          pattern: "^\\d+(\\.\\d+)*$"
+          maxLength: 25
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -21310,6 +21469,17 @@ components:
             codes using any of these tax integrations. For Recurly's In-the-Box tax
             offering you can also choose to instead use simple values of `unknown`,
             `physical`, or `digital` tax codes.
+        harmonized_system_code:
+          type: string
+          title: Harmonized System Code
+          description: The Harmonized System (HS) code is an internationally standardized
+            system of names and numbers to classify traded products. The HS code,
+            sometimes called Commodity Code, is used by customs authorities around
+            the world to identify products when assessing duties and taxes. The HS
+            code may also be referred to as the tariff code or customs code. Values
+            should contain only digits and decimals.
+          maxLength: 25
+          pattern: "^\\d+(\\.\\d+)*$"
         tax_info:
           "$ref": "#/components/schemas/TaxInfo"
         origin_tax_address_source:
@@ -21554,6 +21724,18 @@ components:
             codes using any of these tax integrations. For Recurly's In-the-Box tax
             offering you can also choose to instead use simple values of `unknown`,
             `physical`, or `digital` tax codes.
+        harmonized_system_code:
+          type: string
+          title: Harmonized System Code
+          description: The Harmonized System (HS) code is an internationally standardized
+            system of names and numbers to classify traded products. The HS code,
+            sometimes called Commodity Code, is used by customs authorities around
+            the world to identify products when assessing duties and taxes. The HS
+            code may also be referred to as the tariff code or customs code. Values
+            should contain only digits and decimals. If `item_code`/`item_id` is part
+            of the request then `harmonized_system_code` must be absent.
+          maxLength: 25
+          pattern: "^\\d+(\\.\\d+)*$"
         product_code:
           type: string
           title: Product code
@@ -21749,6 +21931,17 @@ components:
             codes using any of these tax integrations. For Recurly's In-the-Box tax
             offering you can also choose to instead use simple values of `unknown`,
             `physical`, or `digital` tax codes.
+        harmonized_system_code:
+          type: string
+          title: Harmonized System Code
+          description: The Harmonized System (HS) code is an internationally standardized
+            system of names and numbers to classify traded products. The HS code,
+            sometimes called Commodity Code, is used by customs authorities around
+            the world to identify products when assessing duties and taxes. The HS
+            code may also be referred to as the tariff code or customs code. Values
+            should contain only digits and decimals.
+          maxLength: 25
+          pattern: "^\\d+(\\.\\d+)*$"
         tax_exempt:
           type: boolean
           title: Tax exempt?
@@ -22182,6 +22375,22 @@ components:
       - full_amount
       - prorated_amount
       - none
+    SubscriptionCreateProrationSettings:
+      type: object
+      title: Proration Settings
+      description: Allows you to control how any resulting charges will be calculated
+        and prorated.
+      properties:
+        charge:
+          "$ref": "#/components/schemas/SubscriptionCreateProrationSettingsChargeEnum"
+    SubscriptionCreateProrationSettingsChargeEnum:
+      type: string
+      title: Charge
+      description: Determines how the amount charged is determined for this change
+      default: prorated_amount
+      enum:
+      - full_amount
+      - prorated_amount
     Settings:
       type: object
       properties:
@@ -23787,6 +23996,8 @@ components:
             second limit on creating subscriptions. Should only be used when creating
             subscriptions in bulk from the API.
           default: false
+        proration_settings:
+          "$ref": "#/components/schemas/SubscriptionCreateProrationSettings"
       required:
       - plan_code
       - currency
@@ -23898,6 +24109,8 @@ components:
             second limit on creating subscriptions. Should only be used when creating
             subscriptions in bulk from the API.
           default: false
+        proration_settings:
+          "$ref": "#/components/schemas/SubscriptionCreateProrationSettings"
       required:
       - plan_code
     SubscriptionUpdate:

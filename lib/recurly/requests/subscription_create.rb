@@ -94,6 +94,10 @@ module Recurly
       #   @return [String] The price segment ID, e.g. `e28zov4fw0v2`.
       define_attribute :price_segment_id, String
 
+      # @!attribute proration_settings
+      #   @return [SubscriptionCreateProrationSettings] Allows you to control how any resulting charges will be calculated and prorated.
+      define_attribute :proration_settings, :SubscriptionCreateProrationSettings
+
       # @!attribute quantity
       #   @return [Integer] Optionally override the default quantity of 1.
       define_attribute :quantity, Integer
