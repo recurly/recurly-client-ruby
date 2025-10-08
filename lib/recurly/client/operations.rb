@@ -469,6 +469,21 @@ module Recurly
       post(path, options[:body], Requests::BillingInfoVerify, **options)
     end
 
+    # Verify an account's credit card billing cvv
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/verify_billing_info_cvv verify_billing_info_cvv api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param body [Requests::BillingInfoVerifyCVV] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoVerifyCVV}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Transaction] Transaction information from verify.
+    #
+    def verify_billing_info_cvv(account_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_info/verify_cvv", account_id: account_id)
+      post(path, body, Requests::BillingInfoVerifyCVV, **options)
+    end
+
     # Get the list of billing information associated with an account
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_billing_infos list_billing_infos api documentation}
@@ -564,6 +579,38 @@ module Recurly
     def remove_a_billing_info(account_id:, billing_info_id:, **options)
       path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}", account_id: account_id, billing_info_id: billing_info_id)
       delete(path, **options)
+    end
+
+    # Verify a billing information's credit card
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/verify_billing_infos verify_billing_infos api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param billing_info_id [String] Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.
+    # @param body [Requests::BillingInfoVerify] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoVerify}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Transaction] Transaction information from verify.
+    #
+    def verify_billing_infos(account_id:, billing_info_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}/verify", account_id: account_id, billing_info_id: billing_info_id)
+      post(path, options[:body], Requests::BillingInfoVerify, **options)
+    end
+
+    # Verify a billing information's credit card cvv
+    #
+    # {https://developers.recurly.com/api/v2019-10-10#operation/verify_billing_infos_cvv verify_billing_infos_cvv api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param billing_info_id [String] Billing Info ID. Can ONLY be used for sites utilizing the Wallet feature.
+    # @param body [Requests::BillingInfoVerifyCVV] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::BillingInfoVerifyCVV}
+    # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
+    #
+    # @return [Resources::Transaction] Transaction information from verify.
+    #
+    def verify_billing_infos_cvv(account_id:, billing_info_id:, body:, **options)
+      path = interpolate_path("/accounts/{account_id}/billing_infos/{billing_info_id}/verify_cvv", account_id: account_id, billing_info_id: billing_info_id)
+      post(path, body, Requests::BillingInfoVerifyCVV, **options)
     end
 
     # List the coupon redemptions for an account
@@ -1990,7 +2037,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/get_invoice get_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] An invoice.
@@ -2013,7 +2060,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/put_invoice put_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param body [Requests::InvoiceUpdatable] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceUpdatable}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
@@ -2041,7 +2088,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/get_invoice_pdf get_invoice_pdf api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::BinaryFile] An invoice as a PDF.
@@ -2067,7 +2114,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/apply_credit_balance apply_credit_balance api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
@@ -2090,7 +2137,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/collect_invoice collect_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param body [Requests::InvoiceCollect] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceCollect}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
@@ -2114,7 +2161,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/fail_invoice fail_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
@@ -2137,7 +2184,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/mark_invoice_successful mark_invoice_successful api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
@@ -2160,7 +2207,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/reopen_invoice reopen_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
@@ -2183,7 +2230,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/void_invoice void_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
@@ -2206,7 +2253,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/record_external_transaction record_external_transaction api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param body [Requests::ExternalTransaction] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::ExternalTransaction}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
@@ -2221,7 +2268,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_invoice_line_items list_invoice_line_items api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
     #
@@ -2270,7 +2317,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_invoice_coupon_redemptions list_invoice_coupon_redemptions api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param ids [String] Filter results by their IDs. Up to 200 IDs can be passed at once using
     #   commas as separators, e.g. +ids=h1at4d57xlmy,gyqgg0d3v9n1,jrsm5b4yefg6+.
     #
@@ -2314,7 +2361,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/list_related_invoices list_related_invoices api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Pager<Resources::Invoice>] A list of the credit or charge invoices associated with the invoice.
@@ -2336,7 +2383,7 @@ module Recurly
     #
     # {https://developers.recurly.com/api/v2019-10-10#operation/refund_invoice refund_invoice api documentation}
     #
-    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+.
+    # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param body [Requests::InvoiceRefund] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::InvoiceRefund}
     # @param site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
