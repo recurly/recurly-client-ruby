@@ -1,5 +1,16 @@
 # Changelog
 
+## [4.68.0](https://github.com/recurly/recurly-client-ruby/tree/4.68.0) (2025-10-09)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.67.0...4.68.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#936](https://github.com/recurly/recurly-client-ruby/pull/936) ([recurly-integrations](https://github.com/recurly-integrations))
+
+
+
 ## [4.67.0](https://github.com/recurly/recurly-client-ruby/tree/4.67.0) (2025-08-13)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.66.0...4.67.0)
