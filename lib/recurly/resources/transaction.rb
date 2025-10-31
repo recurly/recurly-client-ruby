@@ -110,6 +110,10 @@ module Recurly
       #   @return [String] This conditional parameter is useful for merchants in specific industries who need to submit one-time Merchant Initiated transactions in specific cases. Not all gateways support these methods, but will support a generic one-time Merchant Initiated transaction. Only use this if the initiator value is "merchant". Otherwise, it will be ignored.   - Incremental: Send `incremental` with an additional purchase if the original authorization amount is not sufficient to cover the costs of your service or product. For example, if the customer adds goods or services or there are additional expenses.   - No Show: Send `no_show` if you charge customers a fee due to an agreed-upon cancellation policy in your industry.   - Resubmission: Send `resubmission` if you need to attempt collection on a declined transaction. You may also use the force collection behavior which has the same effect.   - Service Extension: Send `service_extension` if you are in a service industry and the customer has increased/extended their service in some way. For example: adding a day onto a car rental agreement.   - Split Shipment: Send `split_shipment` if you sell physical product and need to split up a shipment into multiple transactions when the customer is no longer in session.   - Top Up: Send `top_up` if you process one-time transactions based on a pre-arranged agreement with your customer where there is a pre-arranged account balance that needs maintaining. For example, if the customer has agreed to maintain an account balance of 30.00 and their current balance is 20.00, the MIT amount would be at least 10.00 to meet that 30.00 threshold.
       define_attribute :merchant_reason_code, String
 
+      # @!attribute next_action
+      #   @return [TransactionNextAction] Next action values are used for any required customer follow-up action. Currently, this is supported for Ebanx when using Pix Automatico.
+      define_attribute :next_action, :TransactionNextAction
+
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String

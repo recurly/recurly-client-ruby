@@ -59,7 +59,7 @@ module Recurly
       define_attribute :customer_notes, String
 
       # @!attribute gateway_code
-      #   @return [String] If present, this subscription's transactions will use the payment gateway with this code.
+      #   @return [String] If present, this subscription's subsequent transactions will use the payment gateway with this code. To select a payment gateway to use when creating a Subscription, be sure to set the `account.billing_info.gateway_code` as well.
       define_attribute :gateway_code, String
 
       # @!attribute gift_card_redemption_code
