@@ -24392,11 +24392,11 @@ components:
         tax_details:
           type: array
           description: Provides additional tax details for Communications taxes when
-            Avalara for Communications is enabled or Canadian Sales Tax when there
-            is tax applied at both the country and province levels. This will only
-            be populated for the Invoice response when fetching a single invoice and
-            not for the InvoiceList or LineItemList. Only populated for a single LineItem
-            fetch when Avalara for Communications is enabled.
+            Avalara for Communications or Vertex Tax Breakdown is enabled or Canadian
+            Sales Tax. Tax details will only be populated for the Invoice response
+            when fetching a single invoice and not for the InvoiceList or LineItemList.
+            Only populated for a single LineItem fetch when Avalara for Communications
+            is enabled.
           items:
             "$ref": "#/components/schemas/TaxDetail"
     TaxDetail:
@@ -24407,8 +24407,8 @@ components:
           type: string
           title: Type
           description: Provides the tax type for the region or type of Comminications
-            tax when Avalara for Communications is enabled. For Canadian Sales Tax,
-            this will be GST, HST, QST or PST.
+            tax when Avalara for Communications or Vertex is enabled. For Canadian
+            Sales Tax, this will be GST, HST, QST or PST.
         region:
           type: string
           title: Region
@@ -24429,18 +24429,18 @@ components:
           type: string
           title: Name
           description: Provides the name of the Communications tax applied. Present
-            only when Avalara for Communications is enabled.
+            only when Avalara for Communications or Vertex is enabled.
         level:
           type: string
           title: Level
           description: Provides the jurisdiction level for the Communications tax
             applied. Example values include city, state and federal. Present only
-            when Avalara for Communications is enabled.
+            when Avalara for Communications or Vertex is enabled.
         billable:
           type: boolean
           title: Billable
           description: Whether or not the line item is taxable. Only populated for
-            a single LineItem fetch when Avalara for Communications is enabled.
+            a single LineItem fetch when Avalara for Communications or Vertex is enabled.
     Transaction:
       type: object
       properties:
