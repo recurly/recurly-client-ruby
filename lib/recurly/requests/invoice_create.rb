@@ -22,6 +22,10 @@ module Recurly
       #   @return [String] An automatic invoice means a corresponding transaction is run using the account's billing information at the same time the invoice is created. Manual invoices are created without a corresponding transaction. The merchant must enter a manual payment transaction or have the customer pay the invoice with an automatic method, like credit card, PayPal, Amazon, or ACH bank payment.
       define_attribute :collection_method, String
 
+      # @!attribute credit_application_policy
+      #   @return [CreditApplicationPolicy] Controls whether credit invoices are automatically applied to new invoices. The `mode` field determines the application behavior.
+      define_attribute :credit_application_policy, :CreditApplicationPolicy
+
       # @!attribute credit_customer_notes
       #   @return [String] This will default to the Customer Notes text specified on the Invoice Settings for credit invoices. Specify customer notes to add or override Customer Notes on credit invoices.
       define_attribute :credit_customer_notes, String
