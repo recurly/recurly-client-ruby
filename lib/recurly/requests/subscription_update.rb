@@ -18,6 +18,10 @@ module Recurly
       #   @return [String] Change collection method
       define_attribute :collection_method, String
 
+      # @!attribute credit_application_policy
+      #   @return [CreditApplicationPolicy] Controls whether credit invoices are automatically applied to new invoices. The `mode` field determines the application behavior.
+      define_attribute :credit_application_policy, :CreditApplicationPolicy
+
       # @!attribute custom_fields
       #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
       define_attribute :custom_fields, Array, { :item_type => :CustomField }

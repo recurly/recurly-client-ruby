@@ -66,6 +66,10 @@ module Recurly
       #   @return [DateTime] Created at
       define_attribute :created_at, DateTime
 
+      # @!attribute credit_application_policy
+      #   @return [CreditApplicationPolicy] Controls whether credit invoices are automatically applied to new invoices. The `mode` field determines the application behavior.
+      define_attribute :credit_application_policy, :CreditApplicationPolicy
+
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String

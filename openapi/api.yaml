@@ -20911,6 +20911,8 @@ components:
           default: 0
         net_terms_type:
           "$ref": "#/components/schemas/NetTermsTypeEnum"
+        credit_application_policy:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         po_number:
           type: string
           title: Purchase order number
@@ -22507,6 +22509,19 @@ components:
           format: float
           title: Tax In Cents
           description: The tax converted to the currency.
+        rate:
+          type: string
+          title: Rate
+          description: The conversion rate to the currency.
+        source:
+          type: string
+          title: Source
+          description: The source of the conversion rate.
+        date:
+          type: string
+          title: Date
+          format: date
+          description: The date of the conversion rate.
     ShippingAddressCreate:
       type: object
       properties:
@@ -23125,6 +23140,8 @@ components:
           default: 0
         net_terms_type:
           "$ref": "#/components/schemas/NetTermsTypeEnum"
+        credit_application_policy:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         terms_and_conditions:
           type: string
           title: Terms and conditions
@@ -23976,6 +23993,8 @@ components:
           default: 0
         net_terms_type:
           "$ref": "#/components/schemas/NetTermsTypeEnum"
+        credit_application_policy:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         gateway_code:
           type: string
           title: Gateway Code
@@ -24107,6 +24126,8 @@ components:
           description: The new set of ramp intervals for the subscription.
           items:
             "$ref": "#/components/schemas/SubscriptionRampInterval"
+        credit_application_policy:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         bulk:
           type: boolean
           description: Optional field to be used only when needing to bypass the 60
@@ -24195,6 +24216,8 @@ components:
           default: 0
         net_terms_type:
           "$ref": "#/components/schemas/NetTermsTypeEnum"
+        credit_application_policy:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         gateway_code:
           type: string
           title: Gateway Code
@@ -25033,6 +25056,8 @@ components:
           default: 0
         net_terms_type:
           "$ref": "#/components/schemas/NetTermsTypeEnum"
+        credit_application_policy_override:
+          "$ref": "#/components/schemas/CreditApplicationPolicy"
         terms_and_conditions:
           type: string
           title: Terms and conditions
@@ -27038,6 +27063,28 @@ components:
       enum:
       - automatic
       - manual
+    CreditApplicationPolicy:
+      type: object
+      title: Credit Application Policy
+      description: |
+        Controls whether credit invoices are automatically applied to new invoices.
+        The `mode` field determines the application behavior.
+      properties:
+        mode:
+          "$ref": "#/components/schemas/CreditApplicationModeEnum"
+      required:
+      - mode
+    CreditApplicationModeEnum:
+      type: string
+      title: Credit Application Mode
+      description: |
+        Determines which credit invoices are applied to invoices:
+        - `all`: All available credit invoices are applied (default)
+        - `none`: No credit invoices are applied automatically
+      enum:
+      - all
+      - none
+      default: all
     InvoiceRefundTypeEnum:
       type: string
       enum:
