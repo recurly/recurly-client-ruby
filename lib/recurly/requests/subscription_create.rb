@@ -42,6 +42,10 @@ module Recurly
       #   @return [Array[String]] A list of coupon_codes to be redeemed on the subscription or account during the purchase.
       define_attribute :coupon_codes, Array, { :item_type => String }
 
+      # @!attribute credit_application_policy
+      #   @return [CreditApplicationPolicy] Controls whether credit invoices are automatically applied to new invoices. The `mode` field determines the application behavior.
+      define_attribute :credit_application_policy, :CreditApplicationPolicy
+
       # @!attribute credit_customer_notes
       #   @return [String] If there are pending credits on the account that will be invoiced during the subscription creation, these will be used as the Customer Notes on the credit invoice.
       define_attribute :credit_customer_notes, String

@@ -10,6 +10,18 @@ module Recurly
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
 
+      # @!attribute date
+      #   @return [String] The date of the conversion rate.
+      define_attribute :date, String
+
+      # @!attribute rate
+      #   @return [String] The conversion rate to the currency.
+      define_attribute :rate, String
+
+      # @!attribute source
+      #   @return [String] The source of the conversion rate.
+      define_attribute :source, String
+
       # @!attribute subtotal_in_cents
       #   @return [Float] The subtotal converted to the currency.
       define_attribute :subtotal_in_cents, Float
