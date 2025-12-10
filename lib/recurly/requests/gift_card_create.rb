@@ -22,6 +22,10 @@ module Recurly
       #   @return [String] The product code or SKU of the gift card product.
       define_attribute :product_code, String
 
+      # @!attribute tax_service_opt_out
+      #   @return [Boolean] Set to `true` to bypass sending the purchase to your configured tax service. Defaults to `false`.
+      define_attribute :tax_service_opt_out, :Boolean
+
       # @!attribute unit_amount
       #   @return [Float] The amount of the gift card, which is the amount of the charge to the gifter account and the amount of credit that is applied to the recipient account upon successful redemption.
       define_attribute :unit_amount, Float

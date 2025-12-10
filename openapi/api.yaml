@@ -20934,6 +20934,8 @@ components:
             will default to the VAT Reverse Charge Notes text specified on the Tax
             Settings page in your Recurly admin, unless custom notes were created
             with the original subscription.
+        vertex_transaction_type:
+          "$ref": "#/components/schemas/VertexTransactionTypeEnum"
       required:
       - currency
     InvoiceCollect:
@@ -21464,6 +21466,8 @@ components:
             Refer to [the documentation](https://help.avalara.com/AvaTax_for_Communications/Tax_Calculation/AvaTax_for_Communications_Tax_Engine/Mapping_Resources/TM_00115_AFC_Modules_Corresponding_Transaction_Types)
             for more available t/s types.
           minimum: 0
+        vertex_transaction_type:
+          "$ref": "#/components/schemas/VertexTransactionTypeEnum"
         tax_code:
           type: string
           maxLength: 50
@@ -21719,6 +21723,8 @@ components:
             for more available t/s types. If an `Item` is associated to the `LineItem`,
             then the `avalara_service_type` must be absent.
           minimum: 0
+        vertex_transaction_type:
+          "$ref": "#/components/schemas/VertexTransactionTypeEnum"
         tax_code:
           type: string
           maxLength: 50
@@ -25080,6 +25086,8 @@ components:
           type: string
           title: VAT reverse charge notes
           description: VAT reverse charge notes for cross border European tax settlement.
+        vertex_transaction_type:
+          "$ref": "#/components/schemas/VertexTransactionTypeEnum"
         credit_customer_notes:
           type: string
           title: Credit customer notes
@@ -26496,6 +26504,11 @@ components:
           type: string
           description: 3-letter ISO 4217 currency code.
           maxLength: 3
+        tax_service_opt_out:
+          title: Tax service opt-out
+          type: boolean
+          description: Set to `true` to bypass sending the purchase to your configured
+            tax service. Defaults to `false`.
         delivery:
           title: Delivery details
           description: The delivery details for the gift card.
@@ -26760,6 +26773,15 @@ components:
       enum:
       - charge
       - credit
+    VertexTransactionTypeEnum:
+      type: string
+      title: Vertex Transaction Type
+      description: Used by Vertex for tax calculations. Possible values are sale,
+        rental, lease.
+      enum:
+      - sale
+      - rental
+      - lease
     FilterTransactionTypeEnum:
       type: string
       enum:

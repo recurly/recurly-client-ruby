@@ -109,6 +109,10 @@ module Recurly
       # @!attribute unit_amount
       #   @return [Float] A positive or negative amount with `type=charge` will result in a positive `unit_amount`. A positive or negative amount with `type=credit` will result in a negative `unit_amount`. If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the `Item`'s `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
       define_attribute :unit_amount, Float
+
+      # @!attribute vertex_transaction_type
+      #   @return [String] Used by Vertex for tax calculations. Possible values are sale, rental, lease.
+      define_attribute :vertex_transaction_type, String
     end
   end
 end

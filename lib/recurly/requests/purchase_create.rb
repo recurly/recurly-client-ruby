@@ -93,6 +93,10 @@ module Recurly
       # @!attribute vat_reverse_charge_notes
       #   @return [String] VAT reverse charge notes for cross border European tax settlement.
       define_attribute :vat_reverse_charge_notes, String
+
+      # @!attribute vertex_transaction_type
+      #   @return [String] Used by Vertex for tax calculations. Possible values are sale, rental, lease.
+      define_attribute :vertex_transaction_type, String
     end
   end
 end
