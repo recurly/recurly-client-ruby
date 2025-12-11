@@ -53,6 +53,10 @@ module Recurly
       # @!attribute vat_reverse_charge_notes
       #   @return [String] VAT Reverse Charge Notes only appear if you have EU VAT enabled or are using your own Avalara AvaTax account and the customer is in the EU, has a VAT number, and is in a different country than your own. This will default to the VAT Reverse Charge Notes text specified on the Tax Settings page in your Recurly admin, unless custom notes were created with the original subscription.
       define_attribute :vat_reverse_charge_notes, String
+
+      # @!attribute vertex_transaction_type
+      #   @return [String] Used by Vertex for tax calculations. Possible values are sale, rental, lease.
+      define_attribute :vertex_transaction_type, String
     end
   end
 end
