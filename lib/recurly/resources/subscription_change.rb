@@ -46,6 +46,10 @@ module Recurly
       #   @return [InvoiceCollection] Invoice Collection
       define_attribute :invoice_collection, :InvoiceCollection
 
+      # @!attribute next_bill_date
+      #   @return [DateTime] If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). When combined with proration_settings, proration calculation should occur, only supported when timeframe is now.
+      define_attribute :next_bill_date, DateTime
+
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String

@@ -23606,6 +23606,13 @@ components:
             subscription.
           items:
             "$ref": "#/components/schemas/SubscriptionRampIntervalResponse"
+        next_bill_date:
+          type: string
+          format: date-time
+          title: Next bill date
+          description: If present, this sets the date the subscription's next billing
+            period will start (`current_period_ends_at`). When combined with proration_settings,
+            proration calculation should occur, only supported when timeframe is now.
     SubscriptionChangeBillingInfo:
       type: object
       description: Accept nested attributes for three_d_secure_action_result_token_id
@@ -23766,6 +23773,13 @@ components:
             "$ref": "#/components/schemas/SubscriptionRampInterval"
         proration_settings:
           "$ref": "#/components/schemas/ProrationSettings"
+        next_bill_date:
+          type: string
+          format: date-time
+          title: Next bill date
+          description: If present, this sets the date the subscription's next billing
+            period will start (`current_period_ends_at`). When combined with proration_settings,
+            proration calculation should occur, only supported when timeframe is now.
     SubscriptionChangeShippingCreate:
       type: object
       title: Shipping details that will be changed on a subscription

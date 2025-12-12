@@ -42,6 +42,10 @@ module Recurly
       #   @return [String] Optionally supplied string that may be either `net` or `eom` (end-of-month). When `net`, an invoice becomes past due the specified number of `Net Terms` days from the current date. When `eom` an invoice becomes past due the specified number of `Net Terms` days from the last day of the current month.
       define_attribute :net_terms_type, String
 
+      # @!attribute next_bill_date
+      #   @return [DateTime] If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). When combined with proration_settings, proration calculation should occur, only supported when timeframe is now.
+      define_attribute :next_bill_date, DateTime
+
       # @!attribute plan_code
       #   @return [String] If you want to change to a new plan, you can provide the plan's code or id. If both are provided the `plan_id` will be used.
       define_attribute :plan_code, String
