@@ -1,8 +1,6 @@
 module Recurly
   class BusinessEntity < Resource
     belongs_to :site
-    belongs_to :default_revenue_gl_account, class_name: 'GeneralLedgerAccount'
-    belongs_to :default_liability_gl_account, class_name: 'GeneralLedgerAccount'
 
     has_many :invoices
     has_many :accounts
