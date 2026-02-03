@@ -3312,6 +3312,70 @@ paths:
           {\n\t\tfmt.Printf(\"Resource not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Removed Coupon
           Redemption: %v\", couponRedemption.Id)"
+  "/accounts/{account_id}/coupon_redemptions/{coupon_redemption_id}":
+    get:
+      tags:
+      - coupon_redemption
+      operationId: get_coupon_redemption
+      summary: Show the coupon redemption
+      parameters:
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/coupon_redemption_id"
+      responses:
+        '200':
+          description: A coupon redemption.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CouponRedemption"
+        '404':
+          description: Incorrect site, account ID, or coupon redemption ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    delete:
+      tags:
+      - coupon_redemption
+      operationId: remove_coupon_redemption_by_id
+      summary: Delete the coupon redemption
+      description: Deactivate the coupon redemption on an account.
+      parameters:
+      - "$ref": "#/components/parameters/account_id"
+      - "$ref": "#/components/parameters/coupon_redemption_id"
+      responses:
+        '200':
+          description: Coupon redemption deleted.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CouponRedemption"
+        '404':
+          description: Incorrect site, account ID, or coupon redemption ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: The coupon redemption is already expired or inactive.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/credit_payments":
     get:
       tags:
@@ -14749,6 +14813,70 @@ paths:
           e, ok := err.(*recurly.Error); ok {\n\t\tfmt.Printf(\"Failed to retrieve
           next page: %v\", e)\n\t\tbreak\n\t}\n\tfor i, redemption := range subCouponRedemptions.Data()
           {\n\t\tfmt.Printf(\"Subscription Coupon Redemption %3d: %s\\n\",\n\t\t\ti,\n\t\t\tredemption.Id,\n\t\t)\n\t}\n}"
+  "/subscriptions/{subscription_id}/coupon_redemptions/{coupon_redemption_id}":
+    get:
+      tags:
+      - coupon_redemption
+      operationId: get_subscription_coupon_redemption
+      summary: Show the coupon redemption for a subscription
+      parameters:
+      - "$ref": "#/components/parameters/subscription_id"
+      - "$ref": "#/components/parameters/coupon_redemption_id"
+      responses:
+        '200':
+          description: The coupon redemption on a subscription.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CouponRedemption"
+        '404':
+          description: Incorrect site, subscription ID, or coupon redemption ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+    delete:
+      tags:
+      - coupon_redemption
+      operationId: remove_subscription_coupon_redemption
+      summary: Delete the coupon redemption from a subscription
+      description: Deactivate the coupon redemption on a subscription.
+      parameters:
+      - "$ref": "#/components/parameters/subscription_id"
+      - "$ref": "#/components/parameters/coupon_redemption_id"
+      responses:
+        '200':
+          description: Coupon redemption deleted.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/CouponRedemption"
+        '404':
+          description: Incorrect site, subscription ID, or coupon redemption ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: The coupon redemption is already expired or inactive.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/subscriptions/{subscription_id}/add_ons/{add_on_id}/usage":
     get:
       tags:
@@ -17048,6 +17176,14 @@ components:
       in: path
       description: Coupon ID or code. For ID no prefix is used e.g. `e28zov4fw0v2`.
         For code use prefix `code-`, e.g. `code-10off`.
+      required: true
+      schema:
+        type: string
+    coupon_redemption_id:
+      name: coupon_redemption_id
+      in: path
+      description: Coupon Redemption ID or UUID. For ID no prefix is used e.g. `e28zov4fw0v2`.
+        For UUID use prefix `uuid-`, e.g. `uuid-123457890`.
       required: true
       schema:
         type: string
@@ -19754,6 +19890,13 @@ components:
           title: Object type
           description: Will always be `coupon`.
           readOnly: true
+        uuid:
+          type: string
+          title: Recurly UUID
+          description: The UUID is useful for matching data with the CSV exports and
+            building URLs into Recurly's UI.
+          maxLength: 32
+          readOnly: true
         account:
           type: object
           title: Account
@@ -20974,6 +21117,13 @@ components:
           title: Credit invoices
           items:
             "$ref": "#/components/schemas/Invoice"
+        verification_transactions:
+          type: array
+          title: Verification transactions
+          description: Verification transactions (used for free trial payment method
+            validation)
+          items:
+            "$ref": "#/components/schemas/Transaction"
     InvoiceUpdate:
       type: object
       properties:
@@ -27104,10 +27254,20 @@ components:
       title: Credit Application Policy
       description: |
         Controls whether credit invoices are automatically applied to new invoices.
-        The `mode` field determines the application behavior.
+        The `mode` field determines the application behavior. When mode is `all`,
+        the optional `allowed_origins` array can restrict which credit invoice origins
+        are applied.
       properties:
         mode:
           "$ref": "#/components/schemas/CreditApplicationModeEnum"
+        allowed_origins:
+          type: array
+          description: |
+            Optional array of credit invoice origin types to allow when mode is `all`.
+            If not specified when mode is `all`, credits from all origins are applied.
+            Only valid when mode is `all`.
+          items:
+            "$ref": "#/components/schemas/CreditApplicationAllowedOriginTypeEnum"
       required:
       - mode
     CreditApplicationModeEnum:
@@ -27121,6 +27281,25 @@ components:
       - all
       - none
       default: all
+    CreditApplicationAllowedOriginTypeEnum:
+      type: string
+      title: Credit Application Allowed Origin Type
+      description: The origin type of a credit invoice that can be allowed in a credit
+        application policy
+      enum:
+      - line_item_refund
+      - open_amount_refund
+      - immediate_change
+      - termination
+      - credit
+      - write_off
+      - refund
+      - external_refund
+      - carryforward_credit
+      - usage_correction
+      - prepayment
+      - gift_card
+      - carryforward_gift_credit
     InvoiceRefundTypeEnum:
       type: string
       enum:

@@ -745,6 +745,36 @@ module Recurly
       delete(path, **options)
     end
 
+    # Show the coupon redemption
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_coupon_redemption get_coupon_redemption api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param coupon_redemption_id [String] Coupon Redemption ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::CouponRedemption] A coupon redemption.
+    #
+    def get_coupon_redemption(account_id:, coupon_redemption_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/coupon_redemptions/{coupon_redemption_id}", account_id: account_id, coupon_redemption_id: coupon_redemption_id)
+      get(path, **options)
+    end
+
+    # Delete the coupon redemption
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/remove_coupon_redemption_by_id remove_coupon_redemption_by_id api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param coupon_redemption_id [String] Coupon Redemption ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::CouponRedemption] Coupon redemption deleted.
+    #
+    def remove_coupon_redemption_by_id(account_id:, coupon_redemption_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/coupon_redemptions/{coupon_redemption_id}", account_id: account_id, coupon_redemption_id: coupon_redemption_id)
+      delete(path, **options)
+    end
+
     # List an account's credit payments
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_account_credit_payments list_account_credit_payments api documentation}
@@ -4192,6 +4222,36 @@ module Recurly
     def list_subscription_coupon_redemptions(subscription_id:, **options)
       path = interpolate_path("/subscriptions/{subscription_id}/coupon_redemptions", subscription_id: subscription_id)
       pager(path, **options)
+    end
+
+    # Show the coupon redemption for a subscription
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/get_subscription_coupon_redemption get_subscription_coupon_redemption api documentation}
+    #
+    # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param coupon_redemption_id [String] Coupon Redemption ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::CouponRedemption] The coupon redemption on a subscription.
+    #
+    def get_subscription_coupon_redemption(subscription_id:, coupon_redemption_id:, **options)
+      path = interpolate_path("/subscriptions/{subscription_id}/coupon_redemptions/{coupon_redemption_id}", subscription_id: subscription_id, coupon_redemption_id: coupon_redemption_id)
+      get(path, **options)
+    end
+
+    # Delete the coupon redemption from a subscription
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/remove_subscription_coupon_redemption remove_subscription_coupon_redemption api documentation}
+    #
+    # @param subscription_id [String] Subscription ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param coupon_redemption_id [String] Coupon Redemption ID or UUID. For ID no prefix is used e.g. +e28zov4fw0v2+. For UUID use prefix +uuid-+, e.g. +uuid-123457890+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::CouponRedemption] Coupon redemption deleted.
+    #
+    def remove_subscription_coupon_redemption(subscription_id:, coupon_redemption_id:, **options)
+      path = interpolate_path("/subscriptions/{subscription_id}/coupon_redemptions/{coupon_redemption_id}", subscription_id: subscription_id, coupon_redemption_id: coupon_redemption_id)
+      delete(path, **options)
     end
 
     # List a subscription add-on's usage records

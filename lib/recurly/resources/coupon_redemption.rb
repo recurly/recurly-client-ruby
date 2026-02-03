@@ -49,6 +49,10 @@ module Recurly
       # @!attribute updated_at
       #   @return [DateTime] Last updated at
       define_attribute :updated_at, DateTime
+
+      # @!attribute uuid
+      #   @return [String] The UUID is useful for matching data with the CSV exports and building URLs into Recurly's UI.
+      define_attribute :uuid, String
     end
   end
 end
