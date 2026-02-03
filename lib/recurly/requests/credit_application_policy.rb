@@ -6,6 +6,10 @@ module Recurly
   module Requests
     class CreditApplicationPolicy < Request
 
+      # @!attribute allowed_origins
+      #   @return [Array[String]] Optional array of credit invoice origin types to allow when mode is `all`. If not specified when mode is `all`, credits from all origins are applied. Only valid when mode is `all`.
+      define_attribute :allowed_origins, Array, { :item_type => String }
+
       # @!attribute mode
       #   @return [String] Determines which credit invoices are applied to invoices: - `all`: All available credit invoices are applied (default) - `none`: No credit invoices are applied automatically
       define_attribute :mode, String

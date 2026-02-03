@@ -17,6 +17,10 @@ module Recurly
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+
+      # @!attribute verification_transactions
+      #   @return [Array[Transaction]] Verification transactions (used for free trial payment method validation)
+      define_attribute :verification_transactions, Array, { :item_type => :Transaction }
     end
   end
 end
