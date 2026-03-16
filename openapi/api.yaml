@@ -25243,6 +25243,15 @@ components:
                 "$ref": "#/components/schemas/Transaction/properties/initiator"
               merchant_reason_code:
                 "$ref": "#/components/schemas/Transaction/properties/merchant_reason_code"
+              skip_gateway_fraud:
+                type: boolean
+                title: Skip Gateway Fraud
+                description: When set to `true`, instructs the payment gateway to
+                  skip fraud checks for this transaction. This is useful for recurring
+                  transactions where fraud checks have already been performed on the
+                  initial transaction. Note that not all gateways support this feature.
+                  For Stripe, this skips Radar fraud rules; for Adyen, this skips
+                  Risk checks.
         customer_notes:
           type: string
           title: Customer notes
@@ -27241,9 +27250,13 @@ components:
       default: all
       enum:
       - pending
+      - processing
       - past_due
       - paid
       - failed
+      - open
+      - closed
+      - voided
     CollectionMethodEnum:
       type: string
       enum:
@@ -27551,6 +27564,7 @@ components:
       - pix_automatico
       - mercadopago
       - klarna
+      - braintree_google_pay
     CardTypeEnum:
       type: string
       enum:
