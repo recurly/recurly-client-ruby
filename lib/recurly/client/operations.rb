@@ -231,6 +231,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
+    #        :redact [Boolean] Permanently removes all personally identifiable information (PII) from this account after it has been deactivated, to fulfill a data subject's right to erasure under GDPR and similar privacy regulations (e.g. CCPA). Cannot be undone.
     #
     # @return [Resources::Account] An account.
     # @example
@@ -246,6 +247,20 @@ module Recurly
     def deactivate_account(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}", account_id: account_id)
       delete(path, **options)
+    end
+
+    # Redact an account (GDPR Right to Erasure)
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/redact_account redact_account api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::Account] Account has been accepted for redaction and will be processed asynchronously.
+    #
+    def redact_account(account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/redact", account_id: account_id)
+      put(path, **options)
     end
 
     # Fetch an account's acquisition data

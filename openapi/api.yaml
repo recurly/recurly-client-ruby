@@ -1297,6 +1297,15 @@ paths:
         and cancels any active subscriptions (canceled subscriptions will remain active
         until the end of the current billing cycle before expiring). We recommend
         closing accounts only when all business is concluded with a customer.
+      parameters:
+      - in: query
+        name: redact
+        schema:
+          type: boolean
+        description: Permanently removes all personally identifiable information (PII)
+          from this account after it has been deactivated, to fulfill a data subject's
+          right to erasure under GDPR and similar privacy regulations (e.g. CCPA).
+          Cannot be undone.
       responses:
         '200':
           description: An account.
@@ -1404,6 +1413,45 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Deactivated
           Account: %s\", account.Id)"
+  "/accounts/{account_id}/redact":
+    parameters:
+    - "$ref": "#/components/parameters/account_id"
+    put:
+      tags:
+      - account
+      operationId: redact_account
+      summary: Redact an account (GDPR Right to Erasure)
+      description: Permanently and irreversibly removes all personally identifiable
+        information (PII) from an account to fulfill a data subject's right to erasure
+        under GDPR and similar privacy regulations (e.g. CCPA). This includes billing
+        information, shipping addresses, and transaction details such as names, email
+        addresses, and payment card data. The underlying account and transaction records
+        are retained for financial and audit purposes, but all personal data fields
+        are cleared. The account must have no active subscriptions, uninvoiced charges,
+        or partially paid invoices before it can be redacted. Redaction is processed
+        asynchronously and cannot be undone.
+      responses:
+        '200':
+          description: Account has been accepted for redaction and will be processed
+            asynchronously.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Account"
+        '422':
+          description: Account cannot be redacted. Common reasons include active subscriptions,
+            uninvoiced charges, or partially paid invoices.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/acquisition":
     parameters:
     - "$ref": "#/components/parameters/account_id"
@@ -25251,7 +25299,20 @@ components:
                   transactions where fraud checks have already been performed on the
                   initial transaction. Note that not all gateways support this feature.
                   For Stripe, this skips Radar fraud rules; for Adyen, this skips
-                  Risk checks.
+              skip_recurly_fraud:
+                type: boolean
+                title: Skip Recurly Fraud
+                description: When set to `true`, skips Recurly's fraud detection checks
+                  for this transaction, including Kount and IP-based fraud screening.
+                  Does not affect gateway-level fraud checks. Use `skip_all_fraud`
+                  to skip all fraud checks.
+              skip_all_fraud:
+                type: boolean
+                title: Skip All Fraud
+                description: When set to `true`, skips all fraud checks for this transaction,
+                  including both gateway-level fraud checks and Recurly's fraud detection
+                  services. This is useful for trusted transactions where fraud screening
+                  is not required.
         customer_notes:
           type: string
           title: Customer notes
