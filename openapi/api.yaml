@@ -1404,6 +1404,45 @@ paths:
           not found: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\nfmt.Printf(\"Deactivated
           Account: %s\", account.Id)"
+  "/accounts/{account_id}/redact":
+    parameters:
+    - "$ref": "#/components/parameters/account_id"
+    put:
+      tags:
+      - account
+      operationId: redact_account
+      summary: Redact an account (GDPR Right to Erasure)
+      description: Permanently and irreversibly removes all personally identifiable
+        information (PII) from an account to fulfill a data subject's right to erasure
+        under GDPR and similar privacy regulations (e.g. CCPA). This includes billing
+        information, shipping addresses, and transaction details such as names, email
+        addresses, and payment card data. The underlying account and transaction records
+        are retained for financial and audit purposes, but all personal data fields
+        are cleared. The account must have no active subscriptions, uninvoiced charges,
+        or partially paid invoices before it can be redacted. Redaction is processed
+        asynchronously and cannot be undone.
+      responses:
+        '200':
+          description: Account has been accepted for redaction and will be processed
+            asynchronously.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Account"
+        '422':
+          description: Account cannot be redacted. Common reasons include active subscriptions,
+            uninvoiced charges, or partially paid invoices.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/accounts/{account_id}/acquisition":
     parameters:
     - "$ref": "#/components/parameters/account_id"
@@ -6494,6 +6533,55 @@ paths:
                 "$ref": "#/components/schemas/Error"
         '404':
           description: Incorrect site or coupon ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
+  "/coupons/{coupon_id}/generate_sync":
+    post:
+      tags:
+      - unique_coupon_code
+      operationId: generate_unique_coupon_codes_sync
+      summary: Generate unique coupon codes synchronously
+      description: Generates up to 200 unique coupon codes for a bulk coupon and returns
+        them directly in the response. For larger batches, use the asynchronous generate
+        endpoint instead.
+      parameters:
+      - "$ref": "#/components/parameters/coupon_id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CouponBulkCreateSync"
+        required: true
+      responses:
+        '200':
+          description: The newly generated unique coupon codes.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/UniqueCouponCodeGenerationResponse"
+        '400':
+          description: Invalid or unpermitted parameter.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site or coupon ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Unprocessable entity.
           content:
             application/json:
               schema:
@@ -19841,6 +19929,18 @@ components:
           description: The quantity of unique coupon codes to generate. A bulk coupon
             can have up to 100,000 unique codes (or your site's configured limit).
           minimum: 1
+    CouponBulkCreateSync:
+      type: object
+      properties:
+        number_of_unique_codes:
+          type: integer
+          title: Number of unique codes
+          description: The quantity of unique coupon codes to generate. A bulk coupon
+            can have up to 100,000 unique codes (or your site's configured limit).
+          minimum: 1
+          maximum: 200
+      required:
+      - number_of_unique_codes
     CouponMini:
       type: object
       properties:
@@ -25251,7 +25351,20 @@ components:
                   transactions where fraud checks have already been performed on the
                   initial transaction. Note that not all gateways support this feature.
                   For Stripe, this skips Radar fraud rules; for Adyen, this skips
-                  Risk checks.
+              skip_recurly_fraud:
+                type: boolean
+                title: Skip Recurly Fraud
+                description: When set to `true`, skips Recurly's fraud detection checks
+                  for this transaction, including Kount and IP-based fraud screening.
+                  Does not affect gateway-level fraud checks. Use `skip_all_fraud`
+                  to skip all fraud checks.
+              skip_all_fraud:
+                type: boolean
+                title: Skip All Fraud
+                description: When set to `true`, skips all fraud checks for this transaction,
+                  including both gateway-level fraud checks and Recurly's fraud detection
+                  services. This is useful for trusted transactions where fraud screening
+                  is not required.
         customer_notes:
           type: string
           title: Customer notes
@@ -25839,6 +25952,20 @@ components:
           type: string
           format: date-time
           description: When the external product was updated in Recurly.
+    UniqueCouponCodeGenerationResponse:
+      type: object
+      properties:
+        object:
+          type: string
+          title: Object type
+          readOnly: true
+        unique_coupon_codes:
+          type: array
+          title: Unique coupon codes
+          description: An array containing the newly generated unique coupon codes.
+          maxItems: 200
+          items:
+            "$ref": "#/components/schemas/UniqueCouponCode"
     ExternalSubscription:
       type: object
       description: Subscription from an external resource such as Apple App Store
