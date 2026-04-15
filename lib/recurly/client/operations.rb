@@ -248,6 +248,20 @@ module Recurly
       delete(path, **options)
     end
 
+    # Redact an account (GDPR Right to Erasure)
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/redact_account redact_account api documentation}
+    #
+    # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::Account] Account has been accepted for redaction and will be processed asynchronously.
+    #
+    def redact_account(account_id:, **options)
+      path = interpolate_path("/accounts/{account_id}/redact", account_id: account_id)
+      put(path, **options)
+    end
+
     # Fetch an account's acquisition data
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_account_acquisition get_account_acquisition api documentation}
@@ -1743,6 +1757,21 @@ module Recurly
     def generate_unique_coupon_codes(coupon_id:, body:, **options)
       path = interpolate_path("/coupons/{coupon_id}/generate", coupon_id: coupon_id)
       post(path, body, Requests::CouponBulkCreate, **options)
+    end
+
+    # Generate unique coupon codes synchronously
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/generate_unique_coupon_codes_sync generate_unique_coupon_codes_sync api documentation}
+    #
+    # @param coupon_id [String] Coupon ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-10off+.
+    # @param body [Requests::CouponBulkCreateSync] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::CouponBulkCreateSync}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::UniqueCouponCodeGenerationResponse] The newly generated unique coupon codes.
+    #
+    def generate_unique_coupon_codes_sync(coupon_id:, body:, **options)
+      path = interpolate_path("/coupons/{coupon_id}/generate_sync", coupon_id: coupon_id)
+      post(path, body, Requests::CouponBulkCreateSync, **options)
     end
 
     # Restore an inactive coupon
