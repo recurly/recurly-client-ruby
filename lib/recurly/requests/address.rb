@@ -15,7 +15,7 @@ module Recurly
       define_attribute :country, String
 
       # @!attribute geo_code
-      #   @return [String] Code that represents a geographic entity (location or object). Only returned for Sling Vertex Integration
+      #   @return [String] Code that represents a geographic entity (location or object). Only returned when Vertex or Avalara for Communications is enabled.
       define_attribute :geo_code, String
 
       # @!attribute phone

@@ -2734,7 +2734,6 @@ module Recurly
     #
     # @param invoice_id [String] Invoice ID or number. For ID no prefix is used e.g. +e28zov4fw0v2+. For number use prefix +number-+, e.g. +number-1000+. For number with prefix or country code, use +number-+ and +prefix+, e.g. +number-TEST-FR1001+
     # @param params [Hash] Optional query string parameters:
-    #        :site_id [String] Site ID or subdomain. For ID no prefix is used e.g. +e28zov4fw0v2+. For subdomain use prefix +subdomain-+, e.g. +subdomain-recurly+.
     #
     # @return [Resources::Invoice] The updated invoice.
     # @example
