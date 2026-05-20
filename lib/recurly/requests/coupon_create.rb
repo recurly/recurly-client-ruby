@@ -87,11 +87,11 @@ module Recurly
       define_attribute :redemption_resource, String
 
       # @!attribute temporal_amount
-      #   @return [Integer] If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for.
+      #   @return [Integer] If `duration` is "temporal" than `temporal_amount` is an integer which is multiplied by `temporal_unit` to define the duration that the coupon will be applied to invoices for. When `temporal_unit` is "billing_period", this is the number of complete billing cycles.
       define_attribute :temporal_amount, Integer
 
       # @!attribute temporal_unit
-      #   @return [String] If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for.
+      #   @return [String] If `duration` is "temporal" than `temporal_unit` is multiplied by `temporal_amount` to define the duration that the coupon will be applied to invoices for. Use "billing_period" to apply the coupon for a fixed number of billing cycles. Requires `redemption_resource=subscription`.
       define_attribute :temporal_unit, String
 
       # @!attribute unique_code_template
