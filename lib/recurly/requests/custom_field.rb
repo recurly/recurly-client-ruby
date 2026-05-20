@@ -10,6 +10,14 @@ module Recurly
       #   @return [String] Fields must be created in the UI before values can be assigned to them.
       define_attribute :name, String
 
+      # @!attribute source_record_id
+      #   @return [String] The UUID of the record this custom field was automatically copied from. Only present when the field was copied from another record.
+      define_attribute :source_record_id, String
+
+      # @!attribute source_record_type
+      #   @return [String] The type of record this custom field was automatically copied from. Only present when the field was copied from another record.
+      define_attribute :source_record_type, String
+
       # @!attribute value
       #   @return [String] Any values that resemble a credit card number or security code (CVV/CVC) will be rejected.
       define_attribute :value, String

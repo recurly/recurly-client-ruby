@@ -200,14 +200,12 @@ x-tagGroups:
   - usage
   - automated_exports
   - gift_cards
-- name: App Management
+- name: Invoices and Payments
   tags:
-  - external_subscriptions
-  - external_invoices
-  - external_products
-  - external_accounts
-  - external_product_references
-  - external_payment_phases
+  - invoice
+  - line_item
+  - credit_payment
+  - transaction
 - name: Products and Promotions
   tags:
   - item
@@ -218,12 +216,6 @@ x-tagGroups:
   - coupon_redemption
   - unique_coupon_code
   - price_segment
-- name: Invoices and Payments
-  tags:
-  - invoice
-  - line_item
-  - credit_payment
-  - transaction
 - name: Configuration
   tags:
   - site
@@ -233,6 +225,14 @@ x-tagGroups:
   - business_entities
   - general_ledger_account
   - performance_obligations
+- name: App Management
+  tags:
+  - external_subscriptions
+  - external_invoices
+  - external_products
+  - external_accounts
+  - external_product_references
+  - external_payment_phases
 tags:
 - name: site
   x-displayName: Site
@@ -9245,7 +9245,6 @@ paths:
       description: Apply credit payment to the outstanding balance on an existing
         charge invoice from an account’s available balance from existing credit invoices.
       parameters:
-      - "$ref": "#/components/parameters/site_id"
       - "$ref": "#/components/parameters/invoice_id"
       responses:
         '200':
@@ -18621,7 +18620,7 @@ components:
           type: string
           maxLength: 20
           description: Code that represents a geographic entity (location or object).
-            Only returned for Sling Vertex Integration
+            Only returned when Vertex or Avalara for Communications is enabled.
     AddressWithName:
       allOf:
       - "$ref": "#/components/schemas/Address"
@@ -19642,12 +19641,14 @@ components:
           title: Temporal amount
           description: If `duration` is "temporal" than `temporal_amount` is an integer
             which is multiplied by `temporal_unit` to define the duration that the
-            coupon will be applied to invoices for.
+            coupon will be applied to invoices for. When `temporal_unit` is "billing_period",
+            this is the number of complete billing cycles.
         temporal_unit:
           title: Temporal unit
           description: If `duration` is "temporal" than `temporal_unit` is multiplied
             by `temporal_amount` to define the duration that the coupon will be applied
-            to invoices for.
+            to invoices for. Use "billing_period" to apply the coupon for a fixed
+            number of billing cycles. Requires `redemption_resource=subscription`.
           "$ref": "#/components/schemas/TemporalUnitEnum"
         free_trial_unit:
           title: Free trial unit
@@ -19833,12 +19834,14 @@ components:
             title: Temporal amount
             description: If `duration` is "temporal" than `temporal_amount` is an
               integer which is multiplied by `temporal_unit` to define the duration
-              that the coupon will be applied to invoices for.
+              that the coupon will be applied to invoices for. When `temporal_unit`
+              is "billing_period", this is the number of complete billing cycles.
           temporal_unit:
             title: Temporal unit
             description: If `duration` is "temporal" than `temporal_unit` is multiplied
               by `temporal_amount` to define the duration that the coupon will be
-              applied to invoices for.
+              applied to invoices for. Use "billing_period" to apply the coupon for
+              a fixed number of billing cycles. Requires `redemption_resource=subscription`.
             "$ref": "#/components/schemas/TemporalUnitEnum"
           coupon_type:
             title: Coupon type
@@ -20195,6 +20198,19 @@ components:
           description: Any values that resemble a credit card number or security code
             (CVV/CVC) will be rejected.
           maxLength: 255
+        source_record_type:
+          type: string
+          title: Source record type
+          description: The type of record this custom field was automatically copied
+            from. Only present when the field was copied from another record.
+          readOnly: true
+          "$ref": "#/components/schemas/SourceRecordTypeEnum"
+        source_record_id:
+          type: string
+          title: Source record ID
+          description: The UUID of the record this custom field was automatically
+            copied from. Only present when the field was copied from another record.
+          readOnly: true
       required:
       - name
       - value
@@ -20204,6 +20220,15 @@ components:
       description: The custom fields will only be altered when they are included in
         a request. Sending an empty array will not remove any existing values. To
         remove a field send the name with a null or empty value.
+      items:
+        "$ref": "#/components/schemas/CustomField"
+    InvoiceCustomFields:
+      type: array
+      title: Custom fields
+      description: A list of custom fields that were on the account at the time of
+        invoice creation and were marked to be displayed on invoices. Read-only; cannot
+        be set directly on the invoice.
+      readOnly: true
       items:
         "$ref": "#/components/schemas/CustomField"
     CustomFieldDefinition:
@@ -21084,6 +21109,8 @@ components:
           title: Business Entity ID
           description: Unique ID to identify the business entity assigned to the invoice.
             Available when the `Multiple Business Entities` feature is enabled.
+        custom_fields:
+          "$ref": "#/components/schemas/InvoiceCustomFields"
     InvoiceCreate:
       type: object
       properties:
@@ -22735,7 +22762,7 @@ components:
           type: string
           maxLength: 20
           description: Code that represents a geographic entity (location or object).
-            Only returned for Sling Vertex Integration
+            Only returned when Vertex or Avalara for Communications is enabled.
         created_at:
           type: string
           title: Created at
@@ -22823,7 +22850,7 @@ components:
           type: string
           maxLength: 20
           description: Code that represents a geographic entity (location or object).
-            Only returned for Sling Vertex Integration
+            Only returned when Vertex or Avalara for Communications is enabled.
         country:
           type: string
           maxLength: 50
@@ -23154,7 +23181,7 @@ components:
           type: string
           maxLength: 20
           description: Code that represents a geographic entity (location or object).
-            Only returned for Sling Vertex Integration
+            Only returned when Vertex or Avalara for Communications is enabled.
     Site:
       type: object
       properties:
@@ -27196,11 +27223,16 @@ components:
       - temporal
     TemporalUnitEnum:
       type: string
+      description: The temporal unit for the coupon's duration. Used with temporal_amount
+        to define how long the coupon applies. When temporal_unit is billing_period,
+        the coupon applies for temporal_amount complete billing cycles rather than
+        a fixed calendar duration. billing_period requires redemption_resource=subscription.
       enum:
       - day
       - month
       - week
       - year
+      - billing_period
     FreeTrialUnitEnum:
       type: string
       enum:
@@ -28104,3 +28136,11 @@ components:
       enum:
       - customer
       - merchant
+    SourceRecordTypeEnum:
+      type: string
+      description: The type of record a custom field was automatically copied from.
+      enum:
+      - account
+      - plan
+      - product
+      - subscription
