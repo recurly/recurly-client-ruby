@@ -7,8 +7,10 @@ jobs:
   build:
     name: Publish
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v6.0.3
 
     - uses: ruby/setup-ruby@v1
       with:
@@ -19,7 +21,7 @@ jobs:
 
     - name: Deploy
       if: success()
-      uses: crazy-max/ghaction-github-pages@v1
+      uses: crazy-max/ghaction-github-pages@v5.0.0
       with:
         target_branch: gh-pages
         build_dir: ./doc
