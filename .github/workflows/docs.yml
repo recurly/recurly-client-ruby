@@ -7,8 +7,6 @@ jobs:
   build:
     name: Publish
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
     - uses: actions/checkout@v6.0.3
 
