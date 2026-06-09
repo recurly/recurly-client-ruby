@@ -11,7 +11,7 @@ module Recurly
       define_attribute :length, Integer
 
       # @!attribute unit
-      #   @return [String] Temporal unit of the free trial
+      #   @return [String] Temporal unit of the free trial. When `billing_period`, `length` represents the number of billing cycles.
       define_attribute :unit, String
     end
   end

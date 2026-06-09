@@ -34,6 +34,10 @@ module Recurly
       #   @return [String] An automatic invoice means a corresponding transaction is run using the account's billing information at the same time the invoice is created. Manual invoices are created without a corresponding transaction. The merchant must enter a manual payment transaction or have the customer pay the invoice with an automatic method, like credit card, PayPal, Amazon, or ACH bank payment.
       define_attribute :collection_method, String
 
+      # @!attribute coupon_redemptions
+      #   @return [Array[CouponRedemptionMini]] The coupon redemptions applied to this invoice.
+      define_attribute :coupon_redemptions, Array, { :item_type => :CouponRedemptionMini }
+
       # @!attribute created_at
       #   @return [DateTime] Created at
       define_attribute :created_at, DateTime
