@@ -34,6 +34,10 @@ module Recurly
       #   @return [String] Will always be `coupon`.
       define_attribute :object, String
 
+      # @!attribute remaining_duration
+      #   @return [CouponRedemptionRemainingDuration]
+      define_attribute :remaining_duration, :CouponRedemptionRemainingDuration
+
       # @!attribute removed_at
       #   @return [DateTime] The date and time the redemption was removed from the account (un-redeemed).
       define_attribute :removed_at, DateTime

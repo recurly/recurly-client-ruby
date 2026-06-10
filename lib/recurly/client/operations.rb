@@ -3037,6 +3037,20 @@ module Recurly
       post(path, body, Requests::InvoiceRefund, **options)
     end
 
+    # Create an invoice for revenue recovery
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_invoice_retry create_invoice_retry api documentation}
+    #
+    # @param body [Requests::RecoveryInvoiceCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::RecoveryInvoiceCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::InvoiceCollection] Returns the new invoices.
+    #
+    def create_invoice_retry(body:, **options)
+      path = "/invoices/recovery"
+      post(path, body, Requests::RecoveryInvoiceCreate, **options)
+    end
+
     # List a site's line items
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/list_line_items list_line_items api documentation}

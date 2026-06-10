@@ -26,8 +26,12 @@ module Recurly
       #   @return [String] Will always be `coupon`.
       define_attribute :object, String
 
+      # @!attribute remaining_duration
+      #   @return [CouponRedemptionRemainingDuration]
+      define_attribute :remaining_duration, :CouponRedemptionRemainingDuration
+
       # @!attribute state
-      #   @return [String] Invoice state
+      #   @return [String] Coupon Redemption state
       define_attribute :state, String
     end
   end

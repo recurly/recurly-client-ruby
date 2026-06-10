@@ -67,8 +67,12 @@ module Recurly
       define_attribute :destination_tax_address_source, String
 
       # @!attribute discount
-      #   @return [Float] The discount applied to the line item.
+      #   @return [Float] The sum of all discounts applied to the line item.
       define_attribute :discount, Float
+
+      # @!attribute discounts
+      #   @return [Array[LineItemDiscount]] The breakdown of discounts applied to the line item by coupon redemption.
+      define_attribute :discounts, Array, { :item_type => :LineItemDiscount }
 
       # @!attribute end_date
       #   @return [DateTime] If this date is provided, it indicates the end of a time range.

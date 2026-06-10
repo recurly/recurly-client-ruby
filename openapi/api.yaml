@@ -206,6 +206,7 @@ x-tagGroups:
   - line_item
   - credit_payment
   - transaction
+  - revenue_recovery
 - name: Products and Promotions
   tags:
   - item
@@ -310,6 +311,9 @@ tags:
     subscription is created or renewed or a charge is created on the account, Recurly
     will sum the charges, discount or tax as appropriate, and send the invoice out
     for collection.
+- name: revenue_recovery
+  x-displayName: Revenue Recovery
+  description: Revenue recovery
 - name: line_item
   x-displayName: Line Item
   description: Line items are the charges and credits on your customer's invoices.
@@ -10505,6 +10509,51 @@ paths:
           {\n\t\tfmt.Printf(\"Failed validation: %v\", e)\n\t\treturn nil, err\n\t}\n\tfmt.Printf(\"Unexpected
           Recurly error: %v\", e)\n\treturn nil, err\n}\n\nfmt.Printf(\"Refunded Invoice:
           %v\", invoice)"
+  "/invoices/recovery":
+    post:
+      tags:
+      - revenue_recovery
+      operationId: create_invoice_retry
+      summary: Create an invoice for revenue recovery
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/RecoveryInvoiceCreate"
+        required: true
+      responses:
+        '201':
+          description: Returns the new invoices.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/InvoiceCollection"
+        '400':
+          description: Bad request, perhaps invalid JSON?
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '404':
+          description: Incorrect site ID.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+        '422':
+          description: Invalid parameters, no pending line items, or error running
+            the transaction.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorMayHaveTransaction"
+        default:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Error"
+      x-code-samples: []
   "/line_items":
     get:
       tags:
@@ -18621,6 +18670,251 @@ components:
           maxLength: 20
           description: Code that represents a geographic entity (location or object).
             Only returned when Vertex or Avalara for Communications is enabled.
+    RecoveryAddress:
+      type: object
+      properties:
+        phone:
+          type: string
+          title: Phone number
+        street1:
+          type: string
+          title: Street 1
+          maxLength: 50
+        street2:
+          type: string
+          title: Street 2
+          maxLength: 50
+        city:
+          type: string
+          title: City
+        region:
+          type: string
+          title: State/Province
+          description: State or province.
+        postal_code:
+          type: string
+          title: Zip/Postal code
+          description: Zip or postal code.
+        country:
+          type: string
+          title: Country
+          description: Country, 2-letter ISO 3166-1 alpha-2 code.
+    RecoveryInvoiceCreate:
+      type: object
+      properties:
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+        due_at:
+          type: string
+          format: date-time
+          title: Due at
+          description: Date invoice was originally due. Must be in the past.
+        po_number:
+          type: string
+          title: Purchase order number
+          description: This identifies the PO number associated with the subscription.
+          maxLength: 50
+        external_recovery_eligible:
+          type: boolean
+          title: External recovery eligible
+          description: Must be set to `true` to acknowledge that the invoice is eligible
+            for external recovery. Requests with `false`, omitted, or non-boolean
+            values will be rejected.
+        account:
+          "$ref": "#/components/schemas/RecoveryAccountCreate"
+        line_items:
+          type: array
+          title: Line items
+          description: Line items to include on the invoice. Currency is specified
+            at the root level and must not be included in individual line items.
+          items:
+            "$ref": "#/components/schemas/RecoveryLineItemCreate"
+      required:
+      - currency
+      - due_at
+      - external_recovery_eligible
+      - account
+      - line_items
+    RecoveryBillingInfoCreate:
+      type: object
+      title: Recovery billing info
+      properties:
+        first_name:
+          type: string
+          title: First name
+          maxLength: 50
+        last_name:
+          type: string
+          title: Last name
+          maxLength: 50
+        company:
+          type: string
+          title: Company name
+          maxLength: 100
+        address:
+          "$ref": "#/components/schemas/RecoveryAddress"
+        ip_address:
+          type: string
+          title: IP address
+          description: "*STRONGLY RECOMMENDED* Customer's IP address when updating
+            their billing information."
+          maxLength: 20
+        gateway_code:
+          type: string
+          title: An identifier for a specific payment gateway.
+          maxLength: 12
+        primary_payment_method:
+          type: boolean
+          title: Primary Payment Method
+          description: The `primary_payment_method` field is used to designate the
+            primary billing info on the account. An account can have a maximum of
+            1 primary. If a user sets a different payment method as a primary, then
+            the existing primary will no longer be marked as such.
+        backup_payment_method:
+          type: boolean
+          description: The `backup_payment_method` field is used to designate a billing
+            info as a backup on the account that will be tried if the initial billing
+            info used for an invoice is declined. All payment methods, including the
+            billing info marked `primary_payment_method` can be set as a backup. An
+            account can have a maximum of 1 backup, if a user sets a different payment
+            method as a backup, the existing backup will no longer be marked as such.
+        payment_gateway_references:
+          type: array
+          description: Array of Payment Gateway References, each a reference to a
+            third-party gateway object of varying types.
+          items:
+            "$ref": "#/components/schemas/PaymentGatewayReferences"
+        network_transaction_id:
+          type: string
+          title: Network Transaction ID
+          description: |
+            Network transaction ID from the previous customer-in-session subscription signup or billing info storage.
+
+            - 10-15 alphanumeric characters for Mastercard
+            - 14-15 alphanumeric for Visa
+            - 15 digits for all other brands
+            - 16 alphanumeric characters for Cartes Bancaires, which are processed as Visa or Mastercard
+          maxLength: 16
+        transactions:
+          type: array
+          title: Transactions
+          description: Transactions from previous collection attempts for this payment
+            method.
+          items:
+            "$ref": "#/components/schemas/RecoveryTransactionCreate"
+      required:
+      - gateway_code
+      - payment_gateway_references
+      - transactions
+    RecoveryAccountCreate:
+      type: object
+      properties:
+        address:
+          "$ref": "#/components/schemas/RecoveryAddress"
+        billing_infos:
+          type: array
+          title: Billing Infos
+          description: If the premium Wallet feature is enabled, more than one payment
+            method can be associated with an account, and one can be designated as
+            a primary and one as a backup. Without the Wallet feature, only one payment
+            method will be accepted.
+          items:
+            "$ref": "#/components/schemas/RecoveryBillingInfoCreate"
+        code:
+          type: string
+          description: The unique identifier of the account. This cannot be changed
+            once the account is created.
+          maxLength: 50
+        email:
+          type: string
+          format: email
+          description: The email address used for communicating with this customer.
+          maxLength: 255
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
+        dunning_campaign_id:
+          type: string
+          title: Dunning Campaign ID
+          description: Unique ID to identify a dunning campaign. Used to specify if
+            a non-default dunning campaign should be assigned to this account. For
+            sites without multiple dunning campaigns enabled, the default dunning
+            campaign will always be used.
+      required:
+      - code
+      - billing_infos
+    RecoveryLineItemCreate:
+      required:
+      - unit_amount
+      type: object
+      title: Recovery line item
+      properties:
+        tax:
+          type: number
+          format: float
+          title: Tax
+          description: The tax amount for the line item.
+        custom_fields:
+          "$ref": "#/components/schemas/CustomFields"
+        harmonized_system_code:
+          type: string
+          title: Harmonized System Code
+          description: The Harmonized System (HS) code is an internationally standardized
+            system of names and numbers to classify traded products. The HS code,
+            sometimes called Commodity Code, is used by customs authorities around
+            the world to identify products when assessing duties and taxes. The HS
+            code may also be referred to as the tariff code or customs code. Values
+            should contain only digits and decimals.
+          maxLength: 25
+          pattern: "^\\d+(\\.\\d+)*$"
+        product_code:
+          type: string
+          title: Product code
+          description: Optional field to track a product code or SKU for the line
+            item. This can be used to later reporting on product purchases.
+          maxLength: 50
+        quantity:
+          type: integer
+          title: Quantity
+          description: This number will be multiplied by the unit amount to compute
+            the subtotal before any discounts or taxes.
+          default: 1
+        description:
+          type: string
+          title: Description
+          description: Description that appears on the invoice.
+          maxLength: 255
+        unit_amount:
+          type: number
+          format: float
+          title: Unit amount
+          description: A positive or negative amount will result in a positive `unit_amount`.
+    RecoveryTransactionCreate:
+      required:
+      - gateway_error_code
+      - attempted_collection_date
+      type: object
+      properties:
+        gateway_error_code:
+          type: string
+          title: Gateway error code
+          description: The error code returned by the payment gateway for the original
+            payment collection attempt.
+          maxLength: 50
+        merchant_advice_code:
+          type: string
+          title: Merchant advice code
+          description: The advice code returned by the payment gateway for the original
+            payment collection attempt. This field is only applicable for certain
+            gateways.
+          maxLength: 2
+        attempted_collection_date:
+          type: string
+          format: date-time
+          title: Attempted collection date
+          description: The date the original payment collection was attempted.
     AddressWithName:
       allOf:
       - "$ref": "#/components/schemas/Address"
@@ -19579,6 +19873,44 @@ components:
         token_id:
           type: string
           description: A token [generated by Recurly.js](https://recurly.com/developers/reference/recurly-js/#getting-a-token).
+    LineItemDiscount:
+      type: object
+      title: Line item discount
+      description: A discount applied to a line item charge by a coupon redemption.
+      properties:
+        object:
+          type: string
+          title: Object type
+          description: Will always be `line_item_discount`.
+          readOnly: true
+        coupon_id:
+          type: string
+          title: Coupon ID
+          description: The ID of the coupon that generated this discount.
+          readOnly: true
+        coupon_redemption_id:
+          type: string
+          title: Coupon Redemption ID
+          description: The ID of the coupon redemption that generated this discount.
+          readOnly: true
+        order_applied:
+          type: integer
+          title: Order applied
+          description: The order in which this discount was applied when multiple
+            coupons were redeemed.
+          readOnly: true
+        discount_amount:
+          type: number
+          format: float
+          title: Discount amount
+          description: The amount discounted on this line item by this coupon redemption.
+          readOnly: true
+        currency:
+          type: string
+          title: Currency
+          description: 3-letter ISO 4217 currency code.
+          maxLength: 3
+          readOnly: true
     Coupon:
       type: object
       properties:
@@ -19764,7 +20096,8 @@ components:
             title: Free trial unit
             description: Description of the unit of time the coupon is for. Used with
               `free_trial_amount` to determine the duration of time the coupon is
-              for.  Required if `discount_type` is `free_trial`.
+              for. Required if `discount_type` is `free_trial`. Use `billing_period`
+              to grant a free trial for a number of billing cycles.
             "$ref": "#/components/schemas/FreeTrialUnitEnum"
           free_trial_amount:
             type: integer
@@ -19842,6 +20175,8 @@ components:
               by `temporal_amount` to define the duration that the coupon will be
               applied to invoices for. Use "billing_period" to apply the coupon for
               a fixed number of billing cycles. Requires `redemption_resource=subscription`.
+              Not compatible with `discount_type=free_trial`; use `free_trial_unit=billing_period`
+              and `free_trial_amount` instead.
             "$ref": "#/components/schemas/TemporalUnitEnum"
           coupon_type:
             title: Coupon type
@@ -19903,7 +20238,8 @@ components:
           properties:
             unit:
               title: Trial unit
-              description: Temporal unit of the free trial
+              description: Temporal unit of the free trial. When `billing_period`,
+                `length` represents the number of billing cycles.
               "$ref": "#/components/schemas/FreeTrialUnitEnum"
             length:
               type: integer
@@ -20016,6 +20352,9 @@ components:
           title: Coupon Redemption state
           default: active
           "$ref": "#/components/schemas/ActiveStateEnum"
+        remaining_duration:
+          readOnly: true
+          "$ref": "#/components/schemas/CouponRedemptionRemainingDuration"
         currency:
           type: string
           title: Currency
@@ -20043,6 +20382,23 @@ components:
           description: The date and time the redemption was removed from the account
             (un-redeemed).
           format: date-time
+    CouponRedemptionRemainingDuration:
+      type: object
+      properties:
+        type:
+          type: string
+          title: Duration Type
+          description: The coupon's duration type. `temporal` includes an `expires_at`
+            timestamp. `forever` and `single_use` have no additional fields.
+          "$ref": "#/components/schemas/CouponDurationEnum"
+          readOnly: true
+        expires_at:
+          type: string
+          title: Expires at
+          format: date-time
+          description: Present when `type` is `temporal`. The datetime after which
+            this redemption will no longer apply.
+          readOnly: true
     CouponRedemptionCreate:
       type: object
       properties:
@@ -20074,8 +20430,11 @@ components:
         coupon:
           "$ref": "#/components/schemas/CouponMini"
         state:
-          title: Invoice state
+          title: Coupon Redemption state
           "$ref": "#/components/schemas/ActiveStateEnum"
+        remaining_duration:
+          readOnly: true
+          "$ref": "#/components/schemas/CouponRedemptionRemainingDuration"
         discounted:
           type: number
           format: float
@@ -20972,6 +21331,12 @@ components:
           format: float
           title: Discount
           description: Total discounts applied to this invoice.
+        coupon_redemptions:
+          type: array
+          title: Coupon Redemptions
+          description: The coupon redemptions applied to this invoice.
+          items:
+            "$ref": "#/components/schemas/CouponRedemptionMini"
         subtotal:
           type: number
           format: float
@@ -21684,7 +22049,14 @@ components:
           type: number
           format: float
           title: Discount
-          description: The discount applied to the line item.
+          description: The sum of all discounts applied to the line item.
+        discounts:
+          type: array
+          title: Discounts
+          description: The breakdown of discounts applied to the line item by coupon
+            redemption.
+          items:
+            "$ref": "#/components/schemas/LineItemDiscount"
         liability_gl_account_code:
           type: string
           title: Accounting code for the ledger account.
@@ -27239,6 +27611,7 @@ components:
       - day
       - month
       - week
+      - billing_period
     RedemptionResourceEnum:
       type: string
       enum:
