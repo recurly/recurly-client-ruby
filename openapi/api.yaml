@@ -193,20 +193,20 @@ x-tagGroups:
   - account_acquisition
   - billing_info
   - billing_infos
+  - coupon_redemption
   - subscription
   - subscription_change
-  - shipping_address
-  - purchase
   - usage
-  - automated_exports
-  - gift_cards
+  - shipping_address
 - name: Invoices and Payments
   tags:
+  - purchase
   - invoice
   - line_item
   - credit_payment
   - transaction
   - revenue_recovery
+  - gift_cards
 - name: Products and Promotions
   tags:
   - item
@@ -214,7 +214,6 @@ x-tagGroups:
   - add-on
   - measured_unit
   - coupon
-  - coupon_redemption
   - unique_coupon_code
   - price_segment
 - name: Configuration
@@ -224,6 +223,7 @@ x-tagGroups:
   - shipping_method
   - dunning_campaigns
   - business_entities
+  - automated_exports
   - general_ledger_account
   - performance_obligations
 - name: App Management
@@ -23711,6 +23711,12 @@ components:
           title: Remaining pause cycles
           description: Null unless subscription is paused or will pause at the end
             of the current billing period.
+        resume_at:
+          type: string
+          format: date-time
+          title: Resume at
+          description: The date the subscription billing resumes following a pause.
+            Null unless the subscription is paused or scheduled to be paused.
         currency:
           type: string
           title: Currency
@@ -25192,6 +25198,10 @@ components:
           title: Currency
           description: 3-letter ISO 4217 currency code.
           maxLength: 3
+        description:
+          type: string
+          title: Description
+          description: The description that gets sent to the gateway.
         amount:
           type: number
           format: float
