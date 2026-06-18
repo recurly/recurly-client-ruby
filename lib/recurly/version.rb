@@ -1,3 +1,3 @@
 module Recurly
-  VERSION = "4.78.0"
+  VERSION = "4.79.0"
 end
