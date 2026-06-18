@@ -231,6 +231,7 @@ module Recurly
     #
     # @param account_id [String] Account ID or code. For ID no prefix is used e.g. +e28zov4fw0v2+. For code use prefix +code-+, e.g. +code-bob+.
     # @param params [Hash] Optional query string parameters:
+    #        :redact [Boolean] Permanently removes all personally identifiable information (PII) from this account after it has been deactivated, to fulfill a data subject's right to erasure under GDPR and similar privacy regulations (e.g. CCPA). Cannot be undone.
     #
     # @return [Resources::Account] An account.
     # @example
@@ -4877,7 +4878,7 @@ module Recurly
     #   - When no state is provided, subscriptions with active or canceled states will be returned.
     #
     #
-    # @return [Pager<Resources::Entitlements>] A list of the entitlements granted to an account.
+    # @return [Pager<Resources::Entitlement>] A list of the entitlements granted to an account.
     #
     def list_entitlements(account_id:, **options)
       path = interpolate_path("/accounts/{account_id}/entitlements", account_id: account_id)
