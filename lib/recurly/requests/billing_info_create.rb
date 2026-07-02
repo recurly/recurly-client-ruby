@@ -26,6 +26,10 @@ module Recurly
       #   @return [String] Only supported on Amazon V1. For Amazon V2, use token_id with Recurly.js.
       define_attribute :amazon_billing_agreement_id, String
 
+      # @!attribute authentication_method
+      #   @return [String] UPI Autopay authentication method. Specifies how the customer authorizes the enrollment mandate. Defaults to 'vpa' if omitted.
+      define_attribute :authentication_method, String
+
       # @!attribute backup_payment_method
       #   @return [Boolean] The `backup_payment_method` field is used to designate a billing info as a backup on the account that will be tried if the initial billing info used for an invoice is declined. All payment methods, including the billing info marked `primary_payment_method` can be set as a backup. An account can have a maximum of 1 backup, if a user sets a different payment method as a backup, the existing backup will no longer be marked as such.
       define_attribute :backup_payment_method, :Boolean
@@ -151,7 +155,7 @@ module Recurly
       define_attribute :transaction_type, String
 
       # @!attribute type
-      #   @return [String] The payment method type for a non-credit card based billing info. `bacs`, `becs`, `pix-automatico`, `mercadopago` are the only accepted values.
+      #   @return [String] The payment method type for a non-credit card based billing info. `bacs`, `becs`, `pix-automatico`, `mercadopago`, `upi-autopay` are the only accepted values.
       define_attribute :type, String
 
       # @!attribute vat_number

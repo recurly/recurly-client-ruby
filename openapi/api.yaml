@@ -19850,6 +19850,8 @@ components:
           description: Specifies a URL to which a consumer will be redirected upon
             completion of a redirect payment flow. Only redirect payment flows operating
             through Adyen Components will utilize this return URL.
+        authentication_method:
+          "$ref": "#/components/schemas/UpiAutopayAuthenticationMethodEnum"
     BillingInfoVerify:
       type: object
       properties:
@@ -20394,7 +20396,8 @@ components:
           type: string
           title: Duration Type
           description: The coupon's duration type. `temporal` includes an `expires_at`
-            timestamp. `forever` and `single_use` have no additional fields.
+            timestamp. `billing_periods` includes a `redemptions_remaining` count
+            of billing cycles. `forever` and `single_use` have no additional fields.
           "$ref": "#/components/schemas/CouponDurationEnum"
           readOnly: true
         expires_at:
@@ -20403,6 +20406,12 @@ components:
           format: date-time
           description: Present when `type` is `temporal`. The datetime after which
             this redemption will no longer apply.
+          readOnly: true
+        redemptions_remaining:
+          type: integer
+          title: Redemptions Remaining
+          description: The number of redemption periods remaining for which this coupon
+            will still apply.
           readOnly: true
     CouponRedemptionCreate:
       type: object
@@ -22880,7 +22889,7 @@ components:
           minimum: 0
           maximum: 1000000
           description: |
-            Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
+            Allows up to 9 decimal places.
             If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
         tax_inclusive:
           type: boolean
@@ -22912,7 +22921,7 @@ components:
           minimum: 0
           maximum: 1000000
           description: |
-            Allows up to 9 decimal places. Only supported when `add_on_type` = `usage`.
+            Allows up to 9 decimal places.
             If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
       required:
       - currency
@@ -24004,7 +24013,6 @@ components:
           description: |
             Allows up to 9 decimal places.  Optionally, override the add-on's default unit amount.
             If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount_decimal` cannot be provided.
-            Only supported when the plan add-on's `add_on_type` = `usage`.
             If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
           minimum: 0
           maximum: 1000000
@@ -24088,7 +24096,6 @@ components:
           description: |
             Allows up to 9 decimal places. Optionally, override the add-on's default unit amount.
             If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount_decimal` cannot be provided.
-            Only supported when the plan add-on's `add_on_type` = `usage`.
             If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
         tiers:
           type: array
@@ -27608,6 +27615,7 @@ components:
       - forever
       - single_use
       - temporal
+      - billing_periods
     TemporalUnitEnum:
       type: string
       description: The temporal unit for the coupon's duration. Used with temporal_amount
@@ -28437,12 +28445,23 @@ components:
     AchTypeEnum:
       type: string
       description: The payment method type for a non-credit card based billing info.
-        `bacs`, `becs`, `pix-automatico`, `mercadopago` are the only accepted values.
+        `bacs`, `becs`, `pix-automatico`, `mercadopago`, `upi-autopay` are the only
+        accepted values.
       enum:
       - bacs
       - becs
       - pix-automatico
       - mercadopago
+      - upi-autopay
+    UpiAutopayAuthenticationMethodEnum:
+      type: string
+      title: Authentication Method
+      description: UPI Autopay authentication method. Specifies how the customer authorizes
+        the enrollment mandate. Defaults to 'vpa' if omitted.
+      enum:
+      - vpa
+      - qr-code
+      - app-deep-links
     AchAccountTypeEnum:
       type: string
       description: The bank account type. (ACH only)

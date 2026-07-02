@@ -35,7 +35,7 @@ module Recurly
       define_attribute :unit_amount, Float
 
       # @!attribute unit_amount_decimal
-      #   @return [String] Allows up to 9 decimal places.  Optionally, override the add-on's default unit amount. If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount_decimal` cannot be provided. Only supported when the plan add-on's `add_on_type` = `usage`. If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
+      #   @return [String] Allows up to 9 decimal places.  Optionally, override the add-on's default unit amount. If the plan add-on's `tier_type` is `tiered`, `volume`, or `stairstep`, then `unit_amount_decimal` cannot be provided. If `unit_amount_decimal` is provided, `unit_amount` cannot be provided.
       define_attribute :unit_amount_decimal, String
 
       # @!attribute usage_percentage

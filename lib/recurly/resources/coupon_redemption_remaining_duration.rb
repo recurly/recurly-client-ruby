@@ -10,8 +10,12 @@ module Recurly
       #   @return [DateTime] Present when `type` is `temporal`. The datetime after which this redemption will no longer apply.
       define_attribute :expires_at, DateTime
 
+      # @!attribute redemptions_remaining
+      #   @return [Integer] The number of redemption periods remaining for which this coupon will still apply.
+      define_attribute :redemptions_remaining, Integer
+
       # @!attribute type
-      #   @return [String] The coupon's duration type. `temporal` includes an `expires_at` timestamp. `forever` and `single_use` have no additional fields.
+      #   @return [String] The coupon's duration type. `temporal` includes an `expires_at` timestamp. `billing_periods` includes a `redemptions_remaining` count of billing cycles. `forever` and `single_use` have no additional fields.
       define_attribute :type, String
     end
   end
