@@ -61,7 +61,7 @@ module Recurly
     # @param ca_file [String] The CA bundle to use when connecting to the API. Defaults to "data/ca-certificates.crt"
     # @param api_key [String] The private API key
     # @param logger [Logger] A logger to use. Defaults to creating a new STDOUT logger with level WARN.
-    def initialize(region: REGION, base_url: API_HOSTS[:us], ca_file: CA_FILE, api_key:, logger: nil, keep_alive_timeout: 600)
+    def initialize(region: REGION, base_url: API_HOSTS[:us], ca_file: CA_FILE, api_key:, logger: nil, keep_alive_timeout: 600, http_adapter: nil)
       raise ArgumentError, "'api_key' must be set to a non-nil value" if api_key.nil?
 
       raise ArgumentError, "Invalid region type. Expected one of: #{API_HOSTS.keys.join(", ")}" if !API_HOSTS.key?(region)
@@ -92,6 +92,13 @@ module Recurly
         log_warn("SECURITY_WARNING", message: msg)
       end
 
+      @http_adapter = http_adapter || HTTP::DefaultHttpAdapter.new(
+        connection_pool: self.class.connection_pool,
+        keep_alive_timeout: @keep_alive_timeout,
+        ca_file: @ca_file,
+        logger: @logger,
+      )
+
       # execute block with this client if given
       yield(self) if block_given?
     end
@@ -111,55 +118,57 @@ module Recurly
 
     def head(path, **options)
       validate_options!(**options)
-      request = Net::HTTP::Head.new build_url(path, options)
-      set_headers(request, options[:headers])
-      http_response = run_request(request, options)
-      handle_response! request, http_response
+      relative_path = build_url(path, options)
+      headers = build_headers(HTTP::HttpMethod::HEAD, options[:headers])
+      request = HTTP::Request.new(HTTP::HttpMethod::HEAD, relative_path, nil)
+      response = run_request(request, headers, nil, options)
+      handle_response! request, response
     end
 
     def get(path, **options)
       validate_options!(**options)
-
-      request = Net::HTTP::Get.new build_url(path, options)
-
-      set_headers(request, options[:headers])
-      http_response = run_request(request, options)
-      handle_response! request, http_response
+      relative_path = build_url(path, options)
+      headers = build_headers(HTTP::HttpMethod::GET, options[:headers])
+      request = HTTP::Request.new(HTTP::HttpMethod::GET, relative_path, nil)
+      response = run_request(request, headers, nil, options)
+      handle_response! request, response
     end
 
     def post(path, request_data = nil, request_class = nil, **options)
       validate_options!(**options)
-      request = Net::HTTP::Post.new build_url(path, options)
-      request.set_content_type(JSON_CONTENT_TYPE)
-      set_headers(request, options[:headers])
+      relative_path = build_url(path, options)
+      headers = build_headers(HTTP::HttpMethod::POST, options[:headers])
+      body = nil
       if request_data
         request_class.new(request_data).validate!
-        request.body = JSON.dump(request_data)
+        body = JSON.dump(request_data)
       end
-      http_response = run_request(request, options)
-      handle_response! request, http_response
+      request = HTTP::Request.new(HTTP::HttpMethod::POST, relative_path, body)
+      response = run_request(request, headers, body, options)
+      handle_response! request, response
     end
 
     def put(path, request_data = nil, request_class = nil, **options)
       validate_options!(**options)
-      request = Net::HTTP::Put.new build_url(path, options)
-      request.set_content_type(JSON_CONTENT_TYPE)
-      set_headers(request, options[:headers])
+      relative_path = build_url(path, options)
+      headers = build_headers(HTTP::HttpMethod::PUT, options[:headers])
+      body = nil
       if request_data
         request_class.new(request_data).validate!
-        json_body = JSON.dump(request_data)
-        request.body = json_body
+        body = JSON.dump(request_data)
       end
-      http_response = run_request(request, options)
-      handle_response! request, http_response
+      request = HTTP::Request.new(HTTP::HttpMethod::PUT, relative_path, body)
+      response = run_request(request, headers, body, options)
+      handle_response! request, response
     end
 
     def delete(path, **options)
       validate_options!(**options)
-      request = Net::HTTP::Delete.new build_url(path, options)
-      set_headers(request, options[:headers])
-      http_response = run_request(request, options)
-      handle_response! request, http_response
+      relative_path = build_url(path, options)
+      headers = build_headers(HTTP::HttpMethod::DELETE, options[:headers])
+      request = HTTP::Request.new(HTTP::HttpMethod::DELETE, relative_path, nil)
+      response = run_request(request, headers, nil, options)
+      handle_response! request, response
     end
 
     private
@@ -171,80 +180,109 @@ module Recurly
       attr_accessor :connection_pool
     end
 
-    def run_request(request, options = {})
-      self.class.connection_pool.with_connection(uri: @base_uri, keep_alive_timeout: @keep_alive_timeout, ca_file: @ca_file) do |http|
-        set_http_options(http, options)
+    def run_request(request, headers, body, options = {})
+      method = request.method
+      url = @base_uri.to_s + request.path
+      open_timeout = options[:open_timeout]
+      read_timeout = options[:read_timeout]
 
-        retries = 0
+      retries = 0
 
-        begin
-          http.start unless http.started?
+      log_attrs = {
+        method: method,
+        path: request.path,
+      }
+      if @logger.level < Logger::INFO
+        log_attrs[:request_body] = body
+        # No need to log the authorization header
+        loggable_headers = headers.reject { |k, _| k&.downcase == "authorization" }
+        log_attrs[:request_headers] = loggable_headers
+      end
 
-          log_attrs = {
-            method: request.method,
-            path: request.path,
-          }
-          if @logger.level < Logger::INFO
-            log_attrs[:request_body] = request.body
-            # No need to log the authorization header
-            headers = request.to_hash.reject { |k, _| k&.downcase == "authorization" }
-            log_attrs[:request_headers] = headers
-          end
+      begin
+        log_info("Request", **log_attrs)
+        start = Time.now
+        response = @http_adapter.call(method, url, headers, body, open_timeout: open_timeout, read_timeout: read_timeout)
+        elapsed = Time.now - start
 
-          log_info("Request", **log_attrs)
-          start = Time.now
-          response = http.request(request)
-          elapsed = Time.now - start
-
-          # GETs are safe to retry after a server error, requests with an Idempotency-Key will return the prior response
-          if response.kind_of?(Net::HTTPServerError) && request.is_a?(Net::HTTP::Get)
-            retries += 1
-            log_info("Retrying", retries: retries, **log_attrs)
+        # GETs are safe to retry after a server error, requests with an Idempotency-Key will return the prior response.
+        # This is a SINGLE inline re-issue (not a loop) that shares the same `retries` counter as the transport rescue.
+        if response.status_code >= 500 && method == HTTP::HttpMethod::GET
+          retries += 1
+          log_info("Retrying", retries: retries, **log_attrs)
+          if retries < MAX_RETRIES
             start = Time.now
-            response = http.request(request) if retries < MAX_RETRIES
+            response = @http_adapter.call(method, url, headers, body, open_timeout: open_timeout, read_timeout: read_timeout)
             elapsed = Time.now - start
           end
+        end
 
-          if @logger.level < Logger::INFO
-            log_attrs[:response_body] = response.body
-            log_attrs[:response_headers] = response.to_hash
-          end
-          log_info("Response", time_ms: (elapsed * 1_000).floor, status: response.code, **log_attrs)
+        if @logger.level < Logger::INFO
+          log_attrs[:response_body] = response.body
+          log_attrs[:response_headers] = response.headers
+        end
+        log_info("Response", time_ms: (elapsed * 1_000).floor, status: response.status_code, **log_attrs)
 
-          response
-        rescue Errno::ECONNREFUSED, Errno::ECONNRESET, Errno::EHOSTUNREACH, Errno::ECONNABORTED,
-               Errno::EPIPE, Errno::ETIMEDOUT, Net::OpenTimeout, EOFError, SocketError => ex
-          retries += 1
-          if retries < MAX_RETRIES
-            retry
-          end
+        response
+      rescue Recurly::Errors::TransportError => ex
+        retries += 1
+        if retries < MAX_RETRIES
+          retry
+        end
 
-          if ex.kind_of?(Net::OpenTimeout) || ex.kind_of?(Errno::ETIMEDOUT)
-            raise Recurly::Errors::TimeoutError, "Request timed out"
-          end
-
-          raise Recurly::Errors::ConnectionFailedError, "Failed to connect to Recurly: #{ex.message}"
-        rescue Timeout::Error
+        case ex.kind
+        when :timeout
           raise Recurly::Errors::TimeoutError, "Request timed out"
-        rescue OpenSSL::SSL::SSLError => ex
+        when :ssl
           raise Recurly::Errors::SSLError, ex.message
-        rescue StandardError => ex
+        when :connection
+          raise Recurly::Errors::ConnectionFailedError, ex.message
+        else
           raise Recurly::Errors::NetworkError, ex.message
         end
       end
     end
 
-    def set_headers(request, additional_headers = {})
-      # TODO this is undocumented until we finalize it
-      additional_headers.each { |header, v| request[header] = v } if additional_headers
+    # Builds the app-level request headers as a plain Hash. Header names are
+    # compared case-insensitively so a caller-supplied header (any case)
+    # overrides the SDK default instead of producing a duplicate.
+    def build_headers(method, additional_headers = {})
+      headers = {}
 
-      request["Accept"] = "application/vnd.recurly.#{api_version}".chomp # got this method from operations.rb
-      request["Authorization"] = "Basic #{Base64.encode64(@api_key)}".chomp
-      request["User-Agent"] = "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}"
-
-      unless request.is_a?(Net::HTTP::Get) || request.is_a?(Net::HTTP::Head)
-        request["Idempotency-Key"] ||= generate_idempotency_key
+      # Content-Type must be applied FIRST for bodied verbs, so caller headers
+      # can override it (parity with the old set_content_type-then-set_headers order).
+      if method == HTTP::HttpMethod::POST || method == HTTP::HttpMethod::PUT
+        headers["Content-Type"] = JSON_CONTENT_TYPE
       end
+
+      # TODO this is undocumented until we finalize it
+      if additional_headers
+        additional_headers.each { |header, v| set_header(headers, header, v) }
+      end
+
+      set_header(headers, "Accept", "application/vnd.recurly.#{api_version}".chomp) # got this method from operations.rb
+      set_header(headers, "Authorization", "Basic #{Base64.encode64(@api_key)}".chomp)
+      set_header(headers, "User-Agent", "Recurly/#{VERSION}; #{RUBY_DESCRIPTION}")
+
+      unless method == HTTP::HttpMethod::GET || method == HTTP::HttpMethod::HEAD
+        # Only generate an Idempotency-Key if the caller did not supply one (any case).
+        set_header(headers, "Idempotency-Key", generate_idempotency_key) unless header_key?(headers, "Idempotency-Key")
+      end
+
+      headers
+    end
+
+    # Sets a header, replacing any existing entry whose name matches
+    # case-insensitively (so we never emit two headers differing only in case).
+    def set_header(headers, name, value)
+      existing = headers.keys.find { |k| k.to_s.downcase == name.to_s.downcase }
+      headers.delete(existing) if existing
+      headers[name] = value
+    end
+
+    # @return [Boolean] whether a header (case-insensitive) is already present
+    def header_key?(headers, name)
+      headers.keys.any? { |k| k.to_s.downcase == name.to_s.downcase }
     end
 
     # from https://github.com/rails/rails/blob/6-0-stable/activesupport/lib/active_support/core_ext/securerandom.rb
@@ -256,21 +294,31 @@ module Recurly
       end.join
     end
 
-    def set_http_options(http, options)
-      http.open_timeout = options[:open_timeout] || 20
-      http.read_timeout = options[:read_timeout] || 60
-    end
+    # Vendored HTTP status → reason-phrase table. Used to synthesize a
+    # reason_phrase when a (custom) adapter did not surface one. On the default
+    # path the adapter provides Net::HTTP's reason phrase, so this is not
+    # consulted and behavior is byte-identical. Phrases are bare (no status code
+    # prefix) since callers build "#{code}: #{phrase}".
+    HTTP_STATUS_MESSAGES = {
+      200 => "OK", 201 => "Created", 202 => "Accepted", 204 => "No Content",
+      301 => "Moved Permanently", 302 => "Found", 304 => "Not Modified",
+      400 => "Bad Request", 401 => "Unauthorized", 402 => "Payment Required",
+      403 => "Forbidden", 404 => "Not Found", 406 => "Not Acceptable",
+      409 => "Conflict", 412 => "Precondition Failed", 422 => "Unprocessable Entity",
+      429 => "Too Many Requests", 500 => "Internal Server Error", 502 => "Bad Gateway",
+      503 => "Service Unavailable", 504 => "Gateway Timeout",
+    }.freeze
 
-    def handle_response!(request, http_response)
-      response = HTTP::Response.new(http_response, request)
-      raise_api_error!(http_response, response) unless http_response.kind_of?(Net::HTTPSuccess)
+    def handle_response!(request, adapter_response)
+      response = HTTP::Response.new(adapter_response, request)
+      raise_api_error!(adapter_response, response) unless adapter_response.status_code.between?(200, 299)
       resource = if response.body
-          if http_response.content_type&.include?(JSON_CONTENT_TYPE)
+          if response.content_type&.include?(JSON_CONTENT_TYPE)
             JSONParser.parse(self, response.body)
-          elsif BINARY_TYPES.include?(http_response.content_type)
+          elsif BINARY_TYPES.include?(response.content_type)
             FileParser.parse(response.body)
           else
-            raise Recurly::Errors::InvalidContentTypeError, "Unexpected content type: #{http_response.content_type}"
+            raise Recurly::Errors::InvalidContentTypeError, "Unexpected content type: #{response.content_type}"
           end
         else
           Resources::Empty.new
@@ -280,26 +328,32 @@ module Recurly
       resource
     end
 
-    def raise_api_error!(http_response, response)
-      if response.content_type.include?(JSON_CONTENT_TYPE)
+    def raise_api_error!(adapter_response, response)
+      if response.content_type&.include?(JSON_CONTENT_TYPE)
         error = JSONParser.parse(self, response.body)
         begin
           error_class = Errors::APIError.error_class(error.type)
           raise error_class.new(error.message, response, error)
         rescue NameError
-          error_class = Errors::APIError.from_response(http_response)
+          error_class = Errors::APIError.from_response(adapter_response)
           raise error_class.new("Unknown Error", response, error)
         end
       end
 
-      error_class = Errors::APIError.from_response(http_response)
+      error_class = Errors::APIError.from_response(adapter_response)
+      status_line = "#{adapter_response.status_code}: #{reason_phrase(adapter_response)}"
 
       if error_class <= Recurly::Errors::APIError
-        error = Recurly::Resources::Error.new(message: "#{http_response.code}: #{http_response.message}")
+        error = Recurly::Resources::Error.new(message: status_line)
         raise error_class.new(error.message, response, error)
       else
-        raise error_class, "#{http_response.code}: #{http_response.message}"
+        raise error_class, status_line
       end
+    end
+
+    # Returns the adapter's reason phrase when present, else a vendored fallback.
+    def reason_phrase(adapter_response)
+      adapter_response.reason_phrase || HTTP_STATUS_MESSAGES[adapter_response.status_code]
     end
 
     def read_headers(response)
