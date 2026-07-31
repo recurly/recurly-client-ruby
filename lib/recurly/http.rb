@@ -6,9 +6,11 @@ module Recurly
         :rate_limit_reset, :date, :proxy_metadata,
         :content_type, :total_records
 
+      # @param resp [Recurly::HTTP::AdapterResponse] the normalized adapter response
+      # @param request [Recurly::HTTP::Request] the request wrapper (relative path)
       def initialize(resp, request)
         @request = Request.new(request.method, request.path, request.body)
-        @status = resp.code.to_i
+        @status = resp.status_code
         @request_id = resp["x-request-id"]
         @rate_limit = resp["x-ratelimit-limit"].to_i
         @rate_limit_remaining = resp["x-ratelimit-remaining"].to_i
@@ -17,7 +19,7 @@ module Recurly
         if resp["content-type"]
           @content_type = resp["content-type"].split(";").first
         else
-          @content_type = resp.content_type
+          @content_type = nil
         end
         if resp.body && !resp.body.empty?
           @body = resp.body

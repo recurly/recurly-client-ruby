@@ -6,6 +6,7 @@ SimpleCov.start do
 end
 require "recurly"
 require_relative "./test_schemas"
+require_relative "./mock_http_adapter"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
