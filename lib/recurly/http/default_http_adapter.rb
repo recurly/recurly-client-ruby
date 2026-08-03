@@ -10,24 +10,26 @@ module Recurly
       # @param connection_pool [Recurly::ConnectionPool] the shared, class-level pool
       # @param keep_alive_timeout [Integer] seconds; forwarded to the pool
       # @param ca_file [String, nil] CA bundle path; forwarded to the pool
-      # @param timeout [Integer] read timeout in milliseconds (default 60_000 == 60s)
-      # @param open_timeout [Integer] open timeout in milliseconds (default 20_000 == 20s)
-      # @param logger [Logger, nil] optional logger (reserved; client owns logging today)
-      def initialize(connection_pool:, keep_alive_timeout:, ca_file: nil, timeout: 60_000, open_timeout: 20_000, logger: nil)
+      # @param read_timeout [Integer] read timeout in MILLISECONDS (default 60_000 == 60s).
+      #   Note this differs in unit from the per-request `read_timeout:` override
+      #   accepted by {#call}, which is in seconds.
+      # @param open_timeout [Integer] open timeout in MILLISECONDS (default 20_000 == 20s).
+      #   Note this differs in unit from the per-request `open_timeout:` override
+      #   accepted by {#call}, which is in seconds.
+      def initialize(connection_pool:, keep_alive_timeout:, ca_file: nil, read_timeout: 60_000, open_timeout: 20_000)
         @connection_pool = connection_pool
         @keep_alive_timeout = keep_alive_timeout
         @ca_file = ca_file
-        @read_timeout = timeout / 1000.0
+        @read_timeout = read_timeout / 1000.0
         @open_timeout = open_timeout / 1000.0
-        @logger = logger
       end
 
       # @param method [String] a {HttpMethod} constant
       # @param url [String] the ABSOLUTE request url (scheme+host+path+query)
       # @param headers [Hash] app-level request headers
       # @param body [String, nil] serialized request body
-      # @param open_timeout [Numeric, nil] per-request open timeout override (seconds)
-      # @param read_timeout [Numeric, nil] per-request read timeout override (seconds)
+      # @param open_timeout [Numeric, nil] per-request open timeout override, in SECONDS
+      # @param read_timeout [Numeric, nil] per-request read timeout override, in SECONDS
       # @return [Recurly::HTTP::AdapterResponse]
       # @raise [Recurly::Errors::TransportError] on any transport-level failure
       def call(method, url, headers, body, open_timeout: nil, read_timeout: nil)

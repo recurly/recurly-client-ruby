@@ -25,6 +25,15 @@ RSpec.describe Recurly::HTTP::DefaultHttpAdapter do
     resp
   end
 
+  describe "security" do
+    it "never enables the net_http debug output (would leak credentials/PII to STDOUT)" do
+      resp = net_response(Net::HTTPOK, "200", "OK", body: "{}")
+      expect(net_http).not_to receive(:set_debug_output)
+      expect(net_http).to receive(:request).and_return(resp)
+      adapter.call("GET", url, {}, nil)
+    end
+  end
+
   describe "successful responses" do
     it "returns a normalized AdapterResponse and does NOT raise" do
       resp = net_response(Net::HTTPOK, "200", "OK", body: "{}")
@@ -98,7 +107,12 @@ RSpec.describe Recurly::HTTP::DefaultHttpAdapter do
       expect_kind(StandardError, :network)
     end
 
-    it "carries the underlying exception as #cause" do
+    it "carries the underlying exception as #original_exception" do
+      allow(net_http).to receive(:request).and_raise(Errno::ECONNREFUSED)
+      expect { adapter.call("GET", url, {}, nil) }.to raise_error(Recurly::Errors::TransportError) { |e| expect(e.original_exception).to be_a(Errno::ECONNREFUSED) }
+    end
+
+    it "also carries the underlying exception as Ruby's built-in #cause (not shadowed)" do
       allow(net_http).to receive(:request).and_raise(Errno::ECONNREFUSED)
       expect { adapter.call("GET", url, {}, nil) }.to raise_error(Recurly::Errors::TransportError) { |e| expect(e.cause).to be_a(Errno::ECONNREFUSED) }
     end

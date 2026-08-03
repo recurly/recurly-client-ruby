@@ -310,6 +310,69 @@ RSpec.describe Recurly::Client do
           expect(adapter.calls.length).to eq(2)
         end
       end
+
+      context "5xx on non-GET verbs is never re-issued" do
+        let(:adapter) { MockHttpAdapter.new(response) }
+
+        it "calls the adapter exactly once for a 500 on POST" do
+          expect {
+            subject.create_account(body: { code: "benjamin-du-monde" })
+          }.to raise_error(Recurly::Errors::InternalServerError)
+          expect(adapter.calls.length).to eq(1)
+        end
+
+        it "calls the adapter exactly once for a 500 on DELETE" do
+          expect {
+            subject.deactivate_account(account_id: "code-benjamin-du-monde")
+          }.to raise_error(Recurly::Errors::InternalServerError)
+          expect(adapter.calls.length).to eq(1)
+        end
+      end
+    end
+
+    context "status code boundaries" do
+      it "treats 299 as a success" do
+        response = adapter_response(299, "Success-ish", body: ok_body)
+        client = Recurly::Client.new(api_key: api_key, http_adapter: MockHttpAdapter.new(response))
+        account = client.get_account(account_id: "code-benjamin-du-monde")
+        expect(account).to be_instance_of Recurly::Resources::Account
+      end
+
+      it "treats 300 as an error, not a success" do
+        response = adapter_response(300, "Multiple Choices", body: "")
+        client = Recurly::Client.new(api_key: api_key, http_adapter: MockHttpAdapter.new(response))
+        expect {
+          client.get_account(account_id: "code-benjamin-du-monde")
+        }.to raise_error(Recurly::Errors::APIError)
+      end
+    end
+
+    context "reason phrase fallback" do
+      it "uses the vendored HTTP_STATUS_MESSAGES table when the adapter supplies no reason_phrase" do
+        response = adapter_response(500, nil, body: "")
+        client = Recurly::Client.new(api_key: api_key, http_adapter: MockHttpAdapter.new(response))
+        expect {
+          client.get_account(account_id: "code-benjamin-du-monde")
+        }.to raise_error(Recurly::Errors::InternalServerError, "500: Internal Server Error")
+      end
+
+      it "omits the trailing separator for an unmapped status code with no reason_phrase" do
+        response = adapter_response(418, nil, body: "")
+        client = Recurly::Client.new(api_key: api_key, http_adapter: MockHttpAdapter.new(response))
+        expect {
+          client.get_account(account_id: "code-benjamin-du-monde")
+        }.to raise_error(Recurly::Errors::APIError, "418")
+      end
+    end
+
+    context "empty body with a JSON content-type" do
+      it "raises a typed APIError instead of leaking a JSON/TypeError" do
+        response = adapter_response(422, "Unprocessable Entity", body: "")
+        client = Recurly::Client.new(api_key: api_key, http_adapter: MockHttpAdapter.new(response))
+        expect {
+          client.get_account(account_id: "code-benjamin-du-monde")
+        }.to raise_error(Recurly::Errors::UnprocessableEntityError)
+      end
     end
 
     context "unknown errors" do

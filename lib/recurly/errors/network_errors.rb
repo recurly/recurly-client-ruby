@@ -16,13 +16,16 @@ module Recurly
       # @return [Symbol] one of +:timeout+, +:connection+, +:ssl+, +:network+
       attr_reader :kind
 
-      # @return [Exception, nil] the underlying transport exception, if any
-      attr_reader :cause
+      # @return [Exception, nil] the underlying transport exception, if any.
+      #   Named distinctly from Ruby's built-in +Exception#cause+ (which is
+      #   auto-populated on +raise+ inside a +rescue+ and read by Sentry,
+      #   logging frameworks, and +pp+) so we don't shadow it.
+      attr_reader :original_exception
 
       def initialize(message, kind: :network, cause: nil)
         super(message)
         @kind = kind
-        @cause = cause
+        @original_exception = cause
       end
     end
   end

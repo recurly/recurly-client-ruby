@@ -24,6 +24,22 @@ module Recurly
     MAX_RETRIES = 3
     LOG_LEVELS = %i(debug info warn error fatal).freeze
     BASE36_ALPHABET = (("0".."9").to_a + ("a".."z").to_a).freeze
+
+    # Vendored HTTP status → reason-phrase table. Used to synthesize a
+    # reason_phrase when a (custom) adapter did not surface one. On the default
+    # path the adapter provides Net::HTTP's reason phrase, so this is not
+    # consulted and behavior is byte-identical. Phrases are bare (no status code
+    # prefix) since callers build "#{code}: #{phrase}".
+    HTTP_STATUS_MESSAGES = {
+      200 => "OK", 201 => "Created", 202 => "Accepted", 204 => "No Content",
+      301 => "Moved Permanently", 302 => "Found", 304 => "Not Modified",
+      400 => "Bad Request", 401 => "Unauthorized", 402 => "Payment Required",
+      403 => "Forbidden", 404 => "Not Found", 406 => "Not Acceptable",
+      409 => "Conflict", 412 => "Precondition Failed", 422 => "Unprocessable Entity",
+      429 => "Too Many Requests", 500 => "Internal Server Error", 502 => "Bad Gateway",
+      503 => "Service Unavailable", 504 => "Gateway Timeout",
+    }.freeze
+
     ALLOWED_OPTIONS = [
       :site_id,
       :open_timeout,
@@ -96,7 +112,6 @@ module Recurly
         connection_pool: self.class.connection_pool,
         keep_alive_timeout: @keep_alive_timeout,
         ca_file: @ca_file,
-        logger: @logger,
       )
 
       # execute block with this client if given
@@ -121,7 +136,7 @@ module Recurly
       relative_path = build_url(path, options)
       headers = build_headers(HTTP::HttpMethod::HEAD, options[:headers])
       request = HTTP::Request.new(HTTP::HttpMethod::HEAD, relative_path, nil)
-      response = run_request(request, headers, nil, options)
+      response = run_request(request, headers, options)
       handle_response! request, response
     end
 
@@ -130,7 +145,7 @@ module Recurly
       relative_path = build_url(path, options)
       headers = build_headers(HTTP::HttpMethod::GET, options[:headers])
       request = HTTP::Request.new(HTTP::HttpMethod::GET, relative_path, nil)
-      response = run_request(request, headers, nil, options)
+      response = run_request(request, headers, options)
       handle_response! request, response
     end
 
@@ -144,7 +159,7 @@ module Recurly
         body = JSON.dump(request_data)
       end
       request = HTTP::Request.new(HTTP::HttpMethod::POST, relative_path, body)
-      response = run_request(request, headers, body, options)
+      response = run_request(request, headers, options)
       handle_response! request, response
     end
 
@@ -158,7 +173,7 @@ module Recurly
         body = JSON.dump(request_data)
       end
       request = HTTP::Request.new(HTTP::HttpMethod::PUT, relative_path, body)
-      response = run_request(request, headers, body, options)
+      response = run_request(request, headers, options)
       handle_response! request, response
     end
 
@@ -167,7 +182,7 @@ module Recurly
       relative_path = build_url(path, options)
       headers = build_headers(HTTP::HttpMethod::DELETE, options[:headers])
       request = HTTP::Request.new(HTTP::HttpMethod::DELETE, relative_path, nil)
-      response = run_request(request, headers, nil, options)
+      response = run_request(request, headers, options)
       handle_response! request, response
     end
 
@@ -180,8 +195,9 @@ module Recurly
       attr_accessor :connection_pool
     end
 
-    def run_request(request, headers, body, options = {})
+    def run_request(request, headers, options = {})
       method = request.method
+      body = request.body
       url = request_url(request.path)
       open_timeout = options[:open_timeout]
       read_timeout = options[:read_timeout]
@@ -209,8 +225,8 @@ module Recurly
         # This is a SINGLE inline re-issue (not a loop) that shares the same `retries` counter as the transport rescue.
         if response.status_code >= 500 && method == HTTP::HttpMethod::GET
           retries += 1
-          log_info("Retrying", retries: retries, **log_attrs)
           if retries < MAX_RETRIES
+            log_info("Retrying", retries: retries, **log_attrs)
             start = Time.now
             response = @http_adapter.call(method, url, headers, body, open_timeout: open_timeout, read_timeout: read_timeout)
             elapsed = Time.now - start
@@ -294,21 +310,6 @@ module Recurly
       end.join
     end
 
-    # Vendored HTTP status → reason-phrase table. Used to synthesize a
-    # reason_phrase when a (custom) adapter did not surface one. On the default
-    # path the adapter provides Net::HTTP's reason phrase, so this is not
-    # consulted and behavior is byte-identical. Phrases are bare (no status code
-    # prefix) since callers build "#{code}: #{phrase}".
-    HTTP_STATUS_MESSAGES = {
-      200 => "OK", 201 => "Created", 202 => "Accepted", 204 => "No Content",
-      301 => "Moved Permanently", 302 => "Found", 304 => "Not Modified",
-      400 => "Bad Request", 401 => "Unauthorized", 402 => "Payment Required",
-      403 => "Forbidden", 404 => "Not Found", 406 => "Not Acceptable",
-      409 => "Conflict", 412 => "Precondition Failed", 422 => "Unprocessable Entity",
-      429 => "Too Many Requests", 500 => "Internal Server Error", 502 => "Bad Gateway",
-      503 => "Service Unavailable", 504 => "Gateway Timeout",
-    }.freeze
-
     def handle_response!(request, adapter_response)
       response = HTTP::Response.new(adapter_response, request)
       raise_api_error!(adapter_response, response) unless adapter_response.status_code.between?(200, 299)
@@ -329,7 +330,7 @@ module Recurly
     end
 
     def raise_api_error!(adapter_response, response)
-      if response.content_type&.include?(JSON_CONTENT_TYPE)
+      if response.content_type&.include?(JSON_CONTENT_TYPE) && response.body
         error = JSONParser.parse(self, response.body)
         begin
           error_class = Errors::APIError.error_class(error.type)
@@ -341,7 +342,7 @@ module Recurly
       end
 
       error_class = Errors::APIError.from_response(adapter_response)
-      status_line = "#{adapter_response.status_code}: #{reason_phrase(adapter_response)}"
+      status_line = status_line_for(adapter_response)
 
       if error_class <= Recurly::Errors::APIError
         error = Recurly::Resources::Error.new(message: status_line)
@@ -351,9 +352,12 @@ module Recurly
       end
     end
 
-    # Returns the adapter's reason phrase when present, else a vendored fallback.
-    def reason_phrase(adapter_response)
-      adapter_response.reason_phrase || HTTP_STATUS_MESSAGES[adapter_response.status_code]
+    # Builds a "<code>: <phrase>" status line, falling back to the vendored
+    # reason-phrase table and omitting the trailing ": " entirely when no
+    # phrase can be found (e.g. a custom adapter on an uncommon status code).
+    def status_line_for(adapter_response)
+      phrase = adapter_response.reason_phrase || HTTP_STATUS_MESSAGES[adapter_response.status_code]
+      phrase ? "#{adapter_response.status_code}: #{phrase}" : adapter_response.status_code.to_s
     end
 
     def read_headers(response)
