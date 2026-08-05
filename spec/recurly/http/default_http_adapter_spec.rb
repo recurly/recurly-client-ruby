@@ -29,7 +29,7 @@ RSpec.describe Recurly::HTTP::DefaultHttpAdapter do
     it "treats read_timeout: and open_timeout: as SECONDS, matching the per-request override unit" do
       adapter = described_class.new(
         connection_pool: connection_pool, keep_alive_timeout: keep_alive_timeout,
-        ca_file: Recurly::Client::CA_FILE, read_timeout: 60, open_timeout: 20
+        ca_file: Recurly::Client::CA_FILE, read_timeout: 60, open_timeout: 20,
       )
       expect(adapter.instance_variable_get(:@read_timeout)).to eq(60)
       expect(adapter.instance_variable_get(:@open_timeout)).to eq(20)
