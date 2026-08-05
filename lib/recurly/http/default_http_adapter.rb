@@ -10,18 +10,16 @@ module Recurly
       # @param connection_pool [Recurly::ConnectionPool] the shared, class-level pool
       # @param keep_alive_timeout [Integer] seconds; forwarded to the pool
       # @param ca_file [String, nil] CA bundle path; forwarded to the pool
-      # @param read_timeout [Integer] read timeout in MILLISECONDS (default 60_000 == 60s).
-      #   Note this differs in unit from the per-request `read_timeout:` override
-      #   accepted by {#call}, which is in seconds.
-      # @param open_timeout [Integer] open timeout in MILLISECONDS (default 20_000 == 20s).
-      #   Note this differs in unit from the per-request `open_timeout:` override
-      #   accepted by {#call}, which is in seconds.
-      def initialize(connection_pool:, keep_alive_timeout:, ca_file: nil, read_timeout: 60_000, open_timeout: 20_000)
+      # @param read_timeout [Numeric] default read timeout in SECONDS (default 60).
+      #   Same unit as the per-request `read_timeout:` override accepted by {#call}.
+      # @param open_timeout [Numeric] default open timeout in SECONDS (default 20).
+      #   Same unit as the per-request `open_timeout:` override accepted by {#call}.
+      def initialize(connection_pool:, keep_alive_timeout:, ca_file: nil, read_timeout: 60, open_timeout: 20)
         @connection_pool = connection_pool
         @keep_alive_timeout = keep_alive_timeout
         @ca_file = ca_file
-        @read_timeout = read_timeout / 1000.0
-        @open_timeout = open_timeout / 1000.0
+        @read_timeout = read_timeout
+        @open_timeout = open_timeout
       end
 
       # @param method [String] a {HttpMethod} constant
