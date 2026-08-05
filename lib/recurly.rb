@@ -14,6 +14,8 @@ require "recurly/http/adapter"
 require "recurly/http/default_http_adapter"
 require "recurly/client"
 require "recurly/webhooks"
+require "recurly/config"
+require "recurly/models"
 
 module Recurly
   STRICT_MODE = ENV["RECURLY_STRICT_MODE"] && ENV["RECURLY_STRICT_MODE"].downcase == "true"
