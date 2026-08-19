@@ -30,6 +30,10 @@ module Recurly
       #   @return [Array[DunningInterval]] Dunning intervals.
       define_attribute :intervals, Array, { :item_type => :DunningInterval }
 
+      # @!attribute retry_settings
+      #   @return [DunningRetrySettings] Retry phase configuration for a dunning campaign's automatic collection cycle.
+      define_attribute :retry_settings, :DunningRetrySettings
+
       # @!attribute send_immediately_on_hard_decline
       #   @return [Boolean] Whether or not to send an extra email immediately to customers whose initial payment attempt fails with either a hard decline or invalid billing info.
       define_attribute :send_immediately_on_hard_decline, :Boolean

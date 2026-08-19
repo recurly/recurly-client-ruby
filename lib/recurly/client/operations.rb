@@ -4752,6 +4752,21 @@ module Recurly
       get(path, **options)
     end
 
+    # Update a dunning campaign's retry settings
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/update_dunning_campaign update_dunning_campaign api documentation}
+    #
+    # @param dunning_campaign_id [String] Dunning Campaign ID, e.g. +e28zov4fw0v2+.
+    # @param body [Requests::DunningCampaignUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::DunningCampaignUpdate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::DunningCampaign] Updated dunning campaign.
+    #
+    def update_dunning_campaign(dunning_campaign_id:, body:, **options)
+      path = interpolate_path("/dunning_campaigns/{dunning_campaign_id}", dunning_campaign_id: dunning_campaign_id)
+      put(path, body, Requests::DunningCampaignUpdate, **options)
+    end
+
     # Assign a dunning campaign to multiple plans
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/put_dunning_campaign_bulk_update put_dunning_campaign_bulk_update api documentation}
