@@ -42,12 +42,16 @@ module Recurly
       #   @return [Array[PaymentGatewayReferences]] Array of Payment Gateway References, each a reference to a third-party gateway object of varying types.
       define_attribute :payment_gateway_references, Array, { :item_type => :PaymentGatewayReferences }
 
+      # @!attribute payment_method
+      #   @return [RecoveryPaymentMethodCreate] Merchant-supplied fallback payment method metadata. Recurly's own gateway-token lookup is authoritative and will override any of these fields it can determine itself; these fields are only used to fill gaps when that lookup is unavailable.
+      define_attribute :payment_method, :RecoveryPaymentMethodCreate
+
       # @!attribute primary_payment_method
       #   @return [Boolean] The `primary_payment_method` field is used to designate the primary billing info on the account. An account can have a maximum of 1 primary. If a user sets a different payment method as a primary, then the existing primary will no longer be marked as such.
       define_attribute :primary_payment_method, :Boolean
 
       # @!attribute transactions
-      #   @return [Array[RecoveryTransactionCreate]] Transactions from previous collection attempts for this payment method.
+      #   @return [Array[RecoveryTransactionCreate]] Transactions from previous collection attempts for this payment method. Optional, unless this billing_info is the primary payment method and the account's dunning campaign skips Recurly's own retry attempts entirely -- in that case at least one entry is required.
       define_attribute :transactions, Array, { :item_type => :RecoveryTransactionCreate }
     end
   end

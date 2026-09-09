@@ -35,7 +35,7 @@ module Recurly
       define_attribute :exp_year, Integer
 
       # @!attribute first_six
-      #   @return [String] Credit card number's first six digits.
+      #   @return [String] Credit card number's first six digits.  For a tokenized wallet payment (`apple_pay`, `google_pay`, or `google_pay_device_pan`), this is the DPAN's (the wallet/device token's own number) first six digits, not the underlying card's (FPAN).
       define_attribute :first_six, String
 
       # @!attribute funding_source
@@ -55,7 +55,7 @@ module Recurly
       define_attribute :gateway_token, String
 
       # @!attribute last_four
-      #   @return [String] Credit card number's last four digits. Will refer to bank account if payment method is ACH.
+      #   @return [String] Credit card number's last four digits. Will refer to bank account if payment method is ACH.  For a tokenized wallet payment (`apple_pay`, `google_pay`, or `google_pay_device_pan`), this is the DPAN's last four digits, not the underlying card's (FPAN).
       define_attribute :last_four, String
 
       # @!attribute last_two
