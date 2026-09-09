@@ -77,6 +77,10 @@ module Recurly
       # @!attribute terms_and_conditions
       #   @return [String] Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.
       define_attribute :terms_and_conditions, String
+
+      # @!attribute transaction_descriptor_suffix
+      #   @return [String] Optionally overrides the suffix component of the composed transaction descriptor. If omitted, the suffix is derived from the subscription's plan name or the invoice description, with a Trial prefix on Visa trial conversions. Subject to gateway availability and payment method support.
+      define_attribute :transaction_descriptor_suffix, String
     end
   end
 end

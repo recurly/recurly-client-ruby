@@ -134,6 +134,10 @@ module Recurly
       #   @return [TransactionPaymentGateway]
       define_attribute :payment_gateway, :TransactionPaymentGateway
 
+      # @!attribute payment_gateway_references
+      #   @return [Array[PaymentGatewayReferences]] Array of Payment Gateway References captured at transaction time, each a reference to a third-party gateway object of varying types.
+      define_attribute :payment_gateway_references, Array, { :item_type => :PaymentGatewayReferences }
+
       # @!attribute payment_method
       #   @return [PaymentMethod]
       define_attribute :payment_method, :PaymentMethod

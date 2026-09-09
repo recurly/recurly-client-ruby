@@ -138,6 +138,10 @@ module Recurly
       #   @return [Integer] The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.
       define_attribute :total_billing_cycles, Integer
 
+      # @!attribute transaction_descriptor_suffix
+      #   @return [String] Optionally overrides the suffix component of the composed transaction descriptor. If omitted, the suffix is derived from the subscription's plan name or the invoice description, with a Trial prefix on Visa trial conversions. Subject to gateway availability and payment method support.
+      define_attribute :transaction_descriptor_suffix, String
+
       # @!attribute transaction_type
       #   @return [String] An optional type designation for the payment gateway transaction created by this request. Supports 'moto' value, which is the acronym for mail order and telephone transactions.
       define_attribute :transaction_type, String

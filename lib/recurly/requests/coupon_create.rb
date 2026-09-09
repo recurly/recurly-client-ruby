@@ -79,8 +79,16 @@ module Recurly
       define_attribute :plan_codes, Array, { :item_type => String }
 
       # @!attribute redeem_by_date
-      #   @return [String] The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time.
+      #   @return [String] The date and time the coupon will expire and can no longer be redeemed. Time is always 11:59:59, the end-of-day Pacific time. Mutually exclusive with redeem_by_interval_unit/redeem_by_interval_amount.
       define_attribute :redeem_by_date, String
+
+      # @!attribute redeem_by_interval_amount
+      #   @return [Integer] Quantity of redeem_by_interval_unit. Must be paired with redeem_by_interval_unit.
+      define_attribute :redeem_by_interval_amount, Integer
+
+      # @!attribute redeem_by_interval_unit
+      #   @return [String] Unit of the relative redemption window. Must be paired with redeem_by_interval_amount. Mutually exclusive with redeem_by_date. Bulk coupons only.
+      define_attribute :redeem_by_interval_unit, String
 
       # @!attribute redemption_resource
       #   @return [String] Whether the discount is for all eligible charges on the account, or only a specific subscription.
