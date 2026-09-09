@@ -1,5 +1,17 @@
 # Changelog
 
+## [4.81.0](https://github.com/recurly/recurly-client-ruby/tree/4.81.0) (2026-09-09)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.80.0...4.81.0)
+
+
+**Merged Pull Requests**
+
+- Generated Latest Changes for v2021-02-25 [#968](https://github.com/recurly/recurly-client-ruby/pull/968) ([recurly-integrations](https://github.com/recurly-integrations))
+- Relax base64 dependency to allow 0.3.x [#965](https://github.com/recurly/recurly-client-ruby/pull/965) ([romanoff](https://github.com/romanoff))
+
+
+
 ## [4.80.0](https://github.com/recurly/recurly-client-ruby/tree/4.80.0) (2026-07-02)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.79.0...4.80.0)
