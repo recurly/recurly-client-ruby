@@ -4738,6 +4738,20 @@ module Recurly
       pager(path, **options)
     end
 
+    # Create a new dunning campaign
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/create_dunning_campaign create_dunning_campaign api documentation}
+    #
+    # @param body [Requests::DunningCampaignCreate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::DunningCampaignCreate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::DunningCampaign] A new dunning campaign.
+    #
+    def create_dunning_campaign(body:, **options)
+      path = "/dunning_campaigns"
+      post(path, body, Requests::DunningCampaignCreate, **options)
+    end
+
     # Fetch a dunning campaign
     #
     # {https://developers.recurly.com/api/v2021-02-25#operation/get_dunning_campaign get_dunning_campaign api documentation}
@@ -4750,6 +4764,48 @@ module Recurly
     def get_dunning_campaign(dunning_campaign_id:, **options)
       path = interpolate_path("/dunning_campaigns/{dunning_campaign_id}", dunning_campaign_id: dunning_campaign_id)
       get(path, **options)
+    end
+
+    # Update a dunning campaign
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/update_dunning_campaign update_dunning_campaign api documentation}
+    #
+    # @param dunning_campaign_id [String] Dunning Campaign ID, e.g. +e28zov4fw0v2+.
+    # @param body [Requests::DunningCampaignUpdate] The Hash representing the JSON request to send to the server. It should conform to the schema of {Requests::DunningCampaignUpdate}
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::DunningCampaign] The updated dunning campaign.
+    #
+    def update_dunning_campaign(dunning_campaign_id:, body:, **options)
+      path = interpolate_path("/dunning_campaigns/{dunning_campaign_id}", dunning_campaign_id: dunning_campaign_id)
+      put(path, body, Requests::DunningCampaignUpdate, **options)
+    end
+
+    # Deactivate a dunning campaign
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/deactivate_dunning_campaign deactivate_dunning_campaign api documentation}
+    #
+    # @param dunning_campaign_id [String] Dunning Campaign ID, e.g. +e28zov4fw0v2+.
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Resources::DunningCampaign] The deactivated dunning campaign.
+    #
+    def deactivate_dunning_campaign(dunning_campaign_id:, **options)
+      path = interpolate_path("/dunning_campaigns/{dunning_campaign_id}", dunning_campaign_id: dunning_campaign_id)
+      delete(path, **options)
+    end
+
+    # List the custom email templates assignable to a dunning campaign interval
+    #
+    # {https://developers.recurly.com/api/v2021-02-25#operation/list_dunning_campaign_email_templates list_dunning_campaign_email_templates api documentation}
+    #
+    # @param params [Hash] Optional query string parameters:
+    #
+    # @return [Pager<Resources::DunningCampaignEmailTemplate>] A list of the site's assignable custom email templates.
+    #
+    def list_dunning_campaign_email_templates(**options)
+      path = "/dunning_campaigns/email_templates"
+      pager(path, **options)
     end
 
     # Assign a dunning campaign to multiple plans

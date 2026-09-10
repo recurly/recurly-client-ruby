@@ -3,19 +3,15 @@
 # change to this file, please create a Github issue explaining the changes you
 # need and we will usher them to the appropriate places.
 module Recurly
-  module Resources
-    class DunningInterval < Resource
+  module Requests
+    class DunningIntervalWrite < Request
 
       # @!attribute days
       #   @return [Integer] Number of days before sending the next email.
       define_attribute :days, Integer
 
-      # @!attribute email_template
-      #   @return [String] Email template being used.
-      define_attribute :email_template, String
-
       # @!attribute email_template_id
-      #   @return [String] The id of the custom email template assigned to this interval, from `GET /dunning_campaigns/email_templates`. `null` means the system default template for this interval. Accepted on write; round-tripped on read.
+      #   @return [String] The id of the custom email template to assign to this interval, from `GET /dunning_campaigns/email_templates`. `null` uses the system default template for this interval.
       define_attribute :email_template_id, String
     end
   end
