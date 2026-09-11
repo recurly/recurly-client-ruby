@@ -5,6 +5,19 @@ module Recurly
       #   @return [Recurly::Resources::Error] The {Recurly::Resources::Error} object
       attr_reader :recurly_error
 
+      class << self
+        private
+
+        # @param map [Hash] Maps response status codes (String) to error class names (String).
+        attr_writer :error_map
+
+        # Maps a response status code (String) to an error class name (String).
+        # Set by the generated errors/api_errors.rb file via .error_map=.
+        def error_map
+          @error_map || raise("error_map must be set by the generated api_errors.rb file")
+        end
+      end
+
       # Looks up an Error class by name
       # @example
       #   Errors.error_class('BadRequestError')
@@ -23,8 +36,8 @@ module Recurly
       # @param response [Net::Response]
       # @return [Errors::APIError]
       def self.from_response(response)
-        if Recurly::Errors::ERROR_MAP.has_key?(response.code)
-          Recurly::Errors.const_get(Recurly::Errors::ERROR_MAP[response.code])
+        if error_map.has_key?(response.code)
+          Recurly::Errors.const_get(error_map[response.code])
         else
           Recurly::Errors::APIError
         end
