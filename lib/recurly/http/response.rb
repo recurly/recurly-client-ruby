@@ -36,9 +36,9 @@ module Recurly
         @headers[name.to_s.downcase]
       end
 
-      # The status code as a String. +Errors::APIError.from_response+ keys
-      # +ERROR_MAP+ on the string status, so the object handed to it must expose
-      # a string +#code+.
+      # The status code as a String. +Errors::APIError.from_response+ looks up
+      # the string status, so the object handed to it must expose a string
+      # +#code+.
       # @return [String]
       def code
         @status_code.to_s
