@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.82.0](https://github.com/recurly/recurly-client-ruby/tree/4.82.0) (2026-09-15)
+
+[Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.81.0...4.82.0)
+
+
+
+
+
 ## [4.81.0](https://github.com/recurly/recurly-client-ruby/tree/4.81.0) (2026-09-09)
 
 [Full Changelog](https://github.com/recurly/recurly-client-ruby/compare/4.80.0...4.81.0)
