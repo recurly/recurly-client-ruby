@@ -9717,7 +9717,8 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
         '422':
-          description: Invalid request parameters.
+          description: Invalid request parameters. Check that redeem_by_interval_unit
+            and redeem_by_interval_amount are consistent with the coupon type.
           content:
             application/json:
               schema:
@@ -10292,7 +10293,8 @@ paths:
               schema:
                 "$ref": "#/components/schemas/Error"
         '422':
-          description: Invalid request parameters
+          description: Invalid request parameters. Check that redeem_by_interval_unit
+            and redeem_by_interval_amount are consistent with the coupon type.
           content:
             application/json:
               schema:
