@@ -42,6 +42,10 @@ module Recurly
       #   @return [Array[ExternalPaymentPhase]] The phases of the external subscription payment lifecycle.
       define_attribute :external_payment_phases, Array, { :item_type => :ExternalPaymentPhase }
 
+      # @!attribute external_product
+      #   @return [ExternalProductMini] Just the important parts.
+      define_attribute :external_product, :ExternalProductMini
+
       # @!attribute external_product_reference
       #   @return [ExternalProductReferenceMini] External Product Reference details
       define_attribute :external_product_reference, :ExternalProductReferenceMini
@@ -65,6 +69,10 @@ module Recurly
       # @!attribute object
       #   @return [String] Object type
       define_attribute :object, String
+
+      # @!attribute plan
+      #   @return [PlanMini] Just the important parts.
+      define_attribute :plan, :PlanMini
 
       # @!attribute quantity
       #   @return [Integer] An indication of the quantity of a subscribed item's quantity.

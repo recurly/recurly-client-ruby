@@ -153,6 +153,10 @@ module Recurly
       # @!attribute unit_amount
       #   @return [Float] Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
       define_attribute :unit_amount, Float
+
+      # @!attribute vat_reverse_charge_notes
+      #   @return [String] This will default to the VAT reverse charge notes text specified on the Invoice Settings. Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.
+      define_attribute :vat_reverse_charge_notes, String
     end
   end
 end
