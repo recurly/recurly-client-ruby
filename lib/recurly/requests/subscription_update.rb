@@ -81,6 +81,10 @@ module Recurly
       # @!attribute transaction_descriptor_suffix
       #   @return [String] Optionally overrides the suffix component of the composed transaction descriptor. If omitted, the suffix is derived from the subscription's plan name or the invoice description, with a Trial prefix on Visa trial conversions. Subject to gateway availability and payment method support.
       define_attribute :transaction_descriptor_suffix, String
+
+      # @!attribute vat_reverse_charge_notes
+      #   @return [String] Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.
+      define_attribute :vat_reverse_charge_notes, String
     end
   end
 end

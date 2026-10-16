@@ -35526,6 +35526,12 @@ components:
           description: If there are pending credits on the account that will be invoiced
             during the subscription creation, these will be used as the Customer Notes
             on the credit invoice.
+        vat_reverse_charge_notes:
+          type: string
+          title: VAT reverse charge notes
+          description: This will default to the VAT reverse charge notes text specified
+            on the Invoice Settings. Specify custom notes to add or override VAT reverse
+            charge notes. Custom notes will stay with a subscription on all renewals.
         po_number:
           type: string
           title: Purchase order number
@@ -35699,6 +35705,21 @@ components:
             "$ref": "#/components/schemas/SubscriptionRampInterval"
         credit_application_policy:
           "$ref": "#/components/schemas/CreditApplicationPolicy"
+        terms_and_conditions:
+          type: string
+          title: Terms and conditions
+          description: Specify custom notes to add or override Terms and Conditions.
+            Custom notes will stay with a subscription on all renewals.
+        customer_notes:
+          type: string
+          title: Customer notes
+          description: Specify custom notes to add or override Customer Notes. Custom
+            notes will stay with a subscription on all renewals.
+        vat_reverse_charge_notes:
+          type: string
+          title: VAT reverse charge notes
+          description: Specify custom notes to add or override VAT reverse charge
+            notes. Custom notes will stay with a subscription on all renewals.
         bulk:
           type: boolean
           description: Optional field to be used only when needing to bypass the 60
@@ -35755,6 +35776,11 @@ components:
           title: Customer notes
           description: Specify custom notes to add or override Customer Notes. Custom
             notes will stay with a subscription on all renewals.
+        vat_reverse_charge_notes:
+          type: string
+          title: VAT reverse charge notes
+          description: Specify custom notes to add or override VAT reverse charge
+            notes. Custom notes will stay with a subscription on all renewals.
         po_number:
           type: string
           title: Purchase order number
@@ -37407,6 +37433,23 @@ components:
           format: date-time
           description: Last updated at
           readOnly: true
+    ExternalProductMini:
+      type: object
+      title: External product mini details
+      description: Just the important parts.
+      properties:
+        id:
+          type: string
+          title: External product ID
+          readOnly: true
+        object:
+          type: string
+          title: Object type
+          readOnly: true
+        name:
+          type: string
+          title: Name
+          description: The merchant-facing name of the external product.
     ExternalProductReferenceMini:
       type: object
       title: External Product Reference details
@@ -37469,6 +37512,10 @@ components:
           "$ref": "#/components/schemas/AccountMini"
         external_product_reference:
           "$ref": "#/components/schemas/ExternalProductReferenceMini"
+        external_product:
+          "$ref": "#/components/schemas/ExternalProductMini"
+        plan:
+          "$ref": "#/components/schemas/PlanMini"
         external_payment_phases:
           type: array
           title: External payment phases

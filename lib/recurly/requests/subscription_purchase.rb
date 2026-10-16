@@ -26,6 +26,10 @@ module Recurly
       #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
       define_attribute :custom_fields, Array, { :item_type => :CustomField }
 
+      # @!attribute customer_notes
+      #   @return [String] Specify custom notes to add or override Customer Notes. Custom notes will stay with a subscription on all renewals.
+      define_attribute :customer_notes, String
+
       # @!attribute next_bill_date
       #   @return [DateTime] If present, this sets the date the subscription's next billing period will start (`current_period_ends_at`). This can be used to align the subscription’s billing to a specific day of the month. The initial invoice will be prorated for the period between the subscription's activation date and the billing period end date. Subsequent periods will be based off the plan interval. For a subscription with a trial period, this will change when the trial expires.
       define_attribute :next_bill_date, DateTime
@@ -74,6 +78,10 @@ module Recurly
       #   @return [Boolean] Determines whether or not tax is included in the unit amount. The Tax Inclusive Pricing feature (separate from the Mixed Tax Pricing feature) must be enabled to use this flag.
       define_attribute :tax_inclusive, :Boolean
 
+      # @!attribute terms_and_conditions
+      #   @return [String] Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.
+      define_attribute :terms_and_conditions, String
+
       # @!attribute total_billing_cycles
       #   @return [Integer] The number of cycles/billing periods in a term. When `remaining_billing_cycles=0`, if `auto_renew=true` the subscription will renew and a new term will begin, otherwise the subscription will expire.
       define_attribute :total_billing_cycles, Integer
@@ -85,6 +93,10 @@ module Recurly
       # @!attribute unit_amount
       #   @return [Float] Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
       define_attribute :unit_amount, Float
+
+      # @!attribute vat_reverse_charge_notes
+      #   @return [String] Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.
+      define_attribute :vat_reverse_charge_notes, String
     end
   end
 end
