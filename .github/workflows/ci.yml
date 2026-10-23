@@ -5,11 +5,11 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Ruby ${{ matrix.ruby }} tests
     strategy:
       matrix:
-        ruby: [2.4, 2.5, 2.6, 2.7, 3.0]
+        ruby: ['2.4', '2.5', '2.6', '2.7', '3.0']
     steps:
       - uses: actions/checkout@v3
       - name: Setup ruby
@@ -20,7 +20,7 @@ jobs:
       - run: ./scripts/test
   buildall:
     if: ${{ always() }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Build (matrix)
     needs: build
     steps:
