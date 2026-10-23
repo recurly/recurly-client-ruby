@@ -22,6 +22,10 @@ module Recurly
       #   @return [Array[String]] A list of coupon_codes to be redeemed on the subscription or account during the purchase.
       define_attribute :coupon_codes, Array, { :item_type => String }
 
+      # @!attribute credit_application_policy_override
+      #   @return [CreditApplicationPolicy] Controls whether credit invoices are automatically applied to new invoices. The `mode` field determines the application behavior. When mode is `all`, the optional `allowed_origins` array can restrict which credit invoice origins are applied. - `all`: All available credit invoices are applied (default) - `none`: No credit invoices are applied automatically
+      define_attribute :credit_application_policy_override, :CreditApplicationPolicy
+
       # @!attribute credit_customer_notes
       #   @return [String] Notes to be put on the credit invoice resulting from credits in the purchase, if any.
       define_attribute :credit_customer_notes, String
@@ -73,6 +77,10 @@ module Recurly
       # @!attribute vat_reverse_charge_notes
       #   @return [String] VAT reverse charge notes for cross border European tax settlement.
       define_attribute :vat_reverse_charge_notes, String
+
+      # @!attribute vertex_transaction_type
+      #   @return [String] Used by Vertex for tax calculations. Possible values are sale, rental, lease.
+      define_attribute :vertex_transaction_type, String
     end
   end
 end

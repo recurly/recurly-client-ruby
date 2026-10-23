@@ -42,6 +42,10 @@ module Recurly
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
 
+      # @!attribute custom_fields
+      #   @return [Array[CustomField]] A list of custom fields that were on the account at the time of invoice creation and were marked to be displayed on invoices. Read-only; cannot be set directly on the invoice.
+      define_attribute :custom_fields, Array, { :item_type => :CustomField }
+
       # @!attribute customer_notes
       #   @return [String] This will default to the Customer Notes text specified on the Invoice Settings. Specify custom notes to add or override Customer Notes.
       define_attribute :customer_notes, String
@@ -113,6 +117,10 @@ module Recurly
       # @!attribute subtotal
       #   @return [Float] The summation of charges and credits, before discounts and taxes.
       define_attribute :subtotal, Float
+
+      # @!attribute subtotal_after_discount
+      #   @return [Float] The summation of charges and credits, after discounts applied.
+      define_attribute :subtotal_after_discount, Float
 
       # @!attribute tax
       #   @return [Float] The total tax on this invoice.

@@ -54,6 +54,10 @@ module Recurly
       #   @return [DateTime] Created at
       define_attribute :created_at, DateTime
 
+      # @!attribute credit_application_policy
+      #   @return [CreditApplicationPolicy] Controls whether credit invoices are automatically applied to new invoices. The `mode` field determines the application behavior. When mode is `all`, the optional `allowed_origins` array can restrict which credit invoice origins are applied. - `all`: All available credit invoices are applied (default) - `none`: No credit invoices are applied automatically
+      define_attribute :credit_application_policy, :CreditApplicationPolicy
+
       # @!attribute currency
       #   @return [String] 3-letter ISO 4217 currency code.
       define_attribute :currency, String
@@ -137,6 +141,10 @@ module Recurly
       # @!attribute renewal_billing_cycles
       #   @return [Integer] If `auto_renew=true`, when a term completes, `total_billing_cycles` takes this value as the length of subsequent terms. Defaults to the plan's `total_billing_cycles`.
       define_attribute :renewal_billing_cycles, Integer
+
+      # @!attribute resume_at
+      #   @return [DateTime] The date the subscription billing resumes following a pause. Null unless the subscription is paused or scheduled to be paused.
+      define_attribute :resume_at, DateTime
 
       # @!attribute revenue_schedule_type
       #   @return [String] Revenue schedule type
