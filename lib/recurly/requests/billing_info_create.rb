@@ -134,6 +134,10 @@ module Recurly
       #   @return [String] Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)
       define_attribute :sort_code, String
 
+      # @!attribute store_billing_info
+      #   @return [Boolean] Whether to store this billing info onto its associated account. Defaults to `true`.
+      define_attribute :store_billing_info, :Boolean
+
       # @!attribute tax_identifier
       #   @return [String] Tax identifier is required if adding a billing info that is a consumer card in Brazil or in Argentina. This would be the customer's CPF/CNPJ (Brazil) and CUIT (Argentina). CPF, CNPJ and CUIT are tax identifiers for all residents who pay taxes in Brazil and Argentina respectively.
       define_attribute :tax_identifier, String
