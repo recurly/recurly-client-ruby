@@ -30692,6 +30692,10 @@ components:
             through Adyen Components will utilize this return URL.
         authentication_method:
           "$ref": "#/components/schemas/UpiAutopayAuthenticationMethodEnum"
+        store_billing_info:
+          type: boolean
+          description: Whether to store this billing info onto its associated account.
+            Defaults to `true`.
     BillingInfoVerify:
       type: object
       properties:
