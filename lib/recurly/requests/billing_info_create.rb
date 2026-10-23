@@ -55,7 +55,7 @@ module Recurly
       define_attribute :gateway_attributes, :GatewayAttributes
 
       # @!attribute gateway_code
-      #   @return [String] An identifier for a specific payment gateway. Must be used in conjunction with `gateway_token`.
+      #   @return [String] An identifier for a specific payment gateway.
       define_attribute :gateway_code, String
 
       # @!attribute gateway_token
@@ -105,6 +105,10 @@ module Recurly
       # @!attribute sort_code
       #   @return [String] Bank identifier code for UK based banks. Required for Bacs based billing infos. (Bacs only)
       define_attribute :sort_code, String
+
+      # @!attribute store_billing_info
+      #   @return [Boolean] Whether to store this billing info onto its associated account. Defaults to `true`.
+      define_attribute :store_billing_info, :Boolean
 
       # @!attribute tax_identifier
       #   @return [String] Tax identifier is required if adding a billing info that is a consumer card in Brazil. This would be the customer's CPF, CPF is a Brazilian tax identifier for all tax paying residents.

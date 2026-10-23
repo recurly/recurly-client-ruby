@@ -22,6 +22,10 @@ module Recurly
       #   @return [String] The `billing_info_id` is the value that represents a specific billing info for an end customer. When `billing_info_id` is used to assign billing info to the subscription, all future billing events for the subscription will bill to the specified billing info. `billing_info_id` can ONLY be used for sites utilizing the Wallet feature.
       define_attribute :billing_info_id, String
 
+      # @!attribute bulk
+      #   @return [Boolean] Optional field to be used only when needing to bypass the 60 second limit on creating subscriptions. Should only be used when creating subscriptions in bulk from the API.
+      define_attribute :bulk, :Boolean
+
       # @!attribute collection_method
       #   @return [String] Collection method
       define_attribute :collection_method, String
@@ -29,6 +33,10 @@ module Recurly
       # @!attribute coupon_code
       #   @return [String] Optional coupon code to redeem on the account and discount the subscription. Please note, the subscription request will fail if the coupon is invalid.
       define_attribute :coupon_code, String
+
+      # @!attribute credit_application_policy
+      #   @return [CreditApplicationPolicy] Controls whether credit invoices are automatically applied to new invoices. The `mode` field determines the application behavior. When mode is `all`, the optional `allowed_origins` array can restrict which credit invoice origins are applied. - `all`: All available credit invoices are applied (default) - `none`: No credit invoices are applied automatically
+      define_attribute :credit_application_policy, :CreditApplicationPolicy
 
       # @!attribute credit_customer_notes
       #   @return [String] If there are pending credits on the account that will be invoiced during the subscription creation, these will be used as the Customer Notes on the credit invoice.
@@ -87,7 +95,7 @@ module Recurly
       define_attribute :shipping, :SubscriptionShippingCreate
 
       # @!attribute starts_at
-      #   @return [DateTime] If set, the subscription will begin in the future on this date. The subscription will apply the setup fee and trial period, unless the plan has no trial.
+      #   @return [DateTime] If set, the subscription will begin on this specified date. The subscription will apply the setup fee and trial period, unless the plan has no trial. Omit this field if the subscription should be started immediately.
       define_attribute :starts_at, DateTime
 
       # @!attribute tax_inclusive
@@ -113,6 +121,10 @@ module Recurly
       # @!attribute unit_amount
       #   @return [Float] Override the unit amount of the subscription plan by setting this value. If not provided, the subscription will inherit the price from the subscription plan for the provided currency.
       define_attribute :unit_amount, Float
+
+      # @!attribute vat_reverse_charge_notes
+      #   @return [String] This will default to the VAT reverse charge notes text specified on the Invoice Settings. Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.
+      define_attribute :vat_reverse_charge_notes, String
     end
   end
 end

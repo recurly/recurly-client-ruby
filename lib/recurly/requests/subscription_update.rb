@@ -18,6 +18,10 @@ module Recurly
       #   @return [String] Change collection method
       define_attribute :collection_method, String
 
+      # @!attribute credit_application_policy
+      #   @return [CreditApplicationPolicy] Controls whether credit invoices are automatically applied to new invoices. The `mode` field determines the application behavior. When mode is `all`, the optional `allowed_origins` array can restrict which credit invoice origins are applied. - `all`: All available credit invoices are applied (default) - `none`: No credit invoices are applied automatically
+      define_attribute :credit_application_policy, :CreditApplicationPolicy
+
       # @!attribute custom_fields
       #   @return [Array[CustomField]] The custom fields will only be altered when they are included in a request. Sending an empty array will not remove any existing values. To remove a field send the name with a null or empty value.
       define_attribute :custom_fields, Array, { :item_type => :CustomField }
@@ -61,6 +65,10 @@ module Recurly
       # @!attribute terms_and_conditions
       #   @return [String] Specify custom notes to add or override Terms and Conditions. Custom notes will stay with a subscription on all renewals.
       define_attribute :terms_and_conditions, String
+
+      # @!attribute vat_reverse_charge_notes
+      #   @return [String] Specify custom notes to add or override VAT reverse charge notes. Custom notes will stay with a subscription on all renewals.
+      define_attribute :vat_reverse_charge_notes, String
     end
   end
 end

@@ -67,7 +67,7 @@ module Recurly
       define_attribute :start_date, DateTime
 
       # @!attribute tax_code
-      #   @return [String] Optional field used by Avalara, Vertex, and Recurly's EU VAT tax feature to determine taxation rules. If you have your own AvaTax or Vertex account configured, use their tax codes to assign specific tax rules. If you are using Recurly's EU VAT feature, you can use values of `unknown`, `physical`, or `digital`.
+      #   @return [String] Optional field used by Avalara, Vertex, and Recurly's In-the-Box tax solution to determine taxation rules. You can pass in specific tax codes using any of these tax integrations. For Recurly's In-the-Box tax offering you can also choose to instead use simple values of `unknown`, `physical`, or `digital` tax codes.
       define_attribute :tax_code, String
 
       # @!attribute tax_exempt
@@ -85,6 +85,10 @@ module Recurly
       # @!attribute unit_amount
       #   @return [Float] A positive or negative amount with `type=charge` will result in a positive `unit_amount`. A positive or negative amount with `type=credit` will result in a negative `unit_amount`. If `item_code`/`item_id` is present, `unit_amount` can be passed in, to override the `Item`'s `unit_amount`. If `item_code`/`item_id` is not present then `unit_amount` is required.
       define_attribute :unit_amount, Float
+
+      # @!attribute vertex_transaction_type
+      #   @return [String] Used by Vertex for tax calculations. Possible values are sale, rental, lease.
+      define_attribute :vertex_transaction_type, String
     end
   end
 end

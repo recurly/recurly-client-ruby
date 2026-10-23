@@ -15,7 +15,7 @@ module Recurly
       define_attribute :region, String
 
       # @!attribute tax_details
-      #   @return [Array[TaxDetail]] Provides additional tax details for Communications taxes when Avalara for Communications is enabled or Canadian Sales Tax when there is tax applied at both the country and province levels. This will only be populated for the Invoice response when fetching a single invoice and not for the InvoiceList or LineItemList. Only populated for a single LineItem fetch when Avalara for Communications is enabled.
+      #   @return [Array[TaxDetail]] Provides additional tax details for Communications taxes when Avalara for Communications or Vertex Tax Breakdown is enabled or Canadian Sales Tax. Tax details will only be populated for the Invoice response when fetching a single invoice and not for the InvoiceList or LineItemList. Only populated for a single LineItem fetch when Avalara for Communications is enabled.
       define_attribute :tax_details, Array, { :item_type => :TaxDetail }
 
       # @!attribute type
