@@ -5,7 +5,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Ruby ${{ matrix.ruby }} tests
     strategy:
       matrix:
@@ -20,7 +20,7 @@ jobs:
       - run: ./scripts/test
   buildall:
     if: ${{ always() }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     name: Build (matrix)
     needs: build
     steps:
