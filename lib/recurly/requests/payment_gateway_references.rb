@@ -7,7 +7,7 @@ module Recurly
     class PaymentGatewayReferences < Request
 
       # @!attribute reference_type
-      #   @return [String] The type of reference token. Required if token is passed in for Stripe Gateway or Ebanx UPI.
+      #   @return [String] The type of reference token. The value can be omitted for gateways that only support one type of token.
       define_attribute :reference_type, String
 
       # @!attribute token
