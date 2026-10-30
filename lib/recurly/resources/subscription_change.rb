@@ -58,6 +58,10 @@ module Recurly
       #   @return [PlanMini] Just the important parts.
       define_attribute :plan, :PlanMini
 
+      # @!attribute price_segment_id
+      #   @return [String] The price segment ID, e.g. `e28zov4fw0v2`.
+      define_attribute :price_segment_id, String
+
       # @!attribute quantity
       #   @return [Integer] Subscription quantity
       define_attribute :quantity, Integer
